@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taipei Luxury Hotel Index</title>
+  <style>
+    :root{--ink:#17211d;--muted:#6c756f;--paper:#f3f0e8;--card:#fffdfa;--gold:#ad7d32;--line:#ddd7ca;--green:#244d3d}
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+    header{background:var(--green);color:white;padding:38px max(5vw,24px) 60px} .eyebrow{color:#d5bd8b;text-transform:uppercase;letter-spacing:.16em;font-size:12px}
+    h1{font-family:Georgia,serif;font-size:clamp(32px,5vw,58px);font-weight:400;margin:8px 0}.sub{max-width:700px;color:#dbe5df}
+    main{max-width:1200px;margin:-30px auto 60px;padding:0 24px}.filters,.cards,.table-wrap{background:var(--card);border:1px solid var(--line);box-shadow:0 8px 25px #27352c12}
+    .filters{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:18px;border-radius:12px}label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}select{width:100%;padding:10px;border:1px solid var(--line);background:white;border-radius:6px}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);margin-top:18px;border-radius:12px;overflow:hidden}.metric{padding:24px;border-right:1px solid var(--line)}.metric:last-child{border:0}.value{font:32px Georgia,serif;margin-top:5px}.label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+    .section-title{font:26px Georgia,serif;margin:32px 0 12px}.table-wrap{overflow:auto;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--line)}th{font-size:11px;text-transform:uppercase;color:var(--muted);letter-spacing:.07em}td.num{text-align:right}.badge{font-size:11px;padding:3px 7px;border-radius:99px;background:#efe4cb;color:#74521e}.notice{margin-top:14px;color:var(--muted);font-size:13px}
+    @media(max-width:760px){.filters,.cards{grid-template-columns:1fr 1fr}.metric:nth-child(2){border-right:0}.metric{border-bottom:1px solid var(--line)}}
+  </style>
+</head>
+<body>
+<header><div class="eyebrow">Pricing intelligence · Taipei</div><h1>Taipei Luxury Hotel Index</h1><div class="sub">追蹤 9 家高端飯店的官方訂房價、房型面積與 booking curve。第一版以示範資料驗證完整流程。</div></header>
+<main>
+  <section class="filters">
+    <div><label for="hotel">飯店</label><select id="hotel"><option value="">所有飯店</option></select></div>
+    <div><label for="size">房型大小</label><select id="size"><option value="">所有大小</option><option>&lt;40㎡</option><option>40–49㎡</option><option>50–69㎡</option><option>70㎡+</option></select></div>
+    <div><label for="lead">提前訂房天數</label><select id="lead"><option value="">所有天數</option><option value="1">+1 天</option><option value="7">+7 天</option><option value="14">+14 天</option><option value="30">+30 天</option><option value="60">+60 天</option><option value="90">+90 天</option></select></div>
+  </section>
+  <section class="cards">
+    <div class="metric"><div class="label">市場中位 ADR</div><div class="value" id="adr">—</div></div>
+    <div class="metric"><div class="label">每㎡中位價</div><div class="value" id="sqm">—</div></div>
+    <div class="metric"><div class="label">CPI 調整 ADR</div><div class="value" id="cpi">—</div></div>
+    <div class="metric"><div class="label">涵蓋飯店</div><div class="value" id="count">—</div></div>
+  </section>
+  <h2 class="section-title">市場明細</h2>
+  <div class="table-wrap"><table><thead><tr><th>飯店 / 房型</th><th>入住日</th><th>Lead</th><th>Rate plan</th><th>早餐</th><th>總價</th><th>每㎡</th><th>FX 調整</th><th>CPI 調整</th></tr></thead><tbody id="rows"></tbody></table></div>
+  <p class="notice" id="notice"></p>
+</main>
+<script>
+const fmt=n=>n==null?'—':new Intl.NumberFormat('zh-TW',{style:'currency',currency:'TWD',maximumFractionDigits:0}).format(n);
+const filters=['hotel','size','lead'];
+function query(){const p=new URLSearchParams();const h=document.querySelector('#hotel').value,s=document.querySelector('#size').value,l=document.querySelector('#lead').value;if(h)p.set('hotel_id',h);if(s)p.set('size_band',s);if(l)p.set('lead_days',l);return p.toString()}
+async function load(){const q=query();const [summary,rates]=await Promise.all([fetch('/api/market-summary?'+q).then(r=>r.json()),fetch('/api/rates?'+q).then(r=>r.json())]);
+document.querySelector('#adr').textContent=fmt(summary.median_adr_twd);document.querySelector('#sqm').textContent=fmt(summary.median_per_sqm_twd);document.querySelector('#cpi').textContent=fmt(summary.median_cpi_adjusted_twd);document.querySelector('#count').textContent=summary.hotels;
+document.querySelector('#notice').textContent=summary.demo_mode?'目前為 DEMO MODE：價格是測試資料，不是即時官網報價。':'';
+document.querySelector('#rows').innerHTML=rates.slice(0,120).map(r=>`<tr><td><strong>${r.hotel_name}</strong><br><span class="badge">${r.room_type_name} · ${r.room_size_sqm||'?'}㎡</span></td><td>${r.check_in}</td><td>+${r.lead_days}</td><td>${r.rate_plan_name}</td><td>${r.breakfast_included?'含早餐':'不含早餐'}</td><td class="num">${fmt(r.total_price)}</td><td class="num">${fmt(r.price_per_sqm)}</td><td class="num">${fmt(r.total_twd)}</td><td class="num">${fmt(r.cpi_adjusted_twd)}</td></tr>`).join('')}
+fetch('/api/hotels').then(r=>r.json()).then(h=>{document.querySelector('#hotel').insertAdjacentHTML('beforeend',h.map(x=>`<option value="${x.id}">${x.name}</option>`).join(''));load()});filters.forEach(id=>document.querySelector('#'+id).addEventListener('change',load));
+</script></body></html>

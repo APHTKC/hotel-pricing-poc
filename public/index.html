@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Capella Taipei 公開官網房價與 booking curve 追蹤。">
+  <title>Capella Taipei Pricing Intelligence</title>
+  <style>
+    :root{--ink:#18201c;--muted:#68716b;--paper:#f1eee6;--card:#fffdf8;--line:#ddd6c7;--green:#1d4939;--gold:#af7e35;--red:#8d3d32}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Inter,"Noto Sans TC",system-ui,sans-serif}
+    header{background:var(--green);color:#fff;padding:42px max(5vw,24px) 66px}.eyebrow{color:#dbc79d;text-transform:uppercase;letter-spacing:.15em;font-size:12px}
+    h1{font:400 clamp(32px,5vw,58px)/1.1 Georgia,serif;margin:8px 0 12px}.subtitle{max-width:720px;color:#dce7e1}.stamp{margin-top:16px;font-size:12px;color:#b9cec3}
+    main{max-width:1200px;margin:-30px auto 60px;padding:0 24px}.panel{background:var(--card);border:1px solid var(--line);box-shadow:0 8px 24px #20312812;border-radius:12px}
+    .filters{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:18px}.filters label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.filters select{width:100%;padding:10px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);margin-top:18px;overflow:hidden}.metric{padding:24px;border-right:1px solid var(--line)}.metric:last-child{border:0}.label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.value{font:32px Georgia,serif;margin-top:4px}
+    h2{font:400 27px Georgia,serif;margin:32px 0 12px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:980px}th,td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}.num{text-align:right}.badge{display:inline-block;background:#efe4cb;color:#75531f;padding:2px 7px;border-radius:99px;font-size:11px}.empty{padding:48px 24px;text-align:center;color:var(--muted)}.warning{margin-top:14px;color:var(--red);font-size:13px}
+    @media(max-width:760px){.filters,.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(2){border-right:0}.metric{border-bottom:1px solid var(--line)}}
+  </style>
+</head>
+<body>
+  <header><div class="eyebrow">Public rate intelligence · Taipei</div><h1>Capella Taipei</h1><div class="subtitle">每日追蹤官方訂房頁的公開房價、房型面積與提前訂房曲線。價格僅供市場觀察，實際訂房條件以官網為準。</div><div class="stamp" id="updated">等待首次資料更新</div></header>
+  <main>
+    <section class="panel filters">
+      <div><label for="size">房型大小</label><select id="size"><option value="">所有大小</option><option>&lt;40㎡</option><option>40–49㎡</option><option>50–69㎡</option><option>70㎡+</option></select></div>
+      <div><label for="lead">提前訂房天數</label><select id="lead"><option value="">所有天數</option><option value="1">+1 天</option><option value="7">+7 天</option><option value="14">+14 天</option><option value="30">+30 天</option><option value="60">+60 天</option><option value="90">+90 天</option></select></div>
+      <div><label for="snapshot">查價批次</label><select id="snapshot"><option value="latest">最新一次</option><option value="all">全部歷史</option></select></div>
+    </section>
+    <section class="panel metrics">
+      <div class="metric"><div class="label">中位 ADR</div><div class="value" id="adr">—</div></div>
+      <div class="metric"><div class="label">每㎡中位價</div><div class="value" id="sqm">—</div></div>
+      <div class="metric"><div class="label">房價筆數</div><div class="value" id="count">—</div></div>
+      <div class="metric"><div class="label">房型數</div><div class="value" id="rooms">—</div></div>
+    </section>
+    <h2>官網房價明細</h2>
+    <div class="panel table-wrap"><table><thead><tr><th>房型</th><th>入住日</th><th>Lead</th><th>Rate plan</th><th>早餐</th><th>取消條件</th><th>含稅總價</th><th>每㎡</th></tr></thead><tbody id="rows"><tr><td colspan="8" class="empty">載入資料中…</td></tr></tbody></table></div>
+    <div class="warning" id="notice"></div>
+  </main>
+  <script>
+    const money=n=>n==null?'—':new Intl.NumberFormat('zh-TW',{style:'currency',currency:'TWD',maximumFractionDigits:0}).format(n);
+    const esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    const median=a=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y),m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2};
+    const band=n=>n==null?'unknown':n<40?'<40㎡':n<50?'40–49㎡':n<70?'50–69㎡':'70㎡+';
+    let all=[];
+    function render(){let rows=[...all];const size=document.querySelector('#size').value,lead=document.querySelector('#lead').value,snapshot=document.querySelector('#snapshot').value;
+      if(snapshot==='latest'&&rows.length){const latest=rows.map(r=>r.queried_at).sort().at(-1).slice(0,10);rows=rows.filter(r=>r.queried_at.startsWith(latest));}
+      if(size)rows=rows.filter(r=>band(Number(r.room_size_sqm))===size);if(lead)rows=rows.filter(r=>String(r.lead_days)===lead);
+      document.querySelector('#adr').textContent=money(median(rows.map(r=>Number(r.total_twd??r.total_price)).filter(Number.isFinite)));
+      document.querySelector('#sqm').textContent=money(median(rows.map(r=>Number(r.price_per_sqm)).filter(Number.isFinite)));
+      document.querySelector('#count').textContent=rows.length;document.querySelector('#rooms').textContent=new Set(rows.map(r=>r.room_type_code||r.room_type_name)).size;
+      document.querySelector('#rows').innerHTML=rows.length?rows.slice(0,300).map(r=>`<tr><td><strong>${esc(r.room_type_name)}</strong><br><span class="badge">${esc(r.room_size_sqm??'?')}㎡</span></td><td>${esc(r.check_in)}</td><td>+${esc(r.lead_days)}</td><td>${esc(r.rate_plan_name)}</td><td>${r.breakfast_included===true?'含早餐':r.breakfast_included===false?'不含早餐':'未標示'}</td><td>${esc(r.cancellation_policy??'未標示')}</td><td class="num">${money(Number(r.total_price))}</td><td class="num">${money(Number(r.price_per_sqm))}</td></tr>`).join(''):'<tr><td colspan="8" class="empty">尚無符合條件的資料</td></tr>';
+    }
+    fetch('./data/rates.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(data=>{all=data.rates||[];if(all.length){const latest=all.map(r=>r.queried_at).sort().at(-1);document.querySelector('#updated').textContent='最近查價：'+new Date(latest).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'});}else document.querySelector('#notice').textContent='尚未執行第一次抓價，請在 GitHub Actions 手動執行工作。';render()}).catch(()=>{document.querySelector('#rows').innerHTML='<tr><td colspan="8" class="empty">資料載入失敗</td></tr>';document.querySelector('#notice').textContent='請確認 GitHub Actions 已成功完成。'});
+    ['size','lead','snapshot'].forEach(id=>document.querySelector('#'+id).addEventListener('change',render));
+  </script>
+</body></html>

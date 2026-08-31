@@ -1,0 +1,8 @@
+hotels:
+  - id: capella_taipei
+    name: Capella Taipei
+    short_name: Capella
+    city: Taipei
+    country: TW
+    booking_url: https://capellahotels.com/en/capella-taipei
+    adapter: capella

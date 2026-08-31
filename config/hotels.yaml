@@ -1,0 +1,64 @@
+hotels:
+  - id: mo_taipei
+    name: Mandarin Oriental Taipei
+    short_name: MO Taipei
+    city: Taipei
+    country: TW
+    booking_url: https://www.mandarinoriental.com/en/taipei/songshan
+    adapter: mandarin_oriental
+  - id: regent_taipei
+    name: Regent Taipei
+    short_name: Regent
+    city: Taipei
+    country: TW
+    booking_url: https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail
+    adapter: ihg
+  - id: w_taipei
+    name: W Taipei
+    short_name: W Taipei
+    city: Taipei
+    country: TW
+    booking_url: https://www.marriott.com/en-us/hotels/tpewh-w-taipei/overview/
+    adapter: marriott
+  - id: le_meridien_taipei
+    name: Le Méridien Taipei
+    short_name: Le Méridien
+    city: Taipei
+    country: TW
+    booking_url: https://www.marriott.com/en-us/hotels/tpemd-le-meridien-taipei/overview/
+    adapter: marriott
+  - id: okura_prestige_taipei
+    name: The Okura Prestige Taipei
+    short_name: Okura
+    city: Taipei
+    country: TW
+    booking_url: https://www.okurataipei.com.tw/en/
+    adapter: okura
+  - id: shangrila_taipei
+    name: Shangri-La Far Eastern Taipei
+    short_name: Shangri-La
+    city: Taipei
+    country: TW
+    booking_url: https://www.shangri-la.com/taipei/fareasternplazashangrila/
+    adapter: shangrila
+  - id: taipei_marriott
+    name: Taipei Marriott Hotel
+    short_name: Marriott
+    city: Taipei
+    country: TW
+    booking_url: https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/overview/
+    adapter: marriott
+  - id: kimpton_da_an
+    name: Kimpton Da An Hotel
+    short_name: Kimpton
+    city: Taipei
+    country: TW
+    booking_url: https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail
+    adapter: ihg
+  - id: capella_taipei
+    name: Capella Taipei
+    short_name: Capella
+    city: Taipei
+    country: TW
+    booking_url: https://capellahotels.com/en/capella-taipei
+    adapter: capella
