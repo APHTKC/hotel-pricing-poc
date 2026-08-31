@@ -1,0 +1,69 @@
+name: Daily Capella Taipei rates
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions uses UTC. 22:00 UTC = 06:00 Asia/Taipei next day.
+    - cron: "0 22 * * *"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: capella-rates-and-pages
+  cancel-in-progress: false
+
+jobs:
+  collect-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install project
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Collect six Capella stay dates
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/rates.jsonl
+          HOTELS_CONFIG_PATH: config/hotels.capella-only.yaml
+        run: python -m scripts.run_capella_once
+
+      - name: Build static dashboard data
+        run: python -m scripts.build_static_data
+
+      - name: Save new rate history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/rates.jsonl public/data/rates.json
+          git diff --cached --quiet || git commit -m "data: update Capella Taipei rates"
+          git push
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload dashboard
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Publish dashboard
+        id: deployment
+        uses: actions/deploy-pages@v4
