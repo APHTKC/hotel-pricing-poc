@@ -86,8 +86,15 @@ async def main() -> None:
             )
         except Exception as exc:
             navigation_error = repr(exc)
+        # The button is visible before Marriott's client-side click handler is
+        # hydrated. Clicking immediately is accepted but does not navigate.
+        await page.wait_for_timeout(8_000)
         await page.get_by_role("button", name=re.compile("Find Hotels", re.I)).click()
-        await page.wait_for_url("**/reservation/rateListMenu.mi", timeout=90_000)
+        await page.wait_for_url(
+            "**/reservation/rateListMenu.mi",
+            wait_until="domcontentloaded",
+            timeout=90_000,
+        )
         await page.get_by_role(
             "heading", name=re.compile("SELECT A ROOM AND RATE", re.I)
         ).wait_for()
@@ -140,8 +147,8 @@ async def main() -> None:
             "room_page_with_tax_and_rates": after_tax_text,
             "first_rate_details": cancellation_policy,
             "script_summary": script_summary[:100],
-            "interesting_responses": interesting_responses[-100: ],
-            "failed_requests": failed_requests[-50: ],
+            "interesting_responses": interesting_responses[-100:],
+            "failed_requests": failed_requests[-50:],
         }
         print(json.dumps(report, ensure_ascii=False, indent=2))
         (artifact_dir / "w-probe.json").write_text(
