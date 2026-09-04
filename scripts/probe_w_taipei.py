@@ -1,5 +1,6 @@
 import asyncio
 import json
+import re
 from datetime import date, timedelta
 from pathlib import Path
 from urllib.parse import urlencode
@@ -85,7 +86,39 @@ async def main() -> None:
             )
         except Exception as exc:
             navigation_error = repr(exc)
-        await page.wait_for_timeout(10_000)
+        await page.get_by_role("button", name=re.compile("Find Hotels", re.I)).click()
+        await page.wait_for_url("**/reservation/rateListMenu.mi", timeout=90_000)
+        await page.get_by_role(
+            "heading", name=re.compile("SELECT A ROOM AND RATE", re.I)
+        ).wait_for()
+
+        before_tax_text = " ".join(
+            (await page.locator("body").inner_text()).split()
+        )[:12_000]
+        taxes_checkbox = page.get_by_role(
+            "checkbox", name=re.compile("Show with taxes and fees", re.I)
+        )
+        if not await taxes_checkbox.is_checked():
+            await taxes_checkbox.check()
+        await page.wait_for_timeout(800)
+
+        first_view_rates = page.get_by_role(
+            "button", name=re.compile("View Rates", re.I)
+        ).first
+        await first_view_rates.click()
+        await page.get_by_role("heading", name=re.compile("Flexible Rate", re.I)).wait_for()
+        after_tax_text = " ".join(
+            (await page.locator("body").inner_text()).split()
+        )[:16_000]
+
+        cancellation_policy = None
+        rate_details = page.get_by_role("button", name=re.compile("Rate Details", re.I)).first
+        if await rate_details.count():
+            await rate_details.click()
+            dialog = page.get_by_role("dialog")
+            await dialog.wait_for()
+            cancellation_policy = " ".join((await dialog.inner_text()).split())[:4000]
+
         body = await page.locator("body").inner_text(timeout=10_000) if await page.locator("body").count() else ""
         script_summary = await page.locator("script").evaluate_all(
             """scripts => scripts.map(s => ({
@@ -103,9 +136,12 @@ async def main() -> None:
             "final_url": page.url,
             "title": await page.title(),
             "body_preview": " ".join(body.split())[:8000],
+            "room_page_before_tax": before_tax_text,
+            "room_page_with_tax_and_rates": after_tax_text,
+            "first_rate_details": cancellation_policy,
             "script_summary": script_summary[:100],
-            "interesting_responses": interesting_responses[-100:],
-            "failed_requests": failed_requests[-50:],
+            "interesting_responses": interesting_responses[-100: ],
+            "failed_requests": failed_requests[-50: ],
         }
         print(json.dumps(report, ensure_ascii=False, indent=2))
         (artifact_dir / "w-probe.json").write_text(
