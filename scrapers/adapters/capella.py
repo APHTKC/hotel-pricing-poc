@@ -1,4 +1,5 @@
 import hashlib
+import logging
 import re
 from datetime import UTC, date, datetime
 from decimal import Decimal
@@ -13,6 +14,12 @@ from scrapers.base import HotelScraper
 CAPELLA_TAIPEI_HOTEL_ID = "47696"
 CAPELLA_CHAIN_ID = "21430"
 SYNXIS_URL = "https://be.synxis.com/"
+CHROME_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/131.0.0.0 Safari/537.36"
+)
+logger = logging.getLogger(__name__)
 
 
 def parse_money(text: str) -> Decimal:
@@ -59,7 +66,7 @@ class CapellaScraper(HotelScraper):
             "Hotel": CAPELLA_TAIPEI_HOTEL_ID, "Chain": CAPELLA_CHAIN_ID,
             "arrive": check_in.isoformat(), "depart": check_out.isoformat(),
             "adult": adults, "child": 0, "rooms": 1, "currency": "TWD",
-            "locale": "zh-TW",
+            "locale": "zh-TW", "level": "hotel", "productcurrency": "TWD",
         })
         return f"{SYNXIS_URL}?{query}"
 
@@ -67,7 +74,13 @@ class CapellaScraper(HotelScraper):
         if self._browser is None:
             self._playwright = await async_playwright().start()
             self._browser = await self._playwright.chromium.launch(headless=True)
-        page = await self._browser.new_page(locale="zh-TW", timezone_id="Asia/Taipei")
+        page = await self._browser.new_page(
+            locale="zh-TW",
+            timezone_id="Asia/Taipei",
+            user_agent=CHROME_USER_AGENT,
+            viewport={"width": 1440, "height": 1000},
+            extra_http_headers={"Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7"},
+        )
         page.set_default_timeout(self.timeout_ms)
         return page
 
@@ -79,13 +92,28 @@ class CapellaScraper(HotelScraper):
         source_url = self.booking_url(check_in, check_out, adults)
         queried_at = datetime.now(UTC)
         page = await self._page()
+        response = None
         try:
-            await page.goto(source_url, wait_until="domcontentloaded", timeout=self.timeout_ms)
+            response = await page.goto(
+                source_url, wait_until="domcontentloaded", timeout=self.timeout_ms
+            )
             await page.locator("h1").filter(has_text=re.compile("選取房間|Select a Room", re.I)).wait_for()
             await page.locator("div[id^='auto-category-card-']").first.wait_for()
             return await self._collect_categories(
                 page, hotel, check_in, check_out, adults, queried_at, source_url
             )
+        except Exception:
+            title = await page.title()
+            raw_body = await page.locator("body").text_content(timeout=3_000) or ""
+            body_text = " ".join(raw_body.split())[:1200]
+            logger.error(
+                "Capella diagnostic: status=%s final_url=%s title=%r body=%r",
+                response.status if response else None,
+                page.url,
+                title,
+                body_text,
+            )
+            raise
         finally:
             await page.close()
 
