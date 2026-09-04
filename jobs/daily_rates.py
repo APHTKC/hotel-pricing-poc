@@ -8,8 +8,14 @@ from config.loader import load_hotels
 from scrapers.registry import get_scraper
 from storage.factory import get_store
 
-LEAD_DAYS = (1, 7, 14, 30, 60, 90)
 logger = logging.getLogger(__name__)
+
+
+def parse_lead_days(value: str) -> tuple[int, ...]:
+    days = tuple(int(item.strip()) for item in value.split(",") if item.strip())
+    if not days or any(day < 1 for day in days):
+        raise ValueError("LEAD_DAYS must contain positive comma-separated integers")
+    return days
 
 
 async def run_daily_rates(settings: Settings | None = None) -> JobResult:
@@ -25,7 +31,7 @@ async def run_daily_rates(settings: Settings | None = None) -> JobResult:
             continue
         scraper = get_scraper(hotel.adapter, settings)
         try:
-            for lead_days in LEAD_DAYS:
+            for lead_days in parse_lead_days(settings.lead_days):
                 check_in = today + timedelta(days=lead_days)
                 try:
                     observations.extend(
