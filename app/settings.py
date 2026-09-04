@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     job_token: str = "change-me"
     base_currency: str = "TWD"
     log_level: str = "INFO"
+    lead_days: str = "1,7,14,30,60,90"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
