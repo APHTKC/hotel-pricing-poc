@@ -43,7 +43,7 @@ async def main() -> None:
 
     async with async_playwright() as playwright:
         browser = await playwright.chromium.launch(
-            headless=True,
+            headless=False,
             args=["--disable-blink-features=AutomationControlled"],
         )
         context = await browser.new_context(
@@ -86,45 +86,59 @@ async def main() -> None:
             )
         except Exception as exc:
             navigation_error = repr(exc)
-        # The button is visible before Marriott's client-side click handler is
-        # hydrated. Clicking immediately is accepted but does not navigate.
-        await page.wait_for_timeout(8_000)
-        await page.get_by_role("button", name=re.compile("Find Hotels", re.I)).click()
-        await page.wait_for_url(
-            "**/reservation/rateListMenu.mi",
-            wait_until="domcontentloaded",
-            timeout=90_000,
-        )
-        await page.get_by_role(
-            "heading", name=re.compile("SELECT A ROOM AND RATE", re.I)
-        ).wait_for()
-
-        before_tax_text = " ".join(
-            (await page.locator("body").inner_text()).split()
-        )[:12_000]
-        taxes_checkbox = page.get_by_role(
-            "checkbox", name=re.compile("Show with taxes and fees", re.I)
-        )
-        if not await taxes_checkbox.is_checked():
-            await taxes_checkbox.check()
-        await page.wait_for_timeout(800)
-
-        first_view_rates = page.get_by_role(
-            "button", name=re.compile("View Rates", re.I)
-        ).first
-        await first_view_rates.click()
-        await page.get_by_role("heading", name=re.compile("Flexible Rate", re.I)).wait_for()
-        after_tax_text = " ".join(
-            (await page.locator("body").inner_text()).split()
-        )[:16_000]
-
+        interaction_error = None
+        before_tax_text = None
+        after_tax_text = None
         cancellation_policy = None
-        rate_details = page.get_by_role("button", name=re.compile("Rate Details", re.I)).first
-        if await rate_details.count():
-            await rate_details.click()
-            dialog = page.get_by_role("dialog")
-            await dialog.wait_for()
-            cancellation_policy = " ".join((await dialog.inner_text()).split())[:4000]
+        try:
+            # The button is visible before Marriott's client-side click handler is
+            # hydrated.  Clicking immediately is accepted but does not navigate.
+            await page.wait_for_timeout(8_000)
+            await page.get_by_role(
+                "button", name=re.compile("Find Hotels", re.I)
+            ).click()
+            await page.wait_for_url(
+                "**/reservation/rateListMenu.mi",
+                wait_until="domcontentloaded",
+                timeout=90_000,
+            )
+            await page.get_by_role(
+                "heading", name=re.compile("SELECT A ROOM AND RATE", re.I)
+            ).wait_for()
+
+            before_tax_text = " ".join(
+                (await page.locator("body").inner_text()).split()
+            )[:12_000]
+            taxes_checkbox = page.get_by_role(
+                "checkbox", name=re.compile("Show with taxes and fees", re.I)
+            )
+            if not await taxes_checkbox.is_checked():
+                await taxes_checkbox.check()
+            await page.wait_for_timeout(800)
+
+            first_view_rates = page.get_by_role(
+                "button", name=re.compile("View Rates", re.I)
+            ).first
+            await first_view_rates.click()
+            await page.get_by_role(
+                "heading", name=re.compile("Flexible Rate", re.I)
+            ).wait_for()
+            after_tax_text = " ".join(
+                (await page.locator("body").inner_text()).split()
+            )[:16_000]
+
+            rate_details = page.get_by_role(
+                "button", name=re.compile("Rate Details", re.I)
+            ).first
+            if await rate_details.count():
+                await rate_details.click()
+                dialog = page.get_by_role("dialog")
+                await dialog.wait_for()
+                cancellation_policy = " ".join(
+                    (await dialog.inner_text()).split()
+                )[:4000]
+        except Exception as exc:
+            interaction_error = repr(exc)
 
         body = await page.locator("body").inner_text(timeout=10_000) if await page.locator("body").count() else ""
         script_summary = await page.locator("script").evaluate_all(
@@ -140,6 +154,7 @@ async def main() -> None:
             "requested_url": target,
             "http_status": response.status if response else None,
             "navigation_error": navigation_error,
+            "interaction_error": interaction_error,
             "final_url": page.url,
             "title": await page.title(),
             "body_preview": " ".join(body.split())[:8000],
@@ -156,6 +171,8 @@ async def main() -> None:
         )
         await page.screenshot(path=artifact_dir / "w-probe.png", full_page=True)
         await browser.close()
+        if interaction_error:
+            raise RuntimeError(interaction_error)
 
 
 if __name__ == "__main__":
