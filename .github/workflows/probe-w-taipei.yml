@@ -26,7 +26,7 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Probe tomorrow's W Taipei booking page
-        run: python -m scripts.probe_w_taipei
+        run: xvfb-run -a python -m scripts.probe_w_taipei
 
       - name: Save diagnostic report
         if: always()
