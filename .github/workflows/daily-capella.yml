@@ -2,6 +2,9 @@ name: Daily Capella Taipei rates
 
 on:
   workflow_dispatch:
+  schedule:
+    # GitHub Actions uses UTC. 22:00 UTC = 06:00 Asia/Taipei next day.
+    - cron: "0 22 * * *"
 
 permissions:
   contents: write
@@ -34,13 +37,13 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps chromium
 
-      - name: Diagnose one Capella stay date
+      - name: Collect six Capella stay dates
         env:
           DEMO_MODE: "false"
           STORAGE_BACKEND: local
           LOCAL_DATA_PATH: data/rates.jsonl
           HOTELS_CONFIG_PATH: config/hotels.capella-only.yaml
-          LEAD_DAYS: "1"
+          LEAD_DAYS: "1,7,14,30,60,90"
         run: python -m scripts.run_capella_once
 
       - name: Build static dashboard data
