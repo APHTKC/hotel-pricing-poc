@@ -1,0 +1,37 @@
+name: Probe W Taipei booking page
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install project
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Probe tomorrow's W Taipei booking page
+        run: python -m scripts.probe_w_taipei
+
+      - name: Save diagnostic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w-taipei-booking-probe
+          path: artifacts/
+          if-no-files-found: warn
