@@ -1,0 +1,8 @@
+hotels:
+  - id: w_taipei
+    name: W Taipei
+    short_name: W Taipei
+    city: Taipei
+    country: TW
+    booking_url: https://www.marriott.com/en-us/hotels/tpewh-w-taipei/overview/
+    adapter: marriott
