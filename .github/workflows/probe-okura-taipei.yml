@@ -1,0 +1,43 @@
+name: Probe Okura Taipei rates
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install project
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Probe one Okura stay date
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/okura-probe.jsonl
+          HOTELS_CONFIG_PATH: config/hotels.okura-only.yaml
+          LEAD_DAYS: "30"
+        run: python -m scripts.run_okura_once
+
+      - name: Save probe observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: okura-taipei-rate-probe
+          path: data/okura-probe.jsonl
+          if-no-files-found: warn

@@ -1,5 +1,6 @@
 import hashlib
 import logging
+import os
 import re
 from datetime import UTC, date, datetime
 from decimal import Decimal
@@ -56,6 +57,9 @@ class CapellaScraper(HotelScraper):
     so component fields deliberately remain null.
     """
 
+    supported_hotel_id = "capella_taipei"
+    diagnostic_name = "Capella"
+
     def __init__(self, timeout_ms: int = 45_000):
         self.timeout_ms = timeout_ms
         self._playwright = None
@@ -73,7 +77,10 @@ class CapellaScraper(HotelScraper):
     async def _page(self) -> Page:
         if self._browser is None:
             self._playwright = await async_playwright().start()
-            self._browser = await self._playwright.chromium.launch(headless=True)
+            executable_path = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE") or None
+            self._browser = await self._playwright.chromium.launch(
+                headless=True, executable_path=executable_path
+            )
         page = await self._browser.new_page(
             locale="zh-TW",
             timezone_id="Asia/Taipei",
@@ -87,8 +94,10 @@ class CapellaScraper(HotelScraper):
     async def fetch_rates(
         self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2
     ) -> list[RateObservation]:
-        if hotel.id != "capella_taipei":
-            raise ValueError("CapellaScraper currently supports only Capella Taipei")
+        if hotel.id != self.supported_hotel_id:
+            raise ValueError(
+                f"{type(self).__name__} currently supports only {self.supported_hotel_id}"
+            )
         source_url = self.booking_url(check_in, check_out, adults)
         queried_at = datetime.now(UTC)
         page = await self._page()
@@ -107,7 +116,8 @@ class CapellaScraper(HotelScraper):
             raw_body = await page.locator("body").text_content(timeout=3_000) or ""
             body_text = " ".join(raw_body.split())[:1200]
             logger.error(
-                "Capella diagnostic: status=%s final_url=%s title=%r body=%r",
+                "%s diagnostic: status=%s final_url=%s title=%r body=%r",
+                self.diagnostic_name,
                 response.status if response else None,
                 page.url,
                 title,
