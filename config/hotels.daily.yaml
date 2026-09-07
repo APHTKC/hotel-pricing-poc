@@ -1,0 +1,15 @@
+hotels:
+  - id: capella_taipei
+    name: Capella Taipei
+    short_name: Capella
+    city: Taipei
+    country: TW
+    booking_url: https://capellahotels.com/en/capella-taipei
+    adapter: capella
+  - id: okura_prestige_taipei
+    name: The Okura Prestige Taipei
+    short_name: Okura
+    city: Taipei
+    country: TW
+    booking_url: https://www.okurataipei.com.tw/en/
+    adapter: okura

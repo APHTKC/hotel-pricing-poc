@@ -22,6 +22,13 @@ OKURA_SERVICE_RATE = Decimal("0.10")
 OKURA_TAX_RATE = Decimal("0.05")
 
 
+def is_comparable_public_plan(plan_name: str) -> bool:
+    """Keep public consumer offers while excluding member, rack and mileage rates."""
+    normalized = plan_name.casefold()
+    excluded = ("member price", "rack rate", "airlines ffp")
+    return not any(term in normalized for term in excluded)
+
+
 class OkuraScraper(CapellaScraper):
     """Live candidate adapter for the official Okura SynXis booking page.
 
@@ -108,6 +115,8 @@ class OkuraScraper(CapellaScraper):
                 "data-rate-code"
             )
             plan_name = (await parent.locator("h2").first.inner_text()).strip()
+            if not is_comparable_public_plan(plan_name):
+                continue
             description_locator = parent.locator(".thumb-cards_rateShortDesc").first
             description = (
                 (await description_locator.inner_text()).strip()

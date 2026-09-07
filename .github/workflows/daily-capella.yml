@@ -1,4 +1,4 @@
-name: Daily Capella Taipei rates
+name: Daily Taipei hotel rates
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: capella-rates-and-pages
+  group: taipei-rates-and-pages
   cancel-in-progress: false
 
 jobs:
@@ -37,14 +37,14 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps chromium
 
-      - name: Collect six Capella stay dates
+      - name: Collect six stay dates for active hotels
         env:
           DEMO_MODE: "false"
           STORAGE_BACKEND: local
           LOCAL_DATA_PATH: data/rates.jsonl
-          HOTELS_CONFIG_PATH: config/hotels.capella-only.yaml
+          HOTELS_CONFIG_PATH: config/hotels.daily.yaml
           LEAD_DAYS: "1,7,14,30,60,90"
-        run: python -m scripts.run_capella_once
+        run: python -m scripts.run_daily_once
 
       - name: Build static dashboard data
         run: python -m scripts.build_static_data
@@ -54,7 +54,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/rates.jsonl public/data/rates.json
-          git diff --cached --quiet || git commit -m "data: update Capella Taipei rates"
+          git diff --cached --quiet || git commit -m "data: update Taipei hotel rates"
           git push
 
       - name: Configure GitHub Pages

@@ -1,6 +1,6 @@
 from datetime import date
 
-from scrapers.adapters.okura import OkuraScraper
+from scrapers.adapters.okura import OkuraScraper, is_comparable_public_plan
 
 
 def test_okura_booking_url_contains_official_ids_and_dates():
@@ -11,3 +11,11 @@ def test_okura_booking_url_contains_official_ids_and_dates():
     assert "depart=2026-10-08" in url
     assert "config=EXCLTAX" in url
     assert "currency=TWD" in url
+
+
+def test_okura_keeps_comparable_public_plans():
+    assert is_comparable_public_plan("BEST AVAILABLE RATE") is True
+    assert is_comparable_public_plan("BED AND BREAKFAST") is True
+    assert is_comparable_public_plan("Special discount - Room Only") is True
+    assert is_comparable_public_plan("[MEMBER PRICE] BEST AVAILABLE RATE") is False
+    assert is_comparable_public_plan("Rack Rate -Room Only") is False
