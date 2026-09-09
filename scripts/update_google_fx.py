@@ -19,9 +19,15 @@ def google_price(html: str) -> float:
 
 def main() -> None:
     headers = {"User-Agent": "Mozilla/5.0 hotel-market-dashboard/1.0"}
-    with httpx.Client(headers=headers, follow_redirects=True, timeout=30) as client:
-        usd_twd = google_price(client.get(f"https://www.google.com/finance/quote/{QUOTES['USD']}?hl=en").text)
-        twd_jpy = google_price(client.get(f"https://www.google.com/finance/quote/{QUOTES['JPY']}?hl=en").text)
+    try:
+        with httpx.Client(headers=headers, follow_redirects=True, timeout=30) as client:
+            usd_twd = google_price(client.get(f"https://www.google.com/finance/quote/{QUOTES['USD']}?hl=en").text)
+            twd_jpy = google_price(client.get(f"https://www.google.com/finance/quote/{QUOTES['JPY']}?hl=en").text)
+    except (httpx.HTTPError, ValueError) as exc:
+        if TARGET.exists():
+            print(f"Google Finance was temporarily unavailable; preserving the last published rates: {exc}")
+            return
+        raise
     payload = {
         "base": "TWD", "source": "Google Finance", "updated_at": datetime.now(UTC).isoformat(),
         "rates": {"TWD": 1, "USD": 1 / usd_twd, "JPY": twd_jpy},
