@@ -13,3 +13,10 @@ hotels:
     country: TW
     booking_url: https://www.okurataipei.com.tw/en/
     adapter: okura
+  - id: mo_taipei
+    name: Mandarin Oriental Taipei
+    short_name: MO Taipei
+    city: Taipei
+    country: TW
+    booking_url: https://www.mandarinoriental.com/en/taipei/songshan
+    adapter: mandarin_oriental
