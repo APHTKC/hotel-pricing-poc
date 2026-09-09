@@ -1,0 +1,8 @@
+hotels:
+  - id: regent_taipei
+    name: Regent Taipei
+    short_name: Regent
+    city: Taipei
+    country: TW
+    booking_url: https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail
+    adapter: ihg
