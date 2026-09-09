@@ -20,10 +20,3 @@ hotels:
     country: TW
     booking_url: https://www.mandarinoriental.com/en/taipei/songshan
     adapter: mandarin_oriental
-  - id: regent_taipei
-    name: Regent Taipei
-    short_name: Regent
-    city: Taipei
-    country: TW
-    booking_url: https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail
-    adapter: ihg
