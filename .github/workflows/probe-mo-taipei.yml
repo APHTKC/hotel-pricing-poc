@@ -1,0 +1,39 @@
+name: Probe Mandarin Oriental Taipei rates
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+      - name: Probe one public stay date
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/mo-probe.jsonl
+          HOTELS_CONFIG_PATH: config/hotels.mo-only.yaml
+          LEAD_DAYS: "30"
+        run: python -m scripts.run_mo_once
+      - name: Upload diagnostic data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mo-taipei-booking-probe
+          path: data/mo-probe.jsonl
+          if-no-files-found: ignore
