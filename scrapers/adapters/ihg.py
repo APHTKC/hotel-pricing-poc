@@ -27,7 +27,8 @@ class IHGScraper(CapellaScraper):
             "qCiD": f"{check_in.day:02d}", "qCiMy": ihg_month(check_in),
             "qCoD": f"{check_out.day:02d}", "qCoMy": ihg_month(check_out),
             "qAAR": "6CBARC", "qRtP": "6CBARC", "setPMCookies": "true",
-            "qSHBrC": brand_code, "srb_u": 1,
+            "qSHBrC": brand_code, "qPt": "CASH", "srb_u": 1,
+            "qDest": "No.3, Ln.39, Sec.2 Zhongshan N. Rd., Taipei, TW",
         })
         return f"https://www.ihg.com/regent/hotels/us/en/find-hotels/select-roomrate?{query}"
 
