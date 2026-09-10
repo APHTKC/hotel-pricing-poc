@@ -1,8 +1,9 @@
-# Expansion backlog. Entries stay disabled until their official booking flow
-# passes a GitHub Actions probe with real dated public rates.
+# Expansion registry. Entries stay disabled until their official booking flow
+# passes a GitHub Actions probe with real dated public rates; enabled entries
+# are already active in the daily collection configuration.
 hotels:
   - {id: grand_hyatt_taipei, name: Grand Hyatt Taipei, short_name: Grand Hyatt, city: Taipei, country: TW, booking_url: "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei", adapter: hyatt, enabled: false}
-  - {id: shangrila_taipei, name: Shangri-La Far Eastern Taipei, short_name: Shangri-La, city: Taipei, country: TW, booking_url: "https://www.shangri-la.com/taipei/fareasternplazashangrila/", adapter: shangrila, enabled: false}
+  - {id: shangrila_taipei, name: Shangri-La Far Eastern Taipei, short_name: Shangri-La, city: Taipei, country: TW, booking_url: "https://www.shangri-la.com/taipei/fareasternplazashangrila/", adapter: shangrila, enabled: true}
   - {id: sheraton_grand_taipei, name: Sheraton Grand Taipei Hotel, short_name: Sheraton, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/overview/", adapter: marriott, enabled: false}
   - {id: royal_nikko_taipei, name: Hotel Royal-Nikko Taipei, short_name: Royal-Nikko, city: Taipei, country: TW, booking_url: "https://www.royal-taipei.com.tw/en/", adapter: royal_nikko, enabled: false}
   - {id: le_meridien_taipei, name: Le Méridien Taipei, short_name: Le Méridien, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpemd-le-meridien-taipei/overview/", adapter: marriott, enabled: false}
