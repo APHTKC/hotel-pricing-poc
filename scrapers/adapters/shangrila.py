@@ -23,11 +23,38 @@ def is_public_cash_rate(member_rate: str | None) -> bool:
 
 def display_currency(header_text: str) -> str:
     """Return the currency selected by Shangri-La for this visitor."""
-    match = re.search(r"\b(NTD|TWD|USD|JPY)\b", header_text.upper())
+    normalized = header_text.upper().replace("\u00a0", " ")
+    match = re.search(r"\b(NTD|TWD|USD|JPY)\b", normalized)
     if match:
         code = match.group(1)
         return "TWD" if code == "NTD" else code
+    compact = re.sub(r"\s+", "", normalized)
+    if "NT$" in compact:
+        return "TWD"
+    if "US$" in compact:
+        return "USD"
+    if "JP\u00a5" in compact or "JPY\u00a5" in compact:
+        return "JPY"
+    if "$" in compact:
+        return "USD"
+    if "\u00a5" in compact:
+        return "JPY"
     raise ValueError("Shangri-La display currency could not be identified")
+
+
+def resolve_display_currency(price_text: str, total_price: Decimal) -> str:
+    """Resolve a price currency, with one narrow fallback for cloud rendering.
+
+    Shangri-La sometimes omits the currency label on GitHub's runner while
+    continuing to render low three-digit USD prices. Large unlabeled values are
+    deliberately rejected instead of being guessed as TWD.
+    """
+    try:
+        return display_currency(price_text)
+    except ValueError:
+        if Decimal("0") < total_price < Decimal("3000"):
+            return "USD"
+        raise
 
 
 class ShangriLaScraper(CapellaScraper):
@@ -105,12 +132,12 @@ class ShangriLaScraper(CapellaScraper):
                 total_raw = await price_node.get_attribute("data-price-with-tax")
                 if not before_raw or not total_raw:
                     continue
-                rate_text = await rate.inner_text()
-                price_text = await rate.locator(".price-book-num-curr").first.inner_text()
-                currency = display_currency(price_text)
-                fx_rate_to_twd = published_rate_to_twd(currency)
                 before_tax = Decimal(before_raw.replace(",", ""))
                 total_price = Decimal(total_raw.replace(",", ""))
+                rate_text = await rate.inner_text()
+                price_text = await rate.locator(".price-book-num-curr").first.inner_text()
+                currency = resolve_display_currency(price_text, total_price)
+                fx_rate_to_twd = published_rate_to_twd(currency)
                 service_charge = before_tax * Decimal("00.10")
                 tax = total_price - before_tax - service_charge
                 plan_name = (await rate.locator(".js-room-price-title-text").first.inner_text()).strip()
