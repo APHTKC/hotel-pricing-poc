@@ -45,6 +45,9 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps chromium
 
+      - name: Update Google Finance currency rates
+        run: python -m scripts.update_google_fx
+
       - name: Collect six stay dates for active hotels
         env:
           DEMO_MODE: "false"
@@ -56,9 +59,6 @@ jobs:
 
       - name: Build static dashboard data
         run: python -m scripts.build_static_data
-
-      - name: Update Google Finance currency rates
-        run: python -m scripts.update_google_fx
 
       - name: Save new rate history
         run: |

@@ -25,6 +25,15 @@ def main() -> None:
             twd_jpy = google_price(client.get(f"https://www.google.com/finance/quote/{QUOTES['JPY']}?hl=en").text)
     except (httpx.HTTPError, ValueError) as exc:
         if TARGET.exists():
+            try:
+                existing = json.loads(TARGET.read_text(encoding="utf-8"))
+                rates = existing["rates"]
+                if not all(float(rates[code]) > 0 for code in ("TWD", "USD", "JPY")):
+                    raise ValueError("stored rates are incomplete")
+            except (json.JSONDecodeError, KeyError, TypeError, ValueError) as stored_exc:
+                raise RuntimeError(
+                    "Google Finance is unavailable and the stored currency file is invalid"
+                ) from stored_exc
             print(f"Google Finance was temporarily unavailable; preserving the last published rates: {exc}")
             return
         raise
