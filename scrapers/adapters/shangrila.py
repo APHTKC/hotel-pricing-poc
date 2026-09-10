@@ -74,18 +74,15 @@ class ShangriLaScraper(CapellaScraper):
             await page.goto(source_url, wait_until="domcontentloaded", timeout=self.timeout_ms)
             await page.locator(".js-room-item").first.wait_for()
             await page.locator(".room-price-item").first.wait_for()
-            currency = display_currency(await page.locator(".js-header").inner_text())
             return await self._collect_rates(
                 page, hotel, check_in, check_out, adults, queried_at, source_url,
-                currency, published_rate_to_twd(currency),
             )
         finally:
             await page.close()
 
     async def _collect_rates(
         self, page, hotel: Hotel, check_in: date, check_out: date, adults: int,
-        queried_at: datetime, source_url: str, currency: str,
-        fx_rate_to_twd: Decimal,
+        queried_at: datetime, source_url: str,
     ) -> list[RateObservation]:
         observations: list[RateObservation] = []
         rooms = page.locator(".js-room-item")
@@ -107,6 +104,9 @@ class ShangriLaScraper(CapellaScraper):
                 total_raw = await price_node.get_attribute("data-price-with-tax")
                 if not before_raw or not total_raw:
                     continue
+                rate_text = await rate.inner_text()
+                currency = display_currency(rate_text)
+                fx_rate_to_twd = published_rate_to_twd(currency)
                 before_tax = Decimal(before_raw.replace(",", ""))
                 total_price = Decimal(total_raw.replace(",", ""))
                 service_charge = before_tax * Decimal("00.10")
@@ -119,7 +119,7 @@ class ShangriLaScraper(CapellaScraper):
                 )
                 breakfast_text = " ".join(filter(None, (
                     await rate.get_attribute("data-breakfast-tag-filter"),
-                    await rate.inner_text(),
+                    rate_text,
                 )))
                 rate_code = await rate.get_attribute("data-rate-code")
                 bed_name = await rate.get_attribute("data-bed-name")
