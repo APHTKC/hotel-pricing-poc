@@ -9,6 +9,7 @@ on:
       - "scrapers/adapters/**"
       - "scripts/run_daily_once.py"
       - "requirements.txt"
+      - ".github/workflows/daily-capella.yml"
   schedule:
     # GitHub Actions uses UTC. 22:00 UTC = 06:00 Asia/Taipei next day.
     - cron: "0 22 * * *"
@@ -65,6 +66,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/rates.jsonl public/data/rates.json public/data/latest.json public/data/fx.json
           git diff --cached --quiet || git commit -m "data: update Taiwan hotel rates"
+          git pull --rebase origin main
           git push
 
       - name: Configure GitHub Pages
