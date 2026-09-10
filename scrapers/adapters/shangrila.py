@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 from datetime import UTC, date, datetime
 from decimal import Decimal
 from urllib.parse import urlencode
@@ -22,10 +23,10 @@ def is_public_cash_rate(member_rate: str | None) -> bool:
 
 def display_currency(header_text: str) -> str:
     """Return the currency selected by Shangri-La for this visitor."""
-    words = {word.strip("()[]{}.,:;").upper() for word in header_text.split()}
-    for code in ("NTD", "TWD", "USD", "JPY"):
-        if code in words:
-            return "TWD" if code == "NTD" else code
+    match = re.search(r"\b(NTD|TWD|USD|JPY)\b", header_text.upper())
+    if match:
+        code = match.group(1)
+        return "TWD" if code == "NTD" else code
     raise ValueError("Shangri-La display currency could not be identified")
 
 
@@ -105,7 +106,8 @@ class ShangriLaScraper(CapellaScraper):
                 if not before_raw or not total_raw:
                     continue
                 rate_text = await rate.inner_text()
-                currency = display_currency(rate_text)
+                price_text = await rate.locator(".price-book-num-curr").first.inner_text()
+                currency = display_currency(price_text)
                 fx_rate_to_twd = published_rate_to_twd(currency)
                 before_tax = Decimal(before_raw.replace(",", ""))
                 total_price = Decimal(total_raw.replace(",", ""))

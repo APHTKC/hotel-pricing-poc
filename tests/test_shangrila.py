@@ -24,3 +24,4 @@ def test_shangrila_keeps_only_public_rates():
 def test_shangrila_detects_visitor_currency():
     assert display_currency("English\nNTD\nSelect a Hotel") == "TWD"
     assert display_currency("English\nUSD\nSelect a Hotel") == "USD"
+    assert display_currency("USD 303\nCancellation fee NTD 10,000") == "USD"
