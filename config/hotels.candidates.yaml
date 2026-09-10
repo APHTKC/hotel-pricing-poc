@@ -1,0 +1,20 @@
+# Expansion backlog. Entries stay disabled until their official booking flow
+# passes a GitHub Actions probe with real dated public rates.
+hotels:
+  - {id: grand_hyatt_taipei, name: Grand Hyatt Taipei, short_name: Grand Hyatt, city: Taipei, country: TW, booking_url: "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei", adapter: hyatt, enabled: false}
+  - {id: shangrila_taipei, name: Shangri-La Far Eastern Taipei, short_name: Shangri-La, city: Taipei, country: TW, booking_url: "https://www.shangri-la.com/taipei/fareasternplazashangrila/", adapter: shangrila, enabled: false}
+  - {id: sheraton_grand_taipei, name: Sheraton Grand Taipei Hotel, short_name: Sheraton, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/overview/", adapter: marriott, enabled: false}
+  - {id: royal_nikko_taipei, name: Hotel Royal-Nikko Taipei, short_name: Royal-Nikko, city: Taipei, country: TW, booking_url: "https://www.royal-taipei.com.tw/en/", adapter: royal_nikko, enabled: false}
+  - {id: le_meridien_taipei, name: Le Méridien Taipei, short_name: Le Méridien, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpemd-le-meridien-taipei/overview/", adapter: marriott, enabled: false}
+  - {id: courtyard_taipei, name: Courtyard by Marriott Taipei, short_name: Courtyard, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/overview/", adapter: marriott, enabled: false}
+  - {id: grand_hilai_taipei, name: Grand Hilai Taipei, short_name: Grand Hilai, city: Taipei, country: TW, booking_url: "https://taipei.grand-hilai.com.tw/", adapter: grand_hilai, enabled: false}
+  - {id: grand_mayfull_taipei, name: Grand Mayfull Hotel Taipei, short_name: Grand Mayfull, city: Taipei, country: TW, booking_url: "https://www.grandmayfull.com/index.php", adapter: grand_mayfull, enabled: false}
+  - {id: kimpton_da_an, name: Kimpton Da An Hotel, short_name: Kimpton, city: Taipei, country: TW, booking_url: "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail", adapter: ihg, enabled: false}
+  - {id: indigo_taipei_north, name: Hotel Indigo Taipei North, short_name: Hotel Indigo, city: Taipei, country: TW, booking_url: "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail", adapter: ihg, enabled: false}
+  - {id: hotel_resonance_taipei, name: Hotel Resonance Taipei, short_name: Hotel Resonance, city: Taipei, country: TW, booking_url: "https://www.hilton.com/en/hotels/tsaupup-hotel-resonance-taipei/", adapter: hilton, enabled: false}
+  - {id: grand_view_resort_beitou, name: Grand View Resort Beitou, short_name: Grand View, city: Taipei, country: TW, booking_url: "https://www.gvrb.com.tw/en/", adapter: grand_view, enabled: false}
+  - {id: radium_kagaya_taipei, name: Radium Kagaya Taipei, short_name: Kagaya, city: Taipei, country: TW, booking_url: "https://www.kagaya.com.tw/en/", adapter: kagaya, enabled: false}
+  - {id: intercontinental_taichung, name: InterContinental Taichung, short_name: IC Taichung, city: Taichung, country: TW, booking_url: "https://www.ihg.com/intercontinental/hotels/us/en/taichung/rmqtt/hoteldetail", adapter: ihg, enabled: false}
+  - {id: hoshinoya_guguan, name: HOSHINOYA Guguan, short_name: HOSHINOYA, city: Taichung, country: TW, booking_url: "https://hoshinoresorts.com/en/hotels/hoshinoyaguguan/", adapter: hoshinoya, enabled: false}
+  - {id: intercontinental_kaohsiung, name: InterContinental Kaohsiung, short_name: IC Kaohsiung, city: Kaohsiung, country: TW, booking_url: "https://www.ihg.com/intercontinental/hotels/us/en/kaohsiung-city/khhkt/hoteldetail", adapter: ihg, enabled: false}
+  - {id: kaohsiung_marriott, name: Kaohsiung Marriott Hotel, short_name: Kaohsiung Marriott, city: Kaohsiung, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/khhmc-kaohsiung-marriott-hotel/overview/", adapter: marriott, enabled: false}

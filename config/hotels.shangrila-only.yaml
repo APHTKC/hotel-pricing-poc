@@ -1,0 +1,8 @@
+hotels:
+  - id: shangrila_taipei
+    name: Shangri-La Far Eastern Taipei
+    short_name: Shangri-La
+    city: Taipei
+    country: TW
+    booking_url: https://www.shangri-la.com/taipei/fareasternplazashangrila/
+    adapter: shangrila
