@@ -1,6 +1,10 @@
 from datetime import date
 
-from scrapers.adapters.shangrila import ShangriLaScraper, is_public_cash_rate
+from scrapers.adapters.shangrila import (
+    ShangriLaScraper,
+    display_currency,
+    is_public_cash_rate,
+)
 
 
 def test_shangrila_booking_url_contains_hotel_and_dates():
@@ -15,3 +19,8 @@ def test_shangrila_keeps_only_public_rates():
     assert is_public_cash_rate("") is True
     assert is_public_cash_rate(None) is True
     assert is_public_cash_rate("Member Rate") is False
+
+
+def test_shangrila_detects_visitor_currency():
+    assert display_currency("English\nNTD\nSelect a Hotel") == "TWD"
+    assert display_currency("English\nUSD\nSelect a Hotel") == "USD"

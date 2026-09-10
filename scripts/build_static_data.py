@@ -23,6 +23,15 @@ def _dashboard_row(row: dict) -> dict:
     return {field: row.get(field) for field in DASHBOARD_FIELDS}
 
 
+def _plausible_luxury_rate(row: dict) -> bool:
+    """Fail closed when a foreign price was accidentally labelled as TWD."""
+    total_twd = row.get("total_twd")
+    try:
+        return total_twd is not None and 3000 <= float(total_twd) <= 2_000_000
+    except (TypeError, ValueError):
+        return False
+
+
 def _latest_batch(rows: list[dict]) -> list[dict]:
     """Group the observations created by the most recent workflow run."""
     timestamped = [row for row in rows if row.get("queried_at")]
@@ -38,7 +47,9 @@ def main() -> None:
     if SOURCE.exists():
         for line in SOURCE.read_text(encoding="utf-8").splitlines():
             if line.strip():
-                rows.append(_dashboard_row(json.loads(line)))
+                row = json.loads(line)
+                if _plausible_luxury_rate(row):
+                    rows.append(_dashboard_row(row))
     rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
     TARGET.parent.mkdir(parents=True, exist_ok=True)
     TARGET.write_text(

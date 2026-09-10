@@ -6,6 +6,7 @@ from urllib.parse import urlencode
 
 from app.models import Hotel, RateObservation, ScrapeStatus
 from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_room_size
+from services.fx import published_rate_to_twd
 
 
 SHANGRILA_URL = (
@@ -17,6 +18,15 @@ SHANGRILA_URL = (
 def is_public_cash_rate(member_rate: str | None) -> bool:
     """Exclude signed-in Circle discounts while retaining public cash offers."""
     return not bool((member_rate or "").strip())
+
+
+def display_currency(header_text: str) -> str:
+    """Return the currency selected by Shangri-La for this visitor."""
+    words = {word.strip("()[]{}.,:;").upper() for word in header_text.split()}
+    for code in ("NTD", "TWD", "USD", "JPY"):
+        if code in words:
+            return "TWD" if code == "NTD" else code
+    raise ValueError("Shangri-La display currency could not be identified")
 
 
 class ShangriLaScraper(CapellaScraper):
@@ -64,15 +74,18 @@ class ShangriLaScraper(CapellaScraper):
             await page.goto(source_url, wait_until="domcontentloaded", timeout=self.timeout_ms)
             await page.locator(".js-room-item").first.wait_for()
             await page.locator(".room-price-item").first.wait_for()
+            currency = display_currency(await page.locator(".js-header").inner_text())
             return await self._collect_rates(
-                page, hotel, check_in, check_out, adults, queried_at, source_url
+                page, hotel, check_in, check_out, adults, queried_at, source_url,
+                currency, published_rate_to_twd(currency),
             )
         finally:
             await page.close()
 
     async def _collect_rates(
         self, page, hotel: Hotel, check_in: date, check_out: date, adults: int,
-        queried_at: datetime, source_url: str,
+        queried_at: datetime, source_url: str, currency: str,
+        fx_rate_to_twd: Decimal,
     ) -> list[RateObservation]:
         observations: list[RateObservation] = []
         rooms = page.locator(".js-room-item")
@@ -126,7 +139,7 @@ class ShangriLaScraper(CapellaScraper):
                     breakfast_included=breakfast_included([breakfast_text]),
                     cancellation_policy=cancellation, price_before_tax=before_tax,
                     service_charge=service_charge, tax=tax, total_price=total_price,
-                    currency="TWD", source_url=source_url, status=ScrapeStatus.LIVE,
-                    fx_rate_to_twd=Decimal("1"),
+                    currency=currency, source_url=source_url, status=ScrapeStatus.LIVE,
+                    fx_rate_to_twd=fx_rate_to_twd,
                 ))
         return observations

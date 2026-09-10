@@ -18,3 +18,15 @@ def test_derived_fields():
     assert row.price_per_sqm == Decimal("231")
     assert row.total_twd == Decimal("11550")
     assert row.cpi_adjusted_twd == Decimal("10500")
+
+
+def test_foreign_currency_price_per_sqm_uses_twd_value():
+    row = RateObservation(
+        observation_id="usd", queried_at=datetime.now(UTC), check_in=date(2026, 9, 1),
+        check_out=date(2026, 9, 2), lead_days=5, hotel_id="h", hotel_name="Hotel",
+        room_type_name="Room", room_size_sqm=Decimal("50"), rate_plan_name="Flexible",
+        total_price=Decimal("400"), currency="USD", fx_rate_to_twd=Decimal("30"),
+        source_url="https://example.com", status=ScrapeStatus.LIVE,
+    )
+    assert row.total_twd == Decimal("12000")
+    assert row.price_per_sqm == Decimal("240")

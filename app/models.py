@@ -57,7 +57,7 @@ class RateObservation(BaseModel):
     @computed_field
     @property
     def price_per_sqm(self) -> Decimal | None:
-        return self.total_price / self.room_size_sqm if self.room_size_sqm else None
+        return self.total_twd / self.room_size_sqm if self.room_size_sqm and self.total_twd else None
 
     @computed_field
     @property
