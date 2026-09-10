@@ -2,6 +2,13 @@ name: Probe Shangri-La Taipei rates
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scrapers/adapters/shangrila.py"
+      - "config/hotels.shangrila-only.yaml"
+      - "scripts/run_shangrila_once.py"
+      - ".github/workflows/probe-shangrila-taipei.yml"
 
 permissions:
   contents: read
