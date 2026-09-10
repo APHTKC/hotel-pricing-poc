@@ -2,6 +2,11 @@ name: Publish dashboard only
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "public/**"
+      - ".github/workflows/publish-dashboard.yml"
 
 permissions:
   contents: read
