@@ -20,3 +20,10 @@ hotels:
     country: TW
     booking_url: https://www.mandarinoriental.com/en/taipei/songshan
     adapter: mandarin_oriental
+  - id: shangrila_taipei
+    name: Shangri-La Far Eastern, Taipei
+    short_name: Shangri-La Taipei
+    city: Taipei
+    country: TW
+    booking_url: https://www.shangri-la.com/en/taipei/fareasternplazashangrila/
+    adapter: shangrila

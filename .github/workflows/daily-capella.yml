@@ -1,7 +1,14 @@
-name: Daily Taipei hotel rates
+name: Daily Taiwan hotel rates
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "config/hotels.daily.yaml"
+      - "scrapers/adapters/**"
+      - "scripts/run_daily_once.py"
+      - "requirements.txt"
   schedule:
     # GitHub Actions uses UTC. 22:00 UTC = 06:00 Asia/Taipei next day.
     - cron: "0 22 * * *"
@@ -12,7 +19,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: taipei-rates-and-pages
+  group: taiwan-rates-and-pages
   cancel-in-progress: false
 
 jobs:
@@ -57,7 +64,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/rates.jsonl public/data/rates.json public/data/latest.json public/data/fx.json
-          git diff --cached --quiet || git commit -m "data: update Taipei hotel rates"
+          git diff --cached --quiet || git commit -m "data: update Taiwan hotel rates"
           git push
 
       - name: Configure GitHub Pages
