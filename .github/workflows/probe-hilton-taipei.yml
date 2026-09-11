@@ -1,0 +1,36 @@
+name: Probe Hotel Resonance Taipei rates
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/probe_hilton_taipei.py"
+      - ".github/workflows/probe-hilton-taipei.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+      - name: Probe Hotel Resonance Taipei public rates
+        run: python -m scripts.probe_hilton_taipei
+      - name: Save diagnostic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hotel-resonance-taipei-rate-probe
+          path: artifacts/
+          if-no-files-found: warn
