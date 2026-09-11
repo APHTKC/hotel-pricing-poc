@@ -1,0 +1,8 @@
+hotels:
+  - id: grand_hilai_taipei
+    name: Grand Hi-Lai Taipei
+    short_name: Grand Hi-Lai
+    city: Taipei
+    country: TW
+    booking_url: https://taipei.grand-hilai.com.tw/
+    adapter: grand_hilai

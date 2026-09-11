@@ -1,0 +1,40 @@
+name: Probe Grand Hi-Lai Taipei adapter
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scrapers/adapters/grand_hilai.py"
+      - "scripts/run_grand_hilai_once.py"
+      - "config/hotels.grand-hilai-taipei-only.yaml"
+      - ".github/workflows/probe-grand-hilai-taipei-adapter.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+      - name: Collect one public stay date
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/grand-hilai-taipei-probe.jsonl
+        run: python -m scripts.run_grand_hilai_once
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grand-hilai-taipei-adapter-probe
+          path: data/grand-hilai-taipei-probe.jsonl
+          if-no-files-found: ignore
