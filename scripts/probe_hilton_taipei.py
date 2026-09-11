@@ -31,13 +31,20 @@ async def main() -> None:
     artifact_dir.mkdir(exist_ok=True)
 
     async with async_playwright() as playwright:
-        browser = await playwright.chromium.launch(headless=True)
+        browser = await playwright.chromium.launch(
+            headless=False,
+            args=["--disable-blink-features=AutomationControlled"],
+        )
         context = await browser.new_context(
             locale="en-US", timezone_id="Asia/Taipei", viewport={"width": 1440, "height": 1100}
         )
         page = await context.new_page()
         response = await page.goto(target, wait_until="domcontentloaded", timeout=90_000)
-        await page.get_by_text("rooms found", exact=False).first.wait_for(timeout=60_000)
+        load_error = None
+        try:
+            await page.get_by_text("rooms found", exact=False).first.wait_for(timeout=60_000)
+        except Exception as exc:
+            load_error = repr(exc)
         body = " ".join((await page.locator("body").inner_text()).split())
         room_buttons = page.locator("button").filter(has_text="Book From NT$")
         room_count = await room_buttons.count()
@@ -50,6 +57,7 @@ async def main() -> None:
             "http_status": response.status if response else None,
             "final_url": page.url,
             "title": await page.title(),
+            "load_error": load_error,
             "room_count": room_count,
             "room_previews": room_previews,
             "body_preview": body[:16_000],
@@ -61,7 +69,7 @@ async def main() -> None:
         await page.screenshot(path=artifact_dir / "hilton-taipei-probe.png", full_page=True)
         await browser.close()
 
-        if not room_count or "New Taiwan Dollar" not in body:
+        if load_error or not room_count or "New Taiwan Dollar" not in body:
             raise RuntimeError("Hilton booking page did not expose TWD room rates")
 
 
