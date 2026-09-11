@@ -8,7 +8,27 @@ from app.models import Hotel, RateObservation, ScrapeStatus
 from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_money
 
 
-IHG_HOTEL_CODES = {"regent_taipei": ("TPERG", "RE")}
+IHG_HOTELS = {
+    "regent_taipei": {
+        "hotel_code": "TPERG",
+        "brand_code": "RE",
+        "brand_slug": "regent",
+        "destination": "No.3, Ln.39, Sec.2 Zhongshan N. Rd., Taipei, TW",
+        "legacy_query": True,
+    },
+    "intercontinental_taichung": {
+        "hotel_code": "RMQTT",
+        "brand_code": "IC",
+        "brand_slug": "intercontinental",
+        "destination": "No.77, Guanqian Road, West District, Taichung, TW",
+    },
+    "intercontinental_kaohsiung": {
+        "hotel_code": "KHHKT",
+        "brand_code": "IC",
+        "brand_slug": "intercontinental",
+        "destination": "No. 33, Xinguang Rd., Qianzhen Dist., Kaohsiung, TW",
+    },
+}
 TOTAL_MULTIPLIER = Decimal("1.155")
 
 
@@ -20,20 +40,24 @@ class IHGScraper(CapellaScraper):
     """Public, non-member cash rates from IHG's official room-rate page."""
 
     def booking_url(self, hotel: Hotel, check_in: date, check_out: date, adults: int) -> str:
-        hotel_code, brand_code = IHG_HOTEL_CODES[hotel.id]
+        details = IHG_HOTELS[hotel.id]
         query = urlencode({
             "fromRedirect": "true", "qSrt": "sBR", "qErm": "false",
-            "qSlH": hotel_code, "qRms": 1, "qAdlt": adults, "qChld": 0,
+            "qSlH": details["hotel_code"], "qRms": 1, "qAdlt": adults, "qChld": 0,
             "qCiD": f"{check_in.day:02d}", "qCiMy": ihg_month(check_in),
             "qCoD": f"{check_out.day:02d}", "qCoMy": ihg_month(check_out),
-            "qAAR": "6CBARC", "qRtP": "6CBARC", "setPMCookies": "true",
-            "qSHBrC": brand_code, "qPt": "CASH", "srb_u": 1,
-            "qDest": "No.3, Ln.39, Sec.2 Zhongshan N. Rd., Taipei, TW",
+            "qAAR": "6CBARC" if details.get("legacy_query") else "",
+            "qRtP": "6CBARC", "setPMCookies": "true",
+            "qSHBrC": details["brand_code"], "srb_u": 1,
+            "qDest": details["destination"],
+            "qpMbw": 0, "qpMn": 1, "qRmFltr": "",
         })
-        return f"https://www.ihg.com/regent/hotels/us/en/find-hotels/select-roomrate?{query}"
+        if details.get("legacy_query"):
+            query += "&qPt=CASH"
+        return f"https://www.ihg.com/{details['brand_slug']}/hotels/us/en/find-hotels/select-roomrate?{query}"
 
     async def fetch_rates(self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2) -> list[RateObservation]:
-        if hotel.id not in IHG_HOTEL_CODES:
+        if hotel.id not in IHG_HOTELS:
             raise ValueError(f"IHGScraper does not yet support {hotel.id}")
         queried_at = datetime.now(UTC)
         source_url = self.booking_url(hotel, check_in, check_out, adults)
@@ -53,16 +77,15 @@ class IHGScraper(CapellaScraper):
             await page.close()
 
     async def _collect(self, page, hotel, check_in, check_out, adults, queried_at, source_url):
-        buttons = page.get_by_role("button", name=re.compile("View prices", re.I))
+        buttons = page.locator('app-room-rate-item button[aria-label^="View prices for "]')
         observations = []
         for index in range(await buttons.count()):
             button = buttons.nth(index)
             await button.click(force=True)
             await page.wait_for_timeout(180)
             data = await button.evaluate("""el => {
-              let root = el.parentElement;
-              while (root && !(root.querySelector('h2') && /Best Flexible/i.test(root.innerText))) root = root.parentElement;
-              const heading = root && root.querySelector('h2');
+              const root = el.closest('app-room-rate-item');
+              const heading = root && root.querySelector('h2, h3');
               return {name: heading ? heading.innerText.trim() : '', text: root ? root.innerText : ''};
             }""")
             room_name, text = data["name"], data["text"]
@@ -70,14 +93,25 @@ class IHGScraper(CapellaScraper):
                 continue
             size_match = re.search(r"(\d+(?:\.\d+)?)\s*sqm", text, re.I)
             size = Decimal(size_match.group(1)) if size_match else None
-            pattern = re.compile(r"(Best Flexible(?: with Breakfast| Rate)?)(.*?Price details)\s*([\d,]+)\s*TWD", re.I | re.S)
+            pattern = re.compile(
+                r"(Best Flexible(?: with Breakfast| Rate)?)(.*?)(?:\nSelect\b|$)",
+                re.I | re.S,
+            )
             for match in pattern.finditer(text):
                 plan_name = " ".join(match.group(1).split())
-                total = parse_money(match.group(3))
+                plan_text = match.group(2)
+                prices = re.search(
+                    r"(?:From\s+)?([\d,]+)\s*\n(?:[\d,]+\s*\n)?TWD\b",
+                    plan_text,
+                    re.I,
+                )
+                if not prices:
+                    continue
+                total = parse_money(prices.group(1))
                 before_tax = (total / TOTAL_MULTIPLIER).quantize(Decimal("1"))
                 service = (before_tax * Decimal("0.10")).quantize(Decimal("1"))
                 tax = total - before_tax - service
-                terms = " ".join(match.group(2).replace("", " ").split())
+                terms = " ".join(plan_text[:prices.start()].replace("", " ").split())
                 key = f"{hotel.id}:{check_in}:{room_name}:{plan_name}:{queried_at.isoformat()}"
                 observations.append(RateObservation(
                     observation_id=hashlib.sha256(key.encode()).hexdigest()[:24], queried_at=queried_at,

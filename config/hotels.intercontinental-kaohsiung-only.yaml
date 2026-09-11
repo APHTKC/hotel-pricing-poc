@@ -1,0 +1,8 @@
+hotels:
+  - id: intercontinental_kaohsiung
+    name: InterContinental Kaohsiung
+    short_name: IC Kaohsiung
+    city: Kaohsiung
+    country: TW
+    booking_url: https://www.ihg.com/intercontinental/hotels/us/en/kaohsiung-city/khhkt/hoteldetail
+    adapter: ihg

@@ -1,0 +1,8 @@
+hotels:
+  - id: intercontinental_taichung
+    name: InterContinental Taichung
+    short_name: IC Taichung
+    city: Taichung
+    country: TW
+    booking_url: https://www.ihg.com/intercontinental/hotels/us/en/taichung/rmqtt/hoteldetail
+    adapter: ihg

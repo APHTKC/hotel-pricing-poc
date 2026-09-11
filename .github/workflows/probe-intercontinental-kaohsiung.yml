@@ -1,0 +1,32 @@
+name: Probe InterContinental Kaohsiung rates
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+      - name: Probe one public stay date
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/intercontinental-kaohsiung-probe.jsonl
+          IHG_PROBE_CONFIG: config/hotels.intercontinental-kaohsiung-only.yaml
+          LEAD_DAYS: "30"
+        run: python -m scripts.run_ihg_probe
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: intercontinental-kaohsiung-rate-probe
+          path: data/intercontinental-kaohsiung-probe.jsonl
+          if-no-files-found: ignore
