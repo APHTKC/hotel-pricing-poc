@@ -19,9 +19,11 @@ async def select_date(page, value: date) -> None:
             if f"{value.year} 年 {value.month} 月" not in " ".join(heading.split()):
                 continue
             day = panel.locator("td.available").filter(has_text=re.compile(rf"^\s*{value.day}\s*$"))
-            await day.click(force=True)
+            await day.evaluate("el => el.click()")
             return
-        await page.locator(".el-picker-panel__icon-btn.el-icon-arrow-right").last.click(force=True)
+        await page.locator(".el-picker-panel__icon-btn.el-icon-arrow-right").last.evaluate(
+            "el => el.click()"
+        )
         await page.wait_for_timeout(100)
     raise RuntimeError(f"Could not select date {value.isoformat()} from Grand Hi-Lai calendar")
 
@@ -52,7 +54,7 @@ async def main() -> None:
         await page.get_by_placeholder("入住日").click()
         await select_date(page, check_in)
         await select_date(page, check_out)
-        await page.get_by_role("button", name="搜尋", exact=True).click(force=True, timeout=30_000)
+        await page.get_by_role("button", name="搜尋", exact=True).evaluate("el => el.click()")
         await page.wait_for_timeout(3_000)
 
         body = "\n".join(line.strip() for line in (await page.locator("body").inner_text()).splitlines() if line.strip())
