@@ -64,7 +64,7 @@ class GrandHiLaiScraper(CapellaScraper):
             expected = [check_in.strftime("%Y/%m/%d"), check_out.strftime("%Y/%m/%d")]
             await page.wait_for_function(
                 "expected => Array.from(document.querySelectorAll('input[placeholder=入住日], input[placeholder=退房日]')).map(el => el.value).join('|') === expected.join('|')",
-                expected,
+                arg=expected,
             )
             await page.locator(".product .room-size").first.wait_for()
             await page.wait_for_timeout(700)
