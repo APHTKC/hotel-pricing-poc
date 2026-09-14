@@ -1,0 +1,33 @@
+name: Probe Kaohsiung Marriott booking page
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+      - name: Probe Kaohsiung Marriott official public rates
+        env:
+          MARRIOTT_PROPERTY_CODE: KHHMC
+          MARRIOTT_HOTEL_NAME: Kaohsiung Marriott Hotel
+          MARRIOTT_ARTIFACT_SLUG: kaohsiung-marriott
+        run: xvfb-run -a python -m scripts.probe_w_taipei
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kaohsiung-marriott-booking-probe
+          path: artifacts/
+          if-no-files-found: warn

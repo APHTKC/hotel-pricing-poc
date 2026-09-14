@@ -1,5 +1,6 @@
 import asyncio
 import json
+import os
 import re
 from datetime import date, timedelta
 from pathlib import Path
@@ -8,7 +9,9 @@ from urllib.parse import urlencode
 from playwright.async_api import async_playwright
 
 
-PROPERTY_CODE = "TPEWH"
+PROPERTY_CODE = os.getenv("MARRIOTT_PROPERTY_CODE", "TPEWH")
+HOTEL_NAME = os.getenv("MARRIOTT_HOTEL_NAME", "W Taipei")
+ARTIFACT_SLUG = os.getenv("MARRIOTT_ARTIFACT_SLUG", "w")
 BASE_URL = "https://www.marriott.com/en-us/reservation/availability.mi"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -166,10 +169,12 @@ async def main() -> None:
             "failed_requests": failed_requests[-50:],
         }
         print(json.dumps(report, ensure_ascii=False, indent=2))
-        (artifact_dir / "w-probe.json").write_text(
+        report["hotel_name"] = HOTEL_NAME
+        report["property_code"] = PROPERTY_CODE
+        (artifact_dir / f"{ARTIFACT_SLUG}-probe.json").write_text(
             json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
         )
-        await page.screenshot(path=artifact_dir / "w-probe.png", full_page=True)
+        await page.screenshot(path=artifact_dir / f"{ARTIFACT_SLUG}-probe.png", full_page=True)
         await browser.close()
         if interaction_error:
             raise RuntimeError(interaction_error)
