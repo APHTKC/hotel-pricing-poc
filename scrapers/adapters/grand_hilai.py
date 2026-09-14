@@ -66,7 +66,12 @@ class GrandHiLaiScraper(CapellaScraper):
                 "expected => Array.from(document.querySelectorAll('input[placeholder=入住日], input[placeholder=退房日]')).map(el => el.value).join('|') === expected.join('|')",
                 arg=expected,
             )
-            await page.locator(".product .room-size").first.wait_for()
+            # The booking engine renders the room catalogue into the DOM before
+            # expanding any individual room card.  The size node is therefore
+            # intentionally hidden until the visitor opens the card.  Waiting
+            # for visibility makes a healthy response look like a timeout on
+            # GitHub Actions; attachment is the reliable data-ready signal.
+            await page.locator(".product .room-size").first.wait_for(state="attached")
             await page.wait_for_timeout(700)
             return await self._collect(
                 page, hotel, check_in, check_out, adults, queried_at, page.url
