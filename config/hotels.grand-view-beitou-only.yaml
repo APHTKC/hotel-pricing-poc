@@ -1,0 +1,8 @@
+hotels:
+  - id: grand_view_resort_beitou
+    name: Grand View Resort Beitou
+    short_name: Grand View
+    city: Taipei
+    country: TW
+    booking_url: https://www.gvrb.com.tw/
+    adapter: grand_view
