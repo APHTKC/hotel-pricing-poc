@@ -34,6 +34,12 @@ jobs:
       - name: Check out project
         uses: actions/checkout@v4
 
+      # A queued push run can start from an older commit after a previous run
+      # has already appended rate history.  Sync first so the new observations
+      # are added to the latest dataset instead of conflicting at publish time.
+      - name: Sync latest rate history
+        run: git pull --rebase origin main
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
