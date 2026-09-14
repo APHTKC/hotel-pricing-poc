@@ -8,7 +8,7 @@ hotels:
   - {id: royal_nikko_taipei, name: Hotel Royal-Nikko Taipei, short_name: Royal-Nikko, city: Taipei, country: TW, booking_url: "https://www.royal-taipei.com.tw/en/", adapter: royal_nikko, enabled: false}
   - {id: le_meridien_taipei, name: Le Méridien Taipei, short_name: Le Méridien, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpemd-le-meridien-taipei/overview/", adapter: marriott, enabled: false}
   - {id: courtyard_taipei, name: Courtyard by Marriott Taipei, short_name: Courtyard, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/overview/", adapter: marriott, enabled: false}
-  - {id: grand_hilai_taipei, name: Grand Hilai Taipei, short_name: Grand Hilai, city: Taipei, country: TW, booking_url: "https://taipei.grand-hilai.com.tw/", adapter: grand_hilai, enabled: false}
+  - {id: grand_hilai_taipei, name: Grand Hi-Lai Taipei, short_name: Grand Hi-Lai, city: Taipei, country: TW, booking_url: "https://taipei.grand-hilai.com.tw/", adapter: grand_hilai, enabled: true}
   - {id: grand_mayfull_taipei, name: Grand Mayfull Hotel Taipei, short_name: Grand Mayfull, city: Taipei, country: TW, booking_url: "https://www.grandmayfull.com/index.php", adapter: grand_mayfull, enabled: false}
   - {id: kimpton_da_an, name: Kimpton Da An Hotel, short_name: Kimpton, city: Taipei, country: TW, booking_url: "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail", adapter: ihg, enabled: false}
   - {id: indigo_taipei_north, name: Hotel Indigo Taipei North, short_name: Hotel Indigo, city: Taipei, country: TW, booking_url: "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail", adapter: ihg, enabled: false}
