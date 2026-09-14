@@ -1,7 +1,9 @@
 from datetime import date
 
 from app.models import Hotel
-from scrapers.adapters.ihg import IHGScraper, ihg_month
+from decimal import Decimal
+
+from scrapers.adapters.ihg import IHGScraper, ihg_month, parse_rate_card
 
 
 def test_ihg_month_is_zero_based():
@@ -24,3 +26,17 @@ def test_intercontinental_booking_urls():
     assert "/intercontinental/" in taichung_url and "qSlH=RMQTT" in taichung_url
     assert "qSHBrC=IC" in taichung_url and "qCiMy=092026" in taichung_url
     assert "qSlH=KHHKT" in kaohsiung_url and "Kaohsiung" in kaohsiung_url
+
+
+def test_parse_current_ihg_rate_card():
+    result = parse_rate_card(
+        "Best Flexible With Breakfast\nFully refundable before Oct 13, 2026\n"
+        "No prepayment needed - pay at the property\nDaily Breakfast Included\n"
+        "10,589\nTWD\nper night\nSelect"
+    )
+    assert result == (
+        "Best Flexible With Breakfast",
+        Decimal("10589"),
+        True,
+        "Fully refundable before Oct 13, 2026 No prepayment needed - pay at the property Daily Breakfast Included",
+    )

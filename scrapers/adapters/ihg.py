@@ -36,8 +36,27 @@ def ihg_month(value: date) -> str:
     return f"{value.month - 1:02d}{value.year}"
 
 
+def parse_rate_card(text: str) -> tuple[str, Decimal, bool | None, str] | None:
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    price_index = next(
+        (index for index, line in enumerate(lines) if re.fullmatch(r"[\d,]+", line)),
+        None,
+    )
+    if not lines or price_index is None or price_index + 1 >= len(lines):
+        return None
+    if lines[price_index + 1].upper() != "TWD":
+        return None
+    plan_name = lines[0]
+    before_tax = parse_money(lines[price_index])
+    terms = " ".join(lines[1:price_index])
+    return plan_name, before_tax, breakfast_included([plan_name, terms]), terms
+
+
 class IHGScraper(CapellaScraper):
     """Public, non-member cash rates from IHG's official room-rate page."""
+
+    def __init__(self, timeout_ms: int = 120_000):
+        super().__init__(timeout_ms=timeout_ms)
 
     def booking_url(self, hotel: Hotel, check_in: date, check_out: date, adults: int) -> str:
         details = IHG_HOTELS[hotel.id]
@@ -64,25 +83,33 @@ class IHGScraper(CapellaScraper):
         page = await self._page()
         try:
             await page.goto(source_url, wait_until="domcontentloaded", timeout=self.timeout_ms)
-            await page.get_by_role("heading", name="Select your room").wait_for(timeout=self.timeout_ms)
+            await page.get_by_role(
+                "heading", name=re.compile("Select your room", re.I)
+            ).wait_for(timeout=self.timeout_ms)
             taxes = page.locator("#taxes_fees_checkbox")
-            if not await taxes.is_checked():
+            if await taxes.count() and not await taxes.is_checked():
                 await taxes.check(force=True)
-            member = page.get_by_role("checkbox", name=re.compile("IHG One Rewards Discount", re.I))
-            if await member.is_checked():
+            member = page.get_by_role(
+                "checkbox", name=re.compile("IHG One Rewards Discount", re.I)
+            ).or_(page.get_by_role(
+                "switch", name=re.compile("IHG One Rewards Discount", re.I)
+            ))
+            if await member.count() and await member.is_checked():
                 await member.uncheck(force=True)
-            await page.wait_for_timeout(800)
+            await page.wait_for_timeout(1_200)
             return await self._collect(page, hotel, check_in, check_out, adults, queried_at, source_url)
         finally:
             await page.close()
 
     async def _collect(self, page, hotel, check_in, check_out, adults, queried_at, source_url):
-        buttons = page.locator('app-room-rate-item button[aria-label^="View prices for "]')
+        buttons = page.get_by_role(
+            "button", name=re.compile(r"^View prices for ", re.I)
+        )
         observations = []
         for index in range(await buttons.count()):
             button = buttons.nth(index)
             await button.click(force=True)
-            await page.wait_for_timeout(180)
+            await page.wait_for_timeout(250)
             data = await button.evaluate("""el => {
               const root = el.closest('app-room-rate-item');
               const heading = root && root.querySelector('h2, h3');
@@ -91,27 +118,23 @@ class IHGScraper(CapellaScraper):
             room_name, text = data["name"], data["text"]
             if not room_name:
                 continue
-            size_match = re.search(r"(\d+(?:\.\d+)?)\s*sqm", text, re.I)
+            size_match = re.search(r"(\d+(?:\.\d+)?)\s*(?:sqm|sqmt)", text, re.I)
             size = Decimal(size_match.group(1)) if size_match else None
-            pattern = re.compile(
-                r"(Best Flexible(?: with Breakfast| Rate)?)(.*?)(?:\nSelect\b|$)",
-                re.I | re.S,
+            rate_buttons = page.get_by_role(
+                "button", name=re.compile(rf"^Rate details for {re.escape(room_name)}$", re.I)
             )
-            for match in pattern.finditer(text):
-                plan_name = " ".join(match.group(1).split())
-                plan_text = match.group(2)
-                prices = re.search(
-                    r"(?:From\s+)?([\d,]+)\s*\n(?:[\d,]+\s*\n)?TWD\b",
-                    plan_text,
-                    re.I,
+            for rate_index in range(await rate_buttons.count()):
+                plan_text = await rate_buttons.nth(rate_index).evaluate(
+                    "el => el.parentElement && el.parentElement.parentElement "
+                    "? el.parentElement.parentElement.innerText : ''"
                 )
-                if not prices:
+                parsed = parse_rate_card(plan_text)
+                if parsed is None:
                     continue
-                total = parse_money(prices.group(1))
-                before_tax = (total / TOTAL_MULTIPLIER).quantize(Decimal("1"))
+                plan_name, before_tax, includes_breakfast, terms = parsed
                 service = (before_tax * Decimal("0.10")).quantize(Decimal("1"))
-                tax = total - before_tax - service
-                terms = " ".join(plan_text[:prices.start()].replace("", " ").split())
+                tax = Decimal("0")
+                total = before_tax + service
                 key = f"{hotel.id}:{check_in}:{room_name}:{plan_name}:{queried_at.isoformat()}"
                 observations.append(RateObservation(
                     observation_id=hashlib.sha256(key.encode()).hexdigest()[:24], queried_at=queried_at,
@@ -119,7 +142,7 @@ class IHGScraper(CapellaScraper):
                     nights=1, adults=adults, hotel_id=hotel.id, hotel_name=hotel.name, city=hotel.city,
                     room_type_code=re.sub(r"[^A-Z0-9]+", "-", room_name.upper()).strip("-"),
                     room_type_name=room_name, room_size_sqm=size, rate_plan_code=None,
-                    rate_plan_name=plan_name, breakfast_included=breakfast_included([plan_name]),
+                    rate_plan_name=plan_name, breakfast_included=includes_breakfast,
                     cancellation_policy=terms or None, price_before_tax=before_tax,
                     service_charge=service, tax=tax, total_price=total, currency="TWD",
                     source_url=source_url, status=ScrapeStatus.LIVE, fx_rate_to_twd=Decimal("1"),
