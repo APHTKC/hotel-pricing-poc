@@ -27,7 +27,7 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps chromium
       - name: Test booking URL
-        run: pytest -q tests/test_grand_mayfull_probe.py
+        run: python -m pytest -q tests/test_grand_mayfull_probe.py
       - name: Probe Grand Mayfull Taipei public rates
         run: xvfb-run -a python -m scripts.probe_grand_mayfull_taipei
       - name: Save diagnostic report
