@@ -9,6 +9,7 @@ from playwright.async_api import async_playwright
 
 PROPERTY_CODE = "twtai28740"
 BOOKING_BASE = "https://www.book-secure.com/index.php"
+OFFICIAL_URL = "https://www.gvrb.com.tw/"
 
 
 def booking_url(check_in: date, check_out: date) -> str:
@@ -43,11 +44,36 @@ async def main() -> None:
             viewport={"width": 1440, "height": 1100},
         )
         page = await context.new_page()
-        response = await page.goto(url, wait_until="domcontentloaded", timeout=90_000)
+        await page.goto(OFFICIAL_URL, wait_until="domcontentloaded", timeout=90_000)
+        response = await page.goto(
+            url,
+            wait_until="domcontentloaded",
+            timeout=90_000,
+            referer=OFFICIAL_URL,
+        )
         room_cards = page.locator(
             "#results-items div.fb-results-accommodation[id^='accommodation-']"
         )
-        await room_cards.first.wait_for(state="visible", timeout=60_000)
+        try:
+            await room_cards.first.wait_for(state="visible", timeout=60_000)
+        except Exception:
+            report = {
+                "requested_url": url,
+                "http_status": response.status if response else None,
+                "final_url": page.url,
+                "title": await page.title(),
+                "body": " ".join(
+                    ((await page.locator("body").text_content()) or "").split()
+                )[:5_000],
+            }
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+            (artifact_dir / "grand-view-beitou-probe.json").write_text(
+                json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+            await page.screenshot(
+                path=artifact_dir / "grand-view-beitou-probe.png", full_page=True
+            )
+            raise
 
         rooms = []
         rate_count = 0

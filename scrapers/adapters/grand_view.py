@@ -10,6 +10,7 @@ from scrapers.adapters.capella import CapellaScraper, parse_money
 
 PROPERTY_CODE = "twtai28740"
 BOOKING_BASE = "https://www.book-secure.com/index.php"
+OFFICIAL_URL = "https://www.gvrb.com.tw/"
 
 # The booking engine does not repeat room area in its results cards. These
 # values come from Grand View Resort Beitou's official room pages.
@@ -63,8 +64,14 @@ class GrandViewScraper(CapellaScraper):
         source_url = booking_url(check_in, check_out, adults)
         page = await self._page()
         try:
+            await page.goto(
+                OFFICIAL_URL, wait_until="domcontentloaded", timeout=self.timeout_ms
+            )
             response = await page.goto(
-                source_url, wait_until="domcontentloaded", timeout=self.timeout_ms
+                source_url,
+                wait_until="domcontentloaded",
+                timeout=self.timeout_ms,
+                referer=OFFICIAL_URL,
             )
             if response is not None and response.status >= 400:
                 raise RuntimeError(f"Grand View booking page returned HTTP {response.status}")
