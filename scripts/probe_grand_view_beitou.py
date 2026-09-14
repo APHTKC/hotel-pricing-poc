@@ -22,6 +22,7 @@ def booking_url(check_in: date, check_out: date) -> str:
         'children1': 0,
         'locale': 'zh_Hant_HK',
         'currency': 'TWD',
+        'stid': 'zgjmz8f3q',
         'showPromotions': 1,
     })}"
 

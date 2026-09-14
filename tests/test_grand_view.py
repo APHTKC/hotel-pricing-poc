@@ -13,6 +13,7 @@ def test_booking_url_uses_dated_twd_results():
     assert query["arrival"] == ["2026-10-14"]
     assert query["departure"] == ["2026-10-15"]
     assert query["currency"] == ["TWD"]
+    assert query["stid"] == ["zgjmz8f3q"]
 
 
 def test_parse_included_tax():
