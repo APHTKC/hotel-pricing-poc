@@ -30,6 +30,21 @@ async def select_date(page, value: date) -> None:
     raise RuntimeError(f"Could not select {value.isoformat()} in Royal-Nikko calendar")
 
 
+async def dismiss_startup_overlays(page) -> None:
+    loading = page.locator(".el-loading-mask")
+    if await loading.count():
+        await loading.first.wait_for(state="hidden", timeout=45_000)
+
+    popup = page.locator(".el-dialog__wrapper.athPopup:visible")
+    try:
+        await popup.first.wait_for(state="visible", timeout=12_000)
+        await popup.locator(".el-dialog__headerbtn").first.click(force=True)
+        await popup.first.wait_for(state="hidden", timeout=10_000)
+    except Exception:
+        # The announcement is campaign-controlled and is not always present.
+        pass
+
+
 async def main() -> None:
     check_in = date.today() + timedelta(days=30)
     check_out = check_in + timedelta(days=1)
@@ -51,12 +66,9 @@ async def main() -> None:
             BOOKING_URL, wait_until="domcontentloaded", timeout=90_000
         )
 
-        close_buttons = page.locator(".el-dialog__headerbtn")
-        for index in range(await close_buttons.count()):
-            if await close_buttons.nth(index).is_visible():
-                await close_buttons.nth(index).click()
+        await dismiss_startup_overlays(page)
 
-        await page.locator(".athDateRange .el-date-editor").click()
+        await page.locator(".athDateRange .el-date-editor").click(force=True)
         await select_date(page, check_in)
         await select_date(page, check_out)
         await page.locator("#athSearch").click()
