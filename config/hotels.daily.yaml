@@ -41,3 +41,10 @@ hotels:
     country: TW
     booking_url: https://www.grandmayfull.com/
     adapter: grand_mayfull
+  - id: royal_nikko_taipei
+    name: Hotel Royal-Nikko Taipei
+    short_name: Royal-Nikko
+    city: Taipei
+    country: TW
+    booking_url: https://www.royal-taipei.com.tw/
+    adapter: royal_nikko

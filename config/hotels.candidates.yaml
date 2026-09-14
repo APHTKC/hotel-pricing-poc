@@ -5,7 +5,7 @@ hotels:
   - {id: grand_hyatt_taipei, name: Grand Hyatt Taipei, short_name: Grand Hyatt, city: Taipei, country: TW, booking_url: "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei", adapter: hyatt, enabled: false}
   - {id: shangrila_taipei, name: Shangri-La Far Eastern Taipei, short_name: Shangri-La, city: Taipei, country: TW, booking_url: "https://www.shangri-la.com/taipei/fareasternplazashangrila/", adapter: shangrila, enabled: true}
   - {id: sheraton_grand_taipei, name: Sheraton Grand Taipei Hotel, short_name: Sheraton, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/overview/", adapter: marriott, enabled: false}
-  - {id: royal_nikko_taipei, name: Hotel Royal-Nikko Taipei, short_name: Royal-Nikko, city: Taipei, country: TW, booking_url: "https://www.royal-taipei.com.tw/en/", adapter: royal_nikko, enabled: false}
+  - {id: royal_nikko_taipei, name: Hotel Royal-Nikko Taipei, short_name: Royal-Nikko, city: Taipei, country: TW, booking_url: "https://www.royal-taipei.com.tw/", adapter: royal_nikko, enabled: true}
   - {id: le_meridien_taipei, name: Le Méridien Taipei, short_name: Le Méridien, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpemd-le-meridien-taipei/overview/", adapter: marriott, enabled: false}
   - {id: courtyard_taipei, name: Courtyard by Marriott Taipei, short_name: Courtyard, city: Taipei, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/overview/", adapter: marriott, enabled: false}
   - {id: grand_hilai_taipei, name: Grand Hi-Lai Taipei, short_name: Grand Hi-Lai, city: Taipei, country: TW, booking_url: "https://taipei.grand-hilai.com.tw/", adapter: grand_hilai, enabled: true}
