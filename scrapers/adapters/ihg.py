@@ -1,7 +1,9 @@
 import hashlib
+import os
 import re
 from datetime import UTC, date, datetime
 from decimal import Decimal
+from pathlib import Path
 from urllib.parse import urlencode
 
 from app.models import Hotel, RateObservation, ScrapeStatus
@@ -98,8 +100,25 @@ class IHGScraper(CapellaScraper):
                 await member.uncheck(force=True)
             await page.wait_for_timeout(1_200)
             return await self._collect(page, hotel, check_in, check_out, adults, queried_at, source_url)
+        except Exception:
+            await self._capture_debug(page, hotel.id)
+            raise
         finally:
             await page.close()
+
+    async def _capture_debug(self, page, hotel_id: str) -> None:
+        debug_root = os.getenv("IHG_DEBUG_DIR")
+        if not debug_root:
+            return
+        output_dir = Path(debug_root)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        await page.screenshot(path=str(output_dir / f"{hotel_id}.png"), full_page=True)
+        details = (
+            f"URL: {page.url}\n"
+            f"TITLE: {await page.title()}\n\n"
+            f"BODY:\n{(await page.locator('body').inner_text())[:20000]}"
+        )
+        (output_dir / f"{hotel_id}.txt").write_text(details, encoding="utf-8")
 
     async def _collect(self, page, hotel, check_in, check_out, adults, queried_at, source_url):
         buttons = page.get_by_role(

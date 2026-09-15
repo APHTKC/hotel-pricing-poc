@@ -22,11 +22,14 @@ jobs:
           STORAGE_BACKEND: local
           LOCAL_DATA_PATH: data/intercontinental-taichung-probe.jsonl
           IHG_PROBE_CONFIG: config/hotels.intercontinental-taichung-only.yaml
+          IHG_DEBUG_DIR: artifacts/ihg-debug
           LEAD_DAYS: "30"
         run: python -m scripts.run_ihg_probe
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: intercontinental-taichung-rate-probe
-          path: data/intercontinental-taichung-probe.jsonl
+          path: |
+            data/intercontinental-taichung-probe.jsonl
+            artifacts/ihg-debug
           if-no-files-found: ignore

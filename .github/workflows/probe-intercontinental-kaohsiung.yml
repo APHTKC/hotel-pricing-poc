@@ -22,11 +22,14 @@ jobs:
           STORAGE_BACKEND: local
           LOCAL_DATA_PATH: data/intercontinental-kaohsiung-probe.jsonl
           IHG_PROBE_CONFIG: config/hotels.intercontinental-kaohsiung-only.yaml
+          IHG_DEBUG_DIR: artifacts/ihg-debug
           LEAD_DAYS: "30"
         run: python -m scripts.run_ihg_probe
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: intercontinental-kaohsiung-rate-probe
-          path: data/intercontinental-kaohsiung-probe.jsonl
+          path: |
+            data/intercontinental-kaohsiung-probe.jsonl
+            artifacts/ihg-debug
           if-no-files-found: ignore
