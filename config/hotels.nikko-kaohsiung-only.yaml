@@ -1,0 +1,8 @@
+hotels:
+  - id: hotel_nikko_kaohsiung
+    name: Hotel Nikko Kaohsiung
+    short_name: Nikko Kaohsiung
+    city: Kaohsiung
+    country: TW
+    booking_url: https://www.nikkokaohsiung.com/
+    adapter: synxis
