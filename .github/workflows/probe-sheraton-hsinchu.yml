@@ -21,7 +21,7 @@ jobs:
           playwright install --with-deps chromium
       - name: Probe Sheraton Hsinchu official public rates
         env:
-          MARRIOTT_PROPERTY_CODE: HSZSI
+          MARRIOTT_PROPERTY_CODE: TPEHS
           MARRIOTT_HOTEL_NAME: Sheraton Hsinchu Hotel
           MARRIOTT_ARTIFACT_SLUG: sheraton-hsinchu
         run: xvfb-run -a python -m scripts.probe_w_taipei
