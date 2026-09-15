@@ -23,9 +23,15 @@ def test_intercontinental_booking_urls():
     scraper = IHGScraper()
     taichung_url = scraper.booking_url(taichung, date(2026, 10, 11), date(2026, 10, 12), 2)
     kaohsiung_url = scraper.booking_url(kaohsiung, date(2026, 10, 11), date(2026, 10, 12), 2)
-    assert "/intercontinental/" in taichung_url and "qSlH=RMQTT" in taichung_url
+    assert "/hotels/tw/zh/find-hotels/select-roomrate?" in taichung_url
+    assert "qSlH=RMQTT" in taichung_url and "qAkamaiCC=TW" in taichung_url
     assert "qSHBrC=IC" in taichung_url and "qCiMy=092026" in taichung_url
+    assert "qAAR=6CBARC" in taichung_url and "qpMn=0" in taichung_url
+    assert "%E8%87%BA%E4%B8%AD%E5%8B%A4%E7%BE%8E%E6%B4%B2%E9%9A%9B%E9%85%92%E5%BA%97" in taichung_url
+    assert "/hotels/tw/zh/find-hotels/hotel/rooms?" in kaohsiung_url
     assert "qSlH=KHHKT" in kaohsiung_url and "Kaohsiung" in kaohsiung_url
+    assert "qIta=99618783" in kaohsiung_url and "qSmP=1" in kaohsiung_url
+    assert "qAkamaiCC=TW" in kaohsiung_url
 
 
 def test_parse_current_ihg_rate_card():

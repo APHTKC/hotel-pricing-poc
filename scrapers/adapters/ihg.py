@@ -4,7 +4,7 @@ import re
 from datetime import UTC, date, datetime
 from decimal import Decimal
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 
 from app.models import Hotel, RateObservation, ScrapeStatus
 from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_money
@@ -22,13 +22,24 @@ IHG_HOTELS = {
         "hotel_code": "RMQTT",
         "brand_code": "IC",
         "brand_slug": "intercontinental",
-        "destination": "No.77, Guanqian Road, West District, Taichung, TW",
+        "destination": "InterContinental 臺中勤美洲際酒店",
+        "booking_path": "tw/zh/find-hotels/select-roomrate",
+        "qAAR": "6CBARC",
+        "qpMn": 0,
+        "official_form": True,
     },
     "intercontinental_kaohsiung": {
         "hotel_code": "KHHKT",
         "brand_code": "IC",
         "brand_slug": "intercontinental",
         "destination": "No. 33, Xinguang Rd., Qianzhen Dist., Kaohsiung, TW",
+        "booking_path": "tw/zh/find-hotels/hotel/rooms",
+        "qAAR": "6CBARC",
+        "qIta": "99618783",
+        "qBrs": "re.ic.in.vn.cp.vx.hi.ex.rs.cv.sb.cw.ma.ul.ki.va.ii.sp.nd.ct.sx.we.lx",
+        "qSmP": 1,
+        "qpMn": 0,
+        "official_form": True,
     },
 }
 TOTAL_MULTIPLIER = Decimal("1.155")
@@ -62,20 +73,27 @@ class IHGScraper(CapellaScraper):
 
     def booking_url(self, hotel: Hotel, check_in: date, check_out: date, adults: int) -> str:
         details = IHG_HOTELS[hotel.id]
-        query = urlencode({
+        params = {
             "fromRedirect": "true", "qSrt": "sBR", "qErm": "false",
             "qSlH": details["hotel_code"], "qRms": 1, "qAdlt": adults, "qChld": 0,
             "qCiD": f"{check_in.day:02d}", "qCiMy": ihg_month(check_in),
             "qCoD": f"{check_out.day:02d}", "qCoMy": ihg_month(check_out),
-            "qAAR": "6CBARC" if details.get("legacy_query") else "",
+            "qAAR": details.get("qAAR", "6CBARC" if details.get("legacy_query") else ""),
             "qRtP": "6CBARC", "setPMCookies": "true",
             "qSHBrC": details["brand_code"], "srb_u": 1,
             "qDest": details["destination"],
-            "qpMbw": 0, "qpMn": 1, "qRmFltr": "",
-        })
+            "qpMbw": 0, "qpMn": details.get("qpMn", 1), "qRmFltr": "",
+        }
+        for key in ("qIta", "qBrs", "qSmP"):
+            if key in details:
+                params[key] = details[key]
+        if details.get("official_form"):
+            params.update({"qAkamaiCC": "TW", "qWch": 0, "qRad": 30, "qRdU": "mi"})
+        query = urlencode(params, quote_via=quote)
         if details.get("legacy_query"):
             query += "&qPt=CASH"
-        return f"https://www.ihg.com/{details['brand_slug']}/hotels/us/en/find-hotels/select-roomrate?{query}"
+        path = details.get("booking_path", "us/en/find-hotels/select-roomrate")
+        return f"https://www.ihg.com/{details['brand_slug']}/hotels/{path}?{query}"
 
     async def fetch_rates(self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2) -> list[RateObservation]:
         if hotel.id not in IHG_HOTELS:
@@ -85,9 +103,10 @@ class IHGScraper(CapellaScraper):
         page = await self._page()
         try:
             await page.goto(source_url, wait_until="domcontentloaded", timeout=self.timeout_ms)
-            await page.get_by_role(
-                "heading", name=re.compile("Select your room", re.I)
-            ).wait_for(timeout=self.timeout_ms)
+            ready = page.locator("app-room-rate-item").or_(page.get_by_role(
+                "heading", name=re.compile(r"Select your room|選擇.*客房|选择.*客房", re.I)
+            ))
+            await ready.first.wait_for(timeout=self.timeout_ms)
             taxes = page.locator("#taxes_fees_checkbox")
             if await taxes.count() and not await taxes.is_checked():
                 await taxes.check(force=True)
@@ -99,7 +118,12 @@ class IHGScraper(CapellaScraper):
             if await member.count() and await member.is_checked():
                 await member.uncheck(force=True)
             await page.wait_for_timeout(1_200)
-            return await self._collect(page, hotel, check_in, check_out, adults, queried_at, source_url)
+            observations = await self._collect(
+                page, hotel, check_in, check_out, adults, queried_at, source_url
+            )
+            if not observations:
+                await self._capture_debug(page, hotel.id)
+            return observations
         except Exception:
             await self._capture_debug(page, hotel.id)
             raise
@@ -122,7 +146,7 @@ class IHGScraper(CapellaScraper):
 
     async def _collect(self, page, hotel, check_in, check_out, adults, queried_at, source_url):
         buttons = page.get_by_role(
-            "button", name=re.compile(r"^View prices for ", re.I)
+            "button", name=re.compile(r"^(?:View prices for |查看(?:價格|房價)|檢視(?:價格|房價))", re.I)
         )
         observations = []
         for index in range(await buttons.count()):
