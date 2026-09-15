@@ -8,7 +8,7 @@ TARGET = Path("public/data/rates.json")
 LATEST_TARGET = Path("public/data/latest.json")
 
 DASHBOARD_FIELDS = (
-    "hotel_id", "hotel_name", "room_type_code", "room_type_name",
+    "hotel_id", "hotel_name", "city", "room_type_code", "room_type_name",
     "room_size_sqm", "check_in", "lead_days", "rate_plan_name",
     "breakfast_included", "price_before_tax", "total_price", "total_twd",
     "price_per_sqm", "queried_at", "currency", "source_url",

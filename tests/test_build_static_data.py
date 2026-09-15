@@ -27,6 +27,7 @@ def test_dashboard_row_drops_large_internal_fields():
     source = {
         "hotel_id": "okura-taipei",
         "hotel_name": "The Okura Prestige Taipei",
+        "city": "Taipei",
         "queried_at": "2026-09-07T22:11:00+00:00",
         "raw_payload": "not for the browser",
         "cancellation_policy": "kept in the JSONL source",
@@ -35,5 +36,6 @@ def test_dashboard_row_drops_large_internal_fields():
     published = _dashboard_row(source)
 
     assert set(published) == set(DASHBOARD_FIELDS)
+    assert published["city"] == "Taipei"
     assert "raw_payload" not in published
     assert "cancellation_policy" not in published
