@@ -48,3 +48,10 @@ hotels:
     country: TW
     booking_url: https://www.royal-taipei.com.tw/
     adapter: royal_nikko
+  - id: hoshinoya_guguan
+    name: HOSHINOYA Guguan
+    short_name: HOSHINOYA
+    city: Taichung
+    country: TW
+    booking_url: https://hoshinoresorts.com/zh_tw/hotels/hoshinoyaguguan/roomsearch/
+    adapter: hoshinoya
