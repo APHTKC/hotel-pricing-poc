@@ -62,3 +62,10 @@ hotels:
     country: TW
     booking_url: https://www.nikkokaohsiung.com/
     adapter: synxis
+  - id: palais_de_chine
+    name: Palais de Chine Hotel
+    short_name: Palais de Chine
+    city: Taipei
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/LDC-PALAIS-TP
+    adapter: gobooking
