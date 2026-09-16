@@ -6,10 +6,8 @@ on:
     branches: [main]
     paths:
       - "scrapers/adapters/royal_nikko.py"
-      - "scrapers/registry.py"
       - "scripts/run_royal_nikko_once.py"
       - "config/hotels.royal-nikko-taipei-only.yaml"
-      - ".github/workflows/probe-royal-nikko-taipei-adapter.yml"
 
 permissions:
   contents: read

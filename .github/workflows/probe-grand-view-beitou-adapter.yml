@@ -6,10 +6,8 @@ on:
     branches: [main]
     paths:
       - "scrapers/adapters/grand_view.py"
-      - "scrapers/registry.py"
       - "scripts/run_grand_view_once.py"
       - "config/hotels.grand-view-beitou-only.yaml"
-      - ".github/workflows/probe-grand-view-beitou-adapter.yml"
 
 permissions:
   contents: read

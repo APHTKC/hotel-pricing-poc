@@ -6,10 +6,8 @@ on:
     branches: [main]
     paths:
       - "scrapers/adapters/hoshinoya.py"
-      - "scrapers/registry.py"
       - "scripts/run_hoshinoya_probe.py"
       - "config/hotels.hoshinoya-guguan-only.yaml"
-      - ".github/workflows/probe-hoshinoya-guguan.yml"
 
 permissions:
   contents: read
