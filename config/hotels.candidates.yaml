@@ -14,7 +14,7 @@ hotels:
   - {id: indigo_taipei_north, name: Hotel Indigo Taipei North, short_name: Hotel Indigo, city: Taipei, country: TW, booking_url: "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail", adapter: ihg, enabled: false}
   - {id: hotel_resonance_taipei, name: Hotel Resonance Taipei, short_name: Hotel Resonance, city: Taipei, country: TW, booking_url: "https://www.hilton.com/en/hotels/tsaupup-hotel-resonance-taipei/", adapter: hilton, enabled: false}
   - {id: grand_view_resort_beitou, name: Grand View Resort Beitou, short_name: Grand View, city: Taipei, country: TW, booking_url: "https://www.gvrb.com.tw/en/", adapter: grand_view, enabled: false}
-  - {id: radium_kagaya_taipei, name: Radium Kagaya Taipei, short_name: Kagaya, city: Taipei, country: TW, booking_url: "https://www.kagaya.com.tw/en/", adapter: kagaya, enabled: false}
+  - {id: radium_kagaya_taipei, name: Radium Kagaya Taipei, short_name: Kagaya, city: Taipei, country: TW, booking_url: "https://tlathena.ec-hotel.net/webhotel-v4/0918/index", adapter: kagaya, enabled: false}
   - {id: sheraton_hsinchu, name: Sheraton Hsinchu Hotel, short_name: Sheraton Hsinchu, city: Hsinchu, country: TW, booking_url: "https://www.marriott.com/en-us/hotels/tpehs-sheraton-hsinchu-hotel/overview/", adapter: marriott, enabled: false, priority: high}
   - {id: intercontinental_taichung, name: InterContinental Taichung, short_name: IC Taichung, city: Taichung, country: TW, booking_url: "https://taichungic.com/", adapter: ihg, enabled: false}
   - {id: hoshinoya_guguan, name: HOSHINOYA Guguan, short_name: HOSHINOYA, city: Taichung, country: TW, booking_url: "https://hoshinoresorts.com/zh_tw/hotels/hoshinoyaguguan/roomsearch/", adapter: hoshinoya, enabled: true}
