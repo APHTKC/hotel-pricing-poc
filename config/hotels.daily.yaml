@@ -76,3 +76,10 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM
     adapter: gobooking
+  - id: hotel_metropolitan_premier_taipei
+    name: Hotel Metropolitan Premier Taipei
+    short_name: JR East Taipei
+    city: Taipei
+    country: TW
+    booking_url: https://be.synxis.com/?Hotel=99659&locale=zh-TW
+    adapter: synxis

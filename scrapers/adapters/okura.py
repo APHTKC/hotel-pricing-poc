@@ -199,10 +199,18 @@ class OkuraScraper(CapellaScraper):
             return None
         await details.click(force=True)
         modal = page.locator("#outsideModalBody-overlay")
-        await modal.wait_for()
+        try:
+            await modal.wait_for(timeout=2500)
+        except PlaywrightTimeoutError:
+            # Cancellation text is optional metadata. A changed or unavailable
+            # modal must not discard otherwise valid room and price data.
+            return None
         text = await modal.inner_text()
         match = re.search(r"Cancel Policy\s*(.+)$", text, re.I | re.S)
         cancellation = " ".join(match.group(1).split()) if match else None
         await modal.get_by_role("button", name="Close").click(force=True)
-        await modal.wait_for(state="hidden")
+        try:
+            await modal.wait_for(state="hidden", timeout=2500)
+        except PlaywrightTimeoutError:
+            pass
         return cancellation

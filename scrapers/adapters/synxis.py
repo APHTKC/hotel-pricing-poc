@@ -1,4 +1,5 @@
 import hashlib
+import re
 from datetime import UTC, date, datetime
 from decimal import Decimal, ROUND_HALF_UP
 from urllib.parse import urlencode
@@ -7,7 +8,18 @@ from app.models import Hotel, RateObservation, ScrapeStatus
 from scrapers.adapters.capella import CapellaScraper, parse_money
 
 
-PROPERTIES = {"hotel_nikko_kaohsiung": {"chain": "9542", "hotel": "47062"}}
+PROPERTIES = {
+    "hotel_nikko_kaohsiung": {
+        "chain": "9542",
+        "hotel": "47062",
+        "price_includes_tax": False,
+    },
+    "hotel_metropolitan_premier_taipei": {
+        "chain": "10197",
+        "hotel": "99659",
+        "price_includes_tax": True,
+    },
+}
 
 
 def booking_url(hotel_id: str, check_in: date, check_out: date, adults: int = 2) -> str:
@@ -24,6 +36,16 @@ def tax_components(base: Decimal) -> tuple[Decimal, Decimal, Decimal]:
     service = (base * Decimal("0.10")).quantize(Decimal("1"), rounding=ROUND_HALF_UP)
     tax = ((base + service) * Decimal("0.05")).quantize(Decimal("1"), rounding=ROUND_HALF_UP)
     return service, tax, base + service + tax
+
+
+def split_tax_inclusive_total(total: Decimal) -> tuple[Decimal, Decimal, Decimal]:
+    """Split a tax-inclusive Taiwan hotel total into base, service and tax."""
+
+    whole = Decimal("1")
+    base = (total / Decimal("1.155")).quantize(whole, rounding=ROUND_HALF_UP)
+    service = (base * Decimal("0.10")).quantize(whole, rounding=ROUND_HALF_UP)
+    tax = (total - base - service).quantize(whole, rounding=ROUND_HALF_UP)
+    return base, service, tax
 
 
 class SynxisScraper(CapellaScraper):
@@ -59,9 +81,17 @@ class SynxisScraper(CapellaScraper):
                 continue
             rate_code = await rate.get_attribute("data-rate-code")
             plan_name = " ".join((await rate.locator("h3").first.inner_text()).split())
-            base = parse_money(await rate.locator("[data-testid='regular-price']").first.inner_text())
-            service, tax, total = tax_components(base)
+            displayed_price = parse_money(await rate.locator("[data-testid='regular-price']").first.inner_text())
+            prop = PROPERTIES[hotel.id]
+            if prop["price_includes_tax"]:
+                total = displayed_price
+                base, service, tax = split_tax_inclusive_total(total)
+            else:
+                base = displayed_price
+                service, tax, total = tax_components(base)
             text = " ".join((await room.inner_text()).split())
+            cancellation_match = re.search(r"抵達前\s*\d+\s*天可免費取消", text)
+            cancellation = cancellation_match.group(0) if cancellation_match else None
             key = ":".join((hotel.id, check_in.isoformat(), room_code or room_name, rate_code or plan_name, queried_at.isoformat()))
             observations.append(RateObservation(
                 observation_id=hashlib.sha256(key.encode()).hexdigest()[:24], queried_at=queried_at,
@@ -70,7 +100,7 @@ class SynxisScraper(CapellaScraper):
                 hotel_name=hotel.name, city=hotel.city, room_type_code=room_code,
                 room_type_name=room_name, room_size_sqm=size, rate_plan_code=rate_code,
                 rate_plan_name=plan_name, breakfast_included="含早餐" in text or "含早" in plan_name,
-                cancellation_policy=None, price_before_tax=base, service_charge=service, tax=tax,
+                cancellation_policy=cancellation, price_before_tax=base, service_charge=service, tax=tax,
                 total_price=total, currency="TWD", source_url=source_url, status=ScrapeStatus.LIVE,
                 fx_rate_to_twd=Decimal("1"),
             ))

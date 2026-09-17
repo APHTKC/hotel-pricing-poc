@@ -9,6 +9,7 @@ from scrapers.registry import get_scraper
 from storage.factory import get_store
 
 logger = logging.getLogger(__name__)
+MAX_CONSECUTIVE_FAILURES = 2
 
 
 def parse_lead_days(value: str) -> tuple[int, ...]:
@@ -31,15 +32,24 @@ async def run_daily_rates(settings: Settings | None = None) -> JobResult:
             continue
         scraper = get_scraper(hotel.adapter, settings)
         try:
+            consecutive_failures = 0
             for lead_days in parse_lead_days(settings.lead_days):
                 check_in = today + timedelta(days=lead_days)
                 try:
-                    observations.extend(
-                        await scraper.fetch_rates(hotel, check_in, check_in + timedelta(days=1))
-                    )
+                    rates = await scraper.fetch_rates(hotel, check_in, check_in + timedelta(days=1))
+                    observations.extend(rates)
+                    consecutive_failures = 0
                 except Exception as exc:  # One date/hotel must not stop the daily run.
                     logger.exception("Rate fetch failed for %s +%s", hotel.id, lead_days)
                     failures.append({"hotel_id": hotel.id, "lead_days": str(lead_days), "error": str(exc)})
+                    consecutive_failures += 1
+                    if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                        logger.warning(
+                            "Skipping remaining dates for %s after %s consecutive failures",
+                            hotel.id,
+                            consecutive_failures,
+                        )
+                        break
         finally:
             await scraper.close()
 
