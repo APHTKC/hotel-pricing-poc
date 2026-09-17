@@ -1,0 +1,8 @@
+hotels:
+  - id: eslite_hotel
+    name: Eslite Hotel
+    short_name: Eslite Hotel
+    city: Taipei
+    country: TW
+    booking_url: https://book-directonline.com/properties/EsliteHotel
+    adapter: siteminder

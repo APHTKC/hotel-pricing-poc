@@ -1,0 +1,41 @@
+name: Probe Eslite Hotel rates
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scrapers/adapters/siteminder.py"
+      - "scrapers/registry.py"
+      - "scripts/run_eslite_once.py"
+      - "config/hotels.eslite-only.yaml"
+      - ".github/workflows/probe-eslite.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+      - name: Collect one public stay date
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/eslite-hotel-probe.jsonl
+        run: python -m scripts.run_eslite_once
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eslite-hotel-rate-probe
+          path: data/eslite-hotel-probe.jsonl
+          if-no-files-found: ignore
