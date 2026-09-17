@@ -39,3 +39,11 @@ def test_history_has_visible_export_tools():
     assert 'id="exportPdf"' in html
     assert "function exportHistoryJson()" in html
     assert "function exportHistoryExcel()" in html
+
+
+def test_home_distinguishes_skipped_automation_candidates():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert "automation_status==='skipped'" in html
+    assert "暫不支援" in html
+    assert "status-skipped" in html
