@@ -7,17 +7,24 @@ from app.models import Hotel, RateObservation, ScrapeStatus
 from scrapers.adapters.capella import CapellaScraper, parse_money
 
 
-PALAIS_PACKAGE_URL = (
-    "https://hotel.gobooking.com.tw/zh-TW/LDC-PALAIS-TP/Packages/Details/"
-    "82518fbc-b968-44a1-b58d-4fc9734e3a0f"
-)
-PALAIS_PLAN_CODE = "82518fbc-b968-44a1-b58d-4fc9734e3a0f"
-PALAIS_PLAN_NAME = "最優惠房價｜不含早餐"
-PALAIS_CANCELLATION = "入住日前至少 3 天取消或更改可免收取消費"
+PROPERTIES = {
+    "palais_de_chine": {
+        "slug": "LDC-PALAIS-TP",
+        "plan_code": "82518fbc-b968-44a1-b58d-4fc9734e3a0f",
+        "plan_name": "最優惠房價｜不含早餐",
+        "cancellation": "入住日前至少 3 天取消或更改可免收取消費",
+    },
+    "solaria_nishitetsu_taipei": {
+        "slug": "SOLARIA-TPXM",
+        "plan_code": "a25b928f-1de1-4e85-af69-2b62e246fd25",
+        "plan_name": "【年度住房優惠】不含早餐",
+        "cancellation": "入住 3 天前取消可全額退款",
+    },
+}
 
 
 def parse_room_size(text: str) -> Decimal | None:
-    match = re.search(r"(\d+(?:\.\d+)?)\s*平方公尺", text)
+    match = re.search(r"(\d+(?:\.\d+)?)\s*(?:平方公尺|平方米)", text)
     return Decimal(match.group(1)) if match else None
 
 
@@ -36,21 +43,22 @@ def split_tax_inclusive_total(total: Decimal) -> tuple[Decimal, Decimal, Decimal
 
 
 class GobookingScraper(CapellaScraper):
-    supported_hotel_id = "palais_de_chine"
-
     async def fetch_rates(
         self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2
     ) -> list[RateObservation]:
-        if hotel.id != self.supported_hotel_id:
-            raise ValueError(
-                f"GobookingScraper currently supports only {self.supported_hotel_id}"
-            )
+        if hotel.id not in PROPERTIES:
+            raise ValueError(f"GobookingScraper does not support hotel {hotel.id}")
 
+        prop = PROPERTIES[hotel.id]
+        package_url = (
+            f"https://hotel.gobooking.com.tw/zh-TW/{prop['slug']}/"
+            f"Packages/Details/{prop['plan_code']}"
+        )
         queried_at = datetime.now(UTC)
         page = await self._page()
         try:
             await page.goto(
-                PALAIS_PACKAGE_URL,
+                package_url,
                 wait_until="domcontentloaded",
                 timeout=self.timeout_ms,
             )
@@ -59,7 +67,7 @@ class GobookingScraper(CapellaScraper):
             )
             await self._dismiss_overlays(page)
             return await self._collect(
-                page, hotel, check_in, check_out, adults, queried_at
+                page, hotel, check_in, check_out, adults, queried_at, prop
             )
         finally:
             await page.close()
@@ -73,7 +81,7 @@ class GobookingScraper(CapellaScraper):
             await cookie.first.click(force=True)
 
     async def _collect(
-        self, page, hotel, check_in, check_out, adults, queried_at
+        self, page, hotel, check_in, check_out, adults, queried_at, prop
     ) -> list[RateObservation]:
         observations: list[RateObservation] = []
         rooms = page.locator(".js-package-room")
@@ -93,9 +101,9 @@ class GobookingScraper(CapellaScraper):
             if not room_code:
                 continue
             reserve_url = (
-                "https://hotel.gobooking.com.tw/zh-TW/LDC-PALAIS-TP/"
+                f"https://hotel.gobooking.com.tw/zh-TW/{prop['slug']}/"
                 "Reservations/Reserve?"
-                f"packageId={PALAIS_PLAN_CODE}&packageRoomId={room_code}"
+                f"packageId={prop['plan_code']}&packageRoomId={room_code}"
                 f"&arrival={arrival}"
             )
             await page.goto(
@@ -114,7 +122,7 @@ class GobookingScraper(CapellaScraper):
                             hotel.id,
                             check_in.isoformat(),
                             room_code or room_name,
-                            PALAIS_PLAN_CODE,
+                            prop["plan_code"],
                             queried_at.isoformat(),
                         )
                     )
@@ -135,10 +143,10 @@ class GobookingScraper(CapellaScraper):
                             room_type_code=room_code,
                             room_type_name=room_name,
                             room_size_sqm=room_size,
-                            rate_plan_code=PALAIS_PLAN_CODE,
-                            rate_plan_name=PALAIS_PLAN_NAME,
+                            rate_plan_code=prop["plan_code"],
+                            rate_plan_name=prop["plan_name"],
                             breakfast_included=False,
-                            cancellation_policy=PALAIS_CANCELLATION,
+                            cancellation_policy=prop["cancellation"],
                             price_before_tax=base,
                             service_charge=service,
                             tax=tax,

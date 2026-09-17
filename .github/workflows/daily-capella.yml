@@ -2,14 +2,6 @@ name: Daily Taiwan hotel rates
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "config/hotels.daily.yaml"
-      - "scrapers/adapters/**"
-      - "scripts/run_daily_once.py"
-      - "requirements.txt"
-      - ".github/workflows/daily-capella.yml"
   schedule:
     # GitHub Actions uses UTC. 22:00 UTC = 06:00 Asia/Taipei next day.
     - cron: "0 22 * * *"

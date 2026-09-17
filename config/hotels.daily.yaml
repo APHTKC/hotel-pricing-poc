@@ -69,3 +69,10 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/LDC-PALAIS-TP
     adapter: gobooking
+  - id: solaria_nishitetsu_taipei
+    name: Solaria Nishitetsu Hotel Taipei Ximen
+    short_name: Solaria Nishitetsu
+    city: Taipei
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM
+    adapter: gobooking
