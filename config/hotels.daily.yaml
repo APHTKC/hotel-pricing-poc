@@ -83,3 +83,10 @@ hotels:
     country: TW
     booking_url: https://be.synxis.com/?Hotel=99659&locale=zh-TW
     adapter: synxis
+  - id: eslite_hotel
+    name: Eslite Hotel
+    short_name: Eslite Hotel
+    city: Taipei
+    country: TW
+    booking_url: https://book-directonline.com/properties/EsliteHotel
+    adapter: siteminder
