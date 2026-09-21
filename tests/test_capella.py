@@ -17,6 +17,9 @@ def test_capella_parsers():
     assert breakfast_included(features) is True
     assert breakfast_included(["裕元App會員｜無早餐優惠｜官網限定"]) is False
     assert breakfast_included(["裕元App會員｜早餐專案｜官網限定"]) is True
+    assert breakfast_included(["早鳥30天不含早"]) is False
+    assert breakfast_included(["官網住宿優惠價-純住宿"]) is False
+    assert breakfast_included(["早鳥14天含早"]) is True
     assert cancellation_text(features) == "抵達前免費取消最多 15:00 1 天"
 
 

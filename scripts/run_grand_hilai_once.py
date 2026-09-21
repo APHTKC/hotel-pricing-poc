@@ -12,7 +12,7 @@ async def main() -> None:
     result = await run_daily_rates()
     print(result.model_dump_json(indent=2))
     if result.observations == 0 or result.failures:
-        raise SystemExit("Grand Hi-Lai Taipei probe did not collect clean live data")
+        raise SystemExit("Grand Hi-Lai probe did not collect clean live data")
 
 
 if __name__ == "__main__":

@@ -4,10 +4,13 @@ from datetime import UTC, date, datetime
 from decimal import Decimal
 
 from app.models import Hotel, RateObservation, ScrapeStatus
-from scrapers.adapters.capella import CapellaScraper, parse_money
+from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_money
 
 
-BOOKING_URL = "https://tlathena.ec-hotel.net/webhotel-v5/1003"
+BOOKING_URLS = {
+    "grand_hilai_taipei": "https://tlathena.ec-hotel.net/webhotel-v5/1003",
+    "grand_hilai_kaohsiung": "https://tlathena.ec-hotel.net/webhotel-v5/1084",
+}
 PING_TO_SQM = Decimal("3.305785")
 
 
@@ -41,20 +44,21 @@ async def select_calendar_date(page, value: date) -> None:
 
 
 class GrandHiLaiScraper(CapellaScraper):
-    supported_hotel_id = "grand_hilai_taipei"
-    diagnostic_name = "Grand Hi-Lai Taipei"
+    diagnostic_name = "Grand Hi-Lai"
 
     async def fetch_rates(
         self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2
     ) -> list[RateObservation]:
-        if hotel.id != self.supported_hotel_id:
-            raise ValueError(
-                f"GrandHiLaiScraper currently supports only {self.supported_hotel_id}"
-            )
+        if hotel.id not in BOOKING_URLS:
+            raise ValueError(f"GrandHiLaiScraper does not support {hotel.id}")
         queried_at = datetime.now(UTC)
         page = await self._page()
         try:
-            await page.goto(BOOKING_URL, wait_until="domcontentloaded", timeout=self.timeout_ms)
+            await page.goto(
+                BOOKING_URLS[hotel.id],
+                wait_until="domcontentloaded",
+                timeout=self.timeout_ms,
+            )
             await page.get_by_placeholder("入住日").click()
             await select_calendar_date(page, check_in)
             await select_calendar_date(page, check_out)
@@ -73,9 +77,12 @@ class GrandHiLaiScraper(CapellaScraper):
             # GitHub Actions; attachment is the reliable data-ready signal.
             await page.locator(".product .room-size").first.wait_for(state="attached")
             await page.wait_for_timeout(700)
-            return await self._collect(
+            observations = await self._collect(
                 page, hotel, check_in, check_out, adults, queried_at, page.url
             )
+            if not observations:
+                raise RuntimeError(f"Grand Hi-Lai returned no public rates for {hotel.id}")
+            return observations
         finally:
             await page.close()
 
@@ -101,7 +108,9 @@ class GrandHiLaiScraper(CapellaScraper):
                 continue
             for plan in payload["plans"]:
                 plan_name = " ".join(plan["name"].split())
-                if not plan_name.startswith("一般訂房") or not plan["price"]:
+                if not plan["price"]:
+                    continue
+                if hotel.id == "grand_hilai_taipei" and not plan_name.startswith("一般訂房"):
                     continue
                 total = parse_money(plan["price"])
                 key = ":".join(
@@ -124,7 +133,7 @@ class GrandHiLaiScraper(CapellaScraper):
                         room_size_sqm=ping_to_sqm(payload["size"]),
                         rate_plan_code=None,
                         rate_plan_name=plan_name,
-                        breakfast_included="含島語早餐" in plan_name and "不含" not in plan_name,
+                        breakfast_included=breakfast_included([plan_name]),
                         cancellation_policy=None,
                         price_before_tax=None,
                         service_charge=None,

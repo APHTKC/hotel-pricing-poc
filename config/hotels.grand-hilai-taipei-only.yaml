@@ -6,3 +6,10 @@ hotels:
     country: TW
     booking_url: https://taipei.grand-hilai.com.tw/
     adapter: grand_hilai
+  - id: grand_hilai_kaohsiung
+    name: Grand Hi-Lai Hotel
+    short_name: Grand Hi-Lai Kaohsiung
+    city: Kaohsiung
+    country: TW
+    booking_url: https://tlathena.ec-hotel.net/webhotel-v5/1084
+    adapter: grand_hilai

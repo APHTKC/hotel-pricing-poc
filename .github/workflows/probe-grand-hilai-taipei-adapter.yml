@@ -1,4 +1,4 @@
-name: Probe Grand Hi-Lai Taipei adapter
+name: Probe Grand Hi-Lai adapters
 
 on:
   workflow_dispatch:
@@ -30,11 +30,11 @@ jobs:
         env:
           DEMO_MODE: "false"
           STORAGE_BACKEND: local
-          LOCAL_DATA_PATH: data/grand-hilai-taipei-probe.jsonl
+          LOCAL_DATA_PATH: data/grand-hilai-probe.jsonl
         run: python -m scripts.run_grand_hilai_once
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: grand-hilai-taipei-adapter-probe
-          path: data/grand-hilai-taipei-probe.jsonl
-          if-no-files-found: ignore
+          name: grand-hilai-adapter-probe
+          path: data/grand-hilai-probe.jsonl
+          if-no-files-found: error
