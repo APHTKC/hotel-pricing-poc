@@ -15,7 +15,8 @@ SHEET_COLUMNS = [
     "cancellation_policy", "price_before_tax", "service_charge", "tax",
     "total_price", "currency", "fx_rate_to_twd", "total_twd",
     "price_per_sqm", "cpi_index", "cpi_base_index", "cpi_adjusted_twd",
-    "source_url", "status",
+    "source_url", "status", "district", "source_platform", "source_method",
+    "source_property_id",
 ]
 
 
@@ -31,6 +32,15 @@ class GoogleSheetsStore(RateStore):
         except gspread.WorksheetNotFound:
             self.sheet = self.workbook.add_worksheet(title="rates", rows=1000, cols=len(SHEET_COLUMNS))
             self.sheet.append_row(SHEET_COLUMNS)
+        self._ensure_columns()
+
+    def _ensure_columns(self) -> None:
+        """Append new schema columns without disturbing existing sheet data."""
+        existing = self.sheet.row_values(1)
+        for column in SHEET_COLUMNS:
+            if column not in existing:
+                existing.append(column)
+                self.sheet.update_cell(1, len(existing), column)
 
     def append(self, rows: list[RateObservation]) -> int:
         values = []

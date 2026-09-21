@@ -26,7 +26,7 @@ class Hotel(BaseModel):
 
 
 class RateObservation(BaseModel):
-    schema_version: str = "1.0"
+    schema_version: str = "1.1"
     observation_id: str
     queried_at: datetime
     check_in: date
@@ -50,6 +50,9 @@ class RateObservation(BaseModel):
     tax: Decimal | None = None
     total_price: Decimal
     currency: str
+    source_platform: str = "official"
+    source_method: str = "public_booking_page"
+    source_property_id: str | None = None
     source_url: str
     status: ScrapeStatus
     fx_rate_to_twd: Decimal | None = None

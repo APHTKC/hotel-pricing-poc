@@ -18,6 +18,10 @@ def test_derived_fields():
     assert row.price_per_sqm == Decimal("231")
     assert row.total_twd == Decimal("11550")
     assert row.cpi_adjusted_twd == Decimal("10500")
+    assert row.schema_version == "1.1"
+    assert row.source_platform == "official"
+    assert row.source_method == "public_booking_page"
+    assert row.source_property_id is None
 
 
 def test_foreign_currency_price_per_sqm_uses_twd_value():
