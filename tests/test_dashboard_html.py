@@ -116,3 +116,19 @@ def test_both_dashboards_filter_and_export_rate_sources():
         assert "rakuten_travel:'Rakuten Travel'" in html
 
     assert history.count("if(source)rows=rows.filter(r=>sourceOf(r)===source)") == 2
+
+
+def test_market_kpis_equal_weight_each_hotel():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    assert 'data-i18n="marketAverageRate">市場平均房價' in home
+    assert "average(hotels.map(h=>h.avg).filter(Number.isFinite))" in home
+    assert "median(hotels.map(h=>h.adr).filter(Number.isFinite))" in home
+    assert "市場指標先按飯店計算再等權彙整" in home
+
+    assert 'data-i18n="marketHistoryAverage">市場歷史平均房價' in history
+    assert "hotelStats=hotels.map" in history
+    assert "average(hotelStats.map(h=>h.average).filter(Number.isFinite))" in history
+    assert "median(hotelStats.map(h=>h.median).filter(Number.isFinite))" in history
+    assert "市場指標先按飯店計算再等權彙整" in history
