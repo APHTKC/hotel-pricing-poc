@@ -90,3 +90,10 @@ hotels:
     country: TW
     booking_url: https://book-directonline.com/properties/EsliteHotel
     adapter: siteminder
+  - id: windsor_taichung
+    name: Windsor Hotel Taichung
+    short_name: Windsor
+    city: Taichung
+    country: TW
+    booking_url: https://www.windsortaiwan.com/tw?tripla_booking_widget_open=search
+    adapter: tripla
