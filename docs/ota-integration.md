@@ -39,6 +39,12 @@ modify configuration automatically. Review the name and city before copying the
 chosen ID into `config/ota-properties.yaml`. This keeps API usage predictable
 and avoids accidental bulk requests.
 
+The scheduled collector also limits waste automatically: two consecutive empty
+or failed responses stop the remaining dates for that hotel; HTTP 400/404/422
+stops that property's remaining dates; and HTTP 401/403/429 stops the whole
+provider run so invalid credentials or throttling are not retried across every
+hotel.
+
 ## Deferred providers
 
 - Agoda: official Online Affiliate/MSE credentials and certification required.
