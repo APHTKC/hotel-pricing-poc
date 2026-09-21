@@ -12,6 +12,7 @@ from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_
 
 PROPERTIES = {
     "eslite_hotel": "EsliteHotel",
+    "silks_place_yilan": "silksplaceyilanhoteldirect",
 }
 
 

@@ -1,0 +1,9 @@
+hotels:
+  - id: silks_place_yilan
+    name: Silks Place Yilan
+    short_name: Silks Yilan
+    city: Yilan
+    country: TW
+    booking_url: https://book-directonline.com/properties/silksplaceyilanhoteldirect
+    adapter: siteminder
+
