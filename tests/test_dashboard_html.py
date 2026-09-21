@@ -62,3 +62,17 @@ def test_dashboard_uses_flexible_competitor_room_size_bands():
         assert "45–59㎡（核心比較）" in html
         assert "n<45?'<45㎡':n<60?'45–59㎡':n<80?'60–79㎡':'80㎡+'" in html
         assert "50–69㎡" not in html
+
+
+def test_both_dashboards_support_dependent_taipei_district_filtering():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert 'id="district" disabled' in html
+        assert "cv==='Taipei'" in html
+        assert "r.district===district" in html
+        assert "allDistricts:'所有行政區'" in html
+        assert "district:document.querySelector('#district').value" in html
+
+    assert history.count("if(district)rows=rows.filter(r=>r.district===district)") == 2

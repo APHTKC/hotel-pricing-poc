@@ -37,7 +37,10 @@ async def run_daily_rates(settings: Settings | None = None) -> JobResult:
                 check_in = today + timedelta(days=lead_days)
                 try:
                     rates = await scraper.fetch_rates(hotel, check_in, check_in + timedelta(days=1))
-                    observations.extend(rates)
+                    observations.extend(
+                        rate.model_copy(update={"district": rate.district or hotel.district})
+                        for rate in rates
+                    )
                     consecutive_failures = 0
                 except Exception as exc:  # One date/hotel must not stop the daily run.
                     logger.exception("Rate fetch failed for %s +%s", hotel.id, lead_days)

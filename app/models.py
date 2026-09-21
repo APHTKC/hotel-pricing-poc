@@ -16,6 +16,7 @@ class Hotel(BaseModel):
     name: str
     short_name: str
     city: str
+    district: str | None = None
     country: str
     currency: str = "TWD"
     timezone: str = "Asia/Taipei"
@@ -36,6 +37,7 @@ class RateObservation(BaseModel):
     hotel_id: str
     hotel_name: str
     city: str = "Taipei"
+    district: str | None = None
     room_type_code: str | None = None
     room_type_name: str
     room_size_sqm: Decimal | None = None

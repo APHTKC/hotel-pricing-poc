@@ -3,6 +3,7 @@ hotels:
     name: Capella Taipei
     short_name: Capella
     city: Taipei
+    district: Songshan
     country: TW
     booking_url: https://capellahotels.com/en/capella-taipei
     adapter: capella
@@ -10,6 +11,7 @@ hotels:
     name: The Okura Prestige Taipei
     short_name: Okura
     city: Taipei
+    district: Zhongshan
     country: TW
     booking_url: https://www.okurataipei.com.tw/en/
     adapter: okura
@@ -17,6 +19,7 @@ hotels:
     name: Mandarin Oriental Taipei
     short_name: MO Taipei
     city: Taipei
+    district: Songshan
     country: TW
     booking_url: https://www.mandarinoriental.com/en/taipei/songshan
     adapter: mandarin_oriental
@@ -24,6 +27,7 @@ hotels:
     name: Shangri-La Far Eastern, Taipei
     short_name: Shangri-La Taipei
     city: Taipei
+    district: Da'an
     country: TW
     booking_url: https://www.shangri-la.com/en/taipei/fareasternplazashangrila/
     adapter: shangrila
@@ -31,6 +35,7 @@ hotels:
     name: Grand Hi-Lai Taipei
     short_name: Grand Hi-Lai
     city: Taipei
+    district: Nangang
     country: TW
     booking_url: https://taipei.grand-hilai.com.tw/
     adapter: grand_hilai
@@ -38,6 +43,7 @@ hotels:
     name: Grand Mayfull Hotel Taipei
     short_name: Grand Mayfull
     city: Taipei
+    district: Zhongshan
     country: TW
     booking_url: https://www.grandmayfull.com/
     adapter: grand_mayfull
@@ -45,6 +51,7 @@ hotels:
     name: Hotel Royal-Nikko Taipei
     short_name: Royal-Nikko
     city: Taipei
+    district: Zhongshan
     country: TW
     booking_url: https://www.royal-taipei.com.tw/
     adapter: royal_nikko
@@ -73,6 +80,7 @@ hotels:
     name: Palais de Chine Hotel
     short_name: Palais de Chine
     city: Taipei
+    district: Datong
     country: TW
     booking_url: https://hotel.gobooking.com.tw/LDC-PALAIS-TP
     adapter: gobooking
@@ -80,6 +88,7 @@ hotels:
     name: Solaria Nishitetsu Hotel Taipei Ximen
     short_name: Solaria Nishitetsu
     city: Taipei
+    district: Wanhua
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM
     adapter: gobooking
@@ -87,6 +96,7 @@ hotels:
     name: Hotel Metropolitan Premier Taipei
     short_name: JR East Taipei
     city: Taipei
+    district: Zhongshan
     country: TW
     booking_url: https://be.synxis.com/?Hotel=99659&locale=zh-TW
     adapter: synxis
@@ -94,6 +104,7 @@ hotels:
     name: Eslite Hotel
     short_name: Eslite Hotel
     city: Taipei
+    district: Xinyi
     country: TW
     booking_url: https://book-directonline.com/properties/EsliteHotel
     adapter: siteminder
