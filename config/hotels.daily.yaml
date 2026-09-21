@@ -62,6 +62,13 @@ hotels:
     country: TW
     booking_url: https://www.nikkokaohsiung.com/
     adapter: synxis
+  - id: grand_hilai_kaohsiung
+    name: Grand Hi-Lai Hotel
+    short_name: Grand Hi-Lai Kaohsiung
+    city: Kaohsiung
+    country: TW
+    booking_url: https://tlathena.ec-hotel.net/webhotel-v5/1084
+    adapter: grand_hilai
   - id: palais_de_chine
     name: Palais de Chine Hotel
     short_name: Palais de Chine
