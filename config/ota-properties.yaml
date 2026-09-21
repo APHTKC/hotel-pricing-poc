@@ -1,0 +1,20 @@
+# OTA integrations use official partner APIs only. Property IDs are deliberately
+# kept separate from the hotel catalog because each OTA uses its own identifier.
+providers:
+  booking_com:
+    enabled: true
+    properties: {}
+    # Add mappings after Booking.com partner access is approved, for example:
+    # capella_taipei: "12345678"
+
+  agoda:
+    enabled: false
+    properties: {}
+
+  expedia_group:
+    enabled: false
+    properties: {}
+
+  rakuten_travel:
+    enabled: false
+    properties: {}

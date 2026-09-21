@@ -55,6 +55,18 @@ jobs:
           LEAD_DAYS: "1,7,14,30,60,90"
         run: python -m scripts.run_daily_once
 
+      - name: Collect configured Booking.com partner rates
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/rates.jsonl
+          HOTELS_CONFIG_PATH: config/hotels.daily.yaml
+          OTA_CONFIG_PATH: config/ota-properties.yaml
+          LEAD_DAYS: "1,7,14,30,60,90"
+          BOOKING_COM_API_KEY: ${{ secrets.BOOKING_COM_API_KEY }}
+          BOOKING_COM_AFFILIATE_ID: ${{ secrets.BOOKING_COM_AFFILIATE_ID }}
+        run: python -m scripts.run_ota_once
+
       - name: Build static dashboard data
         run: |
           python -m scripts.build_static_data

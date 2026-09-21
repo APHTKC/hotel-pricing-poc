@@ -5,6 +5,13 @@ property mappings have been supplied. They do not scrape consumer web pages.
 """
 
 from .base import OtaRateProvider
+from .booking_com import BookingComProvider
 from .registry import OTA_PROVIDER_SPECS, OtaProviderSpec, configured_ota_providers
 
-__all__ = ["OTA_PROVIDER_SPECS", "OtaProviderSpec", "OtaRateProvider", "configured_ota_providers"]
+__all__ = [
+    "BookingComProvider",
+    "OTA_PROVIDER_SPECS",
+    "OtaProviderSpec",
+    "OtaRateProvider",
+    "configured_ota_providers",
+]

@@ -37,6 +37,13 @@ python -m jobs.daily_rates
 
 如未設定 Google Sheets 憑證，資料會寫入 `data/rates.jsonl`，dashboard 仍可使用。完整部署步驟見 [docs/deployment.md](docs/deployment.md)。
 
+## OTA 房價
+
+系統已加入 Booking.com 官方 Demand API 的第一階段串接，並沿用相同的
+`+1/+7/+14/+30/+60/+90` 查價節奏。未設定合作夥伴金鑰或飯店代碼時會安全略過，
+不影響原本的飯店官網抓價。啟用條件與後續來源規劃見
+[docs/ota-integration.md](docs/ota-integration.md)。
+
 ## API
 
 - `GET /healthz`：健康檢查
