@@ -37,6 +37,23 @@ async def run_daily_rates(settings: Settings | None = None) -> JobResult:
                 check_in = today + timedelta(days=lead_days)
                 try:
                     rates = await scraper.fetch_rates(hotel, check_in, check_in + timedelta(days=1))
+                    if not rates:
+                        failures.append(
+                            {
+                                "hotel_id": hotel.id,
+                                "lead_days": str(lead_days),
+                                "error": "No public rates returned",
+                            }
+                        )
+                        consecutive_failures += 1
+                        if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                            logger.warning(
+                                "Skipping remaining dates for %s after %s consecutive empty responses",
+                                hotel.id,
+                                consecutive_failures,
+                            )
+                            break
+                        continue
                     observations.extend(
                         rate.model_copy(update={"district": rate.district or hotel.district})
                         for rate in rates
