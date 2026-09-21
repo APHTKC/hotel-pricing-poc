@@ -25,6 +25,20 @@ Booking.com partner access is required before live use. After access is
 approved, map one pilot hotel first, validate all six lead dates, and only then
 add additional hotels in small batches.
 
+### Find a property ID without scanning the full catalog
+
+After the two credentials are present, resolve exactly one hotel at a time:
+
+```powershell
+.venv\Scripts\python.exe scripts\discover_booking_property.py capella_taipei
+```
+
+The command uses Booking.com's official `/common/autocomplete` endpoint with a
+hotel-only filter. It prints ranked candidates and a mapping hint, but does not
+modify configuration automatically. Review the name and city before copying the
+chosen ID into `config/ota-properties.yaml`. This keeps API usage predictable
+and avoids accidental bulk requests.
+
 ## Deferred providers
 
 - Agoda: official Online Affiliate/MSE credentials and certification required.

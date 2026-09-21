@@ -20,6 +20,14 @@ def _decimal(value: Any) -> Decimal | None:
         return None
 
 
+def _localized_text(value: Any, language: str) -> str | None:
+    if isinstance(value, str):
+        return value
+    if not isinstance(value, dict) or not value:
+        return None
+    return value.get(language) or value.get("en-gb") or next(iter(value.values()), None)
+
+
 def _policy_text(product: dict[str, Any]) -> str | None:
     cancellation = (product.get("policies") or {}).get("cancellation") or {}
     policy_type = cancellation.get("type")
@@ -149,6 +157,7 @@ def parse_availability(
 class BookingComProvider(OtaRateProvider):
     platform = "booking_com"
     endpoint = "https://demandapi.booking.com/3.2/accommodations/availability"
+    autocomplete_endpoint = "https://demandapi.booking.com/3.2/common/autocomplete"
 
     def __init__(
         self,
@@ -164,17 +173,61 @@ class BookingComProvider(OtaRateProvider):
         self.client = client or httpx.AsyncClient(timeout=30)
         self._rooms: dict[str, list[dict[str, Any]]] = {}
 
+    @property
+    def headers(self) -> dict[str, str]:
+        return {
+            "Authorization": f"Bearer {self.api_key}",
+            "X-Affiliate-Id": self.affiliate_id,
+            "Content-Type": "application/json",
+        }
+
+    async def discover_properties(
+        self,
+        query: str,
+        country: str = "tw",
+        language: str = "en-gb",
+    ) -> list[dict[str, Any]]:
+        """Return ranked Booking.com hotel suggestions for one hotel name.
+
+        Discovery is deliberately an explicit, one-hotel-at-a-time operation so
+        it cannot consume partner quota by scanning the whole catalog.
+        """
+        query = query.strip()
+        if len(query) < 3:
+            raise ValueError("Booking.com autocomplete queries require 3+ characters")
+        response = await self.client.post(
+            self.autocomplete_endpoint,
+            headers=self.headers,
+            json={
+                "query": query,
+                "country": country.lower(),
+                "language": language.lower(),
+                "filters": {"types": ["hotel"]},
+            },
+        )
+        response.raise_for_status()
+        results = []
+        for item in response.json().get("data") or []:
+            if item.get("type") != "hotel" or item.get("id") is None:
+                continue
+            location = item.get("location") or {}
+            results.append(
+                {
+                    "id": str(item["id"]),
+                    "name": _localized_text(item.get("name"), language),
+                    "city": _localized_text(location.get("city_name"), language),
+                    "country": location.get("country"),
+                }
+            )
+        return results
+
     async def _room_details(self, source_property_id: str) -> list[dict[str, Any]]:
         if source_property_id in self._rooms:
             return self._rooms[source_property_id]
         try:
             response = await self.client.post(
                 "https://demandapi.booking.com/3.2/accommodations/details",
-                headers={
-                    "Authorization": f"Bearer {self.api_key}",
-                    "X-Affiliate-Id": self.affiliate_id,
-                    "Content-Type": "application/json",
-                },
+                headers=self.headers,
                 json={
                     "accommodations": [int(source_property_id)],
                     "extras": ["rooms"],
@@ -201,11 +254,7 @@ class BookingComProvider(OtaRateProvider):
         room_details = await self._room_details(source_property_id)
         response = await self.client.post(
             self.endpoint,
-            headers={
-                "Authorization": f"Bearer {self.api_key}",
-                "X-Affiliate-Id": self.affiliate_id,
-                "Content-Type": "application/json",
-            },
+            headers=self.headers,
             json={
                 "accommodation": int(source_property_id),
                 "booker": {"country": self.booker_country, "platform": "desktop"},

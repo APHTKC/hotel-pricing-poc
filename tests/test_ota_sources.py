@@ -150,6 +150,71 @@ def test_booking_com_provider_uses_partner_headers_and_expected_request():
     assert captured["body"]["extras"] == ["products", "extra_charges"]
 
 
+def test_booking_com_property_discovery_is_hotel_only_and_normalized():
+    captured = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured["headers"] = request.headers
+        captured["body"] = json.loads(request.content)
+        return httpx.Response(
+            200,
+            json={
+                "data": [
+                    {
+                        "id": "123456",
+                        "type": "hotel",
+                        "name": {"en-gb": "Capella Taipei"},
+                        "location": {
+                            "city_name": {"en-gb": "Taipei"},
+                            "country": "tw",
+                        },
+                    },
+                    {"id": "-2637882", "type": "city", "name": "Taipei"},
+                ]
+            },
+        )
+
+    client = httpx.AsyncClient(transport=httpx.MockTransport(handler))
+    provider = BookingComProvider("secret", "affiliate-1", client=client)
+    try:
+        candidates = asyncio.run(provider.discover_properties("Capella Taipei"))
+    finally:
+        asyncio.run(client.aclose())
+
+    assert candidates == [
+        {
+            "id": "123456",
+            "name": "Capella Taipei",
+            "city": "Taipei",
+            "country": "tw",
+        }
+    ]
+    assert captured["headers"]["authorization"] == "Bearer secret"
+    assert captured["body"] == {
+        "query": "Capella Taipei",
+        "country": "tw",
+        "language": "en-gb",
+        "filters": {"types": ["hotel"]},
+    }
+
+
+def test_booking_com_property_discovery_rejects_short_queries():
+    provider = BookingComProvider(
+        "secret",
+        "affiliate-1",
+        client=httpx.AsyncClient(transport=httpx.MockTransport(lambda request: None)),
+    )
+    try:
+        try:
+            asyncio.run(provider.discover_properties("ab"))
+        except ValueError as error:
+            assert "3+" in str(error)
+        else:
+            raise AssertionError("Expected short query to be rejected")
+    finally:
+        asyncio.run(provider.client.aclose())
+
+
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):
     config = tmp_path / "ota.yaml"
     config.write_text(
