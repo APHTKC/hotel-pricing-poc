@@ -11,7 +11,8 @@ DASHBOARD_FIELDS = (
     "hotel_id", "hotel_name", "city", "district", "room_type_code", "room_type_name",
     "room_size_sqm", "check_in", "lead_days", "rate_plan_name",
     "breakfast_included", "price_before_tax", "total_price", "total_twd",
-    "price_per_sqm", "queried_at", "currency", "source_url",
+    "price_per_sqm", "queried_at", "currency", "source_platform",
+    "source_method", "source_property_id", "source_url",
 )
 
 
@@ -20,7 +21,13 @@ def _parse_timestamp(value: str) -> datetime:
 
 
 def _dashboard_row(row: dict) -> dict:
-    return {field: row.get(field) for field in DASHBOARD_FIELDS}
+    published = {field: row.get(field) for field in DASHBOARD_FIELDS}
+    # Observations written before schema 1.1 are all official-site records.
+    # Backfill them so source filtering and exports remain consistent across
+    # the full history after OTA records are introduced.
+    published["source_platform"] = row.get("source_platform") or "official"
+    published["source_method"] = row.get("source_method") or "public_booking_page"
+    return published
 
 
 def _plausible_luxury_rate(row: dict) -> bool:

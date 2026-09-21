@@ -41,3 +41,21 @@ def test_dashboard_row_drops_large_internal_fields():
     assert published["district"] == "Zhongshan"
     assert "raw_payload" not in published
     assert "cancellation_policy" not in published
+
+
+def test_dashboard_row_preserves_and_backfills_rate_source_metadata():
+    ota = _dashboard_row(
+        {
+            "source_platform": "booking_com",
+            "source_method": "partner_api",
+            "source_property_id": "property-123",
+        }
+    )
+    legacy_official = _dashboard_row({})
+
+    assert ota["source_platform"] == "booking_com"
+    assert ota["source_method"] == "partner_api"
+    assert ota["source_property_id"] == "property-123"
+    assert legacy_official["source_platform"] == "official"
+    assert legacy_official["source_method"] == "public_booking_page"
+    assert legacy_official["source_property_id"] is None
