@@ -132,3 +132,14 @@ def test_market_kpis_equal_weight_each_hotel():
     assert "average(hotelStats.map(h=>h.average).filter(Number.isFinite))" in history
     assert "median(hotelStats.map(h=>h.median).filter(Number.isFinite))" in history
     assert "市場指標先按飯店計算再等權彙整" in history
+
+
+def test_home_has_official_vs_ota_rate_gap_comparison():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert 'id="sourceComparison"' in html
+    assert 'data-i18n="sourceCompare">官網與 OTA 價差' in html
+    assert "function renderSourceComparison()" in html
+    assert "sourceOf(r)==='official'" in html
+    assert "noOtaComparison:'尚未收到已授權 OTA 的實際房價" in html
+    assert "renderSourceComparison();" in html
