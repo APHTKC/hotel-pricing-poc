@@ -76,3 +76,21 @@ def test_both_dashboards_support_dependent_taipei_district_filtering():
         assert "district:document.querySelector('#district').value" in html
 
     assert history.count("if(district)rows=rows.filter(r=>r.district===district)") == 2
+
+
+def test_both_dashboards_share_a_persistent_competitor_hotel_set():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert 'id="competitorSet"' in html
+        assert 'id="competitorGrid"' in html
+        assert "localStorage.getItem('hotel-comp-set')" in html
+        assert "localStorage.setItem('hotel-comp-set'" in html
+        assert "if(compSetConfigured)rows=rows.filter(r=>compSetIds.has(r.hotel_id))" in html
+        assert "function selectAllCompHotels()" in html
+        assert "function clearCompHotels()" in html
+        assert "competitor_hotels:activeCompHotelIds()" in html
+        assert "競合ホテルセット" in html
+
+    assert history.count("if(compSetConfigured)rows=rows.filter(r=>compSetIds.has(r.hotel_id))") == 2
