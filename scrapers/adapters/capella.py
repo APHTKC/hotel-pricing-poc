@@ -37,9 +37,9 @@ def parse_room_size(text: str) -> Decimal | None:
 
 def breakfast_included(features: list[str]) -> bool | None:
     joined = " ".join(features).lower()
-    if any(term in joined for term in ("不含早餐", "breakfast not included", "room only")):
+    if any(term in joined for term in ("不含早餐", "無早餐", "breakfast not included", "room only")):
         return False
-    if any(term in joined for term in ("含早餐", "breakfast included", "with breakfast")):
+    if any(term in joined for term in ("含早餐", "早餐專案", "餐點: 早餐", "breakfast included", "with breakfast")):
         return True
     return None
 

@@ -15,6 +15,8 @@ def test_capella_parsers():
     assert parse_room_size("48 平方米") == Decimal("48")
     features = ["抵達前免費取消最多 15:00 1 天", "以信用卡擔保", "含早餐"]
     assert breakfast_included(features) is True
+    assert breakfast_included(["裕元App會員｜無早餐優惠｜官網限定"]) is False
+    assert breakfast_included(["裕元App會員｜早餐專案｜官網限定"]) is True
     assert cancellation_text(features) == "抵達前免費取消最多 15:00 1 天"
 
 

@@ -1,0 +1,40 @@
+name: Probe Windsor Hotel Taichung rates
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scrapers/adapters/tripla.py"
+      - "scrapers/registry.py"
+      - "scripts/run_windsor_once.py"
+      - "config/hotels.windsor-taichung-only.yaml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+      - name: Collect one public stay date
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/windsor-taichung-probe.jsonl
+        run: python -m scripts.run_windsor_once
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windsor-taichung-rate-probe
+          path: data/windsor-taichung-probe.jsonl
+          if-no-files-found: error
