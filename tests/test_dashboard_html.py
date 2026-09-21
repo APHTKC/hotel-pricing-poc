@@ -94,3 +94,25 @@ def test_both_dashboards_share_a_persistent_competitor_hotel_set():
         assert "競合ホテルセット" in html
 
     assert history.count("if(compSetConfigured)rows=rows.filter(r=>compSetIds.has(r.hotel_id))") == 2
+
+
+def test_home_overview_stays_below_the_desktop_banner():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert ".theme-wsj main{margin:24px auto 60px}" in html
+    assert "@media(max-width:760px){.theme-wsj main{margin-top:16px}}" in html
+
+
+def test_both_dashboards_filter_and_export_rate_sources():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert 'id="source"' in html
+        assert "row.source_platform||'official'" in html
+        assert "if(source)rows=rows.filter(r=>sourceOf(r)===source)" in html
+        assert "source_platform:document.querySelector('#source').value" in html
+        assert "officialSource:'飯店官網'" in html
+        assert "rakuten_travel:'Rakuten Travel'" in html
+
+    assert history.count("if(source)rows=rows.filter(r=>sourceOf(r)===source)") == 2
