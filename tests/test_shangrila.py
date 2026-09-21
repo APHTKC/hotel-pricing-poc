@@ -19,6 +19,15 @@ def test_shangrila_booking_url_contains_hotel_and_dates():
     assert "%22adultNum%22%3A2" in url
 
 
+def test_tainan_shangrila_booking_url_uses_official_property_code():
+    url = ShangriLaScraper().booking_url(
+        date(2026, 10, 21), date(2026, 10, 22), 2, "shangrila_tainan"
+    )
+    assert "/en/tainan/fareasternplazashangrila/" in url
+    assert "hotelCode=SLTN" in url
+    assert "city=Tainan" in url
+
+
 def test_shangrila_keeps_only_public_rates():
     assert is_public_cash_rate("") is True
     assert is_public_cash_rate(None) is True
@@ -34,7 +43,8 @@ def test_shangrila_detects_visitor_currency():
     assert display_currency("\u00a5 45,000") == "JPY"
 
 
-def test_shangrila_infers_only_low_unlabelled_cloud_prices_as_usd():
+def test_shangrila_infers_unlabelled_cloud_prices_by_taiwan_rate_scale():
     assert resolve_display_currency("303", Decimal("303")) == "USD"
+    assert resolve_display_currency("12,960", Decimal("12960")) == "TWD"
     with pytest.raises(ValueError):
-        resolve_display_currency("12,960", Decimal("12960"))
+        resolve_display_currency("0", Decimal("0"))

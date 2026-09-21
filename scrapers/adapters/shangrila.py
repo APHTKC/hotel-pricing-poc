@@ -10,10 +10,20 @@ from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_
 from services.fx import published_rate_to_twd
 
 
-SHANGRILA_URL = (
-    "https://www.shangri-la.com/en/taipei/fareasternplazashangrila/"
-    "reservations/select-room-rate/"
-)
+PROPERTIES = {
+    "shangrila_taipei": {
+        "slug": "taipei/fareasternplazashangrila",
+        "hotel": "Shangri-La Far Eastern, Taipei",
+        "code": "TPE",
+        "city": "Taipei",
+    },
+    "shangrila_tainan": {
+        "slug": "tainan/fareasternplazashangrila",
+        "hotel": "Shangri-La Far Eastern, Tainan",
+        "code": "SLTN",
+        "city": "Tainan",
+    },
+}
 
 
 def is_public_cash_rate(member_rate: str | None) -> bool:
@@ -43,17 +53,19 @@ def display_currency(header_text: str) -> str:
 
 
 def resolve_display_currency(price_text: str, total_price: Decimal) -> str:
-    """Resolve a price currency, with one narrow fallback for cloud rendering.
+    """Resolve a price currency, with narrow Taiwan-rate fallbacks.
 
     Shangri-La sometimes omits the currency label on GitHub's runner while
-    continuing to render low three-digit USD prices. Large unlabeled values are
-    deliberately rejected instead of being guessed as TWD.
+    continuing to render either low three-digit USD prices or five-digit TWD
+    prices. Values between those ranges remain ambiguous and are rejected.
     """
     try:
         return display_currency(price_text)
     except ValueError:
         if Decimal("0") < total_price < Decimal("3000"):
             return "USD"
+        if total_price >= Decimal("3000"):
+            return "TWD"
         raise
 
 
@@ -65,16 +77,21 @@ class ShangriLaScraper(CapellaScraper):
     are collected.
     """
 
-    supported_hotel_id = "shangrila_taipei"
     diagnostic_name = "Shangri-La"
 
-    def booking_url(self, check_in: date, check_out: date, adults: int) -> str:
+    def booking_url(
+        self, check_in: date, check_out: date, adults: int,
+        hotel_id: str = "shangrila_taipei",
+    ) -> str:
+        if hotel_id not in PROPERTIES:
+            raise ValueError(f"ShangriLaScraper does not support {hotel_id}")
+        prop = PROPERTIES[hotel_id]
         query = urlencode({
-            "hotel": "Shangri-La Far Eastern, Taipei",
-            "hotelCode": "TPE",
+            "hotel": prop["hotel"],
+            "hotelCode": prop["code"],
             "timeZone": "+8",
-            "city": "Taipei",
-            "cityEn": "Taipei",
+            "city": prop["city"],
+            "cityEn": prop["city"],
             "checkInDate": check_in.isoformat(),
             "checkOutDate": check_out.isoformat(),
             "rooms": json.dumps([{"adultNum": adults, "childNum": 0}], separators=(",", ":")),
@@ -86,16 +103,17 @@ class ShangriLaScraper(CapellaScraper):
             "flexible": "false",
             "roomClassCodeList": "",
         })
-        return f"{SHANGRILA_URL}?{query}"
+        return (
+            f"https://www.shangri-la.com/en/{prop['slug']}/"
+            f"reservations/select-room-rate/?{query}"
+        )
 
     async def fetch_rates(
         self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2
     ) -> list[RateObservation]:
-        if hotel.id != self.supported_hotel_id:
-            raise ValueError(
-                f"ShangriLaScraper currently supports only {self.supported_hotel_id}"
-            )
-        source_url = self.booking_url(check_in, check_out, adults)
+        if hotel.id not in PROPERTIES:
+            raise ValueError(f"ShangriLaScraper does not support {hotel.id}")
+        source_url = self.booking_url(check_in, check_out, adults, hotel.id)
         queried_at = datetime.now(UTC)
         page = await self._page()
         try:

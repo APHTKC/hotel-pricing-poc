@@ -1,0 +1,9 @@
+hotels:
+  - id: shangrila_tainan
+    name: Shangri-La Far Eastern, Tainan
+    short_name: Shangri-La Tainan
+    city: Tainan
+    country: TW
+    booking_url: https://www.shangri-la.com/en/tainan/fareasternplazashangrila/
+    adapter: shangrila
+
