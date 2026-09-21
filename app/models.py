@@ -79,13 +79,13 @@ class RateObservation(BaseModel):
         if self.room_size_sqm is None:
             return "unknown"
         size = float(self.room_size_sqm)
-        if size < 40:
-            return "<40㎡"
-        if size < 50:
-            return "40–49㎡"
-        if size < 70:
-            return "50–69㎡"
-        return "70㎡+"
+        if size < 45:
+            return "<45㎡"
+        if size < 60:
+            return "45–59㎡"
+        if size < 80:
+            return "60–79㎡"
+        return "80㎡+"
 
 
 class JobResult(BaseModel):

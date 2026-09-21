@@ -14,7 +14,7 @@ def test_derived_fields():
         source_url="https://example.com", status=ScrapeStatus.DEMO,
         fx_rate_to_twd=Decimal("1"), cpi_index=Decimal("110"), cpi_base_index=Decimal("100"),
     )
-    assert row.size_band == "50–69㎡"
+    assert row.size_band == "45–59㎡"
     assert row.price_per_sqm == Decimal("231")
     assert row.total_twd == Decimal("11550")
     assert row.cpi_adjusted_twd == Decimal("10500")

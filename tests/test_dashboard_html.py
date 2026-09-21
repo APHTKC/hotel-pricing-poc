@@ -51,3 +51,14 @@ def test_home_distinguishes_skipped_automation_candidates():
     assert "automation_status==='skipped'" in html
     assert "暫不支援" in html
     assert "status-skipped" in html
+
+
+def test_dashboard_uses_flexible_competitor_room_size_bands():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert 'value="45–59㎡" data-i18n="sizeCore"' in html
+        assert "45–59㎡（核心比較）" in html
+        assert "n<45?'<45㎡':n<60?'45–59㎡':n<80?'60–79㎡':'80㎡+'" in html
+        assert "50–69㎡" not in html
