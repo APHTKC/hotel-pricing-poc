@@ -47,8 +47,13 @@ HOTEL_NAMES_ZH.hotel_gracery_taipei='格拉斯麗台北飯店';
 HOTEL_NAMES_ZH.mitsui_garden_taipei_zhongxiao='和苑三井花園飯店台北忠孝';
 HOTEL_NAMES_ZH.the_landis_taipei='台北亞都麗緻大飯店';
 HOTEL_NAMES_ZH.eslite_hotel='誠品行旅';
+HOTEL_NAMES_ZH.courtyard_taipei_downtown='台北國泰萬怡酒店';
+HOTEL_NAMES_ZH.hotel_proverbs_taipei='台北賦樂旅居';
+HOTEL_NAMES_ZH.renaissance_taipei_shihlin='台北士林萬麗酒店';
+HOTEL_NAMES_ZH.doubletree_taipei_zhongshan='台北中山九昱希爾頓逸林酒店';
+HOTEL_NAMES_ZH.howard_plaza_taipei='台北福華大飯店';
 const CITY_NAMES={zh:{Taipei:'台北',Taichung:'台中',Kaohsiung:'高雄',Hsinchu:'新竹',Tainan:'台南','New Taipei':'新北',NewTaipei:'新北',Hualien:'花蓮',Yilan:'宜蘭',Nantou:'南投',Taitung:'台東',Penghu:'澎湖'},ja:{Taipei:'台北',Taichung:'台中',Kaohsiung:'高雄',Hsinchu:'新竹',Tainan:'台南','New Taipei':'新北',NewTaipei:'新北',Hualien:'花蓮',Yilan:'宜蘭',Nantou:'南投',Taitung:'台東',Penghu:'澎湖'}};
-const DISTRICT_NAMES={zh:{Songshan:'松山區',Zhongshan:'中山區',"Da'an":'大安區',Nangang:'南港區',Datong:'大同區',Wanhua:'萬華區',Xinyi:'信義區',Zhongzheng:'中正區',Beitou:'北投區'},en:{},ja:{Songshan:'松山区',Zhongshan:'中山区',"Da'an":'大安区',Nangang:'南港区',Datong:'大同区',Wanhua:'万華区',Xinyi:'信義区',Zhongzheng:'中正区',Beitou:'北投区'}};
+const DISTRICT_NAMES={zh:{Songshan:'松山區',Zhongshan:'中山區',"Da'an":'大安區',Nangang:'南港區',Datong:'大同區',Wanhua:'萬華區',Xinyi:'信義區',Zhongzheng:'中正區',Beitou:'北投區',Shilin:'士林區'},en:{},ja:{Songshan:'松山区',Zhongshan:'中山区',"Da'an":'大安区',Nangang:'南港区',Datong:'大同区',Wanhua:'万華区',Xinyi:'信義区',Zhongzheng:'中正区',Beitou:'北投区',Shilin:'士林区'}};
 const hiddenChartHotels=new Set();
 const locale={zh:'zh-TW',en:'en-US',ja:'ja-JP'};let lang=localStorage.getItem('hotel-lang')||'zh',currency=localStorage.getItem('hotel-currency')||'TWD',preferredSource=localStorage.getItem('hotel-rate-source'),fx={TWD:1,USD:.03178,JPY:4.9928},latestRows=[],catalog=[],comparisonSort={key:'avg',direction:'desc'},compSetConfigured=localStorage.getItem('hotel-comp-set')!==null,compSetIds=new Set(),availableCompHotels=[];if(preferredSource===null)preferredSource='official';try{compSetIds=new Set(JSON.parse(localStorage.getItem('hotel-comp-set')||'[]'))}catch{compSetConfigured=false}
 document.querySelector('#language').value=lang;document.querySelector('#currency').value=currency;
