@@ -23,3 +23,14 @@ def test_solaria_uses_verified_gobooking_property():
     assert PROPERTIES["solaria_nishitetsu_taipei"]["plan_code"] == (
         "a25b928f-1de1-4e85-af69-2b62e246fd25"
     )
+
+
+def test_fleur_de_chine_uses_verified_breakfast_plan():
+    assert PROPERTIES["fleur_de_chine"]["slug"] == "FLEUR-NT"
+    assert PROPERTIES["fleur_de_chine"]["plan_code"] == (
+        "148573a7-09c7-4330-9af6-73d0d11156ac"
+    )
+    assert PROPERTIES["fleur_de_chine"]["breakfast_included"] is True
+    assert PROPERTIES["fleur_de_chine"]["cancellation"] == (
+        "入住 14 天前取消可全額退款"
+    )

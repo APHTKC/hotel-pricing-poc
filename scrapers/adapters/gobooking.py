@@ -19,6 +19,14 @@ PROPERTIES = {
         "plan_code": "a25b928f-1de1-4e85-af69-2b62e246fd25",
         "plan_name": "【年度住房優惠】不含早餐",
         "cancellation": "入住 3 天前取消可全額退款",
+        "breakfast_included": False,
+    },
+    "fleur_de_chine": {
+        "slug": "FLEUR-NT",
+        "plan_code": "148573a7-09c7-4330-9af6-73d0d11156ac",
+        "plan_name": "一泊一食輕旅行專案",
+        "cancellation": "入住 14 天前取消可全額退款",
+        "breakfast_included": True,
     },
 }
 
@@ -145,7 +153,7 @@ class GobookingScraper(CapellaScraper):
                             room_size_sqm=room_size,
                             rate_plan_code=prop["plan_code"],
                             rate_plan_name=prop["plan_name"],
-                            breakfast_included=False,
+                            breakfast_included=prop.get("breakfast_included", False),
                             cancellation_policy=prop["cancellation"],
                             price_before_tax=base,
                             service_charge=service,

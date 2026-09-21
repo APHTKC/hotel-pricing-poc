@@ -1,0 +1,8 @@
+hotels:
+  - id: fleur_de_chine
+    name: Fleur de Chine Hotel
+    short_name: Fleur de Chine
+    city: Nantou
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/FLEUR-NT
+    adapter: gobooking
