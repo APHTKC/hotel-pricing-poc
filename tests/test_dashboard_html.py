@@ -138,6 +138,20 @@ def test_home_chart_identifies_hotels_when_hovering_lines_and_points():
     assert "hover a line to identify the hotel" in html
 
 
+def test_history_charts_identify_hotels_and_rates_on_hover():
+    html = Path("public/history.html").read_text(encoding="utf-8")
+
+    assert "function interactiveLineChart(" in html
+    assert 'class="chart-series-hit"' in html
+    assert 'class="chart-tooltip"' in html
+    assert "root.querySelectorAll('[data-tooltip]')" in html
+    assert "element.addEventListener('pointerenter',showTooltip)" in html
+    assert ".chart-series:hover .chart-series-line" in html
+    assert "hover a line to identify the hotel and rate" in html
+    assert "interactiveLineChart('#dailyChart'" in html
+    assert "interactiveLineChart('#curveChart'" in html
+
+
 def test_home_shows_per_hotel_last_success_and_freshness():
     html = Path("public/index.html").read_text(encoding="utf-8")
 
