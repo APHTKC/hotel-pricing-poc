@@ -79,6 +79,54 @@
         "https://www.okurataipei.com.tw/en/fac/",
         "https://www.okurataipei.com.tw/en/room/"
       ]
+    },
+    {
+      "hotel_id": "shangrila_taipei",
+      "verified_at": "2026-09-22",
+      "room_inventory": 420,
+      "restaurants": [
+        {"name": "Café at Far Eastern", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
+        {"name": "Shang Palace", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"},
+        {"name": "ibuki", "type_zh": "日本料理、懷石、鐵板燒、壽司與天婦羅", "type_en": "Japanese, kaiseki, teppanyaki, sushi and tempura", "type_ja": "日本料理・懐石・鉄板焼・寿司・天ぷら"},
+        {"name": "Shanghai Pavilion", "type_zh": "上海料理與中華料理", "type_en": "Shanghainese and Chinese", "type_ja": "上海料理・中華料理"},
+        {"name": "Marco Polo Restaurant", "type_zh": "義大利料理", "type_en": "Italian", "type_ja": "イタリア料理"},
+        {"name": "Lobby Court", "type_zh": "大廳酒廊、下午茶與輕食", "type_en": "Lobby lounge, afternoon tea and light dining", "type_ja": "ロビーラウンジ・アフタヌーンティー・軽食"},
+        {"name": "Li Bai Lounge", "type_zh": "酒廊、茶飲與輕食", "type_en": "Lounge, tea and light dining", "type_ja": "ラウンジ・お茶・軽食"},
+        {"name": "Marco Polo Lounge", "type_zh": "高空酒廊", "type_en": "Sky lounge", "type_ja": "スカイラウンジ"},
+        {"name": "The Cake Room", "type_zh": "甜點、蛋糕與烘焙", "type_en": "Desserts, cakes and bakery", "type_ja": "デザート・ケーキ・ベーカリー"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "Horizon Club Lounge", "kind": "executive_club"},
+      "source_urls": [
+        "https://www.shangri-la.com/taipei/fareasternplazashangrila/rooms-suites/",
+        "https://www.shangri-la.com/taipei/fareasternplazashangrila/dining/",
+        "https://www.shangri-la.com/taipei/fareasternplazashangrila/health-leisure/health-club/",
+        "https://www.shangri-la.com/taipei/fareasternplazashangrila/health-leisure/spa/",
+        "https://www.shangri-la.com/en/taipei/fareasternplazashangrila/rooms-suites/horizon-club/horizon-superior-room/"
+      ]
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "verified_at": "2026-09-22",
+      "room_inventory": 146,
+      "restaurants": [
+        {"name": "palette", "type_zh": "國際自助餐", "type_en": "International buffet", "type_ja": "各国料理ビュッフェ"},
+        {"name": "CHIU YUET FONG", "type_zh": "粵菜與港式點心", "type_en": "Cantonese and Hong Kong dim sum", "type_ja": "広東料理・香港点心"},
+        {"name": "MIPON", "type_zh": "台灣料理", "type_en": "Taiwanese", "type_ja": "台湾料理"},
+        {"name": "HARUYAMA", "type_zh": "日本料理、割烹、鐵板燒、壽司與鍋物", "type_en": "Japanese, kappo, teppanyaki, sushi and hot pot", "type_ja": "日本料理・割烹・鉄板焼・寿司・鍋物"},
+        {"name": "GMT Italian Restaurant", "type_zh": "義大利料理", "type_en": "Italian", "type_ja": "イタリア料理"},
+        {"name": "Cocoon Poolside Bar", "type_zh": "池畔酒吧", "type_en": "Poolside bar", "type_ja": "プールサイドバー"},
+        {"name": "Moment café & bakery", "type_zh": "咖啡、甜點與烘焙", "type_en": "Café, desserts and bakery", "type_ja": "カフェ・デザート・ベーカリー"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "Club9 Exclusive Lounge", "kind": "members_club"},
+      "source_urls": [
+        "https://www.grandmayfull.com/about",
+        "https://www.grandmayfull.com/room",
+        "https://www.grandmayfull.com/dining",
+        "https://www.grandmayfull.com/facilities",
+        "https://www.grandmayfull.com/club9"
+      ]
     }
   ]
 }

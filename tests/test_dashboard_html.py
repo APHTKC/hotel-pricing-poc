@@ -236,12 +236,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
     assert by_id["okura_prestige_taipei"]["room_inventory"] == 207
     assert len(by_id["okura_prestige_taipei"]["restaurants"]) == 5
+    assert by_id["shangrila_taipei"]["room_inventory"] == 420
+    assert by_id["shangrila_taipei"]["lounge"]["name"] == "Horizon Club Lounge"
+    assert by_id["grand_mayfull_taipei"]["room_inventory"] == 146
+    assert by_id["grand_mayfull_taipei"]["lounge"]["kind"] == "members_club"
 
 
 def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
@@ -256,6 +260,8 @@ def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
     assert 'class="city-row"' in html
     assert 'class="city-badge"' in html
     assert "rateStatus==='with'" in html
+    assert "function loungeDetail(profile)" in html
+    assert "membersOnlyLounge" in html
 
 
 def test_all_primary_pages_link_to_hotel_profile_comparison():
