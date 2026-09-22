@@ -35,7 +35,7 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     ids = {hotel["id"] for hotel in payload["hotels"]}
 
     assert set(NEW_TAIPEI_HOTELS) <= ids
-    assert len(payload["hotels"]) == 63
+    assert len(payload["hotels"]) == 64
 
 
 def test_published_catalog_contains_hotel_royal_hsinchu_manual_link():
@@ -46,3 +46,13 @@ def test_published_catalog_contains_hotel_royal_hsinchu_manual_link():
     assert hotel["enabled"] is False
     assert hotel["automation_status"] == "skipped"
     assert "webhotel-v4/0232" in hotel["booking_url"]
+
+
+def test_published_catalog_contains_gaia_as_one_time_failed_candidate():
+    payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    hotel = next(item for item in payload["hotels"] if item["id"] == "the_gaia_taipei")
+
+    assert hotel["district"] == "Beitou"
+    assert hotel["enabled"] is False
+    assert hotel["automation_status"] == "skipped"
+    assert "one-time" in hotel["automation_note"].lower()
