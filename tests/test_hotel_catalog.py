@@ -35,4 +35,14 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     ids = {hotel["id"] for hotel in payload["hotels"]}
 
     assert set(NEW_TAIPEI_HOTELS) <= ids
-    assert len(payload["hotels"]) == 62
+    assert len(payload["hotels"]) == 63
+
+
+def test_published_catalog_contains_hotel_royal_hsinchu_manual_link():
+    payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    hotel = next(item for item in payload["hotels"] if item["id"] == "hotel_royal_hsinchu")
+
+    assert hotel["city"] == "Hsinchu"
+    assert hotel["enabled"] is False
+    assert hotel["automation_status"] == "skipped"
+    assert "webhotel-v4/0232" in hotel["booking_url"]
