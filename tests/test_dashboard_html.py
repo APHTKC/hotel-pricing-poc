@@ -127,6 +127,27 @@ def test_ota_controls_stay_hidden_until_real_ota_rates_exist():
     assert "hasOtaData(latestRows)?`<p class=\"ota-status\"" in home
 
 
+def test_home_chart_identifies_hotels_when_hovering_lines_and_points():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert 'class="chart-series-hit"' in html
+    assert 'data-tooltip="${esc(s.name)}"' in html
+    assert 'id="chartTooltip"' in html
+    assert "element.addEventListener('pointerenter',showTooltip)" in html
+    assert ".chart-series:hover .chart-series-line" in html
+    assert "hover a line to identify the hotel" in html
+
+
+def test_home_shows_per_hotel_last_success_and_freshness():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert "const stampsByHotel=new Map()" in html
+    assert "age<=36?'fresh':age<=72?'aging':'stale'" in html
+    assert 'class="freshness freshness-${info.state}"' in html
+    assert 'class="data-health"' in html
+    assert "最近成功" in html
+
+
 def test_home_overview_stays_below_the_desktop_banner():
     html = Path("public/index.html").read_text(encoding="utf-8")
 
