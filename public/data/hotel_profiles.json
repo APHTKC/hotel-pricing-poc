@@ -127,6 +127,29 @@
         "https://www.grandmayfull.com/facilities",
         "https://www.grandmayfull.com/club9"
       ]
+    },
+    {
+      "hotel_id": "grand_hyatt_taipei",
+      "verified_at": "2026-09-22",
+      "room_inventory": 850,
+      "restaurants": [
+        {"name": "Café", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
+        {"name": "Irodori", "type_zh": "日式自助餐", "type_en": "Japanese buffet", "type_ja": "和食ビュッフェ"},
+        {"name": "Yun Jin", "type_zh": "中華料理", "type_en": "Chinese", "type_ja": "中華料理"},
+        {"name": "Pearl Liang", "type_zh": "粵菜、海鮮與港式點心", "type_en": "Cantonese, seafood and dim sum", "type_ja": "広東料理・シーフード・点心"},
+        {"name": "Bel Air Bar - Grill", "type_zh": "歐陸料理、牛排與海鮮", "type_en": "European, steak and seafood", "type_ja": "ヨーロッパ料理・ステーキ・シーフード"},
+        {"name": "Ziga Zaga", "type_zh": "義大利料理", "type_en": "Italian", "type_ja": "イタリア料理"},
+        {"name": "Cheers", "type_zh": "酒吧、輕食與現場音樂", "type_en": "Bar, casual dining and live music", "type_ja": "バー・軽食・ライブ音楽"},
+        {"name": "Cha Lounge", "type_zh": "蔬食、下午茶與甜點", "type_en": "Vegetarian dining, afternoon tea and desserts", "type_ja": "ベジタリアン料理・アフタヌーンティー・デザート"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "Grand Club Lounge", "kind": "executive_club"},
+      "source_urls": [
+        "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei",
+        "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
+        "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/dining",
+        "https://assets.hyatt.com/content/dam/hyatt/hyattdam/documents/2019/11/06/1554/Grand-Hyatt-Taipei-Fact-Sheet-English.pdf"
+      ]
     }
   ]
 }
