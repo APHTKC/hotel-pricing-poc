@@ -150,6 +150,25 @@
         "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/dining",
         "https://assets.hyatt.com/content/dam/hyatt/hyattdam/documents/2019/11/06/1554/Grand-Hyatt-Taipei-Fact-Sheet-English.pdf"
       ]
+    },
+    {
+      "hotel_id": "w_taipei",
+      "verified_at": "2026-09-22",
+      "room_inventory": 405,
+      "restaurants": [
+        {"name": "Seasons by olivier e.", "type_zh": "現代法式料理", "type_en": "Modern French", "type_ja": "モダンフレンチ"},
+        {"name": "YEN Chinese Restaurant", "type_zh": "現代粵菜", "type_en": "Modern Cantonese", "type_ja": "モダン広東料理"},
+        {"name": "WOOBAR", "type_zh": "酒吧、下午茶與輕食", "type_en": "Bar, afternoon tea and light dining", "type_ja": "バー・アフタヌーンティー・軽食"},
+        {"name": "WET® Bar", "type_zh": "池畔酒吧與輕食", "type_en": "Poolside bar and light dining", "type_ja": "プールサイドバー・軽食"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "source_urls": [
+        "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/rooms/",
+        "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/dining/",
+        "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/experiences/",
+        "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/overview/"
+      ]
     }
   ]
 }

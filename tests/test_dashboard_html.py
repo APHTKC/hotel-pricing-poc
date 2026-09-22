@@ -236,7 +236,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -249,6 +249,10 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["grand_hyatt_taipei"]["room_inventory"] == 850
     assert len(by_id["grand_hyatt_taipei"]["restaurants"]) == 8
     assert by_id["grand_hyatt_taipei"]["lounge"]["name"] == "Grand Club Lounge"
+    assert by_id["w_taipei"]["room_inventory"] == 405
+    assert len(by_id["w_taipei"]["restaurants"]) == 4
+    assert by_id["w_taipei"]["facilities"]["sauna"] is None
+    assert by_id["w_taipei"]["lounge"]["available"] is None
 
 
 def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
@@ -265,6 +269,7 @@ def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
     assert "rateStatus==='with'" in html
     assert "function loungeDetail(profile)" in html
     assert "membersOnlyLounge" in html
+    assert "value==null" in html
 
 
 def test_all_primary_pages_link_to_hotel_profile_comparison():
