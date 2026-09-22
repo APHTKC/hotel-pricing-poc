@@ -59,6 +59,26 @@
         "https://taipei.grand-hilai.com.tw/en/dining/",
         "https://taipei.grand-hilai.com.tw/en/club/"
       ]
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "verified_at": "2026-09-22",
+      "room_inventory": 207,
+      "restaurants": [
+        {"name": "Yamazato", "type_zh": "日本料理、壽司、天婦羅與鐵板燒", "type_en": "Japanese, sushi, tempura and teppanyaki", "type_ja": "日本料理・寿司・天ぷら・鉄板焼"},
+        {"name": "Toh Ka Lin", "type_zh": "粵菜與中華料理", "type_en": "Cantonese and Chinese", "type_ja": "広東料理・中華料理"},
+        {"name": "The Continental Room", "type_zh": "國際自助餐", "type_en": "International buffet", "type_ja": "各国料理ビュッフェ"},
+        {"name": "The Nine Bakery", "type_zh": "烘焙坊", "type_en": "Bakery", "type_ja": "ベーカリー"},
+        {"name": "The Pearl Lounge & Bar", "type_zh": "酒吧與輕食", "type_en": "Bar and light dining", "type_ja": "バー・軽食"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "source_urls": [
+        "https://www.okurataipei.com.tw/en/about/",
+        "https://www.okurataipei.com.tw/en/dining/",
+        "https://www.okurataipei.com.tw/en/fac/",
+        "https://www.okurataipei.com.tw/en/room/"
+      ]
     }
   ]
 }

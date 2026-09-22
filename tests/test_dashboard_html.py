@@ -90,6 +90,19 @@ def test_city_and_district_limit_the_hotel_selector_options():
         assert "document.querySelector('#district').addEventListener('change',()=>{setOptions(" in html
 
 
+def test_city_and_taipei_district_options_use_geographic_order_and_counts():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert "const CITY_ORDER=['Taipei','New Taipei','NewTaipei','Hsinchu','Taichung'" in html
+        assert "DISTRICT_ORDER=['Beitou','Shilin','Zhongshan','Songshan'" in html
+        assert "districtHotelIds.get(" in html
+        assert "taipeiHotelCount" in html
+        assert "geoRank(a,CITY_ORDER)-geoRank(b,CITY_ORDER)" in html
+        assert "geoRank(a,DISTRICT_ORDER)-geoRank(b,DISTRICT_ORDER)" in html
+
+
 def test_both_dashboards_share_a_persistent_competitor_hotel_set():
     home = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
@@ -223,10 +236,26 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
+    assert by_id["okura_prestige_taipei"]["room_inventory"] == 207
+    assert len(by_id["okura_prestige_taipei"]["restaurants"]) == 5
+
+
+def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+
+    assert 'id="rateStatus"' in html
+    assert 'id="sort"' in html
+    assert 'class="sort-button" data-sort="name"' in html
+    assert 'class="sort-button" data-sort="geo"' in html
+    assert "function sortHotels(items)" in html
+    assert "CITY_COLORS=" in html
+    assert 'class="city-row"' in html
+    assert 'class="city-badge"' in html
+    assert "rateStatus==='with'" in html
 
 
 def test_all_primary_pages_link_to_hotel_profile_comparison():
