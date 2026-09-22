@@ -1,0 +1,64 @@
+{
+  "updated_at": "2026-09-22",
+  "profiles": [
+    {
+      "hotel_id": "capella_taipei",
+      "verified_at": "2026-09-22",
+      "room_inventory": 86,
+      "restaurants": [
+        {"name": "Mizue", "type_zh": "日式無菜單料理", "type_en": "Japanese omakase", "type_ja": "日本料理・おまかせ"},
+        {"name": "Rong Ju", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"},
+        {"name": "Ember 28", "type_zh": "炭火牛排與海鮮", "type_en": "Fire-led grill and seafood", "type_ja": "薪火グリル・シーフード"},
+        {"name": "Plume", "type_zh": "香檳酒廊與下午茶", "type_en": "Champagne lounge and afternoon tea", "type_ja": "シャンパンラウンジ・アフタヌーンティー"},
+        {"name": "Atelier Plume", "type_zh": "法式甜點與烘焙", "type_en": "French patisserie", "type_ja": "フレンチパティスリー"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "Capella Living Room", "kind": "guest_living_room"},
+      "source_urls": [
+        "https://capellahotels.com/en/capella-taipei",
+        "https://capellahotels.com/en/capella-taipei/dining",
+        "https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_EN.pdf?v11.19="
+      ]
+    },
+    {
+      "hotel_id": "mo_taipei",
+      "verified_at": "2026-09-22",
+      "room_inventory": 303,
+      "restaurants": [
+        {"name": "Ya Ge", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"},
+        {"name": "Bencotto", "type_zh": "義大利料理", "type_en": "Italian", "type_ja": "イタリア料理"},
+        {"name": "Café Un Deux Trois", "type_zh": "國際料理與半自助餐", "type_en": "International semi-buffet", "type_ja": "各国料理・セミビュッフェ"},
+        {"name": "M.O. Bar", "type_zh": "酒吧", "type_en": "Bar", "type_ja": "バー"},
+        {"name": "The Jade Lounge", "type_zh": "下午茶與輕食", "type_en": "Afternoon tea and light dining", "type_ja": "アフタヌーンティー・軽食"},
+        {"name": "The Mandarin Cake Shop", "type_zh": "甜點與烘焙", "type_en": "Patisserie and bakery", "type_ja": "ペストリー・ベーカリー"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "The Oriental Lounge", "kind": "executive_club"},
+      "source_urls": [
+        "https://cms.mandarinoriental.com/en/taipei/songshan/about",
+        "https://www.mandarinoriental.com/en/taipei/songshan/wellness/the-spa",
+        "https://www.mandarinoriental.com/en/taipei/songshan/stay/the-oriental-lounge"
+      ]
+    },
+    {
+      "hotel_id": "grand_hilai_taipei",
+      "verified_at": "2026-09-22",
+      "room_inventory": 425,
+      "restaurants": [
+        {"name": "Lobby Lounge", "type_zh": "大廳酒廊與輕食", "type_en": "Lobby lounge and light dining", "type_ja": "ロビーラウンジ・軽食"},
+        {"name": "Deli & Bakery", "type_zh": "烘焙坊", "type_en": "Bakery", "type_ja": "ベーカリー"},
+        {"name": "Danny's Steakhouse", "type_zh": "牛排館", "type_en": "Steakhouse", "type_ja": "ステーキハウス"},
+        {"name": "Island Buffet Restaurant", "type_zh": "自助餐", "type_en": "Buffet", "type_ja": "ビュッフェ"},
+        {"name": "The Lounge", "type_zh": "粵菜與宴會空間", "type_en": "Cantonese and private dining", "type_ja": "広東料理・プライベートダイニング"},
+        {"name": "The Orient", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "VIP Lounge (25F)", "kind": "vip_lounge"},
+      "source_urls": [
+        "https://taipei.grand-hilai.com.tw/en/",
+        "https://taipei.grand-hilai.com.tw/en/dining/",
+        "https://taipei.grand-hilai.com.tw/en/club/"
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 
@@ -75,7 +76,18 @@ def test_both_dashboards_support_dependent_taipei_district_filtering():
         assert "allDistricts:'所有行政區'" in html
         assert "district:document.querySelector('#district').value" in html
 
-    assert history.count("if(district)rows=rows.filter(r=>r.district===district)") == 2
+    assert history.count("if(district)rows=rows.filter(r=>r.district===district)") == 1
+
+
+def test_city_and_district_limit_the_hotel_selector_options():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    assert "const optionRows=rows.filter(r=>(!cv||r.city===cv)&&(!d.value||r.district===d.value))" in home
+    assert "const optionRows=allRows.filter(r=>(!cv||r.city===cv)&&(!district.value||r.district===district.value))" in history
+    for html in (home, history):
+        assert "hotels.some(([id])=>id===hv)?hv:''" in html
+        assert "document.querySelector('#district').addEventListener('change',()=>{setOptions(" in html
 
 
 def test_both_dashboards_share_a_persistent_competitor_hotel_set():
@@ -93,7 +105,7 @@ def test_both_dashboards_share_a_persistent_competitor_hotel_set():
         assert "competitor_hotels:activeCompHotelIds()" in html
         assert "競合ホテルセット" in html
 
-    assert history.count("if(compSetConfigured)rows=rows.filter(r=>compSetIds.has(r.hotel_id))") == 2
+    assert history.count("if(compSetConfigured)rows=rows.filter(r=>compSetIds.has(r.hotel_id))") == 1
 
 
 def test_both_dashboards_repair_empty_or_stale_competitor_sets_on_load():
@@ -179,6 +191,60 @@ def test_home_explains_suite_skew_and_compares_room_types_and_sizes():
     assert "filteredRows({ignoreSize:true})" in html
 
 
+def test_history_explains_suite_skew_and_has_room_type_quality_table():
+    html = Path("public/history.html").read_text(encoding="utf-8")
+
+    assert 'id="coreRoom"' in html
+    assert 'id="priceExplanation"' in html
+    assert "function renderHistoryPriceExplanation(rows)" in html
+    assert "function renderHistoryRoomCatalog(rows)" in html
+    assert 'id="roomCatalog"' in html
+    assert "filteredHistoryRows({ignoreSize:true})" in html
+    assert "item.size>=80" in html
+    assert "invalidUnitPrice" in html
+    assert "106㎡與270㎡套房會明顯拉高歷史平均" in html
+
+
+def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    names = json.loads(Path("public/data/hotel_names_zh.json").read_text(encoding="utf-8"))
+
+    assert '<span class="active"><b class="nav-index">03</b>' in html
+    assert "catalog=hotelsData.hotels||[]" in html
+    assert "function roomRows(id)" in html
+    assert "function renderDetail()" in html
+    assert "function facilityValue(profile,key)" in html
+    assert "T[lang].unknown" in html
+    assert 'id="comparison"' in html
+    assert 'id="detail"' in html
+    assert "hotel_profiles.json" in html
+    assert "hotel_names_zh.json" in html
+    assert len(names["names"]) >= 65
+
+    by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei"}
+    assert len(by_id["capella_taipei"]["restaurants"]) == 5
+    assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
+    assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
+
+
+def test_all_primary_pages_link_to_hotel_profile_comparison():
+    for path in ("public/index.html", "public/history.html", "public/hotels.html"):
+        html = Path(path).read_text(encoding="utf-8")
+        assert "飯店資料比較" in html
+        assert "hotels.html" in html or path.endswith("hotels.html")
+
+
+def test_missing_per_square_meter_values_never_render_or_export_as_zero():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    assert "money(Number(r.price_per_sqm))" not in home
+    assert "r.price_per_sqm!=null&&Number.isFinite(unit)&&unit>0" in home
+    assert "r.price_per_sqm!=null&&Number.isFinite(unit)&&unit>0" in history
+
+
 def test_home_overview_stays_below_the_desktop_banner():
     html = Path("public/index.html").read_text(encoding="utf-8")
 
@@ -198,7 +264,7 @@ def test_both_dashboards_filter_and_export_rate_sources():
         assert "officialSource:'飯店官網'" in html
         assert "rakuten_travel:'Rakuten Travel'" in html
 
-    assert history.count("if(source)rows=rows.filter(r=>sourceOf(r)===source)") == 2
+    assert history.count("if(source)rows=rows.filter(r=>sourceOf(r)===source)") == 1
 
 
 def test_both_dashboards_default_to_official_rates_and_remember_source_choice():
