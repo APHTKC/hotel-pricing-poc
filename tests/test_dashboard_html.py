@@ -148,6 +148,23 @@ def test_home_shows_per_hotel_last_success_and_freshness():
     assert "最近成功" in html
 
 
+def test_home_explains_suite_skew_and_compares_room_types_and_sizes():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert 'id="coreRoom"' in html
+    assert 'data-sort="core"' in html
+    assert 'id="priceExplanation"' in html
+    assert "function renderPriceExplanation(rows)" in html
+    assert "selectedHotel==='capella_taipei'" in html
+    assert "106㎡與270㎡套房會明顯拉高整體平均" in html
+    assert 'id="roomCatalog"' in html
+    assert "function renderRoomCatalog(rows)" in html
+    assert "Math.min(...item.values)" in html
+    assert "median(item.values)" in html
+    assert "Math.max(...item.values)" in html
+    assert "filteredRows({ignoreSize:true})" in html
+
+
 def test_home_overview_stays_below_the_desktop_banner():
     html = Path("public/index.html").read_text(encoding="utf-8")
 
