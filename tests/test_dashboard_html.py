@@ -96,6 +96,37 @@ def test_both_dashboards_share_a_persistent_competitor_hotel_set():
     assert history.count("if(compSetConfigured)rows=rows.filter(r=>compSetIds.has(r.hotel_id))") == 2
 
 
+def test_both_dashboards_repair_empty_or_stale_competitor_sets_on_load():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert "function repairCompSet(rows)" in html
+        assert "localStorage.removeItem('hotel-comp-set')" in html
+        assert "some(id=>liveIds.has(id))" in html
+
+    assert "repairCompSet(latestRows)" in home
+    assert "repairCompSet(allRows)" in history
+
+
+def test_ota_controls_stay_hidden_until_real_ota_rates_exist():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert 'id="rateSourceFilter"' in html
+        assert "const hasOtaData=rows=>rows.some(r=>sourceOf(r)!=='official')" in html
+        assert "function updateOtaVisibility(rows)" in html
+        assert "document.querySelector('#rateSourceFilter').hidden=!visible" in html
+        assert "localStorage.removeItem('hotel-rate-source')" in html
+        assert "const officialSourceNote=" in html
+        assert "document.querySelector('.source-note').textContent=officialSourceNote[lang]" in html
+
+    assert 'id="otaComparisonSection"' in home
+    assert "document.querySelector('#otaComparisonSection').hidden=!visible" in home
+    assert "hasOtaData(latestRows)?`<p class=\"ota-status\"" in home
+
+
 def test_home_overview_stays_below_the_desktop_banner():
     html = Path("public/index.html").read_text(encoding="utf-8")
 
