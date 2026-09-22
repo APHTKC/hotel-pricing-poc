@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-22",
+  "updated_at": "2026-09-23",
   "profiles": [
     {
       "hotel_id": "capella_taipei",
@@ -168,6 +168,29 @@
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/dining/",
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/experiences/",
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/overview/"
+      ]
+    },
+    {
+      "hotel_id": "regent_taipei",
+      "verified_at": "2026-09-23",
+      "room_inventory": 538,
+      "restaurants": [
+        {"name": "Brasserie", "type_zh": "國際自助餐", "type_en": "International buffet", "type_ja": "各国料理ビュッフェ"},
+        {"name": "Mihan Honke", "type_zh": "日式鍋物", "type_en": "Japanese hot pot", "type_ja": "日本料理・鍋物"},
+        {"name": "azie", "type_zh": "亞洲與西式料理", "type_en": "Contemporary Asian and Western", "type_ja": "アジア料理・洋食"},
+        {"name": "Robin's Grill", "type_zh": "牛排與海鮮", "type_en": "Steak and seafood", "type_ja": "ステーキ・シーフード"},
+        {"name": "Robin's Teppanyaki", "type_zh": "法式風格鐵板燒", "type_en": "French-inspired teppanyaki", "type_ja": "フレンチスタイル鉄板焼"},
+        {"name": "Gallery", "type_zh": "酒廊、咖啡與輕食", "type_en": "Lounge bar, coffee and light dining", "type_ja": "ラウンジバー・コーヒー・軽食"},
+        {"name": "Silks House", "type_zh": "粵菜與港式點心", "type_en": "Cantonese and dim sum", "type_ja": "広東料理・点心"},
+        {"name": "Lan Ting", "type_zh": "上海與四川料理", "type_en": "Shanghainese and Sichuan", "type_ja": "上海料理・四川料理"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "Silks Club", "kind": "guest_club"},
+      "source_urls": [
+        "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail",
+        "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/rooms-and-suites",
+        "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/dining",
+        "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail/spa-wellness"
       ]
     }
   ]
