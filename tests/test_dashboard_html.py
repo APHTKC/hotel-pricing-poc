@@ -236,7 +236,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "taipei_marriott"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "eslite_hotel", "taipei_marriott"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -253,6 +253,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(by_id["w_taipei"]["restaurants"]) == 4
     assert by_id["w_taipei"]["facilities"]["sauna"] is None
     assert by_id["w_taipei"]["lounge"]["available"] is None
+    assert by_id["eslite_hotel"]["room_inventory"] == 104
+    assert len(by_id["eslite_hotel"]["restaurants"]) == 3
+    assert by_id["eslite_hotel"]["facilities"]["fitness"] is True
+    assert by_id["eslite_hotel"]["facilities"]["pool"] is None
+    eslite_rooms = by_id["eslite_hotel"]["room_snapshot"]["rooms"]
+    assert len(eslite_rooms) == 5
+    assert eslite_rooms[-1]["size_sqm_min"] == 89
+    assert eslite_rooms[-1]["size_sqm_max"] == 182
+    assert "room.size_sqm_min??room.size_sqm" in html
+    assert "r.sizeMax!==r.sizeMin" in html
     assert by_id["regent_taipei"]["room_inventory"] == 538
     assert len(by_id["regent_taipei"]["restaurants"]) == 8
     assert by_id["regent_taipei"]["facilities"]["sauna"] is True

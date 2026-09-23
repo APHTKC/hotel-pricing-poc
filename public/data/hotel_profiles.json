@@ -194,6 +194,39 @@
       ]
     },
     {
+      "hotel_id": "eslite_hotel",
+      "verified_at": "2026-09-23",
+      "room_inventory": 104,
+      "restaurants": [
+        {"name": "The Lounge", "type_zh": "大廳書坊、咖啡與茶飲", "type_en": "Lobby lounge, coffee and tea", "type_ja": "ロビーラウンジ・コーヒー・お茶"},
+        {"name": "The Chapter", "type_zh": "全日餐廳", "type_en": "All-day dining", "type_ja": "オールデイダイニング"},
+        {"name": "In Between", "type_zh": "歐陸料理與牛排", "type_en": "European dining and steakhouse", "type_ja": "ヨーロッパ料理・ステーキ"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "room_snapshot": {
+        "observed_at": "2026-09-23",
+        "source_type": "official",
+        "source_url": "https://www.eslitehotel.com/room/",
+        "rooms": [
+          {"name_zh": "雅緻客房", "name_en": "Deluxe", "name_ja": "Deluxe", "size_sqm": 43},
+          {"name_zh": "經典客房", "name_en": "Studio", "name_ja": "Studio", "size_sqm": 53},
+          {"name_zh": "行政套房", "name_en": "Suite", "name_ja": "Suite", "size_sqm": 69},
+          {"name_zh": "行政家庭房", "name_en": "Family Suite", "name_ja": "Family Suite", "size_sqm": 69},
+          {"name_zh": "人文套房", "name_en": "Library Suite", "name_ja": "Library Suite", "size_sqm_min": 89, "size_sqm_max": 182}
+        ]
+      },
+      "source_urls": [
+        "https://www.eslitehotel.com/",
+        "https://www.eslitehotel.com/room/",
+        "https://www.eslitehotel.com/en/room/deluxe/",
+        "https://www.eslitehotel.com/en/room/studio/",
+        "https://www.eslitehotel.com/en/room/suite/",
+        "https://www.eslitehotel.com/en/room/family-suite/",
+        "https://www.eslitehotel.com/en/room/library-suite/"
+      ]
+    },
+    {
       "hotel_id": "taipei_marriott",
       "verified_at": "2026-09-23",
       "room_inventory": null,
