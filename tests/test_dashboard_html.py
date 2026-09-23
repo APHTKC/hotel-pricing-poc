@@ -61,7 +61,7 @@ def test_dashboard_uses_flexible_competitor_room_size_bands():
     for html in (home, history):
         assert 'value="45–59㎡" data-i18n="sizeCore"' in html
         assert "45–59㎡（核心比較）" in html
-        assert "n<45?'<45㎡':n<60?'45–59㎡':n<80?'60–79㎡':'80㎡+'" in html
+        assert "n<=0?'unknown':n<45?'<45㎡':n<60?'45–59㎡':n<80?'60–79㎡':'80㎡+'" in html
         assert "50–69㎡" not in html
 
 
@@ -224,7 +224,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     names = json.loads(Path("public/data/hotel_names_zh.json").read_text(encoding="utf-8"))
 
     assert '<span class="active"><b class="nav-index">03</b>' in html
-    assert "catalog=hotelsData.hotels||[]" in html
+    assert "catalog=[...(hotelsData.hotels||[]),...(upcomingData.hotels||[])]" in html
     assert "function roomRows(id)" in html
     assert "function renderDetail()" in html
     assert "function facilityValue(profile,key)" in html
@@ -309,12 +309,49 @@ def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
     assert 'class="sort-button" data-sort="geo"' in html
     assert "function sortHotels(items)" in html
     assert "CITY_COLORS=" in html
-    assert 'class="city-row"' in html
+    assert 'class="city-row ${upcoming' in html
     assert 'class="city-badge"' in html
     assert "rateStatus==='with'" in html
     assert "function loungeDetail(profile)" in html
     assert "membersOnlyLounge" in html
     assert "value==null" in html
+
+
+def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+    upcoming = json.loads(Path("public/data/upcoming_hotels.json").read_text(encoding="utf-8"))
+    by_id = {hotel["id"]: hotel for hotel in upcoming["hotels"]}
+
+    assert set(by_id) >= {
+        "four_seasons_taipei",
+        "park_hyatt_taipei",
+        "andaz_taipei",
+        "jw_marriott_taichung",
+        "andaz_taichung",
+        "kempinski_taichung",
+        "hyatt_regency_kaohsiung",
+    }
+    assert all(hotel["opening_status"] == "upcoming" for hotel in by_id.values())
+    assert by_id["four_seasons_taipei"]["planned_rooms"] == 260
+    assert "2028" in by_id["four_seasons_taipei"]["expected_opening_zh"]
+    assert by_id["kempinski_taichung"]["planned_rooms"] == 312
+    assert "2027" in by_id["kempinski_taichung"]["expected_opening_zh"]
+    assert all(hotel["source_urls"] for hotel in by_id.values())
+    assert "upcoming_hotels.json" in html
+    assert "hotelDisplayName" in html
+    assert "opening_status==='upcoming'" in html
+    assert "upcomingOnly:'尚未開幕'" in html
+    assert "noUpcomingRates" in html
+    assert "item.sourceName.includes('�')" in html
+
+
+def test_missing_room_area_is_not_treated_as_under_45_sqm():
+    overview = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    assert "!Number.isFinite(n)||n<=0?'unknown'" in overview
+    assert "!Number.isFinite(n)||n<=0?'unknown'" in history
+    assert "hasSize=Number.isFinite(size)&&size>0" in overview
 
 
 def test_all_primary_pages_link_to_hotel_profile_comparison():

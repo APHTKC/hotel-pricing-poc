@@ -1,0 +1,121 @@
+{
+  "updated_at": "2026-09-23",
+  "hotels": [
+    {
+      "id": "four_seasons_taipei",
+      "name": "Four Seasons Hotel Taipei",
+      "name_zh": "台北四季酒店",
+      "city": "Taipei",
+      "district": "Xinyi",
+      "country": "TW",
+      "opening_status": "upcoming",
+      "expected_opening_zh": "預計 2028 年",
+      "expected_opening_en": "Expected in 2028",
+      "expected_opening_ja": "2028年開業予定",
+      "planned_rooms": 260,
+      "source_urls": [
+        "https://www.fourseasons.com/newopenings/",
+        "https://press.fourseasons.com/news-releases/2023/new-four-seasons-in-taipei/"
+      ]
+    },
+    {
+      "id": "park_hyatt_taipei",
+      "name": "Park Hyatt Taipei",
+      "name_zh": "台北柏悅酒店",
+      "city": "Taipei",
+      "district": "Xinyi",
+      "country": "TW",
+      "opening_status": "upcoming",
+      "expected_opening_zh": "日期待公布（官方列為籌備中）",
+      "expected_opening_en": "Date TBD (official pipeline)",
+      "expected_opening_ja": "開業日未定（公式パイプライン）",
+      "planned_rooms": 178,
+      "source_urls": [
+        "https://www.hyatt.com/development/explore-hotels",
+        "https://newsroom.hyatt.com/news-releases?item=124442"
+      ]
+    },
+    {
+      "id": "andaz_taipei",
+      "name": "Andaz Taipei",
+      "name_zh": "台北安達仕酒店",
+      "city": "Taipei",
+      "district": "Xinyi",
+      "country": "TW",
+      "opening_status": "upcoming",
+      "expected_opening_zh": "日期待公布（官方列為籌備中）",
+      "expected_opening_en": "Date TBD (official pipeline)",
+      "expected_opening_ja": "開業日未定（公式パイプライン）",
+      "planned_rooms": 243,
+      "source_urls": [
+        "https://www.hyatt.com/development/explore-hotels",
+        "https://digital.silkshotelgroup.com/Downloads/GroupWeb/Investment/2023AnnualReport_EN.pdf"
+      ]
+    },
+    {
+      "id": "jw_marriott_taichung",
+      "name": "JW Marriott Hotel Taichung",
+      "name_zh": "台中 JW 萬豪酒店",
+      "city": "Taichung",
+      "district": "Xitun",
+      "country": "TW",
+      "opening_status": "upcoming",
+      "expected_opening_zh": "待公布（先前預計 2026 年）",
+      "expected_opening_en": "TBD (previously expected in 2026)",
+      "expected_opening_ja": "未定（当初は2026年予定）",
+      "planned_rooms": null,
+      "source_urls": [
+        "https://www.economic.taichung.gov.tw/16103/16153/16163/16181/2880637/2880660/2880928/post"
+      ]
+    },
+    {
+      "id": "andaz_taichung",
+      "name": "Andaz Taichung CBD",
+      "name_zh": "台中安達仕酒店",
+      "city": "Taichung",
+      "district": "Xitun",
+      "country": "TW",
+      "opening_status": "upcoming",
+      "expected_opening_zh": "待公布（先前預計 2026 年）",
+      "expected_opening_en": "TBD (previously expected in 2026)",
+      "expected_opening_ja": "未定（当初は2026年予定）",
+      "planned_rooms": null,
+      "source_urls": [
+        "https://www.hyatt.com/development/explore-hotels",
+        "https://www.economic.taichung.gov.tw/16103/16153/16163/16181/2880637/2880660/2880928/post"
+      ]
+    },
+    {
+      "id": "kempinski_taichung",
+      "name": "Kempinski Hotel Taichung",
+      "name_zh": "台中凱賓斯基酒店",
+      "city": "Taichung",
+      "district": "Wuri",
+      "country": "TW",
+      "opening_status": "upcoming",
+      "expected_opening_zh": "開發商預計 2027 年底",
+      "expected_opening_en": "Developer target: late 2027",
+      "expected_opening_ja": "事業者発表：2027年末予定",
+      "planned_rooms": 312,
+      "source_urls": [
+        "https://travel.udn.com/travel/story/7934/9491055",
+        "https://www.economic.taichung.gov.tw/16103/16153/16163/16181/2880637/2880660/2880928/post"
+      ]
+    },
+    {
+      "id": "hyatt_regency_kaohsiung",
+      "name": "Hyatt Regency Kaohsiung",
+      "name_zh": "高雄凱悅酒店",
+      "city": "Kaohsiung",
+      "country": "TW",
+      "opening_status": "upcoming",
+      "expected_opening_zh": "日期待公布（官方列為籌備中）",
+      "expected_opening_en": "Date TBD (official pipeline)",
+      "expected_opening_ja": "開業日未定（公式パイプライン）",
+      "planned_rooms": null,
+      "source_urls": [
+        "https://www.hyatt.com/development/explore-hotels"
+      ]
+    }
+  ]
+}
