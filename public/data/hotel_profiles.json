@@ -277,6 +277,44 @@
       ]
     },
     {
+      "hotel_id": "solaria_nishitetsu_taipei",
+      "verified_at": "2026-09-23",
+      "room_inventory": 298,
+      "restaurants": [
+        {"name": "7F Restaurant", "type_zh": "日式、西式與中式自助早餐", "type_en": "Japanese, Western and Chinese breakfast buffet", "type_ja": "和洋中朝食ビュッフェ"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "room_snapshot": {
+        "observed_at": "2026-09-23",
+        "source_type": "official",
+        "source_url": "https://solaria-taipei.nnr-h.com/stay/",
+        "rooms": [
+          {"name_zh": "精巧大床房", "name_en": "Compact Queen", "name_ja": "コンパクトクイーン", "size_sqm": 18},
+          {"name_zh": "淋浴大床房", "name_en": "Shower Queen", "name_ja": "シャワークイーン", "size_sqm": 21},
+          {"name_zh": "標準大床房", "name_en": "Standard Queen", "name_ja": "スタンダードクイーン", "size_sqm": 21},
+          {"name_zh": "轉角大床房", "name_en": "Corner Queen", "name_ja": "コーナークイーン", "size_sqm": 26},
+          {"name_zh": "舒適特大床房", "name_en": "Moderate King", "name_ja": "モデレートキング", "size_sqm": 24},
+          {"name_zh": "淋浴雙床房", "name_en": "Shower Twin", "name_ja": "シャワーツイン", "size_sqm": 21},
+          {"name_zh": "標準雙床房", "name_en": "Standard Twin", "name_ja": "スタンダードツイン", "size_sqm": 21},
+          {"name_zh": "舒適雙床房", "name_en": "Moderate Twin", "name_ja": "モデレートツイン", "size_sqm": 24},
+          {"name_zh": "高級雙床房 A", "name_en": "Superior Twin A", "name_ja": "スーペリアツインA", "size_sqm": 26},
+          {"name_zh": "高級雙床房 B", "name_en": "Superior Twin B", "name_ja": "スーペリアツインB", "size_sqm": 30},
+          {"name_zh": "豪華雙床房", "name_en": "Deluxe Twin", "name_ja": "デラックスツイン", "size_sqm": 33},
+          {"name_zh": "無障礙雙床房", "name_en": "Accessible Twin", "name_ja": "アクセシブルツイン", "size_sqm": 26},
+          {"name_zh": "轉角三人房", "name_en": "Corner Triple", "name_ja": "コーナートリプル", "size_sqm": 28},
+          {"name_zh": "三人房", "name_en": "Triple", "name_ja": "トリプル", "size_sqm": 39},
+          {"name_zh": "頂級客房", "name_en": "Premium Room", "name_ja": "プレミアムルーム", "size_sqm": 35}
+        ]
+      },
+      "source_urls": [
+        "https://www.nishitetsu.co.jp/en/group/business/hotel_and_leisure.html",
+        "https://solaria-taipei.nnr-h.com/stay/",
+        "https://solaria-taipei.nnr-h.com/breakfast/",
+        "https://solaria-taipei.nnr-h.com/floorguide/"
+      ]
+    },
+    {
       "hotel_id": "taipei_marriott",
       "verified_at": "2026-09-23",
       "room_inventory": null,
