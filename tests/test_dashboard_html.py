@@ -236,7 +236,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "taipei_marriott"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -258,6 +258,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["regent_taipei"]["facilities"]["sauna"] is True
     assert by_id["regent_taipei"]["facilities"]["steam_room"] is None
     assert by_id["regent_taipei"]["lounge"]["name"] == "Silks Club"
+    assert by_id["taipei_marriott"]["room_inventory"] is None
+    assert len(by_id["taipei_marriott"]["restaurants"]) == 6
+    assert by_id["taipei_marriott"]["facilities"]["sauna"] is True
+    assert by_id["taipei_marriott"]["lounge"]["name"] == "Executive Lounge"
+    snapshot = by_id["taipei_marriott"]["room_snapshot"]
+    assert snapshot["observed_at"] == "2026-09-23"
+    assert snapshot["source_type"] == "official"
+    assert len(snapshot["rooms"]) == 7
+    assert {room["name_en"] for room in snapshot["rooms"]} >= {"Classic Room", "Brilliant Suite"}
+    assert {room["size_sqm"] for room in snapshot["rooms"]} >= {40, 51, 65, 80}
 
 
 def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
@@ -350,3 +360,32 @@ def test_home_has_official_vs_ota_rate_gap_comparison():
     assert "sourceOf(r)==='official'" in html
     assert "noOtaComparison:'尚未收到已授權 OTA 的實際房價" in html
     assert "renderSourceComparison();" in html
+
+
+def test_room_size_options_show_unique_room_type_counts_for_current_scope():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert "function updateSizeOptions" in html
+        assert "const key=`${r.hotel_id}|${r.room_type_code||r.room_type_name}|${size}`" in html
+        assert "counts[band(size)]++" in html
+        assert "suffix(total)" in html
+        assert "updateSizeOptions" in html
+
+
+def test_room_names_are_localized_and_profile_snapshots_show_source_date():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+    profiles = Path("public/hotels.html").read_text(encoding="utf-8")
+
+    for html in (home, history):
+        assert "function roomName(row)" in html
+        assert "room_type_name_en" in html
+        assert "roomName(r)" in html
+
+    assert "room_snapshot" in profiles
+    assert "roomLabel(room)" in profiles
+    assert "roomSnapshot:'房型資料快照'" in profiles
+    assert "snapshot.observed_at" in profiles
+    assert "snapshot.source_url" in profiles

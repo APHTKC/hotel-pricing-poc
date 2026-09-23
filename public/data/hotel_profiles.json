@@ -192,6 +192,42 @@
         "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/dining",
         "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail/spa-wellness"
       ]
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "verified_at": "2026-09-23",
+      "room_inventory": null,
+      "restaurants": [
+        {"name": "The Dining Place", "type_zh": "粵菜與川菜", "type_en": "Cantonese and Sichuan", "type_ja": "広東料理・四川料理"},
+        {"name": "KOUMA Japanese Restaurant", "type_zh": "日本料理與無菜單料理", "type_en": "Japanese and omakase", "type_ja": "日本料理・おまかせ"},
+        {"name": "Garden Kitchen", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
+        {"name": "Lobby Lounge", "type_zh": "大廳酒廊與輕食", "type_en": "Lobby lounge and light dining", "type_ja": "ロビーラウンジ・軽食"},
+        {"name": "INGE'S Bar & Grill", "type_zh": "高空酒吧、炭烤料理與牛排", "type_en": "Sky bar, grill and steak", "type_ja": "スカイバー・グリル・ステーキ"},
+        {"name": "Mark's Teppanyaki", "type_zh": "創意鐵板燒", "type_en": "Creative teppanyaki", "type_ja": "創作鉄板焼"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
+      "room_snapshot": {
+        "observed_at": "2026-09-23",
+        "source_type": "official",
+        "source_url": "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "rooms": [
+          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 40},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 40},
+          {"name_zh": "極致客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 40},
+          {"name_zh": "居家式客房", "name_en": "Homey Room", "name_ja": "Homey Room", "size_sqm": 51},
+          {"name_zh": "尊榮客房", "name_en": "Privilege Room", "name_ja": "Privilege Room", "size_sqm": 40},
+          {"name_zh": "豪華套房", "name_en": "Comfort Suite", "name_ja": "Comfort Suite", "size_sqm": 65},
+          {"name_zh": "萬豪套房", "name_en": "Brilliant Suite", "name_ja": "Brilliant Suite", "size_sqm": 80}
+        ]
+      },
+      "source_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/overview/",
+        "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/rooms/",
+        "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/dining/",
+        "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/experiences/"
+      ]
     }
   ]
 }
