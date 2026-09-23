@@ -263,6 +263,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert eslite_rooms[-1]["size_sqm_max"] == 182
     assert "room.size_sqm_min??room.size_sqm" in html
     assert "r.sizeMax!==r.sizeMin" in html
+    assert "function rateRoomLabel(row)" in html
+    assert "item.sourceName.includes(room.name_zh)" in html
     assert by_id["regent_taipei"]["room_inventory"] == 538
     assert len(by_id["regent_taipei"]["restaurants"]) == 8
     assert by_id["regent_taipei"]["facilities"]["sauna"] is True
