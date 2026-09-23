@@ -4,7 +4,7 @@
 
 | 欄位群組 | 主要欄位 |
 |---|---|
-| 查詢 | schema_version, observation_id, queried_at, source_url, status |
+| 查詢 | schema_version, observation_id, run_id, scheduled_for, queried_at, source_url, status |
 | 入住 | check_in, check_out, lead_days, nights, adults |
 | 飯店 | hotel_id, hotel_name, city |
 | 房型 | room_type_code, room_type_name, room_size_sqm, size_band |
@@ -15,3 +15,13 @@
 價格以一晚、兩位成人為預設查詢條件；`total_price` 必須是完成訂房前可確認的完整一晚總價。無法可靠拆分未稅價、服務費或稅時，不可臆測，相關欄位應保留空值並在 adapter 記錄來源限制。
 
 `status=demo` 永遠代表測試資料；正式官網驗證通過後才可寫入 `status=live`。
+
+`run_id` 為一次官網或 OTA job 共用的 UUID；`scheduled_for` 保存該次批次的排程基準時間。舊版歷史資料可暫時為空，新產生的 job 資料必須填入。
+
+寫入 JSONL 與建置公開 JSON 時使用下列每日自然鍵去重：
+
+```text
+hotel_id + check_in + room_type_code + rate_plan_code + queried_at_date
+```
+
+若訂房引擎沒有提供 room／rate code，才以房型名稱或方案名稱作 fallback。相同自然鍵保留查詢時間較新的 observation。

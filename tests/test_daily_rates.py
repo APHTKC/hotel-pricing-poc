@@ -55,3 +55,56 @@ def test_daily_job_skips_remaining_dates_after_two_empty_responses(monkeypatch):
     assert len(result.failures) == 2
     assert {failure["lead_days"] for failure in result.failures} == {"1", "7"}
     assert all(failure["error"] == "No public rates returned" for failure in result.failures)
+
+
+def test_daily_job_assigns_one_run_id_and_schedule_to_all_rows(monkeypatch):
+    class SuccessfulScraper:
+        async def fetch_rates(self, hotel, check_in, check_out, adults=2):
+            from datetime import UTC, datetime
+            from decimal import Decimal
+
+            from app.models import RateObservation, ScrapeStatus
+
+            return [
+                RateObservation(
+                    observation_id=f"{hotel.id}-{check_in}",
+                    queried_at=datetime.now(UTC),
+                    check_in=check_in,
+                    check_out=check_out,
+                    lead_days=(check_in - datetime.now(UTC).date()).days,
+                    hotel_id=hotel.id,
+                    hotel_name=hotel.name,
+                    room_type_code="ROOM",
+                    room_type_name="Room",
+                    rate_plan_code="BAR",
+                    rate_plan_name="BAR",
+                    total_price=Decimal("10000"),
+                    currency="TWD",
+                    source_url="https://example.com",
+                    status=ScrapeStatus.LIVE,
+                )
+            ]
+
+        async def close(self):
+            return None
+
+    hotel = Hotel(
+        id="hotel",
+        name="Hotel",
+        short_name="Hotel",
+        city="Taipei",
+        country="TW",
+        booking_url="https://example.com",
+        adapter="test",
+    )
+    store = MemoryStore()
+    monkeypatch.setattr(daily_rates, "load_hotels", lambda: [hotel])
+    monkeypatch.setattr(daily_rates, "get_scraper", lambda *args: SuccessfulScraper())
+    monkeypatch.setattr(daily_rates, "get_store", lambda settings: store)
+
+    asyncio.run(daily_rates.run_daily_rates(Settings(demo_mode=False, lead_days="1,7")))
+
+    assert len(store.rows) == 2
+    assert len({row.run_id for row in store.rows}) == 1
+    assert store.rows[0].run_id
+    assert all(row.scheduled_for is not None for row in store.rows)

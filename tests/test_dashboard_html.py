@@ -369,6 +369,10 @@ def test_missing_room_area_is_not_treated_as_under_45_sqm():
     assert "!Number.isFinite(n)||n<=0?'unknown'" in overview
     assert "!Number.isFinite(n)||n<=0?'unknown'" in history
     assert "hasSize=Number.isFinite(size)&&size>0" in overview
+    assert "if(value==null||value==='')return'unknown'" in overview
+    assert "if(value==null||value==='')return'unknown'" in history
+    assert "band(Number(r.room_size_sqm))" not in overview
+    assert "band(Number(r.room_size_sqm))" not in history
 
 
 def test_all_primary_pages_link_to_hotel_profile_comparison():

@@ -2,13 +2,16 @@ import json
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from services.deduplication import deduplicate_observations
+from services.market_metrics import calculate_market_summary
+
 
 SOURCE = Path("data/rates.jsonl")
 TARGET = Path("public/data/rates.json")
 LATEST_TARGET = Path("public/data/latest.json")
 
 DASHBOARD_FIELDS = (
-    "hotel_id", "hotel_name", "city", "district", "room_type_code", "room_type_name",
+    "run_id", "scheduled_for", "hotel_id", "hotel_name", "city", "district", "room_type_code", "room_type_name",
     "room_size_sqm", "check_in", "lead_days", "rate_plan_name",
     "breakfast_included", "price_before_tax", "total_price", "total_twd",
     "price_per_sqm", "queried_at", "currency", "source_platform",
@@ -50,23 +53,40 @@ def _latest_batch(rows: list[dict]) -> list[dict]:
 
 
 def main() -> None:
-    rows = []
+    source_rows = []
     if SOURCE.exists():
         for line in SOURCE.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 row = json.loads(line)
                 if _plausible_luxury_rate(row):
-                    rows.append(_dashboard_row(row))
+                    source_rows.append(row)
+    source_rows = deduplicate_observations(source_rows, keep="latest")
+    rows = [_dashboard_row(row) for row in source_rows]
     rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
     TARGET.parent.mkdir(parents=True, exist_ok=True)
     TARGET.write_text(
-        json.dumps({"generated_from": "data/rates.jsonl", "rates": rows}, ensure_ascii=False),
+        json.dumps(
+            {
+                "generated_from": "data/rates.jsonl",
+                "market_summary": calculate_market_summary(source_rows),
+                "rates": rows,
+            },
+            ensure_ascii=False,
+        ),
         encoding="utf-8",
     )
     latest_rows = _latest_batch(rows)
+    latest_timestamps = {row["queried_at"] for row in latest_rows}
+    latest_source_rows = [
+        row for row in source_rows if row.get("queried_at") in latest_timestamps
+    ]
     LATEST_TARGET.write_text(
         json.dumps(
-            {"generated_from": "data/rates.jsonl", "rates": latest_rows},
+            {
+                "generated_from": "data/rates.jsonl",
+                "market_summary": calculate_market_summary(latest_source_rows),
+                "rates": latest_rows,
+            },
             ensure_ascii=False,
         ),
         encoding="utf-8",

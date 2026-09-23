@@ -1,5 +1,6 @@
 import logging
 from datetime import UTC, datetime, timedelta
+from uuid import uuid4
 
 import httpx
 
@@ -18,6 +19,8 @@ async def run_ota_rates(settings: Settings | None = None) -> JobResult:
     settings = settings or get_settings()
     logging.basicConfig(level=settings.log_level)
     started = datetime.now(UTC)
+    run_id = str(uuid4())
+    scheduled_for = started
     observations = []
     failures: list[dict[str, str]] = []
     enabled, mappings = load_ota_property_mappings(
@@ -72,7 +75,15 @@ async def run_ota_rates(settings: Settings | None = None) -> JobResult:
                                 break
                             continue
                         consecutive_empty = 0
-                        observations.extend(rows)
+                        observations.extend(
+                            row.model_copy(
+                                update={
+                                    "run_id": run_id,
+                                    "scheduled_for": scheduled_for,
+                                }
+                            )
+                            for row in rows
+                        )
                     except Exception as exc:
                         logger.exception("Booking.com fetch failed for %s +%s", hotel_id, lead_days)
                         failures.append(

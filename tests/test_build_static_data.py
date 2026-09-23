@@ -1,3 +1,6 @@
+import json
+
+import scripts.build_static_data as build_static_data
 from scripts.build_static_data import (
     DASHBOARD_FIELDS,
     _dashboard_row,
@@ -59,3 +62,65 @@ def test_dashboard_row_preserves_and_backfills_rate_source_metadata():
     assert legacy_official["source_platform"] == "official"
     assert legacy_official["source_method"] == "public_booking_page"
     assert legacy_official["source_property_id"] is None
+
+
+def test_static_build_deduplicates_and_embeds_shared_market_summary(
+    monkeypatch, tmp_path
+):
+    source = tmp_path / "rates.jsonl"
+    target = tmp_path / "rates.json"
+    latest = tmp_path / "latest.json"
+    common = {
+        "check_in": "2026-10-01",
+        "room_type_code": "ROOM",
+        "room_type_name": "Room",
+        "rate_plan_code": "BAR",
+        "rate_plan_name": "Best Available Rate",
+        "price_per_sqm": "200",
+        "currency": "TWD",
+        "source_url": "https://example.com",
+    }
+    rows = [
+        {
+            **common,
+            "observation_id": "old",
+            "hotel_id": "hotel-a",
+            "hotel_name": "Hotel A",
+            "queried_at": "2026-09-24T01:00:00+00:00",
+            "total_price": "9000",
+            "total_twd": "9000",
+        },
+        {
+            **common,
+            "observation_id": "new",
+            "hotel_id": "hotel-a",
+            "hotel_name": "Hotel A",
+            "queried_at": "2026-09-24T20:00:00+00:00",
+            "total_price": "10000",
+            "total_twd": "10000",
+        },
+        {
+            **common,
+            "observation_id": "other",
+            "hotel_id": "hotel-b",
+            "hotel_name": "Hotel B",
+            "queried_at": "2026-09-24T20:01:00+00:00",
+            "total_price": "20000",
+            "total_twd": "20000",
+        },
+    ]
+    source.write_text(
+        "\n".join(json.dumps(row) for row in rows) + "\n", encoding="utf-8"
+    )
+    monkeypatch.setattr(build_static_data, "SOURCE", source)
+    monkeypatch.setattr(build_static_data, "TARGET", target)
+    monkeypatch.setattr(build_static_data, "LATEST_TARGET", latest)
+
+    build_static_data.main()
+
+    payload = json.loads(target.read_text(encoding="utf-8"))
+    assert len(payload["rates"]) == 2
+    assert {row["total_twd"] for row in payload["rates"]} == {"10000", "20000"}
+    assert payload["market_summary"]["median_adr_twd"] == 15000
+    latest_payload = json.loads(latest.read_text(encoding="utf-8"))
+    assert latest_payload["market_summary"] == payload["market_summary"]

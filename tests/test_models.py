@@ -18,7 +18,9 @@ def test_derived_fields():
     assert row.price_per_sqm == Decimal("231")
     assert row.total_twd == Decimal("11550")
     assert row.cpi_adjusted_twd == Decimal("10500")
-    assert row.schema_version == "1.1"
+    assert row.schema_version == "1.2"
+    assert row.run_id is None
+    assert row.scheduled_for is None
     assert row.source_platform == "official"
     assert row.source_method == "public_booking_page"
     assert row.source_property_id is None
@@ -34,3 +36,25 @@ def test_foreign_currency_price_per_sqm_uses_twd_value():
     )
     assert row.total_twd == Decimal("12000")
     assert row.price_per_sqm == Decimal("240")
+
+
+def test_missing_room_size_has_unknown_band():
+    row = RateObservation(
+        observation_id="unknown-size",
+        queried_at=datetime.now(UTC),
+        check_in=date(2026, 9, 1),
+        check_out=date(2026, 9, 2),
+        lead_days=5,
+        hotel_id="h",
+        hotel_name="Hotel",
+        room_type_name="Room",
+        room_size_sqm=None,
+        rate_plan_name="Flexible",
+        total_price=Decimal("10000"),
+        currency="TWD",
+        source_url="https://example.com",
+        status=ScrapeStatus.LIVE,
+    )
+
+    assert row.size_band == "unknown"
+    assert row.price_per_sqm is None

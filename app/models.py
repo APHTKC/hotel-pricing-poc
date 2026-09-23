@@ -26,8 +26,10 @@ class Hotel(BaseModel):
 
 
 class RateObservation(BaseModel):
-    schema_version: str = "1.1"
+    schema_version: str = "1.2"
     observation_id: str
+    run_id: str | None = None
+    scheduled_for: datetime | None = None
     queried_at: datetime
     check_in: date
     check_out: date

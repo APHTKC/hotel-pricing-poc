@@ -1,6 +1,4 @@
 from contextlib import asynccontextmanager
-from statistics import mean, median
-
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -9,6 +7,7 @@ from app.models import Hotel, JobResult, RateObservation
 from app.settings import Settings, get_settings
 from config.loader import load_hotels
 from jobs.daily_rates import run_daily_rates
+from services.market_metrics import calculate_market_summary
 from storage.factory import get_store
 
 templates = Jinja2Templates(directory="app/templates")
@@ -77,34 +76,7 @@ def market_summary(
     settings: Settings = Depends(get_settings),
 ):
     rows = filtered_rates(settings, hotel_id, size_band, lead_days)
-    grouped: dict[str, list[RateObservation]] = {}
-    for row in rows:
-        grouped.setdefault(row.hotel_id, []).append(row)
-
-    hotel_averages = []
-    hotel_medians = []
-    hotel_per_sqm_medians = []
-    hotel_cpi_medians = []
-    for hotel_rows in grouped.values():
-        twd = [float(r.total_twd) for r in hotel_rows if r.total_twd is not None]
-        per_sqm = [float(r.price_per_sqm) for r in hotel_rows if r.price_per_sqm is not None]
-        cpi = [float(r.cpi_adjusted_twd) for r in hotel_rows if r.cpi_adjusted_twd is not None]
-        if twd:
-            hotel_averages.append(mean(twd))
-            hotel_medians.append(median(twd))
-        if per_sqm:
-            hotel_per_sqm_medians.append(median(per_sqm))
-        if cpi:
-            hotel_cpi_medians.append(median(cpi))
-    return {
-        "observations": len(rows),
-        "hotels": len(grouped),
-        "average_adr_twd": round(mean(hotel_averages), 0) if hotel_averages else None,
-        "median_adr_twd": round(median(hotel_medians), 0) if hotel_medians else None,
-        "median_per_sqm_twd": round(median(hotel_per_sqm_medians), 0) if hotel_per_sqm_medians else None,
-        "median_cpi_adjusted_twd": round(median(hotel_cpi_medians), 0) if hotel_cpi_medians else None,
-        "demo_mode": settings.demo_mode,
-    }
+    return {**calculate_market_summary(rows), "demo_mode": settings.demo_mode}
 
 
 @app.post("/jobs/daily-rates", response_model=JobResult)

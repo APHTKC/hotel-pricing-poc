@@ -1,6 +1,7 @@
 import asyncio
 import logging
 from datetime import UTC, datetime, timedelta
+from uuid import uuid4
 
 from app.models import JobResult
 from app.settings import Settings, get_settings
@@ -23,6 +24,8 @@ async def run_daily_rates(settings: Settings | None = None) -> JobResult:
     settings = settings or get_settings()
     logging.basicConfig(level=settings.log_level)
     started = datetime.now(UTC)
+    run_id = str(uuid4())
+    scheduled_for = started
     observations = []
     failures: list[dict[str, str]] = []
     today = started.date()
@@ -55,7 +58,13 @@ async def run_daily_rates(settings: Settings | None = None) -> JobResult:
                             break
                         continue
                     observations.extend(
-                        rate.model_copy(update={"district": rate.district or hotel.district})
+                        rate.model_copy(
+                            update={
+                                "district": rate.district or hotel.district,
+                                "run_id": run_id,
+                                "scheduled_for": scheduled_for,
+                            }
+                        )
                         for rate in rates
                     )
                     consecutive_failures = 0

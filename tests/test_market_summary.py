@@ -4,6 +4,7 @@ from decimal import Decimal
 from app.main import market_summary
 from app.models import RateObservation, ScrapeStatus
 from app.settings import Settings
+from services.market_metrics import calculate_market_summary
 
 
 def observation(hotel_id: str, price: str, size: str = "50") -> RateObservation:
@@ -43,3 +44,17 @@ def test_market_summary_equal_weights_hotels(monkeypatch):
     assert result["median_adr_twd"] == 600
     assert result["median_per_sqm_twd"] == 12
     assert result["demo_mode"] is False
+
+
+def test_api_market_summary_uses_the_shared_calculator(monkeypatch):
+    rows = [
+        observation("hotel-a", "100"),
+        observation("hotel-a", "300"),
+        observation("hotel-b", "1000"),
+    ]
+    monkeypatch.setattr("app.main.filtered_rates", lambda *args, **kwargs: rows)
+
+    api_result = market_summary(settings=Settings(demo_mode=False))
+    shared_result = calculate_market_summary(rows)
+
+    assert {key: api_result[key] for key in shared_result} == shared_result

@@ -4,11 +4,12 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 from app.models import RateObservation
+from services.deduplication import deduplicate_observations, observation_natural_key
 from storage.base import RateStore
 
 
 SHEET_COLUMNS = [
-    "schema_version", "observation_id", "queried_at", "check_in", "check_out",
+    "schema_version", "observation_id", "run_id", "scheduled_for", "queried_at", "check_in", "check_out",
     "lead_days", "nights", "adults", "hotel_id", "hotel_name", "city",
     "room_type_code", "room_type_name", "room_size_sqm", "size_band",
     "rate_plan_code", "rate_plan_name", "breakfast_included",
@@ -43,8 +44,16 @@ class GoogleSheetsStore(RateStore):
                 self.sheet.update_cell(1, len(existing), column)
 
     def append(self, rows: list[RateObservation]) -> int:
+        existing_keys = {
+            observation_natural_key(record)
+            for record in self.sheet.get_all_records()
+        }
         values = []
         for row in rows:
+            key = observation_natural_key(row)
+            if key in existing_keys:
+                continue
+            existing_keys.add(key)
             data = row.model_dump(mode="json")
             values.append(["" if data.get(column) is None else str(data.get(column)) for column in SHEET_COLUMNS])
         if values:
@@ -54,4 +63,10 @@ class GoogleSheetsStore(RateStore):
     def read_all(self) -> list[RateObservation]:
         records = self.sheet.get_all_records()
         base_fields = set(RateObservation.model_fields)
-        return [RateObservation.model_validate({k: v for k, v in record.items() if k in base_fields}) for record in records]
+        rows = [
+            RateObservation.model_validate(
+                {k: v for k, v in record.items() if k in base_fields}
+            )
+            for record in records
+        ]
+        return deduplicate_observations(rows, keep="latest")
