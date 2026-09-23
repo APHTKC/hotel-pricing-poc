@@ -236,7 +236,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -298,6 +298,23 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(snapshot["rooms"]) == 7
     assert {room["name_en"] for room in snapshot["rooms"]} >= {"Classic Room", "Brilliant Suite"}
     assert {room["size_sqm"] for room in snapshot["rooms"]} >= {40, 51, 65, 80}
+    palais = by_id["palais_de_chine"]
+    assert palais["room_inventory"] is None
+    assert len(palais["restaurants"]) == 3
+    assert palais["facilities"] == {"pool": None, "fitness": True, "spa": None, "sauna": None, "steam_room": None}
+    assert palais["lounge"]["name"] == "Le Salon VIP Lounge"
+    assert palais["room_snapshot"]["source_type"] == "official"
+    assert len(palais["room_snapshot"]["rooms"]) == 9
+    assert {room["size_sqm"] for room in palais["room_snapshot"]["rooms"]} == {30, 37, 50, 67}
+    royal_nikko = by_id["royal_nikko_taipei"]
+    assert royal_nikko["room_inventory"] == 202
+    assert len(royal_nikko["restaurants"]) == 5
+    assert royal_nikko["facilities"] == {"pool": None, "fitness": None, "spa": True, "sauna": None, "steam_room": None}
+    assert royal_nikko["lounge"]["name"] == "Royal VIP Lounge"
+    assert royal_nikko["room_snapshot"]["source_type"] == "official"
+    assert len(royal_nikko["room_snapshot"]["rooms"]) == 7
+    assert {room["name_ja"] for room in royal_nikko["room_snapshot"]["rooms"]} >= {"スーペリアルーム", "ロイヤルスイート"}
+    assert {room["size_sqm"] for room in royal_nikko["room_snapshot"]["rooms"]} == {26, 32, 38, 50, 65, 89, 125}
 
 
 def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():

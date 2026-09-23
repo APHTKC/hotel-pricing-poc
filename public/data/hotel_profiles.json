@@ -349,6 +349,75 @@
         "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/dining/",
         "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/experiences/"
       ]
+    },
+    {
+      "hotel_id": "palais_de_chine",
+      "verified_at": "2026-09-23",
+      "room_inventory": null,
+      "restaurants": [
+        {"name": "Le Thé", "type_zh": "國際料理、茶飲與輕食", "type_en": "International dining, tea and light meals", "type_ja": "各国料理・お茶・軽食"},
+        {"name": "Ciao by Fratelli Pennisi Macelleria Sicilia", "type_zh": "西西里牛排餐酒館", "type_en": "Sicilian steakhouse", "type_ja": "シチリア料理・ステーキハウス"},
+        {"name": "Le Palais", "type_zh": "粵菜與港式點心", "type_en": "Cantonese and dim sum", "type_ja": "広東料理・点心"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "Le Salon VIP Lounge", "kind": "executive_club"},
+      "room_snapshot": {
+        "observed_at": "2026-09-23",
+        "source_type": "official",
+        "source_url": "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
+        "rooms": [
+          {"name_zh": "雅緻客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 30},
+          {"name_zh": "雅緻無障礙客房", "name_en": "Superior Accessible Room", "name_ja": "Superior Accessible Room", "size_sqm": 30},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 37},
+          {"name_zh": "豪華家庭房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm": 37},
+          {"name_zh": "行政客房", "name_en": "Executive Room", "name_ja": "Executive Room", "size_sqm": 37},
+          {"name_zh": "君璽雅緻客房", "name_en": "Prestige Superior Room", "name_ja": "Prestige Superior Room", "size_sqm": 30},
+          {"name_zh": "君璽豪華客房", "name_en": "Prestige Deluxe Room", "name_ja": "Prestige Deluxe Room", "size_sqm": 37},
+          {"name_zh": "行政套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 50},
+          {"name_zh": "君品套房", "name_en": "Premier Suite", "name_ja": "Premier Suite", "size_sqm": 67}
+        ]
+      },
+      "source_urls": [
+        "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
+        "https://www.palaisdechinehotel.com/pdc-en/pages/26",
+        "https://www.palaisdechinehotel.com/pdc-en/pages/28",
+        "https://www.palaisdechinehotel.com/pdc-en/pages/28/8/49"
+      ]
+    },
+    {
+      "hotel_id": "royal_nikko_taipei",
+      "verified_at": "2026-09-23",
+      "room_inventory": 202,
+      "restaurants": [
+        {"name": "Royal Bakery", "type_zh": "烘焙坊與甜點", "type_en": "Bakery and patisserie", "type_ja": "ベーカリー・ペストリー"},
+        {"name": "Le Café", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
+        {"name": "BAR", "type_zh": "酒吧", "type_en": "Bar", "type_ja": "バー"},
+        {"name": "Nakayama", "type_zh": "日本料理", "type_en": "Japanese", "type_ja": "日本料理"},
+        {"name": "Ming Court", "type_zh": "粵菜與港式點心", "type_en": "Cantonese and dim sum", "type_ja": "広東料理・点心"}
+      ],
+      "facilities": {"pool": null, "fitness": null, "spa": true, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "Royal VIP Lounge", "kind": "vip_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-09-23",
+        "source_type": "official",
+        "source_url": "https://www.royal-taipei.com.tw/en/room/",
+        "rooms": [
+          {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "スーペリアルーム", "size_sqm": 26},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックスルーム", "size_sqm": 32},
+          {"name_zh": "尊爵客房", "name_en": "Premier Room", "name_ja": "プレミアルーム", "size_sqm": 38},
+          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "デラックススイート", "size_sqm": 50},
+          {"name_zh": "轉角套房", "name_en": "Corner Suite", "name_ja": "コーナースイート", "size_sqm": 65},
+          {"name_zh": "尊爵套房", "name_en": "Premier Suite", "name_ja": "プレミアスイート", "size_sqm": 89},
+          {"name_zh": "皇家套房", "name_en": "Royal Suite", "name_ja": "ロイヤルスイート", "size_sqm": 125}
+        ]
+      },
+      "source_urls": [
+        "https://www.royal-taipei.com.tw/en/about/Introduceus/",
+        "https://www.royal-taipei.com.tw/en/room/",
+        "https://www.royal-taipei.com.tw/en/dining/",
+        "https://www.royal-taipei.com.tw/en/facility/",
+        "https://www.royal-taipei.com.tw/jp/room/"
+      ]
     }
   ]
 }

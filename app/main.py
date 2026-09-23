@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from statistics import median
+from statistics import mean, median
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse
@@ -77,15 +77,32 @@ def market_summary(
     settings: Settings = Depends(get_settings),
 ):
     rows = filtered_rates(settings, hotel_id, size_band, lead_days)
-    twd = [float(r.total_twd) for r in rows if r.total_twd is not None]
-    per_sqm = [float(r.price_per_sqm) for r in rows if r.price_per_sqm is not None]
-    cpi = [float(r.cpi_adjusted_twd) for r in rows if r.cpi_adjusted_twd is not None]
+    grouped: dict[str, list[RateObservation]] = {}
+    for row in rows:
+        grouped.setdefault(row.hotel_id, []).append(row)
+
+    hotel_averages = []
+    hotel_medians = []
+    hotel_per_sqm_medians = []
+    hotel_cpi_medians = []
+    for hotel_rows in grouped.values():
+        twd = [float(r.total_twd) for r in hotel_rows if r.total_twd is not None]
+        per_sqm = [float(r.price_per_sqm) for r in hotel_rows if r.price_per_sqm is not None]
+        cpi = [float(r.cpi_adjusted_twd) for r in hotel_rows if r.cpi_adjusted_twd is not None]
+        if twd:
+            hotel_averages.append(mean(twd))
+            hotel_medians.append(median(twd))
+        if per_sqm:
+            hotel_per_sqm_medians.append(median(per_sqm))
+        if cpi:
+            hotel_cpi_medians.append(median(cpi))
     return {
         "observations": len(rows),
-        "hotels": len({r.hotel_id for r in rows}),
-        "median_adr_twd": round(median(twd), 0) if twd else None,
-        "median_per_sqm_twd": round(median(per_sqm), 0) if per_sqm else None,
-        "median_cpi_adjusted_twd": round(median(cpi), 0) if cpi else None,
+        "hotels": len(grouped),
+        "average_adr_twd": round(mean(hotel_averages), 0) if hotel_averages else None,
+        "median_adr_twd": round(median(hotel_medians), 0) if hotel_medians else None,
+        "median_per_sqm_twd": round(median(hotel_per_sqm_medians), 0) if hotel_per_sqm_medians else None,
+        "median_cpi_adjusted_twd": round(median(hotel_cpi_medians), 0) if hotel_cpi_medians else None,
         "demo_mode": settings.demo_mode,
     }
 
