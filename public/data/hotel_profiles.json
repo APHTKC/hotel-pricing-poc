@@ -194,6 +194,56 @@
       ]
     },
     {
+      "hotel_id": "hotel_metropolitan_premier_taipei",
+      "verified_at": "2026-09-23",
+      "room_inventory": 288,
+      "restaurants": [
+        {"name": "BRILLIANT", "type_zh": "全日餐廳", "type_en": "All-day dining", "type_ja": "オールデイダイニング"},
+        {"name": "HAYASE", "type_zh": "日本料理、懷石與鐵板燒", "type_en": "Japanese, kaiseki and teppanyaki", "type_ja": "日本料理・懐石・鉄板焼"},
+        {"name": "KAI HUA LOU", "type_zh": "中華料理", "type_en": "Chinese", "type_ja": "中華料理"},
+        {"name": "PLATFORM", "type_zh": "大廳酒吧與輕食", "type_en": "Lobby lounge and light dining", "type_ja": "ロビーラウンジ・軽食"},
+        {"name": "THE BAR", "type_zh": "酒吧", "type_en": "Bar", "type_ja": "バー"},
+        {"name": "CIGAR CLUB", "type_zh": "雪茄酒吧", "type_en": "Cigar bar", "type_ja": "シガーバー"},
+        {"name": "PREMIER SWEET", "type_zh": "烘焙坊與甜點", "type_en": "Patisserie and bakery", "type_ja": "ペストリー・ベーカリー"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
+      "room_snapshot": {
+        "observed_at": "2026-09-23",
+        "source_type": "official",
+        "source_url": "https://taipei.metropolitan.tw/stay/rooms/",
+        "rooms": [
+          {"name_zh": "都會客房一大床", "name_en": "Deluxe King", "name_ja": "Deluxe King", "size_sqm": 36},
+          {"name_zh": "都會客房雙床房", "name_en": "Deluxe Twin", "name_ja": "Deluxe Twin", "size_sqm_min": 36, "size_sqm_max": 39},
+          {"name_zh": "大都會客房一大床", "name_en": "Deluxe Premier King", "name_ja": "Deluxe Premier King", "size_sqm": 43},
+          {"name_zh": "大都會客房雙床房", "name_en": "Deluxe Premier Twin", "name_ja": "Deluxe Premier Twin", "size_sqm": 43},
+          {"name_zh": "大都會客房雙床房附加床", "name_en": "Deluxe Premier Twin with Extra Bed", "name_ja": "Deluxe Premier Twin with Extra Bed", "size_sqm": 43},
+          {"name_zh": "大都會客房連通房", "name_en": "Deluxe Premier Connecting", "name_ja": "Deluxe Premier Connecting", "size_sqm": 86},
+          {"name_zh": "行政客房", "name_en": "Executive King", "name_ja": "Executive King", "size_sqm": 36},
+          {"name_zh": "行政尊榮客房一大床", "name_en": "Executive Premier King", "name_ja": "Executive Premier King", "size_sqm": 43},
+          {"name_zh": "行政尊榮客房雙床房", "name_en": "Executive Premier Twin", "name_ja": "Executive Premier Twin", "size_sqm": 43},
+          {"name_zh": "行政景隅雙床房", "name_en": "Executive Corner Twin", "name_ja": "Executive Corner Twin", "size_sqm": 62},
+          {"name_zh": "行政尊榮連通房", "name_en": "Executive Premier Connecting", "name_ja": "Executive Premier Connecting", "size_sqm": 86},
+          {"name_zh": "行政景隅連通房", "name_en": "Executive Corner Connecting", "name_ja": "Executive Corner Connecting", "size_sqm": 105},
+          {"name_zh": "行政套房一大床", "name_en": "Executive Suite King", "name_ja": "Executive Suite King", "size_sqm": 62},
+          {"name_zh": "行政套房雙床房", "name_en": "Executive Suite Twin", "name_ja": "Executive Suite Twin", "size_sqm": 62},
+          {"name_zh": "大都會套房", "name_en": "Metropolitan Suite King", "name_ja": "Metropolitan Suite King", "size_sqm": 74},
+          {"name_zh": "景隅套房一大床", "name_en": "Corner Suite King", "name_ja": "Corner Suite King", "size_sqm": 90},
+          {"name_zh": "景隅套房雙床房", "name_en": "Corner Suite Twin", "name_ja": "Corner Suite Twin", "size_sqm": 90},
+          {"name_zh": "皇家套房一大床", "name_en": "Royal Suite King", "name_ja": "Royal Suite King", "size_sqm": 130},
+          {"name_zh": "皇家套房雙床房", "name_en": "Royal Suite Twin", "name_ja": "Royal Suite Twin", "size_sqm": 130},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite King", "name_ja": "Presidential Suite King", "size_sqm": 210},
+          {"name_zh": "無障礙客房", "name_en": "Universal Room", "name_ja": "Universal Room", "size_sqm": 39}
+        ]
+      },
+      "source_urls": [
+        "https://taipei.metropolitan.tw/stay/rooms/",
+        "https://taipei.metropolitan.tw/facility/",
+        "https://taipei.metropolitan.tw/spa/spawellness.html",
+        "https://taipei.hotel-metropolitan.com/"
+      ]
+    },
+    {
       "hotel_id": "eslite_hotel",
       "verified_at": "2026-09-23",
       "room_inventory": 104,

@@ -236,7 +236,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "eslite_hotel", "taipei_marriott"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "taipei_marriott"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -266,6 +266,14 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "function rateRoomLabel(row)" in html
     assert "item.sourceName.includes(room.name_zh)" in html
     assert "['愛心房','Accessible']" in html
+    assert by_id["hotel_metropolitan_premier_taipei"]["room_inventory"] == 288
+    assert len(by_id["hotel_metropolitan_premier_taipei"]["restaurants"]) == 7
+    assert by_id["hotel_metropolitan_premier_taipei"]["facilities"] == {"pool": True, "fitness": True, "spa": True, "sauna": True, "steam_room": True}
+    assert by_id["hotel_metropolitan_premier_taipei"]["lounge"]["kind"] == "executive_club"
+    jr_rooms = by_id["hotel_metropolitan_premier_taipei"]["room_snapshot"]["rooms"]
+    assert len(jr_rooms) == 21
+    assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in jr_rooms) == 36
+    assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in jr_rooms) == 210
     assert by_id["regent_taipei"]["room_inventory"] == 538
     assert len(by_id["regent_taipei"]["restaurants"]) == 8
     assert by_id["regent_taipei"]["facilities"]["sauna"] is True
