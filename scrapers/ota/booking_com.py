@@ -5,7 +5,7 @@ from typing import Any
 
 import httpx
 
-from app.models import Hotel, RateObservation, ScrapeStatus
+from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
 from scrapers.ota.base import OtaRateProvider
 
 
@@ -142,6 +142,7 @@ def parse_availability(
                 service_charge=None,
                 tax=None,
                 total_price=total,
+                tax_inclusion=TaxInclusion.INCLUDED,
                 currency=str(currency),
                 source_platform="booking_com",
                 source_method="partner_api",

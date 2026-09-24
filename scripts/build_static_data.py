@@ -6,6 +6,7 @@ from pathlib import Path
 
 from services.deduplication import deduplicate_observations
 from services.market_metrics import calculate_market_summary
+from services.rate_parity import calculate_rate_parity, comparison_metadata
 
 
 SOURCE = Path("data/rates.jsonl")
@@ -16,10 +17,12 @@ LEGACY_TARGET = Path("public/data/rates.json")
 
 DASHBOARD_FIELDS = (
     "run_id", "scheduled_for", "hotel_id", "hotel_name", "city", "district", "room_type_code", "room_type_name",
-    "room_size_sqm", "check_in", "lead_days", "rate_plan_name",
-    "breakfast_included", "price_before_tax", "total_price", "total_twd",
+    "room_size_sqm", "check_in", "check_out", "lead_days", "nights", "rooms", "adults", "children",
+    "rate_plan_name", "breakfast_included", "cancellation_policy", "price_before_tax",
+    "service_charge", "tax", "tax_inclusion", "total_price", "total_twd",
     "price_per_sqm", "queried_at", "currency", "source_platform",
     "source_method", "source_property_id", "source_url",
+    "size_band", "occupancy", "cancellation_class", "comparison_key", "comparison_status",
 )
 
 
@@ -34,6 +37,7 @@ def _dashboard_row(row: dict) -> dict:
     # the full history after OTA records are introduced.
     published["source_platform"] = row.get("source_platform") or "official"
     published["source_method"] = row.get("source_method") or "public_booking_page"
+    published.update(comparison_metadata(row))
     return published
 
 
@@ -181,6 +185,7 @@ def main() -> None:
                 "month": month,
                 "generated_from": "data/rates.jsonl",
                 "market_summary": calculate_market_summary(source_partitions[month]),
+                "rate_parity": calculate_rate_parity(source_partitions[month]),
                 "rates": month_rows,
             }, ensure_ascii=False),
             encoding="utf-8",
@@ -201,6 +206,7 @@ def main() -> None:
             {
                 "generated_from": "data/rates.jsonl",
                 "market_summary": calculate_market_summary(latest_source_rows),
+                "rate_parity": calculate_rate_parity(latest_source_rows),
                 "rates": latest_rows,
             },
             ensure_ascii=False,

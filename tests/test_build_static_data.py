@@ -45,7 +45,8 @@ def test_dashboard_row_drops_large_internal_fields():
     assert published["city"] == "Taipei"
     assert published["district"] == "Zhongshan"
     assert "raw_payload" not in published
-    assert "cancellation_policy" not in published
+    assert published["cancellation_policy"] == "kept in the JSONL source"
+    assert published["comparison_status"] == "insufficient_product_metadata"
 
 
 def test_dashboard_row_preserves_and_backfills_rate_source_metadata():

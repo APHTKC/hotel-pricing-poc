@@ -34,6 +34,8 @@ def _settings(tmp_path) -> Settings:
         booking_com_affiliate_id="affiliate",
         ota_config_path=tmp_path / "ota.yaml",
         local_data_path=tmp_path / "rates.jsonl",
+        adapter_health_path=tmp_path / "health.json",
+        diagnostic_snapshot_dir=tmp_path / "diagnostics",
         lead_days="1,7,14,30,60,90",
     )
 

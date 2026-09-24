@@ -51,6 +51,8 @@ jobs:
           DEMO_MODE: "false"
           STORAGE_BACKEND: local
           LOCAL_DATA_PATH: data/rates.jsonl
+          ADAPTER_HEALTH_PATH: data/adapter_health.json
+          DIAGNOSTIC_SNAPSHOT_DIR: data/diagnostics
           HOTELS_CONFIG_PATH: config/hotels.daily.yaml
           LEAD_DAYS: "1,7,14,30,60,90"
         run: python -m scripts.run_daily_once
@@ -60,6 +62,8 @@ jobs:
           DEMO_MODE: "false"
           STORAGE_BACKEND: local
           LOCAL_DATA_PATH: data/rates.jsonl
+          ADAPTER_HEALTH_PATH: data/adapter_health.json
+          DIAGNOSTIC_SNAPSHOT_DIR: data/diagnostics
           HOTELS_CONFIG_PATH: config/hotels.daily.yaml
           OTA_CONFIG_PATH: config/ota-properties.yaml
           LEAD_DAYS: "1,7,14,30,60,90"
@@ -77,10 +81,19 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/rates.jsonl public/data
+          git add data/rates.jsonl data/adapter_health.json public/data
           git diff --cached --quiet || git commit -m "data: update Taiwan hotel rates"
           git pull --rebase origin main
           git push
+
+      - name: Upload sanitized scraper diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraper-diagnostics-${{ github.run_id }}
+          path: data/diagnostics
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

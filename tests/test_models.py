@@ -18,7 +18,7 @@ def test_derived_fields():
     assert row.price_per_sqm == Decimal("231")
     assert row.total_twd == Decimal("11550")
     assert row.cpi_adjusted_twd == Decimal("10500")
-    assert row.schema_version == "1.2"
+    assert row.schema_version == "1.3"
     assert row.run_id is None
     assert row.scheduled_for is None
     assert row.source_platform == "official"

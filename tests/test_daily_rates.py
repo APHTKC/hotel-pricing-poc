@@ -27,7 +27,7 @@ class MemoryStore:
         return len(observations)
 
 
-def test_daily_job_skips_remaining_dates_after_two_empty_responses(monkeypatch):
+def test_daily_job_skips_remaining_dates_after_two_empty_responses(monkeypatch, tmp_path):
     hotel = Hotel(
         id="empty_hotel",
         name="Empty Hotel",
@@ -45,7 +45,12 @@ def test_daily_job_skips_remaining_dates_after_two_empty_responses(monkeypatch):
 
     result = asyncio.run(
         daily_rates.run_daily_rates(
-            Settings(demo_mode=False, lead_days="1,7,14,30,60,90")
+            Settings(
+                demo_mode=False,
+                lead_days="1,7,14,30,60,90",
+                adapter_health_path=tmp_path / "health.json",
+                diagnostic_snapshot_dir=tmp_path / "diagnostics",
+            )
         )
     )
 
@@ -57,7 +62,7 @@ def test_daily_job_skips_remaining_dates_after_two_empty_responses(monkeypatch):
     assert all(failure["error"] == "No public rates returned" for failure in result.failures)
 
 
-def test_daily_job_assigns_one_run_id_and_schedule_to_all_rows(monkeypatch):
+def test_daily_job_assigns_one_run_id_and_schedule_to_all_rows(monkeypatch, tmp_path):
     class SuccessfulScraper:
         async def fetch_rates(self, hotel, check_in, check_out, adults=2):
             from datetime import UTC, datetime
@@ -102,7 +107,12 @@ def test_daily_job_assigns_one_run_id_and_schedule_to_all_rows(monkeypatch):
     monkeypatch.setattr(daily_rates, "get_scraper", lambda *args: SuccessfulScraper())
     monkeypatch.setattr(daily_rates, "get_store", lambda settings: store)
 
-    asyncio.run(daily_rates.run_daily_rates(Settings(demo_mode=False, lead_days="1,7")))
+    asyncio.run(daily_rates.run_daily_rates(Settings(
+        demo_mode=False,
+        lead_days="1,7",
+        adapter_health_path=tmp_path / "health.json",
+        diagnostic_snapshot_dir=tmp_path / "diagnostics",
+    )))
 
     assert len(store.rows) == 2
     assert len({row.run_id for row in store.rows}) == 1

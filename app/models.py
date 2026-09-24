@@ -11,6 +11,12 @@ class ScrapeStatus(StrEnum):
     UNAVAILABLE = "unavailable"
 
 
+class TaxInclusion(StrEnum):
+    INCLUDED = "included"
+    EXCLUDED = "excluded"
+    UNKNOWN = "unknown"
+
+
 class Hotel(BaseModel):
     id: str
     name: str
@@ -26,7 +32,7 @@ class Hotel(BaseModel):
 
 
 class RateObservation(BaseModel):
-    schema_version: str = "1.2"
+    schema_version: str = "1.3"
     observation_id: str
     run_id: str | None = None
     scheduled_for: datetime | None = None
@@ -35,7 +41,9 @@ class RateObservation(BaseModel):
     check_out: date
     lead_days: int
     nights: int = 1
+    rooms: int = 1
     adults: int = 2
+    children: int = 0
     hotel_id: str
     hotel_name: str
     city: str = "Taipei"
@@ -50,6 +58,7 @@ class RateObservation(BaseModel):
     price_before_tax: Decimal | None = None
     service_charge: Decimal | None = None
     tax: Decimal | None = None
+    tax_inclusion: TaxInclusion = TaxInclusion.UNKNOWN
     total_price: Decimal
     currency: str
     source_platform: str = "official"
