@@ -292,7 +292,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["regent_taipei"]["facilities"]["sauna"] is True
     assert by_id["regent_taipei"]["facilities"]["steam_room"] is None
     assert by_id["regent_taipei"]["lounge"]["name"] == "Silks Club"
-    assert by_id["taipei_marriott"]["room_inventory"] is None
+    assert by_id["taipei_marriott"]["room_inventory"] == 318
+    assert any("taiwanstay.net.tw" in url for url in by_id["taipei_marriott"]["source_urls"])
     assert len(by_id["taipei_marriott"]["restaurants"]) == 6
     assert by_id["taipei_marriott"]["facilities"]["sauna"] is True
     assert by_id["taipei_marriott"]["lounge"]["name"] == "Executive Lounge"
@@ -303,7 +304,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert {room["name_en"] for room in snapshot["rooms"]} >= {"Classic Room", "Brilliant Suite"}
     assert {room["size_sqm"] for room in snapshot["rooms"]} >= {40, 51, 65, 80}
     palais = by_id["palais_de_chine"]
-    assert palais["room_inventory"] is None
+    assert palais["room_inventory"] == 286
+    assert any("media.taiwan.net.tw" in url for url in palais["source_urls"])
     assert len(palais["restaurants"]) == 3
     assert palais["facilities"] == {"pool": None, "fitness": True, "spa": None, "sauna": None, "steam_room": None}
     assert palais["lounge"]["name"] == "Le Salon VIP Lounge"

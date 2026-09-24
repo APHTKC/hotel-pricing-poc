@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "profiles": [
     {
       "hotel_id": "capella_taipei",
@@ -316,8 +316,8 @@
     },
     {
       "hotel_id": "taipei_marriott",
-      "verified_at": "2026-09-23",
-      "room_inventory": null,
+      "verified_at": "2026-09-24",
+      "room_inventory": 318,
       "restaurants": [
         {"name": "The Dining Place", "type_zh": "粵菜與川菜", "type_en": "Cantonese and Sichuan", "type_ja": "広東料理・四川料理"},
         {"name": "KOUMA Japanese Restaurant", "type_zh": "日本料理與無菜單料理", "type_en": "Japanese and omakase", "type_ja": "日本料理・おまかせ"},
@@ -343,6 +343,7 @@
         ]
       },
       "source_urls": [
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=12199&lang2=cn",
         "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
         "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/overview/",
         "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/rooms/",
@@ -352,8 +353,8 @@
     },
     {
       "hotel_id": "palais_de_chine",
-      "verified_at": "2026-09-23",
-      "room_inventory": null,
+      "verified_at": "2026-09-24",
+      "room_inventory": 286,
       "restaurants": [
         {"name": "Le Thé", "type_zh": "國際料理、茶飲與輕食", "type_en": "International dining, tea and light meals", "type_ja": "各国料理・お茶・軽食"},
         {"name": "Ciao by Fratelli Pennisi Macelleria Sicilia", "type_zh": "西西里牛排餐酒館", "type_en": "Sicilian steakhouse", "type_ja": "シチリア料理・ステーキハウス"},
@@ -378,6 +379,7 @@
         ]
       },
       "source_urls": [
+        "https://media.taiwan.net.tw/en-us/portal/travel/details/hotel_a15010000h_001187",
         "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
         "https://www.palaisdechinehotel.com/pdc-en/pages/26",
         "https://www.palaisdechinehotel.com/pdc-en/pages/28",
