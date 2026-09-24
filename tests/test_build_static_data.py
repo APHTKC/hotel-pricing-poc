@@ -9,6 +9,7 @@ from scripts.build_static_data import (
     _month_key,
     _plausible_luxury_rate,
     _public_adapter_health,
+    _weekly_digest,
 )
 
 
@@ -173,6 +174,41 @@ def test_history_summary_preaggregates_daily_and_lead_metrics():
     assert payload["daily"][0]["median_twd"] == 12000
     assert payload["daily"][0]["core_median_twd"] == 10000
     assert payload["lead_curve"][0]["median_twd"] == 12000
+
+
+def test_weekly_digest_uses_equal_weight_hotel_medians_and_previous_week():
+    rows = []
+    for day, hotel_id, values in [
+        ("2026-09-10", "hotel-a", [8000, 12000]),
+        ("2026-09-10", "hotel-b", [20000]),
+        ("2026-09-17", "hotel-a", [10000, 14000]),
+        ("2026-09-17", "hotel-b", [24000]),
+    ]:
+        for index, value in enumerate(values):
+            rows.append({
+                "hotel_id": hotel_id,
+                "hotel_name": hotel_id.title(),
+                "queried_at": f"{day}T0{index}:00:00+00:00",
+                "lead_days": 7 if index == 0 else 30,
+                "total_twd": value,
+            })
+
+    digest = _weekly_digest(rows)
+
+    assert digest["available"] is True
+    assert digest["current_period"]["market_median_twd"] == 18000
+    assert digest["previous_period"]["market_median_twd"] == 15000
+    assert digest["change_pct"] == 0.2
+    assert digest["comparable_hotels"] == 2
+    assert {item["lead_days"] for item in digest["lead_time_curve"]} == {7, 30}
+
+
+def test_weekly_digest_fails_closed_without_history():
+    assert _weekly_digest([]) == {
+        "available": False,
+        "reason": "no_history",
+        "currency": "TWD",
+    }
 
 
 def test_public_adapter_health_excludes_diagnostics_and_daily_details():

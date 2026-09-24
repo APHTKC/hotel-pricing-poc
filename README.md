@@ -21,13 +21,18 @@
 
 ```text
 public/data/latest.json                  最新一次查價，供即時總覽使用
-public/data/history_summary.json         輕量預聚合歷史趨勢
+public/data/history_summary.json         輕量預聚合歷史趨勢與每週市場摘要
 public/data/rates/YYYY-MM.json           使用者展開特定月份時才載入
 public/data/hotels.json                  65 家飯店 Catalog 與設施／房型快照
 ```
 
 `history.html` 首次只下載 `history_summary.json`，選擇月份或查看明細時才下載對應的
 `YYYY-MM.json`，不再發布原本超過 35 MB 的單一 `rates.json`。
+
+歷史分析頁同時提供「每週市場摘要」：以最近 7 個日曆日對比前 7 日，先計算各飯店
+的中位房價，再以飯店等權方式彙整市場中位數與平均數。摘要也會列出共同飯店的主要
+漲跌、各提前訂房天數的等權價格曲線，以及目前相對低價的 lead time；資料不足時不
+推估，直接顯示無可用比較。
 
 ## OTA 同商品比價
 

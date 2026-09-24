@@ -88,6 +88,135 @@ def _average(values: list[float]) -> float | None:
     return statistics.fmean(values) if values else None
 
 
+def _period_market(rows: list[dict]) -> dict:
+    """Summarize a period after giving each hotel one equal-weight value."""
+    by_hotel: dict[str, list[float]] = defaultdict(list)
+    names: dict[str, str | None] = {}
+    for row in rows:
+        hotel_id = row.get("hotel_id")
+        value = _number(row.get("total_twd"))
+        if not hotel_id or value is None:
+            continue
+        by_hotel[hotel_id].append(value)
+        names[hotel_id] = row.get("hotel_name")
+    hotel_medians = {
+        hotel_id: _median(values) for hotel_id, values in by_hotel.items()
+    }
+    values = [value for value in hotel_medians.values() if value is not None]
+    return {
+        "market_median_twd": _median(values),
+        "market_average_twd": _average(values),
+        "hotels": len(values),
+        "observations": sum(len(values) for values in by_hotel.values()),
+        "hotel_medians": [
+            {
+                "hotel_id": hotel_id,
+                "hotel_name": names.get(hotel_id),
+                "median_twd": value,
+            }
+            for hotel_id, value in sorted(hotel_medians.items())
+            if value is not None
+        ],
+    }
+
+
+def _weekly_digest(rows: list[dict]) -> dict:
+    """Compare the latest seven calendar days with the preceding seven days."""
+    dated_rows = []
+    for row in rows:
+        if not row.get("queried_at") or _number(row.get("total_twd")) is None:
+            continue
+        try:
+            day = _parse_timestamp(row["queried_at"]).date()
+        except (TypeError, ValueError):
+            continue
+        dated_rows.append((day, row))
+    if not dated_rows:
+        return {
+            "available": False,
+            "reason": "no_history",
+            "currency": "TWD",
+        }
+
+    latest_end = max(day for day, _ in dated_rows)
+    latest_start = latest_end - timedelta(days=6)
+    previous_end = latest_start - timedelta(days=1)
+    previous_start = previous_end - timedelta(days=6)
+    current_rows = [row for day, row in dated_rows if latest_start <= day <= latest_end]
+    previous_rows = [row for day, row in dated_rows if previous_start <= day <= previous_end]
+    current = _period_market(current_rows)
+    previous = _period_market(previous_rows)
+    previous_value = previous["market_median_twd"]
+    current_value = current["market_median_twd"]
+    change_pct = None
+    if current_value is not None and previous_value:
+        change_pct = (current_value - previous_value) / previous_value
+
+    current_by_hotel = {
+        item["hotel_id"]: item for item in current["hotel_medians"]
+    }
+    previous_by_hotel = {
+        item["hotel_id"]: item for item in previous["hotel_medians"]
+    }
+    movers = []
+    for hotel_id in sorted(current_by_hotel.keys() & previous_by_hotel.keys()):
+        current_item = current_by_hotel[hotel_id]
+        previous_item = previous_by_hotel[hotel_id]
+        baseline = previous_item["median_twd"]
+        if not baseline:
+            continue
+        movers.append({
+            "hotel_id": hotel_id,
+            "hotel_name": current_item.get("hotel_name") or previous_item.get("hotel_name"),
+            "current_median_twd": current_item["median_twd"],
+            "previous_median_twd": baseline,
+            "change_pct": (current_item["median_twd"] - baseline) / baseline,
+        })
+    movers.sort(key=lambda item: abs(item["change_pct"]), reverse=True)
+
+    lead_hotel_values: dict[int, dict[str, list[float]]] = defaultdict(
+        lambda: defaultdict(list)
+    )
+    for row in current_rows:
+        try:
+            lead = int(row.get("lead_days"))
+        except (TypeError, ValueError):
+            continue
+        hotel_id = row.get("hotel_id")
+        value = _number(row.get("total_twd"))
+        if hotel_id and value is not None:
+            lead_hotel_values[lead][hotel_id].append(value)
+    lead_time_curve = []
+    for lead, hotels in sorted(lead_hotel_values.items()):
+        hotel_medians = [_median(values) for values in hotels.values()]
+        hotel_medians = [value for value in hotel_medians if value is not None]
+        lead_time_curve.append({
+            "lead_days": lead,
+            "market_median_twd": _median(hotel_medians),
+            "hotels": len(hotel_medians),
+        })
+
+    return {
+        "available": current_value is not None,
+        "currency": "TWD",
+        "method": "hotel_equal_weight_median",
+        "current_period": {
+            "start": latest_start.isoformat(),
+            "end": latest_end.isoformat(),
+            **current,
+        },
+        "previous_period": {
+            "start": previous_start.isoformat(),
+            "end": previous_end.isoformat(),
+            **previous,
+        },
+        "change_pct": change_pct,
+        "comparable_hotels": len(movers),
+        "movers": movers[:5],
+        "lead_time_curve": lead_time_curve,
+    }
+
+
 def _history_summary(rows: list[dict]) -> dict:
     """Build the small, chart-ready payload loaded by the history landing page."""
     daily_groups: dict[tuple, list[dict]] = defaultdict(list)
@@ -152,6 +281,7 @@ def _history_summary(rows: list[dict]) -> dict:
         "generated_from": "data/rates.jsonl",
         "available_months": sorted({key for row in rows if (key := _month_key(row))}, reverse=True),
         "market_summary": calculate_market_summary(rows),
+        "weekly_digest": _weekly_digest(rows),
         "daily": daily,
         "hotels": hotels,
         "lead_curve": lead_curve,

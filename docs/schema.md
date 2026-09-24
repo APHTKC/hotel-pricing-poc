@@ -72,7 +72,7 @@ public/data/latest.json
   market_summary + rate_parity + rates（最新批次）
 
 public/data/history_summary.json
-  available_months + market_summary + daily + hotels + lead_curve
+  available_months + market_summary + daily + hotels + lead_curve + weekly_digest
 
 public/data/rates/YYYY-MM.json
   month + market_summary + rate_parity + rates（單月明細）
@@ -80,6 +80,21 @@ public/data/rates/YYYY-MM.json
 
 歷史頁首頁只讀取 `history_summary.json`；特定月份明細採按需載入。舊的單一
 `public/data/rates.json` 不再發布。
+
+### `weekly_digest`
+
+`weekly_digest` 是供歷史分析頁快速顯示的預聚合 Executive Digest，不需要下載單月
+明細。其期間定義與計算方式如下：
+
+- `current_period`：資料中最新日期往前 7 個日曆日（含首尾）。
+- `previous_period`：緊接在 current period 前的 7 個日曆日。
+- `market`：各期間先計算每家飯店的房價中位數，再對飯店中位數取市場中位數與平均數，
+  避免房型或觀測筆數較多的飯店取得較高權重。
+- `movers`：只比較兩個期間都有資料的飯店，依漲跌幅絕對值排序。
+- `lead_time_curve`：最近 7 日按提前訂房天數分組，各組同樣採飯店等權彙整。
+
+若不存在可比較的前一期間，變動率與 movers 維持空值／空陣列；系統不以單期資料推估
+歷史漲跌。
 
 ## AdapterHealth
 

@@ -46,6 +46,19 @@ def test_history_has_visible_export_tools():
     assert 'aria-label="資料匯出與列印"' in html
 
 
+def test_history_shows_preaggregated_weekly_executive_digest():
+    html = Path("public/history.html").read_text(encoding="utf-8")
+
+    assert 'id="weeklyDigest"' in html
+    assert 'data-i18n="weeklyTitle">本週市場摘要' in html
+    assert "function renderWeeklyDigest()" in html
+    assert "historySummary?.weekly_digest" in html
+    assert "hotel_equal_weight_median" not in html
+    assert "weekly_digest:historySummary?.weekly_digest||null" in html
+    assert "較前 7 日" in html
+    assert "週間マーケット概要" in html
+
+
 def test_home_distinguishes_skipped_automation_candidates():
     html = Path("public/index.html").read_text(encoding="utf-8")
 
