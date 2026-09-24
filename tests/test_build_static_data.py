@@ -4,7 +4,9 @@ import scripts.build_static_data as build_static_data
 from scripts.build_static_data import (
     DASHBOARD_FIELDS,
     _dashboard_row,
+    _history_summary,
     _latest_batch,
+    _month_key,
     _plausible_luxury_rate,
 )
 
@@ -68,8 +70,11 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     monkeypatch, tmp_path
 ):
     source = tmp_path / "rates.jsonl"
-    target = tmp_path / "rates.json"
+    rates_dir = tmp_path / "rates"
+    summary = tmp_path / "history_summary.json"
     latest = tmp_path / "latest.json"
+    legacy = tmp_path / "rates.json"
+    legacy.write_text("legacy", encoding="utf-8")
     common = {
         "check_in": "2026-10-01",
         "room_type_code": "ROOM",
@@ -113,14 +118,52 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
         "\n".join(json.dumps(row) for row in rows) + "\n", encoding="utf-8"
     )
     monkeypatch.setattr(build_static_data, "SOURCE", source)
-    monkeypatch.setattr(build_static_data, "TARGET", target)
+    monkeypatch.setattr(build_static_data, "RATES_DIR", rates_dir)
+    monkeypatch.setattr(build_static_data, "HISTORY_SUMMARY_TARGET", summary)
     monkeypatch.setattr(build_static_data, "LATEST_TARGET", latest)
+    monkeypatch.setattr(build_static_data, "LEGACY_TARGET", legacy)
 
     build_static_data.main()
 
-    payload = json.loads(target.read_text(encoding="utf-8"))
+    payload = json.loads((rates_dir / "2026-09.json").read_text(encoding="utf-8"))
     assert len(payload["rates"]) == 2
     assert {row["total_twd"] for row in payload["rates"]} == {"10000", "20000"}
     assert payload["market_summary"]["median_adr_twd"] == 15000
     latest_payload = json.loads(latest.read_text(encoding="utf-8"))
     assert latest_payload["market_summary"] == payload["market_summary"]
+    summary_payload = json.loads(summary.read_text(encoding="utf-8"))
+    assert summary_payload["available_months"] == ["2026-09"]
+    assert not legacy.exists()
+    assert len(summary_payload["daily"]) == 2
+    assert {row["hotel_id"] for row in summary_payload["hotels"]} == {
+        "hotel-a", "hotel-b"
+    }
+
+
+def test_month_key_uses_observation_month_and_rejects_missing_timestamp():
+    assert _month_key({"queried_at": "2026-09-30T23:59:00+00:00"}) == "2026-09"
+    assert _month_key({}) is None
+
+
+def test_history_summary_preaggregates_daily_and_lead_metrics():
+    rows = [
+        {
+            "hotel_id": "hotel-a", "hotel_name": "Hotel A", "city": "Taipei",
+            "district": "Xinyi", "queried_at": "2026-09-24T01:00:00+00:00",
+            "lead_days": 7, "room_size_sqm": 50, "total_twd": 10000,
+            "price_per_sqm": 200,
+        },
+        {
+            "hotel_id": "hotel-a", "hotel_name": "Hotel A", "city": "Taipei",
+            "district": "Xinyi", "queried_at": "2026-09-24T20:00:00+00:00",
+            "lead_days": 7, "room_size_sqm": 70, "total_twd": 14000,
+            "price_per_sqm": 200,
+        },
+    ]
+
+    payload = _history_summary(rows)
+
+    assert payload["daily"][0]["average_twd"] == 12000
+    assert payload["daily"][0]["median_twd"] == 12000
+    assert payload["daily"][0]["core_median_twd"] == 10000
+    assert payload["lead_curve"][0]["median_twd"] == 12000

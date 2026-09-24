@@ -1,4 +1,6 @@
 import json
+import statistics
+from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -7,8 +9,10 @@ from services.market_metrics import calculate_market_summary
 
 
 SOURCE = Path("data/rates.jsonl")
-TARGET = Path("public/data/rates.json")
+RATES_DIR = Path("public/data/rates")
+HISTORY_SUMMARY_TARGET = Path("public/data/history_summary.json")
 LATEST_TARGET = Path("public/data/latest.json")
+LEGACY_TARGET = Path("public/data/rates.json")
 
 DASHBOARD_FIELDS = (
     "run_id", "scheduled_for", "hotel_id", "hotel_name", "city", "district", "room_type_code", "room_type_name",
@@ -52,6 +56,102 @@ def _latest_batch(rows: list[dict]) -> list[dict]:
     return [row for row in timestamped if _parse_timestamp(row["queried_at"]) >= cutoff]
 
 
+def _month_key(row: dict) -> str | None:
+    value = row.get("queried_at")
+    if not value:
+        return None
+    try:
+        return _parse_timestamp(value).date().strftime("%Y-%m")
+    except (TypeError, ValueError):
+        return None
+
+
+def _number(value) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    return number if number > 0 else None
+
+
+def _median(values: list[float]) -> float | None:
+    return statistics.median(values) if values else None
+
+
+def _average(values: list[float]) -> float | None:
+    return statistics.fmean(values) if values else None
+
+
+def _history_summary(rows: list[dict]) -> dict:
+    """Build the small, chart-ready payload loaded by the history landing page."""
+    daily_groups: dict[tuple, list[dict]] = defaultdict(list)
+    lead_groups: dict[tuple, list[dict]] = defaultdict(list)
+    hotel_groups: dict[tuple, list[dict]] = defaultdict(list)
+    for row in rows:
+        queried_at = row.get("queried_at")
+        total = _number(row.get("total_twd"))
+        if not queried_at or total is None:
+            continue
+        queried_date = _parse_timestamp(queried_at).date().isoformat()
+        identity = (
+            row.get("hotel_id"), row.get("hotel_name"), row.get("city"), row.get("district")
+        )
+        daily_groups[(queried_date, *identity)].append(row)
+        hotel_groups[identity].append(row)
+        lead = row.get("lead_days")
+        if lead is not None:
+            lead_groups[(*identity, int(lead))].append(row)
+
+    def stats(group: list[dict]) -> dict:
+        values = [_number(row.get("total_twd")) for row in group]
+        values = [value for value in values if value is not None]
+        core = [
+            _number(row.get("total_twd"))
+            for row in group
+            if _number(row.get("room_size_sqm")) is not None
+            and 45 <= float(row["room_size_sqm"]) < 60
+        ]
+        core = [value for value in core if value is not None]
+        unit = [_number(row.get("price_per_sqm")) for row in group]
+        unit = [value for value in unit if value is not None]
+        return {
+            "observations": len(values),
+            "average_twd": _average(values),
+            "median_twd": _median(values),
+            "core_median_twd": _median(core),
+            "median_per_sqm_twd": _median(unit),
+        }
+
+    daily = []
+    sort_key = lambda item: tuple("" if value is None else str(value) for value in item[0])
+    for (day, hotel_id, hotel_name, city, district), group in sorted(daily_groups.items(), key=sort_key):
+        daily.append({
+            "queried_date": day, "hotel_id": hotel_id, "hotel_name": hotel_name,
+            "city": city, "district": district, **stats(group),
+        })
+    hotels = []
+    for (hotel_id, hotel_name, city, district), group in sorted(hotel_groups.items(), key=sort_key):
+        days = {_parse_timestamp(row["queried_at"]).date().isoformat() for row in group}
+        hotels.append({
+            "hotel_id": hotel_id, "hotel_name": hotel_name, "city": city,
+            "district": district, "days": len(days), **stats(group),
+        })
+    lead_curve = []
+    for (hotel_id, hotel_name, city, district, lead), group in sorted(lead_groups.items(), key=sort_key):
+        lead_curve.append({
+            "hotel_id": hotel_id, "hotel_name": hotel_name, "city": city,
+            "district": district, "lead_days": lead, **stats(group),
+        })
+    return {
+        "generated_from": "data/rates.jsonl",
+        "available_months": sorted({key for row in rows if (key := _month_key(row))}, reverse=True),
+        "market_summary": calculate_market_summary(rows),
+        "daily": daily,
+        "hotels": hotels,
+        "lead_curve": lead_curve,
+    }
+
+
 def main() -> None:
     source_rows = []
     if SOURCE.exists():
@@ -63,18 +163,34 @@ def main() -> None:
     source_rows = deduplicate_observations(source_rows, keep="latest")
     rows = [_dashboard_row(row) for row in source_rows]
     rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
-    TARGET.parent.mkdir(parents=True, exist_ok=True)
-    TARGET.write_text(
-        json.dumps(
-            {
+    RATES_DIR.mkdir(parents=True, exist_ok=True)
+    partitions: dict[str, list[dict]] = defaultdict(list)
+    source_partitions: dict[str, list[dict]] = defaultdict(list)
+    for source_row in source_rows:
+        month = _month_key(source_row)
+        if month:
+            source_partitions[month].append(source_row)
+            partitions[month].append(_dashboard_row(source_row))
+    for stale in RATES_DIR.glob("????-??.json"):
+        if stale.stem not in partitions:
+            stale.unlink()
+    for month, month_rows in partitions.items():
+        month_rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
+        (RATES_DIR / f"{month}.json").write_text(
+            json.dumps({
+                "month": month,
                 "generated_from": "data/rates.jsonl",
-                "market_summary": calculate_market_summary(source_rows),
-                "rates": rows,
-            },
-            ensure_ascii=False,
-        ),
-        encoding="utf-8",
+                "market_summary": calculate_market_summary(source_partitions[month]),
+                "rates": month_rows,
+            }, ensure_ascii=False),
+            encoding="utf-8",
+        )
+    HISTORY_SUMMARY_TARGET.parent.mkdir(parents=True, exist_ok=True)
+    HISTORY_SUMMARY_TARGET.write_text(
+        json.dumps(_history_summary(source_rows), ensure_ascii=False), encoding="utf-8"
     )
+    if LEGACY_TARGET.exists():
+        LEGACY_TARGET.unlink()
     latest_rows = _latest_batch(rows)
     latest_timestamps = {row["queried_at"] for row in latest_rows}
     latest_source_rows = [
@@ -92,8 +208,8 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"Published {len(rows)} historical observations to {TARGET} and "
-        f"{len(latest_rows)} latest observations to {LATEST_TARGET}"
+        f"Published {len(rows)} historical observations across {len(partitions)} monthly files, "
+        f"a summary to {HISTORY_SUMMARY_TARGET}, and {len(latest_rows)} latest observations"
     )
 
 

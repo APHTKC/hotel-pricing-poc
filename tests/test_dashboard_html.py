@@ -30,7 +30,7 @@ def test_history_supports_average_and_median_analysis():
     assert 'id="metricMode"' in html
     assert '<option value="average"' in html
     assert '<option value="median"' in html
-    assert "const average=" in html
+    assert "import { average, median, roomSizeBand, formatMoney }" in html
 
 
 def test_history_has_visible_export_tools():
@@ -58,11 +58,13 @@ def test_dashboard_uses_flexible_competitor_room_size_bands():
     home = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
 
+    metrics = Path("public/assets/js/metrics.js").read_text(encoding="utf-8")
     for html in (home, history):
         assert 'value="45–59㎡" data-i18n="sizeCore"' in html
         assert "45–59㎡（核心比較）" in html
-        assert "n<=0?'unknown':n<45?'<45㎡':n<60?'45–59㎡':n<80?'60–79㎡':'80㎡+'" in html
+        assert "roomSizeBand" in html
         assert "50–69㎡" not in html
+    assert "if (size === null || size <= 0) return 'unknown'" in metrics
 
 
 def test_both_dashboards_support_dependent_taipei_district_filtering():
@@ -154,27 +156,29 @@ def test_ota_controls_stay_hidden_until_real_ota_rates_exist():
 
 def test_home_chart_identifies_hotels_when_hovering_lines_and_points():
     html = Path("public/index.html").read_text(encoding="utf-8")
+    chart = Path("public/assets/js/charts.js").read_text(encoding="utf-8")
 
-    assert 'class="chart-series-hit"' in html
-    assert 'data-tooltip="${esc(s.name)}"' in html
-    assert 'id="chartTooltip"' in html
-    assert "element.addEventListener('pointerenter',showTooltip)" in html
+    assert "renderLineChart({root:'#chart'" in html
+    assert 'class="chart-series-hit"' in chart
+    assert 'data-tooltip="${escapeHtml(item.name)}"' in chart
+    assert "element.addEventListener('pointerenter', show)" in chart
     assert ".chart-series:hover .chart-series-line" in html
     assert "hover a line to identify the hotel" in html
 
 
 def test_history_charts_identify_hotels_and_rates_on_hover():
     html = Path("public/history.html").read_text(encoding="utf-8")
+    chart = Path("public/assets/js/charts.js").read_text(encoding="utf-8")
 
-    assert "function interactiveLineChart(" in html
-    assert 'class="chart-series-hit"' in html
-    assert 'class="chart-tooltip"' in html
-    assert "root.querySelectorAll('[data-tooltip]')" in html
-    assert "element.addEventListener('pointerenter',showTooltip)" in html
+    assert "function interactiveLineChart(" not in html
+    assert "function lineChart(" not in html
+    assert 'class="chart-series-hit"' in chart
+    assert 'class="chart-tooltip"' in chart
+    assert "rootElement.querySelectorAll('[data-tooltip]')" in chart
     assert ".chart-series:hover .chart-series-line" in html
     assert "hover a line to identify the hotel and rate" in html
-    assert "interactiveLineChart('#dailyChart'" in html
-    assert "interactiveLineChart('#curveChart'" in html
+    assert "renderLineChart({root:'#dailyChart'" in html
+    assert "renderLineChart({root:'#curveChart'" in html
 
 
 def test_home_shows_per_hotel_last_success_and_freshness():
@@ -365,14 +369,25 @@ def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
 def test_missing_room_area_is_not_treated_as_under_45_sqm():
     overview = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
+    metrics = Path("public/assets/js/metrics.js").read_text(encoding="utf-8")
 
-    assert "!Number.isFinite(n)||n<=0?'unknown'" in overview
-    assert "!Number.isFinite(n)||n<=0?'unknown'" in history
+    assert "const band=roomSizeBand" in overview
+    assert "band=roomSizeBand" in history
+    assert "value === null || value === undefined || value === ''" in metrics
+    assert "size === null || size <= 0" in metrics
     assert "hasSize=Number.isFinite(size)&&size>0" in overview
-    assert "if(value==null||value==='')return'unknown'" in overview
-    assert "if(value==null||value==='')return'unknown'" in history
     assert "band(Number(r.room_size_sqm))" not in overview
     assert "band(Number(r.room_size_sqm))" not in history
+
+
+def test_history_loads_summary_first_and_month_details_on_demand():
+    html = Path("public/history.html").read_text(encoding="utf-8")
+
+    assert "./data/history_summary.json" in html
+    assert "./data/rates/${month}.json" in html
+    assert "./data/rates.json" not in html
+    assert 'id="historyMonth"' in html
+    assert 'id="loadMonth"' in html
 
 
 def test_all_primary_pages_link_to_hotel_profile_comparison():
