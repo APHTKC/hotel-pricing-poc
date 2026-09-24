@@ -466,6 +466,15 @@ def test_home_has_official_vs_ota_rate_gap_comparison():
     assert "renderSourceComparison();" in html
 
 
+def test_home_shows_sanitized_adapter_health_summary():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert "./data/adapter_health.json" in html
+    assert "collectionHealth" in html
+    assert "本次完全成功" in html
+    assert "冷卻中" in html
+
+
 def test_room_size_options_show_unique_room_type_counts_for_current_scope():
     home = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")

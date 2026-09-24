@@ -10,9 +10,11 @@ from services.rate_parity import calculate_rate_parity, comparison_metadata
 
 
 SOURCE = Path("data/rates.jsonl")
+HEALTH_SOURCE = Path("data/adapter_health.json")
 RATES_DIR = Path("public/data/rates")
 HISTORY_SUMMARY_TARGET = Path("public/data/history_summary.json")
 LATEST_TARGET = Path("public/data/latest.json")
+HEALTH_TARGET = Path("public/data/adapter_health.json")
 LEGACY_TARGET = Path("public/data/rates.json")
 
 DASHBOARD_FIELDS = (
@@ -156,6 +158,25 @@ def _history_summary(rows: list[dict]) -> dict:
     }
 
 
+def _public_adapter_health(payload: dict) -> dict:
+    """Publish operational aggregates without diagnostic messages or URLs."""
+    allowed = (
+        "adapter", "hotel_id", "attempts", "successes", "failures",
+        "blocked_count", "success_rate", "average_response_ms", "last_status",
+        "last_attempt_at", "last_success_at", "cooldown_until",
+    )
+    adapters = []
+    for record in (payload.get("adapters") or {}).values():
+        adapters.append({field: record.get(field) for field in allowed})
+    adapters.sort(key=lambda row: (row.get("hotel_id") or "", row.get("adapter") or ""))
+    attempts = [row.get("last_attempt_at") for row in adapters if row.get("last_attempt_at")]
+    return {
+        "schema_version": "1.0",
+        "generated_at": max(attempts) if attempts else None,
+        "adapters": adapters,
+    }
+
+
 def main() -> None:
     source_rows = []
     if SOURCE.exists():
@@ -193,6 +214,16 @@ def main() -> None:
     HISTORY_SUMMARY_TARGET.parent.mkdir(parents=True, exist_ok=True)
     HISTORY_SUMMARY_TARGET.write_text(
         json.dumps(_history_summary(source_rows), ensure_ascii=False), encoding="utf-8"
+    )
+    health_payload = {"adapters": {}}
+    if HEALTH_SOURCE.exists():
+        try:
+            health_payload = json.loads(HEALTH_SOURCE.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            pass
+    HEALTH_TARGET.write_text(
+        json.dumps(_public_adapter_health(health_payload), ensure_ascii=False),
+        encoding="utf-8",
     )
     if LEGACY_TARGET.exists():
         LEGACY_TARGET.unlink()

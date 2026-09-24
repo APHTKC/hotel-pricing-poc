@@ -8,6 +8,7 @@ from scripts.build_static_data import (
     _latest_batch,
     _month_key,
     _plausible_luxury_rate,
+    _public_adapter_health,
 )
 
 
@@ -74,6 +75,8 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     rates_dir = tmp_path / "rates"
     summary = tmp_path / "history_summary.json"
     latest = tmp_path / "latest.json"
+    health_source = tmp_path / "adapter_health.json"
+    health_target = tmp_path / "public_health.json"
     legacy = tmp_path / "rates.json"
     legacy.write_text("legacy", encoding="utf-8")
     common = {
@@ -122,6 +125,8 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     monkeypatch.setattr(build_static_data, "RATES_DIR", rates_dir)
     monkeypatch.setattr(build_static_data, "HISTORY_SUMMARY_TARGET", summary)
     monkeypatch.setattr(build_static_data, "LATEST_TARGET", latest)
+    monkeypatch.setattr(build_static_data, "HEALTH_SOURCE", health_source)
+    monkeypatch.setattr(build_static_data, "HEALTH_TARGET", health_target)
     monkeypatch.setattr(build_static_data, "LEGACY_TARGET", legacy)
 
     build_static_data.main()
@@ -168,3 +173,19 @@ def test_history_summary_preaggregates_daily_and_lead_metrics():
     assert payload["daily"][0]["median_twd"] == 12000
     assert payload["daily"][0]["core_median_twd"] == 10000
     assert payload["lead_curve"][0]["median_twd"] == 12000
+
+
+def test_public_adapter_health_excludes_diagnostics_and_daily_details():
+    payload = _public_adapter_health({"adapters": {"stub:hotel-a": {
+        "adapter": "stub", "hotel_id": "hotel-a", "attempts": 3,
+        "successes": 2, "failures": 1, "blocked_count": 0,
+        "success_rate": 0.6667, "average_response_ms": 1200,
+        "last_status": "failed", "last_attempt_at": "2026-09-24T01:00:00+00:00",
+        "last_success_at": "2026-09-23T01:00:00+00:00", "cooldown_until": None,
+        "daily": {"2026-09-24": {"attempts": 3}}, "reason": "private detail",
+    }}})
+
+    assert payload["generated_at"] == "2026-09-24T01:00:00+00:00"
+    assert payload["adapters"][0]["success_rate"] == 0.6667
+    assert "daily" not in payload["adapters"][0]
+    assert "reason" not in payload["adapters"][0]
