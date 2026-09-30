@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "windsor_taichung"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "windsor_taichung", "grand_hilai_kaohsiung"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -394,6 +394,31 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert min(room["size_sqm"] for room in windsor["room_snapshot"]["rooms"]) == 31
     assert max(room["size_sqm"] for room in windsor["room_snapshot"]["rooms"]) == 165
+    grand_hilai_kaohsiung = by_id["grand_hilai_kaohsiung"]
+    assert grand_hilai_kaohsiung["room_inventory"] == 540
+    assert grand_hilai_kaohsiung["service_charge_percent"] == 10
+    assert len(grand_hilai_kaohsiung["restaurants"]) == 13
+    assert grand_hilai_kaohsiung["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": False,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert grand_hilai_kaohsiung["lounge"] == {
+        "available": True,
+        "name": "商務貴賓軒",
+        "kind": "executive_lounge",
+    }
+    assert grand_hilai_kaohsiung["room_snapshot"]["source_type"] == "official"
+    assert len(grand_hilai_kaohsiung["room_snapshot"]["rooms"]) == 29
+    assert {room["name_en"] for room in grand_hilai_kaohsiung["room_snapshot"]["rooms"]} >= {
+        "Superior Room",
+        "Presidential Suite",
+        "Hello Kitty Parisian Chic Premium Family Room",
+    }
+    assert min(room["size_sqm"] for room in grand_hilai_kaohsiung["room_snapshot"]["rooms"]) == 33
+    assert max(room["size_sqm"] for room in grand_hilai_kaohsiung["room_snapshot"]["rooms"]) == 510
     assert "room.aliases_zh||[]" in html
     assert "Math.abs(item.sizeMin-min)<=1" in html
 
