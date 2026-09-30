@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -546,6 +546,31 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert min(room["size_sqm"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]) == 40
     assert max(room["size_sqm"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]) == 231
+    radium_kagaya = by_id["radium_kagaya_taipei"]
+    assert radium_kagaya["room_inventory"] == 90
+    assert radium_kagaya["service_charge_percent"] == 10
+    assert len(radium_kagaya["restaurants"]) == 3
+    assert radium_kagaya["facilities"] == {
+        "pool": None,
+        "fitness": None,
+        "spa": True,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert radium_kagaya["lounge"] == {
+        "available": False,
+        "name": None,
+        "kind": "none",
+    }
+    assert radium_kagaya["room_snapshot"]["source_type"] == "official"
+    assert len(radium_kagaya["room_snapshot"]["rooms"]) == 9
+    assert {room["name_en"] for room in radium_kagaya["room_snapshot"]["rooms"]} >= {
+        "Mixed Standard Suite (No View)",
+        "Semi-Open Hot Spring Executive Suite",
+        "Grand Special Suite",
+    }
+    assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in radium_kagaya["room_snapshot"]["rooms"]) == 43
+    assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in radium_kagaya["room_snapshot"]["rooms"]) == 105
     assert "room.aliases_zh||[]" in html
     assert "Math.abs(item.sizeMin-min)<=1" in html
 

@@ -778,6 +778,47 @@
       ]
     },
     {
+      "hotel_id": "radium_kagaya_taipei",
+      "verified_at": "2026-09-30",
+      "room_inventory": 90,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "天翔廳 TENSHOU Restaurant", "type_zh": "早餐自助餐與日本會席料理", "type_en": "Breakfast buffet and Japanese kaiseki cuisine", "type_ja": "朝食ビュッフェ・日本会席料理"},
+        {"name": "日和廳 HIYORI Lounge", "type_zh": "咖啡、甜點與輕食", "type_en": "Cafe, desserts and light dining", "type_ja": "カフェ・デザート・軽食"},
+        {"name": "夕月 YUDUKI Bar", "type_zh": "日式酒吧", "type_en": "Japanese-style bar", "type_ja": "和風バー"}
+      ],
+      "facilities": {"pool": null, "fitness": null, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-09-30",
+        "source_type": "official",
+        "source_url": "https://www.kagaya.com.tw/rooms/",
+        "rooms": [
+          {"name_zh": "溫馨和洋標準套房（有陽台）", "name_en": "Mixed Standard Suite Twin (With Terrace)", "name_ja": "ぬくもり和洋スタンダードスイート（ベランダあり）", "size_sqm": 43},
+          {"name_zh": "溫馨和洋標準套房（無陽台）", "name_en": "Mixed Standard Suite (No View)", "name_ja": "ぬくもり和洋スタンダードスイート", "size_sqm": 43},
+          {"name_zh": "溫馨和式標準套房", "name_en": "Japanese Standard Suite (No View)", "name_ja": "ぬくもり和式スタンダードスイート", "size_sqm": 43},
+          {"name_zh": "園景和洋雅緻套房（有陽台）", "name_en": "Park Side View Mixed Deluxe Suite (With Terrace)", "name_ja": "ガーデンビュー和洋エレガントスイート（ベランダあり）", "size_sqm_min": 43, "size_sqm_max": 50},
+          {"name_zh": "園景和洋雅緻套房（無陽台）", "name_en": "Park Side View Mixed Deluxe Suite", "name_ja": "ガーデンビュー和洋エレガントスイート", "size_sqm_min": 43, "size_sqm_max": 50},
+          {"name_zh": "園景和式雅緻套房", "name_en": "Park Side View Japanese Deluxe Suite", "name_ja": "ガーデンビュー和式エレガントスイート", "size_sqm_min": 43, "size_sqm_max": 50},
+          {"name_zh": "園景半露天風呂套房", "name_en": "Semi-Open Hot Spring Executive Suite", "name_ja": "ガーデンビュー半露天風呂スイート", "size_sqm": 53},
+          {"name_zh": "樓中樓套房（2間房）", "name_en": "Duplex Apartment Suite (No View)", "name_ja": "メゾネットスイート", "size_sqm": 86},
+          {"name_zh": "特別室套房", "name_en": "Grand Special Suite", "name_ja": "スペシャルスイート", "size_sqm": 105}
+        ]
+      },
+      "source_urls": [
+        "https://www.kagaya.com.tw/rooms/",
+        "https://www.kagaya.com.tw/en/rooms/",
+        "https://www.kagaya.com.tw/ja/rooms/",
+        "https://www.kagaya.com.tw/rooms/special-suites/",
+        "https://www.kagaya.com.tw/rooms/executive-suite-with-semi-open-air-hot-spring-bath/",
+        "https://www.kagaya.com.tw/spring/4f-white-sulfur-public-hot-spring/",
+        "https://www.kagaya.com.tw/spring/7f-beitou-stone-and-cypress-sauna/",
+        "https://www.kagaya.com.tw/dining/",
+        "https://www.kagaya.com.tw/news/%E9%AB%98%E6%A8%99%E6%BA%96%E5%AE%89%E5%BF%83%E4%BD%8F%E6%88%BF%E7%92%B0%E5%A2%83-%E7%8D%A8%E7%AB%8B%E7%A9%BA%E8%AA%BF%E7%B3%BB%E7%B5%B1/",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=17412"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,
