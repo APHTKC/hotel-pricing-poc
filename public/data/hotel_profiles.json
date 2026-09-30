@@ -729,6 +729,55 @@
       ]
     },
     {
+      "hotel_id": "sheraton_hsinchu",
+      "verified_at": "2026-09-30",
+      "room_inventory": 770,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "Fresh Corner 紛鳥輕食麵包坊", "type_zh": "烘焙坊、甜點與輕食", "type_en": "Deli, bakery and light dining", "type_ja": "デリ・ベーカリー・軽食"},
+        {"name": "大廳咖啡吧 Lobby Lounge", "type_zh": "大廳酒廊、精釀啤酒與下午茶", "type_en": "Lobby lounge, craft beer and afternoon tea", "type_ja": "ロビーラウンジ・クラフトビール・アフタヌーンティー"},
+        {"name": "光吧 Light Bar", "type_zh": "威士忌與調酒酒吧", "type_en": "Whisky and cocktail bar", "type_ja": "ウイスキー・カクテルバー"},
+        {"name": "老乾杯 Kanpai Classic", "type_zh": "日澳和牛燒肉", "type_en": "Japanese-style barbecue and wagyu", "type_ja": "焼肉・和牛"},
+        {"name": "盛宴自助餐廳 Feast", "type_zh": "國際自助餐與全日餐飲", "type_en": "Buffet and all-day dining", "type_ja": "ビュッフェ・オールデイダイニング"},
+        {"name": "迎月庭 Moon", "type_zh": "鐵板燒與日本料理", "type_en": "Teppanyaki and Japanese cuisine", "type_ja": "鉄板焼・日本料理"},
+        {"name": "采悅軒 Yue", "type_zh": "粵菜與中華料理", "type_en": "Cantonese and Chinese cuisine", "type_ja": "広東料理・中華料理"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "行政貴賓廳 Sheraton Club", "kind": "executive_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-09-30",
+        "source_type": "official",
+        "source_url": "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=3",
+        "rooms": [
+          {"name_zh": "高級客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 40},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 40},
+          {"name_zh": "行政客房", "name_en": "Executive Room", "name_ja": "Executive Room", "size_sqm": 40},
+          {"name_zh": "喜來登套房", "name_en": "Sheraton Suite", "name_ja": "Sheraton Suite", "size_sqm": 66},
+          {"name_zh": "首席套房", "name_en": "Premier Suite", "name_ja": "Premier Suite", "size_sqm": 149},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 231},
+          {"name_zh": "家庭客房", "name_en": "Family Twin", "name_ja": "Family Twin", "size_sqm": 40},
+          {"name_zh": "喜波波主題房", "name_en": "BoBo Themed Room", "name_ja": "BoBo Themed Room", "size_sqm": 40}
+        ]
+      },
+      "source_urls": [
+        "https://www.marriott.com/en-us/hotels/tpehs-sheraton-hsinchu-hotel/overview/",
+        "https://www.marriott.com/en-us/hotels/tpehs-sheraton-hsinchu-hotel/rooms/",
+        "https://www.marriott.com/en-us/hotels/tpehs-sheraton-hsinchu-hotel/dining/",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=page&id=31",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=2",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=3",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=4",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=5",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=9",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=10",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=14",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=room&id=17",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=page&id=20",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=page&id=21",
+        "https://www.sheraton-hsinchu.com/zh-tw/websev?cat=news&id=767"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,

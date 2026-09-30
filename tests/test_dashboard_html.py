@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -520,6 +520,32 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert min(room["size_sqm"] for room in hotel_nikko_kaohsiung["room_snapshot"]["rooms"]) == 36
     assert max(room["size_sqm"] for room in hotel_nikko_kaohsiung["room_snapshot"]["rooms"]) == 126
+    sheraton_hsinchu = by_id["sheraton_hsinchu"]
+    assert sheraton_hsinchu["room_inventory"] == 770
+    assert sheraton_hsinchu["service_charge_percent"] == 10
+    assert len(sheraton_hsinchu["restaurants"]) == 7
+    assert sheraton_hsinchu["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert sheraton_hsinchu["lounge"] == {
+        "available": True,
+        "name": "行政貴賓廳 Sheraton Club",
+        "kind": "executive_lounge",
+    }
+    assert sheraton_hsinchu["room_snapshot"]["source_type"] == "official"
+    assert len(sheraton_hsinchu["room_snapshot"]["rooms"]) == 8
+    assert {room["name_en"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]} >= {
+        "Deluxe Room",
+        "Sheraton Suite",
+        "Presidential Suite",
+        "BoBo Themed Room",
+    }
+    assert min(room["size_sqm"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]) == 40
+    assert max(room["size_sqm"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]) == 231
     assert "room.aliases_zh||[]" in html
     assert "Math.abs(item.sizeMin-min)<=1" in html
 
