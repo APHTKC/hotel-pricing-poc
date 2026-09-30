@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "windsor_taichung", "grand_hilai_kaohsiung", "hotel_nikko_kaohsiung"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "hotel_nikko_kaohsiung"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -394,6 +394,34 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert min(room["size_sqm"] for room in windsor["room_snapshot"]["rooms"]) == 31
     assert max(room["size_sqm"] for room in windsor["room_snapshot"]["rooms"]) == 165
+    intercontinental_taichung = by_id["intercontinental_taichung"]
+    assert intercontinental_taichung["room_inventory"] == 206
+    assert "service_charge_percent" not in intercontinental_taichung
+    assert len(intercontinental_taichung["restaurants"]) == 5
+    assert intercontinental_taichung["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert intercontinental_taichung["lounge"] == {
+        "available": True,
+        "name": "洲際行政俱樂部",
+        "kind": "executive_lounge",
+    }
+    assert intercontinental_taichung["room_snapshot"]["source_type"] == "official"
+    assert len(intercontinental_taichung["room_snapshot"]["rooms"]) == 6
+    assert {room["name_en"] for room in intercontinental_taichung["room_snapshot"]["rooms"]} == {
+        "Classic Room",
+        "Premium Room",
+        "Midtown Suite",
+        "Vista Suite",
+        "Royal Suite",
+        "Presidential Suite",
+    }
+    assert min(room["size_sqm"] for room in intercontinental_taichung["room_snapshot"]["rooms"]) == 40
+    assert max(room["size_sqm"] for room in intercontinental_taichung["room_snapshot"]["rooms"]) == 173
     grand_hilai_kaohsiung = by_id["grand_hilai_kaohsiung"]
     assert grand_hilai_kaohsiung["room_inventory"] == 540
     assert grand_hilai_kaohsiung["service_charge_percent"] == 10
