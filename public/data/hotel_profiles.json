@@ -426,6 +426,37 @@
       ]
     },
     {
+      "hotel_id": "hoshinoya_guguan",
+      "verified_at": "2026-09-30",
+      "room_inventory": 49,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "Dining", "type_zh": "季節會席、早餐與午餐", "type_en": "Seasonal kaiseki, breakfast and lunch", "type_ja": "季節会席・朝食・昼食"},
+        {"name": "In-Room Dining", "type_zh": "客房餐飲與單點料理", "type_en": "In-room dining and à la carte", "type_ja": "インルームダイニング・アラカルト"}
+      ],
+      "facilities": {"pool": true, "fitness": null, "spa": true, "sauna": true, "steam_room": null},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-09-30",
+        "source_type": "official",
+        "source_url": "https://hoshinoresorts.com/zh/presscenter/04/2026/204407/",
+        "rooms": [
+          {"name_zh": "水明", "name_en": "Shui", "name_ja": "Shui", "size_sqm": 75},
+          {"name_zh": "風音", "name_en": "Feng", "name_ja": "Feng", "size_sqm": 87},
+          {"name_zh": "月見", "name_en": "Yue", "name_ja": "Yue", "size_sqm": 105},
+          {"name_zh": "山霞", "name_en": "Shan", "name_ja": "Shan", "size_sqm": 112},
+          {"name_zh": "森羅", "name_en": "Sen", "name_ja": "Sen", "size_sqm": 216}
+        ]
+      },
+      "source_urls": [
+        "https://hoshinoresorts.com/zh_tw/hotels/hoshinoyaguguan/",
+        "https://hoshinoresorts.com/zh/presscenter/04/2026/204407/",
+        "https://hoshinoresorts.com/zh_tw/hotels/hoshinoyaguguan/dining/",
+        "https://hoshinoresorts.com/zh_tw/hotels/hoshinoyaguguan/sp/hotspring_spa_pool/",
+        "https://d3s3ousecbrwfp.cloudfront.net/images/2020/05/21211636/ce237f47132dc13c652d10cc55897d05.pdf"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,
