@@ -457,6 +457,44 @@
       ]
     },
     {
+      "hotel_id": "windsor_taichung",
+      "verified_at": "2026-09-30",
+      "room_inventory": 149,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "Windsor Café", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
+        {"name": "Rose Corner Bakery", "type_zh": "咖啡、甜點、烘焙與輕食", "type_en": "Café, desserts, bakery and light dining", "type_ja": "カフェ・デザート・ベーカリー・軽食"},
+        {"name": "Zhe Abalone Chinese Restaurant", "type_zh": "粵菜與中華料理", "type_en": "Cantonese and Chinese", "type_ja": "広東料理・中華料理"},
+        {"name": "Gen Zen Teppanyaki Restaurant", "type_zh": "鐵板燒", "type_en": "Teppanyaki", "type_ja": "鉄板焼"},
+        {"name": "Hidden Eight", "type_zh": "餐酒料理與酒吧", "type_en": "Cuisine and bar", "type_ja": "ダイニング・バー"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-09-30",
+        "source_type": "official",
+        "source_url": "https://www.windsortaiwan.com/tw/room",
+        "rooms": [
+          {"name_zh": "雅緻客房一大床", "name_en": "Superior King Bed Room", "name_ja": "Superior King Bed Room", "aliases_zh": ["雅緻一大床客房"], "size_sqm": 31},
+          {"name_zh": "豪華客房兩小床", "name_en": "Deluxe Twin Beds Room", "name_ja": "Deluxe Twin Beds Room", "aliases_zh": ["豪華兩小床"], "size_sqm": 37},
+          {"name_zh": "豪華客房一大床", "name_en": "Deluxe King Bed Room", "name_ja": "Deluxe King Bed Room", "aliases_zh": ["豪華一大床客房"], "size_sqm": 37},
+          {"name_zh": "尊寵客房兩中床", "name_en": "Deluxe Double Queen Beds Room", "name_ja": "Deluxe Double Queen Beds Room", "aliases_zh": ["尊寵兩中床"], "size_sqm": 37},
+          {"name_zh": "豪華無障礙客房", "name_en": "Deluxe Accessible Room", "name_ja": "Deluxe Accessible Room", "aliases_zh": ["豪華無障礙"], "size_sqm": 40},
+          {"name_zh": "商務客房一大床", "name_en": "Business King Bed Room", "name_ja": "Business King Bed Room", "aliases_zh": ["商務客房一大床"], "size_sqm": 41},
+          {"name_zh": "景觀家庭房一大床加沙發床", "name_en": "Family Room City View with Sofa Bed", "name_ja": "Family Room City View with Sofa Bed", "aliases_zh": ["景觀家庭房一大床加沙發床"], "size_sqm": 41},
+          {"name_zh": "尊榮套房", "name_en": "Executive Suite", "name_ja": "Executive Suite", "aliases_zh": ["尊榮套房一大床"], "size_sqm": 75.9},
+          {"name_zh": "相鄰客房（兩房）", "name_en": "Adjoining Rooms (2 Rooms)", "name_ja": "Adjoining Rooms (2 Rooms)", "aliases_zh": ["相鄰房組"], "size_sqm": 75.9},
+          {"name_zh": "裕元套房", "name_en": "Windsor Suite", "name_ja": "Windsor Suite", "aliases_zh": ["裕元套房"], "size_sqm": 165}
+        ]
+      },
+      "source_urls": [
+        "https://www.windsortaiwan.com/tw",
+        "https://www.windsortaiwan.com/tw/room",
+        "https://www.windsortaiwan.com/tw/food",
+        "https://www.windsortaiwan.com/tw/alfa-card"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,

@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "windsor_taichung"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -374,6 +374,28 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         112,
         216,
     }
+    windsor = by_id["windsor_taichung"]
+    assert windsor["room_inventory"] == 149
+    assert windsor["service_charge_percent"] == 10
+    assert len(windsor["restaurants"]) == 5
+    assert windsor["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert windsor["lounge"] == {"available": False, "name": None, "kind": "none"}
+    assert windsor["room_snapshot"]["source_type"] == "official"
+    assert len(windsor["room_snapshot"]["rooms"]) == 10
+    assert {room["name_en"] for room in windsor["room_snapshot"]["rooms"]} >= {
+        "Superior King Bed Room",
+        "Windsor Suite",
+    }
+    assert min(room["size_sqm"] for room in windsor["room_snapshot"]["rooms"]) == 31
+    assert max(room["size_sqm"] for room in windsor["room_snapshot"]["rooms"]) == 165
+    assert "room.aliases_zh||[]" in html
+    assert "Math.abs(item.sizeMin-min)<=1" in html
 
 
 def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
