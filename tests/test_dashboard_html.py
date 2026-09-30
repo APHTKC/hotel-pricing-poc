@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "hotel_nikko_kaohsiung"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "hotel_nikko_kaohsiung"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -447,6 +447,29 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert min(room["size_sqm"] for room in grand_hilai_kaohsiung["room_snapshot"]["rooms"]) == 33
     assert max(room["size_sqm"] for room in grand_hilai_kaohsiung["room_snapshot"]["rooms"]) == 510
+    intercontinental_kaohsiung = by_id["intercontinental_kaohsiung"]
+    assert intercontinental_kaohsiung["room_inventory"] == 253
+    assert "service_charge_percent" not in intercontinental_kaohsiung
+    assert len(intercontinental_kaohsiung["restaurants"]) == 6
+    assert intercontinental_kaohsiung["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert intercontinental_kaohsiung["lounge"] == {
+        "available": True,
+        "name": "洲際行政俱樂部",
+        "kind": "executive_lounge",
+    }
+    assert intercontinental_kaohsiung["room_snapshot"]["source_type"] == "official"
+    assert len(intercontinental_kaohsiung["room_snapshot"]["rooms"]) == 5
+    classic = intercontinental_kaohsiung["room_snapshot"]["rooms"][0]
+    assert classic["name_en"] == "Classic Room"
+    assert classic["size_sqm_min"] == 36
+    assert classic["size_sqm_max"] == 46
+    assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in intercontinental_kaohsiung["room_snapshot"]["rooms"]) == 210
     hotel_nikko_kaohsiung = by_id["hotel_nikko_kaohsiung"]
     assert hotel_nikko_kaohsiung["room_inventory"] == 260
     assert hotel_nikko_kaohsiung["service_charge_percent"] == 10
