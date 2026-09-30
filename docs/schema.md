@@ -96,6 +96,20 @@ public/data/rates/YYYY-MM.json
 若不存在可比較的前一期間，變動率與 movers 維持空值／空陣列；系統不以單期資料推估
 歷史漲跌。
 
+## HotelProfile 與服務費比較
+
+`public/data/hotel_profiles.json` 保存經來源核實的飯店基本資料、房型快照、設施、餐飲與
+行政／貴賓廳資訊。`service_charge_percent` 僅在官方頁面或官方文件明確公告時填入；
+不得由品牌慣例或其他飯店推測。
+
+比較頁顯示服務費時採以下優先順序：
+
+1. 已核實的 `service_charge_percent`（標示「官方」）。
+2. 若官方資料未提供，且最新公開房價同時有 `price_before_tax > 0` 與
+   `service_charge`，以各觀測值的 `service_charge / price_before_tax × 100` 中位數顯示
+   （標示「房價觀測」）。
+3. 兩者皆無時顯示「待核實」，不以 0% 代替。
+
 ## AdapterHealth
 
 `data/adapter_health.json` 以 `adapter:hotel_id` 為鍵，保存：

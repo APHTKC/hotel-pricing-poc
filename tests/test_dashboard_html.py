@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -334,6 +334,18 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(royal_nikko["room_snapshot"]["rooms"]) == 7
     assert {room["name_ja"] for room in royal_nikko["room_snapshot"]["rooms"]} >= {"スーペリアルーム", "ロイヤルスイート"}
     assert {room["size_sqm"] for room in royal_nikko["room_snapshot"]["rooms"]} == {26, 32, 38, 50, 65, 89, 125}
+    le_meridien = by_id["le_meridien_taipei"]
+    assert le_meridien["room_inventory"] == 160
+    assert le_meridien["service_charge_percent"] == 10
+    assert len(le_meridien["restaurants"]) == 4
+    assert le_meridien["facilities"] == {"pool": True, "fitness": True, "spa": False, "sauna": True, "steam_room": None}
+    assert le_meridien["lounge"]["name"] == "Le Méridien Club Lounge"
+    assert le_meridien["room_snapshot"]["source_type"] == "official"
+    assert len(le_meridien["room_snapshot"]["rooms"]) == 11
+    assert {room["size_sqm"] for room in le_meridien["room_snapshot"]["rooms"]} == {38, 60, 75, 157, 223}
+    assert "serviceChargeInfo" in html
+    assert 'data-i18n="serviceCharge"' in html
+    assert "service_charge_percent" in html
 
 
 def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():

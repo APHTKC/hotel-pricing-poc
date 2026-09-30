@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-24",
+  "updated_at": "2026-09-30",
   "profiles": [
     {
       "hotel_id": "capella_taipei",
@@ -384,6 +384,45 @@
         "https://www.palaisdechinehotel.com/pdc-en/pages/26",
         "https://www.palaisdechinehotel.com/pdc-en/pages/28",
         "https://www.palaisdechinehotel.com/pdc-en/pages/28/8/49"
+      ]
+    },
+    {
+      "hotel_id": "le_meridien_taipei",
+      "verified_at": "2026-09-30",
+      "room_inventory": 160,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "My Humble House", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"},
+        {"name": "Latest Recipe", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
+        {"name": "Latitude 25", "type_zh": "大廳酒廊與輕食", "type_en": "Lobby lounge and light dining", "type_ja": "ロビーラウンジ・軽食"},
+        {"name": "DRIP & DOUGH", "type_zh": "咖啡、烘焙與輕食", "type_en": "Coffee, bakery and light dining", "type_ja": "コーヒー・ベーカリー・軽食"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": false, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "Le Méridien Club Lounge", "kind": "executive_club"},
+      "room_snapshot": {
+        "observed_at": "2026-09-30",
+        "source_type": "official",
+        "source_url": "https://www.lemeridien-taipei.com/websev?cat=&id=460&lang=zh-tw",
+        "rooms": [
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 38},
+          {"name_zh": "純淨豪華客房", "name_en": "Pure Deluxe Room", "name_ja": "Pure Deluxe Room", "size_sqm": 38},
+          {"name_zh": "露臺豪華客房", "name_en": "Balcony Deluxe Room", "name_ja": "Balcony Deluxe Room", "size_sqm": 38},
+          {"name_zh": "艾美行政客房", "name_en": "Executive Deluxe Room", "name_ja": "Executive Deluxe Room", "size_sqm": 38},
+          {"name_zh": "主管套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm": 60},
+          {"name_zh": "露臺主管套房", "name_en": "Balcony Junior Suite", "name_ja": "Balcony Junior Suite", "size_sqm": 60},
+          {"name_zh": "景隅套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 60},
+          {"name_zh": "卓越套房", "name_en": "Executive Suite", "name_ja": "Executive Suite", "size_sqm": 75},
+          {"name_zh": "露臺套房", "name_en": "Balcony Suite", "name_ja": "Balcony Suite", "size_sqm": 75},
+          {"name_zh": "艾美套房", "name_en": "Le Méridien Suite", "name_ja": "Le Méridien Suite", "size_sqm": 157},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 223}
+        ]
+      },
+      "source_urls": [
+        "https://www.lemeridien-taipei.com/websev?cat=&id=460&lang=zh-tw",
+        "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/overview/",
+        "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/rooms/",
+        "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/dining/",
+        "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/experiences/"
       ]
     },
     {
