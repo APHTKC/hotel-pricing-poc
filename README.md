@@ -8,7 +8,7 @@
 
 ## 技術架構
 
-- 前台：原生 HTML、CSS、JavaScript 與 SVG 圖表，提供繁中／英文／日文及 TWD／USD／JPY 切換。
+- 前台：原生 HTML、CSS、JavaScript、SVG 圖表與 Leaflet／OpenStreetMap 地圖，提供繁中／英文／日文及 TWD／USD／JPY 切換。
 - API：Python 3.12、FastAPI、Pydantic。
 - 抓價：可插拔 Python adapter；依訂房引擎使用 HTTPX 或 Playwright。
 - 儲存：正式歷史保存在 `data/rates.jsonl`；Google Sheets 模組保留為選用後端。
@@ -24,6 +24,7 @@ public/data/latest.json                  最新一次查價，供即時總覽使
 public/data/history_summary.json         輕量預聚合歷史趨勢與每週市場摘要
 public/data/rates/YYYY-MM.json           使用者展開特定月份時才載入
 public/data/hotels.json                  65 家飯店 Catalog 與設施／房型快照
+public/data/hotel_locations.json         65 家飯店的快取座標、城市、台北行政區及追蹤狀態
 ```
 
 `history.html` 首次只下載 `history_summary.json`，選擇月份或查看明細時才下載對應的
@@ -33,6 +34,10 @@ public/data/hotels.json                  65 家飯店 Catalog 與設施／房型
 的中位房價，再以飯店等權方式彙整市場中位數與平均數。摘要也會列出共同飯店的主要
 漲跌、各提前訂房天數的等權價格曲線，以及目前相對低價的 lead time；資料不足時不
 推估，直接顯示無可用比較。
+
+`map.html` 提供全台飯店分布及台北行政區兩種視圖，可依地區、每日追蹤狀態與是否已有
+歷史房價篩選。座標保存在 `hotel_locations.json`，使用者開頁時不會逐家呼叫地理搜尋
+服務；OpenStreetMap 僅提供底圖圖磚。
 
 ## OTA 同商品比價
 

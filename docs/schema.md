@@ -76,10 +76,17 @@ public/data/history_summary.json
 
 public/data/rates/YYYY-MM.json
   month + market_summary + rate_parity + rates（單月明細）
+
+public/data/hotel_locations.json
+  schema_version + updated_at + source_note + locations（65 家飯店快取座標）
 ```
 
 歷史頁首頁只讀取 `history_summary.json`；特定月份明細採按需載入。舊的單一
 `public/data/rates.json` 不再發布。
+
+`hotel_locations.json` 的每筆 `locations` 包含 `hotel_id`、繁中／英文名、`city`、
+台北飯店的 `district`、`latitude`、`longitude`、官方訂房連結、`daily_tracked`、
+座標來源與精度標記。前台 `map.html` 只讀取此快取檔，不在瀏覽器端批次地理編碼。
 
 ### `weekly_digest`
 

@@ -604,3 +604,41 @@ def test_room_names_are_localized_and_profile_snapshots_show_source_date():
     assert "roomSnapshot:'房型資料快照'" in profiles
     assert "snapshot.observed_at" in profiles
     assert "snapshot.source_url" in profiles
+
+
+def test_hotel_map_covers_catalog_and_taipei_districts():
+    catalog = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))["hotels"]
+    location_data = json.loads(
+        Path("public/data/hotel_locations.json").read_text(encoding="utf-8")
+    )
+    locations = location_data["locations"]
+
+    assert len(catalog) == 65
+    assert len(locations) == len(catalog)
+    assert {row["hotel_id"] for row in locations} == {row["id"] for row in catalog}
+    assert all(21.5 <= row["latitude"] <= 26.5 for row in locations)
+    assert all(118 <= row["longitude"] <= 123 for row in locations)
+    assert sum(row["city"] == "Taipei" for row in locations) == 36
+    assert sum(bool(row["daily_tracked"]) for row in locations) == 18
+    assert all(row["district"] for row in locations if row["city"] == "Taipei")
+
+
+def test_hotel_map_is_linked_and_localized_across_static_pages():
+    map_html = Path("public/map.html").read_text(encoding="utf-8")
+
+    for page in ("index.html", "history.html", "hotels.html"):
+        html = Path("public", page).read_text(encoding="utf-8")
+        assert 'href="./map.html"' in html
+        assert 'data-i18n="mapPage"' in html
+
+    assert "./assets/vendor/leaflet/leaflet.css" in map_html
+    assert "./assets/vendor/leaflet/leaflet.js" in map_html
+    assert "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" in map_html
+    assert "./data/hotel_locations.json" in map_html
+    assert "./data/history_summary.json" in map_html
+    assert "taipeiView:'台北行政區地圖'" in map_html
+    assert "taipeiView:'Taipei district map'" in map_html
+    assert "taipeiView:'台北市行政区マップ'" in map_html
+    assert "DISTRICT_COLORS" in map_html
+    assert "hotel-lang" in map_html
+    assert "hotel-currency" in map_html
