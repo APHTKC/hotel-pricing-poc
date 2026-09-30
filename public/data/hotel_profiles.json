@@ -819,6 +819,44 @@
       ]
     },
     {
+      "hotel_id": "grand_view_resort_beitou",
+      "verified_at": "2026-09-30",
+      "room_inventory": 66,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "雍翠庭", "type_zh": "臺式料理", "type_en": "Taiwanese cuisine", "type_ja": "台湾料理"},
+        {"name": "C’est Bon 歐陸餐廳", "type_zh": "現代法式料理", "type_en": "Modern French cuisine", "type_ja": "モダンフレンチ"},
+        {"name": "水岸茶屋", "type_zh": "輕食、下午茶與飲品", "type_en": "Light dining, afternoon tea and beverages", "type_ja": "軽食・アフタヌーンティー・ドリンク"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-09-30",
+        "source_type": "official",
+        "source_url": "https://www.gvrb.com.tw/en/service/you-ya-junior-room/",
+        "rooms": [
+          {"name_zh": "雅緻山景客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 50},
+          {"name_zh": "雅緻豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 50},
+          {"name_zh": "雅緻家庭房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm": 50},
+          {"name_zh": "幽雅家庭客房", "name_en": "You-Ya Family Room", "name_ja": "You-Ya Family Room", "size_sqm": 62.8},
+          {"name_zh": "幽雅精緻客房", "name_en": "You-Ya Junior Room", "name_ja": "You-Ya Junior Room", "size_sqm": 62.8},
+          {"name_zh": "幽雅精緻套房", "name_en": "You-Ya Suite", "name_ja": "You-Ya Suite", "size_sqm": 62.8},
+          {"name_zh": "麗禧套房 503", "name_en": "Grand View Suite 503", "name_ja": "Grand View Suite 503", "size_sqm": 116},
+          {"name_zh": "麗禧套房 603", "name_en": "Grand View Suite 603", "name_ja": "Grand View Suite 603", "size_sqm": 96}
+        ]
+      },
+      "source_urls": [
+        "https://www.gvrb.com.tw/",
+        "https://www.gvrb.com.tw/service/",
+        "https://www.gvrb.com.tw/service/519/",
+        "https://www.gvrb.com.tw/en/service/you-ya-junior-room/",
+        "https://www.gvrb.com.tw/restaurants/",
+        "https://www.gvrb.com.tw/spa/",
+        "https://www.gvrb.com.tw/bathrooms/",
+        "https://www.gvrb.com.tw/2026winter-warmth-getaway-package/"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,
