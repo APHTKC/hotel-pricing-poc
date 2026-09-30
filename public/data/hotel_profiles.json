@@ -562,7 +562,56 @@
         "https://www.grand-hilai.com/fac/",
         "https://www.grand-hilai.com/contact/"
       ]
-    },    {
+    },
+    {
+      "hotel_id": "hotel_nikko_kaohsiung",
+      "verified_at": "2026-09-30",
+      "room_inventory": 260,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "咖啡廳", "type_zh": "大廳酒廊、甜點與輕食", "type_en": "The Lobby Lounge, pastries and light dining", "type_ja": "ロビーラウンジ・ペストリー・軽食"},
+        {"name": "SERENA 全日餐廳", "type_zh": "全日餐廳與自助料理", "type_en": "All-day dining and buffet", "type_ja": "オールデイダイニング・ブッフェ"},
+        {"name": "日本料理 飛翔", "type_zh": "和食、壽司與鐵板燒", "type_en": "HISHOU Japanese Dining: washoku, sushi and teppanyaki", "type_ja": "日本料理「飛翔」・和食・寿司・鉄板焼"},
+        {"name": "桃泉中餐廳", "type_zh": "新派粵菜", "type_en": "Tao-Quan Chinese Dining; contemporary Cantonese", "type_ja": "桃泉・広東料理"},
+        {"name": "天空酒吧 RB22", "type_zh": "頂樓酒吧與西式餐飲", "type_en": "Rooftop Bar 22 and Western dining", "type_ja": "ルーフトップバー22・洋食"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "日航行政酒廊", "kind": "executive_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-09-30",
+        "source_type": "official",
+        "source_url": "https://www.nikkokaohsiung.com/room/",
+        "rooms": [
+          {"name_zh": "經典一大床房", "name_en": "Classic King Room", "name_ja": "Classic King Room", "size_sqm": 36},
+          {"name_zh": "經典特大床房", "name_en": "Classic Super King Room", "name_ja": "Classic Super King Room", "size_sqm": 36},
+          {"name_zh": "經典兩小床房", "name_en": "Classic Twin Room", "name_ja": "Classic Twin Room", "size_sqm": 36},
+          {"name_zh": "無障礙一大床房", "name_en": "Accessible King Room", "name_ja": "Accessible King Room", "size_sqm": 36},
+          {"name_zh": "豪華一大床房", "name_en": "Deluxe King Room", "name_ja": "Deluxe King Room", "size_sqm": 40},
+          {"name_zh": "豪華兩小床房", "name_en": "Deluxe Twin Room", "name_ja": "Deluxe Twin Room", "size_sqm": 40},
+          {"name_zh": "豪華轉角一大床房", "name_en": "Deluxe Corner King Room", "name_ja": "Deluxe Corner King Room", "size_sqm": 51},
+          {"name_zh": "豪華轉角家庭房", "name_en": "Deluxe Corner Family Room", "name_ja": "Deluxe Corner Family Room", "size_sqm": 61},
+          {"name_zh": "日航行政一大床房", "name_en": "Nikko Club King Room", "name_ja": "Nikko Club King Room", "size_sqm": 36},
+          {"name_zh": "日航行政特大床房", "name_en": "Nikko Club Super King Room", "name_ja": "Nikko Club Super King Room", "size_sqm": 36},
+          {"name_zh": "日航行政兩小床房", "name_en": "Nikko Club Twin Room", "name_ja": "Nikko Club Twin Room", "size_sqm": 36},
+          {"name_zh": "日航行政豪華一大床房", "name_en": "Nikko Club Deluxe King Room", "name_ja": "Nikko Club Deluxe King Room", "size_sqm": 40},
+          {"name_zh": "日航行政豪華兩小床房", "name_en": "Nikko Club Deluxe Twin Room", "name_ja": "Nikko Club Deluxe Twin Room", "size_sqm": 40},
+          {"name_zh": "日航行政轉角家庭房", "name_en": "Nikko Club Corner Family Room", "name_ja": "Nikko Club Corner Family Room", "size_sqm": 61},
+          {"name_zh": "小型轉角一大床套房", "name_en": "Junior Corner King Suite", "name_ja": "Junior Corner King Suite", "size_sqm": 86},
+          {"name_zh": "豪華轉角兩小床套房", "name_en": "Grand Corner Twin Suite", "name_ja": "Grand Corner Twin Suite", "size_sqm": 126}
+        ]
+      },
+      "source_urls": [
+        "https://www.nikkokaohsiung.com/about/",
+        "https://www.nikkokaohsiung.com/room/",
+        "https://www.nikkokaohsiung.com/en/room/",
+        "https://www.nikkokaohsiung.com/dining/",
+        "https://www.nikkokaohsiung.com/facilities/",
+        "https://www.nikkokaohsiung.com/facilities/sauna/",
+        "https://www.nikkokaohsiung.com/news/room-packages/sisley/",
+        "https://www.okura-nikko.com/hotel-nikko-kaohsiung/zh-hant/"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,
