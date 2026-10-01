@@ -1002,6 +1002,45 @@
       ]
     },
     {
+      "hotel_id": "courtyard_taipei",
+      "verified_at": "2026-10-01",
+      "room_inventory": 465,
+      "restaurants": [
+        {"name": "Sunrise All Day Dining", "type_zh": "國際自助餐與全日餐廳", "type_en": "International buffet and all-day dining", "type_ja": "各国料理ビュッフェ・オールデイダイニング"},
+        {"name": "Moonlight Cantonese Restaurant", "type_zh": "粵菜與港式點心", "type_en": "Cantonese cuisine and dim sum", "type_ja": "広東料理・点心"},
+        {"name": "The Lounge", "type_zh": "大廳酒吧、輕食與下午茶", "type_en": "Lobby bar, light dining and afternoon tea", "type_ja": "ロビーバー・軽食・アフタヌーンティー"}
+      ],
+      "facilities": {"pool": false, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "行政貴賓廳 Executive Lounge", "kind": "executive_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.courtyardtaipei.com.tw/room",
+        "rooms": [
+          {"name_zh": "卓越客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 35},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 42.3},
+          {"name_zh": "豪華家庭房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm": 42.3},
+          {"name_zh": "行政客房", "name_en": "Executive Room", "name_ja": "Executive Room", "size_sqm": 43},
+          {"name_zh": "精緻套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm": 66.3},
+          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 81.9},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 168}
+        ]
+      },
+      "source_urls": [
+        "https://www.courtyardtaipei.com.tw/room",
+        "https://www.courtyardtaipei.com.tw/room/display/1",
+        "https://www.courtyardtaipei.com.tw/room/display/2",
+        "https://www.courtyardtaipei.com.tw/room/display/3",
+        "https://www.courtyardtaipei.com.tw/room/display/4",
+        "https://www.courtyardtaipei.com.tw/room/display/5",
+        "https://www.courtyardtaipei.com.tw/room/display/6",
+        "https://www.courtyardtaipei.com.tw/room/display/7",
+        "https://www.courtyardtaipei.com.tw/floor",
+        "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/overview/",
+        "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/experiences/"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,
