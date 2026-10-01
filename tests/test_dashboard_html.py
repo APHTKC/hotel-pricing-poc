@@ -1003,3 +1003,28 @@ def test_hotel_map_is_linked_and_localized_across_static_pages():
     assert "DISTRICT_COLORS" in map_html
     assert "hotel-lang" in map_html
     assert "hotel-currency" in map_html
+
+
+def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+    data = json.loads(
+        Path("public/data/hotel_affiliations.json").read_text(encoding="utf-8")
+    )
+    affiliations = {row["hotel_id"]: row for row in data["affiliations"]}
+
+    assert len(affiliations) >= 20
+    assert affiliations["kimpton_da_an"]["loyalty_program"] == "IHG One Rewards"
+    assert "生活風格" in affiliations["kimpton_da_an"]["positioning_zh"]
+    assert affiliations["hotel_proverbs_taipei"]["loyalty_program"] == "Marriott Bonvoy"
+    assert "Design Hotels" in affiliations["hotel_proverbs_taipei"]["brand"]
+    assert affiliations["hotel_resonance_taipei"]["loyalty_program"] == "Hilton Honors"
+    assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
+    assert all(row["source_url"].startswith("https://") for row in affiliations.values())
+
+    assert "./data/hotel_affiliations.json" in html
+    assert 'id="affiliation"' in html
+    assert "brandLoyalty:'品牌定位／會員體系'" in html
+    assert "affiliationCell" in html
+    assert "loyalty-badge" in html
+    assert "program==='__pending__'" in html
+    assert "affiliation.source_url" in html
