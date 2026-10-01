@@ -15,6 +15,8 @@ RATES_DIR = Path("public/data/rates")
 HISTORY_SUMMARY_TARGET = Path("public/data/history_summary.json")
 LATEST_TARGET = Path("public/data/latest.json")
 HEALTH_TARGET = Path("public/data/adapter_health.json")
+DIGEST_TARGET = Path("public/data/digest.json")
+HOTEL_NAMES_SOURCE = Path("public/data/hotel_names_zh.json")
 LEGACY_TARGET = Path("public/data/rates.json")
 
 DASHBOARD_FIELDS = (
@@ -217,6 +219,176 @@ def _weekly_digest(rows: list[dict]) -> dict:
     }
 
 
+def _rows_for_day(rows: list[dict], day) -> list[dict]:
+    selected = []
+    for row in rows:
+        try:
+            observed = _parse_timestamp(row.get("queried_at", "")).date()
+        except (TypeError, ValueError):
+            continue
+        if observed == day:
+            selected.append(row)
+    return selected
+
+
+def _equal_weight_median(rows: list[dict], *, core_only: bool = False) -> float | None:
+    by_hotel: dict[str, list[float]] = defaultdict(list)
+    for row in rows:
+        if core_only:
+            size = _number(row.get("room_size_sqm"))
+            if size is None or not 45 <= size < 60:
+                continue
+        value = _number(row.get("total_twd"))
+        if row.get("hotel_id") and value is not None:
+            by_hotel[row["hotel_id"]].append(value)
+    return _median([_median(values) for values in by_hotel.values() if values])
+
+
+def _hotel_forward_medians(rows: list[dict], start, end) -> dict[str, dict]:
+    grouped: dict[str, list[float]] = defaultdict(list)
+    names: dict[str, str | None] = {}
+    for row in rows:
+        try:
+            check_in = datetime.fromisoformat(str(row.get("check_in"))).date()
+        except (TypeError, ValueError):
+            continue
+        value = _number(row.get("total_twd"))
+        hotel_id = row.get("hotel_id")
+        if hotel_id and value is not None and start <= check_in <= end:
+            grouped[hotel_id].append(value)
+            names[hotel_id] = row.get("hotel_name")
+    return {
+        hotel_id: {"hotel_id": hotel_id, "hotel_name": names.get(hotel_id), "median_twd": _median(values)}
+        for hotel_id, values in grouped.items()
+    }
+
+
+def _daily_market_digest(rows: list[dict], names_zh: dict[str, str] | None = None) -> dict:
+    """Build concise, traceable insights for the latest observation day."""
+    valid_days = []
+    for row in rows:
+        try:
+            valid_days.append(_parse_timestamp(row.get("queried_at", "")).date())
+        except (TypeError, ValueError):
+            continue
+    if not valid_days:
+        return {"updated_at": None, "insights": [], "available": False, "reason": "no_history"}
+    latest_day = max(valid_days)
+    comparison_day = latest_day - timedelta(days=7)
+    current = _rows_for_day(rows, latest_day)
+    previous = _rows_for_day(rows, comparison_day)
+    current_core = _equal_weight_median(current, core_only=True)
+    previous_core = _equal_weight_median(previous, core_only=True)
+    core_change = (
+        (current_core - previous_core) / previous_core
+        if current_core is not None and previous_core
+        else None
+    )
+
+    window_end = latest_day + timedelta(days=30)
+    current_hotels = _hotel_forward_medians(current, latest_day, window_end)
+    previous_hotels = _hotel_forward_medians(previous, latest_day, window_end)
+    movers = []
+    for hotel_id in current_hotels.keys() & previous_hotels.keys():
+        present, past = current_hotels[hotel_id], previous_hotels[hotel_id]
+        if not past["median_twd"]:
+            continue
+        movers.append({
+            "hotel_id": hotel_id,
+            "hotel_name": present.get("hotel_name") or past.get("hotel_name"),
+            "change_pct": (present["median_twd"] - past["median_twd"]) / past["median_twd"],
+            "current_median_twd": present["median_twd"],
+            "previous_median_twd": past["median_twd"],
+        })
+    largest_increase = max(movers, key=lambda item: item["change_pct"], default=None)
+    largest_decrease = min(movers, key=lambda item: item["change_pct"], default=None)
+
+    parity = calculate_rate_parity(current)
+    comparable = [item for item in parity if item.get("gap_percent") is not None]
+    normal = [item for item in comparable if abs(item["gap_percent"]) <= .05]
+    parity_rate = len(normal) / len(comparable) if comparable else None
+
+    percent = lambda value: f"{value:+.1%}"
+    names_zh = names_zh or {}
+    display_name = lambda item: names_zh.get(item["hotel_id"]) or item["hotel_name"]
+    insights = []
+    if core_change is not None:
+        direction = "上漲" if core_change > 0 else "下降" if core_change < 0 else "持平"
+        insights.append(f"45–59㎡核心客房 ADR 較 7 天前{direction} {abs(core_change):.1%}。")
+    if largest_increase and largest_increase["change_pct"] > 0:
+        insights.append(f"未來 30 天漲幅最大為 {display_name(largest_increase)}（{percent(largest_increase['change_pct'])}）。")
+    if largest_decrease and largest_decrease["change_pct"] < 0:
+        insights.append(f"未來 30 天降價最多為 {display_name(largest_decrease)}（{percent(largest_decrease['change_pct'])}）。")
+    if parity_rate is not None:
+        insights.append(f"官網與 OTA 嚴格同商品價差在 ±5% 內的比例為 {parity_rate:.0%}（{len(normal)}/{len(comparable)} 組）。")
+    else:
+        insights.append("目前沒有條件完整一致的官網與 OTA 商品可計算價差正常率。")
+    return {
+        "updated_at": max(row.get("queried_at") for row in current if row.get("queried_at")),
+        "latest_date": latest_day.isoformat(),
+        "comparison_date": comparison_day.isoformat(),
+        "available": bool(insights),
+        "method": "hotel_equal_weight_median",
+        "insights": insights[:4],
+        "metrics": {
+            "core_adr_change_pct": core_change,
+            "largest_increase": largest_increase,
+            "largest_decrease": largest_decrease,
+            "rate_parity_normal_rate": parity_rate,
+            "rate_parity_comparable_products": len(comparable),
+        },
+    }
+
+
+def _data_quality_warnings(rows: list[dict]) -> dict:
+    """Detect volume drops and day-over-day ADR spikes without guessing."""
+    dated: dict = defaultdict(lambda: defaultdict(list))
+    names: dict[str, str | None] = {}
+    days = set()
+    for row in rows:
+        hotel_id = row.get("hotel_id")
+        value = _number(row.get("total_twd"))
+        try:
+            day = _parse_timestamp(row.get("queried_at", "")).date()
+        except (TypeError, ValueError):
+            continue
+        if not hotel_id or value is None:
+            continue
+        days.add(day)
+        dated[hotel_id][day].append(value)
+        names[hotel_id] = row.get("hotel_name")
+    if not days:
+        return {"as_of": None, "hotels": []}
+    latest = max(days)
+    yesterday = latest - timedelta(days=1)
+    prior_days = [latest - timedelta(days=offset) for offset in range(1, 8)]
+    warnings = []
+    for hotel_id, daily in sorted(dated.items()):
+        current = daily.get(latest, [])
+        issues = []
+        historical_counts = [len(daily[day]) for day in prior_days if daily.get(day)]
+        baseline_volume = _average(historical_counts)
+        if baseline_volume and len(current) < baseline_volume * .5:
+            issues.append({
+                "code": "low_volume", "severity": "warning",
+                "current_count": len(current), "baseline_count": baseline_volume,
+                "message_zh": "筆數偏少，資料核實中",
+            })
+        current_adr, previous_adr = _median(current), _median(daily.get(yesterday, []))
+        if current_adr is not None and previous_adr:
+            change = (current_adr - previous_adr) / previous_adr
+            if abs(change) > .5:
+                issues.append({
+                    "code": "price_spike", "severity": "warning",
+                    "change_pct": change, "current_adr_twd": current_adr,
+                    "previous_adr_twd": previous_adr,
+                    "message_zh": "房價變動超過 50%，資料核實中",
+                })
+        if issues:
+            warnings.append({"hotel_id": hotel_id, "hotel_name": names.get(hotel_id), "warnings": issues})
+    return {"as_of": latest.isoformat(), "hotels": warnings}
+
+
 def _history_summary(rows: list[dict]) -> dict:
     """Build the small, chart-ready payload loaded by the history landing page."""
     daily_groups: dict[tuple, list[dict]] = defaultdict(list)
@@ -288,7 +460,7 @@ def _history_summary(rows: list[dict]) -> dict:
     }
 
 
-def _public_adapter_health(payload: dict) -> dict:
+def _public_adapter_health(payload: dict, data_quality: dict | None = None) -> dict:
     """Publish operational aggregates without diagnostic messages or URLs."""
     allowed = (
         "adapter", "hotel_id", "attempts", "successes", "failures",
@@ -304,6 +476,7 @@ def _public_adapter_health(payload: dict) -> dict:
         "schema_version": "1.0",
         "generated_at": max(attempts) if attempts else None,
         "adapters": adapters,
+        "data_quality": data_quality or {"as_of": None, "hotels": []},
     }
 
 
@@ -352,7 +525,17 @@ def main() -> None:
         except (json.JSONDecodeError, OSError):
             pass
     HEALTH_TARGET.write_text(
-        json.dumps(_public_adapter_health(health_payload), ensure_ascii=False),
+        json.dumps(_public_adapter_health(health_payload, _data_quality_warnings(source_rows)), ensure_ascii=False),
+        encoding="utf-8",
+    )
+    names_zh = {}
+    if HOTEL_NAMES_SOURCE.exists():
+        try:
+            names_zh = json.loads(HOTEL_NAMES_SOURCE.read_text(encoding="utf-8")).get("names", {})
+        except (json.JSONDecodeError, OSError):
+            pass
+    DIGEST_TARGET.write_text(
+        json.dumps(_daily_market_digest(source_rows, names_zh), ensure_ascii=False),
         encoding="utf-8",
     )
     if LEGACY_TARGET.exists():

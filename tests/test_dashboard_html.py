@@ -1085,6 +1085,20 @@ def test_primary_pages_show_deployment_meta_and_analytics_fail_closed():
     assert "版本" in script and "Version" in script and "バージョン" in script
 
 
+def test_home_loads_daily_market_digest_and_quality_warnings():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    hotels = Path("public/hotels.html").read_text(encoding="utf-8")
+
+    assert "./data/digest.json" in home
+    assert "marketInsights" in home
+    assert "今日市場動態摘要" in home
+    assert "healthData.data_quality?.hotels" in home
+    assert "qualityBadge" in home
+    assert "healthData.data_quality?.hotels" in hotels
+    assert "qualityBadge" in hotels
+    assert "資料核實中" in home and "資料核實中" in hotels
+
+
 def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     html = Path("public/hotels.html").read_text(encoding="utf-8")
     data = json.loads(

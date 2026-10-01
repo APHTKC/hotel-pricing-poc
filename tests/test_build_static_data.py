@@ -4,6 +4,8 @@ import scripts.build_static_data as build_static_data
 from scripts.build_static_data import (
     DASHBOARD_FIELDS,
     _dashboard_row,
+    _daily_market_digest,
+    _data_quality_warnings,
     _history_summary,
     _latest_batch,
     _month_key,
@@ -78,6 +80,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     latest = tmp_path / "latest.json"
     health_source = tmp_path / "adapter_health.json"
     health_target = tmp_path / "public_health.json"
+    digest_target = tmp_path / "digest.json"
     legacy = tmp_path / "rates.json"
     legacy.write_text("legacy", encoding="utf-8")
     common = {
@@ -128,6 +131,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     monkeypatch.setattr(build_static_data, "LATEST_TARGET", latest)
     monkeypatch.setattr(build_static_data, "HEALTH_SOURCE", health_source)
     monkeypatch.setattr(build_static_data, "HEALTH_TARGET", health_target)
+    monkeypatch.setattr(build_static_data, "DIGEST_TARGET", digest_target)
     monkeypatch.setattr(build_static_data, "LEGACY_TARGET", legacy)
 
     build_static_data.main()
@@ -145,6 +149,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     assert {row["hotel_id"] for row in summary_payload["hotels"]} == {
         "hotel-a", "hotel-b"
     }
+    assert digest_target.exists()
 
 
 def test_month_key_uses_observation_month_and_rejects_missing_timestamp():
@@ -225,3 +230,53 @@ def test_public_adapter_health_excludes_diagnostics_and_daily_details():
     assert payload["adapters"][0]["success_rate"] == 0.6667
     assert "daily" not in payload["adapters"][0]
     assert "reason" not in payload["adapters"][0]
+
+
+def test_daily_market_digest_uses_core_rooms_movers_and_strict_parity():
+    rows = []
+    for day, hotel_id, value in [
+        ("2026-09-23", "hotel-a", 10000),
+        ("2026-09-23", "hotel-b", 20000),
+        ("2026-09-30", "hotel-a", 12000),
+        ("2026-09-30", "hotel-b", 18000),
+    ]:
+        rows.append({
+            "hotel_id": hotel_id, "hotel_name": hotel_id.title(),
+            "queried_at": f"{day}T01:00:00+00:00", "check_in": "2026-10-07",
+            "check_out": "2026-10-08", "room_size_sqm": 50,
+            "total_twd": value, "rooms": 1, "adults": 2, "children": 0,
+            "breakfast_included": True, "cancellation_policy": "Free cancellation",
+            "tax_inclusion": "included", "source_platform": "official",
+        })
+    rows.append({
+        **rows[-2], "source_platform": "booking_com", "total_twd": 12300,
+    })
+
+    digest = _daily_market_digest(rows)
+
+    assert digest["available"] is True
+    assert digest["metrics"]["core_adr_change_pct"] == 0.005
+    assert digest["metrics"]["largest_increase"]["hotel_id"] == "hotel-a"
+    assert digest["metrics"]["largest_decrease"]["hotel_id"] == "hotel-b"
+    assert digest["metrics"]["rate_parity_normal_rate"] == 1
+    assert 3 <= len(digest["insights"]) <= 4
+
+
+def test_data_quality_flags_low_volume_and_large_price_change():
+    rows = []
+    for index in range(1, 8):
+        day = f"2026-09-{30-index:02d}"
+        rows.extend({
+            "hotel_id": "hotel-a", "hotel_name": "Hotel A",
+            "queried_at": f"{day}T01:00:00+00:00", "total_twd": 10000,
+        } for _ in range(10))
+    rows.extend({
+        "hotel_id": "hotel-a", "hotel_name": "Hotel A",
+        "queried_at": "2026-09-30T01:00:00+00:00", "total_twd": 20000,
+    } for _ in range(4))
+
+    quality = _data_quality_warnings(rows)
+
+    assert quality["as_of"] == "2026-09-30"
+    codes = {item["code"] for item in quality["hotels"][0]["warnings"]}
+    assert codes == {"low_volume", "price_spike"}
