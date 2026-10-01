@@ -43,7 +43,7 @@
     },
     {
       "hotel_id": "mo_taipei",
-      "verified_at": "2026-09-22",
+      "verified_at": "2026-10-01",
       "room_inventory": 303,
       "restaurants": [
         {"name": "Ya Ge", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"},
@@ -55,10 +55,34 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": true, "name": "The Oriental Lounge", "kind": "executive_club"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.mandarinoriental.com/zh-hk/taipei/songshan/stay",
+        "rooms": [
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 55},
+          {"name_zh": "文華客房", "name_en": "Mandarin Room", "name_ja": "Mandarin Room", "size_sqm": 70},
+          {"name_zh": "文華尊榮客房", "name_en": "Mandarin Premier Room", "name_ja": "Mandarin Premier Room", "size_sqm": 70},
+          {"name_zh": "家庭豪華客房", "name_en": "Family Deluxe Room", "name_ja": "Family Deluxe Room", "size_sqm": 110},
+          {"name_zh": "行政豪華客房", "name_en": "Club Deluxe Room", "name_ja": "Club Deluxe Room", "size_sqm": 55},
+          {"name_zh": "行政文華客房", "name_en": "Club Mandarin Room", "name_ja": "Club Mandarin Room", "size_sqm": 70},
+          {"name_zh": "行政文華尊榮客房", "name_en": "Club Mandarin Premier Room", "name_ja": "Club Mandarin Premier Room", "size_sqm": 70},
+          {"name_zh": "行政都會套房", "name_en": "Club City Suite", "name_ja": "Club City Suite", "size_sqm": 86},
+          {"name_zh": "相連行政都會套房", "name_en": "Club City Suite Connecting", "name_ja": "Club City Suite Connecting", "size_sqm": 141},
+          {"name_zh": "行政逸品套房", "name_en": "Club Lifestyle Suite", "name_ja": "Club Lifestyle Suite", "size_sqm": 110},
+          {"name_zh": "行政大道套房", "name_en": "Club Boulevard Suite", "name_ja": "Club Boulevard Suite", "size_sqm": 110},
+          {"name_zh": "行政尊榮套房", "name_en": "Club Premier Suite", "name_ja": "Club Premier Suite", "size_sqm": 133},
+          {"name_zh": "相連行政尊榮套房", "name_en": "Club Premier Suite Connecting", "name_ja": "Club Premier Suite Connecting", "size_sqm": 243},
+          {"name_zh": "文華套房", "name_en": "Mandarin Suite", "name_ja": "Mandarin Suite", "size_sqm": 320},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 376}
+        ]
+      },
       "source_urls": [
         "https://cms.mandarinoriental.com/en/taipei/songshan/about",
         "https://www.mandarinoriental.com/en/taipei/songshan/wellness/the-spa",
-        "https://www.mandarinoriental.com/en/taipei/songshan/stay/the-oriental-lounge"
+        "https://www.mandarinoriental.com/en/taipei/songshan/stay/the-oriental-lounge",
+        "https://www.mandarinoriental.com/en/taipei/songshan/stay",
+        "https://www.mandarinoriental.com/zh-hk/taipei/songshan/stay"
       ]
     },
     {
@@ -148,8 +172,11 @@
     },
     {
       "hotel_id": "grand_mayfull_taipei",
-      "verified_at": "2026-09-22",
+      "verified_at": "2026-10-01",
       "room_inventory": 146,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://www.grandmayfull.com/room/detail/3",
       "restaurants": [
         {"name": "palette", "type_zh": "國際自助餐", "type_en": "International buffet", "type_ja": "各国料理ビュッフェ"},
         {"name": "CHIU YUET FONG", "type_zh": "粵菜與港式點心", "type_en": "Cantonese and Hong Kong dim sum", "type_ja": "広東料理・香港点心"},
@@ -161,9 +188,27 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": true, "name": "Club9 Exclusive Lounge", "kind": "members_club"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.grandmayfull.com/room",
+        "rooms": [
+          {"name_zh": "行政客房（一大床）", "name_en": "Executive King", "name_ja": "Executive King", "size_sqm": 50},
+          {"name_zh": "行政客房（兩小床）", "name_en": "Executive Twin", "name_ja": "Executive Twin", "size_sqm": 50},
+          {"name_zh": "雅仕客房", "name_en": "Prestige Room", "name_ja": "Prestige Room", "size_sqm": 60},
+          {"name_zh": "菁英客房（一大床）", "name_en": "Elite King", "name_ja": "Elite King", "size_sqm": 70},
+          {"name_zh": "菁英客房（兩中床）", "name_en": "Elite Queen", "name_ja": "Elite Queen", "size_sqm": 70},
+          {"name_zh": "尊爵套房（一大床）", "name_en": "Premier Suite King", "name_ja": "Premier Suite King", "size_sqm": 95},
+          {"name_zh": "尊爵套房（兩中床）", "name_en": "Premier Suite Queen", "name_ja": "Premier Suite Queen", "size_sqm": 95},
+          {"name_zh": "皇家套房", "name_en": "Royal Suite", "name_ja": "Royal Suite", "size_sqm": 105},
+          {"name_zh": "美福套房", "name_en": "Mayfull Suite", "name_ja": "Mayfull Suite", "size_sqm": 250}
+        ]
+      },
       "source_urls": [
         "https://www.grandmayfull.com/about",
         "https://www.grandmayfull.com/room",
+        "https://www.grandmayfull.com/room/detail/3",
+        "https://www.grandmayfull.com/room/detail/11",
         "https://www.grandmayfull.com/dining",
         "https://www.grandmayfull.com/facilities",
         "https://www.grandmayfull.com/club9"

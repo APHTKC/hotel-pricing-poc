@@ -261,6 +261,12 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in capella_rooms) == 270
     assert next(room for room in capella_rooms if room["name_en"] == "Capella Suite")["size_sqm"] == 228
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
+    mo_rooms = by_id["mo_taipei"]["room_snapshot"]["rooms"]
+    assert len(mo_rooms) == 15
+    assert min(room["size_sqm"] for room in mo_rooms) == 55
+    assert max(room["size_sqm"] for room in mo_rooms) == 376
+    assert next(room for room in mo_rooms if room["name_en"] == "Club City Suite Connecting")["size_sqm"] == 141
+    assert next(room for room in mo_rooms if room["name_en"] == "Club Premier Suite Connecting")["size_sqm"] == 243
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
     assert by_id["okura_prestige_taipei"]["room_inventory"] == 207
     assert len(by_id["okura_prestige_taipei"]["restaurants"]) == 5
@@ -274,6 +280,12 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["shangrila_taipei"]["lounge"]["name"] == "Horizon Club Lounge"
     assert by_id["grand_mayfull_taipei"]["room_inventory"] == 146
     assert by_id["grand_mayfull_taipei"]["lounge"]["kind"] == "members_club"
+    mayfull_rooms = by_id["grand_mayfull_taipei"]["room_snapshot"]["rooms"]
+    assert len(mayfull_rooms) == 9
+    assert min(room["size_sqm"] for room in mayfull_rooms) == 50
+    assert max(room["size_sqm"] for room in mayfull_rooms) == 250
+    assert by_id["grand_mayfull_taipei"]["service_charge_percent"] == 10
+    assert by_id["grand_mayfull_taipei"]["service_charge_source_type"] == "official"
     assert by_id["grand_hyatt_taipei"]["room_inventory"] == 850
     assert len(by_id["grand_hyatt_taipei"]["restaurants"]) == 8
     assert by_id["grand_hyatt_taipei"]["lounge"]["name"] == "Grand Club Lounge"
