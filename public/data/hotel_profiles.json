@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30",
+  "updated_at": "2026-10-01",
   "profiles": [
     {
       "hotel_id": "capella_taipei",
@@ -920,6 +920,36 @@
         "https://www.humblehousehotels.com/en/websev?cat=page&id=16",
         "https://www.humblehousehotels.com/en/websev?cat=page&id=15",
         "https://www.humblehousehotels.com/en/websev?cat=restaurant&id=1"
+      ]
+    },
+    {
+      "hotel_id": "indigo_taipei_north",
+      "verified_at": "2026-10-01",
+      "room_inventory": 149,
+      "restaurants": [
+        {"name": "Spice Market @T.R", "type_zh": "餐廳", "type_en": "Restaurant", "type_ja": "レストラン"},
+        {"name": "BAR DI", "type_zh": "酒吧", "type_en": "Bar", "type_ja": "バー"}
+      ],
+      "facilities": {"pool": false, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "ota",
+        "source_url": "https://www.booking.com/hotel/tw/indigo-taipei-north.html",
+        "rooms": [
+          {"name_zh": "標準客房", "name_en": "Standard Room", "name_ja": "Standard Room", "size_sqm": 35},
+          {"name_zh": "尊榮客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm": 40},
+          {"name_zh": "一大床套房", "name_en": "King Suite", "name_ja": "King Suite", "size_sqm": 60},
+          {"name_zh": "一臥室套房", "name_en": "One Bedroom Suite", "name_ja": "One Bedroom Suite", "size_sqm": 73},
+          {"name_zh": "一臥室台北城市景觀套房", "name_en": "One Bedroom Suite with Taipei City View", "name_ja": "One Bedroom Suite with Taipei City View", "size_sqm": 135}
+        ]
+      },
+      "source_urls": [
+        "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail",
+        "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail/rooms",
+        "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail/amenities",
+        "https://www.ihg.com/hotelindigo/hotels/tw/zh/taipei/tpent/hoteldetail/dining",
+        "https://www.booking.com/hotel/tw/indigo-taipei-north.html"
       ]
     },
     {
