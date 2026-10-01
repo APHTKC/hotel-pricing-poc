@@ -1179,6 +1179,75 @@
         "https://www.royal-taipei.com.tw/en/facility/",
         "https://www.royal-taipei.com.tw/jp/room/"
       ]
+    },
+    {
+      "hotel_id": "episode_daan_taipei",
+      "verified_at": "2026-10-01",
+      "room_inventory": 136,
+      "restaurants": [
+        {"name": "Texas Roadhouse", "type_zh": "美式牛排館（第三方營運）", "type_en": "American steakhouse (third-party operated)", "type_ja": "アメリカンステーキハウス（外部運営）"},
+        {"name": "CAFE!N", "type_zh": "咖啡與輕食（第三方營運）", "type_en": "Coffee and light dining (third-party operated)", "type_ja": "カフェ・軽食（外部運営）"},
+        {"name": "The SOCIAL by LayLow", "type_zh": "生活風格酒廊、咖啡與現場音樂", "type_en": "Lifestyle lounge, coffee and live music", "type_ja": "ライフスタイルラウンジ・カフェ・ライブ音楽"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "The SOCIAL by LayLow", "kind": "guest_living_room"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/rooms",
+        "rooms": [
+          {"name_zh": "標準客房（一大床）", "name_en": "1 King Bed", "name_ja": "1 King Bed", "size_sqm": 30},
+          {"name_zh": "標準客房（兩小床）", "name_en": "2 Twin Beds", "name_ja": "2 Twin Beds", "size_sqm": 30},
+          {"name_zh": "城市景觀客房（一大床）", "name_en": "1 King Bed, City View", "name_ja": "1 King Bed, City View", "size_sqm": 30},
+          {"name_zh": "城市景觀客房（兩小床）", "name_en": "2 Twin Beds, City View", "name_ja": "2 Twin Beds, City View", "size_sqm": 30},
+          {"name_zh": "雙中床客房", "name_en": "2 Double Beds", "name_ja": "2 Double Beds", "size_sqm": 30},
+          {"name_zh": "轉角客房（一大床與沙發床）", "name_en": "1 King Bed, Sofa Bed", "name_ja": "1 King Bed, Sofa Bed", "size_sqm": 33},
+          {"name_zh": "豪華陽台客房（一大床）", "name_en": "1 King Bed, Balcony, Deluxe", "name_ja": "1 King Bed, Balcony, Deluxe", "size_sqm": 36},
+          {"name_zh": "四人上下舖客房", "name_en": "The Bunk Room", "name_ja": "The Bunk Room", "size_sqm": 36},
+          {"name_zh": "EPISODE 套房", "name_en": "EPISODE Suite", "name_ja": "EPISODE Suite", "size_sqm": 59},
+          {"name_zh": "特色套房", "name_en": "Signature Suite", "name_ja": "Signature Suite", "size_sqm": 66}
+        ]
+      },
+      "source_urls": [
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei",
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/rooms",
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/dining",
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/hotel-info",
+        "https://newsroom.hyatt.com/news-releases?asPDF=1&item=124498"
+      ]
+    },
+    {
+      "hotel_id": "episode_hsinchu",
+      "verified_at": "2026-10-01",
+      "room_inventory": 140,
+      "restaurants": [
+        {"name": "CING YAN", "type_zh": "泰式半自助餐與西式料理", "type_en": "Thai semi-buffet and Western cuisine", "type_ja": "タイ料理セミビュッフェ・洋食"},
+        {"name": "SODE Bar", "type_zh": "台灣精釀啤酒與葡萄酒吧", "type_en": "Taiwanese craft beer and wine bar", "type_ja": "台湾クラフトビール・ワインバー"},
+        {"name": "SOCIAL", "type_zh": "住客共享酒廊與歡樂時光", "type_en": "Guest social lounge and happy hour", "type_ja": "宿泊者向けソーシャルラウンジ・ハッピーアワー"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "SOCIAL", "kind": "guest_living_room"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/rooms",
+        "rooms": [
+          {"name_zh": "客房（一大床）", "name_en": "1 King Bed Room", "name_ja": "1 King Bed Room", "size_sqm_min": 35, "size_sqm_max": 42},
+          {"name_zh": "客房（兩小床）", "name_en": "2 Twin Beds Room", "name_ja": "2 Twin Beds Room", "size_sqm_min": 35, "size_sqm_max": 42},
+          {"name_zh": "豪華雙大床房", "name_en": "2 Queen Beds, Deluxe Room", "name_ja": "2 Queen Beds, Deluxe Room", "size_sqm_min": 35, "size_sqm_max": 42},
+          {"name_zh": "PURE 防敏客房（一大床）", "name_en": "1 King Bed Pure Room", "name_ja": "1 King Bed Pure Room", "size_sqm_min": 35, "size_sqm_max": 42},
+          {"name_zh": "開放式套房", "name_en": "Studio Suite", "name_ja": "Studio Suite", "size_sqm": 54},
+          {"name_zh": "家庭樓中樓套房", "name_en": "Family Loft Suite", "name_ja": "Family Loft Suite", "size_sqm_min": 86, "size_sqm_max": 97},
+          {"name_zh": "樓中樓套房", "name_en": "Loft Suite", "name_ja": "Loft Suite", "size_sqm_min": 86, "size_sqm_max": 97}
+        ]
+      },
+      "source_urls": [
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu",
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/rooms",
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/dining",
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/hotel-info",
+        "https://newsroom.hyatt.com/news-releases?asPDF=1&item=124314"
+      ]
     }
   ]
 }

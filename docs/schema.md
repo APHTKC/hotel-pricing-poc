@@ -78,7 +78,7 @@ public/data/rates/YYYY-MM.json
   month + market_summary + rate_parity + rates（單月明細）
 
 public/data/hotel_locations.json
-  schema_version + updated_at + source_note + locations（65 家飯店快取座標）
+  schema_version + updated_at + source_note + locations（67 家飯店快取座標）
 ```
 
 歷史頁首頁只讀取 `history_summary.json`；特定月份明細採按需載入。舊的單一

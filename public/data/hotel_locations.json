@@ -4,6 +4,32 @@
   "source_note": "Coordinates are cached from OpenStreetMap place data and official hotel address cross-checks. They are for visualization, not navigation.",
   "locations": [
     {
+      "hotel_id": "episode_hsinchu",
+      "name_zh": "新竹伊普索酒店",
+      "name_en": "EPISODE Hsinchu",
+      "city": "Hsinchu",
+      "district": "East",
+      "latitude": 24.7987424,
+      "longitude": 121.005449,
+      "booking_url": "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu",
+      "daily_tracked": false,
+      "source": "OpenStreetMap Nominatim",
+      "accuracy": "mapped_point"
+    },
+    {
+      "hotel_id": "episode_daan_taipei",
+      "name_zh": "台北大安伊普索凱悅尚選酒店",
+      "name_en": "EPISODE Daan Taipei",
+      "city": "Taipei",
+      "district": "Da'an",
+      "latitude": 25.0388923,
+      "longitude": 121.5441162,
+      "booking_url": "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei",
+      "daily_tracked": false,
+      "source": "OpenStreetMap Nominatim",
+      "accuracy": "mapped_point"
+    },
+    {
       "hotel_id": "hotel_royal_hsinchu",
       "name_zh": "新竹老爺酒店",
       "name_en": "Hotel Royal Hsinchu",

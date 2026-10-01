@@ -1,6 +1,6 @@
 # 台灣飯店房價查詢平台
 
-以公開訂房資訊建立的高端飯店房價觀察平台。目前 Catalog 收錄 **65 家**飯店，
+以公開訂房資訊建立的高端飯店房價觀察平台。目前 Catalog 收錄 **67 家**飯店，
 其中 **18 家**進入每日自動追蹤清單；每天查詢未來 `+1/+7/+14/+30/+60/+90`
 天的一晚房價，並透過 GitHub Actions 更新 GitHub Pages。
 
@@ -23,8 +23,8 @@
 public/data/latest.json                  最新一次查價，供即時總覽使用
 public/data/history_summary.json         輕量預聚合歷史趨勢與每週市場摘要
 public/data/rates/YYYY-MM.json           使用者展開特定月份時才載入
-public/data/hotels.json                  65 家飯店 Catalog 與設施／房型快照
-public/data/hotel_locations.json         65 家飯店的快取座標、城市、台北行政區及追蹤狀態
+public/data/hotels.json                  67 家飯店 Catalog 與設施／房型快照
+public/data/hotel_locations.json         67 家飯店的快取座標、城市、台北行政區及追蹤狀態
 ```
 
 `history.html` 首次只下載 `history_summary.json`，選擇月份或查看明細時才下載對應的
@@ -106,7 +106,7 @@ OTA 啟用條件見 [docs/ota-integration.md](docs/ota-integration.md)。
 
 ```text
 app/                    FastAPI、資料模型與 API
-config/                 65 家 Catalog、18 家每日追蹤與 OTA 對照設定
+config/                 67 家 Catalog、18 家每日追蹤與 OTA 對照設定
 scrapers/               官網 adapter 與 OTA provider
 jobs/                   官網／OTA 每日工作
 services/               市場指標、去重、同商品比價、健康度、FX／CPI

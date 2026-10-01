@@ -5,6 +5,7 @@ import yaml
 
 
 NEW_TAIPEI_HOTELS = {
+    "episode_daan_taipei": "Da'an",
     "courtyard_taipei_downtown": "Zhongshan",
     "hotel_proverbs_taipei": "Da'an",
     "renaissance_taipei_shihlin": "Shilin",
@@ -35,7 +36,27 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     ids = {hotel["id"] for hotel in payload["hotels"]}
 
     assert set(NEW_TAIPEI_HOTELS) <= ids
-    assert len(payload["hotels"]) == 65
+    assert len(payload["hotels"]) == 67
+
+
+def test_episode_hotels_are_registered_with_official_profiles_but_not_reprobed():
+    catalog = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))["hotels"]
+    profiles = json.loads(
+        Path("public/data/hotel_profiles.json").read_text(encoding="utf-8")
+    )["profiles"]
+    hotels = {row["id"]: row for row in catalog}
+    profile_by_id = {row["hotel_id"]: row for row in profiles}
+
+    for hotel_id, inventory, room_types in (
+        ("episode_daan_taipei", 136, 10),
+        ("episode_hsinchu", 140, 7),
+    ):
+        assert hotels[hotel_id]["enabled"] is False
+        assert hotels[hotel_id]["automation_status"] == "skipped"
+        assert "without repeating" in hotels[hotel_id]["automation_note"]
+        assert profile_by_id[hotel_id]["room_inventory"] == inventory
+        assert len(profile_by_id[hotel_id]["room_snapshot"]["rooms"]) == room_types
+        assert profile_by_id[hotel_id]["room_snapshot"]["source_type"] == "official"
 
 
 def test_published_catalog_contains_hotel_royal_hsinchu_manual_link():
