@@ -263,7 +263,7 @@
     },
     {
       "hotel_id": "grand_hyatt_taipei",
-      "verified_at": "2026-09-22",
+      "verified_at": "2026-10-01",
       "room_inventory": 850,
       "restaurants": [
         {"name": "Café", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
@@ -277,9 +277,39 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": true, "name": "Grand Club Lounge", "kind": "executive_club"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
+        "rooms": [
+          {"name_zh": "君悅套房（特大床）", "name_en": "Grand Suite King", "name_ja": "Grand Suite King", "size_sqm": 60},
+          {"name_zh": "君悅套房（雙床）", "name_en": "Grand Suite Twin", "name_ja": "Grand Suite Twin", "size_sqm": 60},
+          {"name_zh": "君悅行政套房", "name_en": "Grand Executive Suite", "name_ja": "Grand Executive Suite", "size_sqm": 83},
+          {"name_zh": "君悅行政101景觀套房", "name_en": "Grand Executive 101 View Suite", "name_ja": "Grand Executive 101 View Suite", "size_sqm": 83},
+          {"name_zh": "外交官套房", "name_en": "Diplomat Suite", "name_ja": "Diplomat Suite", "size_sqm": 188},
+          {"name_zh": "君悅客房（特大床）", "name_en": "1 King Bed", "name_ja": "1 King Bed", "size_sqm": 33},
+          {"name_zh": "君悅客房（雙床）", "name_en": "2 Twin Beds", "name_ja": "2 Twin Beds", "size_sqm": 33},
+          {"name_zh": "101 景觀客房（1 張特大床）", "name_en": "1 King Bed 101 View", "name_ja": "1 King Bed 101 View", "size_sqm_min": 33, "size_sqm_max": 40},
+          {"name_zh": "101 景觀客房（2 張單人床）", "name_en": "2 Twin Beds 101 View", "name_ja": "2 Twin Beds 101 View", "size_sqm_min": 33, "size_sqm_max": 40},
+          {"name_zh": "嘉賓軒101景觀客房（特大床）", "name_en": "1 King Bed 101 View Club Access", "name_ja": "1 King Bed 101 View Club Access", "size_sqm_min": 33, "size_sqm_max": 40},
+          {"name_zh": "嘉賓軒101 景觀客房（雙床）", "name_en": "2 Twin Beds 101 View Club Access", "name_ja": "2 Twin Beds 101 View Club Access", "size_sqm_min": 33, "size_sqm_max": 40},
+          {"name_zh": "嘉賓軒客房（特大床）", "name_en": "1 King Bed Club Access", "name_ja": "1 King Bed Club Access", "size_sqm": 33},
+          {"name_zh": "豪華客房（特大床）", "name_en": "1 King Bed Deluxe", "name_ja": "1 King Bed Deluxe", "size_sqm": 40},
+          {"name_zh": "豪華客房（雙床）", "name_en": "2 Twin Beds Deluxe", "name_ja": "2 Twin Beds Deluxe", "size_sqm": 40},
+          {"name_zh": "嘉賓軒豪華客房（1 張特大床）", "name_en": "1 King Bed Club Access Deluxe", "name_ja": "1 King Bed Club Access Deluxe", "size_sqm": 40},
+          {"name_zh": "嘉賓軒豪華客房（雙床）", "name_en": "2 Twin Beds Club Access Deluxe", "name_ja": "2 Twin Beds Club Access Deluxe", "size_sqm": 40},
+          {"name_zh": "君悅尊尚客房（特大床）", "name_en": "1 King Bed Premium Studio", "name_ja": "1 King Bed Premium Studio", "size_sqm": 50},
+          {"name_zh": "君悅尊尚客房（雙床）", "name_en": "2 Twin Beds Premium Studio", "name_ja": "2 Twin Beds Premium Studio", "size_sqm": 50},
+          {"name_zh": "嘉賓軒101景觀尊尚客房（特大床）", "name_en": "1 King Bed 101 View Club Access Premium Studio", "name_ja": "1 King Bed 101 View Club Access Premium Studio", "size_sqm": 50},
+          {"name_zh": "嘉賓軒101景觀尊尚客房（雙床）", "name_en": "2 Twin Beds 101 View Club Access Premium Studio", "name_ja": "2 Twin Beds 101 View Club Access Premium Studio", "size_sqm": 50},
+          {"name_zh": "總裁套房", "name_en": "Premier Suite", "name_ja": "Premier Suite", "size_sqm": 132},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 221}
+        ]
+      },
       "source_urls": [
         "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei",
         "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
+        "https://www.hyatt.com/grand-hyatt/zh-HK/taigh-grand-hyatt-taipei/rooms",
         "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/dining",
         "https://assets.hyatt.com/content/dam/hyatt/hyattdam/documents/2019/11/06/1554/Grand-Hyatt-Taipei-Fact-Sheet-English.pdf"
       ]

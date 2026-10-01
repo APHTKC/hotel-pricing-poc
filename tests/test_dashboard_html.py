@@ -300,6 +300,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["grand_hyatt_taipei"]["room_inventory"] == 850
     assert len(by_id["grand_hyatt_taipei"]["restaurants"]) == 8
     assert by_id["grand_hyatt_taipei"]["lounge"]["name"] == "Grand Club Lounge"
+    grand_hyatt_rooms = by_id["grand_hyatt_taipei"]["room_snapshot"]["rooms"]
+    assert by_id["grand_hyatt_taipei"]["room_snapshot"]["source_type"] == "official"
+    assert len(grand_hyatt_rooms) == 22
+    assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in grand_hyatt_rooms) == 33
+    assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in grand_hyatt_rooms) == 221
+    hyatt_101_king = next(room for room in grand_hyatt_rooms if room["name_en"] == "1 King Bed 101 View")
+    assert (hyatt_101_king["size_sqm_min"], hyatt_101_king["size_sqm_max"]) == (33, 40)
+    assert next(room for room in grand_hyatt_rooms if room["name_en"] == "Diplomat Suite")["size_sqm"] == 188
+    assert {room["name_zh"] for room in grand_hyatt_rooms} >= {"總裁套房", "總統套房"}
+    assert "service_charge_percent" not in by_id["grand_hyatt_taipei"]
     assert by_id["w_taipei"]["room_inventory"] == 405
     assert len(by_id["w_taipei"]["restaurants"]) == 4
     assert by_id["w_taipei"]["facilities"]["sauna"] is None
