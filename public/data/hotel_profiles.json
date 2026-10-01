@@ -3,7 +3,7 @@
   "profiles": [
     {
       "hotel_id": "capella_taipei",
-      "verified_at": "2026-09-22",
+      "verified_at": "2026-10-01",
       "room_inventory": 86,
       "restaurants": [
         {"name": "Mizue", "type_zh": "日式無菜單料理", "type_en": "Japanese omakase", "type_ja": "日本料理・おまかせ"},
@@ -14,8 +14,29 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": true, "name": "Capella Living Room", "kind": "guest_living_room"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://capellahotels.com/en/capella-taipei/accommodation",
+        "rooms": [
+          {"name_zh": "卓越客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 48},
+          {"name_zh": "卓越景觀客房", "name_en": "Superior Skyline Room", "name_ja": "Superior Skyline Room", "size_sqm": 48},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 53},
+          {"name_zh": "豪華景觀客房", "name_en": "Deluxe Skyline Room", "name_ja": "Deluxe Skyline Room", "size_sqm": 53},
+          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 106},
+          {"name_zh": "豪華景觀套房", "name_en": "Deluxe Skyline Suite", "name_ja": "Deluxe Skyline Suite", "size_sqm": 106},
+          {"name_zh": "尊榮客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 60},
+          {"name_zh": "尊榮景觀客房", "name_en": "Premier Skyline Room", "name_ja": "Premier Skyline Room", "size_sqm": 60},
+          {"name_zh": "泳池露台客房", "name_en": "Pool Terrace Room", "name_ja": "Pool Terrace Room", "size_sqm": 78, "aliases_zh": ["璀璨客房"]},
+          {"name_zh": "泳池露台景觀客房", "name_en": "Pool Terrace Skyline Room", "name_ja": "Pool Terrace Skyline Room", "size_sqm": 78},
+          {"name_zh": "泳池露台套房", "name_en": "Pool Terrace Suite", "name_ja": "Pool Terrace Suite", "size_sqm": 270, "aliases_zh": ["璀璨套房"]},
+          {"name_zh": "泳池露台景觀套房", "name_en": "Pool Terrace Skyline Suite", "name_ja": "Pool Terrace Skyline Suite", "size_sqm": 270},
+          {"name_zh": "嘉佩樂套房", "name_en": "Capella Suite", "name_ja": "Capella Suite", "size_sqm": 228}
+        ]
+      },
       "source_urls": [
         "https://capellahotels.com/en/capella-taipei",
+        "https://capellahotels.com/en/capella-taipei/accommodation",
         "https://capellahotels.com/en/capella-taipei/dining",
         "https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_EN.pdf?v11.19="
       ]
@@ -62,8 +83,11 @@
     },
     {
       "hotel_id": "okura_prestige_taipei",
-      "verified_at": "2026-09-22",
+      "verified_at": "2026-10-01",
       "room_inventory": 207,
+      "service_charge_note_zh": "官網僅公告房價另收稅與服務費合計 15%，未分別列出服務費比例。",
+      "service_charge_note_en": "The official site states a combined 15% tax and service charge, without separating the service-charge percentage.",
+      "service_charge_note_ja": "公式サイトは税金・サービス料の合計15%のみを表示し、サービス料率を個別には示していません。",
       "restaurants": [
         {"name": "Yamazato", "type_zh": "日本料理、壽司、天婦羅與鐵板燒", "type_en": "Japanese, sushi, tempura and teppanyaki", "type_ja": "日本料理・寿司・天ぷら・鉄板焼"},
         {"name": "Toh Ka Lin", "type_zh": "粵菜與中華料理", "type_en": "Cantonese and Chinese", "type_ja": "広東料理・中華料理"},
@@ -73,11 +97,28 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.okurataipei.com.tw/room/",
+        "rooms": [
+          {"name_zh": "菁英客房", "name_en": "Prestige Room", "name_ja": "プレステージルーム", "size_sqm": 44},
+          {"name_zh": "大倉菁英客房", "name_en": "Okura Prestige Room", "name_ja": "オークラ プレステージルーム", "size_sqm": 44},
+          {"name_zh": "尊榮客房", "name_en": "Premium Prestige Room", "name_ja": "プレミアム プレステージルーム", "size_sqm": 56},
+          {"name_zh": "行政客房（陽台）", "name_en": "Executive Room with Balcony", "name_ja": "エグゼクティブルーム (バルコニー付)", "size_sqm": 56},
+          {"name_zh": "行政客房", "name_en": "Executive Room", "name_ja": "エグゼクティブルーム", "size_sqm": 56},
+          {"name_zh": "名門套房", "name_en": "Junior Suite", "name_ja": "ジュニアスイート", "size_sqm": 75},
+          {"name_zh": "久和套房", "name_en": "The Suite", "name_ja": "ザ・スイート", "size_sqm": 82},
+          {"name_zh": "總統套房", "name_en": "Royal Suite", "name_ja": "ロイヤルスイート", "size_sqm": 228}
+        ]
+      },
       "source_urls": [
         "https://www.okurataipei.com.tw/en/about/",
         "https://www.okurataipei.com.tw/en/dining/",
         "https://www.okurataipei.com.tw/en/fac/",
-        "https://www.okurataipei.com.tw/en/room/"
+        "https://www.okurataipei.com.tw/en/room/",
+        "https://www.okurataipei.com.tw/room/",
+        "https://www.okurataipei.com.tw/jp/room/"
       ]
     },
     {

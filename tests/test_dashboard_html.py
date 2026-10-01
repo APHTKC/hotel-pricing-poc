@@ -255,10 +255,21 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
     assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
+    capella_rooms = by_id["capella_taipei"]["room_snapshot"]["rooms"]
+    assert len(capella_rooms) == 13
+    assert min(room["size_sqm"] for room in capella_rooms) == 48
+    assert max(room["size_sqm"] for room in capella_rooms) == 270
+    assert next(room for room in capella_rooms if room["name_en"] == "Capella Suite")["size_sqm"] == 228
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
     assert by_id["okura_prestige_taipei"]["room_inventory"] == 207
     assert len(by_id["okura_prestige_taipei"]["restaurants"]) == 5
+    okura_rooms = by_id["okura_prestige_taipei"]["room_snapshot"]["rooms"]
+    assert len(okura_rooms) == 8
+    assert {room["size_sqm"] for room in okura_rooms} == {44, 56, 75, 82, 228}
+    assert {room["name_ja"] for room in okura_rooms} >= {"プレステージルーム", "ロイヤルスイート"}
+    assert "合計 15%" in by_id["okura_prestige_taipei"]["service_charge_note_zh"]
+    assert "service_charge_note_" in html
     assert by_id["shangrila_taipei"]["room_inventory"] == 420
     assert by_id["shangrila_taipei"]["lounge"]["name"] == "Horizon Club Lounge"
     assert by_id["grand_mayfull_taipei"]["room_inventory"] == 146
