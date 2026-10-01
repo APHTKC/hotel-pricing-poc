@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -710,6 +710,25 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert resonance["room_snapshot"]["source_type"] == "ota"
     assert len(resonance["room_snapshot"]["rooms"]) == 8
     assert {room["size_sqm"] for room in resonance["room_snapshot"]["rooms"]} == {30, 34, 40, 45, 52}
+    renaissance = by_id["renaissance_taipei_shihlin"]
+    assert renaissance["room_inventory"] == 104
+    assert "service_charge_percent" not in renaissance
+    assert len(renaissance["restaurants"]) == 4
+    assert renaissance["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": None,
+    }
+    assert renaissance["lounge"] == {
+        "available": True,
+        "name": "行政酒廊 Executive Lounge",
+        "kind": "executive_lounge",
+    }
+    assert renaissance["room_snapshot"]["source_type"] == "official"
+    assert len(renaissance["room_snapshot"]["rooms"]) == 7
+    assert {room["size_sqm"] for room in renaissance["room_snapshot"]["rooms"]} == {31, 86, 126}
     assert "service_charge_source_type==='observed'?'observed':'official'" in html
     assert "room.aliases_zh||[]" in html
     assert "Math.abs(item.sizeMin-min)<=1" in html
@@ -730,6 +749,17 @@ def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
     assert "function loungeDetail(profile)" in html
     assert "membersOnlyLounge" in html
     assert "value==null" in html
+
+
+def test_profile_and_map_summary_metrics_use_compact_layout():
+    profiles_html = Path("public/hotels.html").read_text(encoding="utf-8")
+    map_html = Path("public/map.html").read_text(encoding="utf-8")
+
+    assert ".metric{display:flex;align-items:baseline;justify-content:center;gap:10px;padding:8px 14px" in profiles_html
+    assert ".metric-value{margin:0;font:20px/1.15" in profiles_html
+    assert 'id="compact-map-summary"' in map_html
+    assert ".metric{display:flex;align-items:baseline;justify-content:center;gap:9px;padding:8px 10px}" in map_html
+    assert ".metric-value{margin:0;font-size:20px;line-height:1.15}" in map_html
 
 
 def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():

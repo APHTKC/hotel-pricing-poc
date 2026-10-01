@@ -857,6 +857,41 @@
       ]
     },
     {
+      "hotel_id": "renaissance_taipei_shihlin",
+      "verified_at": "2026-10-01",
+      "room_inventory": 104,
+      "restaurants": [
+        {"name": "士林廚房 Shihlin Kitchen", "type_zh": "多國料理與全日餐廳", "type_en": "International cuisine and all-day dining", "type_ja": "各国料理・オールデイダイニング"},
+        {"name": "萬麗軒 Wan Li Restaurant", "type_zh": "中華料理與粵菜", "type_en": "Chinese and Cantonese cuisine", "type_ja": "中華料理・広東料理"},
+        {"name": "R bar 逸庭", "type_zh": "酒吧與輕食", "type_en": "Bar and light dining", "type_ja": "バー・軽食"},
+        {"name": "TEA LAB 茶坊", "type_zh": "茶飲、咖啡與輕食", "type_en": "Tea, coffee and light dining", "type_ja": "お茶・コーヒー・軽食"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "行政酒廊 Executive Lounge", "kind": "executive_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.renaissancetaipei.com/%E5%AE%A2%E6%88%BF%E4%BB%8B%E7%B4%B9",
+        "rooms": [
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 31},
+          {"name_zh": "尊貴客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 31},
+          {"name_zh": "露臺尊貴客房", "name_en": "Terrace Premier Room", "name_ja": "Terrace Premier Room", "size_sqm": 31},
+          {"name_zh": "行政豪華客房", "name_en": "Executive Deluxe Room", "name_ja": "Executive Deluxe Room", "size_sqm": 31},
+          {"name_zh": "行政尊貴客房", "name_en": "Executive Premier Room", "name_ja": "Executive Premier Room", "size_sqm": 31},
+          {"name_zh": "萬麗套房", "name_en": "Renaissance Suite", "name_ja": "Renaissance Suite", "size_sqm": 86},
+          {"name_zh": "士林官邸套房", "name_en": "Shilin Residence Suite", "name_ja": "Shilin Residence Suite", "size_sqm": 126}
+        ]
+      },
+      "source_urls": [
+        "https://www.renaissancetaipei.com/%E5%AE%A2%E6%88%BF%E4%BB%8B%E7%B4%B9",
+        "https://www.renaissancetaipei.com/%E9%A4%90%E9%A3%B2%E7%BE%8E%E9%A5%8C",
+        "https://www.renaissancetaipei.com/%E9%A3%AF%E5%BA%97%E8%A8%AD%E6%96%BD",
+        "https://www.marriott.com/en-us/hotels/tpesh-renaissance-taipei-shihlin-hotel/rooms/",
+        "https://www.marriott.com/en-us/hotels/tpesh-renaissance-taipei-shihlin-hotel/overview/",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=12977&lang2=en"
+      ]
+    },
+    {
       "hotel_id": "kimpton_da_an",
       "verified_at": "2026-10-01",
       "room_inventory": 129,
