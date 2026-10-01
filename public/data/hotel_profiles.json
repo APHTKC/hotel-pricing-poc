@@ -857,6 +857,32 @@
       ]
     },
     {
+      "hotel_id": "kimpton_da_an",
+      "verified_at": "2026-10-01",
+      "room_inventory": 129,
+      "restaurants": [
+        {"name": "The Tavernist", "type_zh": "創意現代料理與國際料理", "type_en": "Creative modern and international cuisine", "type_ja": "創作モダン・各国料理"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/rooms",
+        "rooms": [
+          {"name_zh": "Essential 客房", "name_en": "Essential Room", "name_ja": "Essential Room", "size_sqm_min": 32, "size_sqm_max": 38},
+          {"name_zh": "Premium 客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm_min": 37, "size_sqm_max": 38},
+          {"name_zh": "套房", "name_en": "Suite", "name_ja": "Suite", "size_sqm": 58}
+        ]
+      },
+      "source_urls": [
+        "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail",
+        "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/rooms",
+        "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/amenities",
+        "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/dining/the-tavernist-taipei"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,

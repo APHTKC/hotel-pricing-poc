@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -596,6 +596,27 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert min(room["size_sqm"] for room in grand_view["room_snapshot"]["rooms"]) == 50
     assert max(room["size_sqm"] for room in grand_view["room_snapshot"]["rooms"]) == 116
+    kimpton = by_id["kimpton_da_an"]
+    assert kimpton["room_inventory"] == 129
+    assert "service_charge_percent" not in kimpton
+    assert len(kimpton["restaurants"]) == 1
+    assert kimpton["facilities"] == {
+        "pool": None,
+        "fitness": True,
+        "spa": None,
+        "sauna": None,
+        "steam_room": None,
+    }
+    assert kimpton["lounge"] == {"available": False, "name": None, "kind": "none"}
+    assert kimpton["room_snapshot"]["source_type"] == "official"
+    assert len(kimpton["room_snapshot"]["rooms"]) == 3
+    assert {room["name_en"] for room in kimpton["room_snapshot"]["rooms"]} == {
+        "Essential Room",
+        "Premium Room",
+        "Suite",
+    }
+    assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in kimpton["room_snapshot"]["rooms"]) == 32
+    assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in kimpton["room_snapshot"]["rooms"]) == 58
     assert "room.aliases_zh||[]" in html
     assert "Math.abs(item.sizeMin-min)<=1" in html
 
