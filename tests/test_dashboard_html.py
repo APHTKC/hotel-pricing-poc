@@ -253,7 +253,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
@@ -654,6 +654,26 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert indigo["room_snapshot"]["source_type"] == "ota"
     assert len(indigo["room_snapshot"]["rooms"]) == 5
     assert {room["size_sqm"] for room in indigo["room_snapshot"]["rooms"]} == {35, 40, 60, 73, 135}
+    sheraton_taipei = by_id["sheraton_grand_taipei"]
+    assert sheraton_taipei["room_inventory"] == 683
+    assert sheraton_taipei["service_charge_percent"] == 10
+    assert len(sheraton_taipei["restaurants"]) == 10
+    assert sheraton_taipei["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert sheraton_taipei["lounge"] == {
+        "available": True,
+        "name": "Sheraton Club Lounge",
+        "kind": "executive_lounge",
+    }
+    assert sheraton_taipei["room_snapshot"]["source_type"] == "official"
+    assert len(sheraton_taipei["room_snapshot"]["rooms"]) == 14
+    assert min(room["size_sqm"] for room in sheraton_taipei["room_snapshot"]["rooms"]) == 32
+    assert max(room["size_sqm"] for room in sheraton_taipei["room_snapshot"]["rooms"]) == 562
     assert "room.aliases_zh||[]" in html
     assert "Math.abs(item.sizeMin-min)<=1" in html
 

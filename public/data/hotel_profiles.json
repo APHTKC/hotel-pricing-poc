@@ -953,6 +953,55 @@
       ]
     },
     {
+      "hotel_id": "sheraton_grand_taipei",
+      "verified_at": "2026-10-01",
+      "room_inventory": 683,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "The Lounge", "type_zh": "大廳酒吧與輕食", "type_en": "Lobby bar and light dining", "type_ja": "ロビーバー・軽食"},
+        {"name": "Kitchen 12", "type_zh": "國際自助餐", "type_en": "International buffet", "type_ja": "各国料理ビュッフェ"},
+        {"name": "The Guest House", "type_zh": "川揚料理與麵點", "type_en": "Sichuan, Yangzhou cuisine and noodles", "type_ja": "四川・揚州料理、麺料理"},
+        {"name": "The Dragon", "type_zh": "粵菜與港式點心", "type_en": "Cantonese cuisine and dim sum", "type_ja": "広東料理・点心"},
+        {"name": "SUKHOTHAI", "type_zh": "泰國料理", "type_en": "Thai cuisine", "type_ja": "タイ料理"},
+        {"name": "Momoyama", "type_zh": "日本料理", "type_en": "Japanese cuisine", "type_ja": "日本料理"},
+        {"name": "Sushi Momoyama", "type_zh": "壽司與割烹料理", "type_en": "Sushi and kappo cuisine", "type_ja": "寿司・割烹料理"},
+        {"name": "Antoine Room", "type_zh": "牛排館", "type_en": "Steakhouse", "type_ja": "ステーキハウス"},
+        {"name": "Pizza Pub", "type_zh": "義大利料理與披薩", "type_en": "Italian cuisine and pizza", "type_ja": "イタリア料理・ピザ"},
+        {"name": "The Deli", "type_zh": "烘焙、甜點與外賣店", "type_en": "Bakery, patisserie and takeaway", "type_ja": "ベーカリー・ペストリー・テイクアウト"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "Sheraton Club Lounge", "kind": "executive_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.sheratongrandtaipei.com/?cat=1&id=3&lang=zh-tw",
+        "rooms": [
+          {"name_zh": "舒適客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 32},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 35},
+          {"name_zh": "首席客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 40},
+          {"name_zh": "首席四人房", "name_en": "Premier Quadruple Room", "name_ja": "Premier Quadruple Room", "size_sqm": 40},
+          {"name_zh": "主管客房", "name_en": "Director Room", "name_ja": "Director Room", "size_sqm": 50},
+          {"name_zh": "卓越套房", "name_en": "Diplomatic Suite", "name_ja": "Diplomatic Suite", "size_sqm": 66},
+          {"name_zh": "行政豪華客房", "name_en": "Executive Deluxe Room", "name_ja": "Executive Deluxe Room", "size_sqm": 35},
+          {"name_zh": "行政首席客房", "name_en": "Executive Premier Room", "name_ja": "Executive Premier Room", "size_sqm": 40},
+          {"name_zh": "行政主管客房", "name_en": "Executive Director Room", "name_ja": "Executive Director Room", "size_sqm": 50},
+          {"name_zh": "行政卓越套房", "name_en": "Executive Diplomatic Suite", "name_ja": "Executive Diplomatic Suite", "size_sqm": 66},
+          {"name_zh": "大使套房", "name_en": "Ambassador Suite", "name_ja": "Ambassador Suite", "size_sqm": 108},
+          {"name_zh": "喜來登套房－音樂風", "name_en": "Sheraton Suite – Music Style", "name_ja": "Sheraton Suite – Music Style", "size_sqm": 143},
+          {"name_zh": "喜來登套房－中國風", "name_en": "Sheraton Suite – Chinese Style", "name_ja": "Sheraton Suite – Chinese Style", "size_sqm": 143},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 562}
+        ]
+      },
+      "source_urls": [
+        "https://www.sheratongrandtaipei.com/?cat=1&id=3&lang=zh-tw",
+        "https://www.sheratongrandtaipei.com/websev?cat=1&id=1&lang=zh-tw&ref=pages",
+        "https://www.sheratongrandtaipei.com/websev?cat=1&id=13&lang=zh-tw&ref=pages",
+        "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/overview/",
+        "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/rooms/",
+        "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/experiences/"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,
