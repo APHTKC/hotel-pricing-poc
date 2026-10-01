@@ -755,10 +755,23 @@ def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
     ambassador_palace = by_id["ambassador_palace_hotel_taipei"]
     assert ambassador_palace["name_zh"] == "台北國賓皇宮酒店"
     assert ambassador_palace["district"] == "Zhongshan"
-    assert ambassador_palace["planned_rooms"] == 108
+    assert ambassador_palace["planned_rooms"] == 106
+    assert ambassador_palace["planned_room_size_min_sqm"] == 50
+    assert ambassador_palace["planned_room_size_max_sqm"] == 240
+    assert ambassador_palace["planned_restaurants_bars"] == 7
+    assert ambassador_palace["planned_facilities"] == [
+        "Garden Lounge",
+        "SPA",
+        "Fitness gym",
+    ]
     assert "2028" in ambassador_palace["expected_opening_zh"]
-    assert len(ambassador_palace["project_highlights_zh"]) == 3
+    assert len(ambassador_palace["project_highlights_zh"]) == 4
     assert "Palace Hotel" in ambassador_palace["project_highlights_zh"][0]
+    assert "106" in ambassador_palace["project_highlights_zh"][1]
+    assert "50–240㎡" in ambassador_palace["project_highlights_zh"][1]
+    assert ambassador_palace["source_urls"][0].startswith(
+        "https://www.palacehoteltokyo.com/"
+    )
     assert all(hotel["source_urls"] for hotel in by_id.values())
     assert "upcoming_hotels.json" in html
     assert "hotelDisplayName" in html

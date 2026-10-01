@@ -59,27 +59,38 @@
       "city": "Taipei",
       "district": "Zhongshan",
       "country": "TW",
+      "address_zh": "台北市中山區中山北路二段 63 號",
+      "address_en": "No. 63, Sec. 2, Zhongshan N. Rd., Zhongshan District, Taipei",
       "opening_status": "upcoming",
       "expected_opening_zh": "預計 2028 年",
       "expected_opening_en": "Expected in 2028",
       "expected_opening_ja": "2028年開業予定",
-      "planned_rooms": 108,
+      "planned_rooms": 106,
+      "planned_room_size_min_sqm": 50,
+      "planned_room_size_max_sqm": 240,
+      "planned_restaurants_bars": 7,
+      "planned_facilities": ["Garden Lounge", "SPA", "Fitness gym"],
       "project_highlights_zh": [
         "國賓大飯店與日本 Palace Hotel 共同品牌，並由 Palace Hotel 受託經營",
-        "規劃客房均為 15 坪以上，主力房型約 23 坪",
-        "規劃餐飲包含 A CUT 牛排館、國賓中餐廳及頂級日式料理"
+        "Palace Hotel 官方規劃 106 間客房，面積約 50–240㎡",
+        "規劃 7 個餐廳與酒吧，包含頂樓酒吧、日本料理及牛排館",
+        "規劃 Garden Lounge、SPA 與健身房；詳細設施仍以開幕時官方公告為準"
       ],
       "project_highlights_en": [
         "A co-brand between Ambassador Hotels and Japan's Palace Hotel, with Palace Hotel as operator",
-        "Rooms are planned at 15 ping or larger, with approximately 23 ping as the primary size",
-        "Planned dining includes A CUT Steakhouse, Ambassador Chinese Restaurant, and premium Japanese cuisine"
+        "Palace Hotel officially plans 106 guestrooms ranging from approximately 50 to 240 sq m",
+        "Seven restaurants and bars are planned, including a rooftop bar, Japanese restaurant, and steakhouse",
+        "A garden lounge, spa, and fitness gym are planned; final facilities remain subject to opening announcements"
       ],
       "project_highlights_ja": [
         "アンバサダーホテルと日本のパレスホテルによる共同ブランドで、パレスホテルが運営を受託",
-        "客室は15坪以上、主力客室は約23坪を計画",
-        "A CUTステーキハウス、アンバサダー中華レストラン、高級日本料理を計画"
+        "パレスホテルの公式計画では、客室は106室、広さは約50～240㎡",
+        "最上階バー、日本料理、ステーキハウスを含む7つのレストラン＆バーを計画",
+        "ガーデンラウンジ、スパ、フィットネスジムを計画。最終的な施設は開業時の公式発表に準拠"
       ],
       "source_urls": [
+        "https://www.palacehoteltokyo.com/newsroom/latest-news/news/ambassador-palace-hotel-taipei/",
+        "https://www.palacehoteltokyo.com/release/images/pdf/NR_20221026_1.pdf",
         "https://www.mjd.co.jp/zh-CHT/news/57406/",
         "https://www.cna.com.tw/news/afe/202309200321.aspx",
         "https://prtimes.jp/main/html/rd/p/000000006.000063624.html",
