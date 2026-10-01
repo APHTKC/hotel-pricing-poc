@@ -669,6 +669,7 @@ def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
         "four_seasons_taipei",
         "park_hyatt_taipei",
         "andaz_taipei",
+        "ambassador_palace_hotel_taipei",
         "jw_marriott_taichung",
         "andaz_taichung",
         "kempinski_taichung",
@@ -679,6 +680,13 @@ def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
     assert "2028" in by_id["four_seasons_taipei"]["expected_opening_zh"]
     assert by_id["kempinski_taichung"]["planned_rooms"] == 312
     assert "2027" in by_id["kempinski_taichung"]["expected_opening_zh"]
+    ambassador_palace = by_id["ambassador_palace_hotel_taipei"]
+    assert ambassador_palace["name_zh"] == "台北國賓皇宮酒店"
+    assert ambassador_palace["district"] == "Zhongshan"
+    assert ambassador_palace["planned_rooms"] == 108
+    assert "2028" in ambassador_palace["expected_opening_zh"]
+    assert len(ambassador_palace["project_highlights_zh"]) == 3
+    assert "Palace Hotel" in ambassador_palace["project_highlights_zh"][0]
     assert all(hotel["source_urls"] for hotel in by_id.values())
     assert "upcoming_hotels.json" in html
     assert "hotelDisplayName" in html
