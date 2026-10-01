@@ -2,6 +2,8 @@ const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character =>
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 }[character]));
 
+import "./print-report.js";
+
 export function renderLineChart({
   root, legend, xValues, series, xLabel, title, locale = 'zh-TW', currency = 'TWD',
   hidden = new Set(), onToggle = null, emptyLabel = 'No data',
@@ -50,4 +52,59 @@ export function renderLineChart({
   const tooltip = rootElement.querySelector('.chart-tooltip');
   const show = event => { tooltip.textContent = event.currentTarget.dataset.tooltip; tooltip.hidden = false; const box = rootElement.getBoundingClientRect(); tooltip.style.left = `${event.clientX - box.left}px`; tooltip.style.top = `${event.clientY - box.top}px`; };
   rootElement.querySelectorAll('[data-tooltip]').forEach(element => { element.addEventListener('pointerenter', show); element.addEventListener('pointermove', show); element.addEventListener('pointerleave', () => { tooltip.hidden = true; }); });
+}
+
+export function renderPriceHeatmap({
+  root, rows, locale = 'zh-TW', currency = 'TWD', valueFactor = 1,
+  hotelLabel = row => row.hotel_name || row.hotel_id,
+  emptyLabel = 'No data', roomCountLabel = 'room types', onSelect = null,
+}) {
+  const rootElement = typeof root === 'string' ? document.querySelector(root) : root;
+  if (!rootElement) return;
+  const median = values => {
+    const sorted = values.filter(Number.isFinite).sort((a, b) => a - b);
+    if (!sorted.length) return null;
+    const middle = Math.floor(sorted.length / 2);
+    return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+  };
+  const groups = new Map();
+  rows.forEach(row => {
+    const base = Number(row.total_twd ?? row.total_price);
+    if (!row.hotel_id || !row.check_in || !Number.isFinite(base)) return;
+    const key = `${row.hotel_id}|${row.check_in}`;
+    const group = groups.get(key) || { hotelId: row.hotel_id, hotel: hotelLabel(row), date: row.check_in, values: [], rooms: new Set(), leads: new Set() };
+    group.values.push(base * valueFactor);
+    group.rooms.add(row.room_type_name || row.room_type_code || '—');
+    if (row.lead_days != null) group.leads.add(String(row.lead_days));
+    groups.set(key, group);
+  });
+  const cells = [...groups.values()].map(group => ({ ...group, median: median(group.values), low: Math.min(...group.values), high: Math.max(...group.values) }));
+  if (!cells.length) { rootElement.innerHTML = `<div class="empty">${escapeHtml(emptyLabel)}</div>`; return; }
+  const dates = [...new Set(cells.map(cell => cell.date))].sort().slice(0, 30);
+  const hotels = [...new Map(cells.map(cell => [cell.hotelId, cell.hotel])).entries()].sort((a, b) => a[1].localeCompare(b[1], locale));
+  const values = cells.map(cell => cell.median).filter(Number.isFinite), minimum = Math.min(...values), maximum = Math.max(...values);
+  const compact = value => new Intl.NumberFormat(locale, { style: 'currency', currency, notation: 'compact', maximumFractionDigits: 1 }).format(value);
+  const full = value => new Intl.NumberFormat(locale, { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
+  const dateLabel = value => new Intl.DateTimeFormat(locale, { month: 'numeric', day: 'numeric' }).format(new Date(`${value}T00:00:00`));
+  const byKey = new Map(cells.map(cell => [`${cell.hotelId}|${cell.date}`, cell]));
+  let html = '<div class="price-heatmap-scroll"><table class="price-heatmap-table"><thead><tr><th scope="col"></th>';
+  html += dates.map(date => `<th scope="col">${escapeHtml(dateLabel(date))}</th>`).join('') + '</tr></thead><tbody>';
+  hotels.forEach(([hotelId, hotel]) => {
+    html += `<tr><th scope="row">${escapeHtml(hotel)}</th>`;
+    dates.forEach(date => {
+      const cell = byKey.get(`${hotelId}|${date}`);
+      if (!cell) { html += '<td class="heatmap-missing">—</td>'; return; }
+      const ratio = maximum === minimum ? .5 : (cell.median - minimum) / (maximum - minimum), hue = Math.round(120 * (1 - ratio));
+      const tooltip = `${cell.hotel} · ${date} · ${full(cell.median)} · ${cell.rooms.size} ${roomCountLabel} · ${full(cell.low)}–${full(cell.high)}`;
+      html += `<td><button type="button" class="heatmap-cell" style="--heat:${hue}" data-hotel="${escapeHtml(hotelId)}" data-date="${escapeHtml(date)}" data-leads="${escapeHtml([...cell.leads].join(','))}" data-tooltip="${escapeHtml(tooltip)}"><span>${escapeHtml(compact(cell.median))}</span></button></td>`;
+    });
+    html += '</tr>';
+  });
+  rootElement.innerHTML = `${html}</tbody></table></div><div class="heatmap-tooltip" role="status" hidden></div>`;
+  const tooltip = rootElement.querySelector('.heatmap-tooltip');
+  const show = event => { tooltip.textContent = event.currentTarget.dataset.tooltip; tooltip.hidden = false; const box = rootElement.getBoundingClientRect(); tooltip.style.left = `${event.clientX - box.left + 10}px`; tooltip.style.top = `${event.clientY - box.top + 10}px`; };
+  rootElement.querySelectorAll('.heatmap-cell').forEach(button => {
+    button.addEventListener('pointerenter', show); button.addEventListener('pointermove', show); button.addEventListener('pointerleave', () => { tooltip.hidden = true; });
+    if (onSelect) button.addEventListener('click', () => onSelect({ hotelId: button.dataset.hotel, checkIn: button.dataset.date, leadDays: button.dataset.leads.split(',').filter(Boolean) }));
+  });
 }

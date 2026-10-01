@@ -14,6 +14,7 @@
 @media(max-width:760px){.filters{grid-template-columns:1fr}}
 </style>
 <style>.status.upcoming{border-color:var(--red);color:var(--red);font-weight:700}.upcoming-row{background:#fffdf8}.opening-note{display:block;margin-top:4px;color:#766a58;font-size:10px;line-height:1.35}</style>
+<link rel="stylesheet" href="./assets/css/shell.css">
 </head>
 <body>
 <header><div class="header-top"><div class="eyebrow">Public rate intelligence · Taiwan</div><div class="locale-controls"><label class="locale-control"><span data-i18n="language">語言</span><select id="language"><option value="zh">繁體中文</option><option value="en">English</option><option value="ja">日本語</option></select></label><label class="locale-control"><span data-i18n="currency">幣別</span><select id="currency"><option value="TWD">TWD · NT$</option><option value="USD">USD · $</option><option value="JPY">JPY · ¥</option></select></label></div></div><h1 data-i18n="title">飯店資料比較</h1><div class="subtitle" data-i18n="subtitle">比較各飯店房型面積、餐飲、休閒設施與行政／貴賓廳。房型取自每日公開房價資料；設施僅採飯店官方公開資訊。</div><div class="stamp" id="updated">…</div></header>
@@ -111,4 +112,5 @@ const legacyTranslateHotels=translate;
 translate=async function(){await affiliationsReady;legacyTranslateHotels()};
 document.querySelector('#affiliation').addEventListener('change',renderTable);
 </script>
+<script type="module" src="./assets/js/site-meta.js"></script>
 </body></html>

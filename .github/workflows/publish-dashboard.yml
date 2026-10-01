@@ -25,6 +25,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Generate deployment metadata
+        run: python -m scripts.build_site_meta
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1005,6 +1005,86 @@ def test_hotel_map_is_linked_and_localized_across_static_pages():
     assert "hotel-currency" in map_html
 
 
+def test_primary_pages_share_one_desktop_shell():
+    shell = Path("public/assets/css/shell.css").read_text(encoding="utf-8")
+
+    for page in ("index.html", "history.html", "hotels.html", "map.html"):
+        html = Path("public", page).read_text(encoding="utf-8")
+        assert './assets/css/shell.css' in html
+
+    assert "html{overflow-y:scroll}" in shell
+    assert "max-width:1240px!important" in shell
+    assert "min-height:76px" in shell
+
+
+def test_hotel_map_includes_upcoming_properties_without_rate_history():
+    map_html = Path("public/map.html").read_text(encoding="utf-8")
+    upcoming = json.loads(
+        Path("public/data/upcoming_hotels.json").read_text(encoding="utf-8")
+    )["hotels"]
+    locations = json.loads(
+        Path("public/data/upcoming_hotel_locations.json").read_text(encoding="utf-8")
+    )["locations"]
+
+    assert len(locations) == len(upcoming)
+    assert {row["hotel_id"] for row in locations} == {row["id"] for row in upcoming}
+    assert all(21.5 <= row["latitude"] <= 26.5 for row in locations)
+    assert all(118 <= row["longitude"] <= 123 for row in locations)
+    assert "./data/upcoming_hotels.json" in map_html
+    assert "./data/upcoming_hotel_locations.json" in map_html
+    assert "opening_status==='upcoming'" in map_html
+    assert 'value="upcoming"' in map_html
+    assert "upcoming-key" in map_html
+
+
+def test_home_a4_briefing_export_is_print_only_and_localized():
+    shell = Path("public/assets/css/shell.css").read_text(encoding="utf-8")
+    charts = Path("public/assets/js/charts.js").read_text(encoding="utf-8")
+    script = Path("public/assets/js/print-report.js").read_text(encoding="utf-8")
+
+    assert 'import "./print-report.js"' in charts
+    assert "@page{size:A4 landscape" in shell
+    assert "body>*:not(#a4BriefingPrint)" in shell
+    assert "匯出 A4 簡報 PDF" in script
+    assert "Export A4 Briefing PDF" in script
+    assert "A4 PDFを出力" in script
+    assert "window.print()" in script
+    assert ".slice(4)" in script
+    assert 'document.querySelector(".export-controls")' in script
+
+
+def test_home_price_heatmap_is_interactive_and_mobile_scrollable():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+    charts = Path("public/assets/js/charts.js").read_text(encoding="utf-8")
+
+    assert 'id="priceHeatmap"' in html
+    assert "renderPriceHeatmap" in html
+    assert ".price-heatmap-scroll{overflow-x:auto}" in html
+    assert "export function renderPriceHeatmap" in charts
+    assert "data-tooltip" in charts
+    assert "roomCountLabel" in charts
+    assert "onSelect({ hotelId:" in charts
+    assert "Math.round(120 * (1 - ratio))" in charts
+
+
+def test_primary_pages_show_deployment_meta_and_analytics_fail_closed():
+    analytics = json.loads(
+        Path("public/data/analytics.json").read_text(encoding="utf-8")
+    )
+    script = Path("public/assets/js/site-meta.js").read_text(encoding="utf-8")
+
+    for page in ("index.html", "history.html", "hotels.html", "map.html"):
+        html = Path("public", page).read_text(encoding="utf-8")
+        assert './assets/js/site-meta.js' in html
+
+    assert analytics["provider"] == "goatcounter"
+    assert analytics["enabled"] is False
+    assert analytics["site_code"] is None
+    assert "if(!config.enabled||!code" in script
+    assert "counter/${encodeURIComponent" in script
+    assert "版本" in script and "Version" in script and "バージョン" in script
+
+
 def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     html = Path("public/hotels.html").read_text(encoding="utf-8")
     data = json.loads(

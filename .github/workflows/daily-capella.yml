@@ -76,6 +76,7 @@ jobs:
           python -m scripts.deduplicate_rate_history
           python -m scripts.build_static_data
           python -m scripts.build_hotel_catalog
+          python -m scripts.build_site_meta
 
       - name: Save new rate history
         run: |
