@@ -892,6 +892,39 @@
       ]
     },
     {
+      "hotel_id": "hotel_proverbs_taipei",
+      "verified_at": "2026-10-01",
+      "room_inventory": 42,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "L’IDIOT GRILL&PASTA 驢子餐廳", "type_zh": "直火料理、自製義大利麵與國際料理", "type_en": "Live-fire cooking, house-made pasta and international cuisine", "type_ja": "直火料理・自家製パスタ・各国料理"},
+        {"name": "EAST END", "type_zh": "雞尾酒吧與餐酒搭配", "type_en": "Cocktail bar and food pairings", "type_ja": "カクテルバー・フードペアリング"}
+      ],
+      "facilities": {"pool": true, "fitness": null, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.hotel-proverbs.com/public/en/room",
+        "rooms": [
+          {"name_zh": "都會客房", "name_en": "Urban Room", "name_ja": "Urban Room", "size_sqm": 33},
+          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 37},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 38},
+          {"name_zh": "尊榮客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm": 41},
+          {"name_zh": "賦樂客房", "name_en": "Proverbs Room", "name_ja": "Proverbs Room", "size_sqm": 49}
+        ]
+      },
+      "source_urls": [
+        "https://hotel-proverbs.com/about-us/our-story",
+        "https://www.hotel-proverbs.com/public/en/room",
+        "https://hotel-proverbs.com/en/faq",
+        "https://www.hotel-proverbs.com/public/en/facilities",
+        "https://www.marriott.com/en-us/hotels/tpeds-hotel-proverbs-taipei-a-member-of-design-hotels/overview/",
+        "https://www.marriott.com/en-us/hotels/tpeds-hotel-proverbs-taipei-a-member-of-design-hotels/dining/",
+        "https://www.hotel-proverbs.com/upload/press_kit/HOTEL%20PROVERBS%20Taipei%20%E8%B3%A6%E6%A8%82%E6%97%85%E5%B1%85%E8%A8%AD%E8%A8%88%E7%90%86%E5%BF%B5.pdf"
+      ]
+    },
+    {
       "hotel_id": "kimpton_da_an",
       "verified_at": "2026-10-01",
       "room_inventory": 129,
