@@ -1089,6 +1089,8 @@ def test_primary_pages_show_deployment_meta_and_simple_view_counter():
     assert "https://librecounter.org/counter.svg" in script
     assert "image.referrerPolicy='unsafe-url'" in script
     assert "site-counter-label" in script
+    assert "new MutationObserver" in script
+    assert "if(!node.isConnected)footer.appendChild(node)" in script
     assert "localStorage" not in script
     assert "版本" in script and "Version" in script and "バージョン" in script
 

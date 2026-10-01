@@ -1,12 +1,14 @@
 const LABELS={zh:{version:'版本',build:'Build',data:'資料更新',views:'瀏覽次數'},en:{version:'Version',build:'Build',data:'Data updated',views:'Views'},ja:{version:'バージョン',build:'Build',data:'データ更新',views:'閲覧数'}};
 const lang=()=>{const value=document.documentElement.lang||'zh';return value.toLowerCase().startsWith('en')?'en':value.toLowerCase().startsWith('ja')?'ja':'zh'};
 const load=path=>fetch(`${path}?v=${Date.now()}`,{cache:'no-store'}).then(response=>{if(!response.ok)throw Error(`HTTP ${response.status}`);return response.json()});
+let metaNode=null,cachedMeta=null,cachedAnalytics=null;
 
 function renderMeta(meta){
   const footer=document.querySelector('footer.source-note,.source-note');
   if(!footer)return;
-  let node=document.querySelector('#siteMeta');
-  if(!node){node=document.createElement('span');node.id='siteMeta';node.className='site-meta';footer.appendChild(node)}
+  let node=metaNode||document.querySelector('#siteMeta');
+  if(!node){node=document.createElement('span');node.id='siteMeta';node.className='site-meta';metaNode=node}
+  if(!node.isConnected)footer.appendChild(node);
   let copy=node.querySelector('.site-meta-copy');
   if(!copy){copy=document.createElement('span');copy.className='site-meta-copy';node.prepend(copy)}
   const labels=LABELS[lang()];
@@ -31,5 +33,6 @@ function enableCounter(config){
   link.append(label,image);node.append(separator,link);
 }
 
-Promise.all([load('./data/site_meta.json'),load('./data/analytics.json').catch(()=>({enabled:false}))]).then(([meta,analytics])=>{renderMeta(meta);enableCounter(analytics)}).catch(()=>{});
-document.addEventListener('change',()=>setTimeout(()=>load('./data/site_meta.json').then(renderMeta).catch(()=>{}),0));
+function mount(){if(!cachedMeta)return;renderMeta(cachedMeta);enableCounter(cachedAnalytics||{enabled:false})}
+Promise.all([load('./data/site_meta.json'),load('./data/analytics.json').catch(()=>({enabled:false}))]).then(([meta,analytics])=>{cachedMeta=meta;cachedAnalytics=analytics;mount();const footer=document.querySelector('footer.source-note,.source-note');if(footer)new MutationObserver(()=>{if(metaNode&&!metaNode.isConnected)mount()}).observe(footer,{childList:true})}).catch(()=>{});
+document.addEventListener('change',()=>setTimeout(mount,0));
