@@ -27,6 +27,8 @@ html{overflow-y:scroll}
   html,body{width:100%;min-width:0!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important;color:#111!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body>*:not(#a4BriefingPrint){display:none!important}
   #a4BriefingPrint{display:block!important;width:100%;color:#111;background:#fff;font-family:Inter,"Noto Sans TC","Noto Sans JP",Arial,sans-serif}
+  #a4BriefingPrint .print-report-content{display:block!important;visibility:visible!important;width:100%!important;height:auto!important;max-height:none!important;overflow:visible!important}
+  #a4BriefingPrint .chart-panel{display:block!important}
   #a4BriefingPrint .print-report-header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;border-top:3px double #111;border-bottom:2px solid #111;padding:7px 0 6px;margin-bottom:7px}
   #a4BriefingPrint .print-report-header h1{margin:0;color:#111;font:700 22pt/1 Georgia,"Times New Roman",serif}
   #a4BriefingPrint .print-report-date{color:#333;font-size:8.5pt;white-space:nowrap}

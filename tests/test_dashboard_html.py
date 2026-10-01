@@ -1051,6 +1051,9 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "window.print()" in script
     assert ".slice(4)" in script
     assert 'document.querySelector(".export-controls")' in script
+    assert "cloneSection('h2[data-i18n=\"trend\"]','.chart-panel')" in script
+    assert "cloneSection('h2[data-i18n=\"heatmapTitle\"]','#priceHeatmap')" in script
+    assert "requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()))" in script
 
 
 def test_home_price_heatmap_is_interactive_and_mobile_scrollable():
@@ -1065,6 +1068,9 @@ def test_home_price_heatmap_is_interactive_and_mobile_scrollable():
     assert "roomCountLabel" in charts
     assert "onSelect({ hotelId:" in charts
     assert "Math.round(120 * (1 - ratio))" in charts
+    assert 'id="clearHeatmapSelection"' in html
+    assert "function clearHeatmapSelection" in html
+    assert "heatmapDrilldownActive=false" in html
 
 
 def test_primary_pages_show_deployment_meta_and_simple_view_counter():
