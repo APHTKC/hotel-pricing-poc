@@ -268,6 +268,12 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert next(room for room in mo_rooms if room["name_en"] == "Club City Suite Connecting")["size_sqm"] == 141
     assert next(room for room in mo_rooms if room["name_en"] == "Club Premier Suite Connecting")["size_sqm"] == 243
     assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
+    hilai_taipei_rooms = by_id["grand_hilai_taipei"]["room_snapshot"]["rooms"]
+    assert len(hilai_taipei_rooms) == 9
+    assert min(room["size_sqm"] for room in hilai_taipei_rooms) == 31
+    assert max(room["size_sqm"] for room in hilai_taipei_rooms) == 521
+    assert by_id["grand_hilai_taipei"]["service_charge_percent"] == 10
+    assert by_id["grand_hilai_taipei"]["service_charge_source_type"] == "official"
     assert by_id["okura_prestige_taipei"]["room_inventory"] == 207
     assert len(by_id["okura_prestige_taipei"]["restaurants"]) == 5
     okura_rooms = by_id["okura_prestige_taipei"]["room_snapshot"]["rooms"]
@@ -278,6 +284,11 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "service_charge_note_" in html
     assert by_id["shangrila_taipei"]["room_inventory"] == 420
     assert by_id["shangrila_taipei"]["lounge"]["name"] == "Horizon Club Lounge"
+    shangrila_rooms = by_id["shangrila_taipei"]["room_snapshot"]["rooms"]
+    assert len(shangrila_rooms) == 14
+    assert min(room["size_sqm"] for room in shangrila_rooms) == 36
+    assert max(room["size_sqm"] for room in shangrila_rooms) == 226
+    assert next(room for room in shangrila_rooms if room["name_en"] == "Two Deluxe Rooms Inter-Connecting")["size_sqm"] == 80
     assert by_id["grand_mayfull_taipei"]["room_inventory"] == 146
     assert by_id["grand_mayfull_taipei"]["lounge"]["kind"] == "members_club"
     mayfull_rooms = by_id["grand_mayfull_taipei"]["room_snapshot"]["rooms"]

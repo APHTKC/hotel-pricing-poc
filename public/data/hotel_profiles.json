@@ -87,8 +87,11 @@
     },
     {
       "hotel_id": "grand_hilai_taipei",
-      "verified_at": "2026-09-22",
+      "verified_at": "2026-10-01",
       "room_inventory": 425,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://taipei.grand-hilai.com.tw/room-detail/Standard-Room/",
       "restaurants": [
         {"name": "Lobby Lounge", "type_zh": "大廳酒廊與輕食", "type_en": "Lobby lounge and light dining", "type_ja": "ロビーラウンジ・軽食"},
         {"name": "Deli & Bakery", "type_zh": "烘焙坊", "type_en": "Bakery", "type_ja": "ベーカリー"},
@@ -99,8 +102,29 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": true, "name": "VIP Lounge (25F)", "kind": "vip_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://taipei.grand-hilai.com.tw/room/",
+        "rooms": [
+          {"name_zh": "標準客房", "name_en": "Standard Room", "name_ja": "Standard Room", "size_sqm": 31},
+          {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 37},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 44},
+          {"name_zh": "無障礙房", "name_en": "Accessible Room", "name_ja": "Accessible Room", "size_sqm": 37},
+          {"name_zh": "行政豪華客房", "name_en": "Executive Deluxe Room", "name_ja": "Executive Deluxe Room", "size_sqm": 44},
+          {"name_zh": "行政豪華套房", "name_en": "Executive Deluxe Suite", "name_ja": "Executive Deluxe Suite", "size_sqm": 59},
+          {"name_zh": "貴賓套房", "name_en": "VIP Suite", "name_ja": "VIP Suite", "size_sqm": 88},
+          {"name_zh": "皇家套房", "name_en": "Royal Suite", "name_ja": "Royal Suite", "size_sqm": 326},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 521}
+        ]
+      },
       "source_urls": [
         "https://taipei.grand-hilai.com.tw/en/",
+        "https://taipei.grand-hilai.com.tw/room/",
+        "https://taipei.grand-hilai.com.tw/room-detail/Standard-Room/",
+        "https://taipei.grand-hilai.com.tw/room-detail/VIP-suite/",
+        "https://taipei.grand-hilai.com.tw/room-detail/Royal-Suite/",
+        "https://taipei.grand-hilai.com.tw/room-detail/Presidential-Suite/",
         "https://taipei.grand-hilai.com.tw/en/dining/",
         "https://taipei.grand-hilai.com.tw/en/club/"
       ]
@@ -147,7 +171,7 @@
     },
     {
       "hotel_id": "shangrila_taipei",
-      "verified_at": "2026-09-22",
+      "verified_at": "2026-10-01",
       "room_inventory": 420,
       "restaurants": [
         {"name": "Café at Far Eastern", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
@@ -162,8 +186,31 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": true, "name": "Horizon Club Lounge", "kind": "executive_club"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://tpe.fareasternhotel.com.tw/download/0/factsheet_tc/",
+        "rooms": [
+          {"name_zh": "豪華客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 36},
+          {"name_zh": "尊榮客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 40},
+          {"name_zh": "特選尊榮家庭客房", "name_en": "Grand Deluxe Family Room", "name_ja": "Grand Deluxe Family Room", "size_sqm": 56},
+          {"name_zh": "台北101景觀尊榮客房", "name_en": "Deluxe Taipei 101 View Room", "name_ja": "Deluxe Taipei 101 View Room", "size_sqm": 40},
+          {"name_zh": "超豪華客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 60},
+          {"name_zh": "台北101景觀超豪華客房", "name_en": "Premier Taipei 101 View Room", "name_ja": "Premier Taipei 101 View Room", "size_sqm": 60},
+          {"name_zh": "豪華閣豪華客房", "name_en": "Horizon Superior Room", "name_ja": "Horizon Superior Room", "size_sqm": 36},
+          {"name_zh": "豪華閣尊榮客房", "name_en": "Horizon Deluxe Room", "name_ja": "Horizon Deluxe Room", "size_sqm": 40},
+          {"name_zh": "豪華閣超豪華客房", "name_en": "Horizon Premier Room", "name_ja": "Horizon Premier Room", "size_sqm": 60},
+          {"name_zh": "雅仕套房", "name_en": "Plaza Suite", "name_ja": "Plaza Suite", "size_sqm": 72},
+          {"name_zh": "特級套房", "name_en": "Specialty Suite", "name_ja": "Specialty Suite", "size_sqm": 136},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 226},
+          {"name_zh": "兩間尊榮客房連通房", "name_en": "Two Deluxe Rooms Inter-Connecting", "name_ja": "Two Deluxe Rooms Inter-Connecting", "size_sqm": 80},
+          {"name_zh": "雅仕套房及豪華客房連通房", "name_en": "Plaza Suite with Adjoining Superior Room", "name_ja": "Plaza Suite with Adjoining Superior Room", "size_sqm": 108}
+        ]
+      },
       "source_urls": [
         "https://www.shangri-la.com/taipei/fareasternplazashangrila/rooms-suites/",
+        "https://www.shangri-la.com/tc/taipei/fareasternplazashangrila/rooms-suites/",
+        "https://tpe.fareasternhotel.com.tw/download/0/factsheet_tc/",
         "https://www.shangri-la.com/taipei/fareasternplazashangrila/dining/",
         "https://www.shangri-la.com/taipei/fareasternplazashangrila/health-leisure/health-club/",
         "https://www.shangri-la.com/taipei/fareasternplazashangrila/health-leisure/spa/",
