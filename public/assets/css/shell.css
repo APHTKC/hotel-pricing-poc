@@ -39,10 +39,14 @@ html{overflow-y:scroll}
   #a4BriefingPrint h2,#a4BriefingPrint h3{margin:0 0 4px!important;color:#111!important;font-family:Georgia,"Times New Roman",serif!important;font-size:12pt!important}
   #a4BriefingPrint svg{width:100%!important;max-height:64mm!important;overflow:visible!important}
   #a4BriefingPrint svg text{fill:#111!important}
-  #a4BriefingPrint .price-heatmap-scroll,#a4BriefingPrint [class*="heatmap"]{max-height:61mm!important;overflow:hidden!important}
+  #a4BriefingPrint .price-heatmap-scroll{max-height:61mm!important;overflow:hidden!important}
+  #a4BriefingPrint .price-heatmap-table{width:100%!important;min-width:0!important;table-layout:fixed!important}
+  #a4BriefingPrint .price-heatmap-table tbody th{position:static!important;min-width:0!important;width:18%!important;white-space:normal!important}
+  #a4BriefingPrint .heatmap-cell{display:block!important;width:100%!important;min-width:0!important;padding:3px 2px!important;border:1px solid #777!important;background:hsl(var(--heat) 45% 88%)!important;color:#111!important;font-size:7pt!important;line-height:1.15!important}
+  #a4BriefingPrint .heatmap-tooltip{display:none!important}
   #a4BriefingPrint table{width:100%!important;border-collapse:collapse!important;font-size:7pt!important}
   #a4BriefingPrint th,#a4BriefingPrint td{padding:2px 4px!important;border:1px solid #999!important;color:#111!important}
-  #a4BriefingPrint button,#a4BriefingPrint select,#a4BriefingPrint input,#a4BriefingPrint .section-nav,#a4BriefingPrint .filters,#a4BriefingPrint footer,#a4BriefingPrint .no-print{display:none!important}
+  #a4BriefingPrint button:not(.heatmap-cell),#a4BriefingPrint select,#a4BriefingPrint input,#a4BriefingPrint .section-nav,#a4BriefingPrint .filters,#a4BriefingPrint footer,#a4BriefingPrint .no-print{display:none!important}
   #a4BriefingPrint a{color:#111!important;text-decoration:none!important}
   #a4BriefingPrint a[href]::after{content:none!important}
 }

@@ -1088,6 +1088,9 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "cloneSection('h2[data-i18n=\"trend\"]','.chart-panel')" in script
     assert "cloneSection('h2[data-i18n=\"heatmapTitle\"]','#priceHeatmap')" in script
     assert "requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()))" in script
+    assert "button:not(.heatmap-cell)" in shell
+    assert "#a4BriefingPrint .heatmap-cell{display:block!important" in shell
+    assert "#a4BriefingPrint .price-heatmap-table{width:100%!important;min-width:0!important" in shell
 
 
 def test_home_price_heatmap_is_interactive_and_mobile_scrollable():
@@ -1105,6 +1108,10 @@ def test_home_price_heatmap_is_interactive_and_mobile_scrollable():
     assert 'id="clearHeatmapSelection"' in html
     assert "function clearHeatmapSelection" in html
     assert "heatmapDrilldownActive=false" in html
+    assert "heatmapDrilldownSnapshot={hotel:hotel.value,lead:lead.value}" in html
+    assert "hotel.value=snapshot?.hotel??''" in html
+    assert "function resetHeatmapDrilldown" in html
+    assert "返回完整熱力圖" in html
 
 
 def test_primary_pages_show_deployment_meta_and_simple_view_counter():
