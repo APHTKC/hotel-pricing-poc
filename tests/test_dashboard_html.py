@@ -1067,7 +1067,7 @@ def test_home_price_heatmap_is_interactive_and_mobile_scrollable():
     assert "Math.round(120 * (1 - ratio))" in charts
 
 
-def test_primary_pages_show_deployment_meta_and_analytics_fail_closed():
+def test_primary_pages_show_deployment_meta_and_simple_view_counter():
     analytics = json.loads(
         Path("public/data/analytics.json").read_text(encoding="utf-8")
     )
@@ -1077,11 +1077,13 @@ def test_primary_pages_show_deployment_meta_and_analytics_fail_closed():
         html = Path("public", page).read_text(encoding="utf-8")
         assert './assets/js/site-meta.js' in html
 
-    assert analytics["provider"] == "goatcounter"
-    assert analytics["enabled"] is False
-    assert analytics["site_code"] is None
-    assert "if(!config.enabled||!code" in script
-    assert "counter/${encodeURIComponent" in script
+    assert analytics["provider"] == "librecounter"
+    assert analytics["enabled"] is True
+    assert analytics["site"] == "aphtkc.github.io"
+    assert "https://librecounter.org/counter.svg" in script
+    assert "image.referrerPolicy='unsafe-url'" in script
+    assert "site-counter-label" in script
+    assert "localStorage" not in script
     assert "版本" in script and "Version" in script and "バージョン" in script
 
 

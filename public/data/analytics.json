@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "provider": "goatcounter",
-  "enabled": false,
-  "site_code": null,
-  "count_scope": "TOTAL"
+  "provider": "librecounter",
+  "enabled": true,
+  "site": "aphtkc.github.io",
+  "scope": "site_total"
 }
