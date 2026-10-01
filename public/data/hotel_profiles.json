@@ -883,6 +883,46 @@
       ]
     },
     {
+      "hotel_id": "humble_house_taipei",
+      "verified_at": "2026-10-01",
+      "room_inventory": 235,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "LA FARFALLA", "type_zh": "義大利料理", "type_en": "Italian cuisine", "type_ja": "イタリア料理"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
+      "lounge": {"available": false, "name": null, "kind": "none"},
+      "room_snapshot": {
+        "observed_at": "2026-10-01",
+        "source_type": "official",
+        "source_url": "https://www.humblehousehotels.com/zh-tw/websev?cat=page&id=7",
+        "rooms": [
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 26},
+          {"name_zh": "豪華客房高樓層", "name_en": "Deluxe Room High Floor", "name_ja": "Deluxe Room High Floor", "size_sqm": 26},
+          {"name_zh": "景隅豪華客房", "name_en": "Deluxe Room with Landmark View", "name_ja": "Deluxe Room with Landmark View", "size_sqm": 26},
+          {"name_zh": "尊貴客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm": 36},
+          {"name_zh": "景隅尊貴客房", "name_en": "Premium Room with Landmark View", "name_ja": "Premium Room with Landmark View", "size_sqm": 36},
+          {"name_zh": "行政套房", "name_en": "Twin Deluxe Suite", "name_ja": "Twin Deluxe Suite", "size_sqm": 53},
+          {"name_zh": "寰宇套房", "name_en": "King Deluxe Suite with Landmark View", "name_ja": "King Deluxe Suite with Landmark View", "size_sqm": 53},
+          {"name_zh": "艾麗套房", "name_en": "Prestige Suite", "name_ja": "Prestige Suite", "size_sqm": 73},
+          {"name_zh": "寒舍套房", "name_en": "Humble House Suite", "name_ja": "Humble House Suite", "size_sqm": 136},
+          {"name_zh": "無障礙客房", "name_en": "Accessible Room", "name_ja": "Accessible Room", "size_sqm": 26}
+        ]
+      },
+      "source_urls": [
+        "https://www.humblehousehotels.com/zh-tw/websev?cat=page&id=2",
+        "https://www.humblehousehotels.com/zh-tw/websev?cat=page&id=7",
+        "https://www.humblehousehotels.com/en/websev?cat=page&id=21",
+        "https://www.humblehousehotels.com/en/websev?cat=page&id=23",
+        "https://www.humblehousehotels.com/en/websev?cat=page&id=24",
+        "https://www.humblehousehotels.com/en/websev?cat=page&id=43",
+        "https://www.humblehousehotels.com/en/websev?cat=page&id=17",
+        "https://www.humblehousehotels.com/en/websev?cat=page&id=16",
+        "https://www.humblehousehotels.com/en/websev?cat=page&id=15",
+        "https://www.humblehousehotels.com/en/websev?cat=restaurant&id=1"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "verified_at": "2026-09-23",
       "room_inventory": 202,
