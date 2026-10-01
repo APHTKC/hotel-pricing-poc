@@ -693,6 +693,9 @@ def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
     assert "opening_status==='upcoming'" in html
     assert "upcomingOnly:'尚未開幕'" in html
     assert "noUpcomingRates" in html
+    assert "PROJECT_HIGHLIGHT_LABELS" in html
+    assert "project_highlights_${lang}" in html
+    assert "id='projectHighlights'" in html
     assert "item.sourceName.includes('�')" in html
 
 

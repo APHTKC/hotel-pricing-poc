@@ -50,4 +50,21 @@ function translate(){document.documentElement.lang=lang==='zh'?'zh-Hant':lang;do
 let profileUpdated='';const loadJson=p=>fetch(p+'?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()});Promise.all([loadJson('./data/hotels.json'),loadJson('./data/upcoming_hotels.json').catch(()=>({hotels:[]})),loadJson('./data/latest.json').catch(()=>({rates:[]})),loadJson('./data/hotel_profiles.json'),loadJson('./data/hotel_names_zh.json'),loadJson('./data/fx.json').catch(()=>({rates:fx}))]).then(([hotelsData,upcomingData,ratesData,profilesData,namesData,fxData])=>{catalog=[...(hotelsData.hotels||[]),...(upcomingData.hotels||[])];rates=ratesData.rates||[];profiles=new Map((profilesData.profiles||[]).map(p=>[p.hotel_id,p]));namesZh=namesData.names||{};fx=fxData.rates||fx;profileUpdated=profilesData.updated_at;selectedId=location.hash.slice(1)||'capella_taipei';document.querySelector('#language').value=lang;document.querySelector('#currency').value=currency;translate()}).catch(error=>{document.querySelector('#detail').innerHTML=`<div class="empty">${esc(error.message)}</div>`});document.querySelector('#language').addEventListener('change',e=>{lang=e.target.value;localStorage.setItem('hotel-lang',lang);translate()});document.querySelector('#currency').addEventListener('change',e=>{currency=e.target.value;localStorage.setItem('hotel-currency',currency);renderDetail()});['city','feature','verification','rateStatus'].forEach(id=>document.querySelector('#'+id).addEventListener('change',renderTable));document.querySelector('#sort').addEventListener('change',event=>{const key=event.target.value;profileSort={key,direction:['rooms','size','restaurants','status'].includes(key)?'desc':'asc'};renderTable()});document.querySelectorAll('.sort-button').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.sort;profileSort=key===profileSort.key?{key,direction:profileSort.direction==='asc'?'desc':'asc'}:{key,direction:['rooms','size','restaurants','status'].includes(key)?'desc':'asc'};document.querySelector('#sort').value=key;renderTable()}));
 ROOM_NAME_TERMS.splice(2,0,['愛心房','Accessible']);
 </script>
+<script>
+const PROJECT_HIGHLIGHT_LABELS={zh:'籌備重點',en:'Project highlights',ja:'計画概要'};
+const baseRenderHotelDetail=renderDetail;
+renderDetail=function(){
+  baseRenderHotelDetail();
+  const hotel=catalog.find(item=>item.id===selectedId);
+  const highlights=hotel?.[`project_highlights_${lang}`]||hotel?.project_highlights_en||[];
+  if(!highlights.length)return;
+  const grid=document.querySelector('#detail .detail-grid');
+  if(!grid)return;
+  const section=document.createElement('section');
+  section.id='projectHighlights';
+  section.className='detail-section';
+  section.innerHTML=`<h3>${PROJECT_HIGHLIGHT_LABELS[lang]||PROJECT_HIGHLIGHT_LABELS.en}</h3><ul class="fact-list">${highlights.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`;
+  grid.insertBefore(section,grid.querySelector('.room-table'));
+};
+</script>
 </body></html>
