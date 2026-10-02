@@ -44,6 +44,8 @@ def test_history_has_visible_export_tools():
     assert "function exportHistoryExcel()" in html
     assert html.index('<section class="data-tools"') < html.index('<section class="panel filters"')
     assert 'aria-label="資料匯出與列印"' in html
+    assert ".export-controls{grid-template-columns:repeat(4,1fr)}" in html
+    assert "@media(max-width:760px){.export-controls{grid-template-columns:repeat(2,1fr)}.export-controls button:last-child{grid-column:auto}}" in html
 
 
 def test_history_shows_preaggregated_weekly_executive_digest():
@@ -314,6 +316,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(by_id["w_taipei"]["restaurants"]) == 4
     assert by_id["w_taipei"]["facilities"]["sauna"] is None
     assert by_id["w_taipei"]["lounge"]["available"] is None
+    regent = by_id["regent_taipei"]
+    regent_rooms = regent["room_snapshot"]["rooms"]
+    assert regent["room_snapshot"]["source_type"] == "official"
+    assert len(regent_rooms) == 11
+    assert min(room["size_sqm"] for room in regent_rooms) == 39
+    assert max(room["size_sqm"] for room in regent_rooms) == 210
+    assert {room["name_zh"] for room in regent_rooms} >= {"精緻客房", "雲天露臺家庭房", "大班豪華客房", "總統套房"}
+    assert next(room for room in regent_rooms if room["name_en"] == "Corner Suite")["size_sqm"] == 110
+    assert "service_charge_percent" not in regent
+    assert "合計 15.5%" in regent["service_charge_note_zh"]
     assert by_id["eslite_hotel"]["room_inventory"] == 104
     assert len(by_id["eslite_hotel"]["restaurants"]) == 3
     assert by_id["eslite_hotel"]["facilities"]["fitness"] is True

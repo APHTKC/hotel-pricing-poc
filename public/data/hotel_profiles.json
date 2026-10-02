@@ -335,8 +335,11 @@
     },
     {
       "hotel_id": "regent_taipei",
-      "verified_at": "2026-09-23",
+      "verified_at": "2026-10-02",
       "room_inventory": 538,
+      "service_charge_note_zh": "飯店官方住宿券條款僅公告每房每晚加價另收服務費及政府稅合計 15.5%，未單獨列出服務費比例。",
+      "service_charge_note_en": "The hotel's official accommodation-voucher terms state a combined 15.5% service charge and government tax on nightly supplements, without separating the service-charge percentage.",
+      "service_charge_note_ja": "ホテル公式宿泊券規約は1室1泊の追加料金にサービス料と政府税の合計15.5%を加算するとしていますが、サービス料率は個別に示していません。",
       "restaurants": [
         {"name": "Brasserie", "type_zh": "國際自助餐", "type_en": "International buffet", "type_ja": "各国料理ビュッフェ"},
         {"name": "Mihan Honke", "type_zh": "日式鍋物", "type_en": "Japanese hot pot", "type_ja": "日本料理・鍋物"},
@@ -349,11 +352,31 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
       "lounge": {"available": true, "name": "Silks Club", "kind": "guest_club"},
+      "room_snapshot": {
+        "observed_at": "2026-10-02",
+        "source_type": "official",
+        "source_url": "https://www.regenttaiwan.com/accommodation",
+        "rooms": [
+          {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 39},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 45},
+          {"name_zh": "寰宇客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 56},
+          {"name_zh": "雲天露臺客房", "name_en": "Balcony Room", "name_ja": "Balcony Room", "size_sqm": 56},
+          {"name_zh": "雲天露臺家庭房", "name_en": "Balcony Family Room", "name_ja": "Balcony Family Room", "size_sqm": 65},
+          {"name_zh": "沐蘭套房", "name_en": "Penthouse", "name_ja": "Penthouse", "size_sqm": 45},
+          {"name_zh": "精緻套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm": 65},
+          {"name_zh": "名人套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 110},
+          {"name_zh": "花園套房", "name_en": "Garden Suite", "name_ja": "Garden Suite", "size_sqm": 126},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 210},
+          {"name_zh": "大班豪華客房", "name_en": "Tai Pan Room", "name_ja": "Tai Pan Room", "size_sqm": 45}
+        ]
+      },
       "source_urls": [
+        "https://www.regenttaiwan.com/accommodation",
         "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail",
         "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/rooms-and-suites",
         "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/dining",
-        "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail/spa-wellness"
+        "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail/spa-wellness",
+        "https://docs.regenttaiwan.com/pdf/TravelFair/2025_SummerAndFoodFestival.pdf?externalbrowser=1"
       ]
     },
     {
