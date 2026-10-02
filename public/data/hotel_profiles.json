@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01",
+  "updated_at": "2026-10-02",
   "profiles": [
     {
       "hotel_id": "capella_taipei",
@@ -316,7 +316,7 @@
     },
     {
       "hotel_id": "w_taipei",
-      "verified_at": "2026-09-22",
+      "verified_at": "2026-10-02",
       "room_inventory": 405,
       "restaurants": [
         {"name": "Seasons by olivier e.", "type_zh": "現代法式料理", "type_en": "Modern French", "type_ja": "モダンフレンチ"},
@@ -326,11 +326,29 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
       "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "room_snapshot": {
+        "observed_at": "2026-10-02",
+        "source_type": "ota",
+        "source_url": "https://www.agoda.com/en-us/w-taipei_16/hotel/taipei-tw.html",
+        "rooms": [
+          {"name_zh": "奇妙客房", "name_en": "Wonderful Room", "name_ja": "Wonderful Room", "size_sqm": 43},
+          {"name_zh": "壯美客房", "name_en": "Spectacular Room", "name_ja": "Spectacular Room", "size_sqm": 43},
+          {"name_zh": "絕佳客房", "name_en": "Fabulous Room", "name_ja": "Fabulous Room", "size_sqm": 46},
+          {"name_zh": "酷角客房", "name_en": "Cool Corner Room", "name_ja": "Cool Corner Room", "size_sqm": 53},
+          {"name_zh": "奇幻套房", "name_en": "Fantastic Suite", "name_ja": "Fantastic Suite", "size_sqm": 70},
+          {"name_zh": "非凡套房", "name_en": "Marvelous Suite", "name_ja": "Marvelous Suite", "size_sqm": 95},
+          {"name_zh": "驚喜套房", "name_en": "WOW Suite", "name_ja": "WOW Suite", "size_sqm": 116},
+          {"name_zh": "頂級驚喜套房", "name_en": "Extreme WOW Suite", "name_ja": "Extreme WOW Suite", "size_sqm": 365}
+        ]
+      },
       "source_urls": [
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/rooms/",
+        "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/photos/",
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/dining/",
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/experiences/",
-        "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/overview/"
+        "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/overview/",
+        "https://www.agoda.com/en-us/w-taipei_16/hotel/taipei-tw.html",
+        "https://www.booking.com/hotel/tw/w-taipei.html"
       ]
     },
     {

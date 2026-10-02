@@ -318,6 +318,15 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(by_id["w_taipei"]["restaurants"]) == 4
     assert by_id["w_taipei"]["facilities"]["sauna"] is None
     assert by_id["w_taipei"]["lounge"]["available"] is None
+    w_rooms = by_id["w_taipei"]["room_snapshot"]["rooms"]
+    assert by_id["w_taipei"]["room_snapshot"]["source_type"] == "ota"
+    assert by_id["w_taipei"]["room_snapshot"]["observed_at"] == "2026-10-02"
+    assert len(w_rooms) == 8
+    assert min(room["size_sqm"] for room in w_rooms) == 43
+    assert max(room["size_sqm"] for room in w_rooms) == 365
+    assert {room["name_zh"] for room in w_rooms} >= {"奇妙客房", "壯美客房", "絕佳客房", "酷角客房", "頂級驚喜套房"}
+    assert next(room for room in w_rooms if room["name_en"] == "WOW Suite")["size_sqm"] == 116
+    assert "service_charge_percent" not in by_id["w_taipei"]
     regent = by_id["regent_taipei"]
     regent_rooms = regent["room_snapshot"]["rooms"]
     assert regent["room_snapshot"]["source_type"] == "official"
