@@ -9,6 +9,7 @@
 /* Brand and loyalty data is intentionally compact so the comparison remains scannable. */
 .filters{grid-template-columns:repeat(6,minmax(125px,1fr));gap:12px;padding:16px}
 .table-wrap>table{min-width:1280px}
+.hotel-select-row{cursor:pointer;transition:background-color .12s ease,box-shadow .12s ease}.hotel-select-row:hover,.hotel-select-row:focus{background:#e9f1f5;box-shadow:inset 5px 0 var(--city-color);outline:0}.hotel-select-row:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}.hotel-select-row[aria-current="true"]{background:#f0efea}.hotel-select-row td{transition:background-color .12s ease}.hotel-select-row:hover td,.hotel-select-row:focus td{background:transparent}
 .affiliation-cell{min-width:190px}.brand-line{display:block;font-size:11px;font-weight:700;line-height:1.25}.positioning-line{display:block;margin-top:2px;color:var(--muted);font-size:10px;line-height:1.25}.loyalty-badge{display:inline-block;margin-top:5px;padding:1px 6px;border:1px solid var(--blue);color:var(--blue);font-size:9px;font-weight:800;letter-spacing:.03em}.affiliation-pending{color:#888;font-size:10px}
 @media(max-width:1180px){.filters{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.filters{grid-template-columns:1fr}}
@@ -82,6 +83,8 @@ filteredHotels=function(){
 function positioningLabel(item){return item?.[`positioning_${lang}`]||item?.positioning_en||T[lang].unknown}
 function affiliationCell(item){if(!item)return`<span class="affiliation-pending">${T[lang].unknown}</span>`;return`<span class="brand-line">${esc(item.brand)}</span><span class="positioning-line">${esc(positioningLabel(item))}</span><span class="loyalty-badge">${esc(item.loyalty_program)}</span>`}
 const legacyRenderHotelTable=renderTable;
+function openHotelProfile(hotelId){selectedId=hotelId;renderDetail();history.replaceState(null,'',`#${encodeURIComponent(hotelId)}`);document.querySelector('#detail').scrollIntoView({behavior:'smooth',block:'start'})}
+function activateComparisonRows(){document.querySelectorAll('#comparison tr').forEach(row=>{const button=row.querySelector('[data-hotel]');if(!button)return;const hotelId=button.dataset.hotel;row.classList.add('hotel-select-row');row.tabIndex=0;row.setAttribute('role','button');row.setAttribute('aria-label',`${T[lang].view}：${row.querySelector('td:first-child strong')?.textContent||hotelId}`);row.setAttribute('aria-current',hotelId===selectedId?'true':'false');row.addEventListener('click',event=>{if(event.target.closest('a,button,input,select,textarea,label,summary'))return;openHotelProfile(hotelId)});row.addEventListener('keydown',event=>{if(event.key!=='Enter'&&event.key!==' ')return;event.preventDefault();openHotelProfile(hotelId)})})}
 renderTable=function(){
   legacyRenderHotelTable();
   document.querySelectorAll('#comparison tr').forEach(row=>{
@@ -89,6 +92,7 @@ renderTable=function(){
     if(!button){const cell=row.querySelector('td');if(cell)cell.colSpan=13;return}
     const cell=document.createElement('td');cell.className='affiliation-cell';cell.innerHTML=affiliationCell(affiliations.get(button.dataset.hotel));row.insertBefore(cell,row.children[2]);
   });
+  activateComparisonRows();
 };
 const baseRenderHotelDetail=renderDetail;
 renderDetail=function(){

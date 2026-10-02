@@ -40,6 +40,8 @@ def test_history_has_visible_export_tools():
     assert 'id="exportJson"' in html
     assert 'id="exportExcel"' in html
     assert 'id="exportPdf"' in html
+    assert 'id="exportA4Pdf"' in html
+    assert html.count('id="exportA4Pdf"') == 1
     assert "function exportHistoryJson()" in html
     assert "function exportHistoryExcel()" in html
     assert html.index('<section class="data-tools"') < html.index('<section class="panel filters"')
@@ -818,6 +820,19 @@ def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
     assert 'class="city-badge"' in html
     assert "rateStatus==='with'" in html
     assert "function loungeDetail(profile)" in html
+
+
+def test_hotel_profile_comparison_rows_open_details_without_horizontal_scrolling():
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+
+    assert ".hotel-select-row{cursor:pointer" in html
+    assert ".hotel-select-row:hover,.hotel-select-row:focus" in html
+    assert "function activateComparisonRows()" in html
+    assert "row.tabIndex=0" in html
+    assert "row.setAttribute('role','button')" in html
+    assert "event.target.closest('a,button,input,select,textarea,label,summary')" in html
+    assert "event.key!=='Enter'&&event.key!==' '" in html
+    assert "history.replaceState(null,'',`#${encodeURIComponent(hotelId)}`)" in html
     assert "membersOnlyLounge" in html
     assert "value==null" in html
 
@@ -1110,6 +1125,8 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "cloneSection('h2[data-i18n=\"trend\"]','.chart-panel')" in script
     assert "cloneSection('h2[data-i18n=\"heatmapTitle\"]','#priceHeatmap')" in script
     assert "requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()))" in script
+    assert 'button.dataset.printBound==="true"' in script
+    assert 'button.dataset.printBound="true"' in script
     assert "button:not(.heatmap-cell)" in shell
     assert "#a4BriefingPrint .heatmap-cell{display:block!important" in shell
     assert "#a4BriefingPrint .price-heatmap-table{width:100%!important;min-width:0!important" in shell
