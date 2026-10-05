@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02",
+  "updated_at": "2026-10-05",
   "profiles": [
     {
       "hotel_id": "capella_taipei",
@@ -1720,6 +1720,93 @@
         "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/dining",
         "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/hotel-info",
         "https://newsroom.hyatt.com/news-releases?asPDF=1&item=124498"
+      ]
+    },
+    {
+      "hotel_id": "mitsui_garden_taipei_zhongxiao",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/"
+      },
+      "room_inventory": 297,
+      "restaurants": [
+        {"name": "JAPOLI pizza pasta cafe", "type_zh": "義大利料理、早餐與酒吧", "type_en": "Italian dining, breakfast and bar", "type_ja": "イタリア料理・朝食・バー"}
+      ],
+      "facilities": {"pool": null, "fitness": null, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "Guest Lounge", "kind": "guest_lounge"},
+      "facility_notes": {
+        "zh": "17 樓設有住客專用大浴場；大浴場不等同 SPA、游泳池或三溫暖，因此相關欄位維持待核實。",
+        "en": "A guest-only large public bath is located on the 17th floor. It is not classified as a spa, swimming pool, or sauna, so those fields remain unverified.",
+        "ja": "17階に宿泊者専用大浴場があります。SPA、プール、サウナとは区分し、該当項目は未確認のまま表示します。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/room/",
+        "rooms": [
+          {"name_zh": "精緻雙床套房", "name_en": "Junior Suite, 2 beds", "name_ja": "Junior Suite, 2 beds", "size_sqm": 60.4},
+          {"name_zh": "豪華景隅雙床房", "name_en": "Deluxe, 2 beds, Corner room", "name_ja": "Deluxe, 2 beds, Corner room", "size_sqm": 35.3},
+          {"name_zh": "豪華雙床房", "name_en": "Deluxe, 2 beds", "name_ja": "Deluxe, 2 beds", "size_sqm": 30.0},
+          {"name_zh": "豪華大床房", "name_en": "Deluxe, 1 bed King", "name_ja": "Deluxe, 1 bed King", "size_sqm": 28.2},
+          {"name_zh": "豪華三人房", "name_en": "Deluxe, 3 beds", "name_ja": "Deluxe, 3 beds", "size_sqm": 30.0},
+          {"name_zh": "精緻大床房", "name_en": "Superior, 1 bed King", "name_ja": "Superior, 1 bed King", "size_sqm": 25.8},
+          {"name_zh": "精緻雙床房", "name_en": "Superior, 2 beds", "name_ja": "Superior, 2 beds", "size_sqm": 25.1},
+          {"name_zh": "標準大床房", "name_en": "Standard, 1 bed Queen", "name_ja": "Standard, 1 bed Queen", "size_sqm": 22.7},
+          {"name_zh": "露台大床房", "name_en": "Standard, 1 bed Queen, with balcony", "name_ja": "Standard, 1 bed Queen, with balcony", "size_sqm": 21.0},
+          {"name_zh": "景隅大床房", "name_en": "Standard, 1 bed Queen, Corner room", "name_ja": "Standard, 1 bed Queen, Corner room", "size_sqm": 21.9},
+          {"name_zh": "無障礙客房", "name_en": "Accessible, 1 bed Queen", "name_ja": "Accessible, 1 bed Queen", "size_sqm": 25.1},
+          {"name_zh": "好饗甜甜主題房", "name_en": "Sweets Room, Deluxe, 2 beds", "name_ja": "Sweets Room, Deluxe, 2 beds", "size_sqm": 30.9},
+          {"name_zh": "好鄉九份主題房", "name_en": "Retro Room, Superior, 2 beds", "name_ja": "Retro Room, Superior, 2 beds", "size_sqm": 28.1},
+          {"name_zh": "好想故鄉主題房", "name_en": "Nostalgic Room, Standard, 1 bed, Corner room", "name_ja": "Nostalgic Room, Standard, 1 bed, Corner room", "size_sqm": 21.9}
+        ]
+      },
+      "source_urls": [
+        "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/",
+        "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/room/",
+        "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/facility/",
+        "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/bath/",
+        "https://www.mitsuifudosan.co.jp/english/corporate/news/2020/0713/"
+      ]
+    },
+    {
+      "hotel_id": "doubletree_taipei_zhongshan",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.hilton.com/en/hotels/tsatpdi-doubletree-taipei-zhongshan/"
+      },
+      "room_inventory": 106,
+      "restaurants": [
+        {"name": "Alley", "type_zh": "全日餐廳與早餐", "type_en": "All-day dining and breakfast", "type_ja": "オールデイダイニング・朝食"},
+        {"name": "La Salle", "type_zh": "大廳酒廊與輕食", "type_en": "Lobby lounge and light dining", "type_ja": "ロビーラウンジ・軽食"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "La Salle", "kind": "lobby_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "ota",
+        "source_url": "https://www.klook.com/zh-TW/hotels/detail/406783-doubletree-by-hilton-taipei-zhongshan/",
+        "rooms": [
+          {"name_zh": "逸林客房一大床", "name_en": "King Guest Room", "name_ja": "King Guest Room", "size_sqm": 36},
+          {"name_zh": "逸林客房兩小床", "name_en": "Twin Guest Room with 2 Single Beds", "name_ja": "Twin Guest Room with 2 Single Beds", "size_sqm": 36},
+          {"name_zh": "林隅客房附陽台", "name_en": "King Corner Room with Balcony", "name_ja": "King Corner Room with Balcony", "size_sqm": 33},
+          {"name_zh": "林隅套房一大床", "name_en": "King One Bedroom Corner Suite", "name_ja": "King One Bedroom Corner Suite", "size_sqm": 46},
+          {"name_zh": "林隅套房兩小床", "name_en": "Corner Suite with 2 Single Beds", "name_ja": "Corner Suite with 2 Single Beds", "size_sqm": 46},
+          {"name_zh": "豪華陽台套房", "name_en": "King One Bedroom Deluxe Suite with Balcony", "name_ja": "King One Bedroom Deluxe Suite with Balcony", "size_sqm": 60},
+          {"name_zh": "無障礙客房", "name_en": "King Accessible Room", "name_ja": "King Accessible Room", "size_sqm": 36}
+        ]
+      },
+      "source_urls": [
+        "https://www.hilton.com/en/hotels/tsatpdi-doubletree-taipei-zhongshan/",
+        "https://www.hilton.com/en/hotels/tsatpdi-doubletree-taipei-zhongshan/rooms/",
+        "https://www.hilton.com/en/hotels/tsatpdi-doubletree-taipei-zhongshan/dining/",
+        "https://www.cna.com.tw/news/ahel/201812270337.aspx",
+        "https://www.klook.com/zh-TW/hotels/detail/406783-doubletree-by-hilton-taipei-zhongshan/"
       ]
     },
     {
