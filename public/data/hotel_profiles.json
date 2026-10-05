@@ -249,7 +249,13 @@
     },
     {
       "hotel_id": "grand_mayfull_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "16:00",
+        "check_out": "11:00",
+        "source_type": "ota",
+        "source_url": "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.html"
+      },
       "room_inventory": 146,
       "service_charge_percent": 10,
       "service_charge_source_type": "official",
@@ -288,12 +294,19 @@
         "https://www.grandmayfull.com/room/detail/11",
         "https://www.grandmayfull.com/dining",
         "https://www.grandmayfull.com/facilities",
-        "https://www.grandmayfull.com/club9"
+        "https://www.grandmayfull.com/club9",
+        "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.html"
       ]
     },
     {
       "hotel_id": "grand_hyatt_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "ota",
+        "source_url": "https://www.booking.com/hotel/tw/grand-hyatt-taipei-taipei50.html"
+      },
       "room_inventory": 850,
       "restaurants": [
         {"name": "Café", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
@@ -341,7 +354,8 @@
         "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
         "https://www.hyatt.com/grand-hyatt/zh-HK/taigh-grand-hyatt-taipei/rooms",
         "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/dining",
-        "https://assets.hyatt.com/content/dam/hyatt/hyattdam/documents/2019/11/06/1554/Grand-Hyatt-Taipei-Fact-Sheet-English.pdf"
+        "https://assets.hyatt.com/content/dam/hyatt/hyattdam/documents/2019/11/06/1554/Grand-Hyatt-Taipei-Fact-Sheet-English.pdf",
+        "https://www.booking.com/hotel/tw/grand-hyatt-taipei-taipei50.html"
       ]
     },
     {
@@ -538,7 +552,13 @@
     },
     {
       "hotel_id": "solaria_nishitetsu_taipei",
-      "verified_at": "2026-09-23",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "ota",
+        "source_url": "https://www.booking.com/hotel/tw/solaria-nisitetsu-taipei-ximen.html"
+      },
       "room_inventory": 298,
       "restaurants": [
         {"name": "7F Restaurant", "type_zh": "日式、西式與中式自助早餐", "type_en": "Japanese, Western and Chinese breakfast buffet", "type_ja": "和洋中朝食ビュッフェ"}
@@ -571,7 +591,8 @@
         "https://www.nishitetsu.co.jp/en/group/business/hotel_and_leisure.html",
         "https://solaria-taipei.nnr-h.com/stay/",
         "https://solaria-taipei.nnr-h.com/breakfast/",
-        "https://solaria-taipei.nnr-h.com/floorguide/"
+        "https://solaria-taipei.nnr-h.com/floorguide/",
+        "https://www.booking.com/hotel/tw/solaria-nisitetsu-taipei-ximen.html"
       ]
     },
     {
@@ -1484,8 +1505,59 @@
       ]
     },
     {
+      "hotel_id": "hotel_gracery_taipei",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://tw.gracery.com/taipei/"
+      },
+      "room_inventory": 248,
+      "restaurants": [
+        {"name": "KI-A-BIN-SAN", "type_zh": "台灣料理與自助早餐", "type_en": "Taiwanese dining and breakfast buffet", "type_ja": "台湾料理・朝食ビュッフェ"}
+      ],
+      "facilities": {"pool": null, "fitness": null, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://tw.gracery.com/taipei/room/",
+        "rooms": [
+          {"name_zh": "四人客房（雙層床＋雙人床）", "name_en": "Four-Person Room (Bunk Beds + Double Bed)", "name_ja": "Four-Person Room (Bunk Beds + Double Bed)", "size_sqm": 25},
+          {"name_zh": "哥吉拉登陸台北雙人房", "name_en": "Godzilla Arrival in Taipei Double Room", "name_ja": "Godzilla Arrival in Taipei Double Room", "size_sqm": 25},
+          {"name_zh": "哥吉拉登陸南台灣雙床房", "name_en": "Godzilla Arrival in Southern Taiwan Twin Room", "name_ja": "Godzilla Arrival in Southern Taiwan Twin Room", "size_sqm": 25},
+          {"name_zh": "標準雙人房", "name_en": "Standard Double Room", "name_ja": "Standard Double Room", "size_sqm": 25},
+          {"name_zh": "標準雙床房", "name_en": "Standard Twin Room", "name_ja": "Standard Twin Room", "size_sqm": 25},
+          {"name_zh": "標準三人房", "name_en": "Standard Twin Room with Sofa Bed", "name_ja": "Standard Twin Room with Sofa Bed", "size_sqm": 25},
+          {"name_zh": "好萊塢雙床房", "name_en": "Hollywood Twin Room", "name_ja": "Hollywood Twin Room", "size_sqm": 25},
+          {"name_zh": "連通房", "name_en": "Connecting Room", "name_ja": "Connecting Room", "size_sqm": 50},
+          {"name_zh": "無障礙雙人房", "name_en": "Universal Double Room", "name_ja": "Universal Double Room", "size_sqm": 25},
+          {"name_zh": "無障礙雙床房", "name_en": "Universal Twin Room", "name_ja": "Universal Twin Room", "size_sqm": 25},
+          {"name_zh": "無障礙家庭房", "name_en": "Universal Family Room", "name_ja": "Universal Family Room", "size_sqm": 26},
+          {"name_zh": "HANDS 聯名客房", "name_en": "HANDS Concept Room", "name_ja": "HANDS Concept Room", "size_sqm": 25},
+          {"name_zh": "HANDS 露營主題客房", "name_en": "HANDS Camping Room", "name_ja": "HANDS Camping Room", "size_sqm": 25},
+          {"name_zh": "吉豚屋主題客房", "name_en": "Katsuya Room", "name_ja": "Katsuya Room", "size_sqm": 25},
+          {"name_zh": "Niseko 主題客房", "name_en": "Niseko Concept Room", "name_ja": "Niseko Concept Room", "size_sqm": 25}
+        ]
+      },
+      "source_urls": [
+        "https://tw.gracery.com/taipei/",
+        "https://tw.gracery.com/taipei/room/",
+        "https://tw.gracery.com/taipei/facilities/",
+        "https://en.gracery.com/taipei/restaurant/",
+        "https://en.gracery.com/taipei/faq/"
+      ]
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
-      "verified_at": "2026-09-23",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "ota",
+        "source_url": "https://www.booking.com/hotel/tw/royal-taipei.html"
+      },
       "room_inventory": 202,
       "restaurants": [
         {"name": "Royal Bakery", "type_zh": "烘焙坊與甜點", "type_en": "Bakery and patisserie", "type_ja": "ベーカリー・ペストリー"},
@@ -1515,7 +1587,8 @@
         "https://www.royal-taipei.com.tw/en/room/",
         "https://www.royal-taipei.com.tw/en/dining/",
         "https://www.royal-taipei.com.tw/en/facility/",
-        "https://www.royal-taipei.com.tw/jp/room/"
+        "https://www.royal-taipei.com.tw/jp/room/",
+        "https://www.booking.com/hotel/tw/royal-taipei.html"
       ]
     },
     {

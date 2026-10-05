@@ -263,7 +263,29 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
     assert by_id["regent_taipei"]["stay_times"]["check_in"] == "15:00"
     assert by_id["regent_taipei"]["stay_times"]["check_out"] == "11:00"
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei"}
+    expected_ota_stay_times = {
+        "grand_mayfull_taipei": ("16:00", "11:00"),
+        "grand_hyatt_taipei": ("15:00", "12:00"),
+        "solaria_nishitetsu_taipei": ("15:00", "11:00"),
+        "royal_nikko_taipei": ("15:00", "11:00"),
+    }
+    for hotel_id, (check_in, check_out) in expected_ota_stay_times.items():
+        stay_times = by_id[hotel_id]["stay_times"]
+        assert stay_times["check_in"] == check_in
+        assert stay_times["check_out"] == check_out
+        assert stay_times["source_type"] == "ota"
+        assert stay_times["source_url"].startswith("https://www.booking.com/")
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei"}
+    gracery = by_id["hotel_gracery_taipei"]
+    assert gracery["room_inventory"] == 248
+    assert gracery["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://tw.gracery.com/taipei/",
+    }
+    assert len(gracery["room_snapshot"]["rooms"]) == 15
+    assert {room["size_sqm"] for room in gracery["room_snapshot"]["rooms"]} == {25, 26, 50}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     capella_rooms = by_id["capella_taipei"]["room_snapshot"]["rooms"]
     assert len(capella_rooms) == 13
