@@ -2041,6 +2041,55 @@
       ]
     },
     {
+      "hotel_id": "le_meridien_taichung",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "16:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.lemeridien-taichung.com.tw/room-detail/Le_Meridien_Suite/"
+      },
+      "room_inventory": 228,
+      "restaurants": [
+        {"name": "新食譜全日餐廳 Latest Recipe", "type_zh": "國際自助餐與全日餐飲", "type_en": "International buffet and all-day dining", "type_ja": "国際ビュッフェ・オールデイダイニング"},
+        {"name": "北緯二十四 Latitude 24", "type_zh": "咖啡、甜點、烘焙與輕食", "type_en": "Coffee, pastries, bakery and light dining", "type_ja": "コーヒー・スイーツ・ベーカリー・軽食"},
+        {"name": "PANO 24", "type_zh": "高空景觀餐廳與下午茶", "type_en": "Skyline restaurant and afternoon tea", "type_ja": "スカイラインレストラン・アフタヌーンティー"},
+        {"name": "PANO 24 | BAR", "type_zh": "高空酒吧", "type_en": "Skyline bar", "type_ja": "スカイラインバー"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "Le Méridien Club Lounge", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "Marriott 官方頁可核實戶外高空泳池、健身中心及三溫暖；客房頁並明載艾美套房旅客可使用行政酒廊。SPA 與蒸氣室目前維持待核實。",
+        "en": "Marriott's official pages verify an outdoor rooftop pool, fitness center, and sauna. The official suite page also confirms Le Méridien Club Lounge access for Le Méridien Suite guests. Spa and steam room remain pending verification.",
+        "ja": "Marriott公式ページで屋外高層プール、フィットネスセンター、サウナを確認済みです。公式スイートページではLe Méridien Suite宿泊者のクラブラウンジ利用も確認できます。SPAとスチームルームは確認待ちです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.lemeridien-taichung.com.tw/room/price.php",
+        "rooms": [
+          {"name_zh": "無障礙客房", "name_en": "Accessible Room", "name_ja": "Accessible Room", "size_sqm": 45},
+          {"name_zh": "經典客房", "name_en": "Classic King Room", "name_ja": "Classic King Room", "size_sqm": 45},
+          {"name_zh": "經典雙床", "name_en": "Classic Twin Room", "name_ja": "Classic Twin Room", "size_sqm": 45},
+          {"name_zh": "豪華客房", "name_en": "Deluxe King Room", "name_ja": "Deluxe King Room", "size_sqm": 45},
+          {"name_zh": "豪華雙床", "name_en": "Deluxe Twin Room", "name_ja": "Deluxe Twin Room", "size_sqm": 45},
+          {"name_zh": "尊爵客房", "name_en": "Premier King Room", "name_ja": "Premier King Room", "size_sqm": 45},
+          {"name_zh": "尊爵雙床", "name_en": "Premier Twin Room", "name_ja": "Premier Twin Room", "size_sqm": 45},
+          {"name_zh": "艾美套房", "name_en": "Le Méridien Suite", "name_ja": "Le Méridien Suite", "size_sqm": 103},
+          {"name_zh": "皇家套房", "name_en": "Royal Suite", "name_ja": "Royal Suite", "size_sqm": 140},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 270}
+        ]
+      },
+      "source_urls": [
+        "https://www.lemeridien-taichung.com.tw/room/",
+        "https://www.lemeridien-taichung.com.tw/room/price.php",
+        "https://www.lemeridien-taichung.com.tw/restaurants/",
+        "https://www.marriott.com/en-us/hotels/rmqmd-le-meridien-taichung/overview/",
+        "https://www.marriott.com/en-us/hotels/rmqmd-le-meridien-taichung/experiences/",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=26251&lang2=en"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,
