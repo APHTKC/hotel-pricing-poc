@@ -1901,6 +1901,55 @@
       ]
     },
     {
+      "hotel_id": "taipei_garden_hotel",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.taipeigarden.com.tw/en/rooms/premier-double-room/"
+      },
+      "room_inventory": 241,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://www.taipeigarden.com.tw/en/rooms/premier-double-room/",
+      "restaurants": [
+        {"name": "PRIME ONE Steak House", "type_zh": "牛排館", "type_en": "Steakhouse", "type_ja": "ステーキハウス"},
+        {"name": "To-Gather Kitchen", "type_zh": "全日自助餐廳", "type_en": "All-day buffet dining", "type_ja": "オールデイ・ビュッフェ"},
+        {"name": "Jade Chinese Restaurant", "type_zh": "中式料理", "type_en": "Chinese cuisine", "type_ja": "中華料理"},
+        {"name": "Taipei Garden Café Toast & Thai", "type_zh": "泰式料理與咖啡輕食", "type_en": "Thai cuisine and café dining", "type_ja": "タイ料理・カフェダイニング"},
+        {"name": "Hanabby Bakery", "type_zh": "烘焙坊", "type_en": "Bakery", "type_ja": "ベーカリー"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": null},
+      "facility_notes": {
+        "zh": "官方設施頁可核實 16 樓健身中心；Garden SPA 官方頁列有按摩與臉部護理療程。泳池、三溫暖、蒸氣室及行政酒廊目前維持待核實。",
+        "en": "The official facilities page verifies a 16th-floor fitness center. The official Garden SPA page lists massage and facial treatments. Pool, sauna, steam room, and executive lounge remain pending verification.",
+        "ja": "公式施設ページで16階のフィットネスセンターを確認済みです。Garden SPA公式ページにはマッサージとフェイシャルトリートメントが掲載されています。プール、サウナ、スチームルーム、エグゼクティブラウンジは確認待ちです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.taipeigarden.com.tw/en/rooms/",
+        "rooms": [
+          {"name_zh": "雅緻客房", "name_en": "Premier Double Room", "name_ja": "Premier Double Room", "size_sqm": 22},
+          {"name_zh": "雅緻親子房", "name_en": "Premier Family Room", "name_ja": "Premier Family Room", "size_sqm": 25},
+          {"name_zh": "雅緻三人房", "name_en": "Premier Triple Room", "name_ja": "Premier Triple Room", "size_sqm": 25},
+          {"name_zh": "雅緻家庭房", "name_en": "Premier Quad Room", "name_ja": "Premier Quad Room", "size_sqm": 25},
+          {"name_zh": "卓越客房", "name_en": "Luxury Room", "name_ja": "Luxury Room", "size_sqm": 25},
+          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 43},
+          {"name_zh": "花園套房", "name_en": "Garden Suite", "name_ja": "Garden Suite", "size_sqm": 63}
+        ]
+      },
+      "source_urls": [
+        "https://www.taipeigarden.com.tw/",
+        "https://www.taipeigarden.com.tw/en/rooms/",
+        "https://www.taipeigarden.com.tw/en/rooms/premier-double-room/",
+        "https://www.taipeigarden.com.tw/en/garden-spa/",
+        "https://www.taipeigarden.com.tw/en/facilities/facilities/"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,
