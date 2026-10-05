@@ -2090,6 +2090,53 @@
       ]
     },
     {
+      "hotel_id": "millennium_taichung",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.millenniumhotels.com/zh-tw/taichung/millennium-hotel-taichung/"
+      },
+      "room_inventory": 243,
+      "restaurants": [
+        {"name": "Lumi Bar", "type_zh": "咖啡、茶、烘焙、輕食與酒飲", "type_en": "Coffee, tea, bakery, light meals and drinks", "type_ja": "コーヒー・紅茶・ベーカリー・軽食・ドリンク"},
+        {"name": "Private Dining Room", "type_zh": "中式料理與私人宴席", "type_en": "Chinese cuisine and private dining", "type_ja": "中華料理・プライベートダイニング"},
+        {"name": "Soluna – All Day Dining", "type_zh": "自助餐與全日餐飲", "type_en": "Buffet and all-day dining", "type_ja": "ビュッフェ・オールデイダイニング"},
+        {"name": "The Prime – Grill & Lounge", "type_zh": "牛排、海鮮與酒廊", "type_en": "Steak, seafood and lounge", "type_ja": "ステーキ・シーフード・ラウンジ"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "Millennium Hotels 官方頁可核實戶外泳池、健身中心、三溫暖及行政酒廊；行政客房與多種套房享有行政酒廊禮遇。SPA 與蒸氣室目前維持待核實。",
+        "en": "Millennium Hotels' official pages verify an outdoor pool, fitness center, sauna, and Executive Lounge. Club rooms and several suite categories include Executive Lounge privileges. Spa and steam room remain pending verification.",
+        "ja": "Millennium Hotels公式ページで屋外プール、フィットネスセンター、サウナ、エグゼクティブラウンジを確認済みです。クラブルームと複数のスイートにはラウンジ特典があります。SPAとスチームルームは確認待ちです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.millenniumhotels.com/zh-tw/taichung/millennium-hotel-taichung/",
+        "rooms": [
+          {"name_zh": "精緻客房", "name_en": "Superior", "name_ja": "Superior", "size_sqm": 32},
+          {"name_zh": "日月客房", "name_en": "Deluxe", "name_ja": "Deluxe", "size_sqm": 36},
+          {"name_zh": "行政客房", "name_en": "Club", "name_ja": "Club", "size_sqm": 36},
+          {"name_zh": "威達套房", "name_en": "Studio Vee", "name_ja": "Studio Vee", "size_sqm": 53},
+          {"name_zh": "都會套房", "name_en": "Urban Suite", "name_ja": "Urban Suite", "size_sqm": 77},
+          {"name_zh": "市政套房", "name_en": "Executive Suite", "name_ja": "Executive Suite", "size_sqm": 77},
+          {"name_zh": "豪華家庭房", "name_en": "Family Studio", "name_ja": "Family Studio", "size_sqm": 53},
+          {"name_zh": "千禧套房", "name_en": "Millennium Suite", "name_ja": "Millennium Suite", "size_sqm": 98},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 168}
+        ]
+      },
+      "source_urls": [
+        "https://www.millenniumhotels.com/zh-tw/taichung/millennium-hotel-taichung/",
+        "https://www.millenniumhotels.com/en/taichung/millennium-hotel-taichung",
+        "https://www.millenniumhotels.com/en/taichung/millennium-hotel-taichung/dining-rooms/",
+        "https://www.millenniumhotels.com/en/taichung/millennium-hotel-taichung/the-prime-grill-and-lounge",
+        "https://www.millenniumhotels.com/en/taichung/millennium-hotel-taichung/soluna/"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,
