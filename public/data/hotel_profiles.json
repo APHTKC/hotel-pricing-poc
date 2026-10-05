@@ -1810,6 +1810,97 @@
       ]
     },
     {
+      "hotel_id": "courtyard_taipei_downtown",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.courtyardtaipeidowntown.com.tw/room-detail/70/"
+      },
+      "room_inventory": 227,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://www.courtyardtaipeidowntown.com.tw/price/1/",
+      "restaurants": [
+        {"name": "MJ Kitchen", "type_zh": "全日自助餐廳", "type_en": "All-day buffet dining", "type_ja": "オールデイ・ビュッフェ"},
+        {"name": "THE Lounge", "type_zh": "咖啡、茶與輕食", "type_en": "Coffee, tea and light dining", "type_ja": "コーヒー・紅茶・軽食"},
+        {"name": "Drift Lounge Bar", "type_zh": "高空酒廊與酒吧", "type_en": "Rooftop lounge and bar", "type_ja": "ルーフトップラウンジ・バー"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "Executive Concierge Lounge", "kind": "executive_club"},
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "rooms": [
+          {"name_zh": "雅緻客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 33.1},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 33.1},
+          {"name_zh": "卓越客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 33.1},
+          {"name_zh": "行政客房", "name_en": "Executive Room", "name_ja": "Executive Room", "size_sqm": 33.1},
+          {"name_zh": "萬怡套房", "name_en": "Courtyard Suite", "name_ja": "Courtyard Suite", "size_sqm": 59.5},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 119.0}
+        ]
+      },
+      "source_urls": [
+        "https://www.courtyardtaipeidowntown.com.tw/",
+        "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "https://www.courtyardtaipeidowntown.com.tw/price/1/",
+        "https://www.marriott.com/en-us/hotels/tpecd-courtyard-taipei-downtown/overview/",
+        "https://www.marriott.com/en-us/hotels/tpecd-courtyard-taipei-downtown/dining/",
+        "https://www.marriott.com/en-us/hotels/tpecd-courtyard-taipei-downtown/experiences/",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=8536&lang2=en"
+      ]
+    },
+    {
+      "hotel_id": "the_landis_taipei",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://taipei.landishotelsresorts.com/room-detail/deluxe-room"
+      },
+      "room_inventory": 219,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://taipei.landishotelsresorts.com/en/room-detail/deluxe-room",
+      "service_charge_note_zh": "官網房價另加 10% 服務費及 5% 營業稅。",
+      "service_charge_note_en": "Official room prices are subject to a 10% service charge and 5% sales tax.",
+      "service_charge_note_ja": "公式客室料金には10%のサービス料と5%の営業税が加算されます。",
+      "restaurants": [
+        {"name": "La Brasserie and Le Rendez-Vous", "type_zh": "法式全日餐廳與酒吧", "type_en": "French all-day dining and bar", "type_ja": "フレンチ・オールデイダイニング＆バー"},
+        {"name": "Tien Hsiang Lo", "type_zh": "杭州料理", "type_en": "Hangzhou cuisine", "type_ja": "杭州料理"},
+        {"name": "Paris1930 de Hideki Takayama", "type_zh": "法式精緻餐飲", "type_en": "French fine dining", "type_ja": "フレンチ・ファインダイニング"},
+        {"name": "Liz Gastronomie", "type_zh": "歐式麵包與甜點", "type_en": "European bakery and patisserie", "type_ja": "ヨーロピアンベーカリー・ペストリー"}
+      ],
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": null},
+      "facility_notes": {
+        "zh": "目前官方住房專案可核實 132㎡ 健身房及瑜伽／冥想空間；其他休閒設施未取得足夠的現行官方資料。",
+        "en": "Current official stay packages verify a 132 sqm gym and yoga/meditation room. Other leisure facilities do not yet have sufficient current official evidence.",
+        "ja": "現行の公式宿泊プランでは132㎡のジムとヨガ／瞑想ルームを確認済みです。その他の館内施設は現行の公式情報が不足しています。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://taipei.landishotelsresorts.com/en/room",
+        "rooms": [
+          {"name_zh": "卓越客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 26},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 43},
+          {"name_zh": "行政套房", "name_en": "Executive Suite", "name_ja": "Executive Suite", "size_sqm": 53},
+          {"name_zh": "景隅套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 56}
+        ]
+      },
+      "source_urls": [
+        "https://taipei.landishotelsresorts.com/en/",
+        "https://taipei.landishotelsresorts.com/en/room",
+        "https://taipei.landishotelsresorts.com/en/dining",
+        "https://taipei.landishotelsresorts.com/en/news-detail/21",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=2267&lang2=en"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,

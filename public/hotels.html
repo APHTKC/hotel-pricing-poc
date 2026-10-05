@@ -11,6 +11,7 @@
 .table-wrap>table{min-width:1280px}
 .hotel-select-row{cursor:pointer;transition:background-color .12s ease,box-shadow .12s ease}.hotel-select-row:hover,.hotel-select-row:focus{background:#e9f1f5;box-shadow:inset 5px 0 var(--city-color);outline:0}.hotel-select-row:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}.hotel-select-row[aria-current="true"]{background:#f0efea}.hotel-select-row td{transition:background-color .12s ease}.hotel-select-row:hover td,.hotel-select-row:focus td{background:transparent}
 .affiliation-cell{min-width:190px}.brand-line{display:block;font-size:11px;font-weight:700;line-height:1.25}.positioning-line{display:block;margin-top:2px;color:var(--muted);font-size:10px;line-height:1.25}.loyalty-badge{display:inline-block;margin-top:5px;padding:1px 6px;border:1px solid var(--blue);color:var(--blue);font-size:9px;font-weight:800;letter-spacing:.03em}.affiliation-pending{color:#888;font-size:10px}
+#hotelComparison th:first-child,#hotelComparison td:first-child{position:sticky;left:0;z-index:2;min-width:240px;background:#fff}#hotelComparison th:first-child{z-index:3}.upcoming-row td:first-child{background:#fffdf8}.hotel-select-row:hover td:first-child,.hotel-select-row:focus td:first-child{background:#e9f1f5}.hotel-row-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:7px}.hotel-row-actions .opening-note{flex-basis:100%;margin-top:0}.hotel-row-actions .view-button{padding:4px 8px;font-size:10px}.hotel-row-actions .status{white-space:nowrap}
 @media(max-width:1180px){.filters{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.filters{grid-template-columns:1fr}}
 </style>
@@ -24,7 +25,7 @@
 <nav class="section-nav" aria-label="Primary"><a href="./"><b class="nav-index">01</b><strong data-i18n="overview">即時總覽</strong><small data-i18n="overviewHint">最新房價、趨勢與飯店比較</small></a><a href="./history.html"><b class="nav-index">02</b><strong data-i18n="history">歷史房價分析</strong><small data-i18n="historyHint">長期趨勢與提前訂房曲線</small></a><span class="active"><b class="nav-index">03</b><strong data-i18n="profiles">飯店資料比較</strong><small data-i18n="profilesHint">房型、餐飲、設施與貴賓廳</small></span><a href="./map.html"><b class="nav-index">04</b><strong data-i18n="mapPage">飯店地圖</strong><small data-i18n="mapHint">全台分布與台北行政區</small></a></nav>
 <section class="panel filters"><div><label for="city" data-i18n="city">城市</label><select id="city"></select></div><div><label for="affiliation" data-i18n="loyaltyFilter">會員體系</label><select id="affiliation"></select></div><div><label for="feature" data-i18n="feature">設施條件</label><select id="feature"></select></div><div><label for="verification" data-i18n="verification">資料狀態</label><select id="verification"></select></div><div><label for="rateStatus" data-i18n="rateStatus">房價資料</label><select id="rateStatus"></select></div><div><label for="sort" data-i18n="sortBy">排序方式</label><select id="sort"></select></div></section>
 <section class="panel summary"><div class="metric"><div class="metric-label" data-i18n="registered">登記飯店</div><div class="metric-value" id="registered">—</div></div><div class="metric"><div class="metric-label" data-i18n="liveRates">已有房價</div><div class="metric-value" id="liveRates">—</div></div><div class="metric"><div class="metric-label" data-i18n="verifiedProfiles">設施已核實</div><div class="metric-value" id="verifiedProfiles">—</div></div></section>
-<div class="table-wrap" id="hotelComparison"><table><thead><tr><th><button class="sort-button" data-sort="name"><span data-i18n="hotel">飯店</span> <span class="sort-arrow"></span></button></th><th><button class="sort-button" data-sort="geo"><span data-i18n="city">城市</span> <span class="sort-arrow"></span></button></th><th data-i18n="brandLoyalty">品牌定位／會員體系</th><th class="num"><button class="sort-button" data-sort="rooms"><span data-i18n="roomTypes">已取得房型</span> <span class="sort-arrow"></span></button></th><th class="num"><button class="sort-button" data-sort="size"><span data-i18n="sizeRange">面積範圍</span> <span class="sort-arrow"></span></button></th><th class="num"><button class="sort-button" data-sort="restaurants"><span data-i18n="restaurants">餐飲場所</span> <span class="sort-arrow"></span></button></th><th class="num" data-i18n="serviceCharge">服務費</th><th class="center" data-i18n="pool">泳池</th><th class="center" data-i18n="fitness">健身房</th><th class="center">SPA</th><th class="center" data-i18n="lounge">行政／貴賓廳</th><th><button class="sort-button" data-sort="status"><span data-i18n="dataStatus">資料狀態</span> <span class="sort-arrow"></span></button></th><th></th></tr></thead><tbody id="comparison"><tr><td colspan="13" class="empty">…</td></tr></tbody></table></div>
+<div class="table-wrap" id="hotelComparison"><table><thead><tr><th><button class="sort-button" data-sort="name"><span data-i18n="hotel">飯店／資料狀態</span> <span class="sort-arrow"></span></button></th><th><button class="sort-button" data-sort="geo"><span data-i18n="city">城市</span> <span class="sort-arrow"></span></button></th><th data-i18n="brandLoyalty">品牌定位／會員體系</th><th class="num"><button class="sort-button" data-sort="rooms"><span data-i18n="roomTypes">已取得房型</span> <span class="sort-arrow"></span></button></th><th class="num"><button class="sort-button" data-sort="size"><span data-i18n="sizeRange">面積範圍</span> <span class="sort-arrow"></span></button></th><th class="num"><button class="sort-button" data-sort="restaurants"><span data-i18n="restaurants">餐飲場所</span> <span class="sort-arrow"></span></button></th><th class="num" data-i18n="serviceCharge">服務費</th><th class="center" data-i18n="pool">泳池</th><th class="center" data-i18n="fitness">健身房</th><th class="center">SPA</th><th class="center" data-i18n="lounge">行政／貴賓廳</th></tr></thead><tbody id="comparison"><tr><td colspan="11" class="empty">…</td></tr></tbody></table></div>
 <section class="detail" id="detail"><div class="empty">…</div></section>
 <footer class="source-note" data-i18n="sourceNote">房型與面積來自每日抓取的官方公開訂房資料；餐廳與設施僅使用飯店官方網站及官方資料表。未核實欄位會顯示「待核實」。</footer>
 </main>
@@ -91,7 +92,15 @@ renderTable=function(){
   legacyRenderHotelTable();
   document.querySelectorAll('#comparison tr').forEach(row=>{
     const button=row.querySelector('[data-hotel]');
-    if(!button){const cell=row.querySelector('td');if(cell)cell.colSpan=13;return}
+    if(!button){const cell=row.querySelector('td');if(cell)cell.colSpan=11;return}
+    const nameCell=row.querySelector('td:first-child');
+    const statusCell=row.children[row.children.length-2];
+    const actionCell=row.children[row.children.length-1];
+    const actions=document.createElement('div');actions.className='hotel-row-actions';
+    while(statusCell.firstChild)actions.appendChild(statusCell.firstChild);
+    actions.appendChild(button);
+    nameCell.appendChild(actions);
+    statusCell.remove();actionCell.remove();
     const cell=document.createElement('td');cell.className='affiliation-cell';cell.innerHTML=affiliationCell(affiliations.get(button.dataset.hotel));row.insertBefore(cell,row.children[2]);
   });
   activateComparisonRows();
@@ -127,6 +136,12 @@ const affiliationsReady=loadJson('./data/hotel_affiliations.json').then(data=>{a
 const legacyTranslateHotels=translate;
 translate=async function(){await affiliationsReady;legacyTranslateHotels()};
 document.querySelector('#affiliation').addEventListener('change',renderTable);
+function bindCurrentComparisonControls(){
+  ['city','affiliation','feature','verification','rateStatus'].forEach(id=>document.querySelector('#'+id).addEventListener('change',event=>{event.stopImmediatePropagation();renderTable()},{capture:true}));
+  document.querySelector('#sort').addEventListener('change',event=>{event.stopImmediatePropagation();const key=event.target.value;profileSort={key,direction:['rooms','size','restaurants','status'].includes(key)?'desc':'asc'};renderTable()},{capture:true});
+  document.querySelectorAll('.sort-button').forEach(button=>button.addEventListener('click',event=>{event.stopImmediatePropagation();const key=button.dataset.sort;profileSort=key===profileSort.key?{key,direction:profileSort.direction==='asc'?'desc':'asc'}:{key,direction:['rooms','size','restaurants','status'].includes(key)?'desc':'asc'};document.querySelector('#sort').value=key;renderTable()},{capture:true}));
+}
+bindCurrentComparisonControls();
 </script>
 <script type="module" src="./assets/js/site-meta.js"></script>
 </body></html>

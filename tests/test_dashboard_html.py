@@ -275,7 +275,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         assert stay_times["check_out"] == check_out
         assert stay_times["source_type"] == "ota"
         assert stay_times["source_url"].startswith("https://www.booking.com/")
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "the_gaia_taipei", "grand_hotel_taipei", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei", "mitsui_garden_taipei_zhongxiao", "doubletree_taipei_zhongshan"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "the_gaia_taipei", "grand_hotel_taipei", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei", "mitsui_garden_taipei_zhongxiao", "doubletree_taipei_zhongshan", "courtyard_taipei_downtown", "the_landis_taipei"}
     mitsui = by_id["mitsui_garden_taipei_zhongxiao"]
     assert mitsui["room_inventory"] == 297
     assert mitsui["stay_times"]["source_type"] == "official"
@@ -291,6 +291,20 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert doubletree["facilities"]["fitness"] is True
     assert doubletree["room_snapshot"]["source_type"] == "ota"
     assert {room["size_sqm"] for room in doubletree["room_snapshot"]["rooms"]} == {33, 36, 46, 60}
+    courtyard_downtown = by_id["courtyard_taipei_downtown"]
+    assert courtyard_downtown["room_inventory"] == 227
+    assert courtyard_downtown["service_charge_percent"] == 10
+    assert courtyard_downtown["stay_times"]["check_in"] == "15:00"
+    assert courtyard_downtown["stay_times"]["check_out"] == "12:00"
+    assert len(courtyard_downtown["room_snapshot"]["rooms"]) == 6
+    assert max(room["size_sqm"] for room in courtyard_downtown["room_snapshot"]["rooms"]) == 119
+    landis = by_id["the_landis_taipei"]
+    assert landis["room_inventory"] == 219
+    assert landis["service_charge_percent"] == 10
+    assert landis["stay_times"]["check_in"] == "15:00"
+    assert landis["stay_times"]["check_out"] == "11:00"
+    assert [room["size_sqm"] for room in landis["room_snapshot"]["rooms"]] == [26, 43, 53, 56]
+    assert landis["lounge"]["available"] is None
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -908,6 +922,13 @@ def test_hotel_profile_comparison_rows_open_details_without_horizontal_scrolling
     html = Path("public/hotels.html").read_text(encoding="utf-8")
 
     assert ".hotel-select-row{cursor:pointer" in html
+    assert "#hotelComparison th:first-child,#hotelComparison td:first-child{position:sticky;left:0" in html
+    assert ".hotel-row-actions{display:flex" in html
+    assert "while(statusCell.firstChild)actions.appendChild(statusCell.firstChild)" in html
+    assert "actions.appendChild(button)" in html
+    assert 'colspan="11"' in html
+    assert "function bindCurrentComparisonControls()" in html
+    assert "event.stopImmediatePropagation();renderTable()},{capture:true}" in html
     assert ".hotel-select-row:hover,.hotel-select-row:focus" in html
     assert "function activateComparisonRows()" in html
     assert "row.tabIndex=0" in html
@@ -1310,6 +1331,7 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"
+    assert affiliations["the_landis_taipei"]["loyalty_program"] == "Landis Club"
     assert all(row["source_url"].startswith("https://") for row in affiliations.values())
 
     assert "./data/hotel_affiliations.json" in html
