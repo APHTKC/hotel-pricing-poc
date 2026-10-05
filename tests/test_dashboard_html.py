@@ -1037,6 +1037,7 @@ def test_hotel_profile_comparison_rows_open_details_without_horizontal_scrolling
     assert ".table-wrap>table{min-width:0;table-layout:fixed}" in html
     assert ".table-wrap>table{min-width:1280px}" not in html
     assert "@media(max-width:980px)" in html
+    assert "${T[lang].hotel}／${T[lang].dataStatus}／${T[lang].view}" in html
     assert "while(statusCell.firstChild)actions.appendChild(statusCell.firstChild)" in html
     assert "actions.appendChild(button)" in html
     assert 'colspan="11"' in html

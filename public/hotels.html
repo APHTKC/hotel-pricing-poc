@@ -138,7 +138,7 @@ renderDetail=function(){
 };
 const affiliationsReady=loadJson('./data/hotel_affiliations.json').then(data=>{affiliations=new Map((data.affiliations||[]).map(item=>[item.hotel_id,item]))}).catch(()=>{affiliations=new Map()});
 const legacyTranslateHotels=translate;
-translate=async function(){await affiliationsReady;legacyTranslateHotels()};
+translate=async function(){await affiliationsReady;legacyTranslateHotels();const heading=document.querySelector('[data-sort="name"] [data-i18n="hotel"]');if(heading)heading.textContent=`${T[lang].hotel}／${T[lang].dataStatus}／${T[lang].view}`};
 document.querySelector('#affiliation').addEventListener('change',renderTable);
 function bindCurrentComparisonControls(){
   ['city','affiliation','feature','verification','rateStatus'].forEach(id=>document.querySelector('#'+id).addEventListener('change',event=>{event.stopImmediatePropagation();renderTable()},{capture:true}));
