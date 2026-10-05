@@ -1950,6 +1950,54 @@
       ]
     },
     {
+      "hotel_id": "miramar_garden_taipei",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.miramargarden.com.tw/en/Miramar%2BGarden%2BTaipei/Room"
+      },
+      "room_inventory": 203,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://www.miramargarden.com.tw/en/Miramar%2BGarden%2BTaipei/Room",
+      "restaurants": [
+        {"name": "青焰炭火熟成牛排", "type_zh": "牛排與自助餐", "type_en": "Steakhouse and buffet", "type_ja": "ステーキ・ビュッフェ"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "金字塔交誼廳 / Pyramid Lounge", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "官方設施頁可核實戶外溫水泳池、健身房，以及含蒸氣室、烤箱與冷熱水按摩浴池的男女獨立桑拿區；金字塔交誼廳供商務樓層、精薈客房及套房旅客使用。SPA 療程目前維持待核實。",
+        "en": "The official facilities page verifies an outdoor heated pool, fitness center, and separate men's and women's sauna areas with steam rooms, dry saunas, and hot/cold whirlpools. Pyramid Lounge is available to business-floor, Executive Room, and suite guests. Spa treatments remain pending verification.",
+        "ja": "公式施設ページで屋外温水プール、フィットネスセンター、スチームルーム・ドライサウナ・冷温ジャグジーを備えた男女別サウナを確認済みです。Pyramid Lounge はビジネスフロア、Executive Room、スイートの宿泊者が利用できます。SPAトリートメントは確認待ちです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.miramargarden.com.tw/en/Miramar%2BGarden%2BTaipei/Room",
+        "rooms": [
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm_min": 40, "size_sqm_max": 42},
+          {"name_zh": "豪華三人房", "name_en": "Deluxe Triple Room", "name_ja": "Deluxe Triple Room", "size_sqm_min": 40, "size_sqm_max": 42},
+          {"name_zh": "豪華四人房", "name_en": "Deluxe Quadruple Room", "name_ja": "Deluxe Quadruple Room", "size_sqm_min": 40, "size_sqm_max": 43},
+          {"name_zh": "樂遊家庭房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm_min": 40, "size_sqm_max": 43},
+          {"name_zh": "商務客房", "name_en": "Business Room", "name_ja": "Business Room", "size_sqm_min": 40, "size_sqm_max": 42},
+          {"name_zh": "精薈客房", "name_en": "Executive Room", "name_ja": "Executive Room", "size_sqm_min": 40, "size_sqm_max": 42},
+          {"name_zh": "精英客房", "name_en": "Elite Executive Room", "name_ja": "Elite Executive Room", "size_sqm_min": 40, "size_sqm_max": 42},
+          {"name_zh": "波士套房", "name_en": "Boss Suite", "name_ja": "Boss Suite", "size_sqm": 79},
+          {"name_zh": "嘉賓套房", "name_en": "Premier Suite", "name_ja": "Premier Suite", "size_sqm": 89},
+          {"name_zh": "精緻套房", "name_en": "Superior Suite", "name_ja": "Superior Suite", "size_sqm": 79},
+          {"name_zh": "美麗信套房", "name_en": "Miramar Suite", "name_ja": "Miramar Suite", "size_sqm": 165}
+        ]
+      },
+      "source_urls": [
+        "https://www.miramargarden.com.tw/zh-tw/%E5%8F%B0%E5%8C%97%E7%BE%8E%E9%BA%97%E4%BF%A1/Room",
+        "https://www.miramargarden.com.tw/en/Miramar%2BGarden%2BTaipei/Room",
+        "https://www.miramargarden.com.tw/zh-tw/%E5%8F%B0%E5%8C%97%E7%BE%8E%E9%BA%97%E4%BF%A1/Facility",
+        "https://www.miramargarden.com.tw/zh-tw/%E5%8F%B0%E5%8C%97%E7%BE%8E%E9%BA%97%E4%BF%A1/Restaurant"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,
