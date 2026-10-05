@@ -275,7 +275,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         assert stay_times["check_out"] == check_out
         assert stay_times["source_type"] == "ota"
         assert stay_times["source_url"].startswith("https://www.booking.com/")
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "the_gaia_taipei", "grand_hotel_taipei", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei", "mitsui_garden_taipei_zhongxiao", "doubletree_taipei_zhongshan", "courtyard_taipei_downtown", "the_landis_taipei", "taipei_garden_hotel", "miramar_garden_taipei", "howard_plaza_taipei", "le_meridien_taichung", "millennium_taichung"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "the_gaia_taipei", "grand_hotel_taipei", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei", "mitsui_garden_taipei_zhongxiao", "doubletree_taipei_zhongshan", "courtyard_taipei_downtown", "the_landis_taipei", "taipei_garden_hotel", "miramar_garden_taipei", "howard_plaza_taipei", "le_meridien_taichung", "millennium_taichung", "the_lin_taichung"}
     mitsui = by_id["mitsui_garden_taipei_zhongxiao"]
     assert mitsui["room_inventory"] == 297
     assert mitsui["stay_times"]["source_type"] == "official"
@@ -366,6 +366,22 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert millennium_taichung["lounge"]["available"] is True
     assert "service_charge_percent" not in millennium_taichung
+    the_lin_taichung = by_id["the_lin_taichung"]
+    assert the_lin_taichung["room_inventory"] == 295
+    assert the_lin_taichung["service_charge_percent"] == 10
+    assert the_lin_taichung["stay_times"]["check_in"] == "15:00"
+    assert the_lin_taichung["stay_times"]["check_out"] == "11:00"
+    assert len(the_lin_taichung["room_snapshot"]["rooms"]) == 19
+    assert min(room["size_sqm"] for room in the_lin_taichung["room_snapshot"]["rooms"]) == 43
+    assert max(room["size_sqm"] for room in the_lin_taichung["room_snapshot"]["rooms"]) == 218
+    assert the_lin_taichung["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert the_lin_taichung["lounge"]["available"] is True
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
