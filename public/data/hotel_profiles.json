@@ -1998,6 +1998,49 @@
       ]
     },
     {
+      "hotel_id": "howard_plaza_taipei",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://onlinebooking.howard-hotels.com.tw/Product/Item/7549"
+      },
+      "room_inventory": 606,
+      "restaurant_count": 10,
+      "restaurant_count_source_type": "government",
+      "restaurant_count_source_url": "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=6209",
+      "restaurants": [
+        {"name": "珍珠坊", "type_zh": "粵菜與港式點心", "type_en": "Cantonese cuisine and dim sum", "type_ja": "広東料理・点心"},
+        {"name": "江南春", "type_zh": "江浙料理", "type_en": "Jiangsu and Zhejiang cuisine", "type_ja": "江蘇・浙江料理"},
+        {"name": "蓬萊邨", "type_zh": "台灣料理", "type_en": "Taiwanese cuisine", "type_ja": "台湾料理"},
+        {"name": "七賢吧", "type_zh": "大廳酒吧與輕食", "type_en": "Lobby bar and light dining", "type_ja": "ロビーバー・軽食"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": null},
+      "facility_notes": {
+        "zh": "交通部觀光署旅宿網登錄健身房、游泳池與三溫暖；飯店 2026 年住房專案公告健身房暫移至客房 836，戶外泳池因整體裝修於 2026 全年度暫停開放。旅宿網登錄 10 家餐廳，本頁先列出近期香港官網活動可逐一核實的餐飲場所。SPA、蒸氣室及行政酒廊目前維持待核實。",
+        "en": "Taiwan's official accommodation registry lists a gym, pool, and sauna. The hotel's 2026 stay offer says the gym is temporarily relocated to room 836 and the outdoor pool is closed throughout 2026 for renovation. The registry lists 10 dining venues; this profile currently names only venues individually verified in recent official hotel offers. Spa, steam room, and executive lounge remain pending verification.",
+        "ja": "台湾の公式旅宿登録ではジム、プール、サウナを確認できます。ホテルの2026年宿泊プランでは、ジムは客室836へ一時移設、屋外プールは改修のため2026年通年休止と案内されています。登録上の飲食施設は10か所ですが、本ページでは最近の公式プランで個別確認できた施設のみ掲載しています。SPA、スチームルーム、エグゼクティブラウンジは確認待ちです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://onlinebooking.howard-hotels.com.tw/Product/Item/7549",
+        "rooms": [
+          {"name_zh": "標準單床房", "name_en": "Standard King Room", "name_ja": "Standard King Room", "size_sqm_min": 20, "size_sqm_max": 23},
+          {"name_zh": "高級單床房", "name_en": "Superior King Room", "name_ja": "Superior King Room", "size_sqm_min": 26, "size_sqm_max": 27},
+          {"name_zh": "高級雙床房", "name_en": "Superior Twin Room", "name_ja": "Superior Twin Room", "size_sqm_min": 24, "size_sqm_max": 27}
+        ]
+      },
+      "source_urls": [
+        "https://taipei.howard-hotels.com.tw/zh_TW/HotelBusiness/95",
+        "https://onlinebooking.howard-hotels.com.tw/Product/Item/7549",
+        "https://taipei.howard-hotels.com.tw/zh_CN/Promo/2002",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=6209"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,
