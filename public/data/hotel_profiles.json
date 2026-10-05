@@ -2195,6 +2195,60 @@
       ]
     },
     {
+      "hotel_id": "silks_club_kaohsiung",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-gb/hotels/khhlc-the-amnis-a-luxury-collection-hotel-kaohsiung/overview/"
+      },
+      "room_inventory": 147,
+      "restaurants": [
+        {"name": "In-Jade Lounge", "type_zh": "早餐、早午餐與酒廊餐飲", "type_en": "Breakfast, brunch and lounge dining", "type_ja": "朝食・ブランチ・ラウンジダイニング"},
+        {"name": "Ukai-tei Teppanyaki", "type_zh": "日式鐵板燒", "type_en": "Japanese teppanyaki", "type_ja": "鉄板焼"},
+        {"name": "Ukai Kaiseki", "type_zh": "日式懷石料理", "type_en": "Japanese kaiseki", "type_ja": "懐石料理"},
+        {"name": "Grill Ukai", "type_zh": "炭火燒烤西餐", "type_en": "Charcoal-grilled Western cuisine", "type_ja": "炭火グリル洋食"},
+        {"name": "Dassai Bar", "type_zh": "日本酒吧", "type_en": "Sake bar", "type_ja": "日本酒バー"}
+      ],
+      "restaurant_count": 4,
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "facility_notes": {
+        "zh": "Marriott 官方頁可核實戶外泳池、健身中心與館內 SPA；官方圖庫亦明列三溫暖休息區及女性三溫暖。In-Jade Lounge 為公開餐飲場所，並非已核實的行政酒廊，因此行政／貴賓酒廊與蒸氣室維持待核實。飯店限 10 歲以上旅客入住。",
+        "en": "Marriott's official pages verify an outdoor pool, fitness center, and on-site spa; the official gallery also identifies a sauna rest area and female sauna. In-Jade Lounge is a public dining venue, not a verified executive lounge, so executive/VIP lounge and steam room remain pending verification. The hotel welcomes guests aged 10 and above.",
+        "ja": "Marriott公式ページで屋外プール、フィットネスセンター、館内SPAを確認済みで、公式ギャラリーにはサウナ休憩エリアと女性用サウナも明記されています。In-Jade Loungeは一般利用の飲食施設であり、エグゼクティブラウンジとは確認できないため、エグゼクティブ／VIPラウンジとスチームルームは確認待ちです。宿泊は10歳以上が対象です。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.theamnistlc.com/zh-tw/rooms/6",
+        "rooms": [
+          {"name_zh": "御典雙驛", "name_en": "Deluxe Twin", "name_ja": "Deluxe Twin", "size_sqm": 59},
+          {"name_zh": "御典侶驛", "name_en": "Deluxe King", "name_ja": "Deluxe King", "size_sqm": 59},
+          {"name_zh": "御典雙驛－港景", "name_en": "Deluxe Twin Harbor", "name_ja": "Deluxe Twin Harbor", "size_sqm": 59},
+          {"name_zh": "御心侶驛", "name_en": "Premier King", "name_ja": "Premier King", "size_sqm": 59},
+          {"name_zh": "御心雙驛", "name_en": "Premier Twin", "name_ja": "Premier Twin", "size_sqm": 66},
+          {"name_zh": "御景侶驛", "name_en": "Studio King", "name_ja": "Studio King", "size_sqm": 63},
+          {"name_zh": "御心侶驛－港景", "name_en": "Premier King Harbor", "name_ja": "Premier King Harbor", "size_sqm": 59},
+          {"name_zh": "御質行驛", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm": 80},
+          {"name_zh": "御質行驛－港景", "name_en": "Junior Suite Harbor", "name_ja": "Junior Suite Harbor", "size_sqm": 80},
+          {"name_zh": "御鋒侶驛", "name_en": "Deluxe Suite King", "name_ja": "Deluxe Suite King", "size_sqm": 90},
+          {"name_zh": "御鋒雙驛", "name_en": "Deluxe Suite Twin", "name_ja": "Deluxe Suite Twin", "size_sqm": 90},
+          {"name_zh": "總裁行館", "name_en": "Executive Suite", "name_ja": "Executive Suite", "size_sqm": 122},
+          {"name_zh": "總統行館", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 685}
+        ]
+      },
+      "source_urls": [
+        "https://www.theamnistlc.com/zh-tw/rooms/6",
+        "https://www.marriott.com/en-gb/hotels/khhlc-the-amnis-a-luxury-collection-hotel-kaohsiung/overview/",
+        "https://www.marriott.com/en-us/hotels/khhlc-the-amnis-a-luxury-collection-hotel-kaohsiung/dining/",
+        "https://www.marriott.com/en-us/hotels/khhlc-the-amnis-a-luxury-collection-hotel-kaohsiung/experiences/",
+        "https://www.marriott.com/en-gb/hotels/khhlc-the-amnis-a-luxury-collection-hotel-kaohsiung/photos/",
+        "https://taiwanstay.net.tw/download/335079"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,
