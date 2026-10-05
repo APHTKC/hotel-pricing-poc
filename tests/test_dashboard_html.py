@@ -275,7 +275,36 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         assert stay_times["check_out"] == check_out
         assert stay_times["source_type"] == "ota"
         assert stay_times["source_url"].startswith("https://www.booking.com/")
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei"}
+    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "the_gaia_taipei", "grand_hotel_taipei", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei"}
+    gaia = by_id["the_gaia_taipei"]
+    assert gaia["room_inventory"] == 48
+    assert gaia["service_charge_percent"] == 10
+    assert gaia["stay_times"]["source_type"] == "ota"
+    assert gaia["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert len(gaia["restaurants"]) == 3
+    assert [room["size_sqm"] for room in gaia["room_snapshot"]["rooms"]] == [33, 36, 43, 50, 66, 33]
+    grand_hotel = by_id["grand_hotel_taipei"]
+    assert grand_hotel["room_inventory"] == 500
+    assert grand_hotel["stay_times"]["source_type"] == "official"
+    assert grand_hotel["service_charge_percent"] == 10
+    assert len(grand_hotel["restaurants"]) == 6
+    assert grand_hotel["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": True,
+    }
+    grand_hotel_rooms = grand_hotel["room_snapshot"]["rooms"]
+    assert len(grand_hotel_rooms) == 15
+    assert min(room["size_sqm"] for room in grand_hotel_rooms) == 20
+    assert max(room["size_sqm"] for room in grand_hotel_rooms) == 926
     gracery = by_id["hotel_gracery_taipei"]
     assert gracery["room_inventory"] == 248
     assert gracery["stay_times"] == {

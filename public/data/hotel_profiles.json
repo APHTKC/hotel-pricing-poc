@@ -1505,6 +1505,101 @@
       ]
     },
     {
+      "hotel_id": "the_gaia_taipei",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "ota",
+        "source_url": "https://www.booking.com/hotel/tw/the-gaia-hotel.html"
+      },
+      "room_inventory": 48,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://www.thegaiahotel.com/en/rooms-detail/DANFENG-ROOM/",
+      "restaurants": [
+        {"name": "Qiyan One", "type_zh": "川湘料理", "type_en": "Sichuan and Hunan cuisine", "type_ja": "四川・湖南料理"},
+        {"name": "Piacere", "type_zh": "義法歐陸料理與下午茶", "type_en": "Italian-French European dining and afternoon tea", "type_ja": "イタリアン・フレンチ・アフタヌーンティー"},
+        {"name": "Moon Shabu Shabu", "type_zh": "涮涮鍋", "type_en": "Shabu-shabu", "type_ja": "しゃぶしゃぶ"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.thegaiahotel.com/en/rooms/",
+        "rooms": [
+          {"name_zh": "奇岩客房", "name_en": "Qiyan Room", "name_ja": "Qiyan Room", "size_sqm": 33},
+          {"name_zh": "楓林客房", "name_en": "Fenglin Room", "name_ja": "Fenglin Room", "size_sqm": 36},
+          {"name_zh": "雲集客房", "name_en": "Yunji Room", "name_ja": "Yunji Room", "size_sqm": 43},
+          {"name_zh": "丹鳳套房", "name_en": "Danfeng Room", "name_ja": "Danfeng Room", "size_sqm": 50},
+          {"name_zh": "大地套房", "name_en": "The Gaia Suite", "name_ja": "The Gaia Suite", "size_sqm": 66},
+          {"name_zh": "穆斯林友善客房", "name_en": "Muslim-friendly Room", "name_ja": "Muslim-friendly Room", "size_sqm": 33}
+        ]
+      },
+      "source_urls": [
+        "https://www.thegaiahotel.com/rooms/",
+        "https://www.thegaiahotel.com/en/rooms/",
+        "https://www.thegaiahotel.com/en/rooms-detail/DANFENG-ROOM/",
+        "https://www.thegaiahotel.com/restaurants/",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=11222&lang2=en",
+        "https://www.booking.com/hotel/tw/the-gaia-hotel.html"
+      ]
+    },
+    {
+      "hotel_id": "grand_hotel_taipei",
+      "verified_at": "2026-10-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.grand-hotel.org/TW/official/room-detail.aspx?gh=TP&id=86&pid=18"
+      },
+      "room_inventory": 500,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://www.grand-hotel.org/TW/official/room-detail.aspx?gh=TP&id=86&pid=18",
+      "restaurants": [
+        {"name": "Yuan Yuan Restaurant", "type_zh": "江浙料理與北方麵點", "type_en": "Jiangsu-Zhejiang cuisine and Northern Chinese noodles", "type_ja": "江浙料理・北方麺料理"},
+        {"name": "Golden Dragon Restaurant", "type_zh": "粵菜與港式點心", "type_en": "Cantonese cuisine and dim sum", "type_ja": "広東料理・点心"},
+        {"name": "Grand Garden Restaurant", "type_zh": "國際自助餐", "type_en": "International buffet", "type_ja": "各国料理ビュッフェ"},
+        {"name": "Garden Café", "type_zh": "咖啡、輕食與甜點", "type_en": "Café, light dining and desserts", "type_ja": "カフェ・軽食・デザート"},
+        {"name": "Grand Steakhouse", "type_zh": "牛排與西式料理", "type_en": "Steakhouse and Western cuisine", "type_ja": "ステーキ・洋食"},
+        {"name": "Meet by Bar Mood", "type_zh": "酒吧與創意餐飲", "type_en": "Bar and creative dining", "type_ja": "バー・創作料理"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": true},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "room_snapshot": {
+        "observed_at": "2026-10-05",
+        "source_type": "official",
+        "source_url": "https://www.grand-hotel.org/TW/official/room.aspx",
+        "rooms": [
+          {"name_zh": "金龍客房", "name_en": "Golden Dragon Room", "name_ja": "Golden Dragon Room", "size_sqm": 33},
+          {"name_zh": "金龍天際套房", "name_en": "Golden Dragon Horizon Suite", "name_ja": "Golden Dragon Horizon Suite", "size_sqm": 66},
+          {"name_zh": "金龍環景套房", "name_en": "Golden Dragon Corner Suite", "name_ja": "Golden Dragon Corner Suite", "size_sqm": 79},
+          {"name_zh": "精緻無窗客房", "name_en": "Economy Room (Without Windows)", "name_ja": "Economy Room (Without Windows)", "size_sqm": 20},
+          {"name_zh": "高級客房（本館）", "name_en": "Superior Room (Main Building)", "name_ja": "Superior Room (Main Building)", "size_sqm": 33},
+          {"name_zh": "高級客房（麒麟廳）", "name_en": "Superior Room (Qilin Hall)", "name_ja": "Superior Room (Qilin Hall)", "size_sqm": 40},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 46},
+          {"name_zh": "菁英豪華客房", "name_en": "Prestige Deluxe Room", "name_ja": "Prestige Deluxe Room", "size_sqm": 46},
+          {"name_zh": "天際客房", "name_en": "Horizon Room", "name_ja": "Horizon Room", "size_sqm": 46},
+          {"name_zh": "菁英天際客房", "name_en": "Prestige Horizon Room", "name_ja": "Prestige Horizon Room", "size_sqm": 46},
+          {"name_zh": "天際套房", "name_en": "Horizon Suite", "name_ja": "Horizon Suite", "size_sqm": 66},
+          {"name_zh": "菁英天際套房", "name_en": "Prestige Horizon Suite", "name_ja": "Prestige Horizon Suite", "size_sqm": 66},
+          {"name_zh": "環景套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 93},
+          {"name_zh": "菁英環景套房", "name_en": "Prestige Corner Suite", "name_ja": "Prestige Corner Suite", "size_sqm": 93},
+          {"name_zh": "圓山行館（總統套房）", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 926}
+        ]
+      },
+      "source_urls": [
+        "https://www.grand-hotel.org/TW/official/about.aspx?gh=TP",
+        "https://www.grand-hotel.org/TW/official/room.aspx",
+        "https://www.grand-hotel.org/EN/official/room.aspx?gh=TP",
+        "https://www.grand-hotel.org/TW/official/facility.aspx?gh=TP",
+        "https://www.grand-hotel.org/TW/official/room-detail.aspx?gh=TP&id=86&pid=18"
+      ]
+    },
+    {
       "hotel_id": "hotel_gracery_taipei",
       "verified_at": "2026-10-05",
       "stay_times": {
