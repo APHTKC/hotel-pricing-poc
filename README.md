@@ -17,18 +17,22 @@
 
 ## 公開資料結構
 
-大型歷史檔已改為按月載入：
+大型房價檔已改為首頁分層、歷史資料按月份與飯店載入：
 
 ```text
-public/data/latest.json                  最新一次查價，供即時總覽使用
+public/data/latest_summary.json          首頁 KPI 與市場摘要
+public/data/latest_heatmap.json          首頁趨勢圖與熱力圖輕量資料
+public/data/latest_details.json          最新完整明細，展開／捲動／匯出時才載入
 public/data/history_summary.json         輕量預聚合歷史趨勢與每週市場摘要
-public/data/rates/YYYY-MM.json           使用者展開特定月份時才載入
+public/data/rates/index.json             可用月份與飯店明細索引
+public/data/rates/YYYY-MM/HOTEL_ID.json  選定月份與單一飯店後才載入
 public/data/hotels.json                  67 家飯店 Catalog 與設施／房型快照
 public/data/hotel_locations.json         67 家飯店的快取座標、城市、台北行政區及追蹤狀態
 ```
 
-`history.html` 首次只下載 `history_summary.json`，選擇月份或查看明細時才下載對應的
-`YYYY-MM.json`，不再發布原本超過 35 MB 的單一 `rates.json`。
+`index.html` 首屏只下載 summary 與 heatmap，完整 details 採按需載入。`history.html`
+首次只下載 `history_summary.json` 與輕量索引，選定月份和單一飯店後才下載對應明細；
+不再發布舊的 `latest.json`、單月巨型 JSON 或單一 `rates.json`。
 
 歷史分析頁同時提供「每週市場摘要」：以最近 7 個日曆日對比前 7 日，先計算各飯店
 的中位房價，再以飯店等權方式彙整市場中位數與平均數。摘要也會列出共同飯店的主要

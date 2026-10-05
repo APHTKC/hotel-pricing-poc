@@ -7,8 +7,10 @@ from scripts.build_static_data import (
     _daily_market_digest,
     _data_quality_warnings,
     _history_summary,
+    _heatmap_row,
     _latest_batch,
     _month_key,
+    _partition_id,
     _plausible_luxury_rate,
     _public_adapter_health,
     _weekly_digest,
@@ -77,7 +79,12 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     source = tmp_path / "rates.jsonl"
     rates_dir = tmp_path / "rates"
     summary = tmp_path / "history_summary.json"
-    latest = tmp_path / "latest.json"
+    rates_index = rates_dir / "index.json"
+    latest_summary = tmp_path / "latest_summary.json"
+    latest_heatmap = tmp_path / "latest_heatmap.json"
+    latest_details = tmp_path / "latest_details.json"
+    legacy_latest = tmp_path / "latest.json"
+    legacy_latest.write_text("legacy", encoding="utf-8")
     health_source = tmp_path / "adapter_health.json"
     health_target = tmp_path / "public_health.json"
     digest_target = tmp_path / "digest.json"
@@ -128,7 +135,11 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     monkeypatch.setattr(build_static_data, "SOURCE", source)
     monkeypatch.setattr(build_static_data, "RATES_DIR", rates_dir)
     monkeypatch.setattr(build_static_data, "HISTORY_SUMMARY_TARGET", summary)
-    monkeypatch.setattr(build_static_data, "LATEST_TARGET", latest)
+    monkeypatch.setattr(build_static_data, "RATES_INDEX_TARGET", rates_index)
+    monkeypatch.setattr(build_static_data, "LATEST_SUMMARY_TARGET", latest_summary)
+    monkeypatch.setattr(build_static_data, "LATEST_HEATMAP_TARGET", latest_heatmap)
+    monkeypatch.setattr(build_static_data, "LATEST_DETAILS_TARGET", latest_details)
+    monkeypatch.setattr(build_static_data, "LEGACY_LATEST_TARGET", legacy_latest)
     monkeypatch.setattr(build_static_data, "HEALTH_SOURCE", health_source)
     monkeypatch.setattr(build_static_data, "HEALTH_TARGET", health_target)
     monkeypatch.setattr(build_static_data, "DIGEST_TARGET", digest_target)
@@ -136,20 +147,49 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
 
     build_static_data.main()
 
-    payload = json.loads((rates_dir / "2026-09.json").read_text(encoding="utf-8"))
-    assert len(payload["rates"]) == 2
-    assert {row["total_twd"] for row in payload["rates"]} == {"10000", "20000"}
-    assert payload["market_summary"]["median_adr_twd"] == 15000
-    latest_payload = json.loads(latest.read_text(encoding="utf-8"))
-    assert latest_payload["market_summary"] == payload["market_summary"]
+    hotel_a = json.loads((rates_dir / "2026-09" / "hotel-a.json").read_text(encoding="utf-8"))
+    hotel_b = json.loads((rates_dir / "2026-09" / "hotel-b.json").read_text(encoding="utf-8"))
+    assert len(hotel_a["rates"]) == 1
+    assert len(hotel_b["rates"]) == 1
+    assert {hotel_a["rates"][0]["total_twd"], hotel_b["rates"][0]["total_twd"]} == {"10000", "20000"}
+    assert hotel_a["market_summary"]["median_adr_twd"] == 10000
+    index_payload = json.loads(rates_index.read_text(encoding="utf-8"))
+    assert index_payload["months"][0]["month"] == "2026-09"
+    assert {item["path"] for item in index_payload["months"][0]["hotels"]} == {
+        "rates/2026-09/hotel-a.json", "rates/2026-09/hotel-b.json"
+    }
+    details_payload = json.loads(latest_details.read_text(encoding="utf-8"))
+    summary_latest_payload = json.loads(latest_summary.read_text(encoding="utf-8"))
+    heatmap_payload = json.loads(latest_heatmap.read_text(encoding="utf-8"))
+    assert details_payload["market_summary"]["median_adr_twd"] == 15000
+    assert summary_latest_payload["market_summary"] == details_payload["market_summary"]
+    assert summary_latest_payload["record_count"] == 2
+    assert len(heatmap_payload["rates"]) == 2
+    assert "cancellation_policy" not in heatmap_payload["rates"][0]
     summary_payload = json.loads(summary.read_text(encoding="utf-8"))
     assert summary_payload["available_months"] == ["2026-09"]
     assert not legacy.exists()
+    assert not legacy_latest.exists()
     assert len(summary_payload["daily"]) == 2
     assert {row["hotel_id"] for row in summary_payload["hotels"]} == {
         "hotel-a", "hotel-b"
     }
     assert digest_target.exists()
+
+
+def test_static_partition_ids_fail_closed_and_heatmap_rows_are_lightweight():
+    assert _partition_id("hotel-safe_123") == "hotel-safe_123"
+    try:
+        _partition_id("../unsafe")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("unsafe hotel ids must not become output paths")
+
+    row = _heatmap_row({"hotel_id": "hotel-a", "total_twd": 10000, "source_url": "secret"})
+    assert row["hotel_id"] == "hotel-a"
+    assert row["total_twd"] == 10000
+    assert "source_url" not in row
 
 
 def test_month_key_uses_observation_month_and_rejects_missing_timestamp():

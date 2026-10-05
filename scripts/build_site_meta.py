@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
-LATEST_SOURCE = Path("public/data/latest.json")
+LATEST_SOURCE = Path("public/data/latest_summary.json")
 TARGET = Path("public/data/site_meta.json")
 
 
@@ -14,10 +14,8 @@ def _latest_data_timestamp(path: Path | None = None) -> str | None:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return None
-    timestamps = [
-        row.get("queried_at") for row in payload.get("rates", []) if row.get("queried_at")
-    ]
-    return max(timestamps) if timestamps else None
+    timestamp = payload.get("latest_queried_at")
+    return timestamp if isinstance(timestamp, str) and timestamp else None
 
 
 def build_site_meta(now: datetime | None = None) -> dict:

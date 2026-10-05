@@ -1,4 +1,5 @@
 import json
+import re
 import statistics
 from collections import defaultdict
 from datetime import datetime, timedelta
@@ -13,7 +14,11 @@ SOURCE = Path("data/rates.jsonl")
 HEALTH_SOURCE = Path("data/adapter_health.json")
 RATES_DIR = Path("public/data/rates")
 HISTORY_SUMMARY_TARGET = Path("public/data/history_summary.json")
-LATEST_TARGET = Path("public/data/latest.json")
+RATES_INDEX_TARGET = RATES_DIR / "index.json"
+LATEST_SUMMARY_TARGET = Path("public/data/latest_summary.json")
+LATEST_HEATMAP_TARGET = Path("public/data/latest_heatmap.json")
+LATEST_DETAILS_TARGET = Path("public/data/latest_details.json")
+LEGACY_LATEST_TARGET = Path("public/data/latest.json")
 HEALTH_TARGET = Path("public/data/adapter_health.json")
 DIGEST_TARGET = Path("public/data/digest.json")
 HOTEL_NAMES_SOURCE = Path("public/data/hotel_names_zh.json")
@@ -27,6 +32,13 @@ DASHBOARD_FIELDS = (
     "price_per_sqm", "queried_at", "currency", "source_platform",
     "source_method", "source_property_id", "source_url",
     "size_band", "occupancy", "cancellation_class", "comparison_key", "comparison_status",
+)
+
+HEATMAP_FIELDS = (
+    "hotel_id", "hotel_name", "city", "district", "room_type_code",
+    "room_type_name", "room_size_sqm", "check_in", "lead_days",
+    "rate_plan_name", "total_price", "total_twd", "price_per_sqm",
+    "queried_at", "source_platform", "comparison_key",
 )
 
 
@@ -72,6 +84,17 @@ def _month_key(row: dict) -> str | None:
         return _parse_timestamp(value).date().strftime("%Y-%m")
     except (TypeError, ValueError):
         return None
+
+
+def _partition_id(value: str) -> str:
+    """Return a URL-safe catalog id and fail closed for unexpected input."""
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", value or ""):
+        raise ValueError(f"Unsafe hotel id for static partition: {value!r}")
+    return value
+
+
+def _heatmap_row(row: dict) -> dict:
+    return {field: row.get(field) for field in HEATMAP_FIELDS}
 
 
 def _number(value) -> float | None:
@@ -492,28 +515,65 @@ def main() -> None:
     rows = [_dashboard_row(row) for row in source_rows]
     rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
     RATES_DIR.mkdir(parents=True, exist_ok=True)
-    partitions: dict[str, list[dict]] = defaultdict(list)
-    source_partitions: dict[str, list[dict]] = defaultdict(list)
+    partitions: dict[str, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
+    source_partitions: dict[str, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
     for source_row in source_rows:
         month = _month_key(source_row)
-        if month:
-            source_partitions[month].append(source_row)
-            partitions[month].append(_dashboard_row(source_row))
-    for stale in RATES_DIR.glob("????-??.json"):
-        if stale.stem not in partitions:
-            stale.unlink()
-    for month, month_rows in partitions.items():
-        month_rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
-        (RATES_DIR / f"{month}.json").write_text(
-            json.dumps({
-                "month": month,
-                "generated_from": "data/rates.jsonl",
-                "market_summary": calculate_market_summary(source_partitions[month]),
-                "rate_parity": calculate_rate_parity(source_partitions[month]),
-                "rates": month_rows,
-            }, ensure_ascii=False),
-            encoding="utf-8",
-        )
+        hotel_id = source_row.get("hotel_id")
+        if month and hotel_id:
+            safe_hotel_id = _partition_id(str(hotel_id))
+            source_partitions[month][safe_hotel_id].append(source_row)
+            partitions[month][safe_hotel_id].append(_dashboard_row(source_row))
+
+    # The old month-wide JSON files were tens of megabytes. Publish only
+    # month/hotel partitions and a small manifest used for lazy loading.
+    for legacy_month_file in RATES_DIR.glob("????-??.json"):
+        legacy_month_file.unlink()
+    expected_months = set(partitions)
+    for stale_month_dir in RATES_DIR.iterdir():
+        if stale_month_dir.is_dir() and re.fullmatch(r"\d{4}-\d{2}", stale_month_dir.name):
+            if stale_month_dir.name not in expected_months:
+                for stale_file in stale_month_dir.glob("*.json"):
+                    stale_file.unlink()
+                stale_month_dir.rmdir()
+
+    rate_index = {"generated_from": "data/rates.jsonl", "months": []}
+    partition_count = 0
+    for month in sorted(partitions, reverse=True):
+        month_dir = RATES_DIR / month
+        month_dir.mkdir(parents=True, exist_ok=True)
+        expected_files = {f"{hotel_id}.json" for hotel_id in partitions[month]}
+        for stale_file in month_dir.glob("*.json"):
+            if stale_file.name not in expected_files:
+                stale_file.unlink()
+        hotels = []
+        for hotel_id in sorted(partitions[month]):
+            month_rows = partitions[month][hotel_id]
+            month_rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
+            month_source_rows = source_partitions[month][hotel_id]
+            hotel_name = next((row.get("hotel_name") for row in month_rows if row.get("hotel_name")), hotel_id)
+            relative_path = f"rates/{month}/{hotel_id}.json"
+            (month_dir / f"{hotel_id}.json").write_text(
+                json.dumps({
+                    "month": month,
+                    "hotel_id": hotel_id,
+                    "hotel_name": hotel_name,
+                    "generated_from": "data/rates.jsonl",
+                    "market_summary": calculate_market_summary(month_source_rows),
+                    "rate_parity": calculate_rate_parity(month_source_rows),
+                    "rates": month_rows,
+                }, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            hotels.append({
+                "hotel_id": hotel_id,
+                "hotel_name": hotel_name,
+                "observations": len(month_rows),
+                "path": relative_path,
+            })
+            partition_count += 1
+        rate_index["months"].append({"month": month, "hotels": hotels})
+    RATES_INDEX_TARGET.write_text(json.dumps(rate_index, ensure_ascii=False), encoding="utf-8")
     HISTORY_SUMMARY_TARGET.parent.mkdir(parents=True, exist_ok=True)
     HISTORY_SUMMARY_TARGET.write_text(
         json.dumps(_history_summary(source_rows), ensure_ascii=False), encoding="utf-8"
@@ -545,21 +605,57 @@ def main() -> None:
     latest_source_rows = [
         row for row in source_rows if row.get("queried_at") in latest_timestamps
     ]
-    LATEST_TARGET.write_text(
+    latest_summary = calculate_market_summary(latest_source_rows)
+    latest_parity = calculate_rate_parity(latest_source_rows)
+    latest_queried_at = max((row.get("queried_at") or "" for row in latest_rows), default=None)
+    LATEST_SUMMARY_TARGET.write_text(
         json.dumps(
             {
                 "generated_from": "data/rates.jsonl",
-                "market_summary": calculate_market_summary(latest_source_rows),
-                "rate_parity": calculate_rate_parity(latest_source_rows),
+                "latest_queried_at": latest_queried_at,
+                "record_count": len(latest_rows),
+                "hotel_count": len({row.get("hotel_id") for row in latest_rows if row.get("hotel_id")}),
+                "room_type_count": len({
+                    (row.get("hotel_id"), row.get("room_type_code"))
+                    for row in latest_rows if row.get("hotel_id") and row.get("room_type_code")
+                }),
+                "market_summary": latest_summary,
+                "rate_parity": latest_parity,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    LATEST_HEATMAP_TARGET.write_text(
+        json.dumps(
+            {
+                "generated_from": "data/rates.jsonl",
+                "latest_queried_at": latest_queried_at,
+                "rates": [_heatmap_row(row) for row in latest_rows],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    LATEST_DETAILS_TARGET.write_text(
+        json.dumps(
+            {
+                "generated_from": "data/rates.jsonl",
+                "latest_queried_at": latest_queried_at,
+                "market_summary": latest_summary,
+                "rate_parity": latest_parity,
                 "rates": latest_rows,
             },
             ensure_ascii=False,
         ),
         encoding="utf-8",
     )
+    if LEGACY_LATEST_TARGET.exists():
+        LEGACY_LATEST_TARGET.unlink()
     print(
-        f"Published {len(rows)} historical observations across {len(partitions)} monthly files, "
-        f"a summary to {HISTORY_SUMMARY_TARGET}, and {len(latest_rows)} latest observations"
+        f"Published {len(rows)} historical observations across {partition_count} month/hotel files, "
+        f"a summary to {HISTORY_SUMMARY_TARGET}, and {len(latest_rows)} latest observations "
+        "split into summary, heatmap, and details payloads"
     )
 
 

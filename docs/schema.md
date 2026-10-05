@@ -68,21 +68,31 @@ hotel_id
 ## 靜態發布資料
 
 ```text
-public/data/latest.json
-  market_summary + rate_parity + rates（最新批次）
+public/data/latest_summary.json
+  latest_queried_at + record_count + hotel_count + room_type_count + market_summary + rate_parity
+
+public/data/latest_heatmap.json
+  latest_queried_at + rates（首頁趨勢與熱力圖所需欄位）
+
+public/data/latest_details.json
+  latest_queried_at + market_summary + rate_parity + rates（最新批次完整明細）
 
 public/data/history_summary.json
   available_months + market_summary + daily + hotels + lead_curve + weekly_digest
 
-public/data/rates/YYYY-MM.json
-  month + market_summary + rate_parity + rates（單月明細）
+public/data/rates/index.json
+  months[] + hotels[] + observations + path
+
+public/data/rates/YYYY-MM/HOTEL_ID.json
+  month + hotel_id + hotel_name + market_summary + rate_parity + rates（單月單飯店明細）
 
 public/data/hotel_locations.json
   schema_version + updated_at + source_note + locations（67 家飯店快取座標）
 ```
 
-歷史頁首頁只讀取 `history_summary.json`；特定月份明細採按需載入。舊的單一
-`public/data/rates.json` 不再發布。
+歷史頁首頁只讀取 `history_summary.json` 與 `rates/index.json`；特定月份、特定飯店的
+明細才按需載入。舊的 `public/data/latest.json`、單月巨型 JSON 與單一
+`public/data/rates.json` 均不再發布。
 
 `hotel_locations.json` 的每筆 `locations` 包含 `hotel_id`、繁中／英文名、`city`、
 台北飯店的 `district`、`latitude`、`longitude`、官方訂房連結、`daily_tracked`、

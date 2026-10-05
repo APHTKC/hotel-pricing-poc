@@ -5,11 +5,10 @@ import scripts.build_site_meta as build_site_meta
 
 
 def test_site_meta_uses_taipei_release_date_and_short_commit(monkeypatch, tmp_path):
-    latest = tmp_path / "latest.json"
-    latest.write_text(json.dumps({"rates": [
-        {"queried_at": "2026-09-30T22:28:44Z"},
-        {"queried_at": "2026-10-01T01:00:00Z"},
-    ]}), encoding="utf-8")
+    latest = tmp_path / "latest_summary.json"
+    latest.write_text(json.dumps({
+        "latest_queried_at": "2026-10-01T01:00:00Z",
+    }), encoding="utf-8")
     monkeypatch.setattr(build_site_meta, "LATEST_SOURCE", latest)
     monkeypatch.setenv("GITHUB_SHA", "1234567890abcdef")
     monkeypatch.setenv("GITHUB_RUN_ID", "987")

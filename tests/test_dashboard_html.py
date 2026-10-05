@@ -103,10 +103,11 @@ def test_city_and_district_limit_the_hotel_selector_options():
     history = Path("public/history.html").read_text(encoding="utf-8")
 
     assert "const optionRows=rows.filter(r=>(!cv||r.city===cv)&&(!d.value||r.district===d.value))" in home
-    assert "const optionRows=allRows.filter(r=>(!cv||r.city===cv)&&(!district.value||r.district===district.value))" in history
+    assert "const optionRows=optionBase.filter(r=>(!cv||r.city===cv)&&(!district.value||r.district===district.value))" in history
     for html in (home, history):
         assert "hotels.some(([id])=>id===hv)?hv:''" in html
-        assert "document.querySelector('#district').addEventListener('change',()=>{setOptions(" in html
+    assert "document.querySelector('#district').addEventListener('change',()=>{setOptions(" in home
+    assert "document.querySelector('#district').addEventListener('change',()=>{if(detailMode)resetHistoryDetails();else{setOptions();render()}})" in history
 
 
 def test_city_and_taipei_district_options_use_geographic_order_and_counts():
@@ -254,9 +255,14 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert 'id="detail"' in html
     assert "hotel_profiles.json" in html
     assert "hotel_names_zh.json" in html
+    assert "function stayTimeItems(profile)" in html
+    assert "staySection.id='stayTimes'" in html
+    assert "T[lang].stayTimes" in html
     assert len(names["names"]) >= 65
 
     by_id = {profile["hotel_id"]: profile for profile in profiles["profiles"]}
+    assert by_id["regent_taipei"]["stay_times"]["check_in"] == "15:00"
+    assert by_id["regent_taipei"]["stay_times"]["check_out"] == "11:00"
     assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei"}
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     capella_rooms = by_id["capella_taipei"]["room_snapshot"]["rooms"]
@@ -927,10 +933,33 @@ def test_history_loads_summary_first_and_month_details_on_demand():
     html = Path("public/history.html").read_text(encoding="utf-8")
 
     assert "./data/history_summary.json" in html
-    assert "./data/rates/${month}.json" in html
+    assert "./data/rates/index.json" in html
+    assert "indexedHistoryFile(month,hotelId)" in html
+    assert "loadJson(`./data/${path}`)" in html
+    assert "./data/rates/${month}.json" not in html
     assert "./data/rates.json" not in html
     assert 'id="historyMonth"' in html
     assert 'id="loadMonth"' in html
+
+
+def test_home_loads_lightweight_payloads_before_details():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert "./data/latest_summary.json" in html
+    assert "./data/latest_heatmap.json" in html
+    assert "loadJson('./data/latest_details.json')" in html
+    assert "./data/latest.json" not in html
+    assert 'id="loadLatestDetails"' in html
+    assert "IntersectionObserver" in html
+
+
+def test_hotel_detail_has_return_to_list_control():
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+
+    assert 'id="hotelComparison"' in html
+    assert 'id="backToHotelList"' in html
+    assert "backToList:'返回飯店一覽'" in html
+    assert "scrollIntoView({behavior:'smooth',block:'start'})" in html
 
 
 def test_all_primary_pages_link_to_hotel_profile_comparison():

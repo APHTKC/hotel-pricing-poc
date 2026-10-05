@@ -1,0 +1,26 @@
+/* Browser print/PDF view: a compact A4 landscape morning briefing. */
+@page { size: A4 landscape; margin: 9mm; }
+.a4-pdf-button{border:1px solid #111;background:#005689;color:#fff;font:700 13px/1.2 Inter,"Noto Sans TC","Noto Sans JP",sans-serif;padding:10px 14px;cursor:pointer}
+.a4-pdf-button:hover,.a4-pdf-button:focus-visible{background:#003f65}
+#a4BriefingPrint{display:none}
+@media print{
+  html,body{width:100%;min-width:0!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important;color:#111!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body>*:not(#a4BriefingPrint){display:none!important}
+  #a4BriefingPrint{display:block!important;width:100%;color:#111;background:#fff;font-family:Inter,"Noto Sans TC","Noto Sans JP",Arial,sans-serif}
+  #a4BriefingPrint .print-report-header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;border-top:3px double #111;border-bottom:2px solid #111;padding:7px 0 6px;margin-bottom:7px}
+  #a4BriefingPrint .print-report-header h1{margin:0;color:#111;font:700 22pt/1 Georgia,"Times New Roman",serif}
+  #a4BriefingPrint .print-report-date{color:#333;font-size:8.5pt;white-space:nowrap}
+  #a4BriefingPrint .print-report-kpis,#a4BriefingPrint .metrics{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:0!important;margin:0 0 7px!important;border:1px solid #111!important;background:#fff!important;box-shadow:none!important}
+  #a4BriefingPrint .print-report-kpis>*,#a4BriefingPrint .metrics>*{min-height:0!important;padding:6px 9px!important;border:0!important;border-right:1px solid #999!important;background:#fff!important;color:#111!important;box-shadow:none!important}
+  #a4BriefingPrint .print-report-kpis>*:last-child,#a4BriefingPrint .metrics>*:last-child{border-right:0!important}
+  #a4BriefingPrint .print-report-section{break-inside:avoid;page-break-inside:avoid;margin:0 0 7px!important;padding:6px 8px!important;border:1px solid #777!important;border-radius:0!important;background:#fff!important;color:#111!important;box-shadow:none!important}
+  #a4BriefingPrint h2,#a4BriefingPrint h3{margin:0 0 4px!important;color:#111!important;font-family:Georgia,"Times New Roman",serif!important;font-size:12pt!important}
+  #a4BriefingPrint svg{width:100%!important;max-height:64mm!important;overflow:visible!important}
+  #a4BriefingPrint svg text{fill:#111!important}
+  #a4BriefingPrint .price-heatmap-scroll,#a4BriefingPrint [class*="heatmap"]{max-height:61mm!important;overflow:hidden!important}
+  #a4BriefingPrint table{width:100%!important;border-collapse:collapse!important;font-size:7pt!important}
+  #a4BriefingPrint th,#a4BriefingPrint td{padding:2px 4px!important;border:1px solid #999!important;color:#111!important}
+  #a4BriefingPrint button,#a4BriefingPrint select,#a4BriefingPrint input,#a4BriefingPrint .section-nav,#a4BriefingPrint .filters,#a4BriefingPrint footer,#a4BriefingPrint .no-print{display:none!important}
+  #a4BriefingPrint a{color:#111!important;text-decoration:none!important}
+  #a4BriefingPrint a[href]::after{content:none!important}
+}

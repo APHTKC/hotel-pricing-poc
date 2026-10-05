@@ -5,3 +5,12 @@ __pycache__/
 .pytest_cache/
 service-account*.json
 data/diagnostics/
+
+# Local test runs, browser captures, and one-off scraper probes.
+# These are reproducible diagnostics and must not be published with the site.
+.test-*/
+.tmp/
+artifacts/
+debug.log
+data/*-local-probe.jsonl
+data/*-live-probe.jsonl

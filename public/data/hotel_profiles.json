@@ -4,6 +4,12 @@
     {
       "hotel_id": "capella_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://capellahotels.com/en/capella-taipei/accommodation"
+      },
       "room_inventory": 86,
       "restaurants": [
         {"name": "Mizue", "type_zh": "日式無菜單料理", "type_en": "Japanese omakase", "type_ja": "日本料理・おまかせ"},
@@ -44,6 +50,12 @@
     {
       "hotel_id": "mo_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.mandarinoriental.com/en/taipei/songshan/stay"
+      },
       "room_inventory": 303,
       "restaurants": [
         {"name": "Ya Ge", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"},
@@ -88,6 +100,12 @@
     {
       "hotel_id": "grand_hilai_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://taipei.grand-hilai.com.tw/en/"
+      },
       "room_inventory": 425,
       "service_charge_percent": 10,
       "service_charge_source_type": "official",
@@ -132,6 +150,12 @@
     {
       "hotel_id": "okura_prestige_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.okurataipei.com.tw/en/"
+      },
       "room_inventory": 207,
       "service_charge_note_zh": "官網僅公告房價另收稅與服務費合計 15%，未分別列出服務費比例。",
       "service_charge_note_en": "The official site states a combined 15% tax and service charge, without separating the service-charge percentage.",
@@ -172,6 +196,12 @@
     {
       "hotel_id": "shangrila_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.shangri-la.com/taipei/fareasternplazashangrila/"
+      },
       "room_inventory": 420,
       "restaurants": [
         {"name": "Café at Far Eastern", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
@@ -317,6 +347,12 @@
     {
       "hotel_id": "w_taipei",
       "verified_at": "2026-10-02",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/overview/"
+      },
       "room_inventory": 405,
       "restaurants": [
         {"name": "Seasons by olivier e.", "type_zh": "現代法式料理", "type_en": "Modern French", "type_ja": "モダンフレンチ"},
@@ -355,6 +391,13 @@
       "hotel_id": "regent_taipei",
       "verified_at": "2026-10-02",
       "room_inventory": 538,
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "observed_at": "2026-10-02",
+        "source_type": "official",
+        "source_url": "https://member.silkshotelgroup.com/en/RT/Package/Details/IDOTHADY_"
+      },
       "service_charge_note_zh": "飯店官方住宿券條款僅公告每房每晚加價另收服務費及政府稅合計 15.5%，未單獨列出服務費比例。",
       "service_charge_note_en": "The hotel's official accommodation-voucher terms state a combined 15.5% service charge and government tax on nightly supplements, without separating the service-charge percentage.",
       "service_charge_note_ja": "ホテル公式宿泊券規約は1室1泊の追加料金にサービス料と政府税の合計15.5%を加算するとしていますが、サービス料率は個別に示していません。",
@@ -394,12 +437,19 @@
         "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/rooms-and-suites",
         "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/dining",
         "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail/spa-wellness",
+        "https://member.silkshotelgroup.com/en/RT/Package/Details/IDOTHADY_",
         "https://docs.regenttaiwan.com/pdf/TravelFair/2025_SummerAndFoodFestival.pdf?externalbrowser=1"
       ]
     },
     {
       "hotel_id": "hotel_metropolitan_premier_taipei",
       "verified_at": "2026-09-23",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://taipei.metropolitan.tw/stay/rooms/"
+      },
       "room_inventory": 288,
       "restaurants": [
         {"name": "BRILLIANT", "type_zh": "全日餐廳", "type_en": "All-day dining", "type_ja": "オールデイダイニング"},
@@ -450,6 +500,12 @@
     {
       "hotel_id": "eslite_hotel",
       "verified_at": "2026-09-23",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.eslitehotel.com/"
+      },
       "room_inventory": 104,
       "restaurants": [
         {"name": "The Lounge", "type_zh": "大廳書坊、咖啡與茶飲", "type_en": "Lobby lounge, coffee and tea", "type_ja": "ロビーラウンジ・コーヒー・お茶"},
@@ -521,6 +577,12 @@
     {
       "hotel_id": "taipei_marriott",
       "verified_at": "2026-09-24",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/overview/"
+      },
       "room_inventory": 318,
       "restaurants": [
         {"name": "The Dining Place", "type_zh": "粵菜與川菜", "type_en": "Cantonese and Sichuan", "type_ja": "広東料理・四川料理"},
@@ -558,6 +620,12 @@
     {
       "hotel_id": "palais_de_chine",
       "verified_at": "2026-09-24",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.palaisdechinehotel.com/"
+      },
       "room_inventory": 286,
       "restaurants": [
         {"name": "Le Thé", "type_zh": "國際料理、茶飲與輕食", "type_en": "International dining, tea and light meals", "type_ja": "各国料理・お茶・軽食"},
@@ -593,6 +661,12 @@
     {
       "hotel_id": "le_meridien_taipei",
       "verified_at": "2026-09-30",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/overview/"
+      },
       "room_inventory": 160,
       "service_charge_percent": 10,
       "restaurants": [
@@ -984,6 +1058,12 @@
     {
       "hotel_id": "radium_kagaya_taipei",
       "verified_at": "2026-09-30",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.kagaya.com.tw/rooms/"
+      },
       "room_inventory": 90,
       "service_charge_percent": 10,
       "restaurants": [
@@ -1025,6 +1105,12 @@
     {
       "hotel_id": "grand_view_resort_beitou",
       "verified_at": "2026-09-30",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.gvrb.com.tw/service/613/"
+      },
       "room_inventory": 66,
       "service_charge_percent": 10,
       "restaurants": [
@@ -1063,6 +1149,12 @@
     {
       "hotel_id": "renaissance_taipei_shihlin",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "16:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpern-renaissance-taipei-shihlin-hotel/overview/"
+      },
       "room_inventory": 104,
       "restaurants": [
         {"name": "士林廚房 Shihlin Kitchen", "type_zh": "多國料理與全日餐廳", "type_en": "International cuisine and all-day dining", "type_ja": "各国料理・オールデイダイニング"},
@@ -1098,6 +1190,12 @@
     {
       "hotel_id": "hotel_proverbs_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://hotel-proverbs.com/"
+      },
       "room_inventory": 42,
       "service_charge_percent": 10,
       "restaurants": [
@@ -1131,6 +1229,12 @@
     {
       "hotel_id": "kimpton_da_an",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail"
+      },
       "room_inventory": 129,
       "restaurants": [
         {"name": "The Tavernist", "type_zh": "創意現代料理與國際料理", "type_en": "Creative modern and international cuisine", "type_ja": "創作モダン・各国料理"}
@@ -1157,6 +1261,12 @@
     {
       "hotel_id": "humble_house_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.hilton.com/en/hotels/tpehhqq-humble-house-taipei/"
+      },
       "room_inventory": 235,
       "service_charge_percent": 10,
       "restaurants": [
@@ -1197,6 +1307,12 @@
     {
       "hotel_id": "indigo_taipei_north",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail"
+      },
       "room_inventory": 149,
       "restaurants": [
         {"name": "Spice Market @T.R", "type_zh": "餐廳", "type_en": "Restaurant", "type_ja": "レストラン"},
@@ -1227,6 +1343,12 @@
     {
       "hotel_id": "sheraton_grand_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpesi-sheraton-grand-taipei-hotel/overview/"
+      },
       "room_inventory": 683,
       "service_charge_percent": 10,
       "restaurants": [
@@ -1276,6 +1398,12 @@
     {
       "hotel_id": "courtyard_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/overview/"
+      },
       "room_inventory": 465,
       "restaurants": [
         {"name": "Sunrise All Day Dining", "type_zh": "國際自助餐與全日餐廳", "type_en": "International buffet and all-day dining", "type_ja": "各国料理ビュッフェ・オールデイダイニング"},
@@ -1315,6 +1443,12 @@
     {
       "hotel_id": "hotel_resonance_taipei",
       "verified_at": "2026-10-01",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.hilton.com/en/hotels/tsaupup-hotel-resonance-taipei/"
+      },
       "room_inventory": 175,
       "service_charge_percent": 10,
       "service_charge_source_type": "observed",
