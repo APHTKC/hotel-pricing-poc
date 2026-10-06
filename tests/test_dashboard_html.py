@@ -648,6 +648,23 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "sauna": None,
         "steam_room": None,
     }
+    mu_jiaoxi = by_id["mu_jiaoxi_reserve"]
+    assert mu_jiaoxi["room_inventory"] == 190
+    assert mu_jiaoxi["service_charge_percent"] == 10
+    assert mu_jiaoxi["restaurant_count"] == 4
+    assert mu_jiaoxi["room_snapshot"]["source_type"] == "official"
+    assert len(mu_jiaoxi["room_snapshot"]["rooms"]) == 7
+    assert min(room["size_sqm"] for room in mu_jiaoxi["room_snapshot"]["rooms"]) == 39.7
+    assert max(room["size_sqm"] for room in mu_jiaoxi["room_snapshot"]["rooms"]) == 297.5
+    assert mu_jiaoxi["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": None,
+        "steam_room": None,
+    }
+    assert mu_jiaoxi["lounge"]["available"] is True
+    assert "MU TOP" in mu_jiaoxi["lounge"]["name"]
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -1706,6 +1723,8 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["the_lalu_sun_moon_lake"]["brand"] == "The Lalu"
     assert affiliations["hotel_royal_chihpen"]["brand"] == "Hotel Royal"
     assert affiliations["hotel_royal_chihpen"]["network"] == "Hotel Royal Group"
+    assert affiliations["mu_jiaoxi_reserve"]["loyalty_program"] == "MU CLUB 寒沐會館"
+    assert affiliations["mu_jiaoxi_reserve"]["network"] == "My Humble House Hospitality Group"
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"

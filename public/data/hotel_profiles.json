@@ -2992,6 +2992,49 @@
         "https://www.hotelroyal.com.tw/en-us/chihpen/facility/1060",
         "https://www.klook.com/zh-TW/hotels/detail/416286-hotel-royal-chihpen/"
       ]
+    },
+    {
+      "hotel_id": "mu_jiaoxi_reserve",
+      "verified_at": "2026-10-06",
+      "room_inventory": 190,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "restaurants": [
+        {"name": "MU TABLE 自助餐廳", "type_zh": "自助餐與宜蘭在地料理", "type_en": "Buffet and Yilan local cuisine", "type_ja": "ビュッフェ・宜蘭郷土料理"},
+        {"name": "寒沐中餐廳", "type_zh": "中華料理", "type_en": "Chinese cuisine", "type_ja": "中華料理"},
+        {"name": "MU BAR", "type_zh": "大廳酒吧、飲品與輕食", "type_en": "Lobby bar, drinks and light fare", "type_ja": "ロビーバー・ドリンク・軽食"},
+        {"name": "MUMU 沐選外賣店", "type_zh": "外帶餐點與伴手禮", "type_en": "Takeaway dining and gifts", "type_ja": "テイクアウト・ギフト"}
+      ],
+      "restaurant_count": 4,
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "MU TOP 尊榮貴賓廳", "kind": "room_category_lounge"},
+      "facility_notes": {
+        "zh": "寒舍集團與礁溪寒沐官方資料可核實酒店棟及行館棟合計 190 間客房、七類目前可訂的主要房型、四個餐飲／外賣據點、戶外溫泉泳池、健身中心、溫泉池與光之湯。望岳閣住客可使用 MU TOP 尊榮貴賓廳。官方房型頁明列牌價另加 10% 服務費及總價 5% 稅金；SPA 療程、三溫暖與蒸氣室未取得明確官方證據，維持待核實。官方訂房目前可公開顯示房型與價格，但既有一次背景自動化未穩定取得資料，因此暫不升級為每日追蹤。",
+        "en": "Official My Humble House and MU JIAO XI sources verify 190 rooms across the Hotel and Reserve wings, seven primary currently bookable room categories, four dining/takeaway venues, an outdoor hot-spring pool, fitness center, hot-spring baths, and Hikari-no-Yu. HILL room guests may access the MU TOP lounge. Official room pages state that list prices are subject to a 10% service charge and 5% tax. Spa treatments, sauna, and steam room remain pending because no explicit official evidence was found. The public booking site displays room types and prices, but the prior one-time background automation did not collect them reliably, so daily tracking is not enabled yet.",
+        "ja": "寒舍グループと礁溪寒沐の公式資料で、ホテル棟・レジデンス棟合計190室、現在予約可能な主要客室7カテゴリー、飲食・テイクアウト施設4か所、屋外温泉プール、フィットネス、温泉浴場、光之湯を確認済みです。HILL客室の宿泊者はMU TOPラウンジを利用できます。公式客室ページには公示料金へ10%のサービス料と総額5%の税金が加算されると明記されています。SPAトリートメント、サウナ、スチームルームは明確な公式根拠がなく確認待ちです。公式予約サイトでは客室と料金が公開されていますが、過去の一回限りのバックグラウンド取得では安定して収集できなかったため、日次追跡にはまだ追加していません。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://booking.muhotels.com/en/MU-JX/Booking",
+        "rooms": [
+          {"name_zh": "酒店棟－語木居雙人房", "name_en": "Hotel Building - WOOD Superior Room", "name_ja": "Hotel Building - WOOD Superior Room", "size_sqm": 39.7},
+          {"name_zh": "酒店棟－乘風居雙人房", "name_en": "Hotel Building - BREEZE Superior Patio Room", "name_ja": "Hotel Building - BREEZE Superior Patio Room", "size_sqm": 39.7},
+          {"name_zh": "酒店棟－迎曦閣雙人房", "name_en": "Hotel Building - TWILIGHT Deluxe Patio Room", "name_ja": "Hotel Building - TWILIGHT Deluxe Patio Room", "size_sqm": 49.6},
+          {"name_zh": "酒店棟－寒沐苑總統套房", "name_en": "Hotel Building - MU Presidential Suite", "name_ja": "Hotel Building - MU Presidential Suite", "size_sqm": 297.5},
+          {"name_zh": "行館棟－日式詠泉居", "name_en": "Reserve Building - SPRING Japanese Superior Reserve Patio Room", "name_ja": "Reserve Building - SPRING Japanese Superior Reserve Patio Room", "size_sqm": 39.7},
+          {"name_zh": "行館棟－望岳閣雙人房", "name_en": "Reserve Building - HILL Deluxe Reserve Patio Room", "name_ja": "Reserve Building - HILL Deluxe Reserve Patio Room", "size_sqm": 65},
+          {"name_zh": "行館棟－望岳閣四人房", "name_en": "Reserve Building - HILL Deluxe Reserve Patio Family Room", "name_ja": "Reserve Building - HILL Deluxe Reserve Patio Family Room", "size_sqm": 65}
+        ]
+      },
+      "source_urls": [
+        "https://www.muhotels.com/zh-tw/pages/15",
+        "https://www.muhotels.com/zh-tw/pages/16",
+        "https://booking.muhotels.com/en/MU-JX/Booking",
+        "https://www.muhotels.com/zh-tw/pages/878",
+        "https://www.muhotels.com/zh-tw/pages/18",
+        "https://booking.muhotels.com/zh-TW/MU-JX/"
+      ]
     }
   ]
 }
