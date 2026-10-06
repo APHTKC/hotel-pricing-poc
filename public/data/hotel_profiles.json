@@ -2896,6 +2896,102 @@
         "https://tainan.silksplace.com/en/amenities",
         "https://tainan.silksplace.com/en/rooms/junior-suite"
       ]
+    },
+    {
+      "hotel_id": "the_lalu_sun_moon_lake",
+      "verified_at": "2026-10-06",
+      "room_inventory": 96,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "restaurants": [
+        {"name": "東方餐廳 Oriental Brasserie", "type_zh": "西式與國際料理", "type_en": "Western and international cuisine", "type_ja": "洋食・多国籍料理"},
+        {"name": "湖光軒 Lakeview Chinese Restaurant", "type_zh": "粵式、上海與台灣料理", "type_en": "Cantonese, Shanghainese and Taiwanese cuisine", "type_ja": "広東・上海・台湾料理"},
+        {"name": "日本餐廳 Japanese Restaurant", "type_zh": "懷石與鐵板燒", "type_en": "Kaiseki and teppanyaki", "type_ja": "懐石・鉄板焼"},
+        {"name": "大廳酒吧 Lobby Lounge", "type_zh": "酒吧、下午茶與輕食", "type_en": "Bar, afternoon tea and light fare", "type_ja": "バー・アフタヌーンティー・軽食"},
+        {"name": "池畔茶館 Poolside Tea House", "type_zh": "茶飲、港式點心與輕食", "type_en": "Tea, dim sum and light fare", "type_ja": "茶・点心・軽食"}
+      ],
+      "restaurant_count": 5,
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": null},
+      "facility_notes": {
+        "zh": "官方網站與交通部觀光署旅宿資料可核實全館 96 間客房、五個具名餐飲場所、60 公尺戶外無邊際泳池、健身房、SPA 與三溫暖。官方 2026 住房專案列出湖景、湖畔、庭園套房及別墅類產品，公開房價明列另加 10% 服務費。房型面積因官方頁面未完整列示，本次採 2026-10-06 的 Agoda／Klook 公開快照補充並明示為 OTA 來源；蒸氣室與行政／貴賓廳維持待核實。官方訂房採目前尚未支援的 EC-hotel v4 流程，因此本資料不表示已有自動房價。",
+        "en": "The official website and Taiwan Tourism Administration lodging record verify 96 rooms, five named dining venues, a 60-meter outdoor infinity pool, fitness center, spa, and sauna. Official 2026 packages list lake-view, lakeside, courtyard suites, and villa products, with published prices subject to a 10% service charge. Because official pages do not consistently publish room area, this profile uses a dated Agoda/Klook public snapshot observed on 2026-10-06 for area data and labels it as OTA-sourced. Steam room and executive/VIP lounge remain pending verification. The official booking flow uses the currently unsupported EC-hotel v4 engine, so this profile does not imply automated rates are available.",
+        "ja": "公式サイトと台湾交通部観光署の旅宿資料で全96室、飲食施設5か所、60メートルの屋外インフィニティプール、フィットネス、SPA、サウナを確認済みです。2026年の公式宿泊プランにはレイクビュー、レイクサイド、コートヤードの各スイートとヴィラ商品が掲載され、公示料金には10%のサービス料が加算されます。公式ページでは客室面積が一貫して公開されていないため、面積は2026-10-06時点のAgoda／Klook公開スナップショットを補足利用し、OTA資料として明記しています。スチームルームとエグゼクティブ／VIPラウンジは確認待ちです。公式予約は現在未対応のEC-hotel v4を使用しているため、自動料金取得済みを意味しません。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "ota",
+        "source_url": "https://www.agoda.com/the-lalu-sun-moon-lake/hotel/nantou-tw.html",
+        "rooms": [
+          {"name_zh": "湖景套房（單房）", "name_en": "Lakeview Suite (One-Bedroom)", "name_ja": "Lakeview Suite (One-Bedroom)", "size_sqm": 83},
+          {"name_zh": "湖畔套房（單房）", "name_en": "Lakeside Suite (One-Bedroom)", "name_ja": "Lakeside Suite (One-Bedroom)", "size_sqm": 83},
+          {"name_zh": "庭園套房（單房）", "name_en": "Courtyard Suite (One-Bedroom)", "name_ja": "Courtyard Suite (One-Bedroom)", "size_sqm": 116},
+          {"name_zh": "湖景套房（雙房）", "name_en": "Lakeview Suite (Two-Bedrooms)", "name_ja": "Lakeview Suite (Two-Bedrooms)", "size_sqm": 122},
+          {"name_zh": "庭園套房（雙房）", "name_en": "Courtyard Suite (Two-Bedrooms)", "name_ja": "Courtyard Suite (Two-Bedrooms)", "size_sqm": 172},
+          {"name_zh": "庭園泳池別墅", "name_en": "Courtyard Pool Villa", "name_ja": "Courtyard Pool Villa", "size_sqm": 333}
+        ]
+      },
+      "source_urls": [
+        "https://www.thelalu.com.tw/zh-tw/Room/roomType",
+        "https://www.thelalu.com.tw/zh-tw/News/320",
+        "https://www.thelalu.com.tw/jp/Dining",
+        "https://www.thelalu.com.tw/zh-tw/About/%E7%B4%B0%E8%AA%AA%E6%B6%B5%E7%A2%A7%E6%A8%93",
+        "https://www.thelalu.com.tw/zh-tw/SPA",
+        "https://stest.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=16811",
+        "https://www.agoda.com/the-lalu-sun-moon-lake/hotel/nantou-tw.html",
+        "https://www.klook.com/zh-TW/hotels/detail/392852-the-lalu-sun-moon-lake/"
+      ]
+    },
+    {
+      "hotel_id": "hotel_royal_chihpen",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.hotelroyal.com.tw/zh-tw/chihpen/Rooms"
+      },
+      "room_inventory": 183,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "restaurants": [
+        {"name": "那魯灣餐廳 Naruwan Restaurant", "type_zh": "自助餐與台東在地料理", "type_en": "Buffet and Taitung local cuisine", "type_ja": "ビュッフェ・台東郷土料理"},
+        {"name": "船歌餐廳 DA DA LA Restaurant", "type_zh": "中式與原住民風味料理", "type_en": "Chinese and Indigenous-inspired cuisine", "type_ja": "中華・原住民風料理"},
+        {"name": "酋長鐵板燒 La Han Teppanyaki", "type_zh": "鐵板燒", "type_en": "Teppanyaki", "type_ja": "鉄板焼"},
+        {"name": "中庭咖啡吧 Lobby Lounge", "type_zh": "咖啡、酒飲與輕食", "type_en": "Coffee, drinks and light fare", "type_ja": "カフェ・ドリンク・軽食"}
+      ],
+      "restaurant_count": 4,
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": null},
+      "facility_notes": {
+        "zh": "知本老爺官方網站可核實 183 間客房、八類中文房型、四個餐飲場所、室內外溫泉風呂、游泳池、休閒／健身設施與寬 SPA；客房定價與 2026 住房專案明列另加 10% 服務費。英文官網目前只列七類房型，新增的溫馨家庭套房英文名稱採 2026-10-06 Klook 公開快照的 Standard Family Suite (No Balcony) 對照；其餘名稱與面積均使用官方中英文頁。三溫暖、蒸氣室與行政／貴賓廳未取得明確官方證據，維持待核實。官方訂房仍使用目前尚未支援的 EC-hotel v4 流程。",
+        "en": "The official Hotel Royal Chihpen website verifies 183 rooms, eight room types on the Chinese site, four dining venues, indoor and outdoor hot-spring baths, a swimming pool, leisure/fitness facilities, and Quan SPA. Published room rates and 2026 stay offers are subject to a 10% service charge. The English site currently lists seven room types; the added Cozy Family Suite is matched to the public Klook label Standard Family Suite (No Balcony), observed on 2026-10-06. All other names and areas come from the official Chinese and English pages. Sauna, steam room, and executive/VIP lounge remain pending verification. The official booking flow still uses the currently unsupported EC-hotel v4 engine.",
+        "ja": "知本老爺ホテルの公式サイトで客室183室、中国語ページの客室8タイプ、飲食施設4か所、屋内外温泉、プール、レジャー／フィットネス設備、Quan SPAを確認済みです。客室公示料金と2026年宿泊プランには10%のサービス料が加算されます。英語公式ページは現在7タイプのみのため、追加された温馨家庭套房の英語名は2026-10-06時点のKlook公開表記 Standard Family Suite (No Balcony) と照合しました。その他の名称と面積は公式中英ページによります。サウナ、スチームルーム、エグゼクティブ／VIPラウンジは確認待ちです。公式予約は現在未対応のEC-hotel v4を使用しています。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://www.hotelroyal.com.tw/zh-tw/chihpen/Rooms",
+        "rooms": [
+          {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 29},
+          {"name_zh": "溫馨客房", "name_en": "Deluxe with Sofa Bed Room", "name_ja": "Deluxe with Sofa Bed Room", "size_sqm": 33},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 29},
+          {"name_zh": "家庭客房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm": 33},
+          {"name_zh": "豪華家庭套房", "name_en": "Deluxe Family Suite", "name_ja": "Deluxe Family Suite", "size_sqm": 41},
+          {"name_zh": "溫馨家庭套房", "name_en": "Standard Family Suite (No Balcony)", "name_ja": "Standard Family Suite (No Balcony)", "size_sqm": 41},
+          {"name_zh": "精緻套房", "name_en": "Superior Suite", "name_ja": "Superior Suite", "size_sqm": 41},
+          {"name_zh": "豪華老爺套房", "name_en": "Deluxe Royal Suite", "name_ja": "Deluxe Royal Suite", "size_sqm": 85}
+        ]
+      },
+      "source_urls": [
+        "https://www.hotelroyal.com.tw/zh-tw/chihpen/about/Intro",
+        "https://www.hotelroyal.com.tw/zh-tw/chihpen/Rooms",
+        "https://www.hotelroyal.com.tw/en-us/chihpen/rooms",
+        "https://www.hotelroyal.com.tw/en-us/chihpen/dining",
+        "https://www.hotelroyal.com.tw/en-us/chihpen/facility/1057",
+        "https://www.hotelroyal.com.tw/en-us/chihpen/facility/1060",
+        "https://www.klook.com/zh-TW/hotels/detail/416286-hotel-royal-chihpen/"
+      ]
     }
   ]
 }

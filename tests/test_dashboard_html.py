@@ -609,6 +609,45 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert silks_tainan["lounge"]["available"] is True
     assert "Silks Lounge" in silks_tainan["lounge"]["name"]
+    lalu = by_id["the_lalu_sun_moon_lake"]
+    assert lalu["room_inventory"] == 96
+    assert lalu["service_charge_percent"] == 10
+    assert lalu["service_charge_source_type"] == "official"
+    assert lalu["restaurant_count"] == 5
+    assert lalu["room_snapshot"]["source_type"] == "ota"
+    assert lalu["room_snapshot"]["observed_at"] == "2026-10-06"
+    assert len(lalu["room_snapshot"]["rooms"]) == 6
+    assert min(room["size_sqm"] for room in lalu["room_snapshot"]["rooms"]) == 83
+    assert max(room["size_sqm"] for room in lalu["room_snapshot"]["rooms"]) == 333
+    assert lalu["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": True,
+        "steam_room": None,
+    }
+    assert lalu["lounge"]["available"] is None
+    chihpen = by_id["hotel_royal_chihpen"]
+    assert chihpen["room_inventory"] == 183
+    assert chihpen["service_charge_percent"] == 10
+    assert chihpen["restaurant_count"] == 4
+    assert chihpen["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.hotelroyal.com.tw/zh-tw/chihpen/Rooms",
+    }
+    assert chihpen["room_snapshot"]["source_type"] == "official"
+    assert len(chihpen["room_snapshot"]["rooms"]) == 8
+    assert min(room["size_sqm"] for room in chihpen["room_snapshot"]["rooms"]) == 29
+    assert max(room["size_sqm"] for room in chihpen["room_snapshot"]["rooms"]) == 85
+    assert chihpen["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": None,
+        "steam_room": None,
+    }
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -1663,6 +1702,10 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["crowne_plaza_tainan"]["network"] == "IHG Hotels & Resorts"
     assert affiliations["silks_place_tainan"]["loyalty_program"] == "點十成晶回饋計畫"
     assert affiliations["silks_place_tainan"]["network"] == "Silks Hotel Group"
+    assert affiliations["the_lalu_sun_moon_lake"]["loyalty_program"] == "涵碧樓會員專屬"
+    assert affiliations["the_lalu_sun_moon_lake"]["brand"] == "The Lalu"
+    assert affiliations["hotel_royal_chihpen"]["brand"] == "Hotel Royal"
+    assert affiliations["hotel_royal_chihpen"]["network"] == "Hotel Royal Group"
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"
