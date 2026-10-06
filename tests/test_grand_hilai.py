@@ -5,7 +5,12 @@ from decimal import Decimal
 import pytest
 
 from app.models import Hotel
-from scrapers.adapters.grand_hilai import BOOKING_URLS, GrandHiLaiScraper, ping_to_sqm
+from scrapers.adapters.grand_hilai import (
+    BOOKING_URLS,
+    GrandHiLaiScraper,
+    include_rate_plan,
+    ping_to_sqm,
+)
 
 
 def test_ping_to_sqm():
@@ -17,6 +22,13 @@ def test_ping_to_sqm():
 def test_grand_hilai_property_urls():
     assert BOOKING_URLS["grand_hilai_taipei"].endswith("/1003")
     assert BOOKING_URLS["grand_hilai_kaohsiung"].endswith("/1084")
+    assert BOOKING_URLS["grand_hotel_taipei"].endswith("/1071")
+
+
+def test_grand_hotel_uses_baseline_offer_not_event_packages():
+    assert include_rate_plan("grand_hotel_taipei", "【圓山假期】2026住房專案")
+    assert not include_rate_plan("grand_hotel_taipei", "【跨年晚宴】住房專案")
+    assert not include_rate_plan("grand_hotel_taipei", "【煙火房】跨年住房專案")
 
 
 def test_grand_hilai_rejects_unknown_hotel():

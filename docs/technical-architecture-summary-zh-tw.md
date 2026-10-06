@@ -24,8 +24,8 @@ FastAPI、Google Sheets、Cloud Run 與 Cloud Scheduler 仍保留在程式中，
 
 截至本次盤點：
 
-- 飯店 Catalog：67 家，其中 19 家啟用每日資料管線；其餘候選來源依健康狀態與可行性檢查結果暫緩。
-- 原始歷史資料：56,216 筆、18 家已有歷史房價；新增的第 19 家會由下一次每日工作開始累積。
+- 飯店 Catalog：67 家，其中 20 家啟用每日資料管線；其餘候選來源依健康狀態與可行性檢查結果暫緩。
+- 原始歷史資料：56,216 筆、18 家已有歷史房價；新增的第 19、20 家會由下一次每日工作開始累積。
 - 最新完整明細：2,735 筆，`public/data/latest_details.json` 約 3.56 MB，首頁採按需載入。
 - 飯店基本資料：67 家皆有已核實 profile 與獨立 `room_snapshot`；來源不足的欄位維持待核實。
 - 籌備中飯店：8 家，獨立存放於 `upcoming_hotels.json`，不參與 ADR 計算。
@@ -294,7 +294,7 @@ schedule 22:00 UTC
 → Python 3.12 + pip cache
 → 安裝 requirements + Chromium
 → 更新 Google Finance FX
-→ run_daily_once（19 家啟用飯店 × 六個 lead dates）
+→ run_daily_once（20 家啟用飯店 × 六個 lead dates）
 → run_ota_once（有憑證及 mapping 才執行）
 → build_static_data + build_hotel_catalog
 → commit/pull --rebase/push 資料

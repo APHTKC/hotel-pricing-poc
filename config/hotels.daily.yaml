@@ -144,3 +144,11 @@ hotels:
     country: TW
     booking_url: https://www.taipeigarden.com.tw/en/
     adapter: fastbooking
+  - id: grand_hotel_taipei
+    name: The Grand Hotel Taipei
+    short_name: Grand Hotel
+    city: Taipei
+    district: Zhongshan
+    country: TW
+    booking_url: https://tlathena.ec-hotel.net/webhotel-v5/1071
+    adapter: grand_hilai

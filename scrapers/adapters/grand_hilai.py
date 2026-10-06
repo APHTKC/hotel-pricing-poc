@@ -10,6 +10,7 @@ from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_
 BOOKING_URLS = {
     "grand_hilai_taipei": "https://tlathena.ec-hotel.net/webhotel-v5/1003",
     "grand_hilai_kaohsiung": "https://tlathena.ec-hotel.net/webhotel-v5/1084",
+    "grand_hotel_taipei": "https://tlathena.ec-hotel.net/webhotel-v5/1071",
 }
 PING_TO_SQM = Decimal("3.305785")
 
@@ -19,6 +20,16 @@ def ping_to_sqm(text: str) -> Decimal | None:
     if not match:
         return None
     return (Decimal(match.group(1)) * PING_TO_SQM).quantize(Decimal("0.1"))
+
+
+def include_rate_plan(hotel_id: str, plan_name: str) -> bool:
+    """Keep each property's repeatable baseline offer out of event-package noise."""
+
+    if hotel_id == "grand_hilai_taipei":
+        return plan_name.startswith("一般訂房")
+    if hotel_id == "grand_hotel_taipei":
+        return "【圓山假期】" in plan_name
+    return True
 
 
 async def select_calendar_date(page, value: date) -> None:
@@ -110,7 +121,7 @@ class GrandHiLaiScraper(CapellaScraper):
                 plan_name = " ".join(plan["name"].split())
                 if not plan["price"]:
                     continue
-                if hotel.id == "grand_hilai_taipei" and not plan_name.startswith("一般訂房"):
+                if not include_rate_plan(hotel.id, plan_name):
                     continue
                 total = parse_money(plan["price"])
                 key = ":".join(
