@@ -1287,8 +1287,10 @@ def test_hotel_comparison_shows_compact_opening_years_and_sticky_headers():
     assert 'class="hotel-opening-line"' in html
     assert ".hotel-opening-line{display:block;max-width:100%" in html
     assert "text-overflow:ellipsis;white-space:nowrap" in html
-    assert "#hotelComparison thead th{position:sticky;top:0" in html
-    assert "#hotelComparison thead th:first-child{left:0;z-index:5}" in html
+    assert "#hotelComparison{position:relative;isolation:isolate;overflow:visible}" in html
+    assert "#hotelComparison>table{border-collapse:separate;border-spacing:0}" in html
+    assert "#hotelComparison thead th{position:sticky;top:0;z-index:20" in html
+    assert "#hotelComparison thead th:first-child{left:0;z-index:21}" in html
     assert "status=upcoming?`<span class=\"status upcoming\">${T[lang].upcoming}</span>`" in html
 
 
