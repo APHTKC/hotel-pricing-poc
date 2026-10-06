@@ -2484,6 +2484,67 @@
       ]
     },
     {
+      "hotel_id": "fleur_de_chine",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://fleurdechinehotel.com/fdc-tw/rooms/33/34"
+      },
+      "room_inventory": 207,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "丹彤 Crimson", "type_zh": "自助餐與國際料理", "type_en": "Buffet and international cuisine", "type_ja": "ビュッフェ・多国籍料理"},
+        {"name": "彩雲軒 Rainbow Cloud", "type_zh": "鐵板燒", "type_en": "Teppanyaki", "type_ja": "鉄板焼"},
+        {"name": "KEN CAN by Ken Chan", "type_zh": "粵菜與中華料理", "type_en": "Cantonese and Chinese cuisine", "type_ja": "広東料理・中華料理"},
+        {"name": "雲月舫 Sky Lounge", "type_zh": "景觀餐廳與宵夜", "type_en": "Panoramic dining and late-night menu", "type_ja": "展望ダイニング・夜食"},
+        {"name": "大廳酒吧 Lobby Bar", "type_zh": "咖啡、下午茶與酒吧", "type_en": "Coffee, afternoon tea and bar", "type_ja": "カフェ・アフタヌーンティー・バー"},
+        {"name": "Ciao Club", "type_zh": "全日餐飲貴賓酒廊", "type_en": "All-day dining VIP lounge", "type_ja": "オールデイダイニングVIPラウンジ"}
+      ],
+      "restaurant_count": 6,
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "Ciao Club", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "官方資料可核實 207 間客房、18 種房型、六處餐飲空間、溫泉水世界與泳池、健身房、VALMONT SPA、三溫暖及 Ciao 貴賓酒廊；蒸氣室維持待核實。尊榮日式與洋式套房在官方房型總表標示 87㎡，個別頁面則標示 86㎡，故保留 86–87㎡範圍。住宿服務費 10% 取自 2026-10-06 前後持續取得的官方訂房頁公開價目拆項觀測，不以 0% 代替缺值。",
+        "en": "Official sources verify 207 rooms, 18 room types, six dining venues, Water World and pools, a gym, VALMONT SPA, sauna, and Ciao VIP Lounge; the steam room remains pending verification. The official room table lists the Premier Japanese and Western Suites at 87 sqm, while their detail pages list 86 sqm, so an 86–87 sqm range is retained. The 10% lodging service charge is an observed breakdown from official booking-page rates continuously collected around 2026-10-06 rather than an assumed default.",
+        "ja": "公式資料で客室207室、18室タイプ、飲食施設6か所、温泉ウォーターワールドとプール、ジム、VALMONT SPA、サウナ、Ciao VIPラウンジを確認済みです。スチームルームは確認待ちです。プレミア和洋スイートは公式一覧で87㎡、個別ページで86㎡と記載が異なるため、86～87㎡の範囲で保持しています。宿泊サービス料10%は、2026-10-06前後に継続取得した公式予約ページの公開料金内訳に基づく観測値であり、欠損値を0%として補ったものではありません。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://fleurdechinehotel.com/fdc-tw/rooms/33/34",
+        "rooms": [
+          {"name_zh": "經典山景一大床", "name_en": "Classic King – Mountain View", "name_ja": "Classic King – Mountain View", "size_sqm": 46},
+          {"name_zh": "經典山景家庭房－二中床", "name_en": "Classic Family – Mountain View", "name_ja": "Classic Family – Mountain View", "size_sqm": 42},
+          {"name_zh": "經典山景和式房", "name_en": "Classic Japanese Style – Mountain View", "name_ja": "Classic Japanese Style – Mountain View", "size_sqm": 42},
+          {"name_zh": "尊榮山景一大床", "name_en": "Premier King – Mountain View", "name_ja": "Premier King – Mountain View", "size_sqm": 46},
+          {"name_zh": "尊榮山景家庭房－二中床", "name_en": "Premier Family – Mountain View", "name_ja": "Premier Family – Mountain View", "size_sqm": 42},
+          {"name_zh": "尊榮山景和式房", "name_en": "Premier Japanese Style – Mountain View", "name_ja": "Premier Japanese Style – Mountain View", "size_sqm": 42},
+          {"name_zh": "經典湖景一大床", "name_en": "Classic King – Lake View", "name_ja": "Classic King – Lake View", "size_sqm": 46},
+          {"name_zh": "經典湖景家庭房－二中床", "name_en": "Classic Family – Lake View", "name_ja": "Classic Family – Lake View", "size_sqm": 42},
+          {"name_zh": "經典湖景和式房", "name_en": "Classic Japanese Style – Lake View", "name_ja": "Classic Japanese Style – Lake View", "size_sqm": 42},
+          {"name_zh": "尊榮湖景一大床", "name_en": "Premier King – Lake View", "name_ja": "Premier King – Lake View", "size_sqm": 46},
+          {"name_zh": "尊榮湖景家庭房－二中床", "name_en": "Premier Family – Lake View", "name_ja": "Premier Family – Lake View", "size_sqm": 42},
+          {"name_zh": "尊榮湖景和式房", "name_en": "Premier Japanese Style – Lake View", "name_ja": "Premier Japanese Style – Lake View", "size_sqm": 42},
+          {"name_zh": "豪華山湖景和式房", "name_en": "Deluxe Japanese Style – Duo View", "name_ja": "Deluxe Japanese Style – Duo View", "size_sqm": 42},
+          {"name_zh": "豪華湖景套房－一大床", "name_en": "Deluxe Suite – Lake View", "name_ja": "Deluxe Suite – Lake View", "size_sqm": 69},
+          {"name_zh": "尊榮日式套房", "name_en": "Premier Japanese Suite", "name_ja": "Premier Japanese Suite", "size_sqm_min": 86, "size_sqm_max": 87},
+          {"name_zh": "尊榮洋式套房", "name_en": "Premier Western Suite", "name_ja": "Premier Western Suite", "size_sqm_min": 86, "size_sqm_max": 87},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 241},
+          {"name_zh": "皇室套房", "name_en": "Royal Suite", "name_ja": "Royal Suite", "size_sqm": 331}
+        ]
+      },
+      "source_urls": [
+        "https://www.fleurdechinehotel.com/fdc_en/pages/23",
+        "https://fleurdechinehotel.com/fdc-tw/rooms/33/34",
+        "https://www.fleurdechinehotel.com/sc/fdc-en/pages/facilities-1f",
+        "https://www.fleurdechinehotel.com/p/fdc-en/pages/Water-world",
+        "https://www.fleurdechinehotel.com/p/fdc-en/pages/ciaoclub",
+        "https://www.fleurdechinehotel.com/fdc-en/pages/31/31/148"
+      ]
+    },
+    {
       "hotel_id": "caesar_park_banqiao",
       "verified_at": "2026-10-06",
       "stay_times": {

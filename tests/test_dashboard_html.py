@@ -486,6 +486,32 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert caesar_banqiao["lounge"]["available"] is True
     assert "Prestige Lounge" in caesar_banqiao["lounge"]["name"]
+    fleur = by_id["fleur_de_chine"]
+    assert fleur["room_inventory"] == 207
+    assert fleur["service_charge_percent"] == 10
+    assert fleur["restaurant_count"] == 6
+    assert fleur["stay_times"]["check_in"] == "15:00"
+    assert fleur["stay_times"]["check_out"] == "11:00"
+    assert fleur["room_snapshot"]["source_type"] == "official"
+    assert fleur["room_snapshot"]["observed_at"] == "2026-10-06"
+    assert len(fleur["room_snapshot"]["rooms"]) == 18
+    assert min(
+        room.get("size_sqm", room.get("size_sqm_min"))
+        for room in fleur["room_snapshot"]["rooms"]
+    ) == 42
+    assert max(
+        room.get("size_sqm", room.get("size_sqm_max"))
+        for room in fleur["room_snapshot"]["rooms"]
+    ) == 331
+    assert fleur["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": True,
+        "steam_room": None,
+    }
+    assert fleur["lounge"]["available"] is True
+    assert fleur["lounge"]["name"] == "Ciao Club"
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -1530,6 +1556,8 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["hilton_taipei_sinban"]["brand"] == "Hilton Hotels & Resorts"
     assert affiliations["caesar_park_banqiao"]["loyalty_program"] == "凱撒 VIP"
     assert affiliations["caesar_park_banqiao"]["brand"] == "Caesar Park Hotels & Resorts"
+    assert affiliations["fleur_de_chine"]["loyalty_program"] == "雲品假期常客回饋計畫"
+    assert affiliations["fleur_de_chine"]["network"] == "LDC Hotels & Resorts"
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"
