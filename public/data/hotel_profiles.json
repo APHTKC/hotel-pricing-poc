@@ -2484,6 +2484,57 @@
       ]
     },
     {
+      "hotel_id": "shangrila_tainan",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.shangri-la.com/tc/tainan/fareasternplazashangrila/about/local-guide/explore-tainan/quick-facts/"
+      },
+      "room_inventory": 331,
+      "service_charge_percent": 10,
+      "restaurants": [
+        {"name": "遠東 Café Café at Far Eastern", "type_zh": "自助餐與國際料理", "type_en": "Buffet and international cuisine", "type_ja": "ビュッフェ・多国籍料理"},
+        {"name": "醉月樓 Shanghai Pavilion", "type_zh": "江浙、台式與粵式點心", "type_en": "Jiangnan, Taiwanese and Cantonese dim sum", "type_ja": "江南・台湾料理・広東点心"},
+        {"name": "大廳茶軒 Lobby Lounge", "type_zh": "下午茶、輕食與酒吧", "type_en": "Afternoon tea, light fare and bar", "type_ja": "アフタヌーンティー・軽食・バー"},
+        {"name": "品香坊 The Shop", "type_zh": "麵包、糕點與外帶餐食", "type_en": "Bakery, pastry and takeaway", "type_ja": "ベーカリー・ペストリー・テイクアウト"}
+      ],
+      "restaurant_count": 4,
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "Horizon Club Lounge 豪華閣貴賓酒廊", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "官方資料可核實 331 間客房與套房、十種客房／套房與連通房組合、戶外泳池、健身房、VALMONT SPA、三溫暖、蒸氣室及豪華閣貴賓酒廊。目前官方服務頁明列兩間餐廳、一間酒吧／茶軒及品香坊，共四個具名餐飲據點。住宿價格外加 10% 服務費可由官方房型頁核實。",
+        "en": "Official sources verify 331 guestrooms and suites, ten room, suite, and connecting-room products, an outdoor pool, fitness center, VALMONT SPA, sauna, steam room, and Horizon Club Lounge. The current official services page names two restaurants, one bar/lounge, and The Shop, totaling four named dining outlets. Official room pages state that accommodation prices are subject to a 10% service charge.",
+        "ja": "公式資料で客室・スイート331室、客室・スイート・コネクティングルーム10タイプ、屋外プール、フィットネスセンター、VALMONT SPA、サウナ、スチームルーム、Horizon Club Loungeを確認済みです。現在の公式サービスページにはレストラン2店、バー／ラウンジ1店、The Shopの計4施設が明記されています。宿泊料金には公式客室ページで確認できる10%のサービス料が加算されます。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://www.shangri-la.com/en/tainan/fareasternplazashangrila/rooms-suites/",
+        "rooms": [
+          {"name_zh": "豪華客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 39},
+          {"name_zh": "尊榮客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 50},
+          {"name_zh": "特選尊榮客房", "name_en": "Grand Deluxe Room", "name_ja": "Grand Deluxe Room", "size_sqm_min": 39, "size_sqm_max": 50},
+          {"name_zh": "尊榮家庭房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm": 50},
+          {"name_zh": "行政家庭房", "name_en": "Executive Family Room", "name_ja": "Executive Family Room", "size_sqm": 58},
+          {"name_zh": "豪華閣尊榮客房", "name_en": "Horizon Deluxe Room", "name_ja": "Horizon Deluxe Room", "size_sqm_min": 39, "size_sqm_max": 50},
+          {"name_zh": "雅仕套房", "name_en": "Plaza Suite", "name_ja": "Plaza Suite", "size_sqm": 89},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 196},
+          {"name_zh": "尊榮客房及尊榮家庭房連通房", "name_en": "Deluxe King with Inter-Connecting Deluxe Family Room", "name_ja": "Deluxe King with Inter-Connecting Deluxe Family Room", "size_sqm": 100},
+          {"name_zh": "雅仕套房及尊榮家庭房連通房", "name_en": "Plaza Suite with Inter-Connecting Deluxe Family Room", "name_ja": "Plaza Suite with Inter-Connecting Deluxe Family Room", "size_sqm": 139}
+        ]
+      },
+      "source_urls": [
+        "https://www.shangri-la.com/en/tainan/fareasternplazashangrila/rooms-suites/",
+        "https://www.shangri-la.com/tainan/fareasternplazashangrila/about/services-facilities/",
+        "https://www.shangri-la.com/tainan/fareasternplazashangrila/health-leisure/",
+        "https://www.shangri-la.com/tainan/fareasternplazashangrila/dining/",
+        "https://www.shangri-la.com/restaurants-bars/tainan/fareasternplazashangrila/lobby-lounge/",
+        "https://www.shangri-la.com/tainan/fareasternplazashangrila/dining/restaurants/the-shop/"
+      ]
+    },
+    {
       "hotel_id": "fleur_de_chine",
       "verified_at": "2026-10-06",
       "stay_times": {

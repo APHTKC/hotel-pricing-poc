@@ -512,6 +512,26 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert fleur["lounge"]["available"] is True
     assert fleur["lounge"]["name"] == "Ciao Club"
+    shangrila_tainan = by_id["shangrila_tainan"]
+    assert shangrila_tainan["room_inventory"] == 331
+    assert shangrila_tainan["service_charge_percent"] == 10
+    assert shangrila_tainan["restaurant_count"] == 4
+    assert shangrila_tainan["stay_times"]["check_in"] == "15:00"
+    assert shangrila_tainan["stay_times"]["check_out"] == "12:00"
+    assert shangrila_tainan["room_snapshot"]["source_type"] == "official"
+    assert shangrila_tainan["room_snapshot"]["observed_at"] == "2026-10-06"
+    assert len(shangrila_tainan["room_snapshot"]["rooms"]) == 10
+    assert min(
+        room.get("size_sqm", room.get("size_sqm_min"))
+        for room in shangrila_tainan["room_snapshot"]["rooms"]
+    ) == 39
+    assert max(
+        room.get("size_sqm", room.get("size_sqm_max"))
+        for room in shangrila_tainan["room_snapshot"]["rooms"]
+    ) == 196
+    assert all(shangrila_tainan["facilities"].values())
+    assert shangrila_tainan["lounge"]["available"] is True
+    assert "Horizon Club" in shangrila_tainan["lounge"]["name"]
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
