@@ -136,3 +136,11 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/FLEUR-NT
     adapter: gobooking
+  - id: taipei_garden_hotel
+    name: Taipei Garden Hotel
+    short_name: Taipei Garden
+    city: Taipei
+    district: Zhongzheng
+    country: TW
+    booking_url: https://www.taipeigarden.com.tw/en/
+    adapter: fastbooking

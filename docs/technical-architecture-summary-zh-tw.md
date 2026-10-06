@@ -24,12 +24,12 @@ FastAPI、Google Sheets、Cloud Run 與 Cloud Scheduler 仍保留在程式中，
 
 截至本次盤點：
 
-- 飯店追蹤主檔：65 家，其中 18 家啟用每日資料管線、47 家標記為 `skipped`。
-- 公開歷史資料：43,510 筆、18 家飯店，`public/data/rates.json` 約 35.6 MB。
-- 最新批次資料：3,095 筆，`public/data/latest.json` 約 2.49 MB。
-- 飯店基本資料：15 家有已核實 profile；13 家有客房總數；只有 6 家有獨立 `room_snapshot`。
-- 籌備中飯店：7 家，獨立存放於 `upcoming_hotels.json`，不參與 ADR 計算。
-- OTA：Booking.com Demand API client 已完成，但目前沒有 property mapping、沒有公開 OTA 房價；現有 43,510 筆皆標記為 `official`。
+- 飯店 Catalog：67 家，其中 19 家啟用每日資料管線；其餘候選來源依健康狀態與可行性檢查結果暫緩。
+- 原始歷史資料：56,216 筆、18 家已有歷史房價；新增的第 19 家會由下一次每日工作開始累積。
+- 最新完整明細：2,735 筆，`public/data/latest_details.json` 約 3.56 MB，首頁採按需載入。
+- 飯店基本資料：67 家皆有已核實 profile 與獨立 `room_snapshot`；來源不足的欄位維持待核實。
+- 籌備中飯店：8 家，獨立存放於 `upcoming_hotels.json`，不參與 ADR 計算。
+- OTA：Booking.com Demand API client 已完成，但目前沒有可發布的 OTA 房價；現有歷史資料皆標記為 `official`。
 
 ---
 
@@ -236,22 +236,22 @@ gap = (lowest_ota_median - official_median) / official_median
 2. 只保留 `3,000 <= total_twd <= 2,000,000` 的資料。
 3. 裁成 dashboard 所需欄位。
 4. 依 `queried_at` 新到舊排序。
-5. 輸出完整 `rates.json`。
-6. 以全資料最新時間往前 30 分鐘，輸出 `latest.json`。
+5. 產出 `latest_summary.json`、`latest_heatmap.json` 與按需載入的 `latest_details.json`。
+6. 產出 `history_summary.json`，並將歷史明細拆成 `rates/YYYY-MM/<hotel_id>.json`；`rates/index.json` 保存可用月份與飯店索引。
 
-公開 JSON 目前不含 `service_charge`、`tax`、`cancellation_policy`、`rate_plan_code` 與 `status`，所以公開頁無法完整重建稅費或做嚴格的 OTA 條件比對。
+公開明細保留同商品比價所需欄位；首屏摘要只保存 KPI、趨勢與熱力圖需要的輕量資料。
 
 ### 2.8 飯店、房型與籌備中飯店主檔
 
 目前已有三種獨立資料：
 
-- `hotels.json`：65 家營運中／候選飯店與自動化狀態。
-- `hotel_profiles.json`：15 家已核實飯店的客房總數、餐飲、設施、lounge、來源；其中 6 家另有 `room_snapshot`。
-- `upcoming_hotels.json`：7 家籌備中飯店、預計開幕文字、規劃房數與來源。
+- `hotels.json`：67 家營運中／候選飯店與自動化狀態。
+- `hotel_profiles.json`：67 家已核實飯店的客房總數、餐飲、設施、lounge、服務費、房型快照與來源；未取得可靠證據者維持待核實。
+- `upcoming_hotels.json`：8 家籌備中飯店、預計開幕文字、規劃房數與來源。
 
 這個方向正確：抓不到房價不等於抓不到房型。被擋住的飯店仍可由官網客房介紹、官方 factsheet，必要時再由可信 OTA 靜態頁面補充房型名稱與面積，並保存 `source_type`、`source_url`、`observed_at`。房型主檔不應依賴每日房價成功與否。
 
-籌備中飯店也應獨立維護，不產生假房價、不進入 ADR 統計。現有 7 家包括台北四季、台北柏悅、台北安達仕、台中 JW 萬豪、台中安達仕、台中凱賓斯基與高雄凱悅；部分規劃房數及開幕日期仍為待公布。
+籌備中飯店也獨立維護，不產生假房價、不進入 ADR 統計。現有 8 家包含台北四季、台北柏悅、台北安達仕、台中 JW 萬豪、台中安達仕、台中凱賓斯基、高雄凱悅與國賓皇宮酒店；部分規劃房數及開幕日期仍為待公布。
 
 ---
 
@@ -262,6 +262,7 @@ gap = (lowest_ota_median - official_median) / official_median
 **正式／已實作的官網來源類型**
 
 - SynXis booking engine
+- FastBooking／D-EDGE 公開報價元件
 - IHG booking pages
 - Shangri-La booking flow
 - SiteMinder／DirectOnline
@@ -293,7 +294,7 @@ schedule 22:00 UTC
 → Python 3.12 + pip cache
 → 安裝 requirements + Chromium
 → 更新 Google Finance FX
-→ run_daily_once（18 家啟用飯店 × 六個 lead dates）
+→ run_daily_once（19 家啟用飯店 × 六個 lead dates）
 → run_ota_once（有憑證及 mapping 才執行）
 → build_static_data + build_hotel_catalog
 → commit/pull --rebase/push 資料
@@ -399,14 +400,14 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
    `config/hotels.yaml` 仍是早期 9 家；每日 job 使用 `hotels.daily.yaml`；公開 catalog 則合併 daily + candidates。FastAPI 若未指定環境變數，會讀到早期 9 家，與公開網站不一致。
 
 2. **抓不到房價的飯店，房型主檔覆蓋不足。**  
-   65 家飯店中只有 15 家有 profile，且只有 6 家有 `room_snapshot`。應將房型主檔正式獨立於 rate observation：
+   目前 67 家飯店皆已有 profile 與房型快照；後續仍應將房型主檔正式獨立於 rate observation：
    - 優先官方客房頁／官方 factsheet。
    - 官方缺失時才用 OTA 靜態介紹頁。
    - 每個房型保存中英日名稱、精確／最小／最大面積、source type、URL、核實日期、備註。
    - 不因自動房價被擋就把房型留白。
 
 3. **籌備中飯店資料仍偏薄。**  
-   現有 7 家只有名稱、地點、預計開幕文字、規劃房數及 URL。建議增加：品牌、業主／開發商、專案位置、公告日期、預計開幕年月（結構化）、日期可信度、規劃房數、已公布餐飲／設施、最後核實日與狀態歷程。籌備中飯店應持續與 ADR fact table 隔離。
+   現有 8 家已有名稱、地點、預計開幕文字、規劃房數及 URL。後續宜增加：品牌、業主／開發商、專案位置、公告日期、預計開幕年月（結構化）、日期可信度、已公布餐飲／設施及狀態歷程，並持續與 ADR fact table 隔離。
 
 4. **來源證據粒度不足。**  
    profile 的 `source_urls` 是整家飯店層級，無法知道哪個 URL 支持哪個欄位。應改成 field-level provenance，例如 `evidence[{field, value, source_url, published_at, verified_at}]`。
@@ -416,8 +417,8 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
 
 ### P1：效能與擴充性
 
-1. **歷史 JSON 已過大。**  
-   `rates.json` 約 35.6 MB，history 頁一次下載、解析並在瀏覽器反覆 `filter`。資料持續每日 append，大小只會線性增加。
+1. **歷史 JSON 分片已完成，最新明細仍會成長。**  
+   history 首屏已改用預聚合摘要，月份明細按飯店下載；首頁的 `latest_details.json` 亦採懶載入。後續仍需監控單一飯店月分片與最新完整明細的成長速度。
 
 2. **前端多次 O(H × D × N) 掃描。**  
    各飯店、日期、lead time 都重新 `rows.filter`。資料量增加後，互動與重繪會明顯變慢。
@@ -425,7 +426,7 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
 3. **Google Sheets 不適合長期 fact table。**  
    `read_all()` 讀整張表，append 無去重；當資料達數十萬列時，速度、quota 與維護性都會惡化。
 
-建議短期將靜態資料依年月／飯店 partition，另產生預聚合 summary；中期改 SQLite／DuckDB／Parquet 或 PostgreSQL／BigQuery，再由 API 或 build job 輸出小型前端資料。
+目前已完成依年月／飯店 partition 及預聚合 summary。中期可改 SQLite／DuckDB／Parquet 或 PostgreSQL／BigQuery，再由 API 或 build job 輸出小型前端資料。
 
 ### P2：工程品質與產品完整度
 
@@ -506,7 +507,7 @@ fx_observation / cpi_observation
 3. 把房型主檔從房價 observation 解耦，優先補台北高價飯店與目前被擋飯店。
 4. 擴充籌備中飯店 schema 及 field-level evidence。
 5. 嚴格定義 OTA comparability key，再開啟 UI 比價。
-6. 將歷史 JSON partition／預聚合，避免整包 35.6 MB 載入。
+6. 持續監控已完成的歷史 JSON partition／預聚合，設定分片大小回歸門檻。
 7. 抽離共用前端 modules，再導入真 `.xlsx` 與固定版 PDF 匯出。
 8. 完成官方 CPI provider 與 CPI-adjusted 指標。
 
