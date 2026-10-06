@@ -2249,6 +2249,64 @@
       ]
     },
     {
+      "hotel_id": "eda_royal",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.edaroyal.com.tw/catalog_room-detail/edaroyalpremierroom/"
+      },
+      "room_inventory": 650,
+      "service_charge_percent": 10,
+      "service_charge_source": "official",
+      "service_charge_source_url": "https://www.edaroyal.com.tw/news-detail/GOLF2026/",
+      "restaurants": [
+        {"name": "Deli2go 烘焙坊", "type_zh": "烘焙、甜點與外帶", "type_en": "Bakery, desserts and takeaway", "type_ja": "ベーカリー・デザート・テイクアウト"},
+        {"name": "星亞自助餐廳 HEAT'N CHILL", "type_zh": "國際自助餐", "type_en": "International buffet", "type_ja": "インターナショナルビュッフェ"},
+        {"name": "皇樓中餐廳 ROYAL PALACE", "type_zh": "粵菜與港點", "type_en": "Cantonese cuisine and dim sum", "type_ja": "広東料理・点心"},
+        {"name": "CASA FONTANA 義大利餐廳", "type_zh": "義大利料理", "type_en": "Italian cuisine", "type_ja": "イタリア料理"},
+        {"name": "柳町日本料理 YANAGI", "type_zh": "日本料理", "type_en": "Japanese cuisine", "type_ja": "日本料理"},
+        {"name": "星亞酒吧 CHILL LOUNGE", "type_zh": "酒吧、咖啡與輕食", "type_en": "Bar, coffee and light meals", "type_ja": "バー・コーヒー・軽食"}
+      ],
+      "restaurant_count": 5,
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "lounge": {"available": true, "name": "Royal Executive Lounge", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "官方資料可核實 650 間客房、戶外戲水池、室內水療池、健身房、庵 SPA，以及含按摩池、蒸氣室與檜木烤箱的男女三溫暖。皇家行政客房官方頁明載行政酒廊下午茶、雞尾酒與會議室禮遇。飯店介紹以 5 間中西料理餐廳計算核心餐廳數；詳細清單另保留烘焙坊及星亞酒吧。部分外部資料仍沿用 656 間客房，本平台採目前官方飯店介紹的 650 間。",
+        "en": "Official sources verify 650 rooms, an outdoor splash pool, indoor hydrotherapy pool, gym, An Spa, and men's and women's sauna areas with massage pools, steam rooms, and hinoki dry saunas. The official Royal Club Room page explicitly lists Executive Lounge afternoon tea, cocktails, and meeting-room privileges. The hotel overview counts five core Chinese and Western restaurants; the detailed list also preserves the bakery and Chill Lounge. Some third-party material still cites 656 rooms, while this profile uses the current official hotel overview's 650-room figure.",
+        "ja": "公式資料で客室650室、屋外プール、屋内ハイドロセラピープール、ジム、庵SPA、マッサージ浴槽・スチームルーム・檜木ドライサウナを備えた男女サウナを確認済みです。ロイヤルクラブルーム公式ページにはエグゼクティブラウンジのアフタヌーンティー、カクテル、会議室特典が明記されています。ホテル概要は主要な中華・洋食レストラン5店を計上し、詳細一覧にはベーカリーとCHILL LOUNGEも記録しています。一部外部資料は656室としていますが、本プロフィールは現行公式紹介の650室を採用します。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://www.edaroyal.com.tw/room/",
+        "rooms": [
+          {"name_zh": "山景客房", "name_en": "Mountain View Room", "name_ja": "Mountain View Room", "size_sqm": 40},
+          {"name_zh": "皇家客房", "name_en": "Royal Room", "name_ja": "Royal Room", "size_sqm": 40},
+          {"name_zh": "雅緻家庭房", "name_en": "Superior Family Room", "name_ja": "Superior Family Room", "size_sqm": 36},
+          {"name_zh": "花園家庭房", "name_en": "Garden Family Room", "name_ja": "Garden Family Room", "size_sqm": 40},
+          {"name_zh": "豪華家庭房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm": 40},
+          {"name_zh": "大義主題房", "name_en": "Da E Theme Room", "name_ja": "Da E Theme Room", "size_sqm": 40},
+          {"name_zh": "親子主題套房", "name_en": "Theme Room", "name_ja": "Theme Room", "size_sqm": 60},
+          {"name_zh": "行政客房", "name_en": "Club Room", "name_ja": "Club Room", "size_sqm": 40},
+          {"name_zh": "皇家行政客房", "name_en": "Royal Club Room", "name_ja": "Royal Club Room", "size_sqm": 40},
+          {"name_zh": "景緻和洋式套房", "name_en": "Scenic Fusion Suite", "name_ja": "Scenic Fusion Suite", "size_sqm": 60},
+          {"name_zh": "總裁套房", "name_en": "Chairman Suite", "name_ja": "Chairman Suite", "size_sqm": 85},
+          {"name_zh": "奧林匹亞套房", "name_en": "Olympia Suite", "name_ja": "Olympia Suite", "size_sqm": 150},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 321}
+        ]
+      },
+      "source_urls": [
+        "https://www.edaroyal.com.tw/about/e-da-royal/",
+        "https://www.edaroyal.com.tw/room/",
+        "https://www.edaroyal.com.tw/room/club/",
+        "https://www.edaroyal.com.tw/fac/",
+        "https://www.edaroyal.com.tw/",
+        "https://www.edaroyal.com.tw/news-detail/GOLF2026/"
+      ]
+    },
+    {
       "hotel_id": "hotel_royal_hsinchu",
       "verified_at": "2026-10-06",
       "stay_times": {
