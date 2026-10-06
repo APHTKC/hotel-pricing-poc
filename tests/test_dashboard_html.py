@@ -462,6 +462,30 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     presidential = hilton_sinban["room_snapshot"]["rooms"][-1]
     assert presidential["size_sqm_min"] == 146
     assert presidential["size_sqm_max"] == 185
+    caesar_banqiao = by_id["caesar_park_banqiao"]
+    assert caesar_banqiao["room_inventory"] == 400
+    assert caesar_banqiao["restaurant_count"] == 4
+    assert caesar_banqiao["stay_times"]["check_in"] == "15:00"
+    assert caesar_banqiao["stay_times"]["check_out"] == "12:00"
+    assert caesar_banqiao["room_snapshot"]["source_type"] == "official"
+    assert caesar_banqiao["room_snapshot"]["observed_at"] == "2026-10-06"
+    assert len(caesar_banqiao["room_snapshot"]["rooms"]) == 9
+    assert {room["size_sqm"] for room in caesar_banqiao["room_snapshot"]["rooms"]} == {
+        40,
+        45,
+        50,
+        60,
+        265,
+    }
+    assert caesar_banqiao["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": None,
+        "steam_room": None,
+    }
+    assert caesar_banqiao["lounge"]["available"] is True
+    assert "Prestige Lounge" in caesar_banqiao["lounge"]["name"]
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -1504,6 +1528,8 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["hotel_resonance_taipei"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["hilton_taipei_sinban"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["hilton_taipei_sinban"]["brand"] == "Hilton Hotels & Resorts"
+    assert affiliations["caesar_park_banqiao"]["loyalty_program"] == "凱撒 VIP"
+    assert affiliations["caesar_park_banqiao"]["brand"] == "Caesar Park Hotels & Resorts"
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"

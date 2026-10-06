@@ -2484,6 +2484,54 @@
       ]
     },
     {
+      "hotel_id": "caesar_park_banqiao",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://banqiao.caesarpark.com.tw/en/room/"
+      },
+      "room_inventory": 400,
+      "restaurants": [
+        {"name": "蓮花泰式餐廳 LOTUS", "type_zh": "南洋與泰式料理", "type_en": "South Asian and Thai cuisine", "type_ja": "東南アジア・タイ料理"},
+        {"name": "家宴中餐廳 JIA YAN", "type_zh": "中華料理", "type_en": "Chinese cuisine", "type_ja": "中華料理"},
+        {"name": "bar98", "type_zh": "酒吧與咖啡廳", "type_en": "Bar and café", "type_ja": "バー・カフェ"},
+        {"name": "Carrara", "type_zh": "多功能餐飲與會議空間", "type_en": "Multipurpose dining and meeting venue", "type_ja": "多目的ダイニング・ミーティングスペース"}
+      ],
+      "restaurant_count": 4,
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "Prestige Lounge 菁英閣", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "官方資料可核實 400 間客房、32 樓戶外泳池、健身房、菁英閣及目前官網列出的四個餐飲／多功能空間；SPA、三溫暖與蒸氣室維持待核實。官方簡介同時出現三處餐飲場所與四種餐飲概念的文字，本比較頁依目前首頁實際列名的四處空間呈現。住宿服務費未取得官方明確拆項，維持待核實。",
+        "en": "Official sources verify 400 rooms, a 32nd-floor outdoor pool, gym, Prestige Lounge, and four dining or multipurpose venues currently named on the hotel website; spa, sauna, and steam room remain pending verification. The official introduction contains both a three-venue reference and a four-concept reference, so this comparison uses the four venues currently named on the homepage. No official lodging service-charge breakdown was found, so it remains pending.",
+        "ja": "公式資料で客室400室、32階の屋外プール、ジム、Prestige Lounge、および公式サイトに現在掲載されている飲食・多目的施設4か所を確認済みです。SPA、サウナ、スチームルームは確認待ちです。公式紹介には飲食施設3か所と4コンセプトの両方の記載があるため、本比較では現在トップページに名称が掲載されている4施設を採用しています。宿泊サービス料の公式な内訳は確認できず、未確認のままです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://banqiao.caesarpark.com.tw/en/room/",
+        "rooms": [
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 40},
+          {"name_zh": "菁英客房", "name_en": "Elite Room", "name_ja": "Elite Room", "size_sqm": 40},
+          {"name_zh": "薈萃客房", "name_en": "Prestige Room", "name_ja": "Prestige Room", "size_sqm": 40},
+          {"name_zh": "當代三人房", "name_en": "Contemporary Triple", "name_ja": "Contemporary Triple", "size_sqm": 45},
+          {"name_zh": "經典家庭房", "name_en": "Classic Family Room", "name_ja": "Classic Family Room", "size_sqm": 40},
+          {"name_zh": "卓越套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm": 40},
+          {"name_zh": "行政套房", "name_en": "Executive Suite", "name_ja": "Executive Suite", "size_sqm": 50},
+          {"name_zh": "寰宇套房", "name_en": "Panorama Suite", "name_ja": "Panorama Suite", "size_sqm": 60},
+          {"name_zh": "總統套房", "name_en": "Stunning Suite", "name_ja": "Stunning Suite", "size_sqm": 265}
+        ]
+      },
+      "source_urls": [
+        "https://banqiao.caesarpark.com.tw/en/",
+        "https://banqiao.caesarpark.com.tw/en/about/1/",
+        "https://banqiao.caesarpark.com.tw/en/room/",
+        "https://banqiao.caesarpark.com.tw/en/room-detail/deluxe-room/",
+        "https://banqiao.caesarpark.com.tw/en/fac/"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,
