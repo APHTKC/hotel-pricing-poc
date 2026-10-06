@@ -2484,6 +2484,54 @@
       ]
     },
     {
+      "hotel_id": "silks_place_yilan",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.silksplace-yilan.com.tw/n/download/lefoon_calendar.pdf"
+      },
+      "room_inventory": 193,
+      "restaurants": [
+        {"name": "紅樓中餐廳 Red Lantern", "type_zh": "櫻桃鴨與中華料理", "type_en": "Roast duck and Chinese cuisine", "type_ja": "ローストダック・中華料理"},
+        {"name": "蘭城百匯 Mix Gourmet", "type_zh": "自助餐與國際料理", "type_en": "Buffet and international cuisine", "type_ja": "ビュッフェ・多国籍料理"}
+      ],
+      "restaurant_count": 2,
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": true},
+      "lounge": {"available": null, "name": null, "kind": null},
+      "facility_notes": {
+        "zh": "官方休閒設施資料可核實半室內調溫泳池、戶外兒童泳池、健康活水區、健身房、烤箱、蒸氣室與冷熱水池；SPA 與行政／貴賓酒廊維持待核實。193 間客房為 2026-10-06 OTA 公開資料快照。房型名稱取自目前可穩定取得的官方訂房頁，面積則採同日 Hotels.com／Expedia 公開頁面；不同 OTA 數字不一致處以範圍呈現。住宿服務費沒有取得官方明確拆項，維持待核實。",
+        "en": "Official recreation materials verify semi-indoor temperature-controlled and outdoor children's pools, hydrotherapy facilities, a gym, sauna, steam room, and hot/cold pools; spa and an executive/VIP lounge remain pending verification. The 193-room inventory is an OTA public-data snapshot dated 2026-10-06. Room names come from the currently accessible official booking page, while sizes use same-day Hotels.com and Expedia public pages; conflicting OTA values are retained as ranges. No official lodging service-charge breakdown was found, so it remains pending.",
+        "ja": "公式レジャー資料で半屋内温水プール、屋外子ども用プール、ハイドロセラピー設備、ジム、サウナ、スチームルーム、温冷浴槽を確認済みです。SPAとエグゼクティブ／VIPラウンジは確認待ちです。客室数193室は2026-10-06時点のOTA公開情報スナップショットです。客室名は現在取得可能な公式予約ページ、面積は同日のHotels.com／Expedia公開ページを採用し、OTA間で異なる数値は範囲で保持しています。宿泊サービス料の公式な内訳は確認できず、未確認のままです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "ota",
+        "source_url": "https://tw.hotels.com/ho454031/lan-cheng-jing-ying-jiu-dian-yi-lan-shi-tai-wan/",
+        "rooms": [
+          {"name_zh": "家庭四人房", "name_en": "Family Room", "name_ja": "Family Room", "size_sqm": 46},
+          {"name_zh": "家庭四人房－陽台", "name_en": "Family Room with Balcony", "name_ja": "Family Room with Balcony", "size_sqm": 46},
+          {"name_zh": "芬朵奇堡家庭四人房", "name_en": "Fantasy Castle Family Room", "name_ja": "Fantasy Castle Family Room", "size_sqm_min": 43, "size_sqm_max": 46},
+          {"name_zh": "芬朵奇堡精緻客房", "name_en": "Fantasy Castle Superior King", "name_ja": "Fantasy Castle Superior King", "size_sqm": 43},
+          {"name_zh": "芬朵奇堡精緻雙人房", "name_en": "Fantasy Castle Superior Twin", "name_ja": "Fantasy Castle Superior Twin", "size_sqm": 43},
+          {"name_zh": "芬朵奇堡精緻雙人房－獨立淋浴間", "name_en": "Fantasy Castle Superior Twin with Shower", "name_ja": "Fantasy Castle Superior Twin with Shower", "size_sqm": 43},
+          {"name_zh": "休閒套房", "name_en": "Sky Villa", "name_ja": "Sky Villa", "size_sqm": 80},
+          {"name_zh": "精緻客房", "name_en": "Superior King", "name_ja": "Superior King", "size_sqm_min": 36, "size_sqm_max": 43},
+          {"name_zh": "精緻客房－陽台", "name_en": "Superior King with Balcony", "name_ja": "Superior King with Balcony", "size_sqm_min": 42, "size_sqm_max": 43},
+          {"name_zh": "精緻雙人房", "name_en": "Superior Twin", "name_ja": "Superior Twin", "size_sqm_min": 39, "size_sqm_max": 43},
+          {"name_zh": "精緻雙人房－陽台", "name_en": "Superior Twin with Balcony", "name_ja": "Superior Twin with Balcony", "size_sqm_min": 39, "size_sqm_max": 43}
+        ]
+      },
+      "source_urls": [
+        "https://www.silksplace-yilan.com.tw/n/download/lefoon_calendar.pdf",
+        "https://book-directonline.com/properties/silksplaceyilanhoteldirect",
+        "https://tw.hotels.com/ho454031/lan-cheng-jing-ying-jiu-dian-yi-lan-shi-tai-wan/",
+        "https://www.expedia.com.sg/Yilan-Hotels-Silks-Place-Yilan.h7862782.Hotel-Information",
+        "https://eshop.silksplace-yilan.com.tw/"
+      ]
+    },
+    {
       "hotel_id": "shangrila_tainan",
       "verified_at": "2026-10-06",
       "stay_times": {

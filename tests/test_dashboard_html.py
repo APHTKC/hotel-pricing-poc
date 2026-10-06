@@ -532,6 +532,31 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert all(shangrila_tainan["facilities"].values())
     assert shangrila_tainan["lounge"]["available"] is True
     assert "Horizon Club" in shangrila_tainan["lounge"]["name"]
+    silks_yilan = by_id["silks_place_yilan"]
+    assert silks_yilan["room_inventory"] == 193
+    assert "service_charge_percent" not in silks_yilan
+    assert silks_yilan["restaurant_count"] == 2
+    assert silks_yilan["stay_times"]["check_in"] == "15:00"
+    assert silks_yilan["stay_times"]["check_out"] == "11:00"
+    assert silks_yilan["room_snapshot"]["source_type"] == "ota"
+    assert silks_yilan["room_snapshot"]["observed_at"] == "2026-10-06"
+    assert len(silks_yilan["room_snapshot"]["rooms"]) == 11
+    assert min(
+        room.get("size_sqm", room.get("size_sqm_min"))
+        for room in silks_yilan["room_snapshot"]["rooms"]
+    ) == 36
+    assert max(
+        room.get("size_sqm", room.get("size_sqm_max"))
+        for room in silks_yilan["room_snapshot"]["rooms"]
+    ) == 80
+    assert silks_yilan["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert silks_yilan["lounge"]["available"] is None
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -1578,6 +1603,8 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["caesar_park_banqiao"]["brand"] == "Caesar Park Hotels & Resorts"
     assert affiliations["fleur_de_chine"]["loyalty_program"] == "雲品假期常客回饋計畫"
     assert affiliations["fleur_de_chine"]["network"] == "LDC Hotels & Resorts"
+    assert affiliations["silks_place_yilan"]["loyalty_program"] == "晶華會"
+    assert affiliations["silks_place_yilan"]["network"] == "Silks Hotel Group"
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"
