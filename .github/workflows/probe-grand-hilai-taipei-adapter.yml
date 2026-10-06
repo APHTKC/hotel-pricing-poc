@@ -2,13 +2,6 @@ name: Probe Grand Hi-Lai adapters
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scrapers/adapters/grand_hilai.py"
-      - "scripts/run_grand_hilai_once.py"
-      - "config/hotels.grand-hilai-taipei-only.yaml"
-      - ".github/workflows/probe-grand-hilai-taipei-adapter.yml"
 
 permissions:
   contents: read
