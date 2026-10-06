@@ -2780,6 +2780,58 @@
         "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/hotel-info",
         "https://newsroom.hyatt.com/news-releases?asPDF=1&item=124314"
       ]
+    },
+    {
+      "hotel_id": "formosa_yacht_resort",
+      "verified_at": "2026-10-06",
+      "room_inventory": 237,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "restaurants": [
+        {"name": "湖光中餐廳 Lakeside Restaurant", "type_zh": "中華料理與包廂餐飲", "type_en": "Chinese cuisine and private dining", "type_ja": "中華料理・個室ダイニング"},
+        {"name": "威尼斯西餐廳 Venice Restaurant", "type_zh": "自助餐與國際料理", "type_en": "Buffet and international cuisine", "type_ja": "ビュッフェ・多国籍料理"},
+        {"name": "熱蘭遮餐酒館 Zeelandia Bistro", "type_zh": "義式輕食、咖啡與酒飲", "type_en": "Italian light fare, coffee and drinks", "type_ja": "イタリアン軽食・カフェ・ドリンク"}
+      ],
+      "restaurant_count": 3,
+      "facilities": {
+        "pool": true,
+        "fitness": true,
+        "spa": true,
+        "sauna": true,
+        "steam_room": true
+      },
+      "lounge": {
+        "available": null,
+        "name": null,
+        "kind": null
+      },
+      "facility_notes": {
+        "zh": "官方資料可核實全館 237 間客房、九類房型、三個目前營運的具名餐飲據點、無邊際泳池、健身房、舒活 SPA、三溫暖與蒸氣室。官網另列摩納哥咖啡為籌備中，因此未計入現營餐飲數。官方房型頁明列牌價另加 10% 服務費。行政／貴賓廳與入住退房時間維持待核實；官方訂房採目前尚未支援的 EC-hotel v4 流程，故本資料只核實基本資料，不表示已有自動房價。",
+        "en": "Official sources verify 237 rooms, nine room types, three currently operating named dining venues, an infinity pool, fitness center, SPA, sauna, and steam room. Monaco Café is marked as coming soon on the official site and is therefore excluded from the operating venue count. Official room pages state that published rates are subject to a 10% service charge. An executive/VIP lounge and stay times remain pending verification. The official booking site uses the currently unsupported EC-hotel v4 flow, so this profile verifies hotel facts only and does not imply automated rates are available.",
+        "ja": "公式資料で全237室、客室9タイプ、現在営業中の飲食施設3か所、インフィニティプール、フィットネスセンター、SPA、サウナ、スチームルームを確認済みです。公式サイトでMonaco Caféは開業準備中と表示されているため、営業中の施設数には含めていません。公式客室ページには公示料金へ10%のサービス料が加算されると明記されています。エグゼクティブ／VIPラウンジとチェックイン・チェックアウト時刻は確認待ちです。公式予約は現在未対応のEC-hotel v4を使用しているため、このプロフィールは基本情報のみを確認したもので、自動料金取得済みを意味しません。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://www.formosayacht.com.tw/en/room/",
+        "rooms": [
+          {"name_zh": "雅緻雙人房", "name_en": "Superior Room / Superior Twin", "name_ja": "Superior Room / Superior Twin", "size_sqm": 40},
+          {"name_zh": "雅緻家庭房", "name_en": "Quadruple Room", "name_ja": "Quadruple Room", "size_sqm": 40},
+          {"name_zh": "蜜月套房", "name_en": "Honeymoon Suite", "name_ja": "Honeymoon Suite", "size_sqm": 50},
+          {"name_zh": "豪華家庭房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm": 50},
+          {"name_zh": "雅緻套房", "name_en": "Elegant Suite", "name_ja": "Elegant Suite", "size_sqm": 86},
+          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 86},
+          {"name_zh": "尊榮水景套房", "name_en": "Lakeside Suite", "name_ja": "Lakeside Suite", "size_sqm": 106},
+          {"name_zh": "尊榮花園套房", "name_en": "Garden Suite", "name_ja": "Garden Suite", "size_sqm": 129},
+          {"name_zh": "皇家花園套房", "name_en": "Premier Garden Suite", "name_ja": "Premier Garden Suite", "size_sqm": 152}
+        ]
+      },
+      "source_urls": [
+        "https://www.formosayacht.com.tw/about/Highlights/",
+        "https://www.formosayacht.com.tw/en/room/",
+        "https://www.formosayacht.com.tw/en/cuisine/",
+        "https://www.formosayacht.com.tw/en/fac/facilityen/"
+      ]
     }
   ]
 }

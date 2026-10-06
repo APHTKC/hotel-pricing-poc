@@ -577,6 +577,18 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert crowne_tainan["lounge"]["available"] is True
     assert "Crowne Plaza" in crowne_tainan["lounge"]["name"]
+    formosa_yacht = by_id["formosa_yacht_resort"]
+    assert formosa_yacht["room_inventory"] == 237
+    assert formosa_yacht["service_charge_percent"] == 10
+    assert formosa_yacht["service_charge_source_type"] == "official"
+    assert formosa_yacht["restaurant_count"] == 3
+    assert formosa_yacht["room_snapshot"]["source_type"] == "official"
+    assert formosa_yacht["room_snapshot"]["observed_at"] == "2026-10-06"
+    assert len(formosa_yacht["room_snapshot"]["rooms"]) == 9
+    assert min(room["size_sqm"] for room in formosa_yacht["room_snapshot"]["rooms"]) == 40
+    assert max(room["size_sqm"] for room in formosa_yacht["room_snapshot"]["rooms"]) == 152
+    assert all(formosa_yacht["facilities"].values())
+    assert formosa_yacht["lounge"]["available"] is None
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
