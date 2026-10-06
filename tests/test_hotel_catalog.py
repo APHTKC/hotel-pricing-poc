@@ -39,6 +39,23 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     assert len(payload["hotels"]) == 67
 
 
+def test_every_open_hotel_has_a_valid_opening_year():
+    source = yaml.safe_load(
+        Path("config/hotel_openings.yaml").read_text(encoding="utf-8")
+    )["hotels"]
+    payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    source_by_id = {hotel["id"]: hotel for hotel in source}
+    published_by_id = {hotel["id"]: hotel for hotel in payload["hotels"]}
+
+    assert set(source_by_id) == set(published_by_id)
+    assert len(source_by_id) == 67
+    assert all(1900 <= hotel["opened_year"] <= 2026 for hotel in source)
+    assert all(
+        published_by_id[hotel_id]["opened_year"] == opening["opened_year"]
+        for hotel_id, opening in source_by_id.items()
+    )
+
+
 def test_episode_hotels_are_registered_with_official_profiles_but_not_reprobed():
     catalog = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))["hotels"]
     profiles = json.loads(

@@ -1,0 +1,70 @@
+# Opening year of the current hotel/property identity shown in the catalog.
+# Rebrands use the year the current brand opened; notes preserve material context.
+hotels:
+  - {id: episode_hsinchu, opened_year: 2022, opening_year_note_zh: "現品牌開幕", opening_year_note_en: "Current brand opening", opening_year_note_ja: "現ブランド開業"}
+  - {id: hotel_royal_hsinchu, opened_year: 1999}
+  - {id: sheraton_hsinchu, opened_year: 2010}
+  - {id: grand_cosmos_ruisui, opened_year: 2019}
+  - {id: eda_royal, opened_year: 2010}
+  - {id: grand_hilai_kaohsiung, opened_year: 1995}
+  - {id: hotel_nikko_kaohsiung, opened_year: 2024}
+  - {id: intercontinental_kaohsiung, opened_year: 2021}
+  - {id: kaohsiung_marriott, opened_year: 2021}
+  - {id: tai_urban_resort, opened_year: 2022}
+  - {id: silks_club_kaohsiung, opened_year: 2025, opening_year_note_zh: "現品牌開幕；原址飯店 2017 年開幕", opening_year_note_en: "Current brand opening; the original hotel opened in 2017", opening_year_note_ja: "現ブランド開業；旧ホテルは2017年開業"}
+  - {id: fleur_de_chine, opened_year: 2008}
+  - {id: the_lalu_sun_moon_lake, opened_year: 2002}
+  - {id: wyndham_sun_moon_lake, opened_year: 2023}
+  - {id: caesar_park_banqiao, opened_year: 2017}
+  - {id: hilton_taipei_sinban, opened_year: 2018}
+  - {id: four_points_penghu, opened_year: 2016}
+  - {id: hoshinoya_guguan, opened_year: 2019}
+  - {id: intercontinental_taichung, opened_year: 2024}
+  - {id: le_meridien_taichung, opened_year: 2022}
+  - {id: millennium_taichung, opened_year: 2013}
+  - {id: the_lin_taichung, opened_year: 2015}
+  - {id: windsor_taichung, opened_year: 2006}
+  - {id: crowne_plaza_tainan, opened_year: 2017}
+  - {id: formosa_yacht_resort, opened_year: 2022}
+  - {id: shangrila_tainan, opened_year: 2008}
+  - {id: silks_place_tainan, opened_year: 2014}
+  - {id: capella_taipei, opened_year: 2025}
+  - {id: courtyard_taipei, opened_year: 2015}
+  - {id: courtyard_taipei_downtown, opened_year: 2018}
+  - {id: doubletree_taipei_zhongshan, opened_year: 2018}
+  - {id: episode_daan_taipei, opened_year: 2024}
+  - {id: eslite_hotel, opened_year: 2015}
+  - {id: grand_hilai_taipei, opened_year: 2023}
+  - {id: grand_hyatt_taipei, opened_year: 1990}
+  - {id: grand_mayfull_taipei, opened_year: 2016}
+  - {id: grand_view_resort_beitou, opened_year: 2011}
+  - {id: hotel_gracery_taipei, opened_year: 2021}
+  - {id: indigo_taipei_north, opened_year: 2020}
+  - {id: hotel_metropolitan_premier_taipei, opened_year: 2021}
+  - {id: hotel_proverbs_taipei, opened_year: 2015}
+  - {id: hotel_resonance_taipei, opened_year: 2020}
+  - {id: royal_nikko_taipei, opened_year: 1984}
+  - {id: humble_house_taipei, opened_year: 2013}
+  - {id: kimpton_da_an, opened_year: 2019}
+  - {id: le_meridien_taipei, opened_year: 2010}
+  - {id: mitsui_garden_taipei_zhongxiao, opened_year: 2020}
+  - {id: mo_taipei, opened_year: 2014}
+  - {id: miramar_garden_taipei, opened_year: 2006}
+  - {id: palais_de_chine, opened_year: 2010}
+  - {id: radium_kagaya_taipei, opened_year: 2010}
+  - {id: regent_taipei, opened_year: 1990}
+  - {id: renaissance_taipei_shihlin, opened_year: 2018}
+  - {id: shangrila_taipei, opened_year: 1994}
+  - {id: sheraton_grand_taipei, opened_year: 1981}
+  - {id: solaria_nishitetsu_taipei, opened_year: 2023}
+  - {id: taipei_garden_hotel, opened_year: 2008}
+  - {id: taipei_marriott, opened_year: 2015}
+  - {id: the_gaia_taipei, opened_year: 2014}
+  - {id: grand_hotel_taipei, opened_year: 1952, opening_year_note_zh: "圓山大飯店創立年份；現址主建築 1973 年落成", opening_year_note_en: "Hotel founded; the current main building was completed in 1973", opening_year_note_ja: "ホテル創立年；現本館は1973年竣工"}
+  - {id: howard_plaza_taipei, opened_year: 1984}
+  - {id: the_landis_taipei, opened_year: 1979}
+  - {id: okura_prestige_taipei, opened_year: 2012}
+  - {id: w_taipei, opened_year: 2011}
+  - {id: hotel_royal_chihpen, opened_year: 1992}
+  - {id: mu_jiaoxi_reserve, opened_year: 2017}
+  - {id: silks_place_yilan, opened_year: 2009}

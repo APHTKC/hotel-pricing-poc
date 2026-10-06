@@ -1145,6 +1145,19 @@ def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
     assert "item.sourceName.includes('�')" in html
 
 
+def test_hotel_comparison_shows_compact_opening_years_and_sticky_headers():
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+
+    assert "openingYearLabel" in html
+    assert "openingYearTitle" in html
+    assert 'class="hotel-opening-line"' in html
+    assert ".hotel-opening-line{display:block;max-width:100%" in html
+    assert "text-overflow:ellipsis;white-space:nowrap" in html
+    assert "#hotelComparison thead th{position:sticky;top:0" in html
+    assert "#hotelComparison thead th:first-child{left:0;z-index:5}" in html
+    assert "status=upcoming?`<span class=\"status upcoming\">${T[lang].upcoming}</span>`" in html
+
+
 def test_missing_room_area_is_not_treated_as_under_45_sqm():
     overview = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
