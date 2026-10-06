@@ -665,6 +665,50 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert mu_jiaoxi["lounge"]["available"] is True
     assert "MU TOP" in mu_jiaoxi["lounge"]["name"]
+    wyndham = by_id["wyndham_sun_moon_lake"]
+    assert wyndham["room_inventory"] == 197
+    assert wyndham["service_charge_percent"] is None
+    assert wyndham["restaurant_count"] == 4
+    assert wyndham["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": None,
+        "steam_room": None,
+    }
+    assert wyndham["lounge"]["available"] is True
+    assert wyndham["room_snapshot"]["source_type"] == "official"
+    assert len(wyndham["room_snapshot"]["rooms"]) == 15
+    assert min(room["size_sqm"] for room in wyndham["room_snapshot"]["rooms"]) == 36
+    assert max(room["size_sqm"] for room in wyndham["room_snapshot"]["rooms"]) == 102
+    four_points_penghu = by_id["four_points_penghu"]
+    assert four_points_penghu["room_inventory"] == 331
+    assert four_points_penghu["service_charge_percent"] is None
+    assert four_points_penghu["restaurant_count"] == 5
+    assert four_points_penghu["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert len(four_points_penghu["room_snapshot"]["rooms"]) == 8
+    assert four_points_penghu["room_snapshot"]["rooms"][-1]["size_sqm_max"] == 106
+    grand_cosmos = by_id["grand_cosmos_ruisui"]
+    assert grand_cosmos["room_inventory"] == 198
+    assert grand_cosmos["service_charge_percent"] == 10
+    assert grand_cosmos["restaurant_count"] == 6
+    assert grand_cosmos["stay_times"]["check_in"] == "15:00"
+    assert grand_cosmos["stay_times"]["check_out"] == "11:00"
+    assert grand_cosmos["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert len(grand_cosmos["room_snapshot"]["rooms"]) == 15
+    assert max(room["size_sqm"] for room in grand_cosmos["room_snapshot"]["rooms"]) == 2148.7
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -1725,6 +1769,12 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["hotel_royal_chihpen"]["network"] == "Hotel Royal Group"
     assert affiliations["mu_jiaoxi_reserve"]["loyalty_program"] == "MU CLUB 寒沐會館"
     assert affiliations["mu_jiaoxi_reserve"]["network"] == "My Humble House Hospitality Group"
+    assert affiliations["wyndham_sun_moon_lake"]["loyalty_program"] == "Wyndham Rewards"
+    assert affiliations["wyndham_sun_moon_lake"]["network"] == "Wyndham Hotels & Resorts"
+    assert affiliations["four_points_penghu"]["loyalty_program"] == "Marriott Bonvoy"
+    assert affiliations["four_points_penghu"]["network"] == "Marriott International"
+    assert affiliations["grand_cosmos_ruisui"]["loyalty_program"] == "COSMOS CLUB／天合尊寵卡"
+    assert affiliations["grand_cosmos_ruisui"]["network"] == "Cosmos Hotels & Resorts"
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"
