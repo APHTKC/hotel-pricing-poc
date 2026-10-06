@@ -2832,6 +2832,70 @@
         "https://www.formosayacht.com.tw/en/cuisine/",
         "https://www.formosayacht.com.tw/en/fac/facilityen/"
       ]
+    },
+    {
+      "hotel_id": "silks_place_tainan",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "16:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://tainan.silksplace.com/en/rooms/junior-suite"
+      },
+      "room_inventory": 255,
+      "restaurants": [
+        {"name": "ROBIN'S 牛排館 ROBIN'S Grill", "type_zh": "炭烤牛排與海鮮", "type_en": "Charcoal-grilled steak and seafood", "type_ja": "炭火焼ステーキ・シーフード"},
+        {"name": "ROBIN'S 鐵板燒 ROBIN'S Teppanyaki", "type_zh": "日式鐵板燒", "type_en": "Japanese teppanyaki", "type_ja": "鉄板焼"},
+        {"name": "無隅 Infinity", "type_zh": "創意料理", "type_en": "Creative cuisine", "type_ja": "創作料理"},
+        {"name": "晶英軒 Silks House", "type_zh": "粵式與台式精緻料理", "type_en": "Cantonese and Taiwanese fine dining", "type_ja": "広東・台湾ファインダイニング"},
+        {"name": "府城茶樓 Fucheng Tea House", "type_zh": "港式點心早午餐", "type_en": "Cantonese dim sum brunch", "type_ja": "広東点心ブランチ"},
+        {"name": "水晶廊 Glass House", "type_zh": "泳池畔酒吧與調酒", "type_en": "Poolside bar and cocktails", "type_ja": "プールサイドバー・カクテル"},
+        {"name": "外賣中心 Silks Bakery", "type_zh": "麵包、糕點與伴手禮", "type_en": "Bakery, pastries and gifts", "type_ja": "ベーカリー・ペストリー・ギフト"},
+        {"name": "晶英貴賓廊 Silks Lounge", "type_zh": "行政樓層貴賓廊與客房餐飲", "type_en": "Executive-floor lounge and room-service dining", "type_ja": "エグゼクティブフロアラウンジ・ルームサービス"},
+        {"name": "茶薈 T-Bar", "type_zh": "手沖咖啡與茶飲", "type_en": "Hand-brewed coffee and tea", "type_ja": "ハンドドリップコーヒー・ティー"}
+      ],
+      "restaurant_count": 9,
+      "facilities": {
+        "pool": true,
+        "fitness": true,
+        "spa": null,
+        "sauna": null,
+        "steam_room": null
+      },
+      "lounge": {
+        "available": true,
+        "name": "晶英貴賓廊 Silks Lounge",
+        "kind": "executive_club"
+      },
+      "facility_notes": {
+        "zh": "台南晶英新版官方網站與其公開 API 可核實全館 255 間客房，其中一般樓層 201 間、行政樓層 54 間；九類住宿房型為 12、16、22 與 46 坪（約 39.7、52.9、72.7 與 152.1㎡）。官方餐飲 API 目前列九個具名餐飲據點，並可核實戶外恆溫泳池、健身中心及晶英貴賓廊。SPA、三溫暖、蒸氣室與住宿服務費百分比沒有取得明確官方資料，維持待核實，不以 0% 代替。舊獨立網域曾發生憑證驗證問題，本次只使用可正常驗證的官方新網域與官方公開 API。",
+        "en": "Silks Place Tainan's current official website and public API verify 255 rooms: 201 on the regular floors and 54 on the Silks Floors. Nine accommodation types measure 12, 16, 22, or 46 ping (approximately 39.7, 52.9, 72.7, or 152.1 sqm). The current official dining API names nine outlets, while official sources also verify a temperature-controlled outdoor pool, fitness center, and Silks Lounge. Spa, sauna, steam room, and the lodging service-charge percentage remain pending because no explicit official evidence was found; service charge is not treated as 0%. The former standalone domain previously had a certificate-validation issue, so this update uses only the currently valid official domain and public API.",
+        "ja": "台南晶英酒店の現行公式サイトと公開APIで全255室（一般フロア201室、Silks Floor 54室）を確認済みです。宿泊用客室9タイプは12、16、22、46坪（約39.7、52.9、72.7、152.1㎡）です。現行の公式ダイニングAPIには飲食施設9か所が掲載され、屋外温水プール、フィットネスセンター、Silks Loungeも公式情報で確認しています。SPA、サウナ、スチームルーム、宿泊サービス料率は明確な公式資料がないため確認待ちとし、0%扱いにはしていません。旧独立ドメインでは証明書検証上の問題があったため、今回は正常に検証できる現行公式ドメインと公開APIのみを使用しています。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://tainan.silksplace.com/en/rooms",
+        "rooms": [
+          {"name_zh": "海東客房", "name_en": "Deluxe", "name_ja": "Deluxe", "size_sqm": 39.7},
+          {"name_zh": "小西門套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm": 52.9},
+          {"name_zh": "小西門和洋套房", "name_en": "Junior Family Suite", "name_ja": "Junior Family Suite", "size_sqm": 52.9},
+          {"name_zh": "府城套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 72.7},
+          {"name_zh": "行政海東客房", "name_en": "Executive Deluxe", "name_ja": "Executive Deluxe", "size_sqm": 39.7},
+          {"name_zh": "行政小西門套房", "name_en": "Executive Junior Suite", "name_ja": "Executive Junior Suite", "size_sqm": 52.9},
+          {"name_zh": "行政小西門和洋套房", "name_en": "Executive Junior Family Suite", "name_ja": "Executive Junior Family Suite", "size_sqm": 52.9},
+          {"name_zh": "行政府城套房", "name_en": "Executive Corner Suite", "name_ja": "Executive Corner Suite", "size_sqm": 72.7},
+          {"name_zh": "晶英套房", "name_en": "Silks Suite", "name_ja": "Silks Suite", "size_sqm": 152.1}
+        ]
+      },
+      "source_urls": [
+        "https://tainan.silksplace.com/en/rooms",
+        "https://bs.silksplace.com/api/v1/web/tainan/en/rooms",
+        "https://tainan.silksplace.com/en/dining",
+        "https://bs.silksplace.com/api/v1/web/tainan/en/restaurants",
+        "https://tainan.silksplace.com/en/amenities",
+        "https://tainan.silksplace.com/en/rooms/junior-suite"
+      ]
     }
   ]
 }
