@@ -2432,6 +2432,58 @@
       ]
     },
     {
+      "hotel_id": "hilton_taipei_sinban",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.hilton.com/en/hotels/tsatchi-hilton-taipei-sinban/hotel-info/"
+      },
+      "room_inventory": 399,
+      "restaurants": [
+        {"name": "Market Flavor", "type_zh": "國際自助餐與海鮮", "type_en": "International buffet and seafood", "type_ja": "インターナショナルビュッフェ・シーフード"},
+        {"name": "QING YA", "type_zh": "中華料理與茶藝", "type_en": "Chinese fine dining and artisan tea", "type_ja": "中華料理・ティー"},
+        {"name": "SociAbility", "type_zh": "大廳酒廊、下午茶與酒吧", "type_en": "Lobby lounge, afternoon tea and bar", "type_ja": "ロビーラウンジ・アフタヌーンティー・バー"}
+      ],
+      "restaurant_count": 3,
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "Hilton 官方頁可核實 399 間客房、頂樓戶外無邊際泳池、健身中心、行政酒廊及三處餐飲空間；SPA、三溫暖與蒸氣室維持待核實。Hilton 官網目前未在可讀頁面公開各房型面積，因此房型尺寸採 2026-10-06 Expedia／Agoda 公開頁面快照。兩家 OTA 對總統套房標示 146㎡ 與約 185㎡，故以範圍呈現，不推定單一數字。住宿服務費未取得官方明確拆項，維持待核實。",
+        "en": "Hilton's official pages verify 399 rooms, a rooftop outdoor infinity pool, fitness center, Executive Lounge, and three dining venues; spa, sauna, and steam room remain pending verification. Hilton's readable public pages do not currently publish room sizes, so the room-size catalog uses Expedia and Agoda public snapshots dated 2026-10-06. The two OTAs list 146 sqm and approximately 185 sqm for the Presidential Suite, so a range is retained rather than choosing one figure. No official lodging service-charge breakdown was found, so it remains pending.",
+        "ja": "Hilton公式ページで客室399室、屋上屋外インフィニティプール、フィットネスセンター、エグゼクティブラウンジ、飲食施設3か所を確認済みです。SPA、サウナ、スチームルームは確認待ちです。Hiltonの公開ページでは客室面積が確認できないため、客室サイズは2026-10-06時点のExpedia／Agoda公開情報を採用しました。プレジデンシャルスイートは両OTAで146㎡と約185㎡の差があるため、単一値を推測せず範囲で記録しています。宿泊サービス料の公式な内訳は確認できず、未確認のままです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "ota",
+        "source_url": "https://www.expedia.com.tw/Taipei-Hotels-Hilton-Taipei-Sinban.h25178172.Hotel-Information",
+        "rooms": [
+          {"name_zh": "希爾頓客房（一大床）", "name_en": "King Guest Room", "name_ja": "King Guest Room", "size_sqm": 40},
+          {"name_zh": "希爾頓客房（兩小床）", "name_en": "Twin Guest Room", "name_ja": "Twin Guest Room", "size_sqm": 40},
+          {"name_zh": "高樓層客房（一大床）", "name_en": "King Guest Room – High Floor", "name_ja": "King Guest Room – High Floor", "size_sqm": 40},
+          {"name_zh": "高樓層客房（兩小床）", "name_en": "Twin Guest Room – High Floor", "name_ja": "Twin Guest Room – High Floor", "size_sqm": 40},
+          {"name_zh": "三人客房（三小床）", "name_en": "Triple Guest Room – Three Twin Beds", "name_ja": "Triple Guest Room – Three Twin Beds", "size_sqm": 44},
+          {"name_zh": "高樓層三人客房（三小床）", "name_en": "Triple Guest Room – High Floor", "name_ja": "Triple Guest Room – High Floor", "size_sqm": 44},
+          {"name_zh": "家庭客房（兩大床）", "name_en": "Family Room – Two Queen Beds", "name_ja": "Family Room – Two Queen Beds", "size_sqm": 40},
+          {"name_zh": "高樓層家庭客房（兩大床）", "name_en": "Family Room – High Floor", "name_ja": "Family Room – High Floor", "size_sqm": 40},
+          {"name_zh": "無障礙客房（一大床）", "name_en": "King Accessible Room", "name_ja": "King Accessible Room", "size_sqm": 40},
+          {"name_zh": "行政客房（一大床）", "name_en": "Executive King Room", "name_ja": "Executive King Room", "size_sqm": 40},
+          {"name_zh": "豪華套房（一大床）", "name_en": "King Deluxe Suite", "name_ja": "King Deluxe Suite", "size_sqm": 50},
+          {"name_zh": "極品套房（一大床）", "name_en": "King Premier Suite", "name_ja": "King Premier Suite", "size_sqm": 66},
+          {"name_zh": "總統套房（一大床）", "name_en": "King Presidential Suite", "name_ja": "King Presidential Suite", "size_sqm_min": 146, "size_sqm_max": 185}
+        ]
+      },
+      "source_urls": [
+        "https://www.hilton.com/en/hotels/tsatchi-hilton-taipei-sinban/",
+        "https://www.hilton.com/en/hotels/tsatchi-hilton-taipei-sinban/hotel-info/",
+        "https://www.hilton.com/en/hotels/tsatchi-hilton-taipei-sinban/dining/",
+        "https://www.hilton.com/en/hotels/tsatchi-hilton-taipei-sinban/events/",
+        "https://www.expedia.com.tw/Taipei-Hotels-Hilton-Taipei-Sinban.h25178172.Hotel-Information",
+        "https://www.agoda.com/en-us/hilton-taipei-sinban_3/hotel/taipei-tw.html"
+      ]
+    },
+    {
       "hotel_id": "episode_hsinchu",
       "verified_at": "2026-10-01",
       "room_inventory": 140,

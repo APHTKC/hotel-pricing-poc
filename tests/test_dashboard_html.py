@@ -443,6 +443,25 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in eda_royal["room_snapshot"]["rooms"]) == 321
     assert all(eda_royal["facilities"].values())
     assert eda_royal["lounge"]["available"] is True
+    hilton_sinban = by_id["hilton_taipei_sinban"]
+    assert hilton_sinban["room_inventory"] == 399
+    assert hilton_sinban["restaurant_count"] == 3
+    assert hilton_sinban["stay_times"]["check_in"] == "15:00"
+    assert hilton_sinban["stay_times"]["check_out"] == "12:00"
+    assert hilton_sinban["room_snapshot"]["source_type"] == "ota"
+    assert hilton_sinban["room_snapshot"]["observed_at"] == "2026-10-06"
+    assert len(hilton_sinban["room_snapshot"]["rooms"]) == 13
+    assert hilton_sinban["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": None,
+        "steam_room": None,
+    }
+    assert hilton_sinban["lounge"]["available"] is True
+    presidential = hilton_sinban["room_snapshot"]["rooms"][-1]
+    assert presidential["size_sqm_min"] == 146
+    assert presidential["size_sqm_max"] == 185
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -1483,6 +1502,8 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["hotel_proverbs_taipei"]["loyalty_program"] == "Marriott Bonvoy"
     assert "Design Hotels" in affiliations["hotel_proverbs_taipei"]["brand"]
     assert affiliations["hotel_resonance_taipei"]["loyalty_program"] == "Hilton Honors"
+    assert affiliations["hilton_taipei_sinban"]["loyalty_program"] == "Hilton Honors"
+    assert affiliations["hilton_taipei_sinban"]["brand"] == "Hilton Hotels & Resorts"
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"
