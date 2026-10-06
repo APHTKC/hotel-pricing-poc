@@ -2,13 +2,6 @@ name: Probe Windsor Hotel Taichung rates
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scrapers/adapters/tripla.py"
-      - "scrapers/registry.py"
-      - "scripts/run_windsor_once.py"
-      - "config/hotels.windsor-taichung-only.yaml"
 
 permissions:
   contents: read
