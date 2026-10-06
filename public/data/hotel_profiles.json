@@ -2484,6 +2484,63 @@
       ]
     },
     {
+      "hotel_id": "crowne_plaza_tainan",
+      "verified_at": "2026-10-06",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.ihg.com/crowneplaza/hotels/us/en/tainan/tnncp/hoteldetail/amenities"
+      },
+      "room_inventory": 231,
+      "restaurants": [
+        {"name": "元素 Elements", "type_zh": "全日餐廳與國際料理", "type_en": "All-day dining and international cuisine", "type_ja": "オールデイダイニング・多国籍料理"},
+        {"name": "煉・瓦 Ren Kawara", "type_zh": "鐵板燒", "type_en": "Teppanyaki", "type_ja": "鉄板焼"},
+        {"name": "彩豐樓 Cai Feng Lou", "type_zh": "粵式中華料理", "type_en": "Cantonese Chinese cuisine", "type_ja": "広東中華料理"},
+        {"name": "289吧 289 Bar", "type_zh": "大廳酒吧與輕食", "type_en": "Lobby bar and light fare", "type_ja": "ロビーバー・軽食"}
+      ],
+      "restaurant_count": 4,
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "Crowne Plaza Club Lounge 皇冠假日貴賓酒廊", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "本地官方網站與政府公開資料列 231 間客房，IHG 目前的設施頁則列 230 間，本比較採前兩者一致的 231 間並保留差異說明。官方可核實 16 種細分房型、四處餐飲空間、20 公尺室內溫水泳池、健身房、男女三溫暖及皇冠假日貴賓酒廊。IHG 將餐飲摘要顯示為三間餐廳，本地官網另列 289 吧，因此比較頁按四個具名餐飲據點呈現。SPA、蒸氣室及住宿服務費維持待核實。",
+        "en": "The local official website and government public data list 231 rooms, while IHG's current amenities page lists 230; this comparison retains 231, the figure shared by the first two sources, and records the discrepancy. Official sources verify 16 detailed room products, four named dining venues, a 20-metre heated indoor pool, fitness center, gender-separated sauna facilities, and Crowne Plaza Club Lounge. IHG summarizes three restaurants, while the local site additionally names 289 Bar, so four named outlets are shown. Spa, steam room, and the lodging service charge remain pending verification.",
+        "ja": "現地公式サイトと政府公開資料は231室、IHGの現行設備ページは230室と記載しているため、本比較では前二者で一致する231室を採用し、差異を注記しています。公式資料で詳細客室16タイプ、飲食施設4か所、20メートル屋内温水プール、ジム、男女別サウナ、Crowne Plaza Club Loungeを確認済みです。IHGはレストラン3店と要約していますが、現地公式サイトは289 Barも掲載しているため、名称のある4施設を表示します。SPA、スチームルーム、宿泊サービス料は確認待ちです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-10-06",
+        "source_type": "official",
+        "source_url": "https://www.cptainan.com/room/guestroom/",
+        "rooms": [
+          {"name_zh": "高級房 大床", "name_en": "Standard King Room", "name_ja": "Standard King Room", "size_sqm": 40},
+          {"name_zh": "高級房 雙床", "name_en": "Standard Twin Room", "name_ja": "Standard Twin Room", "size_sqm": 40},
+          {"name_zh": "高級房 大床 無障礙", "name_en": "Accessible Standard King Room", "name_ja": "Accessible Standard King Room", "size_sqm": 40},
+          {"name_zh": "高級房 大床 陽臺", "name_en": "Standard King Room with Balcony", "name_ja": "Standard King Room with Balcony", "size_sqm": 40},
+          {"name_zh": "高級房 雙床 陽臺", "name_en": "Standard Twin Room with Balcony", "name_ja": "Standard Twin Room with Balcony", "size_sqm": 40},
+          {"name_zh": "高級房 加大兩單床 陽臺", "name_en": "Standard Room with Two Large Single Beds and Balcony", "name_ja": "Standard Room with Two Large Single Beds and Balcony", "size_sqm": 40},
+          {"name_zh": "高級房 大床 河景 陽臺", "name_en": "Standard King River View Room with Balcony", "name_ja": "Standard King River View Room with Balcony", "size_sqm": 40},
+          {"name_zh": "高級房 兩張雙人床", "name_en": "Standard Room with Two Double Beds", "name_ja": "Standard Room with Two Double Beds", "size_sqm": 40},
+          {"name_zh": "高級房 兩張雙人床 河景 陽臺", "name_en": "Standard Two Double Beds River View Room with Balcony", "name_ja": "Standard Two Double Beds River View Room with Balcony", "size_sqm": 40},
+          {"name_zh": "高級房 兩張雙人床帶兒童主題", "name_en": "Standard Two Double Beds Kids Theme Room", "name_ja": "Standard Two Double Beds Kids Theme Room", "size_sqm": 40},
+          {"name_zh": "豪華日式榻榻米房 特大床", "name_en": "Premium Japanese Tatami King Room", "name_ja": "Premium Japanese Tatami King Room", "size_sqm": 69},
+          {"name_zh": "豪華套房 大床 陽臺", "name_en": "Junior Suite King with Balcony", "name_ja": "Junior Suite King with Balcony", "size_sqm": 76},
+          {"name_zh": "景觀套房 大床 河景", "name_en": "River View Junior Suite King", "name_ja": "River View Junior Suite King", "size_sqm": 76},
+          {"name_zh": "花園套房 大床", "name_en": "Garden Suite King", "name_ja": "Garden Suite King", "size_sqm": 99},
+          {"name_zh": "行政套房 大床 河景", "name_en": "Executive River View Suite King", "name_ja": "Executive River View Suite King", "size_sqm": 116},
+          {"name_zh": "總統套房 大床 河景", "name_en": "Presidential River View Suite King", "name_ja": "Presidential River View Suite King", "size_sqm": 182}
+        ]
+      },
+      "source_urls": [
+        "https://www.cptainan.com/",
+        "https://www.cptainan.com/room/guestroom/",
+        "https://www.cptainan.com/room/familyroom/",
+        "https://www.cptainan.com/room/suite/",
+        "https://www.cptainan.com/service/",
+        "https://www.ihg.com/crowneplaza/hotels/us/en/tainan/tnncp/hoteldetail/amenities",
+        "https://www.ihg.com/crowneplaza/hotels/us/en/tainan/tnncp/hoteldetail/rooms"
+      ]
+    },
+    {
       "hotel_id": "silks_place_yilan",
       "verified_at": "2026-10-06",
       "stay_times": {

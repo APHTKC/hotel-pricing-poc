@@ -557,6 +557,26 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "steam_room": True,
     }
     assert silks_yilan["lounge"]["available"] is None
+    crowne_tainan = by_id["crowne_plaza_tainan"]
+    assert crowne_tainan["room_inventory"] == 231
+    assert "service_charge_percent" not in crowne_tainan
+    assert crowne_tainan["restaurant_count"] == 4
+    assert crowne_tainan["stay_times"]["check_in"] == "15:00"
+    assert crowne_tainan["stay_times"]["check_out"] == "11:00"
+    assert crowne_tainan["room_snapshot"]["source_type"] == "official"
+    assert crowne_tainan["room_snapshot"]["observed_at"] == "2026-10-06"
+    assert len(crowne_tainan["room_snapshot"]["rooms"]) == 16
+    assert min(room["size_sqm"] for room in crowne_tainan["room_snapshot"]["rooms"]) == 40
+    assert max(room["size_sqm"] for room in crowne_tainan["room_snapshot"]["rooms"]) == 182
+    assert crowne_tainan["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": None,
+        "sauna": True,
+        "steam_room": None,
+    }
+    assert crowne_tainan["lounge"]["available"] is True
+    assert "Crowne Plaza" in crowne_tainan["lounge"]["name"]
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
     assert gaia["room_inventory"] == 48
@@ -1605,6 +1625,8 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["fleur_de_chine"]["network"] == "LDC Hotels & Resorts"
     assert affiliations["silks_place_yilan"]["loyalty_program"] == "晶華會"
     assert affiliations["silks_place_yilan"]["network"] == "Silks Hotel Group"
+    assert affiliations["crowne_plaza_tainan"]["loyalty_program"] == "IHG One Rewards"
+    assert affiliations["crowne_plaza_tainan"]["network"] == "IHG Hotels & Resorts"
     assert "Tapestry Collection" in affiliations["hotel_resonance_taipei"]["brand"]
     assert affiliations["doubletree_taipei_zhongshan"]["loyalty_program"] == "Hilton Honors"
     assert affiliations["mitsui_garden_taipei_zhongxiao"]["loyalty_program"] == "MGH Rewards Club"
