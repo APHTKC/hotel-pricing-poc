@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06",
+  "updated_at": "2026-10-07",
   "profiles": [
     {
       "hotel_id": "capella_taipei",
@@ -1649,7 +1649,7 @@
     },
     {
       "hotel_id": "royal_nikko_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-10-07",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -1666,6 +1666,11 @@
       ],
       "facilities": {"pool": null, "fitness": null, "spa": true, "sauna": null, "steam_room": null},
       "lounge": {"available": true, "name": "Royal VIP Lounge", "kind": "vip_lounge"},
+      "facility_notes": {
+        "zh": "2026-10-07 重新核對官方設施總覽：官網目前明列地下 1 樓老爺貴賓廳與 4 樓 SPA Room，未列住宿泳池、健身房、公共三溫暖或蒸氣室。未列出的設施維持待核實，不以『無』取代。尊爵套房與皇家套房內的私人 sauna cabinet 屬個別房型設備，不視為飯店公共三溫暖。",
+        "en": "The official facilities overview was rechecked on 2026-10-07. It currently names the Royal VIP Lounge on B1 and the SPA Room on 4F, but does not list a guest pool, fitness center, public sauna, or steam room. Unlisted facilities remain pending rather than being treated as unavailable. The private sauna cabinets in the Premier and Royal suites are in-room amenities, not a public hotel sauna.",
+        "ja": "2026-10-07に公式施設案内を再確認しました。現在、地下1階のRoyal VIP Loungeと4階のSPA Roomは明記されていますが、宿泊者用プール、フィットネス、共用サウナ、スチームルームの記載はありません。記載のない項目は『なし』とせず確認待ちとします。Premier SuiteとRoyal Suiteの専用sauna cabinetは客室内設備であり、共用サウナには含めません。"
+      },
       "room_snapshot": {
         "observed_at": "2026-09-23",
         "source_type": "official",

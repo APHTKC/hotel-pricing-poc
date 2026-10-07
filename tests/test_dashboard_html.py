@@ -749,6 +749,17 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert len(gracery["room_snapshot"]["rooms"]) == 15
     assert {room["size_sqm"] for room in gracery["room_snapshot"]["rooms"]} == {25, 26, 50}
+    royal_nikko = by_id["royal_nikko_taipei"]
+    assert royal_nikko["verified_at"] == "2026-10-07"
+    assert royal_nikko["facilities"] == {
+        "pool": None,
+        "fitness": None,
+        "spa": True,
+        "sauna": None,
+        "steam_room": None,
+    }
+    assert "維持待核實" in royal_nikko["facility_notes"]["zh"]
+    assert "sauna cabinet" in royal_nikko["facility_notes"]["en"]
     assert len(by_id["capella_taipei"]["restaurants"]) == 5
     capella_rooms = by_id["capella_taipei"]["room_snapshot"]["rooms"]
     assert len(capella_rooms) == 13
