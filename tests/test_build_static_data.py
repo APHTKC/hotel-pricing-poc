@@ -30,6 +30,33 @@ def test_latest_batch_uses_recent_workflow_window():
     assert [row["hotel_name"] for row in latest] == ["Capella", "Okura"]
 
 
+def test_latest_batch_prefers_exact_run_id_over_time_window():
+    rows = [
+        {
+            "run_id": "older-run",
+            "queried_at": "2026-09-07T22:09:00+00:00",
+            "hotel_name": "Older",
+        },
+        {
+            "run_id": "latest-run",
+            "queried_at": "2026-09-07T22:10:00+00:00",
+            "hotel_name": "First in latest run",
+        },
+        {
+            "run_id": "latest-run",
+            "queried_at": "2026-09-07T23:01:00+00:00",
+            "hotel_name": "Last in latest run",
+        },
+    ]
+
+    latest = _latest_batch(rows)
+
+    assert [row["hotel_name"] for row in latest] == [
+        "First in latest run",
+        "Last in latest run",
+    ]
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True

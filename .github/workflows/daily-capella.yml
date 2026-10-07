@@ -19,6 +19,10 @@ jobs:
   collect-and-publish:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      # Daily official and OTA collectors belong to one publication batch.
+      # Include run_attempt so a manual rerun cannot merge with the first try.
+      RATE_RUN_ID: github-${{ github.run_id }}-${{ github.run_attempt }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

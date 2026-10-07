@@ -30,7 +30,7 @@ async def run_ota_rates(
     if started.tzinfo is None:
         raise ValueError("started_at must be timezone-aware")
     started = started.astimezone(UTC)
-    run_id = str(uuid4())
+    run_id = settings.rate_run_id.strip() or str(uuid4())
     scheduled_for = started
     observations = []
     failures: list[dict[str, str]] = []

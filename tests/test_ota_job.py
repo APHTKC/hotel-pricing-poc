@@ -38,6 +38,7 @@ def _settings(tmp_path) -> Settings:
         adapter_health_path=tmp_path / "health.json",
         diagnostic_snapshot_dir=tmp_path / "diagnostics",
         lead_days="1,7,14,30,60,90",
+        rate_run_id="workflow-ota-shared",
     )
 
 
@@ -171,3 +172,4 @@ def test_ota_job_uses_hotel_local_date_and_normalizes_lead_days(monkeypatch, tmp
         "2026-10-14",
     ]
     assert [row.lead_days for row in store.rows] == [1, 7]
+    assert {row.run_id for row in store.rows} == {"workflow-ota-shared"}

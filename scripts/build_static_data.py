@@ -72,13 +72,22 @@ def _publishable_live_rate(row: dict) -> bool:
 
 
 def _latest_batch(rows: list[dict]) -> list[dict]:
-    """Group the observations created by the most recent workflow run."""
+    """Return the newest explicit run, with a legacy time-window fallback."""
     timestamped = [row for row in rows if row.get("queried_at")]
     if not timestamped:
         return []
-    latest = max(_parse_timestamp(row["queried_at"]) for row in timestamped)
+    latest_row = max(timestamped, key=lambda row: _parse_timestamp(row["queried_at"]))
+    latest_run_id = latest_row.get("run_id")
+    if latest_run_id:
+        return [row for row in timestamped if row.get("run_id") == latest_run_id]
+
+    latest = _parse_timestamp(latest_row["queried_at"])
     cutoff = latest - timedelta(minutes=30)
-    return [row for row in timestamped if _parse_timestamp(row["queried_at"]) >= cutoff]
+    return [
+        row
+        for row in timestamped
+        if not row.get("run_id") and _parse_timestamp(row["queried_at"]) >= cutoff
+    ]
 
 
 def _month_key(row: dict) -> str | None:

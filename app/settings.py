@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     base_currency: str = "TWD"
     log_level: str = "INFO"
     lead_days: str = "1,7,14,30,60,90"
+    rate_run_id: str = ""
     booking_com_api_key: str = ""
     booking_com_affiliate_id: str = ""
     ota_config_path: Path = Path("config/ota-properties.yaml")
