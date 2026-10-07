@@ -4,8 +4,8 @@ from datetime import UTC, date, datetime
 from decimal import Decimal, ROUND_HALF_UP
 from urllib.parse import urlencode
 
-from app.models import Hotel, RateObservation, ScrapeStatus
-from scrapers.adapters.capella import CapellaScraper, parse_money
+from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
+from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_money
 
 
 PROPERTIES = {
@@ -19,7 +19,62 @@ PROPERTIES = {
         "hotel": "99659",
         "price_includes_tax": True,
     },
+    "mitsui_garden_taipei_zhongxiao": {
+        "chain": "26262",
+        "hotel": "31000",
+        "price_includes_tax": None,
+    },
 }
+
+ROOM_SIZES = {
+    "mitsui_garden_taipei_zhongxiao": {
+        "精緻雙床套房": Decimal("60.4"),
+        "小型套房": Decimal("60.4"),
+        "Junior Suite, 2 beds": Decimal("60.4"),
+        "豪華景隅雙床房": Decimal("35.3"),
+        "Deluxe, 2 beds, Corner room": Decimal("35.3"),
+        "豪華雙床房": Decimal("30.0"),
+        "Deluxe, 2 beds": Decimal("30.0"),
+        "豪華大床房": Decimal("28.2"),
+        "Deluxe, 1 bed King": Decimal("28.2"),
+        "豪華三人房": Decimal("30.0"),
+        "Deluxe, 3 beds": Decimal("30.0"),
+        "精緻大床房": Decimal("25.8"),
+        "Superior, 1 bed King": Decimal("25.8"),
+        "精緻雙床房": Decimal("25.1"),
+        "Superior, 2 beds": Decimal("25.1"),
+        "標準大床房": Decimal("22.7"),
+        "Standard, 1 bed Queen": Decimal("22.7"),
+        "露台大床房": Decimal("21.0"),
+        "Standard, 1 bed Queen, with balcony": Decimal("21.0"),
+        "景隅大床房": Decimal("21.9"),
+        "Standard, 1 bed Queen, Corner room": Decimal("21.9"),
+        "無障礙客房": Decimal("25.1"),
+        "Accessible, 1 bed Queen": Decimal("25.1"),
+        "好饗甜甜主題房": Decimal("30.9"),
+        "Sweets Room, Deluxe, 2 beds": Decimal("30.9"),
+        "好鄉九份主題房": Decimal("28.1"),
+        "好嚮九份": Decimal("28.1"),
+        "Retro Room, Superior, 2 beds": Decimal("28.1"),
+        "好想故鄉主題房": Decimal("21.9"),
+        "好嚮故鄉": Decimal("21.9"),
+        "Nostalgic Room, Standard, 1 bed, Corner room": Decimal("21.9"),
+    }
+}
+
+
+def room_size(hotel_id: str, room_name: str, size_text: str = "") -> Decimal | None:
+    match = re.search(r"(\d+(?:\.\d+)?)", size_text)
+    if match:
+        return Decimal(match.group(1))
+    known = ROOM_SIZES.get(hotel_id, {})
+    exact = known.get(room_name)
+    if exact is not None:
+        return exact
+    for known_name in sorted(known, key=len, reverse=True):
+        if known_name in room_name:
+            return known[known_name]
+    return None
 
 
 def booking_url(hotel_id: str, check_in: date, check_out: date, adults: int = 2) -> str:
@@ -74,8 +129,13 @@ class SynxisScraper(CapellaScraper):
             room = rooms.nth(index)
             room_code = await room.locator("[data-room-code]").first.get_attribute("data-room-code")
             room_name = (await room.locator("h2").first.inner_text()).strip()
-            size_text = (await room.locator("[class*='roomsize_size']").first.inner_text()).strip()
-            size = Decimal("".join(c for c in size_text if c.isdigit()) or "0") or None
+            size_locator = room.locator("[class*='roomsize_size']").first
+            size_text = (
+                (await size_locator.inner_text()).strip()
+                if await size_locator.count()
+                else ""
+            )
+            size = room_size(hotel.id, room_name, size_text)
             rate = room.locator("[data-rate-code]").first
             if not await rate.count():
                 continue
@@ -83,12 +143,18 @@ class SynxisScraper(CapellaScraper):
             plan_name = " ".join((await rate.locator("h3").first.inner_text()).split())
             displayed_price = parse_money(await rate.locator("[data-testid='regular-price']").first.inner_text())
             prop = PROPERTIES[hotel.id]
-            if prop["price_includes_tax"]:
+            if prop["price_includes_tax"] is True:
                 total = displayed_price
                 base, service, tax = split_tax_inclusive_total(total)
-            else:
+                tax_inclusion = TaxInclusion.INCLUDED
+            elif prop["price_includes_tax"] is False:
                 base = displayed_price
                 service, tax, total = tax_components(base)
+                tax_inclusion = TaxInclusion.INCLUDED
+            else:
+                total = displayed_price
+                base = service = tax = None
+                tax_inclusion = TaxInclusion.UNKNOWN
             text = " ".join((await room.inner_text()).split())
             cancellation_match = re.search(r"抵達前\s*\d+\s*天可免費取消", text)
             cancellation = cancellation_match.group(0) if cancellation_match else None
@@ -99,9 +165,9 @@ class SynxisScraper(CapellaScraper):
                 nights=(check_out-check_in).days, adults=adults, hotel_id=hotel.id,
                 hotel_name=hotel.name, city=hotel.city, room_type_code=room_code,
                 room_type_name=room_name, room_size_sqm=size, rate_plan_code=rate_code,
-                rate_plan_name=plan_name, breakfast_included="含早餐" in text or "含早" in plan_name,
+                rate_plan_name=plan_name, breakfast_included=breakfast_included([text, plan_name]),
                 cancellation_policy=cancellation, price_before_tax=base, service_charge=service, tax=tax,
-                total_price=total, currency="TWD", source_url=source_url, status=ScrapeStatus.LIVE,
+                tax_inclusion=tax_inclusion, total_price=total, currency="TWD", source_url=source_url, status=ScrapeStatus.LIVE,
                 fx_rate_to_twd=Decimal("1"),
             ))
         return observations

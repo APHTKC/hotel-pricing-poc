@@ -152,3 +152,11 @@ hotels:
     country: TW
     booking_url: https://tlathena.ec-hotel.net/webhotel-v5/1071
     adapter: grand_hilai
+  - id: mitsui_garden_taipei_zhongxiao
+    name: MGH Mitsui Garden Hotel Taipei Zhongxiao
+    short_name: Mitsui Garden
+    city: Taipei
+    district: Da'an
+    country: TW
+    booking_url: https://be.synxis.com/?chain=26262&hotel=31000&locale=zh-TW
+    adapter: synxis
