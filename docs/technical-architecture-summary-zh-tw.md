@@ -396,8 +396,8 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
 
 ### P1：主檔與資料治理
 
-1. **飯店設定有多個真相來源。**  
-   `config/hotels.yaml` 仍是早期 9 家；每日 job 使用 `hotels.daily.yaml`；公開 catalog 則合併 daily + candidates。FastAPI 若未指定環境變數，會讀到早期 9 家，與公開網站不一致。
+1. **飯店設定仍有多份，但 API 預設來源已修正。**
+   FastAPI 與每日 job 現在預設讀取 `config/hotels.daily.yaml`；公開 catalog 則合併 daily + candidates。早期 `config/hotels.yaml` 僅保留相容性，不再是執行預設值。後續仍可把 daily 與 candidates 改為單一主檔加狀態欄位。
 
 2. **抓不到房價的飯店，房型主檔覆蓋不足。**  
    目前 67 家飯店皆已有 profile 與房型快照；後續仍應將房型主檔正式獨立於 rate observation：

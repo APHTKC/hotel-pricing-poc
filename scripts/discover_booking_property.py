@@ -17,7 +17,7 @@ def _arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Find ranked Booking.com property candidates for one catalog hotel."
     )
-    parser.add_argument("hotel_id", help="Internal hotel id from config/hotels.yaml")
+    parser.add_argument("hotel_id", help="Internal hotel id from config/hotels.daily.yaml")
     parser.add_argument(
         "--language", default="en-gb", help="Booking.com response language"
     )

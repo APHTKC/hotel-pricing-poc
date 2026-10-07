@@ -597,7 +597,7 @@
     },
     {
       "hotel_id": "taipei_marriott",
-      "verified_at": "2026-09-24",
+    "verified_at": "2026-10-07",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -647,7 +647,8 @@
         "source_type": "official",
         "source_url": "https://www.palaisdechinehotel.com/"
       },
-      "room_inventory": 286,
+    "room_inventory": 277,
+    "service_charge_percent": 10,
       "restaurants": [
         {"name": "Le Thé", "type_zh": "國際料理、茶飲與輕食", "type_en": "International dining, tea and light meals", "type_ja": "各国料理・お茶・軽食"},
         {"name": "Ciao by Fratelli Pennisi Macelleria Sicilia", "type_zh": "西西里牛排餐酒館", "type_en": "Sicilian steakhouse", "type_ja": "シチリア料理・ステーキハウス"},
@@ -675,8 +676,10 @@
         "https://media.taiwan.net.tw/en-us/portal/travel/details/hotel_a15010000h_001187",
         "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
         "https://www.palaisdechinehotel.com/pdc-en/pages/26",
-        "https://www.palaisdechinehotel.com/pdc-en/pages/28",
-        "https://www.palaisdechinehotel.com/pdc-en/pages/28/8/49"
+      "https://www.palaisdechinehotel.com/pdc-en/pages/28",
+      "https://www.palaisdechinehotel.com/pdc-en/pages/28/8/49",
+      "https://preferredhotels.com/directory",
+      "https://hotel.gobooking.com.tw/en/LDC-PALAIS-TP/Packages/Details/barro"
       ]
     },
     {
