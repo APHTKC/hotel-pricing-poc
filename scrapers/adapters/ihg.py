@@ -6,7 +6,7 @@ from decimal import Decimal
 from pathlib import Path
 from urllib.parse import quote, urlencode
 
-from app.models import Hotel, RateObservation, ScrapeStatus
+from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
 from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_money
 
 
@@ -42,9 +42,6 @@ IHG_HOTELS = {
         "official_form": True,
     },
 }
-TOTAL_MULTIPLIER = Decimal("1.155")
-
-
 def ihg_month(value: date) -> str:
     return f"{value.month - 1:02d}{value.year}"
 
@@ -60,9 +57,28 @@ def parse_rate_card(text: str) -> tuple[str, Decimal, bool | None, str] | None:
     if lines[price_index + 1].upper() != "TWD":
         return None
     plan_name = lines[0]
-    before_tax = parse_money(lines[price_index])
+    displayed_price = parse_money(lines[price_index])
     terms = " ".join(lines[1:price_index])
-    return plan_name, before_tax, breakfast_included([plan_name, terms]), terms
+    return plan_name, displayed_price, breakfast_included([plan_name, terms]), terms
+
+
+def included_total_fields(displayed_total: Decimal) -> dict:
+    """Represent IHG's taxes-and-fees-inclusive display without inventing a split."""
+    return {
+        "price_before_tax": None,
+        "service_charge": None,
+        "tax": None,
+        "tax_inclusion": TaxInclusion.INCLUDED,
+        "total_price": displayed_total,
+    }
+
+
+def blocked_status_code(response_status: int | None, page_title: str) -> int | None:
+    if response_status in {403, 429}:
+        return response_status
+    if re.search(r"access denied|request blocked|too many requests", page_title, re.I):
+        return 403
+    return None
 
 
 class IHGScraper(CapellaScraper):
@@ -102,14 +118,27 @@ class IHGScraper(CapellaScraper):
         source_url = self.booking_url(hotel, check_in, check_out, adults)
         page = await self._page()
         try:
-            await page.goto(source_url, wait_until="domcontentloaded", timeout=self.timeout_ms)
+            response = await page.goto(
+                source_url, wait_until="domcontentloaded", timeout=self.timeout_ms
+            )
+            blocked_status = blocked_status_code(
+                response.status if response else None, await page.title()
+            )
+            if blocked_status:
+                raise RuntimeError(f"HTTP {blocked_status} blocked by IHG booking edge")
             ready = page.locator("app-room-rate-item").or_(page.get_by_role(
                 "heading", name=re.compile(r"Select your room|選擇.*客房|选择.*客房", re.I)
             ))
             await ready.first.wait_for(timeout=self.timeout_ms)
             taxes = page.locator("#taxes_fees_checkbox")
-            if await taxes.count() and not await taxes.is_checked():
+            if not await taxes.count():
+                await self._capture_debug(page, hotel.id)
+                return []
+            if not await taxes.is_checked():
                 await taxes.check(force=True)
+            if not await taxes.is_checked():
+                await self._capture_debug(page, hotel.id)
+                return []
             member = page.get_by_role(
                 "checkbox", name=re.compile("IHG One Rewards Discount", re.I)
             ).or_(page.get_by_role(
@@ -174,10 +203,7 @@ class IHGScraper(CapellaScraper):
                 parsed = parse_rate_card(plan_text)
                 if parsed is None:
                     continue
-                plan_name, before_tax, includes_breakfast, terms = parsed
-                service = (before_tax * Decimal("0.10")).quantize(Decimal("1"))
-                tax = Decimal("0")
-                total = before_tax + service
+                plan_name, displayed_total, includes_breakfast, terms = parsed
                 key = f"{hotel.id}:{check_in}:{room_name}:{plan_name}:{queried_at.isoformat()}"
                 observations.append(RateObservation(
                     observation_id=hashlib.sha256(key.encode()).hexdigest()[:24], queried_at=queried_at,
@@ -186,8 +212,8 @@ class IHGScraper(CapellaScraper):
                     room_type_code=re.sub(r"[^A-Z0-9]+", "-", room_name.upper()).strip("-"),
                     room_type_name=room_name, room_size_sqm=size, rate_plan_code=None,
                     rate_plan_name=plan_name, breakfast_included=includes_breakfast,
-                    cancellation_policy=terms or None, price_before_tax=before_tax,
-                    service_charge=service, tax=tax, total_price=total, currency="TWD",
+                    cancellation_policy=terms or None,
+                    **included_total_fields(displayed_total), currency="TWD",
                     source_url=source_url, status=ScrapeStatus.LIVE, fx_rate_to_twd=Decimal("1"),
                 ))
         return observations

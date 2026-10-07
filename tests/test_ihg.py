@@ -1,9 +1,15 @@
 from datetime import date
 
-from app.models import Hotel
+from app.models import Hotel, TaxInclusion
 from decimal import Decimal
 
-from scrapers.adapters.ihg import IHGScraper, ihg_month, parse_rate_card
+from scrapers.adapters.ihg import (
+    IHGScraper,
+    blocked_status_code,
+    ihg_month,
+    included_total_fields,
+    parse_rate_card,
+)
 
 
 def test_ihg_month_is_zero_based():
@@ -46,3 +52,21 @@ def test_parse_current_ihg_rate_card():
         True,
         "Fully refundable before Oct 13, 2026 No prepayment needed - pay at the property Daily Breakfast Included",
     )
+
+
+def test_included_total_does_not_invent_ihg_tax_or_service_split():
+    fields = included_total_fields(Decimal("10589"))
+
+    assert fields == {
+        "price_before_tax": None,
+        "service_charge": None,
+        "tax": None,
+        "tax_inclusion": TaxInclusion.INCLUDED,
+        "total_price": Decimal("10589"),
+    }
+
+
+def test_ihg_access_denied_is_classified_as_blocked_without_waiting_for_rates():
+    assert blocked_status_code(403, "") == 403
+    assert blocked_status_code(200, "Access Denied") == 403
+    assert blocked_status_code(200, "Select your room") is None

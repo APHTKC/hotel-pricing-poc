@@ -382,13 +382,11 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
 - **排程時區與 lead day 已統一採飯店當地日曆。** Workflow 在 22:00 UTC（台北次日 06:00）執行；daily 與 OTA job 現在依每家飯店的 IANA `timezone` 計算查價基準日，並在寫入前依入住日重新正規化 `lead_days`。無效或未知時區採 fail-closed，該飯店當批跳過並留下錯誤紀錄，不再靜默退回 UTC。
 - **公開靜態資料已改為 live-only。** `build_static_data.py` 只接受明確標記 `status=live` 且通過價格合理性檢查的觀測；`demo` 或缺少狀態的資料均 fail-closed，不會進入歷史摘要、最新資料、熱力圖或公開分片。
 - **「最新批次」已改採 workflow 共用 `run_id`。** 每次 Daily Taiwan hotel rates 執行會把 GitHub run ID 與 attempt 組成 `RATE_RUN_ID`，官網與 OTA collector 共用同一值；靜態建置以最新資料的精確 `run_id` 選取整批資料，不再用 30 分鐘猜測。舊資料沒有 `run_id` 時才保留 30 分鐘相容模式。
+- **IHG 稅費處理已改為保守的含稅費總價語意。** Adapter 只有在官方訂房頁的 `taxes_fees_checkbox` 存在且已確認勾選時才收集價格；畫面數字直接存為 `total_price` 並標記 `tax_inclusion=included`，未稅價、服務費及稅額維持空值，不再自行假設 10% 服務費或 0 元稅額。
 
 ### P0：資料正確性／統計語意
 
-1. **IHG 稅費邏輯疑似不一致。**
-   `TOTAL_MULTIPLIER=1.155` 被宣告但未使用；目前 `_collect` 只加 10% service、`tax=0`。需要逐品牌／飯店核對頁面顯示究竟已含稅，不能用同一規則套 Regent、Kimpton 與 InterContinental。
-
-2. **OTA 正式資料覆蓋仍不足。**
+1. **OTA 正式資料覆蓋仍不足。**
    Canonical Comparison Key 已強制匹配飯店、入住／退房日、人數、面積級距、早餐、取消及含稅條件；條件缺失時不比較。目前瓶頸是尚未取得足夠的正式 OTA partner 資料，而不是匹配邏輯。
 
 ### P1：主檔與資料治理
