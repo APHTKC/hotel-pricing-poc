@@ -3,7 +3,7 @@
   "profiles": [
     {
       "hotel_id": "capella_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-07",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -19,11 +19,19 @@
         {"name": "Atelier Plume", "type_zh": "法式甜點與烘焙", "type_en": "French patisserie", "type_ja": "フレンチパティスリー"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "facility_notes": {
+        "zh": "2026-10-07 依官方飯店頁、Wellness 頁與 Capella Wellness 指南重新核實：14 樓設有泳池，健身中心使用 Technogym 設備，Capella Wellness 提供療程空間、三溫暖與蒸氣室。官方指南另列健身中心 24 小時、泳池 07:00–18:00、SPA／蒸氣室／三溫暖 10:00–22:00。",
+        "en": "Reverified on 2026-10-07 against the official hotel, Wellness, and Capella Wellness guide pages: the 14F pool deck, Technogym fitness center, treatment facilities, sauna, and steam room are all explicitly listed. The official guide states that the fitness center is open 24 hours, the pool 07:00–18:00, and the spa, steam room, and sauna 10:00–22:00.",
+        "ja": "2026-10-07に公式ホテルページ、ウェルネスページ、Capella Wellnessガイドで再確認しました。14階のプール、Technogymを備えたフィットネスセンター、トリートメント施設、サウナ、スチームルームが明記されています。公式ガイドの営業時間はフィットネス24時間、プール07:00～18:00、スパ／スチームルーム／サウナ10:00～22:00です。"
+      },
       "lounge": {"available": true, "name": "Capella Living Room", "kind": "guest_living_room"},
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-10-07",
         "source_type": "official",
-        "source_url": "https://capellahotels.com/en/capella-taipei/accommodation",
+        "source_url": "https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_EN.pdf?v11.19=",
+        "count_note_zh": "官方 factsheet 公布 34 間卓越客房、28 間豪華客房、12 間尊榮客房、4 間泳池露台客房、4 間豪華套房、2 間泳池露台套房與 2 間嘉佩樂套房。官網另將多數類別拆成景觀／非景觀名稱，但 factsheet 未提供這些子類別各自房數，因此僅能明確將嘉佩樂套房記為 2 間，其餘不自行拆分。",
+        "count_note_en": "The official factsheet lists 34 Superior Rooms, 28 Deluxe Rooms, 12 Premier Rooms, 4 Pool Terrace Rooms, 4 Deluxe Suites, 2 Pool Terrace Suites, and 2 Capella Suites. The website further separates most categories into skyline and non-skyline names, but the factsheet does not allocate counts to those subtypes; only the two Capella Suites can therefore be assigned directly, while all split categories remain unallocated.",
+        "count_note_ja": "公式factsheetでは、Superior Room 34室、Deluxe Room 28室、Premier Room 12室、Pool Terrace Room 4室、Deluxe Suite 4室、Pool Terrace Suite 2室、Capella Suite 2室と記載されています。公式サイトでは多くのカテゴリーを眺望あり／なしに分けていますが、その内訳は公表されていないため、Capella Suite 2室のみを直接記録し、その他は推測で分割していません。",
         "rooms": [
           {"name_zh": "卓越客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 48},
           {"name_zh": "卓越景觀客房", "name_en": "Superior Skyline Room", "name_ja": "Superior Skyline Room", "size_sqm": 48},
@@ -37,13 +45,15 @@
           {"name_zh": "泳池露台景觀客房", "name_en": "Pool Terrace Skyline Room", "name_ja": "Pool Terrace Skyline Room", "size_sqm": 78},
           {"name_zh": "泳池露台套房", "name_en": "Pool Terrace Suite", "name_ja": "Pool Terrace Suite", "size_sqm": 270, "aliases_zh": ["璀璨套房"]},
           {"name_zh": "泳池露台景觀套房", "name_en": "Pool Terrace Skyline Suite", "name_ja": "Pool Terrace Skyline Suite", "size_sqm": 270},
-          {"name_zh": "嘉佩樂套房", "name_en": "Capella Suite", "name_ja": "Capella Suite", "size_sqm": 228}
+          {"name_zh": "嘉佩樂套房", "name_en": "Capella Suite", "name_ja": "Capella Suite", "size_sqm": 228, "room_count": 2}
         ]
       },
       "source_urls": [
         "https://capellahotels.com/en/capella-taipei",
         "https://capellahotels.com/en/capella-taipei/accommodation",
         "https://capellahotels.com/en/capella-taipei/dining",
+        "https://capellahotels.com/en/capella-taipei/wellness",
+        "https://capellahotels.com/assets/docs/taipei/CPTPE_Capella_Wellness_Web_Menu.pdf",
         "https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_EN.pdf?v11.19="
       ]
     },

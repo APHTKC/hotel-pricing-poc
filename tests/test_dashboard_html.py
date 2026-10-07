@@ -760,12 +760,28 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert "維持待核實" in royal_nikko["facility_notes"]["zh"]
     assert "sauna cabinet" in royal_nikko["facility_notes"]["en"]
-    assert len(by_id["capella_taipei"]["restaurants"]) == 5
-    capella_rooms = by_id["capella_taipei"]["room_snapshot"]["rooms"]
+    capella = by_id["capella_taipei"]
+    assert capella["verified_at"] == "2026-10-07"
+    assert len(capella["restaurants"]) == 5
+    assert capella["facilities"] == {
+        "pool": True,
+        "fitness": True,
+        "spa": True,
+        "sauna": True,
+        "steam_room": True,
+    }
+    assert "14 樓" in capella["facility_notes"]["zh"]
+    assert "24 hours" in capella["facility_notes"]["en"]
+    assert capella["room_snapshot"]["observed_at"] == "2026-10-07"
+    assert "34 間卓越客房" in capella["room_snapshot"]["count_note_zh"]
+    capella_rooms = capella["room_snapshot"]["rooms"]
     assert len(capella_rooms) == 13
     assert min(room["size_sqm"] for room in capella_rooms) == 48
     assert max(room["size_sqm"] for room in capella_rooms) == 270
-    assert next(room for room in capella_rooms if room["name_en"] == "Capella Suite")["size_sqm"] == 228
+    capella_suite = next(room for room in capella_rooms if room["name_en"] == "Capella Suite")
+    assert capella_suite["size_sqm"] == 228
+    assert capella_suite["room_count"] == 2
+    assert "https://capellahotels.com/en/capella-taipei/wellness" in capella["source_urls"]
     assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
     mo_rooms = by_id["mo_taipei"]["room_snapshot"]["rooms"]
     assert len(mo_rooms) == 15
