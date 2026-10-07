@@ -59,7 +59,7 @@
     },
     {
       "hotel_id": "mo_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-07",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -67,6 +67,9 @@
         "source_url": "https://www.mandarinoriental.com/en/taipei/songshan/stay"
       },
       "room_inventory": 303,
+      "service_charge_note_zh": "官方住宿方案條款僅公告房價另收服務費與稅合計 15.5%，未分別列出住宿服務費比例，因此服務費百分比維持待核實。",
+      "service_charge_note_en": "The official accommodation offer states that room rates are subject to a combined 15.5% service charge and tax, without separating the accommodation service-charge percentage; that percentage therefore remains pending.",
+      "service_charge_note_ja": "公式宿泊プランは客室料金にサービス料・税金の合計15.5%が加算されるとのみ記載し、宿泊サービス料率を個別には示していないため、料率は未確認のままです。",
       "restaurants": [
         {"name": "Ya Ge", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"},
         {"name": "Bencotto", "type_zh": "義大利料理", "type_en": "Italian", "type_ja": "イタリア料理"},
@@ -76,11 +79,19 @@
         {"name": "The Mandarin Cake Shop", "type_zh": "甜點與烘焙", "type_en": "Patisserie and bakery", "type_ja": "ペストリー・ベーカリー"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "facility_notes": {
+        "zh": "2026-10-07 依官方新聞資料、健身中心與 SPA 頁重新核實：飯店設有兩層樓 SPA、Technogym 健身中心與六樓花園戶外溫水泳池；健身中心 24 小時開放（07:00–20:00 有人員服務），泳池 07:00–20:00。三溫暖與蒸氣室依官方 SPA 設施資訊保留為有。",
+        "en": "Reverified on 2026-10-07 against the official press information, Fitness Centre, and Spa pages: the hotel has a two-level spa, Technogym fitness center, and a landscaped outdoor heated pool on Level 6. The fitness center is open 24 hours with staff from 07:00–20:00, and the pool from 07:00–20:00. Sauna and steam-room availability remains supported by the official spa information.",
+        "ja": "2026-10-07に公式プレス資料、フィットネスセンター、スパページで再確認しました。2フロアのスパ、Technogymを備えたフィットネスセンター、6階の庭園型屋外温水プールがあります。フィットネスは24時間（スタッフ対応07:00～20:00）、プールは07:00～20:00です。サウナとスチームルームも公式スパ情報に基づき「あり」としています。"
+      },
       "lounge": {"available": true, "name": "The Oriental Lounge", "kind": "executive_club"},
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-10-07",
         "source_type": "official",
         "source_url": "https://www.mandarinoriental.com/zh-hk/taipei/songshan/stay",
+        "count_note_zh": "官方新聞資料確認飯店共有 303 間客房與套房，但未公布各房型數量，因此不將總房數推分至個別房型。",
+        "count_note_en": "Official press information confirms 303 rooms and suites in total but does not publish inventory by room type, so the total is not estimated across individual room categories.",
+        "count_note_ja": "公式プレス資料では客室・スイート合計303室と確認できますが、タイプ別室数は公表されていないため、各客室タイプへの推定配分は行っていません。",
         "rooms": [
           {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 55},
           {"name_zh": "文華客房", "name_en": "Mandarin Room", "name_ja": "Mandarin Room", "size_sqm": 70},
@@ -102,9 +113,12 @@
       "source_urls": [
         "https://cms.mandarinoriental.com/en/taipei/songshan/about",
         "https://www.mandarinoriental.com/en/taipei/songshan/wellness/the-spa",
+        "https://www.mandarinoriental.com/en/taipei/songshan/wellness/fitness",
         "https://www.mandarinoriental.com/en/taipei/songshan/stay/the-oriental-lounge",
         "https://www.mandarinoriental.com/en/taipei/songshan/stay",
-        "https://www.mandarinoriental.com/zh-hk/taipei/songshan/stay"
+        "https://www.mandarinoriental.com/zh-hk/taipei/songshan/stay",
+        "https://www.mandarinoriental.com/en/taipei/songshan/offers/plan-ahead",
+        "https://press.mandarinoriental.com/wp-content/uploads/2025/11/26174beb23bcf20dcba9a64a3c9ebe16.pdf"
       ]
     },
     {

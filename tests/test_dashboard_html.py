@@ -782,8 +782,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert capella_suite["size_sqm"] == 228
     assert capella_suite["room_count"] == 2
     assert "https://capellahotels.com/en/capella-taipei/wellness" in capella["source_urls"]
-    assert by_id["mo_taipei"]["lounge"]["name"] == "The Oriental Lounge"
-    mo_rooms = by_id["mo_taipei"]["room_snapshot"]["rooms"]
+    mo = by_id["mo_taipei"]
+    assert mo["verified_at"] == "2026-10-07"
+    assert mo["lounge"]["name"] == "The Oriental Lounge"
+    assert "合計 15.5%" in mo["service_charge_note_zh"]
+    assert "without separating" in mo["service_charge_note_en"]
+    assert "24 小時" in mo["facility_notes"]["zh"]
+    assert mo["room_snapshot"]["observed_at"] == "2026-10-07"
+    assert "303 間" in mo["room_snapshot"]["count_note_zh"]
+    assert "https://www.mandarinoriental.com/en/taipei/songshan/offers/plan-ahead" in mo["source_urls"]
+    mo_rooms = mo["room_snapshot"]["rooms"]
     assert len(mo_rooms) == 15
     assert min(room["size_sqm"] for room in mo_rooms) == 55
     assert max(room["size_sqm"] for room in mo_rooms) == 376
