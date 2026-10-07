@@ -3,6 +3,8 @@ from pathlib import Path
 
 import yaml
 
+from scripts.build_hotel_catalog import sync_location_tracking
+
 
 NEW_TAIPEI_HOTELS = {
     "episode_daan_taipei": "Da'an",
@@ -37,6 +39,29 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
 
     assert set(NEW_TAIPEI_HOTELS) <= ids
     assert len(payload["hotels"]) == 67
+
+
+def test_location_tracking_is_derived_from_catalog(tmp_path):
+    target = tmp_path / "hotel_locations.json"
+    target.write_text(
+        json.dumps({
+            "updated_at": "old",
+            "locations": [
+                {"hotel_id": "a", "daily_tracked": False},
+                {"hotel_id": "b", "daily_tracked": True},
+            ],
+        }),
+        encoding="utf-8",
+    )
+    sync_location_tracking(
+        [{"id": "a", "enabled": True}, {"id": "b", "enabled": False}],
+        target,
+    )
+    locations = json.loads(target.read_text(encoding="utf-8"))["locations"]
+    assert {row["hotel_id"]: row["daily_tracked"] for row in locations} == {
+        "a": True,
+        "b": False,
+    }
 
 
 def test_every_open_hotel_has_a_valid_opening_year():

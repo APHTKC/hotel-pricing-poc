@@ -1600,7 +1600,8 @@ def test_hotel_map_covers_catalog_and_taipei_districts():
     assert all(21.5 <= row["latitude"] <= 26.5 for row in locations)
     assert all(118 <= row["longitude"] <= 123 for row in locations)
     assert sum(row["city"] == "Taipei" for row in locations) == 37
-    assert sum(bool(row["daily_tracked"]) for row in locations) == 18
+    tracked = {row["id"] for row in catalog if row.get("enabled")}
+    assert {row["hotel_id"] for row in locations if row["daily_tracked"]} == tracked
     assert all(row["district"] for row in locations if row["city"] == "Taipei")
 
 
