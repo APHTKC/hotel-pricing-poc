@@ -42,7 +42,9 @@ def test_exact_same_product_is_compared():
     ("field", "value"),
     [
         ("check_out", date(2026, 10, 3)),
+        ("rooms", 2),
         ("adults", 1),
+        ("children", 1),
         ("room_size_sqm", Decimal("80")),
         ("breakfast_included", False),
         ("cancellation_policy", "Non-refundable"),
@@ -59,9 +61,19 @@ def test_different_product_conditions_are_not_compared(field, value):
 
 @pytest.mark.parametrize(
     "missing_field",
-    ["check_out", "room_size_sqm", "breakfast_included", "cancellation_policy", "tax_inclusion"],
+    ["hotel_id", "check_in", "check_out", "rooms", "adults", "children", "room_size_sqm", "breakfast_included", "cancellation_policy", "tax_inclusion"],
 )
 def test_incomplete_metadata_is_not_comparable(missing_field):
     row = product()
     row[missing_field] = None if missing_field != "tax_inclusion" else "unknown"
+    assert canonical_comparison_key(row) is None
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [("rooms", 0), ("adults", 0), ("children", -1), ("adults", "invalid")],
+)
+def test_invalid_occupancy_is_not_comparable(field, value):
+    row = product()
+    row[field] = value
     assert canonical_comparison_key(row) is None

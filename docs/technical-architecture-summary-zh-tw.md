@@ -199,19 +199,19 @@ Booking.com parser 會讀取：
 - base price／total price
 - 幣別與 deep link
 
-**目前前端比價實作：**
+**目前比價實作：**
 
-1. 依使用者的城市、行政區、飯店、房型級距、lead time 篩選。
-2. 再以 `hotel_id + check_in` 分組。
-3. 官網取該組中位數。
-4. 各 OTA 各自取中位數，再挑最低 OTA 中位數。
+1. `services/rate_parity.py` 先建立嚴格 Canonical Comparison Key。
+2. Key 同時包含 `hotel_id`、`check_in`、`check_out`、`rooms/adults/children`、`size_band`、`breakfast_included`、`cancellation_class` 與 `tax_inclusion`。
+3. 任一必要條件缺失或無效時採 fail-closed，標記 `insufficient_product_metadata`，不產生比價。
+4. 靜態建置將相同 Key 的官網與各 OTA 價格分別取中位數；首頁只以已產出的 `comparison_key` 分組，並選出最低 OTA 中位數。
 5. 價差：
 
 ```text
 gap = (lowest_ota_median - official_median) / official_median
 ```
 
-目前尚未在 group key 中強制匹配 `nights`、`adults`、房型 ID、早餐、退款條件與 rate-plan 類型。因此文件所描述的「同條件 apples-to-apples 比較」尚未完整落實。
+入住晚數由完全一致的 `check_in + check_out` 保證。房型目前採面積級距匹配；尚未取得可靠正規化房型 ID 時，不跨級距比較。價格方案名稱本身不作 Key，避免各來源命名不同，但早餐、取消與稅別條件必須一致。
 
 ### 2.6 Lead time
 
@@ -388,8 +388,8 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
 3. **IHG 稅費邏輯疑似不一致。**  
    `TOTAL_MULTIPLIER=1.155` 被宣告但未使用；目前 `_collect` 只加 10% service、`tax=0`。需要逐品牌／飯店核對頁面顯示究竟已含稅，不能用同一規則套 Regent、Kimpton 與 InterContinental。
 
-4. **OTA 比價尚未做到完全同條件。**  
-   現行只保證同飯店、同入住日，再套使用者可能選擇的 size／lead filter；未硬性匹配房型、早餐、取消、入住人數、晚數與 rate-plan class。
+4. **OTA 正式資料覆蓋仍不足。**
+   Canonical Comparison Key 已強制匹配飯店、入住／退房日、人數、面積級距、早餐、取消及含稅條件；條件缺失時不比較。目前瓶頸是尚未取得足夠的正式 OTA partner 資料，而不是匹配邏輯。
 
 5. **「最新批次」是 30 分鐘時間窗，不是真正 run ID。**  
    相鄰 workflow 可能被合併，超過 30 分鐘的同一輪可能被截斷。應新增 `scrape_run_id`／`batch_id` 與 run metadata。

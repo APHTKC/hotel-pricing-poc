@@ -48,9 +48,15 @@ def normalize_size_band(row: Mapping[str, Any] | Any) -> str:
     return "<45㎡" if number < 45 else "45–59㎡" if number < 60 else "60–79㎡" if number < 80 else "80㎡+"
 
 def occupancy_key(row: Mapping[str, Any] | Any) -> str:
-    rooms = int(_value(row, "rooms", 1) or 1)
-    adults = int(_value(row, "adults", 2) or 2)
-    children = int(_value(row, "children", 0) or 0)
+    raw_values = tuple(_value(row, name) for name in ("rooms", "adults", "children"))
+    if any(value is None for value in raw_values):
+        return UNKNOWN
+    try:
+        rooms, adults, children = (int(value) for value in raw_values)
+    except (TypeError, ValueError):
+        return UNKNOWN
+    if rooms <= 0 or adults <= 0 or children < 0:
+        return UNKNOWN
     return f"{rooms}r-{adults}a-{children}c"
 
 @dataclass(frozen=True)
@@ -71,12 +77,13 @@ class CanonicalComparisonKey:
 def canonical_comparison_key(row: Mapping[str, Any] | Any) -> CanonicalComparisonKey | None:
     hotel_id, check_in, check_out = _value(row, "hotel_id"), _value(row, "check_in"), _value(row, "check_out")
     breakfast = _value(row, "breakfast_included")
+    occupancy = occupancy_key(row)
     size_band = normalize_size_band(row)
     cancellation = normalize_cancellation_class(_value(row, "cancellation_policy"))
     tax_inclusion = normalize_tax_inclusion(row)
-    if not hotel_id or not check_in or not check_out or breakfast is None or UNKNOWN in {size_band, cancellation, tax_inclusion}:
+    if not hotel_id or not check_in or not check_out or breakfast is None or UNKNOWN in {occupancy, size_band, cancellation, tax_inclusion}:
         return None
-    return CanonicalComparisonKey(str(hotel_id), str(check_in), str(check_out), occupancy_key(row), size_band, bool(breakfast), cancellation, tax_inclusion)
+    return CanonicalComparisonKey(str(hotel_id), str(check_in), str(check_out), occupancy, size_band, bool(breakfast), cancellation, tax_inclusion)
 
 def comparison_metadata(row: Mapping[str, Any] | Any) -> dict[str, Any]:
     key = canonical_comparison_key(row)
