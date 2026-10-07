@@ -8,7 +8,7 @@
 | 欄位群組 | 主要欄位 | 說明 |
 |---|---|---|
 | 批次 | `schema_version`, `observation_id`, `run_id`, `scheduled_for`, `queried_at` | `run_id` 為一次 job 共用 UUID |
-| 入住 | `check_in`, `check_out`, `lead_days`, `nights` | 預設一晚 |
+| 入住 | `check_in`, `check_out`, `lead_days`, `nights` | 預設一晚；`lead_days` 依飯店 IANA 時區的查詢當地日期計算 |
 | 人數 | `rooms`, `adults`, `children` | 預設 1 房、2 成人、0 兒童 |
 | 飯店 | `hotel_id`, `hotel_name`, `city`, `district` | `hotel_id` 為穩定識別碼 |
 | 房型 | `room_type_code`, `room_type_name`, `room_size_sqm`, `size_band` | 無面積一律為 `unknown` |

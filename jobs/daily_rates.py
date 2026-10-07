@@ -9,6 +9,7 @@ from app.settings import Settings, get_settings
 from config.loader import load_hotels
 from scrapers.registry import get_scraper
 from services.adapter_health import AdapterHealthStore, BackoffPolicy, status_code_from_exception
+from services.timezones import local_date_at, utc_now
 from storage.factory import get_store
 
 logger = logging.getLogger(__name__)
@@ -22,15 +23,22 @@ def parse_lead_days(value: str) -> tuple[int, ...]:
     return days
 
 
-async def run_daily_rates(settings: Settings | None = None, health_store: AdapterHealthStore | None = None) -> JobResult:
+async def run_daily_rates(
+    settings: Settings | None = None,
+    health_store: AdapterHealthStore | None = None,
+    *,
+    started_at: datetime | None = None,
+) -> JobResult:
     settings = settings or get_settings()
     logging.basicConfig(level=settings.log_level)
-    started = datetime.now(UTC)
+    started = started_at or utc_now()
+    if started.tzinfo is None:
+        raise ValueError("started_at must be timezone-aware")
+    started = started.astimezone(UTC)
     run_id = str(uuid4())
     scheduled_for = started
     observations = []
     failures: list[dict[str, str]] = []
-    today = started.date()
     health_store = health_store or AdapterHealthStore(
         settings.adapter_health_path,
         settings.diagnostic_snapshot_dir,
@@ -44,6 +52,12 @@ async def run_daily_rates(settings: Settings | None = None, health_store: Adapte
 
     for hotel in load_hotels():
         if not hotel.enabled:
+            continue
+        try:
+            hotel_today = local_date_at(started, hotel.timezone)
+        except ValueError as exc:
+            failures.append({"hotel_id": hotel.id, "lead_days": "", "error": str(exc)})
+            logger.error("Invalid timezone for %s: %s", hotel.id, exc)
             continue
         cooldown = health_store.cooldown_until(hotel.adapter, hotel.id, started)
         if cooldown:
@@ -60,7 +74,7 @@ async def run_daily_rates(settings: Settings | None = None, health_store: Adapte
         try:
             consecutive_failures = 0
             for lead_days in parse_lead_days(settings.lead_days):
-                check_in = today + timedelta(days=lead_days)
+                check_in = hotel_today + timedelta(days=lead_days)
                 request_started = perf_counter()
                 try:
                     rates = await scraper.fetch_rates(hotel, check_in, check_in + timedelta(days=1))
@@ -87,6 +101,7 @@ async def run_daily_rates(settings: Settings | None = None, health_store: Adapte
                         rate.model_copy(
                             update={
                                 "district": rate.district or hotel.district,
+                                "lead_days": (rate.check_in - hotel_today).days,
                                 "run_id": run_id,
                                 "scheduled_for": scheduled_for,
                             }
@@ -118,7 +133,7 @@ async def run_daily_rates(settings: Settings | None = None, health_store: Adapte
     written = get_store(settings).append(observations)
     return JobResult(
         started_at=started,
-        finished_at=datetime.now(UTC),
+        finished_at=utc_now(),
         observations=written,
         failures=failures,
         storage_backend=settings.storage_backend,

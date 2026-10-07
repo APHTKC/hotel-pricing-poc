@@ -12,15 +12,24 @@ from jobs.daily_rates import parse_lead_days
 from scrapers.ota.booking_com import BookingComProvider
 from scrapers.ota.config import load_ota_property_mappings
 from services.adapter_health import AdapterHealthStore, BackoffPolicy, status_code_from_exception
+from services.timezones import local_date_at, utc_now
 from storage.factory import get_store
 
 logger = logging.getLogger(__name__)
 
 
-async def run_ota_rates(settings: Settings | None = None, health_store: AdapterHealthStore | None = None) -> JobResult:
+async def run_ota_rates(
+    settings: Settings | None = None,
+    health_store: AdapterHealthStore | None = None,
+    *,
+    started_at: datetime | None = None,
+) -> JobResult:
     settings = settings or get_settings()
     logging.basicConfig(level=settings.log_level)
-    started = datetime.now(UTC)
+    started = started_at or utc_now()
+    if started.tzinfo is None:
+        raise ValueError("started_at must be timezone-aware")
+    started = started.astimezone(UTC)
     run_id = str(uuid4())
     scheduled_for = started
     observations = []
@@ -56,6 +65,12 @@ async def run_ota_rates(settings: Settings | None = None, health_store: AdapterH
                         {"hotel_id": hotel_id, "lead_days": "", "error": "Unknown hotel mapping"}
                     )
                     continue
+                try:
+                    hotel_today = local_date_at(started, hotel.timezone)
+                except ValueError as exc:
+                    failures.append({"hotel_id": hotel_id, "lead_days": "", "error": str(exc)})
+                    logger.error("Invalid timezone for %s: %s", hotel_id, exc)
+                    continue
                 cooldown = health_store.cooldown_until("booking_com", hotel_id, started)
                 if cooldown:
                     failures.append({"hotel_id": hotel_id, "lead_days": "", "error": f"Cooldown active until {cooldown.isoformat()}"})
@@ -63,7 +78,7 @@ async def run_ota_rates(settings: Settings | None = None, health_store: AdapterH
                 consecutive_empty = 0
                 consecutive_failures = 0
                 for lead_days in parse_lead_days(settings.lead_days):
-                    check_in = started.date() + timedelta(days=lead_days)
+                    check_in = hotel_today + timedelta(days=lead_days)
                     request_started = perf_counter()
                     try:
                         rows = await provider.fetch_rates(
@@ -94,6 +109,7 @@ async def run_ota_rates(settings: Settings | None = None, health_store: AdapterH
                                 update={
                                     "run_id": run_id,
                                     "scheduled_for": scheduled_for,
+                                    "lead_days": (row.check_in - hotel_today).days,
                                 }
                             )
                             for row in rows
@@ -138,7 +154,7 @@ async def run_ota_rates(settings: Settings | None = None, health_store: AdapterH
     written = get_store(settings).append(observations)
     return JobResult(
         started_at=started,
-        finished_at=datetime.now(UTC),
+        finished_at=utc_now(),
         observations=written,
         failures=failures,
         storage_backend=settings.storage_backend,

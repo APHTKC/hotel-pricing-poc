@@ -1,4 +1,5 @@
 import asyncio
+from datetime import UTC, datetime
 
 import httpx
 
@@ -110,3 +111,63 @@ def test_ota_job_stops_provider_after_auth_failure(monkeypatch, tmp_path):
     assert result.observations == 0
     assert len(result.failures) == 1
     assert result.failures[0]["hotel_id"] == "a"
+
+
+def test_ota_job_uses_hotel_local_date_and_normalizes_lead_days(monkeypatch, tmp_path):
+    class SuccessfulProvider:
+        instance = None
+
+        def __init__(self, *args):
+            self.requests = []
+            SuccessfulProvider.instance = self
+
+        async def fetch_rates(self, hotel, property_id, check_in, check_out):
+            from decimal import Decimal
+
+            from app.models import RateObservation, ScrapeStatus
+
+            self.requests.append(check_in)
+            return [
+                RateObservation(
+                    observation_id=f"{hotel.id}-{check_in}",
+                    queried_at=datetime(2026, 10, 6, 22, 0, tzinfo=UTC),
+                    check_in=check_in,
+                    check_out=check_out,
+                    lead_days=0,
+                    hotel_id=hotel.id,
+                    hotel_name=hotel.name,
+                    room_type_code="ROOM",
+                    room_type_name="Room",
+                    rate_plan_code="BAR",
+                    rate_plan_name="BAR",
+                    total_price=Decimal("10000"),
+                    currency="TWD",
+                    source_platform="booking_com",
+                    source_url="https://example.com",
+                    status=ScrapeStatus.LIVE,
+                )
+            ]
+
+        async def close(self):
+            return None
+
+    store = MemoryStore()
+    monkeypatch.setattr(
+        ota_rates, "load_ota_property_mappings", lambda *args: (True, {"a": "1"})
+    )
+    monkeypatch.setattr(ota_rates, "load_hotels", lambda: [_hotel("a")])
+    monkeypatch.setattr(ota_rates, "BookingComProvider", SuccessfulProvider)
+    monkeypatch.setattr(ota_rates, "get_store", lambda settings: store)
+
+    asyncio.run(
+        ota_rates.run_ota_rates(
+            _settings(tmp_path).model_copy(update={"lead_days": "1,7"}),
+            started_at=datetime(2026, 10, 6, 22, 0, tzinfo=UTC),
+        )
+    )
+
+    assert [item.isoformat() for item in SuccessfulProvider.instance.requests] == [
+        "2026-10-08",
+        "2026-10-14",
+    ]
+    assert [row.lead_days for row in store.rows] == [1, 7]

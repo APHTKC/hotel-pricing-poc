@@ -1,4 +1,5 @@
 import asyncio
+from datetime import UTC, datetime
 
 from app.models import Hotel
 from app.settings import Settings
@@ -107,14 +108,19 @@ def test_daily_job_assigns_one_run_id_and_schedule_to_all_rows(monkeypatch, tmp_
     monkeypatch.setattr(daily_rates, "get_scraper", lambda *args: SuccessfulScraper())
     monkeypatch.setattr(daily_rates, "get_store", lambda settings: store)
 
-    asyncio.run(daily_rates.run_daily_rates(Settings(
-        demo_mode=False,
-        lead_days="1,7",
-        adapter_health_path=tmp_path / "health.json",
-        diagnostic_snapshot_dir=tmp_path / "diagnostics",
-    )))
+    asyncio.run(daily_rates.run_daily_rates(
+        Settings(
+            demo_mode=False,
+            lead_days="1,7",
+            adapter_health_path=tmp_path / "health.json",
+            diagnostic_snapshot_dir=tmp_path / "diagnostics",
+        ),
+        started_at=datetime(2026, 10, 6, 22, 0, tzinfo=UTC),
+    ))
 
     assert len(store.rows) == 2
     assert len({row.run_id for row in store.rows}) == 1
     assert store.rows[0].run_id
     assert all(row.scheduled_for is not None for row in store.rows)
+    assert [row.check_in.isoformat() for row in store.rows] == ["2026-10-08", "2026-10-14"]
+    assert [row.lead_days for row in store.rows] == [1, 7]
