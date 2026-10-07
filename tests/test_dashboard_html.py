@@ -915,6 +915,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(le_meridien["room_snapshot"]["rooms"]) == 11
     assert {room["size_sqm"] for room in le_meridien["room_snapshot"]["rooms"]} == {38, 60, 75, 157, 223}
     assert "serviceChargeInfo" in html
+    assert "Number.isFinite(charge)&&charge>0" in html
+    assert "Number.isFinite(charge)&&charge>=0" not in html
     assert 'data-i18n="serviceCharge"' in html
     assert "service_charge_percent" in html
     assert "observedMatch.name=roomLabel(room)" in html
