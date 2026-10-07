@@ -1140,8 +1140,11 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert min(room["size_sqm"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]) == 40
     assert max(room["size_sqm"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]) == 231
     radium_kagaya = by_id["radium_kagaya_taipei"]
+    assert radium_kagaya["verified_at"] == "2026-10-07"
     assert radium_kagaya["room_inventory"] == 90
     assert radium_kagaya["service_charge_percent"] == 10
+    assert radium_kagaya["service_charge_source_type"] == "official"
+    assert radium_kagaya["service_charge_source_url"].endswith("/rooms/special-suites/")
     assert len(radium_kagaya["restaurants"]) == 3
     assert radium_kagaya["facilities"] == {
         "pool": None,
@@ -1155,7 +1158,10 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "name": None,
         "kind": "none",
     }
+    assert "溫泉浴池屬泡湯設施，不列為游泳池" in radium_kagaya["facility_notes"]["zh"]
+    assert "remain pending" in radium_kagaya["facility_notes"]["en"]
     assert radium_kagaya["room_snapshot"]["source_type"] == "official"
+    assert radium_kagaya["room_snapshot"]["observed_at"] == "2026-10-07"
     assert len(radium_kagaya["room_snapshot"]["rooms"]) == 9
     assert {room["name_en"] for room in radium_kagaya["room_snapshot"]["rooms"]} >= {
         "Mixed Standard Suite (No View)",
@@ -1164,6 +1170,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in radium_kagaya["room_snapshot"]["rooms"]) == 43
     assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in radium_kagaya["room_snapshot"]["rooms"]) == 105
+    kagaya_counts = {
+        room["name_en"]: room.get("room_count")
+        for room in radium_kagaya["room_snapshot"]["rooms"]
+    }
+    assert kagaya_counts["Japanese Standard Suite (No View)"] == 6
+    assert kagaya_counts["Park Side View Mixed Deluxe Suite"] == 32
+    assert kagaya_counts["Semi-Open Hot Spring Executive Suite"] == 8
+    assert kagaya_counts["Grand Special Suite"] == 1
+    assert kagaya_counts["Mixed Standard Suite Twin (With Terrace)"] is None
+    assert "combines" in radium_kagaya["room_snapshot"]["count_note_en"]
     grand_view = by_id["grand_view_resort_beitou"]
     assert grand_view["room_inventory"] == 66
     assert grand_view["service_charge_percent"] == 10
