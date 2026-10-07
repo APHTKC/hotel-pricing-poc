@@ -66,6 +66,11 @@ def _plausible_luxury_rate(row: dict) -> bool:
         return False
 
 
+def _publishable_live_rate(row: dict) -> bool:
+    """Publish only explicit live observations with a plausible TWD total."""
+    return row.get("status") == "live" and _plausible_luxury_rate(row)
+
+
 def _latest_batch(rows: list[dict]) -> list[dict]:
     """Group the observations created by the most recent workflow run."""
     timestamped = [row for row in rows if row.get("queried_at")]
@@ -509,7 +514,7 @@ def main() -> None:
         for line in SOURCE.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 row = json.loads(line)
-                if _plausible_luxury_rate(row):
+                if _publishable_live_rate(row):
                     source_rows.append(row)
     source_rows = deduplicate_observations(source_rows, keep="latest")
     rows = [_dashboard_row(row) for row in source_rows]

@@ -12,6 +12,7 @@ from scripts.build_static_data import (
     _month_key,
     _partition_id,
     _plausible_luxury_rate,
+    _publishable_live_rate,
     _public_adapter_health,
     _weekly_digest,
 )
@@ -32,6 +33,12 @@ def test_latest_batch_uses_recent_workflow_window():
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
+
+
+def test_static_publication_requires_explicit_live_status():
+    assert _publishable_live_rate({"status": "live", "total_twd": "12300"}) is True
+    assert _publishable_live_rate({"status": "demo", "total_twd": "12300"}) is False
+    assert _publishable_live_rate({"total_twd": "12300"}) is False
 
 
 def test_dashboard_row_drops_large_internal_fields():
@@ -91,6 +98,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     legacy = tmp_path / "rates.json"
     legacy.write_text("legacy", encoding="utf-8")
     common = {
+        "status": "live",
         "check_in": "2026-10-01",
         "room_type_code": "ROOM",
         "room_type_name": "Room",
@@ -127,6 +135,16 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
             "queried_at": "2026-09-24T20:01:00+00:00",
             "total_price": "20000",
             "total_twd": "20000",
+        },
+        {
+            **common,
+            "status": "demo",
+            "observation_id": "demo",
+            "hotel_id": "hotel-c",
+            "hotel_name": "Hotel C",
+            "queried_at": "2026-09-24T20:02:00+00:00",
+            "total_price": "30000",
+            "total_twd": "30000",
         },
     ]
     source.write_text(
