@@ -894,12 +894,17 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert {room["name_en"] for room in snapshot["rooms"]} >= {"Classic Room", "Brilliant Suite"}
     assert {room["size_sqm"] for room in snapshot["rooms"]} >= {40, 51, 65, 80}
     palais = by_id["palais_de_chine"]
+    assert palais["verified_at"] == "2026-10-07"
     assert palais["room_inventory"] == 277
     assert palais["service_charge_percent"] == 10
+    assert palais["service_charge_source_type"] == "official"
+    assert "31/31/262" in palais["service_charge_source_url"]
     assert any("media.taiwan.net.tw" in url for url in palais["source_urls"])
     assert any("preferredhotels.com" in url for url in palais["source_urls"])
     assert len(palais["restaurants"]) == 3
     assert palais["facilities"] == {"pool": None, "fitness": True, "spa": None, "sauna": None, "steam_room": None}
+    assert "06:30–23:00" in palais["facility_notes"]["zh"]
+    assert "remain pending" in palais["facility_notes"]["en"]
     assert palais["lounge"]["name"] == "Le Salon VIP Lounge"
     assert palais["room_snapshot"]["source_type"] == "official"
     assert len(palais["room_snapshot"]["rooms"]) == 9

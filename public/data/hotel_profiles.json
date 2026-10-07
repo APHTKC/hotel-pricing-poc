@@ -645,21 +645,28 @@
     },
     {
       "hotel_id": "palais_de_chine",
-      "verified_at": "2026-09-24",
+      "verified_at": "2026-10-07",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
         "source_type": "official",
-        "source_url": "https://www.palaisdechinehotel.com/"
+        "source_url": "https://www.palaisdechinehotel.com/p/pdc-tw/rooms/premier-suite"
       },
-    "room_inventory": 277,
-    "service_charge_percent": 10,
+      "room_inventory": 277,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://www.palaisdechinehotel.com/pdc-tw/contact/31/31/262",
       "restaurants": [
         {"name": "Le Thé", "type_zh": "國際料理、茶飲與輕食", "type_en": "International dining, tea and light meals", "type_ja": "各国料理・お茶・軽食"},
         {"name": "Ciao by Fratelli Pennisi Macelleria Sicilia", "type_zh": "西西里牛排餐酒館", "type_en": "Sicilian steakhouse", "type_ja": "シチリア料理・ステーキハウス"},
         {"name": "Le Palais", "type_zh": "粵菜與港式點心", "type_en": "Cantonese and dim sum", "type_ja": "広東料理・点心"}
       ],
       "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "facility_notes": {
+        "zh": "官方設施頁明確列出 17 樓房客專屬健身房，每日 06:30–23:00 開放；翰林軒 Le Salon 為行政／君璽樓層與套房住客的專屬 VIP Lounge。官方現行設施頁未明確說明泳池、SPA、三溫暖或蒸氣室，相關欄位維持待核實。",
+        "en": "The official facilities page lists a guest-only gym on the 17th floor, open daily from 06:30 to 23:00. Le Salon is a VIP lounge reserved for eligible Executive, Prestige-floor, and suite guests. The current official facilities information does not explicitly address a pool, spa, sauna, or steam room, so those fields remain pending.",
+        "ja": "公式施設ページでは、17階の宿泊者専用ジム（毎日06:30～23:00）を明記しています。Le Salonは対象となるエグゼクティブ、プレステージフロアおよびスイート宿泊者専用のVIPラウンジです。プール、SPA、サウナ、スチームルームは現行公式情報に明記がないため、未確認のままとしています。"
+      },
       "lounge": {"available": true, "name": "Le Salon VIP Lounge", "kind": "executive_club"},
       "room_snapshot": {
         "observed_at": "2026-09-23",
@@ -681,10 +688,14 @@
         "https://media.taiwan.net.tw/en-us/portal/travel/details/hotel_a15010000h_001187",
         "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
         "https://www.palaisdechinehotel.com/pdc-en/pages/26",
-      "https://www.palaisdechinehotel.com/pdc-en/pages/28",
-      "https://www.palaisdechinehotel.com/pdc-en/pages/28/8/49",
-      "https://preferredhotels.com/directory",
-      "https://hotel.gobooking.com.tw/en/LDC-PALAIS-TP/Packages/Details/barro"
+        "https://www.palaisdechinehotel.com/pdc-en/pages/28",
+        "https://www.palaisdechinehotel.com/pdc-en/pages/28/8/49",
+        "https://www.palaisdechinehotel.com/c/pdc-tw/pages/facilities_services",
+        "https://www.palaisdechinehotel.com/pdc-en/pages/28/8/74",
+        "https://www.palaisdechinehotel.com/pdc-en/pages/31/54/186",
+        "https://www.palaisdechinehotel.com/pdc-tw/contact/31/31/262",
+        "https://preferredhotels.com/directory",
+        "https://hotel.gobooking.com.tw/en/LDC-PALAIS-TP/Packages/Details/barro"
       ]
     },
     {
