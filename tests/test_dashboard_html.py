@@ -843,10 +843,18 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(by_id["eslite_hotel"]["restaurants"]) == 3
     assert by_id["eslite_hotel"]["facilities"]["fitness"] is True
     assert by_id["eslite_hotel"]["facilities"]["pool"] is None
+    assert by_id["eslite_hotel"]["verified_at"] == "2026-10-07"
+    assert "24 小時健身中心" in by_id["eslite_hotel"]["facility_notes"]["zh"]
     eslite_rooms = by_id["eslite_hotel"]["room_snapshot"]["rooms"]
     assert len(eslite_rooms) == 5
     assert eslite_rooms[-1]["size_sqm_min"] == 89
     assert eslite_rooms[-1]["size_sqm_max"] == 182
+    assert sum(room["room_count"] for room in eslite_rooms) == 104
+    assert '<script src="./assets/js/hotel-room-counts.js"></script>' in html
+    room_count_js = Path("public/assets/js/hotel-room-counts.js").read_text(encoding="utf-8")
+    assert 'zh: "官方房數"' in room_count_js
+    assert "room.room_count" in room_count_js
+    assert 'cell.textContent = Number.isInteger(count)' in room_count_js
     assert "room.size_sqm_min??room.size_sqm" in html
     assert "r.sizeMax!==r.sizeMin" in html
     assert "function rateRoomLabel(row)" in html
