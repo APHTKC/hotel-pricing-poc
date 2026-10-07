@@ -860,11 +860,17 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "function rateRoomLabel(row)" in html
     assert "item.sourceName.includes(room.name_zh)" in html
     assert "['愛心房','Accessible']" in html
-    assert by_id["hotel_metropolitan_premier_taipei"]["room_inventory"] == 288
-    assert len(by_id["hotel_metropolitan_premier_taipei"]["restaurants"]) == 7
-    assert by_id["hotel_metropolitan_premier_taipei"]["facilities"] == {"pool": True, "fitness": True, "spa": True, "sauna": True, "steam_room": True}
-    assert by_id["hotel_metropolitan_premier_taipei"]["lounge"]["kind"] == "executive_club"
-    jr_rooms = by_id["hotel_metropolitan_premier_taipei"]["room_snapshot"]["rooms"]
+    metropolitan = by_id["hotel_metropolitan_premier_taipei"]
+    assert metropolitan["verified_at"] == "2026-10-07"
+    assert metropolitan["room_inventory"] == 288
+    assert metropolitan["service_charge_percent"] == 10
+    assert metropolitan["service_charge_source_type"] == "official"
+    assert metropolitan["service_charge_source_url"].endswith("/stay/plan/flexible.html")
+    assert any("shukuhakuyakkan_en2025.pdf" in url for url in metropolitan["source_urls"])
+    assert len(metropolitan["restaurants"]) == 7
+    assert metropolitan["facilities"] == {"pool": True, "fitness": True, "spa": True, "sauna": True, "steam_room": True}
+    assert metropolitan["lounge"]["kind"] == "executive_club"
+    jr_rooms = metropolitan["room_snapshot"]["rooms"]
     assert len(jr_rooms) == 21
     assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in jr_rooms) == 36
     assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in jr_rooms) == 210

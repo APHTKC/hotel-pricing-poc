@@ -457,7 +457,7 @@
     },
     {
       "hotel_id": "hotel_metropolitan_premier_taipei",
-      "verified_at": "2026-09-23",
+      "verified_at": "2026-10-07",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -465,6 +465,9 @@
         "source_url": "https://taipei.metropolitan.tw/stay/rooms/"
       },
       "room_inventory": 288,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://taipei.hotel-metropolitan.com/stay/plan/flexible.html",
       "restaurants": [
         {"name": "BRILLIANT", "type_zh": "全日餐廳", "type_en": "All-day dining", "type_ja": "オールデイダイニング"},
         {"name": "HAYASE", "type_zh": "日本料理、懷石與鐵板燒", "type_en": "Japanese, kaiseki and teppanyaki", "type_ja": "日本料理・懐石・鉄板焼"},
@@ -508,7 +511,9 @@
         "https://taipei.metropolitan.tw/stay/rooms/",
         "https://taipei.metropolitan.tw/facility/",
         "https://taipei.metropolitan.tw/spa/spawellness.html",
-        "https://taipei.hotel-metropolitan.com/"
+        "https://taipei.hotel-metropolitan.com/",
+        "https://taipei.hotel-metropolitan.com/stay/plan/flexible.html",
+        "https://taipei.hotel-metropolitan.com/esiqtd00000000b3-att/shukuhakuyakkan_en2025.pdf"
       ]
     },
     {
