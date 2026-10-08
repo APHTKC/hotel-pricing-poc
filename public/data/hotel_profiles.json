@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-07",
+  "updated_at": "2026-10-08",
   "profiles": [
     {
       "hotel_id": "capella_taipei",
@@ -173,14 +173,14 @@
     },
     {
       "hotel_id": "okura_prestige_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-08",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
         "source_type": "official",
         "source_url": "https://www.okurataipei.com.tw/en/"
       },
-      "room_inventory": 207,
+      "room_inventory": 208,
       "service_charge_note_zh": "官網僅公告房價另收稅與服務費合計 15%，未分別列出服務費比例。",
       "service_charge_note_en": "The official site states a combined 15% tax and service charge, without separating the service-charge percentage.",
       "service_charge_note_ja": "公式サイトは税金・サービス料の合計15%のみを表示し、サービス料率を個別には示していません。",
@@ -192,11 +192,19 @@
         {"name": "The Pearl Lounge & Bar", "type_zh": "酒吧與輕食", "type_en": "Bar and light dining", "type_ja": "バー・軽食"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "facility_notes": {
+        "zh": "2026-10-08 依飯店官方設施頁與交通部觀光署旅宿網重新核實：21 樓設有頂樓戶外泳池，20 樓設有 Technogym 健身房、SPA／按摩與包含按摩浴池及蒸氣設施的三溫暖。",
+        "en": "Reverified on 2026-10-08 against the hotel's official facilities page and the Taiwan Tourism Administration registry: the rooftop outdoor pool is on Level 21, while the Technogym fitness room, spa and massage facilities, and sauna with a Jacuzzi and steam facilities are on Level 20.",
+        "ja": "2026-10-08にホテル公式施設ページと台湾交通部観光署の旅宿網で再確認しました。21階に屋外ルーフトッププール、20階にTechnogymを備えたジム、スパ／マッサージ、ジャグジーとスチーム設備を備えたサウナがあります。"
+      },
       "lounge": {"available": false, "name": null, "kind": "none"},
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-10-08",
         "source_type": "official",
         "source_url": "https://www.okurataipei.com.tw/room/",
+        "count_note_zh": "飯店官網與交通部觀光署旅宿網目前均記載 208 間客房與套房；官方未公布各房型間數，因此不將總房數推分至個別房型。",
+        "count_note_en": "Both the hotel website and the Taiwan Tourism Administration registry currently state a total of 208 rooms and suites. Neither publishes inventory by room type, so the total is not estimated across individual categories.",
+        "count_note_ja": "ホテル公式サイトと台湾交通部観光署の旅宿網はいずれも客室・スイート合計208室と記載しています。タイプ別室数は公表されていないため、各カテゴリーへの推定配分は行っていません。",
         "rooms": [
           {"name_zh": "菁英客房", "name_en": "Prestige Room", "name_ja": "プレステージルーム", "size_sqm": 44},
           {"name_zh": "大倉菁英客房", "name_en": "Okura Prestige Room", "name_ja": "オークラ プレステージルーム", "size_sqm": 44},
@@ -214,7 +222,8 @@
         "https://www.okurataipei.com.tw/en/fac/",
         "https://www.okurataipei.com.tw/en/room/",
         "https://www.okurataipei.com.tw/room/",
-        "https://www.okurataipei.com.tw/jp/room/"
+        "https://www.okurataipei.com.tw/jp/room/",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=824&lang2=cn"
       ]
     },
     {

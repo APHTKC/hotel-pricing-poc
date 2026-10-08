@@ -804,13 +804,19 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in hilai_taipei_rooms) == 521
     assert by_id["grand_hilai_taipei"]["service_charge_percent"] == 10
     assert by_id["grand_hilai_taipei"]["service_charge_source_type"] == "official"
-    assert by_id["okura_prestige_taipei"]["room_inventory"] == 207
-    assert len(by_id["okura_prestige_taipei"]["restaurants"]) == 5
-    okura_rooms = by_id["okura_prestige_taipei"]["room_snapshot"]["rooms"]
+    okura = by_id["okura_prestige_taipei"]
+    assert okura["verified_at"] == "2026-10-08"
+    assert okura["room_inventory"] == 208
+    assert len(okura["restaurants"]) == 5
+    assert "Technogym" in okura["facility_notes"]["zh"]
+    assert okura["room_snapshot"]["observed_at"] == "2026-10-08"
+    assert "208 間" in okura["room_snapshot"]["count_note_zh"]
+    assert "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=824&lang2=cn" in okura["source_urls"]
+    okura_rooms = okura["room_snapshot"]["rooms"]
     assert len(okura_rooms) == 8
     assert {room["size_sqm"] for room in okura_rooms} == {44, 56, 75, 82, 228}
     assert {room["name_ja"] for room in okura_rooms} >= {"プレステージルーム", "ロイヤルスイート"}
-    assert "合計 15%" in by_id["okura_prestige_taipei"]["service_charge_note_zh"]
+    assert "合計 15%" in okura["service_charge_note_zh"]
     assert "service_charge_note_" in html
     assert by_id["shangrila_taipei"]["room_inventory"] == 420
     assert by_id["shangrila_taipei"]["lounge"]["name"] == "Horizon Club Lounge"
