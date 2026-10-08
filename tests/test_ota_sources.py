@@ -2,6 +2,7 @@ import asyncio
 import json
 from datetime import date, datetime, timezone
 from decimal import Decimal
+from pathlib import Path
 
 import httpx
 
@@ -258,6 +259,26 @@ def test_booking_com_property_discovery_rejects_short_queries():
             raise AssertionError("Expected short query to be rejected")
     finally:
         asyncio.run(provider.client.aclose())
+
+
+def test_visible_browser_check_log_is_structured_and_non_retrying():
+    path = Path("data/ota_browser_checks.jsonl")
+    rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+
+    assert rows
+    keys = set()
+    for row in rows:
+        assert row["status"] in {"no_availability", "blocked", "verification_required"}
+        assert row["reason"]
+        assert row["occupancy"] == {"adults": 2, "children": 0, "rooms": 1}
+        key = (
+            row["hotel_id"],
+            row["source_platform"],
+            row["check_in"],
+            row["check_out"],
+        )
+        assert key not in keys
+        keys.add(key)
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):

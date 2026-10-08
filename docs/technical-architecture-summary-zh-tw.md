@@ -24,7 +24,7 @@ FastAPI、Google Sheets、Cloud Run 與 Cloud Scheduler 仍保留在程式中，
 
 截至本次盤點：
 
-- 飯店 Catalog：67 家，其中 22 家啟用每日資料管線；其餘候選來源依健康狀態與可行性檢查結果暫緩。
+- 飯店 Catalog：67 家，其中 23 家啟用每日資料管線；其餘候選來源依健康狀態與可行性檢查結果暫緩。
 - 原始歷史資料：截至 2026-10-08 共 61,751 筆、31 家已有歷史房價；新升級的北投大地酒店會由下一次每日工作開始累積正式歷史。
 - 最新完整明細依每日成功批次動態變化；`public/data/latest_details.json` 採按需載入，不阻塞首頁首屏。
 - 飯店基本資料：67 家皆有已核實 profile 與獨立 `room_snapshot`；來源不足的欄位維持待核實。
@@ -294,7 +294,7 @@ schedule 22:00 UTC
 → Python 3.12 + pip cache
 → 安裝 requirements + Chromium
 → 更新 Google Finance FX
-→ run_daily_once（22 家啟用飯店 × 六個 lead dates）
+→ run_daily_once（23 家啟用飯店 × 六個 lead dates）
 → run_ota_once（有憑證及 mapping 才執行）
 → build_static_data + build_hotel_catalog
 → commit/pull --rebase/push 資料

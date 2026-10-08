@@ -80,3 +80,9 @@ free-cancellation room at TWD 30,800 including taxes and fees, and a 60 sqm
 product under the same terms at TWD 42,300 including taxes and fees. These
 records remain non-comparable until an official-site observation has the exact
 same Canonical Comparison Key.
+
+Visible-browser checks that do not yield a complete bookable product are kept
+in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
+status, and reason without publishing a price row. It prevents the next batch
+from repeating the same hotel/date check after a legitimate no-availability or
+access-barrier result.

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-10-08T06:14:58.426789+00:00",
+  "updated_at": "2026-10-08T12:43:10.362017+00:00",
   "source_note": "Coordinates are cached from OpenStreetMap place data and official hotel address cross-checks. They are for visualization, not navigation.",
   "locations": [
     {
@@ -38,7 +38,7 @@
       "latitude": 24.7816191,
       "longitude": 121.0204544,
       "booking_url": "https://tl.ec-hotel.net/webhotel-v4/0232/",
-      "daily_tracked": false,
+      "daily_tracked": true,
       "source": "OpenStreetMap Nominatim",
       "accuracy": "mapped_point"
     },

@@ -4,10 +4,12 @@ from scrapers.registry import ADAPTERS
 
 def test_daily_tracking_catalog_is_the_default_and_has_known_adapters():
     hotels = load_hotels()
-    assert len(hotels) == 22
+    assert len(hotels) == 23
     assert any(hotel.id == "the_gaia_taipei" for hotel in hotels)
+    assert any(hotel.id == "hotel_royal_hsinchu" for hotel in hotels)
     assert {hotel.city for hotel in hotels} == {
         "Kaohsiung",
+        "Hsinchu",
         "Nantou",
         "Taichung",
         "Tainan",

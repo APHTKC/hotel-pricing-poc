@@ -106,11 +106,11 @@ def test_published_catalog_contains_hotel_royal_hsinchu_manual_link():
     hotel = next(item for item in payload["hotels"] if item["id"] == "hotel_royal_hsinchu")
 
     assert hotel["city"] == "Hsinchu"
-    assert hotel["enabled"] is False
-    assert hotel["automation_status"] == "testing"
+    assert hotel["enabled"] is True
+    assert hotel["automation_status"] == "verified"
     assert hotel["adapter"] == "ec_hotel_v4"
-    assert "3 comparable public rates" in hotel["automation_note"]
-    assert "second future-date success" in hotel["automation_note"]
+    assert "+30 and +60 days" in hotel["automation_note"]
+    assert "Promoted to daily tracking" in hotel["automation_note"]
     assert "webhotel-v4/0232" in hotel["booking_url"]
 
 

@@ -2740,27 +2740,27 @@
     "ec_hotel_v4:hotel_royal_hsinchu": {
       "adapter": "ec_hotel_v4",
       "hotel_id": "hotel_royal_hsinchu",
-      "attempts": 3,
-      "successes": 1,
+      "attempts": 4,
+      "successes": 2,
       "failures": 2,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 115351.6770999995,
-      "average_response_ms": 38450.56,
-      "success_rate": 0.3333,
+      "total_response_ms": 124326.14829999511,
+      "average_response_ms": 31081.54,
+      "success_rate": 0.5,
       "last_status": "success",
-      "last_attempt_at": "2026-10-08T12:31:09.398719+00:00",
-      "last_success_at": "2026-10-08T12:31:09.398719+00:00",
+      "last_attempt_at": "2026-10-08T12:39:12.714572+00:00",
+      "last_success_at": "2026-10-08T12:39:12.714572+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-10-08": {
-          "attempts": 3,
-          "successes": 1,
+          "attempts": 4,
+          "successes": 2,
           "failures": 2,
           "blocked": 0,
-          "response_ms": 115351.68,
-          "success_rate": 0.3333,
-          "average_response_ms": 38450.56
+          "response_ms": 124326.15,
+          "success_rate": 0.5,
+          "average_response_ms": 31081.54
         }
       }
     },
