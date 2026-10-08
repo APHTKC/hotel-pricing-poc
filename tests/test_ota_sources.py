@@ -12,6 +12,7 @@ from scrapers.ota.base import OtaRateProvider
 from scrapers.ota.booking_com import BookingComProvider, _room_size_sqm, parse_availability
 from scrapers.ota.config import load_ota_property_mappings
 from scrapers.ota.registry import OTA_PROVIDER_SPECS, configured_ota_providers
+from services.rate_parity import canonical_comparison_key
 
 
 class ExampleProvider(OtaRateProvider):
@@ -279,6 +280,22 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
         )
         assert key not in keys
         keys.add(key)
+
+
+def test_repository_visible_browser_snapshots_are_canonical_products():
+    path = Path("data/ota_browser_snapshots.jsonl")
+    rows = [
+        RateObservation.model_validate_json(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+    assert {row.hotel_id for row in rows} >= {"capella_taipei", "w_taipei"}
+    assert all(row.source_method == "visible_browser_snapshot" for row in rows)
+    assert all(canonical_comparison_key(row) is not None for row in rows)
+    w_rows = [row for row in rows if row.hotel_id == "w_taipei"]
+    assert {row.breakfast_included for row in w_rows} == {False, True}
+    assert {row.total_price for row in w_rows} == {Decimal("15015"), Decimal("16632")}
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):

@@ -81,6 +81,14 @@ product under the same terms at TWD 42,300 including taxes and fees. These
 records remain non-comparable until an official-site observation has the exact
 same Canonical Comparison Key.
 
+The second verified capture was W Taipei for 2026-11-13 to 2026-11-14. The
+public room table exposed a 43 sqm Wonderful King room, the exact occupancy,
+free-cancellation deadline, breakfast variants, and separate pre-tax and final
+prices. The stored room-only total is TWD 15,015 and the breakfast-inclusive
+total is TWD 16,632. Both totals include the separately displayed taxes and
+other charges; the individual tax/service split remains null because the page
+did not identify that split.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
