@@ -11,6 +11,11 @@ requests one room for two adults in TWD and keeps the returned room product,
 meal plan, cancellation policy, base price, and total price. The API credentials
 are read only from environment variables and must never be committed.
 
+Room sizes from the partner room-details response are accepted only when the
+measurement unit is explicit. `SQM` is stored directly, while `SQFT` is converted
+to square metres. Missing or unfamiliar units remain `null`, which keeps the
+Canonical Comparison Key fail-closed instead of assigning an incorrect size band.
+
 Required GitHub Actions secrets:
 
 - `BOOKING_COM_API_KEY`

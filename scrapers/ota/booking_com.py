@@ -1,6 +1,6 @@
 import hashlib
 from datetime import UTC, date, datetime
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from typing import Any
 
 import httpx
@@ -18,6 +18,30 @@ def _decimal(value: Any) -> Decimal | None:
         return Decimal(str(value))
     except (InvalidOperation, TypeError, ValueError):
         return None
+
+
+def _room_size_sqm(size: Any) -> Decimal | None:
+    """Normalize an explicitly unit-labelled room size to square metres.
+
+    Room size participates in the strict OTA comparison key, so a raw number
+    or an unfamiliar unit must remain unknown instead of being guessed as sqm.
+    Booking.com room/unit schemas use SQM or SQFT; common spelling variants are
+    accepted defensively for versioned Demand API responses.
+    """
+
+    if not isinstance(size, dict):
+        return None
+    value = _decimal(size.get("value"))
+    unit = str(size.get("unit") or "").strip().lower().replace("-", "_")
+    if value is None or value <= 0:
+        return None
+    if unit in {"sqm", "square_meter", "square_meters", "m2", "m²"}:
+        return value
+    if unit in {"sqft", "square_foot", "square_feet", "ft2", "ft²"}:
+        return (value * Decimal("0.09290304")).quantize(
+            Decimal("0.01"), rounding=ROUND_HALF_UP
+        )
+    return None
 
 
 def _localized_text(value: Any, language: str) -> str | None:
@@ -76,11 +100,7 @@ def parse_availability(
         if isinstance(room, dict) and room.get("id") is not None
     }
     room_sizes = {
-        str(room.get("id")): _decimal(
-            (room.get("size") or {}).get("value")
-            if isinstance(room.get("size"), dict)
-            else room.get("size")
-        )
+        str(room.get("id")): _room_size_sqm(room.get("size"))
         for room in rooms
         if isinstance(room, dict) and room.get("id") is not None
     }

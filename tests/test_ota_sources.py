@@ -8,7 +8,7 @@ import httpx
 from app.models import Hotel
 from app.models import RateObservation, ScrapeStatus
 from scrapers.ota.base import OtaRateProvider
-from scrapers.ota.booking_com import BookingComProvider, parse_availability
+from scrapers.ota.booking_com import BookingComProvider, _room_size_sqm, parse_availability
 from scrapers.ota.config import load_ota_property_mappings
 from scrapers.ota.registry import OTA_PROVIDER_SPECS, configured_ota_providers
 
@@ -116,6 +116,51 @@ def test_booking_com_availability_parser_preserves_price_and_policies():
     assert row.total_twd == Decimal("11550")
     assert row.source_platform == "booking_com"
     assert row.source_property_id == "123456"
+
+
+def test_booking_com_room_size_requires_and_normalizes_explicit_units():
+    assert _room_size_sqm({"value": 55, "unit": "SQM"}) == Decimal("55")
+    assert _room_size_sqm({"value": 538, "unit": "sqft"}) == Decimal("49.98")
+    assert _room_size_sqm({"value": 55}) is None
+    assert _room_size_sqm(55) is None
+    assert _room_size_sqm({"value": 55, "unit": "unknown"}) is None
+
+
+def test_booking_com_parser_uses_normalized_room_size_for_comparison():
+    rows = parse_availability(
+        {
+            "data": {
+                "currency": "TWD",
+                "rooms": [
+                    {
+                        "id": 55,
+                        "name": "Deluxe King",
+                        "size": {"value": 538, "unit": "SQFT"},
+                    }
+                ],
+                "products": [
+                    {
+                        "id": "product-1",
+                        "room": 55,
+                        "policies": {
+                            "meal_plan": {"plan": "room_only"},
+                            "cancellation": {"type": "non_refundable"},
+                        },
+                        "price": {"total": {"booker_currency": 9000}},
+                    }
+                ],
+            }
+        },
+        _hotel(),
+        "123456",
+        date(2026, 10, 2),
+        date(2026, 10, 3),
+        2,
+        datetime(2026, 9, 21, tzinfo=timezone.utc),
+    )
+
+    assert rows[0].room_size_sqm == Decimal("49.98")
+    assert rows[0].size_band == "45–59㎡"
 
 
 def test_booking_com_provider_uses_partner_headers_and_expected_request():
