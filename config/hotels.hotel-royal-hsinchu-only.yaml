@@ -1,0 +1,9 @@
+hotels:
+  - id: hotel_royal_hsinchu
+    name: Hotel Royal Hsinchu
+    short_name: Hotel Royal Hsinchu
+    city: Hsinchu
+    district: East
+    country: TW
+    booking_url: https://tlathena.ec-hotel.net/webhotel-v4/0232/index
+    adapter: ec_hotel_v4

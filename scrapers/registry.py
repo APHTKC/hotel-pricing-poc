@@ -1,5 +1,6 @@
 from app.settings import Settings
 from scrapers.adapters.capella import CapellaScraper
+from scrapers.adapters.ec_hotel_v4 import ECHotelV4Scraper
 from scrapers.adapters.fastbooking import FastBookingScraper
 from scrapers.adapters.grand_hilai import GrandHiLaiScraper
 from scrapers.adapters.grand_mayfull import GrandMayfullScraper
@@ -29,6 +30,7 @@ ADAPTERS: dict[str, type[HotelScraper]] = {
     "shangrila": ShangriLaScraper,
     "siteminder": SiteMinderScraper,
     "capella": CapellaScraper,
+    "ec_hotel_v4": ECHotelV4Scraper,
     "fastbooking": FastBookingScraper,
     "grand_hilai": GrandHiLaiScraper,
     "grand_mayfull": GrandMayfullScraper,
