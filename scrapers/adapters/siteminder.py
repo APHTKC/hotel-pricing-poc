@@ -13,6 +13,18 @@ from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_
 PROPERTIES = {
     "eslite_hotel": "EsliteHotel",
     "silks_place_yilan": "silksplaceyilanhoteldirect",
+    "the_gaia_taipei": "thegaiahoteltaipeidirect",
+}
+
+VERIFIED_ROOM_SIZES = {
+    "the_gaia_taipei": {
+        "qiyan": Decimal("33"),
+        "fenglin": Decimal("36"),
+        "yunji": Decimal("43"),
+        "danfeng": Decimal("50"),
+        "the gaia suite": Decimal("66"),
+        "muslim-friendly": Decimal("33"),
+    },
 }
 
 
@@ -40,6 +52,17 @@ def parse_room_size(text: str) -> Decimal | None:
         re.IGNORECASE,
     )
     return Decimal(match.group(1)) if match else None
+
+
+def room_size(hotel_id: str, room_name: str, room_text: str) -> Decimal | None:
+    parsed = parse_room_size(room_text)
+    if parsed is not None:
+        return parsed
+    normalized = " ".join(room_name.lower().split())
+    for marker, size in VERIFIED_ROOM_SIZES.get(hotel_id, {}).items():
+        if marker in normalized:
+            return size
+    return None
 
 
 def parse_cancellation(text: str) -> str | None:
@@ -107,11 +130,11 @@ class SiteMinderScraper(CapellaScraper):
             room_code = (await room.get_attribute("id") or "").removeprefix("roomType-")
             room_name = (await room.locator("h2").first.inner_text()).strip()
             room_text = await room.inner_text()
-            room_size = parse_room_size(room_text)
+            size_sqm = room_size(hotel.id, room_name, room_text)
             rates = room.locator("[id^='room-rate-']")
             for rate_index in range(await rates.count()):
                 observation = await self._rate_observation(
-                    rates.nth(rate_index), hotel, room_code, room_name, room_size,
+                    rates.nth(rate_index), hotel, room_code, room_name, size_sqm,
                     check_in, check_out, adults, queried_at, source_url,
                 )
                 if observation is not None:

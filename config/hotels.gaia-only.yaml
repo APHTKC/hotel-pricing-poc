@@ -1,0 +1,9 @@
+hotels:
+  - id: the_gaia_taipei
+    name: The Gaia Hotel Taipei
+    short_name: The Gaia
+    city: Taipei
+    district: Beitou
+    country: TW
+    booking_url: https://book-directonline.com/properties/thegaiahoteltaipeidirect
+    adapter: siteminder

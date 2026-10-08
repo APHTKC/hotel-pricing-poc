@@ -2682,6 +2682,60 @@
           "average_response_ms": 46978.97
         }
       }
+    },
+    "gracery:hotel_gracery_taipei": {
+      "adapter": "gracery",
+      "hotel_id": "hotel_gracery_taipei",
+      "attempts": 1,
+      "successes": 0,
+      "failures": 1,
+      "blocked_count": 0,
+      "consecutive_failures": 1,
+      "total_response_ms": 54394.1777,
+      "average_response_ms": 54394.18,
+      "success_rate": 0.0,
+      "last_status": "failed",
+      "last_attempt_at": "2026-10-08T06:04:11.128914+00:00",
+      "last_success_at": null,
+      "cooldown_until": null,
+      "daily": {
+        "2026-10-08": {
+          "attempts": 1,
+          "successes": 0,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 54394.18,
+          "success_rate": 0.0,
+          "average_response_ms": 54394.18
+        }
+      }
+    },
+    "siteminder:the_gaia_taipei": {
+      "adapter": "siteminder",
+      "hotel_id": "the_gaia_taipei",
+      "attempts": 1,
+      "successes": 1,
+      "failures": 0,
+      "blocked_count": 0,
+      "consecutive_failures": 0,
+      "total_response_ms": 4819.65350000246,
+      "average_response_ms": 4819.65,
+      "success_rate": 1.0,
+      "last_status": "success",
+      "last_attempt_at": "2026-10-08T06:05:40.081814+00:00",
+      "last_success_at": "2026-10-08T06:05:40.081814+00:00",
+      "cooldown_until": null,
+      "daily": {
+        "2026-10-08": {
+          "attempts": 1,
+          "successes": 1,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 4819.65,
+          "success_rate": 1.0,
+          "average_response_ms": 4819.65
+        }
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ from scrapers.adapters.fastbooking import FastBookingScraper
 from scrapers.adapters.grand_hilai import GrandHiLaiScraper
 from scrapers.adapters.grand_mayfull import GrandMayfullScraper
 from scrapers.adapters.grand_view import GrandViewScraper
+from scrapers.adapters.gracery import GraceryScraper
 from scrapers.adapters.gobooking import GobookingScraper
 from scrapers.adapters.ihg import IHGScraper
 from scrapers.adapters.hoshinoya import HoshinoyaScraper
@@ -32,6 +33,7 @@ ADAPTERS: dict[str, type[HotelScraper]] = {
     "grand_hilai": GrandHiLaiScraper,
     "grand_mayfull": GrandMayfullScraper,
     "grand_view": GrandViewScraper,
+    "gracery": GraceryScraper,
     "gobooking": GobookingScraper,
     "royal_nikko": RoyalNikkoScraper,
     "synxis": SynxisScraper,

@@ -1,0 +1,9 @@
+hotels:
+  - id: hotel_gracery_taipei
+    name: Hotel Gracery Taipei
+    short_name: Hotel Gracery
+    city: Taipei
+    district: Zhongzheng
+    country: TW
+    booking_url: https://go-fujita-kanko.reservation.jp/ja/hotels/fkg046/plans
+    adapter: gracery
