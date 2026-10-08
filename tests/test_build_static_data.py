@@ -9,6 +9,8 @@ from scripts.build_static_data import (
     _history_summary,
     _heatmap_row,
     _latest_batch,
+    _latest_batches_by_platform,
+    _load_browser_snapshot_rows,
     _month_key,
     _partition_id,
     _plausible_luxury_rate,
@@ -55,6 +57,46 @@ def test_latest_batch_prefers_exact_run_id_over_time_window():
         "First in latest run",
         "Last in latest run",
     ]
+
+
+def test_latest_batches_keep_official_and_independent_ota_runs():
+    rows = [
+        {"run_id": "official-old", "source_platform": "official", "queried_at": "2026-10-07T01:00:00+00:00", "hotel_name": "Old"},
+        {"run_id": "official-new", "source_platform": "official", "queried_at": "2026-10-08T01:00:00+00:00", "hotel_name": "Official"},
+        {"run_id": "ota-new", "source_platform": "booking_com", "queried_at": "2026-10-08T12:00:00+00:00", "hotel_name": "OTA"},
+    ]
+
+    latest = _latest_batches_by_platform(rows)
+
+    assert {row["hotel_name"] for row in latest} == {"Official", "OTA"}
+
+
+def test_browser_snapshot_loader_requires_complete_canonical_product(tmp_path):
+    valid = {
+        "observation_id": "ota-1", "queried_at": "2026-10-08T12:00:00Z",
+        "check_in": "2026-11-06", "check_out": "2026-11-07", "lead_days": 29,
+        "hotel_id": "capella_taipei", "hotel_name": "Capella Taipei",
+        "room_type_code": "booking:room-1", "room_type_name": "Superior King Room",
+        "room_size_sqm": 48, "rate_plan_code": "booking:plan-1",
+        "rate_plan_name": "Breakfast and free cancellation", "breakfast_included": True,
+        "cancellation_policy": "Free cancellation before 2026-11-05",
+        "tax_inclusion": "included", "total_price": 30800, "currency": "TWD",
+        "source_platform": "booking_com", "source_method": "visible_browser_snapshot",
+        "source_property_id": "capella-taipei", "source_url": "https://www.booking.com/hotel/tw/capella-taipei.html",
+        "status": "live",
+    }
+    path = tmp_path / "ota.jsonl"
+    path.write_text(json.dumps(valid) + "\n", encoding="utf-8")
+    assert _load_browser_snapshot_rows(path)[0]["total_twd"] == "30800"
+
+    invalid = {**valid, "breakfast_included": None}
+    path.write_text(json.dumps(invalid) + "\n", encoding="utf-8")
+    try:
+        _load_browser_snapshot_rows(path)
+    except ValueError as error:
+        assert "Canonical Comparison Key" in str(error)
+    else:
+        raise AssertionError("incomplete OTA browser products must fail closed")
 
 
 def test_implausibly_low_twd_rate_is_not_published():
@@ -178,6 +220,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
         "\n".join(json.dumps(row) for row in rows) + "\n", encoding="utf-8"
     )
     monkeypatch.setattr(build_static_data, "SOURCE", source)
+    monkeypatch.setattr(build_static_data, "OTA_BROWSER_SOURCE", tmp_path / "missing-ota.jsonl")
     monkeypatch.setattr(build_static_data, "RATES_DIR", rates_dir)
     monkeypatch.setattr(build_static_data, "HISTORY_SUMMARY_TARGET", summary)
     monkeypatch.setattr(build_static_data, "RATES_INDEX_TARGET", rates_index)

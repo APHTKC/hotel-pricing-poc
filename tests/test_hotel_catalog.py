@@ -109,7 +109,8 @@ def test_published_catalog_contains_hotel_royal_hsinchu_manual_link():
     assert hotel["enabled"] is False
     assert hotel["automation_status"] == "testing"
     assert hotel["adapter"] == "ec_hotel_v4"
-    assert "85 then 87 dated rate rows" in hotel["automation_note"]
+    assert "3 comparable public rates" in hotel["automation_note"]
+    assert "second future-date success" in hotel["automation_note"]
     assert "webhotel-v4/0232" in hotel["booking_url"]
 
 

@@ -5,12 +5,18 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from app.models import RateObservation
 from services.deduplication import deduplicate_observations
 from services.market_metrics import calculate_market_summary
-from services.rate_parity import calculate_rate_parity, comparison_metadata
+from services.rate_parity import (
+    calculate_rate_parity,
+    canonical_comparison_key,
+    comparison_metadata,
+)
 
 
 SOURCE = Path("data/rates.jsonl")
+OTA_BROWSER_SOURCE = Path("data/ota_browser_snapshots.jsonl")
 HEALTH_SOURCE = Path("data/adapter_health.json")
 RATES_DIR = Path("public/data/rates")
 HISTORY_SUMMARY_TARGET = Path("public/data/history_summary.json")
@@ -88,6 +94,45 @@ def _latest_batch(rows: list[dict]) -> list[dict]:
         for row in timestamped
         if not row.get("run_id") and _parse_timestamp(row["queried_at"]) >= cutoff
     ]
+
+
+def _latest_batches_by_platform(rows: list[dict]) -> list[dict]:
+    """Keep the newest run for each source without replacing official rates.
+
+    Browser-assisted OTA observations are collected independently from the
+    daily official-site run. Selecting one global newest run would therefore
+    make a small OTA snapshot replace the full official dashboard batch.
+    """
+    platforms = sorted({str(row.get("source_platform") or "official") for row in rows})
+    latest: list[dict] = []
+    for platform in platforms:
+        platform_rows = [
+            row for row in rows
+            if str(row.get("source_platform") or "official") == platform
+        ]
+        latest.extend(_latest_batch(platform_rows))
+    return sorted(latest, key=lambda row: row.get("queried_at", ""), reverse=True)
+
+
+def _load_browser_snapshot_rows(path: Path) -> list[dict]:
+    """Validate visible-browser OTA captures and fail closed on incomplete products."""
+    if not path.exists():
+        return []
+    rows = []
+    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        observation = RateObservation.model_validate_json(line)
+        if observation.source_platform == "official":
+            raise ValueError(f"OTA browser snapshot line {line_number} uses official source")
+        if observation.source_method != "visible_browser_snapshot":
+            raise ValueError(f"OTA browser snapshot line {line_number} has unsupported method")
+        if canonical_comparison_key(observation) is None:
+            raise ValueError(
+                f"OTA browser snapshot line {line_number} lacks Canonical Comparison Key fields"
+            )
+        rows.append(observation.model_dump(mode="json"))
+    return rows
 
 
 def _month_key(row: dict) -> str | None:
@@ -525,6 +570,10 @@ def main() -> None:
                 row = json.loads(line)
                 if _publishable_live_rate(row):
                     source_rows.append(row)
+    source_rows.extend(
+        row for row in _load_browser_snapshot_rows(OTA_BROWSER_SOURCE)
+        if _publishable_live_rate(row)
+    )
     source_rows = deduplicate_observations(source_rows, keep="latest")
     rows = [_dashboard_row(row) for row in source_rows]
     rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
@@ -614,12 +663,16 @@ def main() -> None:
     )
     if LEGACY_TARGET.exists():
         LEGACY_TARGET.unlink()
-    latest_rows = _latest_batch(rows)
+    latest_rows = _latest_batches_by_platform(rows)
     latest_timestamps = {row["queried_at"] for row in latest_rows}
     latest_source_rows = [
         row for row in source_rows if row.get("queried_at") in latest_timestamps
     ]
-    latest_summary = calculate_market_summary(latest_source_rows)
+    latest_official_source_rows = [
+        row for row in latest_source_rows
+        if (row.get("source_platform") or "official") == "official"
+    ]
+    latest_summary = calculate_market_summary(latest_official_source_rows)
     latest_parity = calculate_rate_parity(latest_source_rows)
     latest_queried_at = max((row.get("queried_at") or "" for row in latest_rows), default=None)
     LATEST_SUMMARY_TARGET.write_text(
@@ -645,7 +698,10 @@ def main() -> None:
             {
                 "generated_from": "data/rates.jsonl",
                 "latest_queried_at": latest_queried_at,
-                "rates": [_heatmap_row(row) for row in latest_rows],
+                "rates": [
+                    _heatmap_row(row) for row in latest_rows
+                    if (row.get("source_platform") or "official") == "official"
+                ],
             },
             ensure_ascii=False,
         ),

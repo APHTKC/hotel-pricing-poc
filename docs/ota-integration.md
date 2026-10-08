@@ -56,3 +56,27 @@ hotel.
 - Expedia/Hotels.com: Expedia Rapid partner access required.
 - Rakuten Travel: retained for a future Japan market dataset; the current
   official Travel API is not a suitable primary source for Taiwan hotels.
+
+## Visible-browser public snapshots
+
+When partner credentials are not yet available, an operator may use a normal,
+visible browser to capture a low-frequency public OTA offer. This is not a
+CAPTCHA bypass and must stop at any login, verification, paywall, or access
+barrier. Captures are stored separately in
+`data/ota_browser_snapshots.jsonl` and are accepted by the static build only
+when all Canonical Comparison Key fields are explicit: hotel, stay dates,
+occupancy, room-size band, breakfast, cancellation class, and tax inclusion.
+
+The latest public dashboard keeps the newest batch for each source platform.
+Official rates alone feed the market ADR and heatmap; OTA snapshots may appear
+in source-filtered details and strict rate-parity results. This prevents a
+small asynchronous OTA capture from replacing or distorting the daily official
+market batch.
+
+The first verified browser pilot was Capella Taipei for 2026-11-06 to
+2026-11-07 (one room, two adults), observed on 2026-10-08. Booking.com publicly
+showed two complete products without login: a 48 sqm breakfast-inclusive,
+free-cancellation room at TWD 30,800 including taxes and fees, and a 60 sqm
+product under the same terms at TWD 42,300 including taxes and fees. These
+records remain non-comparable until an official-site observation has the exact
+same Canonical Comparison Key.
