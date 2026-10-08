@@ -758,7 +758,7 @@
     },
     {
       "hotel_id": "le_meridien_taipei",
-      "verified_at": "2026-09-30",
+      "verified_at": "2026-10-08",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -766,7 +766,10 @@
         "source_url": "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/overview/"
       },
       "room_inventory": 160,
-      "service_charge_percent": 10,
+      "service_charge_percent": null,
+      "service_charge_note_zh": "截至 2026-10-08，飯店官網可見餐飲品項另加 10% 服務費，但尚未找到明確適用於住宿房價的官方服務費公告，因此住宿服務費維持待核實，不以餐飲規則推定。",
+      "service_charge_note_en": "As of 2026-10-08, the hotel website states a 10% service charge for dining items, but no explicit official service-charge statement applicable to accommodation rates was found. The lodging service charge therefore remains pending rather than being inferred from dining terms.",
+      "service_charge_note_ja": "2026-10-08時点で、公式サイトには飲食料金への10%サービス料の記載がありますが、宿泊料金に適用される公式なサービス料率は確認できませんでした。飲食条件から推定せず、宿泊サービス料は確認待ちとしています。",
       "restaurants": [
         {"name": "My Humble House", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"},
         {"name": "Latest Recipe", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},
@@ -774,11 +777,19 @@
         {"name": "DRIP & DOUGH", "type_zh": "咖啡、烘焙與輕食", "type_en": "Coffee, bakery and light dining", "type_ja": "コーヒー・ベーカリー・軽食"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": false, "sauna": true, "steam_room": null},
+      "facility_notes": {
+        "zh": "2026-10-08 依 Marriott 與飯店官網重新核實：館內設有室內溫水游泳池、健身中心與三溫暖；Marriott 官網未列館內 SPA，僅列附近的寒舍艾麗 EB SPA，因此 SPA 記為無館內設施。蒸氣室未找到明確官方說明，維持待核實。艾美行政酒廊供適用房型及符合資格的 Marriott Bonvoy 白金卡以上會員使用。",
+        "en": "Reverified on 2026-10-08 against Marriott and the hotel website: the property has an indoor heated pool, fitness centre and sauna. Marriott lists no on-site spa and instead identifies EB Spa at the nearby Humble House Taipei, so the profile records no on-site spa. No explicit official steam-room statement was found, so that field remains pending. Le Méridien Club Lounge is available to eligible room guests and qualifying Marriott Bonvoy Platinum members and above.",
+        "ja": "2026-10-08にMarriottおよびホテル公式サイトで再確認しました。館内には屋内温水プール、フィットネスセンター、サウナがあります。Marriottは館内スパを掲載せず、近隣のHumble House TaipeiのEB Spaを案内しているため、館内スパなしとしています。スチームルームは明確な公式記載がなく確認待ちです。Le Méridien Club Loungeは対象客室の宿泊者およびMarriott Bonvoyの対象となるプラチナ会員以上が利用できます。"
+      },
       "lounge": {"available": true, "name": "Le Méridien Club Lounge", "kind": "executive_club"},
       "room_snapshot": {
-        "observed_at": "2026-09-30",
+        "observed_at": "2026-10-08",
         "source_type": "official",
         "source_url": "https://www.lemeridien-taipei.com/websev?cat=&id=460&lang=zh-tw",
+        "count_note_zh": "Marriott 官網目前記載全館 160 間客房；官方未公布各房型間數，因此不將總房數推分至個別房型。",
+        "count_note_en": "Marriott currently states a total of 160 guest rooms. Inventory by individual room type is not published, so the total is not estimated across categories.",
+        "count_note_ja": "Marriott公式サイトでは客室合計160室と記載されています。タイプ別室数は公表されていないため、各カテゴリーへの推定配分は行っていません。",
         "rooms": [
           {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 38},
           {"name_zh": "純淨豪華客房", "name_en": "Pure Deluxe Room", "name_ja": "Pure Deluxe Room", "size_sqm": 38},
@@ -798,7 +809,8 @@
         "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/overview/",
         "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/rooms/",
         "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/dining/",
-        "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/experiences/"
+        "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/experiences/",
+        "https://www.lemeridien-taipei.com/"
       ]
     },
     {
