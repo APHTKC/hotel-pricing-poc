@@ -1,0 +1,9 @@
+hotels:
+  - id: tai_urban_resort
+    name: TAI Urban Resort
+    short_name: TAI Urban
+    city: Kaohsiung
+    district: Cianjhen
+    country: TW
+    booking_url: https://tlathena.ec-hotel.net/webhotel-v4/0962/index
+    adapter: ec_hotel_v4

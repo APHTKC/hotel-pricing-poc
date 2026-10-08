@@ -2817,6 +2817,33 @@
           "average_response_ms": 61219.66
         }
       }
+    },
+    "ec_hotel_v4:tai_urban_resort": {
+      "adapter": "ec_hotel_v4",
+      "hotel_id": "tai_urban_resort",
+      "attempts": 1,
+      "successes": 0,
+      "failures": 1,
+      "blocked_count": 0,
+      "consecutive_failures": 1,
+      "total_response_ms": 61895.140100008575,
+      "average_response_ms": 61895.14,
+      "success_rate": 0.0,
+      "last_status": "failed",
+      "last_attempt_at": "2026-10-08T06:47:04.010317+00:00",
+      "last_success_at": null,
+      "cooldown_until": null,
+      "daily": {
+        "2026-10-08": {
+          "attempts": 1,
+          "successes": 0,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 61895.14,
+          "success_rate": 0.0,
+          "average_response_ms": 61895.14
+        }
+      }
     }
   }
 }

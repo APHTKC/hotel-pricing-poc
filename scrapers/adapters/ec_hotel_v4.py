@@ -28,6 +28,10 @@ PROPERTIES = {
         "booking_url": "https://tlathena.ec-hotel.net/webhotel-v4/0321/index",
         "property_id": "0321",
     },
+    "tai_urban_resort": {
+        "booking_url": "https://tlathena.ec-hotel.net/webhotel-v4/0962/index",
+        "property_id": "0962",
+    },
 }
 
 ROOM_SIZE_FALLBACKS = {
@@ -68,6 +72,26 @@ ROOM_SIZE_FALLBACKS = {
         "國王行宮總統套房 2503": Decimal("43"),
         "國王行宮總統套房 2505": Decimal("83"),
         "國王行宮總統套房 2506": Decimal("83"),
+    },
+    "tai_urban_resort": {
+        "經典親子房｜雙中床": Decimal("50"),
+        "豪華親子房｜雙中床": Decimal("63"),
+        "經典和式房｜雙中床": Decimal("50"),
+        "經典房｜一大床": Decimal("50"),
+        "豪華房｜雙中床": Decimal("63"),
+        "經典和式行政房｜雙中床": Decimal("50"),
+        "經典行政房｜一大床": Decimal("50"),
+        "經典行政房｜一大床（浴室）": Decimal("50"),
+        "豪華行政房｜一大床": Decimal("63"),
+        "藝術房《新篇章》": Decimal("50"),
+        "藝術房《夢中夢》": Decimal("50"),
+        "藝術房《泳池派對》": Decimal("50"),
+        "藝術房《竹與 Takao》": Decimal("50"),
+        "藝術房《城市裡的夜遊者》": Decimal("40"),
+        "致美好行政客房｜一大床": Decimal("50"),
+        "致美好行政雙人房｜一大床": Decimal("50"),
+        "致純真豪華行政套房｜一大床": Decimal("63"),
+        "愛心房｜雙中床": Decimal("50"),
     },
 }
 

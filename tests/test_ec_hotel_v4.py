@@ -18,6 +18,7 @@ def test_property_registry_contains_existing_and_hsinchu_hotels():
     assert PROPERTIES["hotel_royal_hsinchu"]["property_id"] == "0232"
     assert PROPERTIES["radium_kagaya_taipei"]["property_id"] == "0918"
     assert PROPERTIES["the_lin_taichung"]["property_id"] == "0321"
+    assert PROPERTIES["tai_urban_resort"]["property_id"] == "0962"
 
 
 def test_parse_room_size_supports_ec_hotel_units():
@@ -45,6 +46,15 @@ def test_the_lin_official_room_profile_fills_missing_booking_size():
     assert room_size_for(
         "the_lin_taichung", "國王行宮總統套房 2501", "未顯示面積"
     ) == Decimal("218")
+
+
+def test_tai_urban_official_room_profile_fills_exact_known_sizes_only():
+    assert room_size_for(
+        "tai_urban_resort", "經典親子房｜雙中床", "未顯示面積"
+    ) == Decimal("50")
+    assert room_size_for(
+        "tai_urban_resort", "藝術房《城市裡的夜遊者》", "未顯示面積"
+    ) == Decimal("40")
 
 
 def test_breakfast_and_public_offer_filtering():
