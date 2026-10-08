@@ -63,12 +63,14 @@ def test_latest_batches_keep_official_and_independent_ota_runs():
     rows = [
         {"run_id": "official-old", "source_platform": "official", "queried_at": "2026-10-07T01:00:00+00:00", "hotel_name": "Old"},
         {"run_id": "official-new", "source_platform": "official", "queried_at": "2026-10-08T01:00:00+00:00", "hotel_name": "Official"},
-        {"run_id": "ota-new", "source_platform": "booking_com", "queried_at": "2026-10-08T12:00:00+00:00", "hotel_name": "OTA"},
+        {"run_id": "ota-a-old", "source_platform": "booking_com", "hotel_id": "hotel-a", "queried_at": "2026-10-07T12:00:00+00:00", "hotel_name": "OTA A old"},
+        {"run_id": "ota-a-new", "source_platform": "booking_com", "hotel_id": "hotel-a", "queried_at": "2026-10-08T12:00:00+00:00", "hotel_name": "OTA A"},
+        {"run_id": "ota-b-new", "source_platform": "booking_com", "hotel_id": "hotel-b", "queried_at": "2026-10-08T13:00:00+00:00", "hotel_name": "OTA B"},
     ]
 
     latest = _latest_batches_by_platform(rows)
 
-    assert {row["hotel_name"] for row in latest} == {"Official", "OTA"}
+    assert {row["hotel_name"] for row in latest} == {"Official", "OTA A", "OTA B"}
 
 
 def test_browser_snapshot_loader_requires_complete_canonical_product(tmp_path):

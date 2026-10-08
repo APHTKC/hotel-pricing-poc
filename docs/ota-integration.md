@@ -67,11 +67,12 @@ barrier. Captures are stored separately in
 when all Canonical Comparison Key fields are explicit: hotel, stay dates,
 occupancy, room-size band, breakfast, cancellation class, and tax inclusion.
 
-The latest public dashboard keeps the newest batch for each source platform.
-Official rates alone feed the market ADR and heatmap; OTA snapshots may appear
-in source-filtered details and strict rate-parity results. This prevents a
-small asynchronous OTA capture from replacing or distorting the daily official
-market batch.
+The latest public dashboard keeps the newest official batch and the newest OTA
+batch for each platform and hotel. Official rates alone feed the market ADR and
+heatmap; OTA snapshots may appear in source-filtered details and strict
+rate-parity results. This prevents a small asynchronous OTA capture from
+replacing or distorting the daily official market batch, while allowing
+low-frequency OTA checks for different hotels to accumulate independently.
 
 The first verified browser pilot was Capella Taipei for 2026-11-06 to
 2026-11-07 (one room, two adults), observed on 2026-10-08. Booking.com publicly
@@ -97,6 +98,13 @@ Canonical Comparison Key. Deadline-based free cancellation is normalized as
 `conditional` regardless of whether a source places the date before or after
 the words "free cancellation", preventing wording order from blocking a valid
 same-product comparison.
+
+The fourth verified capture was Hotel Metropolitan Premier Taipei for
+2026-10-15 to 2026-10-16. Booking.com exposed three room-only products for two
+adults under the same dated free-cancellation and tax-inclusive terms: a 36 sqm
+Standard Twin at TWD 6,696, a 43 sqm Superior King at TWD 7,254, and a 43 sqm
+Superior Twin at TWD 7,254. These products share the official observations'
+Canonical Comparison Key and therefore form a second strict rate-parity sample.
 
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,

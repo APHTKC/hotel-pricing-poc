@@ -290,12 +290,23 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         if line.strip()
     ]
 
-    assert {row.hotel_id for row in rows} >= {"capella_taipei", "w_taipei"}
+    assert {row.hotel_id for row in rows} >= {
+        "capella_taipei",
+        "w_taipei",
+        "hotel_metropolitan_premier_taipei",
+    }
     assert all(row.source_method == "visible_browser_snapshot" for row in rows)
     assert all(canonical_comparison_key(row) is not None for row in rows)
     w_rows = [row for row in rows if row.hotel_id == "w_taipei"]
     assert {row.breakfast_included for row in w_rows} == {False, True}
     assert {row.total_price for row in w_rows} == {Decimal("15015"), Decimal("16632")}
+    jr_rows = [
+        row for row in rows
+        if row.hotel_id == "hotel_metropolitan_premier_taipei"
+    ]
+    assert len(jr_rows) == 3
+    assert {row.room_size_sqm for row in jr_rows} == {Decimal("36"), Decimal("43")}
+    assert {row.total_price for row in jr_rows} == {Decimal("6696"), Decimal("7254")}
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):
