@@ -1,0 +1,9 @@
+hotels:
+  - id: the_lin_taichung
+    name: The Lin Hotel Taichung
+    short_name: The Lin
+    city: Taichung
+    district: Xitun
+    country: TW
+    booking_url: https://tlathena.ec-hotel.net/webhotel-v4/0321/index
+    adapter: ec_hotel_v4

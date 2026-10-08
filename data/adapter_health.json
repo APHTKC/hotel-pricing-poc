@@ -2790,6 +2790,33 @@
           "average_response_ms": 63394.61
         }
       }
+    },
+    "ec_hotel_v4:the_lin_taichung": {
+      "adapter": "ec_hotel_v4",
+      "hotel_id": "the_lin_taichung",
+      "attempts": 1,
+      "successes": 0,
+      "failures": 1,
+      "blocked_count": 0,
+      "consecutive_failures": 1,
+      "total_response_ms": 61219.66019998945,
+      "average_response_ms": 61219.66,
+      "success_rate": 0.0,
+      "last_status": "failed",
+      "last_attempt_at": "2026-10-08T06:42:48.632845+00:00",
+      "last_success_at": null,
+      "cooldown_until": null,
+      "daily": {
+        "2026-10-08": {
+          "attempts": 1,
+          "successes": 0,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 61219.66,
+          "success_rate": 0.0,
+          "average_response_ms": 61219.66
+        }
+      }
     }
   }
 }

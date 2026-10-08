@@ -24,6 +24,10 @@ PROPERTIES = {
         "booking_url": "https://tlathena.ec-hotel.net/webhotel-v4/0918/index",
         "property_id": "0918",
     },
+    "the_lin_taichung": {
+        "booking_url": "https://tlathena.ec-hotel.net/webhotel-v4/0321/index",
+        "property_id": "0321",
+    },
 }
 
 ROOM_SIZE_FALLBACKS = {
@@ -43,6 +47,27 @@ ROOM_SIZE_FALLBACKS = {
         "園景半露天風呂套房": Decimal("53"),
         "樓中樓套房（2間房）": Decimal("86"),
         "特別室套房": Decimal("105"),
+    },
+    "the_lin_taichung": {
+        "豪華客房": Decimal("50"),
+        "都會客房": Decimal("50"),
+        "尊榮客房": Decimal("53"),
+        "樂林套房": Decimal("56"),
+        "樂林大套房": Decimal("63"),
+        "歌劇院套房": Decimal("63"),
+        "歌劇院大套房": Decimal("72"),
+        "行政豪華客房": Decimal("50"),
+        "行政都會客房": Decimal("50"),
+        "行政尊榮客房": Decimal("53"),
+        "行政樂林套房": Decimal("56"),
+        "行政樂林大套房": Decimal("63"),
+        "行政歌劇院套房": Decimal("63"),
+        "行政歌劇院大套房": Decimal("63"),
+        "國王行宮總統套房 2501": Decimal("218"),
+        "國王行宮總統套房 2502": Decimal("50"),
+        "國王行宮總統套房 2503": Decimal("43"),
+        "國王行宮總統套房 2505": Decimal("83"),
+        "國王行宮總統套房 2506": Decimal("83"),
     },
 }
 
