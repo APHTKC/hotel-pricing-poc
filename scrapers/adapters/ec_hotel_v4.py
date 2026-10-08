@@ -129,14 +129,22 @@ class ECHotelV4Scraper(CapellaScraper):
             # which previously looked like an empty result in headless runs.
             # Select the room-oriented tab explicitly before waiting.
             await page.locator('a[href="#athTabpage__room"]').click(force=True)
-            await page.locator(
-                "#athTabpage__cntainRoom > .row.mb-40 .athTable__row"
-            ).first.wait_for(timeout=self.timeout_ms)
+            loading = page.locator(".el-loading-mask")
+            if await loading.count():
+                await loading.first.wait_for(state="hidden", timeout=self.timeout_ms)
             expected = [check_in.isoformat(), check_out.isoformat()]
             await page.wait_for_function(
                 "expected => Array.from(document.querySelectorAll('.athDateRange input')).map(el => el.value).join('|') === expected.join('|')",
                 arg=expected,
             )
+            # EC-hotel keeps the complete room/rate table in the DOM even when
+            # a property leaves the project tab visually active.  Requiring a
+            # visible row therefore rejects valid structured results (Hsinchu
+            # returned 87 dated rows this way).  Collection reads the attached
+            # DOM and does not depend on the presentation tab state.
+            await page.locator(
+                "#athTabpage__cntainRoom > .row.mb-40 .athTable__row"
+            ).first.wait_for(state="attached", timeout=self.timeout_ms)
             observations = await self._collect(
                 page, hotel, check_in, check_out, adults, queried_at, page.url
             )
