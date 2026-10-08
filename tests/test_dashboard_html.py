@@ -797,13 +797,19 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in mo_rooms) == 376
     assert next(room for room in mo_rooms if room["name_en"] == "Club City Suite Connecting")["size_sqm"] == 141
     assert next(room for room in mo_rooms if room["name_en"] == "Club Premier Suite Connecting")["size_sqm"] == 243
-    assert by_id["grand_hilai_taipei"]["facilities"]["pool"] is True
-    hilai_taipei_rooms = by_id["grand_hilai_taipei"]["room_snapshot"]["rooms"]
+    hilai_taipei = by_id["grand_hilai_taipei"]
+    assert hilai_taipei["verified_at"] == "2026-10-08"
+    assert hilai_taipei["facilities"]["pool"] is True
+    assert hilai_taipei["lounge"]["name"] == "VIP Lounge (25F)"
+    assert "25×12.5" in hilai_taipei["facility_notes"]["zh"]
+    assert hilai_taipei["room_snapshot"]["observed_at"] == "2026-10-08"
+    assert "425 間" in hilai_taipei["room_snapshot"]["count_note_zh"]
+    hilai_taipei_rooms = hilai_taipei["room_snapshot"]["rooms"]
     assert len(hilai_taipei_rooms) == 9
     assert min(room["size_sqm"] for room in hilai_taipei_rooms) == 31
     assert max(room["size_sqm"] for room in hilai_taipei_rooms) == 521
-    assert by_id["grand_hilai_taipei"]["service_charge_percent"] == 10
-    assert by_id["grand_hilai_taipei"]["service_charge_source_type"] == "official"
+    assert hilai_taipei["service_charge_percent"] == 10
+    assert hilai_taipei["service_charge_source_type"] == "official"
     okura = by_id["okura_prestige_taipei"]
     assert okura["verified_at"] == "2026-10-08"
     assert okura["room_inventory"] == 208

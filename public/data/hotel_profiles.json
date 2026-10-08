@@ -123,7 +123,7 @@
     },
     {
       "hotel_id": "grand_hilai_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-08",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -143,11 +143,19 @@
         {"name": "The Orient", "type_zh": "粵菜", "type_en": "Cantonese", "type_ja": "広東料理"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "facility_notes": {
+        "zh": "2026-10-08 依飯店官網重新核實：5 樓設有 25×12.5 公尺戶外無邊際泳池、24 小時健身房，以及男女三溫暖、熱水池與蒸氣室；VALMONT SPA 為另行付費預約設施。25 樓貴賓軒供行政樓層與適用套房住客使用，提供日間輕食飲品及晚間 Happy Hour。",
+        "en": "Reverified on 2026-10-08 against the hotel website: Level 5 has a 25-by-12.5-metre outdoor infinity pool, a 24-hour fitness centre, and men's and women's sauna areas with hot tubs and steam rooms. VALMONT SPA is available separately by paid reservation. The Level 25 VIP Lounge serves eligible executive-floor and suite guests with daytime refreshments and an evening Happy Hour.",
+        "ja": "2026-10-08にホテル公式サイトで再確認しました。5階には25×12.5メートルの屋外インフィニティプール、24時間営業のフィットネスセンター、温浴槽とスチームルームを備えた男女別サウナがあります。VALMONT SPAは別料金・予約制です。25階のVIPラウンジは対象となるエグゼクティブフロアおよびスイート宿泊者向けで、日中の軽食・飲料と夜のハッピーアワーを提供します。"
+      },
       "lounge": {"available": true, "name": "VIP Lounge (25F)", "kind": "vip_lounge"},
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-10-08",
         "source_type": "official",
         "source_url": "https://taipei.grand-hilai.com.tw/room/",
+        "count_note_zh": "飯店官網目前記載全館 425 間客房、分布於 26 個樓層；官網未公布各房型間數，因此不將總房數推分至個別房型。",
+        "count_note_en": "The hotel website currently states a total of 425 guest rooms across 26 floors. Inventory by individual room type is not published, so the total is not estimated across categories.",
+        "count_note_ja": "ホテル公式サイトでは26フロアに客室合計425室と記載されています。タイプ別室数は公表されていないため、各カテゴリーへの推定配分は行っていません。",
         "rooms": [
           {"name_zh": "標準客房", "name_en": "Standard Room", "name_ja": "Standard Room", "size_sqm": 31},
           {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 37},
@@ -168,7 +176,11 @@
         "https://taipei.grand-hilai.com.tw/room-detail/Royal-Suite/",
         "https://taipei.grand-hilai.com.tw/room-detail/Presidential-Suite/",
         "https://taipei.grand-hilai.com.tw/en/dining/",
-        "https://taipei.grand-hilai.com.tw/en/club/"
+        "https://taipei.grand-hilai.com.tw/en/club/",
+        "https://taipei.grand-hilai.com.tw/en/club-detail/infinity-swimming-pool/",
+        "https://taipei.grand-hilai.com.tw/en/club-detail/sauna-en/",
+        "https://taipei.grand-hilai.com.tw/en/club-detail/fitness-center/",
+        "https://taipei.grand-hilai.com.tw/en/room-detail/executive-deluxe-suite-en/"
       ]
     },
     {
