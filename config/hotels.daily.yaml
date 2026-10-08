@@ -55,6 +55,14 @@ hotels:
     country: TW
     booking_url: https://www.royal-taipei.com.tw/
     adapter: royal_nikko
+  - id: the_gaia_taipei
+    name: The Gaia Hotel Taipei
+    short_name: The Gaia
+    city: Taipei
+    district: Beitou
+    country: TW
+    booking_url: https://book-directonline.com/properties/thegaiahoteltaipeidirect
+    adapter: siteminder
   - id: hoshinoya_guguan
     name: HOSHINOYA Guguan
     short_name: HOSHINOYA

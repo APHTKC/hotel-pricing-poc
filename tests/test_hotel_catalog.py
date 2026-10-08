@@ -111,15 +111,15 @@ def test_published_catalog_contains_hotel_royal_hsinchu_manual_link():
     assert "webhotel-v4/0232" in hotel["booking_url"]
 
 
-def test_published_catalog_contains_gaia_as_successful_candidate_awaiting_repeat():
+def test_published_catalog_contains_gaia_as_verified_daily_hotel():
     payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
     hotel = next(item for item in payload["hotels"] if item["id"] == "the_gaia_taipei")
 
     assert hotel["district"] == "Beitou"
-    assert hotel["enabled"] is False
-    assert hotel["automation_status"] == "validating"
-    assert "8 live rates" in hotel["automation_note"]
-    assert "second future-date" in hotel["automation_note"]
+    assert hotel["enabled"] is True
+    assert hotel["automation_status"] == "verified"
+    assert "+30 days" in hotel["automation_note"]
+    assert "+60 days" in hotel["automation_note"]
 
 
 def test_published_catalog_contains_miramar_after_single_403_check():

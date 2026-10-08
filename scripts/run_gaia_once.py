@@ -8,7 +8,7 @@ from jobs.daily_rates import run_daily_rates
 async def main() -> None:
     os.environ["HOTELS_CONFIG_PATH"] = "config/hotels.gaia-only.yaml"
     os.environ["LOCAL_DATA_PATH"] = "data/gaia-local-probe.jsonl"
-    os.environ["LEAD_DAYS"] = "30"
+    os.environ["LEAD_DAYS"] = os.getenv("PROBE_LEAD_DAYS", "30")
     get_settings.cache_clear()
     result = await run_daily_rates()
     print(result.model_dump_json(indent=2))

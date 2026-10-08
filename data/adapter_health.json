@@ -2713,27 +2713,27 @@
     "siteminder:the_gaia_taipei": {
       "adapter": "siteminder",
       "hotel_id": "the_gaia_taipei",
-      "attempts": 1,
-      "successes": 1,
+      "attempts": 2,
+      "successes": 2,
       "failures": 0,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 4819.65350000246,
-      "average_response_ms": 4819.65,
+      "total_response_ms": 11351.538599992637,
+      "average_response_ms": 5675.77,
       "success_rate": 1.0,
       "last_status": "success",
-      "last_attempt_at": "2026-10-08T06:05:40.081814+00:00",
-      "last_success_at": "2026-10-08T06:05:40.081814+00:00",
+      "last_attempt_at": "2026-10-08T06:13:14.401230+00:00",
+      "last_success_at": "2026-10-08T06:13:14.401230+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-10-08": {
-          "attempts": 1,
-          "successes": 1,
+          "attempts": 2,
+          "successes": 2,
           "failures": 0,
           "blocked": 0,
-          "response_ms": 4819.65,
+          "response_ms": 11351.54,
           "success_rate": 1.0,
-          "average_response_ms": 4819.65
+          "average_response_ms": 5675.77
         }
       }
     }
