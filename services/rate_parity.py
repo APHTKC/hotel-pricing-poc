@@ -21,10 +21,19 @@ def normalize_cancellation_class(policy: str | None) -> str:
     text = " ".join(policy.lower().split())
     if any(term in text for term in ("non-refundable", "non refundable", "不可退款", "不得取消", "取消不可", "返金不可", "キャンセル不可")):
         return "non_refundable"
+    # A rate that is free only until a stated date/number of days is a
+    # conditional product, even when the page also says "free cancellation".
+    # Classifying it as unrestricted free cancellation prevents a legitimate
+    # official/OTA match when both sources express the same deadline in
+    # different word order.
+    has_deadline = bool(
+        re.search(r"(?:before|prior to|抵達前|入住前|日前|日まで).{0,30}\d+", text)
+        or re.search(r"\d{4}\s*[年/-]\s*\d{1,2}\s*[月/-]\s*\d{1,2}\s*日前", text)
+    )
+    if has_deadline:
+        return "conditional"
     if any(term in text for term in ("free cancellation", "free cancel", "免費取消", "可免費取消", "無料キャンセル", "キャンセル無料")):
         return "free_cancellation"
-    if re.search(r"(?:before|prior to|抵達前|入住前|日前|日まで).{0,30}\d+", text):
-        return "conditional"
     return UNKNOWN
 
 def normalize_tax_inclusion(row: Mapping[str, Any] | Any) -> str:

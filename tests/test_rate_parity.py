@@ -4,7 +4,11 @@ from decimal import Decimal
 
 import pytest
 
-from services.rate_parity import canonical_comparison_key, calculate_rate_parity
+from services.rate_parity import (
+    canonical_comparison_key,
+    calculate_rate_parity,
+    normalize_cancellation_class,
+)
 
 
 def product(**updates):
@@ -77,3 +81,19 @@ def test_invalid_occupancy_is_not_comparable(field, value):
     row = product()
     row[field] = value
     assert canonical_comparison_key(row) is None
+
+
+@pytest.mark.parametrize(
+    "policy",
+    [
+        "入住日前至少 3 天取消或更改可免收取消費",
+        "2026年10月12日前（不含當日）可免費取消",
+        "Free cancellation before 2026-10-12",
+    ],
+)
+def test_deadline_based_free_cancellation_is_conditional(policy):
+    assert normalize_cancellation_class(policy) == "conditional"
+
+
+def test_unrestricted_free_cancellation_remains_free_cancellation():
+    assert normalize_cancellation_class("Free cancellation") == "free_cancellation"

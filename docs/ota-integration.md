@@ -89,6 +89,15 @@ total is TWD 16,632. Both totals include the separately displayed taxes and
 other charges; the individual tax/service split remains null because the page
 did not identify that split.
 
+The third verified capture was Palais de Chine Hotel for 2026-10-15 to
+2026-10-16. Booking.com exposed a 30 sqm Superior Double room for two adults,
+without breakfast, with a dated free-cancellation deadline and a TWD 8,160
+tax-and-fee-inclusive total. This product shares the official observation's
+Canonical Comparison Key. Deadline-based free cancellation is normalized as
+`conditional` regardless of whether a source places the date before or after
+the words "free cancellation", preventing wording order from blocking a valid
+same-product comparison.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
