@@ -1,0 +1,9 @@
+hotels:
+  - id: radium_kagaya_taipei
+    name: Radium Kagaya Taipei
+    short_name: Kagaya
+    city: Taipei
+    district: Beitou
+    country: TW
+    booking_url: https://tlathena.ec-hotel.net/webhotel-v4/0918/index
+    adapter: ec_hotel_v4

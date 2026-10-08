@@ -20,6 +20,10 @@ PROPERTIES = {
         "booking_url": "https://tlathena.ec-hotel.net/webhotel-v4/0162/index",
         "property_id": "0162",
     },
+    "radium_kagaya_taipei": {
+        "booking_url": "https://tlathena.ec-hotel.net/webhotel-v4/0918/index",
+        "property_id": "0918",
+    },
 }
 
 ROOM_SIZE_FALLBACKS = {
@@ -31,6 +35,14 @@ ROOM_SIZE_FALLBACKS = {
         "行政客房": Decimal("43"),
         "景緻客房": Decimal("40"),
         "老爺套房": Decimal("56"),
+    },
+    "radium_kagaya_taipei": {
+        "溫馨和洋標準套房（有陽台）": Decimal("43"),
+        "溫馨和洋標準套房（無陽台）": Decimal("43"),
+        "溫馨和式標準套房": Decimal("43"),
+        "園景半露天風呂套房": Decimal("53"),
+        "樓中樓套房（2間房）": Decimal("86"),
+        "特別室套房": Decimal("105"),
     },
 }
 

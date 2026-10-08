@@ -2763,6 +2763,33 @@
           "average_response_ms": 52802.47
         }
       }
+    },
+    "ec_hotel_v4:radium_kagaya_taipei": {
+      "adapter": "ec_hotel_v4",
+      "hotel_id": "radium_kagaya_taipei",
+      "attempts": 1,
+      "successes": 0,
+      "failures": 1,
+      "blocked_count": 0,
+      "consecutive_failures": 1,
+      "total_response_ms": 63394.605800000136,
+      "average_response_ms": 63394.61,
+      "success_rate": 0.0,
+      "last_status": "failed",
+      "last_attempt_at": "2026-10-08T06:38:28.739834+00:00",
+      "last_success_at": null,
+      "cooldown_until": null,
+      "daily": {
+        "2026-10-08": {
+          "attempts": 1,
+          "successes": 0,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 63394.61,
+          "success_rate": 0.0,
+          "average_response_ms": 63394.61
+        }
+      }
     }
   }
 }

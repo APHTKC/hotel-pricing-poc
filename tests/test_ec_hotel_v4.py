@@ -16,6 +16,7 @@ from scrapers.adapters.ec_hotel_v4 import (
 def test_property_registry_contains_existing_and_hsinchu_hotels():
     assert PROPERTIES["royal_nikko_taipei"]["property_id"] == "0839"
     assert PROPERTIES["hotel_royal_hsinchu"]["property_id"] == "0232"
+    assert PROPERTIES["radium_kagaya_taipei"]["property_id"] == "0918"
 
 
 def test_parse_room_size_supports_ec_hotel_units():
@@ -27,6 +28,15 @@ def test_parse_room_size_supports_ec_hotel_units():
 def test_hsinchu_official_room_profile_fills_missing_booking_size():
     assert room_size_for("hotel_royal_hsinchu", "雅緻客房", "未顯示面積") == Decimal("36")
     assert room_size_for("hotel_royal_hsinchu", "豪華家庭客房", "未顯示面積") == Decimal("43")
+
+
+def test_kagaya_official_room_profile_fills_exact_known_sizes_only():
+    assert room_size_for(
+        "radium_kagaya_taipei", "園景半露天風呂套房", "未顯示面積"
+    ) == Decimal("53")
+    assert room_size_for(
+        "radium_kagaya_taipei", "特別室套房", "未顯示面積"
+    ) == Decimal("105")
 
 
 def test_breakfast_and_public_offer_filtering():
