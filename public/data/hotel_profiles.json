@@ -228,7 +228,7 @@
     },
     {
       "hotel_id": "shangrila_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-08",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -244,40 +244,48 @@
         {"name": "Marco Polo Restaurant", "type_zh": "義大利料理", "type_en": "Italian", "type_ja": "イタリア料理"},
         {"name": "Lobby Court", "type_zh": "大廳酒廊、下午茶與輕食", "type_en": "Lobby lounge, afternoon tea and light dining", "type_ja": "ロビーラウンジ・アフタヌーンティー・軽食"},
         {"name": "Li Bai Lounge", "type_zh": "酒廊、茶飲與輕食", "type_en": "Lounge, tea and light dining", "type_ja": "ラウンジ・お茶・軽食"},
-        {"name": "Marco Polo Lounge", "type_zh": "高空酒廊", "type_en": "Sky lounge", "type_ja": "スカイラウンジ"},
         {"name": "The Cake Room", "type_zh": "甜點、蛋糕與烘焙", "type_en": "Desserts, cakes and bakery", "type_ja": "デザート・ケーキ・ベーカリー"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "facility_notes": {
+        "zh": "2026-10-08 依飯店官網重新核實：6 樓健身俱樂部設有健身房、按摩、乾式三溫暖、蒸氣室與按摩池；另有 43 樓全年開放的頂樓溫水戶外泳池及 7 樓季節性戶外泳池。VALMONT SPA 另設護理服務。豪華閣位於 36 樓，豪華閣客房與套房可使用其早餐、下午茶及晚間飲品等禮遇。",
+        "en": "Reverified on 2026-10-08 against the hotel website: the Level 6 Health Club provides a gym, massage services, dry saunas, steam rooms and a whirlpool bath, together with a year-round heated rooftop outdoor pool on Level 43 and a seasonal outdoor pool on Level 7. VALMONT SPA provides separate treatments. Horizon Club is on Level 36 and provides breakfast, afternoon tea, evening beverages and other privileges to eligible club-room and suite guests.",
+        "ja": "2026-10-08にホテル公式サイトで再確認しました。6階のヘルスクラブにはジム、マッサージ、ドライサウナ、スチームルーム、ジャグジーがあり、43階には通年営業の温水屋外ルーフトッププール、7階には季節営業の屋外プールがあります。VALMONT SPAでは別途トリートメントを提供しています。ホライゾンクラブは36階にあり、対象のクラブルーム・スイート宿泊者には朝食、アフタヌーンティー、イブニングドリンクなどの特典があります。"
+      },
       "lounge": {"available": true, "name": "Horizon Club Lounge", "kind": "executive_club"},
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-10-08",
         "source_type": "official",
-        "source_url": "https://tpe.fareasternhotel.com.tw/download/0/factsheet_tc/",
+        "source_url": "https://www.shangri-la.com/tc/taipei/fareasternplazashangrila/rooms-suites/",
+        "count_note_zh": "飯店官網目前記載客房與套房共 420 間，其中 37 間為套房；官網未公布各房型間數，因此不將總房數推分至個別房型。",
+        "count_note_en": "The hotel website currently states a total of 420 rooms and suites, including 37 suites. Inventory by individual room type is not published, so the total is not estimated across categories.",
+        "count_note_ja": "ホテル公式サイトでは客室・スイート合計420室（うちスイート37室）と記載されています。タイプ別室数は公表されていないため、各カテゴリーへの推定配分は行っていません。",
         "rooms": [
-          {"name_zh": "豪華客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 36},
-          {"name_zh": "尊榮客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 40},
-          {"name_zh": "特選尊榮家庭客房", "name_en": "Grand Deluxe Family Room", "name_ja": "Grand Deluxe Family Room", "size_sqm": 56},
-          {"name_zh": "台北101景觀尊榮客房", "name_en": "Deluxe Taipei 101 View Room", "name_ja": "Deluxe Taipei 101 View Room", "size_sqm": 40},
-          {"name_zh": "超豪華客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 60},
-          {"name_zh": "台北101景觀超豪華客房", "name_en": "Premier Taipei 101 View Room", "name_ja": "Premier Taipei 101 View Room", "size_sqm": 60},
-          {"name_zh": "豪華閣豪華客房", "name_en": "Horizon Superior Room", "name_ja": "Horizon Superior Room", "size_sqm": 36},
-          {"name_zh": "豪華閣尊榮客房", "name_en": "Horizon Deluxe Room", "name_ja": "Horizon Deluxe Room", "size_sqm": 40},
-          {"name_zh": "豪華閣超豪華客房", "name_en": "Horizon Premier Room", "name_ja": "Horizon Premier Room", "size_sqm": 60},
-          {"name_zh": "雅仕套房", "name_en": "Plaza Suite", "name_ja": "Plaza Suite", "size_sqm": 72},
-          {"name_zh": "特級套房", "name_en": "Specialty Suite", "name_ja": "Specialty Suite", "size_sqm": 136},
-          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 226},
-          {"name_zh": "兩間尊榮客房連通房", "name_en": "Two Deluxe Rooms Inter-Connecting", "name_ja": "Two Deluxe Rooms Inter-Connecting", "size_sqm": 80},
-          {"name_zh": "雅仕套房及豪華客房連通房", "name_en": "Plaza Suite with Adjoining Superior Room", "name_ja": "Plaza Suite with Adjoining Superior Room", "size_sqm": 108}
+          {"name_zh": "豪華客房", "name_en": "Superior Room", "name_ja": "スーペリアルーム", "size_sqm": 36},
+          {"name_zh": "尊榮客房", "name_en": "Deluxe Room", "name_ja": "デラックス", "size_sqm": 40},
+          {"name_zh": "特選尊榮家庭客房", "name_en": "Grand Deluxe Family Room", "name_ja": "グランド・デラックス・ファミリールーム", "size_sqm": 56},
+          {"name_zh": "臺北101景觀尊榮客房", "name_en": "Deluxe Taipei 101 View Room", "name_ja": "デラックス台北101ビュールーム", "size_sqm": 40},
+          {"name_zh": "超豪華客房", "name_en": "Premier Room", "name_ja": "プレミア", "size_sqm": 60},
+          {"name_zh": "臺北101景觀超豪華客房", "name_en": "Premier Taipei 101 View Room", "name_ja": "プレミア台北101ビュールーム", "size_sqm": 60},
+          {"name_zh": "豪華閣豪華客房", "name_en": "Horizon Superior Room", "name_ja": "ホライゾンスーペリアルーム", "size_sqm": 35},
+          {"name_zh": "豪華閣尊榮客房", "name_en": "Horizon Deluxe Room", "name_ja": "ホライゾンデラックスルーム", "size_sqm": 40},
+          {"name_zh": "豪華閣超豪華客房", "name_en": "Horizon Premier Room", "name_ja": "ホライゾンプレミアルーム", "size_sqm": 58},
+          {"name_zh": "雅仕套房", "name_en": "Plaza Suite", "name_ja": "プラザスイート", "size_sqm": 72},
+          {"name_zh": "特級套房", "name_en": "Specialty Suite", "name_ja": "スペシャルティスイート", "size_sqm": 136},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "プレジデンシャルスイート", "size_sqm": 226},
+          {"name_zh": "兩間尊榮客房連通房", "name_en": "Two Deluxe Rooms Inter-Connecting", "name_ja": "2デラックスルームインターコネクティング", "size_sqm": 80},
+          {"name_zh": "雅仕套房及豪華客房（兩單床）連通房", "name_en": "Plaza Suite with adjoining Superior Twin Room", "name_ja": "プラザスイートとスーペリアツインの隣接ルーム", "size_sqm": 108}
         ]
       },
       "source_urls": [
         "https://www.shangri-la.com/taipei/fareasternplazashangrila/rooms-suites/",
         "https://www.shangri-la.com/tc/taipei/fareasternplazashangrila/rooms-suites/",
-        "https://tpe.fareasternhotel.com.tw/download/0/factsheet_tc/",
         "https://www.shangri-la.com/taipei/fareasternplazashangrila/dining/",
         "https://www.shangri-la.com/taipei/fareasternplazashangrila/health-leisure/health-club/",
         "https://www.shangri-la.com/taipei/fareasternplazashangrila/health-leisure/spa/",
-        "https://www.shangri-la.com/en/taipei/fareasternplazashangrila/rooms-suites/horizon-club/horizon-superior-room/"
+        "https://www.shangri-la.com/en/taipei/fareasternplazashangrila/rooms-suites/horizon-club/horizon-superior-room/",
+        "https://www.shangri-la.com/jp/taipei/fareasternplazashangrila/rooms-suites/",
+        "https://www.shangri-la.com/taipei/fareasternplazashangrila/about/corporate-social-responsibility/sustainability-action/"
       ]
     },
     {

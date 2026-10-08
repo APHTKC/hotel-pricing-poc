@@ -818,12 +818,20 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert {room["name_ja"] for room in okura_rooms} >= {"プレステージルーム", "ロイヤルスイート"}
     assert "合計 15%" in okura["service_charge_note_zh"]
     assert "service_charge_note_" in html
-    assert by_id["shangrila_taipei"]["room_inventory"] == 420
-    assert by_id["shangrila_taipei"]["lounge"]["name"] == "Horizon Club Lounge"
-    shangrila_rooms = by_id["shangrila_taipei"]["room_snapshot"]["rooms"]
+    shangrila = by_id["shangrila_taipei"]
+    assert shangrila["verified_at"] == "2026-10-08"
+    assert shangrila["room_inventory"] == 420
+    assert len(shangrila["restaurants"]) == 8
+    assert shangrila["lounge"]["name"] == "Horizon Club Lounge"
+    assert "43 樓" in shangrila["facility_notes"]["zh"]
+    assert shangrila["room_snapshot"]["observed_at"] == "2026-10-08"
+    assert "37 間" in shangrila["room_snapshot"]["count_note_zh"]
+    shangrila_rooms = shangrila["room_snapshot"]["rooms"]
     assert len(shangrila_rooms) == 14
-    assert min(room["size_sqm"] for room in shangrila_rooms) == 36
+    assert min(room["size_sqm"] for room in shangrila_rooms) == 35
     assert max(room["size_sqm"] for room in shangrila_rooms) == 226
+    assert next(room for room in shangrila_rooms if room["name_en"] == "Horizon Premier Room")["size_sqm"] == 58
+    assert next(room for room in shangrila_rooms if room["name_en"] == "Superior Room")["name_ja"] == "スーペリアルーム"
     assert next(room for room in shangrila_rooms if room["name_en"] == "Two Deluxe Rooms Inter-Connecting")["size_sqm"] == 80
     assert by_id["grand_mayfull_taipei"]["room_inventory"] == 146
     assert by_id["grand_mayfull_taipei"]["lounge"]["kind"] == "members_club"
