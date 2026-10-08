@@ -905,7 +905,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "item.sourceName.includes(room.name_zh)" in html
     assert "['愛心房','Accessible']" in html
     metropolitan = by_id["hotel_metropolitan_premier_taipei"]
-    assert metropolitan["verified_at"] == "2026-10-07"
+    assert metropolitan["verified_at"] == "2026-10-08"
     assert metropolitan["room_inventory"] == 288
     assert metropolitan["service_charge_percent"] == 10
     assert metropolitan["service_charge_source_type"] == "official"
@@ -913,7 +913,11 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert any("shukuhakuyakkan_en2025.pdf" in url for url in metropolitan["source_urls"])
     assert len(metropolitan["restaurants"]) == 7
     assert metropolitan["facilities"] == {"pool": True, "fitness": True, "spa": True, "sauna": True, "steam_room": True}
+    assert "室內恆溫游泳池" in metropolitan["facility_notes"]["zh"]
+    assert "4 間餐廳、2 間酒吧及 1 間烘焙坊" in metropolitan["facility_notes"]["zh"]
     assert metropolitan["lounge"]["kind"] == "executive_club"
+    assert metropolitan["room_snapshot"]["observed_at"] == "2026-10-08"
+    assert "288 間" in metropolitan["room_snapshot"]["count_note_zh"]
     jr_rooms = metropolitan["room_snapshot"]["rooms"]
     assert len(jr_rooms) == 21
     assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in jr_rooms) == 36

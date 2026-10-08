@@ -510,7 +510,7 @@
     },
     {
       "hotel_id": "hotel_metropolitan_premier_taipei",
-      "verified_at": "2026-10-07",
+      "verified_at": "2026-10-08",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -531,11 +531,19 @@
         {"name": "PREMIER SWEET", "type_zh": "烘焙坊與甜點", "type_en": "Patisserie and bakery", "type_ja": "ペストリー・ベーカリー"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
+      "facility_notes": {
+        "zh": "2026-10-08 依飯店官網重新核實：9 樓設有室內恆溫游泳池、健身房、三溫暖與蒸氣浴；SPA & WELLNESS 頁另列 AN Spa 芳療。2 樓行政酒廊供行政樓層客房與套房住客使用。官網設施總覽記載 4 間餐廳、2 間酒吧及 1 間烘焙坊，本頁因此列出 7 個具名餐飲據點。",
+        "en": "Reverified on 2026-10-08 against the hotel website: the ninth floor has an indoor heated pool, fitness room, sauna and steam bath, while the SPA & WELLNESS page separately lists AN Spa. The second-floor Executive Lounge is for guests staying in Executive Floor rooms and suites. The official facilities overview lists four restaurants, two bars and one bakery, so this profile presents seven named dining venues.",
+        "ja": "2026-10-08にホテル公式サイトで再確認しました。9階には屋内温水プール、フィットネスルーム、サウナ、スチームバスがあり、SPA & WELLNESSページにはAN Spaも掲載されています。2階のエグゼクティブラウンジはエグゼクティブフロア客室およびスイートの宿泊者向けです。公式施設概要はレストラン4軒、バー2軒、ベーカリー1軒を記載しているため、本プロフィールでは計7つの飲食施設を掲載しています。"
+      },
       "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
       "room_snapshot": {
-        "observed_at": "2026-09-23",
+        "observed_at": "2026-10-08",
         "source_type": "official",
         "source_url": "https://taipei.metropolitan.tw/stay/rooms/",
+        "count_note_zh": "飯店官網目前明確記載全館 288 間客房，並逐項列出 21 種可辨識的房型與面積；官方未公布各房型間數，因此不將總房數推分至個別房型。",
+        "count_note_en": "The official website currently states a total of 288 guest rooms and lists 21 identifiable room configurations with their floor areas. Inventory by individual room type is not published, so the total is not estimated across categories.",
+        "count_note_ja": "公式サイトでは全288室と明記され、面積を確認できる21種類の客室構成が掲載されています。タイプ別室数は公表されていないため、各カテゴリーへの推定配分は行っていません。",
         "rooms": [
           {"name_zh": "都會客房一大床", "name_en": "Deluxe King", "name_ja": "Deluxe King", "size_sqm": 36},
           {"name_zh": "都會客房雙床房", "name_en": "Deluxe Twin", "name_ja": "Deluxe Twin", "size_sqm_min": 36, "size_sqm_max": 39},
