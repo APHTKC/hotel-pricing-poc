@@ -1424,6 +1424,15 @@ def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
     assert 'class="city-badge"' in html
     assert "rateStatus==='with'" in html
     assert "function loungeDetail(profile)" in html
+    assert "officialNotListed:'官網未列'" in html
+    assert "serviceChargeEstimated:'估算值（未核實）'" in html
+    assert "if(profile)return{value:10,source:'estimate'" in html
+    assert "不覆寫原始資料或市場指標" in html
+    assert "const COMPARISON_FILTER_IDS=['city','affiliation','feature','verification','rateStatus']" in html
+    assert "function comparisonItemMatches(item,state)" in html
+    assert "function updateComparisonFilterCounts()" in html
+    assert "option.textContent=`${comparisonFilterOptionLabel(id,option.value)} (${count})`" in html
+    assert "updateComparisonFilterCounts();" in html
 
 
 def test_hotel_profile_comparison_rows_open_details_without_horizontal_scrolling():
