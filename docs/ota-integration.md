@@ -197,6 +197,11 @@ for the same 2026-11-11 to 2026-11-12 stay. Booking.com's canonical property
 result likewise reported no availability. No price was inferred or published,
 and the batch did not retry another date.
 
+Hotel Proverbs Taipei was then checked once for 2026-11-11 to 2026-11-12.
+Booking.com's own search resolved the canonical property page but explicitly
+reported no availability. The batch published no price row and did not retry
+another date.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
