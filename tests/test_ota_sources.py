@@ -388,6 +388,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert episode_daan["check_out"] == "2026-11-27"
     assert "episode-daan-taipei" in episode_daan["source_url"]
 
+    regent = by_hotel["regent_taipei"]
+    assert regent["status"] == "no_availability"
+    assert regent["check_in"] == "2026-11-27"
+    assert regent["check_out"] == "2026-11-28"
+    assert "the-regent-taipei" in regent["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
