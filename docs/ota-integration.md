@@ -192,6 +192,11 @@ A subsequent one-check batch searched Courtyard by Marriott Taipei for
 property page but explicitly marked the selected stay unavailable. The result
 was recorded without publishing a price row or trying alternate dates.
 
+The following one-check batch searched Courtyard by Marriott Taipei Downtown
+for the same 2026-11-11 to 2026-11-12 stay. Booking.com's canonical property
+result likewise reported no availability. No price was inferred or published,
+and the batch did not retry another date.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch

@@ -298,6 +298,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert courtyard["check_out"] == "2026-11-12"
     assert "courtyard-by-marriott-taipei" in courtyard["source_url"]
 
+    courtyard_downtown = by_hotel["courtyard_taipei_downtown"]
+    assert courtyard_downtown["status"] == "no_availability"
+    assert courtyard_downtown["check_in"] == "2026-11-11"
+    assert courtyard_downtown["check_out"] == "2026-11-12"
+    assert "courtyard-by-marriott-taipei-downtown" in courtyard_downtown["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
