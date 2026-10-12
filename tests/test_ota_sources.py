@@ -346,6 +346,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert doubletree["check_out"] == "2026-11-19"
     assert "doubletree-by-hilton-taipei-zhongshan" in doubletree["source_url"]
 
+    howard = by_hotel["howard_plaza_taipei"]
+    assert howard["status"] == "no_availability"
+    assert howard["check_in"] == "2026-11-19"
+    assert howard["check_out"] == "2026-11-20"
+    assert "the-howard-plaza-taipei" in howard["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
