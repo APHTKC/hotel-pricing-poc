@@ -340,6 +340,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert resonance["check_out"] == "2026-11-18"
     assert "/resonance." in resonance["source_url"]
 
+    doubletree = by_hotel["doubletree_taipei_zhongshan"]
+    assert doubletree["status"] == "no_availability"
+    assert doubletree["check_in"] == "2026-11-18"
+    assert doubletree["check_out"] == "2026-11-19"
+    assert "doubletree-by-hilton-taipei-zhongshan" in doubletree["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
