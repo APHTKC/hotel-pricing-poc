@@ -376,6 +376,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert landis["check_out"] == "2026-11-24"
     assert "the-landis-taipei" in landis["source_url"]
 
+    gracery = by_hotel["hotel_gracery_taipei"]
+    assert gracery["status"] == "no_availability"
+    assert gracery["check_in"] == "2026-11-24"
+    assert gracery["check_out"] == "2026-11-25"
+    assert "ge-la-si-li-tai-bei-fan-dian" in gracery["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
