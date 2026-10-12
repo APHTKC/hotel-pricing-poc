@@ -418,6 +418,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert le_meridien["check_out"] == "2026-12-02"
     assert "le-meridien-taichung" in le_meridien["source_url"]
 
+    intercontinental_kaohsiung = by_hotel["intercontinental_kaohsiung"]
+    assert intercontinental_kaohsiung["status"] == "no_availability"
+    assert intercontinental_kaohsiung["check_in"] == "2026-12-02"
+    assert intercontinental_kaohsiung["check_out"] == "2026-12-03"
+    assert "intercontinental-kaohsiung-an-ihg" in intercontinental_kaohsiung["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
