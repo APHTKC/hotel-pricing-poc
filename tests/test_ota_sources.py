@@ -294,6 +294,7 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         "capella_taipei",
         "w_taipei",
         "hotel_metropolitan_premier_taipei",
+        "okura_prestige_taipei",
     }
     assert all(row.source_method == "visible_browser_snapshot" for row in rows)
     assert all(canonical_comparison_key(row) is not None for row in rows)
@@ -307,6 +308,14 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert len(jr_rows) == 3
     assert {row.room_size_sqm for row in jr_rows} == {Decimal("36"), Decimal("43")}
     assert {row.total_price for row in jr_rows} == {Decimal("6696"), Decimal("7254")}
+    okura_rows = [row for row in rows if row.hotel_id == "okura_prestige_taipei"]
+    assert len(okura_rows) == 3
+    assert {row.breakfast_included for row in okura_rows} == {False, True}
+    assert {row.total_price for row in okura_rows} == {
+        Decimal("10349"),
+        Decimal("10350"),
+        Decimal("12066"),
+    }
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):

@@ -19,7 +19,17 @@ def normalize_cancellation_class(policy: str | None) -> str:
     if not policy:
         return UNKNOWN
     text = " ".join(policy.lower().split())
-    if any(term in text for term in ("non-refundable", "non refundable", "不可退款", "不得取消", "取消不可", "返金不可", "キャンセル不可")):
+    if any(term in text for term in (
+        "non-refundable",
+        "non refundable",
+        "不可退款",
+        "不得取消",
+        "取消不可",
+        "取消須付費（訂單總額）",
+        "取消須付費 (訂單總額)",
+        "返金不可",
+        "キャンセル不可",
+    )):
         return "non_refundable"
     # A rate that is free only until a stated date/number of days is a
     # conditional product, even when the page also says "free cancellation".

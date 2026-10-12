@@ -97,3 +97,11 @@ def test_deadline_based_free_cancellation_is_conditional(policy):
 
 def test_unrestricted_free_cancellation_remains_free_cancellation():
     assert normalize_cancellation_class("Free cancellation") == "free_cancellation"
+
+
+def test_full_booking_value_cancellation_fee_is_non_refundable():
+    assert (
+        normalize_cancellation_class("取消須付費（訂單總額）；無需訂金，入住時付款")
+        == "non_refundable"
+    )
+    assert normalize_cancellation_class("取消須付費") == "unknown"

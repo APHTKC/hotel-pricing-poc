@@ -106,6 +106,15 @@ Standard Twin at TWD 6,696, a 43 sqm Superior King at TWD 7,254, and a 43 sqm
 Superior Twin at TWD 7,254. These products share the official observations'
 Canonical Comparison Key and therefore form a second strict rate-parity sample.
 
+The fifth verified capture was The Okura Prestige Taipei for 2026-10-15 to
+2026-10-16. Booking.com exposed a 44 sqm Deluxe Twin at TWD 10,349 under a
+non-refundable room-only plan, TWD 10,350 under a full-cancellation-fee
+room-only plan, and TWD 12,066 with breakfast under the same full-fee policy;
+all totals include taxes and fees. The latest official batch exposed different
+room-size bands and an unknown tax-inclusion field, so these snapshots are
+published with complete Canonical Keys but correctly do not appear in strict
+rate-parity results until an official observation has the exact same key.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
