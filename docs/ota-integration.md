@@ -172,6 +172,15 @@ published set retains a consistent occupancy and cancellation class. Because
 the visible table did not explicitly label its tax-inclusion basis, all records
 use `tax_inclusion: unknown` and remain outside strict parity calculations.
 
+The eleventh verified capture was Sheraton Grand Taipei Hotel for 2026-10-19
+to 2026-10-20. Booking.com's public room table exposed six two-adult products:
+room-only and breakfast-inclusive, free-cancellation variants for a 40 sqm
+Premier Twin and 35 sqm Executive Deluxe King and Twin rooms. Displayed totals
+ranged from TWD 10,280 to TWD 12,821, with a common dated cancellation deadline
+and pay-at-property terms. The page did not explicitly label the displayed
+total's tax-inclusion basis, so these records use `tax_inclusion: unknown` and
+remain outside strict parity calculations.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
