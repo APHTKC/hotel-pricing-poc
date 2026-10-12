@@ -281,6 +281,17 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
         assert key not in keys
         keys.add(key)
 
+    by_hotel = {row["hotel_id"]: row for row in rows}
+    for hotel_id, property_slug in {
+        "le_meridien_taipei": "le-meridien-taipei",
+        "taipei_marriott": "taipei-marriott",
+    }.items():
+        row = by_hotel[hotel_id]
+        assert row["status"] == "no_availability"
+        assert row["check_in"] == "2026-10-19"
+        assert row["check_out"] == "2026-10-20"
+        assert property_slug in row["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")

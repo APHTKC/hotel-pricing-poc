@@ -181,6 +181,12 @@ and pay-at-property terms. The page did not explicitly label the displayed
 total's tax-inclusion basis, so these records use `tax_inclusion: unknown` and
 remain outside strict parity calculations.
 
+The next low-cost availability batch checked Le Meridien Taipei and Taipei
+Marriott Hotel for 2026-10-19 to 2026-10-20. Booking.com's public property
+pages explicitly reported no availability for both hotels. No rate rows were
+published and no alternate dates were retried in the same batch. These are
+dated availability observations rather than permanent source failures.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
