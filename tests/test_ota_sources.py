@@ -310,6 +310,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert hotel_proverbs["check_out"] == "2026-11-12"
     assert "hotel-proverbs-taipei" in hotel_proverbs["source_url"]
 
+    renaissance = by_hotel["renaissance_taipei_shihlin"]
+    assert renaissance["status"] == "no_availability"
+    assert renaissance["check_in"] == "2026-11-12"
+    assert renaissance["check_out"] == "2026-11-13"
+    assert "renaissance-taipei-shihlin" in renaissance["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
