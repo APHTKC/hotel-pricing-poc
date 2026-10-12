@@ -412,6 +412,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert millennium["check_out"] == "2026-12-01"
     assert "millennium-vee-taichung" in millennium["source_url"]
 
+    le_meridien = by_hotel["le_meridien_taichung"]
+    assert le_meridien["status"] == "no_availability"
+    assert le_meridien["check_in"] == "2026-12-01"
+    assert le_meridien["check_out"] == "2026-12-02"
+    assert "le-meridien-taichung" in le_meridien["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
