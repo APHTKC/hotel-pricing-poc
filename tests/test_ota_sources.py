@@ -322,6 +322,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert humble_house["check_out"] == "2026-11-14"
     assert "humble-house-taipei-curio-collection-by-hilton" in humble_house["source_url"]
 
+    kimpton = by_hotel["kimpton_da_an"]
+    assert kimpton["status"] == "no_availability"
+    assert kimpton["check_in"] == "2026-11-15"
+    assert kimpton["check_out"] == "2026-11-16"
+    assert "kimpton-da-an" in kimpton["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
