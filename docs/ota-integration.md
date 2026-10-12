@@ -150,6 +150,17 @@ deadline and pay-at-property terms. The visible table did not explicitly state
 whether totals included taxes, so the records use `tax_inclusion: unknown` and
 remain outside strict parity calculations.
 
+The ninth verified capture was Grand Mayfull Taipei for 2026-10-19 to
+2026-10-20. Booking.com's public room table exposed twelve representative
+two-adult products spanning 50, 60, 70, 95, and 105 sqm rooms and suites, with
+room-only and breakfast variants. Displayed totals ranged from TWD 6,718 to
+TWD 37,884 and included the visible promotional label plus a dated
+free-cancellation deadline. Because the table did not explicitly state the tax
+inclusion basis, these records use `tax_inclusion: unknown` and are excluded
+from strict parity. A separate one-time check of Hotel Royal-Nikko Taipei for
+the same stay explicitly returned no availability; that result is recorded in
+`data/ota_browser_checks.jsonl` and was not retried in this batch.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
