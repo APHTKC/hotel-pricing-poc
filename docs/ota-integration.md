@@ -216,6 +216,11 @@ Kimpton Da An was checked once for 2026-11-15 to 2026-11-16. Booking.com's
 canonical property result explicitly reported no availability for the selected
 stay, so the batch kept a dated diagnostic only and did not retry another date.
 
+Hotel Indigo Taipei North was checked once for 2026-11-16 to 2026-11-17.
+Booking.com's site search resolved the canonical property page but explicitly
+reported no availability for the selected stay. The batch published no price
+row and did not retry another date.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch

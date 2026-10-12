@@ -328,6 +328,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert kimpton["check_out"] == "2026-11-16"
     assert "kimpton-da-an" in kimpton["source_url"]
 
+    indigo = by_hotel["indigo_taipei_north"]
+    assert indigo["status"] == "no_availability"
+    assert indigo["check_in"] == "2026-11-16"
+    assert indigo["check_out"] == "2026-11-17"
+    assert "indigo-taipei-north" in indigo["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
