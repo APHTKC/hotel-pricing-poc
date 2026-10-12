@@ -394,6 +394,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert regent["check_out"] == "2026-11-28"
     assert "the-regent-taipei" in regent["source_url"]
 
+    intercontinental_taichung = by_hotel["intercontinental_taichung"]
+    assert intercontinental_taichung["status"] == "no_availability"
+    assert intercontinental_taichung["check_in"] == "2026-11-28"
+    assert intercontinental_taichung["check_out"] == "2026-11-29"
+    assert "intercontinental-hotels-taichung-an-ihg" in intercontinental_taichung["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
