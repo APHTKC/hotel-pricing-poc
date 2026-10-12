@@ -128,7 +128,13 @@ def _latest_batches_by_platform(rows: list[dict]) -> list[dict]:
 
 
 def _load_browser_snapshot_rows(path: Path) -> list[dict]:
-    """Validate visible-browser OTA captures and fail closed on incomplete products."""
+    """Validate complete OTA offers while allowing an unknown tax display.
+
+    A public OTA page can expose a real room price and all stay conditions
+    without explicitly labelling whether the displayed total includes taxes.
+    Such an offer is useful in source-filtered details but must remain excluded
+    from strict parity until the tax treatment is known.
+    """
     if not path.exists():
         return []
     rows = []
@@ -140,9 +146,33 @@ def _load_browser_snapshot_rows(path: Path) -> list[dict]:
             raise ValueError(f"OTA browser snapshot line {line_number} uses official source")
         if observation.source_method != "visible_browser_snapshot":
             raise ValueError(f"OTA browser snapshot line {line_number} has unsupported method")
-        if canonical_comparison_key(observation) is None:
+        metadata = comparison_metadata(observation)
+        required_values = {
+            "hotel_id": observation.hotel_id,
+            "check_in": observation.check_in,
+            "check_out": observation.check_out,
+            "room_type_code": observation.room_type_code,
+            "room_type_name": observation.room_type_name,
+            "rate_plan_code": observation.rate_plan_code,
+            "rate_plan_name": observation.rate_plan_name,
+            "breakfast_included": observation.breakfast_included,
+            "cancellation_policy": observation.cancellation_policy,
+            "total_price": observation.total_price,
+            "source_property_id": observation.source_property_id,
+            "source_url": observation.source_url,
+        }
+        missing = [
+            name for name, value in required_values.items()
+            if value is None or value == ""
+        ]
+        if (
+            missing
+            or metadata["occupancy"] == "unknown"
+            or metadata["size_band"] == "unknown"
+            or metadata["cancellation_class"] == "unknown"
+        ):
             raise ValueError(
-                f"OTA browser snapshot line {line_number} lacks Canonical Comparison Key fields"
+                f"OTA browser snapshot line {line_number} lacks required product fields"
             )
         rows.append(observation.model_dump(mode="json"))
     return rows

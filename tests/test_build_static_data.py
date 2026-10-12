@@ -96,9 +96,36 @@ def test_browser_snapshot_loader_requires_complete_canonical_product(tmp_path):
     try:
         _load_browser_snapshot_rows(path)
     except ValueError as error:
-        assert "Canonical Comparison Key" in str(error)
+        assert "required product fields" in str(error)
     else:
         raise AssertionError("incomplete OTA browser products must fail closed")
+
+
+def test_browser_snapshot_loader_accepts_unknown_tax_but_keeps_it_non_comparable(tmp_path):
+    row = {
+        "observation_id": "ota-tax-unknown", "queried_at": "2026-10-12T01:00:00Z",
+        "check_in": "2026-10-19", "check_out": "2026-10-20", "lead_days": 7,
+        "rooms": 1, "adults": 2, "children": 0,
+        "hotel_id": "mo_taipei", "hotel_name": "Mandarin Oriental Taipei",
+        "room_type_code": "booking:room-1", "room_type_name": "Deluxe King",
+        "room_size_sqm": 55, "rate_plan_code": "booking:plan-1",
+        "rate_plan_name": "Room only with dated free cancellation",
+        "breakfast_included": False,
+        "cancellation_policy": "Free cancellation before 2026-10-18",
+        "tax_inclusion": "unknown", "total_price": 12705, "currency": "TWD",
+        "source_platform": "booking_com", "source_method": "visible_browser_snapshot",
+        "source_property_id": "mandarin-oriental-taipei",
+        "source_url": "https://www.booking.com/hotel/tw/mandarin-oriental-taipei.html",
+        "status": "live",
+    }
+    path = tmp_path / "ota-tax-unknown.jsonl"
+    path.write_text(json.dumps(row) + "\n", encoding="utf-8")
+
+    loaded = _load_browser_snapshot_rows(path)
+
+    assert len(loaded) == 1
+    assert build_static_data.canonical_comparison_key(loaded[0]) is None
+    assert loaded[0]["total_twd"] == "12705"
 
 
 def test_implausibly_low_twd_rate_is_not_published():

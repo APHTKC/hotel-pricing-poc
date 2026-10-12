@@ -63,9 +63,12 @@ When partner credentials are not yet available, an operator may use a normal,
 visible browser to capture a low-frequency public OTA offer. This is not a
 CAPTCHA bypass and must stop at any login, verification, paywall, or access
 barrier. Captures are stored separately in
-`data/ota_browser_snapshots.jsonl` and are accepted by the static build only
-when all Canonical Comparison Key fields are explicit: hotel, stay dates,
-occupancy, room-size band, breakfast, cancellation class, and tax inclusion.
+`data/ota_browser_snapshots.jsonl`. A complete room offer must identify the
+hotel, stay dates, occupancy, room, size band, meal plan, cancellation policy,
+and displayed total. If the OTA page does not explicitly state whether that
+total includes taxes, the observation may still appear in source-filtered
+details with `tax_inclusion: unknown`, but it cannot form a Canonical
+Comparison Key or enter strict parity results.
 
 The latest public dashboard keeps the newest official batch and the newest OTA
 batch for each platform and hotel. Official rates alone feed the market ADR and
@@ -119,6 +122,15 @@ all totals include taxes and fees. The latest official batch exposed different
 room-size bands and an unknown tax-inclusion field, so these snapshots are
 published with complete Canonical Keys but correctly do not appear in strict
 rate-parity results until an official observation has the exact same key.
+
+The sixth verified capture was Mandarin Oriental, Taipei for 2026-10-19 to
+2026-10-20. Booking.com publicly exposed seven two-adult products across 55 sqm
+Deluxe King, Deluxe Twin, Executive Deluxe King and Club Deluxe Twin rooms, plus
+a 70 sqm Mandarin Room. Displayed totals ranged from TWD 12,705 to TWD 22,176,
+with explicit breakfast and dated free-cancellation terms. Because the page did
+not explicitly label the displayed total as tax-inclusive or tax-exclusive,
+these records use `tax_inclusion: unknown` and are deliberately excluded from
+strict parity.
 
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
