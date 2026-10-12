@@ -7,6 +7,7 @@ import statistics
 from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
+from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
@@ -108,8 +109,26 @@ def comparison_metadata(row: Mapping[str, Any] | Any) -> dict[str, Any]:
     key = canonical_comparison_key(row)
     return {"comparison_key": key.serialize() if key else None, "comparison_status": "comparable" if key else "insufficient_product_metadata", "occupancy": occupancy_key(row), "cancellation_class": normalize_cancellation_class(_value(row, "cancellation_policy")), "tax_inclusion": normalize_tax_inclusion(row), "size_band": normalize_size_band(row)}
 
-def calculate_rate_parity(rows: Iterable[Mapping[str, Any] | Any]) -> list[dict[str, Any]]:
-    groups: dict[str, dict[str, list[Decimal]]] = defaultdict(lambda: defaultdict(list))
+def _queried_at(row: Mapping[str, Any] | Any) -> datetime | None:
+    value = _value(row, "queried_at")
+    if isinstance(value, datetime):
+        return value
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def calculate_rate_parity(
+    rows: Iterable[Mapping[str, Any] | Any],
+    *,
+    max_query_gap_hours: float = 24,
+) -> list[dict[str, Any]]:
+    groups: dict[str, dict[str, list[tuple[Decimal, datetime | None]]]] = defaultdict(
+        lambda: defaultdict(list)
+    )
     examples: dict[str, CanonicalComparisonKey] = {}
     for row in rows:
         key = canonical_comparison_key(row)
@@ -122,18 +141,61 @@ def calculate_rate_parity(rows: Iterable[Mapping[str, Any] | Any]) -> list[dict[
             continue
         platform = str(_value(row, "source_platform", "official") or "official")
         serialized = key.serialize()
-        groups[serialized][platform].append(value)
+        groups[serialized][platform].append((value, _queried_at(row)))
         examples[serialized] = key
     comparisons = []
     for serialized, sources in groups.items():
-        official_values = sources.get("official", [])
-        if not official_values:
+        official_entries = sources.get("official", [])
+        if not official_entries:
             continue
-        official = Decimal(str(statistics.median(official_values)))
-        for platform, values in sources.items():
-            if platform == "official" or not values:
+        for platform, ota_entries in sources.items():
+            if platform == "official" or not ota_entries:
                 continue
-            ota = Decimal(str(statistics.median(values)))
+            ota_timestamps = [timestamp for _, timestamp in ota_entries if timestamp is not None]
+            official_timestamps = [
+                timestamp for _, timestamp in official_entries if timestamp is not None
+            ]
+            ota_timestamp = max(ota_timestamps) if ota_timestamps else None
+            official_timestamp = None
+            selected_ota = ota_entries
+            selected_official = official_entries
+            gap_hours = None
+            if ota_timestamp is not None:
+                selected_ota = [entry for entry in ota_entries if entry[1] == ota_timestamp]
+                if official_timestamps:
+                    official_timestamp = min(
+                        official_timestamps,
+                        key=lambda timestamp: abs((timestamp - ota_timestamp).total_seconds()),
+                    )
+                    gap_hours = abs(
+                        (official_timestamp - ota_timestamp).total_seconds()
+                    ) / 3600
+                    if gap_hours > max_query_gap_hours:
+                        continue
+                    selected_official = [
+                        entry for entry in official_entries if entry[1] == official_timestamp
+                    ]
+            official = Decimal(
+                str(statistics.median(value for value, _ in selected_official))
+            )
+            ota = Decimal(str(statistics.median(value for value, _ in selected_ota)))
             key = examples[serialized]
-            comparisons.append({"comparison_key": serialized, "hotel_id": key.hotel_id, "check_in": key.check_in, "check_out": key.check_out, "occupancy": key.occupancy, "size_band": key.size_band, "breakfast_included": key.breakfast_included, "cancellation_class": key.cancellation_class, "tax_inclusion": key.tax_inclusion, "ota_source": platform, "official_median_twd": float(official), "ota_median_twd": float(ota), "gap_percent": float((ota - official) / official) if official else None})
+            comparisons.append({
+                "comparison_key": serialized,
+                "hotel_id": key.hotel_id,
+                "check_in": key.check_in,
+                "check_out": key.check_out,
+                "occupancy": key.occupancy,
+                "size_band": key.size_band,
+                "breakfast_included": key.breakfast_included,
+                "cancellation_class": key.cancellation_class,
+                "tax_inclusion": key.tax_inclusion,
+                "ota_source": platform,
+                "official_median_twd": float(official),
+                "ota_median_twd": float(ota),
+                "gap_percent": float((ota - official) / official) if official else None,
+                "official_queried_at": official_timestamp.isoformat() if official_timestamp else None,
+                "ota_queried_at": ota_timestamp.isoformat() if ota_timestamp else None,
+                "query_time_gap_hours": round(gap_hours, 2) if gap_hours is not None else None,
+            })
     return sorted(comparisons, key=lambda item: (item["check_in"], item["hotel_id"], item["ota_source"]))

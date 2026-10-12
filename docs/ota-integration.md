@@ -73,6 +73,11 @@ heatmap; OTA snapshots may appear in source-filtered details and strict
 rate-parity results. This prevents a small asynchronous OTA capture from
 replacing or distorting the daily official market batch, while allowing
 low-frequency OTA checks for different hotels to accumulate independently.
+Strict parity results are calculated from the deduplicated history so they do
+not disappear when the daily official lead dates roll forward. For each exact
+Canonical Comparison Key, the newest OTA batch is paired only with the closest
+official observation collected within 24 hours; older official observations
+are rejected rather than mixed into a misleading median.
 
 The first verified browser pilot was Capella Taipei for 2026-11-06 to
 2026-11-07 (one room, two adults), observed on 2026-10-08. Booking.com publicly

@@ -686,7 +686,11 @@ def main() -> None:
         if (row.get("source_platform") or "official") == "official"
     ]
     latest_summary = calculate_market_summary(latest_official_source_rows)
-    latest_parity = calculate_rate_parity(latest_source_rows)
+    # OTA checks are asynchronous and the daily official lead dates roll
+    # forward. Keep strict comparisons from disappearing by pairing each OTA
+    # product with the closest official observation (within 24 hours) from the
+    # complete deduplicated history, not only today's latest official batch.
+    latest_parity = calculate_rate_parity(source_rows)
     latest_queried_at = max((row.get("queried_at") or "" for row in latest_rows), default=None)
     LATEST_SUMMARY_TARGET.write_text(
         json.dumps(

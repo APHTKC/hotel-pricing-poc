@@ -42,6 +42,39 @@ def test_exact_same_product_is_compared():
     assert comparisons[0]["gap_percent"] == pytest.approx(0.1)
 
 
+def test_comparison_uses_nearest_observation_batch_within_one_day():
+    official_old = product(
+        queried_at="2026-10-01T01:00:00Z", total_price=Decimal("7000")
+    )
+    official_near = product(
+        queried_at="2026-10-08T01:00:00Z", total_price=Decimal("10000")
+    )
+    ota = product(
+        source_platform="booking_com",
+        queried_at="2026-10-08T12:00:00Z",
+        total_price=Decimal("11000"),
+    )
+
+    comparisons = calculate_rate_parity([official_old, official_near, ota])
+
+    assert len(comparisons) == 1
+    assert comparisons[0]["official_median_twd"] == 10000
+    assert comparisons[0]["query_time_gap_hours"] == 11
+    assert comparisons[0]["official_queried_at"] == "2026-10-08T01:00:00+00:00"
+    assert comparisons[0]["ota_queried_at"] == "2026-10-08T12:00:00+00:00"
+
+
+def test_comparison_rejects_stale_official_observation():
+    official = product(queried_at="2026-10-01T01:00:00Z")
+    ota = product(
+        source_platform="booking_com",
+        queried_at="2026-10-08T12:00:00Z",
+        total_price=Decimal("11000"),
+    )
+
+    assert calculate_rate_parity([official, ota]) == []
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [
