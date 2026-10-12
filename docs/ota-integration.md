@@ -161,6 +161,17 @@ from strict parity. A separate one-time check of Hotel Royal-Nikko Taipei for
 the same stay explicitly returned no availability; that result is recorded in
 `data/ota_browser_checks.jsonl` and was not retried in this batch.
 
+The tenth verified capture was Grand Hyatt Taipei for 2026-10-19 to
+2026-10-20. Booking.com's public room table exposed twenty-eight selected
+two-adult products: room-only and breakfast-inclusive, free-cancellation
+variants across fourteen rooms from 30 to 83 sqm, including city-view rooms,
+Taipei 101-view rooms, lounge-access rooms, studios, and executive suites.
+Displayed totals ranged from TWD 16,055 to TWD 29,915. Single-occupancy and
+non-refundable variants were deliberately omitted from this capture so the
+published set retains a consistent occupancy and cancellation class. Because
+the visible table did not explicitly label its tax-inclusion basis, all records
+use `tax_inclusion: unknown` and remain outside strict parity calculations.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch

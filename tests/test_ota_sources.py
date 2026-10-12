@@ -353,6 +353,16 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in mayfull_rows) == Decimal("37884")
     assert all(row.tax_inclusion == "unknown" for row in mayfull_rows)
     assert all(canonical_comparison_key(row) is None for row in mayfull_rows)
+    grand_hyatt_rows = [row for row in rows if row.hotel_id == "grand_hyatt_taipei"]
+    assert len(grand_hyatt_rows) == 28
+    assert {row.room_size_sqm for row in grand_hyatt_rows} == {
+        Decimal("30"), Decimal("33"), Decimal("40"), Decimal("50"), Decimal("83")
+    }
+    assert {row.breakfast_included for row in grand_hyatt_rows} == {False, True}
+    assert min(row.total_price for row in grand_hyatt_rows) == Decimal("16055")
+    assert max(row.total_price for row in grand_hyatt_rows) == Decimal("29915")
+    assert all(row.tax_inclusion == "unknown" for row in grand_hyatt_rows)
+    assert all(canonical_comparison_key(row) is None for row in grand_hyatt_rows)
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):
