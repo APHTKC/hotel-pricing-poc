@@ -221,6 +221,11 @@ Booking.com's site search resolved the canonical property page but explicitly
 reported no availability for the selected stay. The batch published no price
 row and did not retry another date.
 
+Hotel Resonance Taipei was checked once for 2026-11-17 to 2026-11-18.
+Booking.com's canonical property result explicitly reported no availability.
+The page exposed alternate-date lead prices but not a complete room product,
+so none were published and no alternate date was retried.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch

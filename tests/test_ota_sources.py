@@ -334,6 +334,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert indigo["check_out"] == "2026-11-17"
     assert "indigo-taipei-north" in indigo["source_url"]
 
+    resonance = by_hotel["hotel_resonance_taipei"]
+    assert resonance["status"] == "no_availability"
+    assert resonance["check_in"] == "2026-11-17"
+    assert resonance["check_out"] == "2026-11-18"
+    assert "/resonance." in resonance["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
