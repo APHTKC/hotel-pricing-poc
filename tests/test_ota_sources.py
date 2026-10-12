@@ -292,6 +292,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
         assert row["check_out"] == "2026-10-20"
         assert property_slug in row["source_url"]
 
+    courtyard = by_hotel["courtyard_taipei"]
+    assert courtyard["status"] == "no_availability"
+    assert courtyard["check_in"] == "2026-11-11"
+    assert courtyard["check_out"] == "2026-11-12"
+    assert "courtyard-by-marriott-taipei" in courtyard["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")

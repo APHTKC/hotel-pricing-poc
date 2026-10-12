@@ -187,6 +187,11 @@ pages explicitly reported no availability for both hotels. No rate rows were
 published and no alternate dates were retried in the same batch. These are
 dated availability observations rather than permanent source failures.
 
+A subsequent one-check batch searched Courtyard by Marriott Taipei for
+2026-11-11 to 2026-11-12. Booking.com's own search resolved the canonical
+property page but explicitly marked the selected stay unavailable. The result
+was recorded without publishing a price row or trying alternate dates.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
