@@ -207,6 +207,11 @@ Renaissance Taipei Shihlin Hotel was checked once for 2026-11-12 to
 unavailable, so the batch recorded the observation without publishing a price
 or trying another date.
 
+Humble House Taipei, Curio Collection by Hilton was checked once for
+2026-11-13 to 2026-11-14. Booking.com's site search resolved the canonical
+property page but explicitly reported no availability for the selected stay.
+The batch published no price row and did not retry another date.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
