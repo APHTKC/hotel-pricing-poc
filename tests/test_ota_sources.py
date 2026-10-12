@@ -382,6 +382,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert gracery["check_out"] == "2026-11-25"
     assert "ge-la-si-li-tai-bei-fan-dian" in gracery["source_url"]
 
+    episode_daan = by_hotel["episode_daan_taipei"]
+    assert episode_daan["status"] == "no_availability"
+    assert episode_daan["check_in"] == "2026-11-26"
+    assert episode_daan["check_out"] == "2026-11-27"
+    assert "episode-daan-taipei" in episode_daan["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
