@@ -370,6 +370,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert kagaya["check_out"] == "2026-11-23"
     assert "ri-sheng-sheng-jia-he-wu-guo-ji-wen-quan-fan-dian" in kagaya["source_url"]
 
+    landis = by_hotel["the_landis_taipei"]
+    assert landis["status"] == "no_availability"
+    assert landis["check_in"] == "2026-11-23"
+    assert landis["check_out"] == "2026-11-24"
+    assert "the-landis-taipei" in landis["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
