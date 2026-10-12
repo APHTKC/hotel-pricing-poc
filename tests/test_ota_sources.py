@@ -364,6 +364,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert miramar["check_out"] == "2026-11-22"
     assert "miramar-garden" in miramar["source_url"]
 
+    kagaya = by_hotel["radium_kagaya_taipei"]
+    assert kagaya["status"] == "no_availability"
+    assert kagaya["check_in"] == "2026-11-22"
+    assert kagaya["check_out"] == "2026-11-23"
+    assert "ri-sheng-sheng-jia-he-wu-guo-ji-wen-quan-fan-dian" in kagaya["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
