@@ -132,6 +132,15 @@ not explicitly label the displayed total as tax-inclusive or tax-exclusive,
 these records use `tax_inclusion: unknown` and are deliberately excluded from
 strict parity.
 
+The seventh verified capture was Shangri-La Far Eastern, Taipei for 2026-10-19
+to 2026-10-20. The normal public Booking.com room table exposed ten two-adult
+products across 40 sqm Deluxe rooms, 60 sqm Premier and Horizon Club rooms, and
+a 72 sqm Plaza Suite. Displayed totals ranged from TWD 11,781 to TWD 19,173,
+with room-only and breakfast variants plus a dated free-cancellation deadline.
+The page did not explicitly identify whether its displayed totals included or
+excluded tax, so the snapshots remain visible source evidence with
+`tax_inclusion: unknown` and cannot enter strict parity calculations.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch

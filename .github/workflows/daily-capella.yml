@@ -75,6 +75,19 @@ jobs:
           BOOKING_COM_AFFILIATE_ID: ${{ secrets.BOOKING_COM_AFFILIATE_ID }}
         run: python -m scripts.run_ota_once
 
+      # Commit only the authoritative collector outputs before syncing main.
+      # Manual code/dashboard publishes can happen during the roughly 20-minute
+      # collection window.  Rebasing before the generated dashboard exists
+      # avoids conflicts across the many public/data shards; the shards are
+      # rebuilt from the rebased source immediately afterwards.
+      - name: Checkpoint collected source data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/rates.jsonl data/adapter_health.json public/data/fx.json
+          git diff --cached --quiet || git commit -m "data: collect Taiwan hotel rates"
+          git pull --rebase origin main
+
       - name: Build static dashboard data
         run: |
           python -m scripts.deduplicate_rate_history
@@ -84,11 +97,8 @@ jobs:
 
       - name: Save new rate history
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/rates.jsonl data/adapter_health.json public/data
           git diff --cached --quiet || git commit -m "data: update Taiwan hotel rates"
-          git pull --rebase origin main
           git push
 
       - name: Upload sanitized scraper diagnostics

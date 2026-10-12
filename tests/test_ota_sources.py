@@ -324,6 +324,14 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert len(mo_rows) == 7
     assert all(row.tax_inclusion == "unknown" for row in mo_rows)
     assert all(canonical_comparison_key(row) is None for row in mo_rows)
+    shangrila_rows = [row for row in rows if row.hotel_id == "shangrila_taipei"]
+    assert len(shangrila_rows) == 10
+    assert {row.room_size_sqm for row in shangrila_rows} == {
+        Decimal("40"), Decimal("60"), Decimal("72")
+    }
+    assert {row.breakfast_included for row in shangrila_rows} == {False, True}
+    assert all(row.tax_inclusion == "unknown" for row in shangrila_rows)
+    assert all(canonical_comparison_key(row) is None for row in shangrila_rows)
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):
