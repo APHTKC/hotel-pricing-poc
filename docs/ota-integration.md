@@ -141,6 +141,15 @@ The page did not explicitly identify whether its displayed totals included or
 excluded tax, so the snapshots remain visible source evidence with
 `tax_inclusion: unknown` and cannot enter strict parity calculations.
 
+The eighth verified capture was Grand HiLai Taipei for 2026-10-19 to
+2026-10-20. Booking.com's normal public room table exposed room-only and
+breakfast variants for 44 sqm Deluxe King and Deluxe Twin rooms at TWD 7,650
+and TWD 8,925, plus a 59 sqm lounge-access Deluxe Suite with breakfast at
+TWD 19,825. All five two-adult products displayed a dated free-cancellation
+deadline and pay-at-property terms. The visible table did not explicitly state
+whether totals included taxes, so the records use `tax_inclusion: unknown` and
+remain outside strict parity calculations.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch
