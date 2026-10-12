@@ -352,6 +352,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert howard["check_out"] == "2026-11-20"
     assert "the-howard-plaza-taipei" in howard["source_url"]
 
+    grand_view = by_hotel["grand_view_resort_beitou"]
+    assert grand_view["status"] == "no_availability"
+    assert grand_view["check_in"] == "2026-11-20"
+    assert grand_view["check_out"] == "2026-11-21"
+    assert "grand-view-resort-beitou" in grand_view["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
