@@ -294,8 +294,8 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
 
     courtyard = by_hotel["courtyard_taipei"]
     assert courtyard["status"] == "no_availability"
-    assert courtyard["check_in"] == "2026-11-11"
-    assert courtyard["check_out"] == "2026-11-12"
+    assert courtyard["check_in"] == "2026-12-19"
+    assert courtyard["check_out"] == "2026-12-20"
     assert "courtyard-by-marriott-taipei" in courtyard["source_url"]
 
     courtyard_downtown = by_hotel["courtyard_taipei_downtown"]
@@ -494,6 +494,7 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         "indigo_taipei_north",
         "hotel_proverbs_taipei",
         "le_meridien_taipei",
+        "courtyard_taipei_downtown",
     }
     assert all(row.source_method == "visible_browser_snapshot" for row in rows)
     assert all(
@@ -669,6 +670,23 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in le_meridien_rows) == Decimal("57981")
     assert all(row.tax_inclusion == "unknown" for row in le_meridien_rows)
     assert all(canonical_comparison_key(row) is None for row in le_meridien_rows)
+
+    courtyard_downtown_rows = [
+        row for row in rows if row.hotel_id == "courtyard_taipei_downtown"
+    ]
+    assert len(courtyard_downtown_rows) == 12
+    assert {row.room_size_sqm for row in courtyard_downtown_rows} == {
+        Decimal("28"), Decimal("30")
+    }
+    assert {row.breakfast_included for row in courtyard_downtown_rows} == {
+        False, True
+    }
+    assert min(row.total_price for row in courtyard_downtown_rows) == Decimal("7508")
+    assert max(row.total_price for row in courtyard_downtown_rows) == Decimal("10164")
+    assert all(row.tax_inclusion == "unknown" for row in courtyard_downtown_rows)
+    assert all(
+        canonical_comparison_key(row) is None for row in courtyard_downtown_rows
+    )
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):

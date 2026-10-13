@@ -247,6 +247,16 @@ were deliberately omitted. The visible table did not explicitly label the
 tax-inclusion basis, so these records use `tax_inclusion: unknown` and remain
 outside strict parity calculations.
 
+The twentieth verified capture was Courtyard by Marriott Taipei Downtown for
+2026-12-20 to 2026-12-21. Booking.com's public room table exposed twelve
+selected two-adult, free-cancellation products: room-only and
+breakfast-inclusive variants across six 28 and 30 sqm rooms, including
+Superior, Deluxe, and Taipei 101-view Grand rooms. Displayed totals ranged from
+TWD 7,508 to TWD 10,164. Single-occupancy variants were deliberately omitted.
+The visible table did not explicitly label the tax-inclusion basis, so these
+records use `tax_inclusion: unknown` and remain outside strict parity
+calculations.
+
 The next low-cost availability batch checked Le Meridien Taipei and Taipei
 Marriott Hotel for 2026-10-19 to 2026-10-20. Booking.com's public property
 pages explicitly reported no availability for both hotels. No rate rows were
@@ -257,6 +267,11 @@ A subsequent one-check batch searched Courtyard by Marriott Taipei for
 2026-11-11 to 2026-11-12. Booking.com's own search resolved the canonical
 property page but explicitly marked the selected stay unavailable. The result
 was recorded without publishing a price row or trying alternate dates.
+
+A later low-cost recheck of Courtyard by Marriott Taipei for 2026-12-19 to
+2026-12-20 again reached the canonical public property page, which explicitly
+reported no availability. The dated result was recorded without publishing a
+price row or retrying another stay in the same batch.
 
 The following one-check batch searched Courtyard by Marriott Taipei Downtown
 for the same 2026-11-11 to 2026-11-12 stay. Booking.com's canonical property
