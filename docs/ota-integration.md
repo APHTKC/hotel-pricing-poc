@@ -212,6 +212,23 @@ King room. Displayed totals ranged from TWD 10,060 to TWD 12,289. The visible
 table did not explicitly label the tax-inclusion basis, so these records use
 `tax_inclusion: unknown` and remain outside strict parity calculations.
 
+The sixteenth verified capture was EPISODE Daan Taipei for 2026-12-15 to
+2026-12-16. Booking.com's public room table exposed eight selected two-adult,
+free-cancellation products: room-only and breakfast-inclusive variants across
+four 30 to 36 sqm rooms. Displayed totals ranged from TWD 8,432 to TWD 10,164.
+The visible table did not explicitly label the tax-inclusion basis, so these
+records use `tax_inclusion: unknown` and remain outside strict parity
+calculations.
+
+The seventeenth verified capture was Hotel Indigo Taipei North for 2026-12-16
+to 2026-12-17. Booking.com's public room table exposed eight selected
+two-adult, free-cancellation products: room-only and breakfast-inclusive
+variants for 35 and 36 sqm standard rooms, a 40 sqm Premium King, and a 60 sqm
+King Suite. Displayed totals ranged from TWD 7,213 to TWD 12,988. The table
+explicitly labelled these totals as inclusive of taxes and fees, so the records
+use `tax_inclusion: included` and may enter strict parity only when an official
+observation supplies the same complete Canonical Comparison Key.
+
 The next low-cost availability batch checked Le Meridien Taipei and Taipei
 Marriott Hotel for 2026-10-19 to 2026-10-20. Booking.com's public property
 pages explicitly reported no availability for both hotels. No rate rows were

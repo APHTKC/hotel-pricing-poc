@@ -490,6 +490,8 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         "doubletree_taipei_zhongshan",
         "humble_house_taipei",
         "kimpton_da_an",
+        "episode_daan_taipei",
+        "indigo_taipei_north",
     }
     assert all(row.source_method == "visible_browser_snapshot" for row in rows)
     assert all(
@@ -617,6 +619,28 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in kimpton_rows) == Decimal("12289")
     assert all(row.tax_inclusion == "unknown" for row in kimpton_rows)
     assert all(canonical_comparison_key(row) is None for row in kimpton_rows)
+
+    episode_rows = [row for row in rows if row.hotel_id == "episode_daan_taipei"]
+    assert len(episode_rows) == 8
+    assert {row.room_size_sqm for row in episode_rows} == {
+        Decimal("30"), Decimal("33"), Decimal("36")
+    }
+    assert {row.breakfast_included for row in episode_rows} == {False, True}
+    assert min(row.total_price for row in episode_rows) == Decimal("8432")
+    assert max(row.total_price for row in episode_rows) == Decimal("10164")
+    assert all(row.tax_inclusion == "unknown" for row in episode_rows)
+    assert all(canonical_comparison_key(row) is None for row in episode_rows)
+
+    indigo_rows = [row for row in rows if row.hotel_id == "indigo_taipei_north"]
+    assert len(indigo_rows) == 8
+    assert {row.room_size_sqm for row in indigo_rows} == {
+        Decimal("35"), Decimal("36"), Decimal("40"), Decimal("60")
+    }
+    assert {row.breakfast_included for row in indigo_rows} == {False, True}
+    assert min(row.total_price for row in indigo_rows) == Decimal("7213")
+    assert max(row.total_price for row in indigo_rows) == Decimal("12988")
+    assert all(row.tax_inclusion == "included" for row in indigo_rows)
+    assert all(canonical_comparison_key(row) is not None for row in indigo_rows)
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):
