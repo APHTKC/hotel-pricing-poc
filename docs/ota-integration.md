@@ -229,6 +229,24 @@ explicitly labelled these totals as inclusive of taxes and fees, so the records
 use `tax_inclusion: included` and may enter strict parity only when an official
 observation supplies the same complete Canonical Comparison Key.
 
+The eighteenth verified capture was Hotel Proverbs Taipei for 2026-12-17 to
+2026-12-18. Booking.com's public room table exposed eight selected two-adult,
+free-cancellation products: room-only and breakfast-inclusive variants for
+33 sqm Urban, 37 sqm Classic, 38 sqm Deluxe, and 41 sqm Premium rooms.
+Displayed totals ranged from TWD 8,270 to TWD 10,950. The visible table did not
+explicitly label the tax-inclusion basis, so these records use
+`tax_inclusion: unknown` and remain outside strict parity calculations.
+
+The nineteenth verified capture was Le Meridien Taipei for 2026-12-18 to
+2026-12-19. Booking.com's public room table exposed eighteen selected two-adult,
+free-cancellation products: room-only and breakfast-inclusive variants across
+eight 38, 60, and 75 sqm rooms and suites. The set includes Deluxe, Pure
+Deluxe, Executive, Junior Suite, Corner Suite, and Executive Suite products,
+with displayed totals from TWD 15,015 to TWD 57,981. Single-occupancy variants
+were deliberately omitted. The visible table did not explicitly label the
+tax-inclusion basis, so these records use `tax_inclusion: unknown` and remain
+outside strict parity calculations.
+
 The next low-cost availability batch checked Le Meridien Taipei and Taipei
 Marriott Hotel for 2026-10-19 to 2026-10-20. Booking.com's public property
 pages explicitly reported no availability for both hotels. No rate rows were

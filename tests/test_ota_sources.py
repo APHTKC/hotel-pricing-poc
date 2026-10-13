@@ -492,6 +492,8 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         "kimpton_da_an",
         "episode_daan_taipei",
         "indigo_taipei_north",
+        "hotel_proverbs_taipei",
+        "le_meridien_taipei",
     }
     assert all(row.source_method == "visible_browser_snapshot" for row in rows)
     assert all(
@@ -641,6 +643,32 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in indigo_rows) == Decimal("12988")
     assert all(row.tax_inclusion == "included" for row in indigo_rows)
     assert all(canonical_comparison_key(row) is not None for row in indigo_rows)
+
+    proverbs_rows = [
+        row for row in rows if row.hotel_id == "hotel_proverbs_taipei"
+    ]
+    assert len(proverbs_rows) == 8
+    assert {row.room_size_sqm for row in proverbs_rows} == {
+        Decimal("33"), Decimal("37"), Decimal("38"), Decimal("41")
+    }
+    assert {row.breakfast_included for row in proverbs_rows} == {False, True}
+    assert min(row.total_price for row in proverbs_rows) == Decimal("8270")
+    assert max(row.total_price for row in proverbs_rows) == Decimal("10950")
+    assert all(row.tax_inclusion == "unknown" for row in proverbs_rows)
+    assert all(canonical_comparison_key(row) is None for row in proverbs_rows)
+
+    le_meridien_rows = [
+        row for row in rows if row.hotel_id == "le_meridien_taipei"
+    ]
+    assert len(le_meridien_rows) == 18
+    assert {row.room_size_sqm for row in le_meridien_rows} == {
+        Decimal("38"), Decimal("60"), Decimal("75")
+    }
+    assert {row.breakfast_included for row in le_meridien_rows} == {False, True}
+    assert min(row.total_price for row in le_meridien_rows) == Decimal("15015")
+    assert max(row.total_price for row in le_meridien_rows) == Decimal("57981")
+    assert all(row.tax_inclusion == "unknown" for row in le_meridien_rows)
+    assert all(canonical_comparison_key(row) is None for row in le_meridien_rows)
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):
