@@ -430,6 +430,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert kaohsiung_marriott["check_out"] == "2026-12-04"
     assert "kaohsiung-marriott" in kaohsiung_marriott["source_url"]
 
+    amnis = by_hotel["silks_club_kaohsiung"]
+    assert amnis["status"] == "no_availability"
+    assert amnis["check_in"] == "2026-12-04"
+    assert amnis["check_out"] == "2026-12-05"
+    assert "jing-ying-guo-ji-xing-guan" in amnis["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
