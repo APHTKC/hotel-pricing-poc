@@ -495,6 +495,8 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         "hotel_proverbs_taipei",
         "le_meridien_taipei",
         "courtyard_taipei_downtown",
+        "renaissance_taipei_shihlin",
+        "howard_plaza_taipei",
     }
     assert all(row.source_method == "visible_browser_snapshot" for row in rows)
     assert all(
@@ -687,6 +689,29 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(
         canonical_comparison_key(row) is None for row in courtyard_downtown_rows
     )
+
+    renaissance_rows = [
+        row for row in rows if row.hotel_id == "renaissance_taipei_shihlin"
+    ]
+    assert len(renaissance_rows) == 7
+    assert {row.room_size_sqm for row in renaissance_rows} == {Decimal("31")}
+    assert {row.breakfast_included for row in renaissance_rows} == {False, True}
+    assert min(row.total_price for row in renaissance_rows) == Decimal("7415")
+    assert max(row.total_price for row in renaissance_rows) == Decimal("9516")
+    assert all(row.tax_inclusion == "unknown" for row in renaissance_rows)
+    assert all(canonical_comparison_key(row) is None for row in renaissance_rows)
+
+    howard_rows = [row for row in rows if row.hotel_id == "howard_plaza_taipei"]
+    assert len(howard_rows) == 4
+    assert {row.room_size_sqm for row in howard_rows} == {
+        Decimal("20"), Decimal("26")
+    }
+    assert {row.breakfast_included for row in howard_rows} == {False, True}
+    assert {row.total_price for row in howard_rows} == {
+        Decimal("5850"), Decimal("7050")
+    }
+    assert all(row.tax_inclusion == "unknown" for row in howard_rows)
+    assert all(canonical_comparison_key(row) is None for row in howard_rows)
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):

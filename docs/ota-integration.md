@@ -257,6 +257,23 @@ The visible table did not explicitly label the tax-inclusion basis, so these
 records use `tax_inclusion: unknown` and remain outside strict parity
 calculations.
 
+The twenty-first verified capture was Renaissance Taipei Shihlin Hotel for
+2026-12-21 to 2026-12-22. Booking.com's public room table exposed seven
+selected two-adult, free-cancellation products across four 31 sqm rooms,
+including Deluxe, mountain-view Premium, and club-lounge-access rooms.
+Room-only and breakfast-inclusive variants were retained where available;
+single-occupancy variants were omitted. Displayed totals ranged from TWD 7,415
+to TWD 9,516. The table did not explicitly label the tax-inclusion basis, so
+the records use `tax_inclusion: unknown` and remain outside strict parity.
+
+The twenty-second verified capture was The Howard Plaza Hotel Taipei for
+2026-12-22 to 2026-12-23. Booking.com's public room table exposed four
+two-adult, free-cancellation products: room-only and breakfast-inclusive
+variants for a 26 sqm Superior Twin and a 20 sqm Standard Double room.
+Displayed totals were TWD 5,850 and TWD 7,050. The table did not explicitly
+label the tax-inclusion basis, so these records use `tax_inclusion: unknown`
+and remain outside strict parity calculations.
+
 The next low-cost availability batch checked Le Meridien Taipei and Taipei
 Marriott Hotel for 2026-10-19 to 2026-10-20. Booking.com's public property
 pages explicitly reported no availability for both hotels. No rate rows were
