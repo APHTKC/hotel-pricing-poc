@@ -460,6 +460,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert grand_hilai_kaohsiung["check_out"] == "2026-12-09"
     assert "hanlai-da-fan-dian" in grand_hilai_kaohsiung["source_url"]
 
+    sheraton_hsinchu = by_hotel["sheraton_hsinchu"]
+    assert sheraton_hsinchu["status"] == "no_availability"
+    assert sheraton_hsinchu["check_in"] == "2026-12-09"
+    assert sheraton_hsinchu["check_out"] == "2026-12-10"
+    assert "sheraton-hsinchu" in sheraton_hsinchu["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
