@@ -454,6 +454,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert nikko_kaohsiung["check_out"] == "2026-12-08"
     assert "nikko-kaohsiung" in nikko_kaohsiung["source_url"]
 
+    grand_hilai_kaohsiung = by_hotel["grand_hilai_kaohsiung"]
+    assert grand_hilai_kaohsiung["status"] == "no_availability"
+    assert grand_hilai_kaohsiung["check_in"] == "2026-12-08"
+    assert grand_hilai_kaohsiung["check_out"] == "2026-12-09"
+    assert "hanlai-da-fan-dian" in grand_hilai_kaohsiung["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
