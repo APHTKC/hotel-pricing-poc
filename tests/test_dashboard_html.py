@@ -275,7 +275,20 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         assert stay_times["check_out"] == check_out
         assert stay_times["source_type"] == "ota"
         assert stay_times["source_url"].startswith("https://www.booking.com/")
-    assert set(by_id) >= {"capella_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "the_gaia_taipei", "grand_hotel_taipei", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "silks_club_kaohsiung", "tai_urban_resort", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei", "mitsui_garden_taipei_zhongxiao", "doubletree_taipei_zhongshan", "courtyard_taipei_downtown", "the_landis_taipei", "taipei_garden_hotel", "miramar_garden_taipei", "howard_plaza_taipei", "le_meridien_taichung", "millennium_taichung", "the_lin_taichung"}
+    assert set(by_id) >= {"capella_taipei", "intercontinental_taipei", "mo_taipei", "grand_hilai_taipei", "okura_prestige_taipei", "shangrila_taipei", "grand_mayfull_taipei", "grand_hyatt_taipei", "w_taipei", "regent_taipei", "hotel_metropolitan_premier_taipei", "eslite_hotel", "solaria_nishitetsu_taipei", "taipei_marriott", "palais_de_chine", "the_gaia_taipei", "grand_hotel_taipei", "hotel_gracery_taipei", "royal_nikko_taipei", "le_meridien_taipei", "hoshinoya_guguan", "intercontinental_taichung", "windsor_taichung", "grand_hilai_kaohsiung", "intercontinental_kaohsiung", "kaohsiung_marriott", "hotel_nikko_kaohsiung", "silks_club_kaohsiung", "tai_urban_resort", "sheraton_hsinchu", "radium_kagaya_taipei", "grand_view_resort_beitou", "kimpton_da_an", "humble_house_taipei", "indigo_taipei_north", "sheraton_grand_taipei", "courtyard_taipei", "hotel_resonance_taipei", "renaissance_taipei_shihlin", "hotel_proverbs_taipei", "mitsui_garden_taipei_zhongxiao", "doubletree_taipei_zhongshan", "courtyard_taipei_downtown", "the_landis_taipei", "taipei_garden_hotel", "miramar_garden_taipei", "howard_plaza_taipei", "le_meridien_taichung", "millennium_taichung", "the_lin_taichung"}
+    ic_taipei = by_id["intercontinental_taipei"]
+    assert ic_taipei["room_inventory"] == 347
+    assert ic_taipei["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.ihg.com/intercontinental/hotels/tw/zh/taipei/tpepi/hoteldetail/amenities",
+    }
+    assert len(ic_taipei["restaurants"]) == 7
+    assert ic_taipei["facilities"]["pool"] is True
+    assert ic_taipei["facilities"]["fitness"] is True
+    assert ic_taipei["lounge"]["available"] is True
+    assert ic_taipei["room_snapshot"]["rooms"][0]["size_sqm"] == 38
     assert "hotel_royal_hsinchu" in by_id
     assert "eda_royal" in by_id
     mitsui = by_id["mitsui_garden_taipei_zhongxiao"]
@@ -1707,12 +1720,12 @@ def test_hotel_map_covers_catalog_and_taipei_districts():
     )
     locations = location_data["locations"]
 
-    assert len(catalog) == 67
+    assert len(catalog) == 68
     assert len(locations) == len(catalog)
     assert {row["hotel_id"] for row in locations} == {row["id"] for row in catalog}
     assert all(21.5 <= row["latitude"] <= 26.5 for row in locations)
     assert all(118 <= row["longitude"] <= 123 for row in locations)
-    assert sum(row["city"] == "Taipei" for row in locations) == 37
+    assert sum(row["city"] == "Taipei" for row in locations) == 38
     tracked = {row["id"] for row in catalog if row.get("enabled")}
     assert {row["hotel_id"] for row in locations if row["daily_tracked"]} == tracked
     assert all(row["district"] for row in locations if row["city"] == "Taipei")
@@ -1861,6 +1874,8 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
 
     assert len(affiliations) >= 20
     assert affiliations["kimpton_da_an"]["loyalty_program"] == "IHG One Rewards"
+    assert affiliations["intercontinental_taipei"]["loyalty_program"] == "IHG One Rewards"
+    assert "台北大巨蛋" in affiliations["intercontinental_taipei"]["positioning_zh"]
     assert "生活風格" in affiliations["kimpton_da_an"]["positioning_zh"]
     assert affiliations["hotel_proverbs_taipei"]["loyalty_program"] == "Marriott Bonvoy"
     assert "Design Hotels" in affiliations["hotel_proverbs_taipei"]["brand"]

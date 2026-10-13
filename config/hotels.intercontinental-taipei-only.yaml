@@ -1,0 +1,9 @@
+hotels:
+  - id: intercontinental_taipei
+    name: InterContinental Taipei
+    short_name: IC Taipei
+    city: Taipei
+    district: Xinyi
+    country: TW
+    booking_url: https://www.ihg.com/intercontinental/hotels/tw/zh/taipei/tpepi/hoteldetail
+    adapter: ihg

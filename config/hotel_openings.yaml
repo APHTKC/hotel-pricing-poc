@@ -29,6 +29,7 @@ hotels:
   - {id: shangrila_tainan, opened_year: 2008}
   - {id: silks_place_tainan, opened_year: 2014}
   - {id: capella_taipei, opened_year: 2025}
+  - {id: intercontinental_taipei, opened_year: 2026, opening_year_note_zh: "2026 年 10 月 12 日正式開幕", opening_year_note_en: "Opened on October 12, 2026", opening_year_note_ja: "2026年10月12日開業"}
   - {id: courtyard_taipei, opened_year: 2015}
   - {id: courtyard_taipei_downtown, opened_year: 2018}
   - {id: doubletree_taipei_zhongshan, opened_year: 2018}

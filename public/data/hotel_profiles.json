@@ -2,6 +2,45 @@
   "updated_at": "2026-10-08",
   "profiles": [
     {
+      "hotel_id": "intercontinental_taipei",
+      "verified_at": "2026-10-13",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.ihg.com/intercontinental/hotels/tw/zh/taipei/tpepi/hoteldetail/amenities"
+      },
+      "room_inventory": 347,
+      "restaurants": [
+        {"name": "NTD Eatery", "type_zh": "義式料理與全天候餐飲", "type_en": "Italian cuisine and all-day dining", "type_ja": "イタリア料理・オールデイダイニング"},
+        {"name": "Akira Back", "type_zh": "現代日韓融合料理", "type_en": "Contemporary Japanese-Korean cuisine", "type_ja": "現代日韓フュージョン料理"},
+        {"name": "DOSA", "type_zh": "現代韓式精緻料理", "type_en": "Modern Korean fine dining", "type_ja": "モダン韓国ファインダイニング"},
+        {"name": "Rough Cuts", "type_zh": "炭火燒烤與牛排料理", "type_en": "Fire-led grill and steakhouse", "type_ja": "炭火グリル・ステーキ"},
+        {"name": "Yi Social", "type_zh": "國際自助餐與全天候餐飲", "type_en": "International buffet and all-day dining", "type_ja": "国際ブッフェ・オールデイダイニング"},
+        {"name": "Thea Lounge", "type_zh": "大廳酒廊、下午茶與甜點", "type_en": "Lobby lounge, afternoon tea and desserts", "type_ja": "ロビーラウンジ・アフタヌーンティー・デザート"},
+        {"name": "Simple Sips", "type_zh": "美式餐酒與調酒", "type_en": "American bar dining and cocktails", "type_ja": "アメリカンバーダイニング・カクテル"}
+      ],
+      "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "洲際行政俱樂部", "kind": "executive_lounge"},
+      "room_snapshot": {
+        "observed_at": "2026-10-13",
+        "source_type": "official",
+        "source_url": "https://www.ihg.com/intercontinental/hotels/us/en/taipei/tpepi/hoteldetail/rooms",
+        "rooms": [
+          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 38},
+          {"name_zh": "普通套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm_min": 43, "size_sqm_max": 48},
+          {"name_zh": "住宅式套房", "name_en": "Residential Suite", "name_ja": "Residential Suite", "size_sqm_min": 76}
+        ]
+      },
+      "source_urls": [
+        "https://www.ihgplc.com/en/news-and-media/news-releases/2026/ihg-hotels-and-resorts-opens-intercontinental-taipei-expanding-luxury-portfolio-in-greater-china",
+        "https://www.ihg.com/intercontinental/hotels/tw/zh/taipei/tpepi/hoteldetail",
+        "https://www.ihg.com/intercontinental/hotels/us/en/taipei/tpepi/hoteldetail/rooms",
+        "https://www.ihg.com/intercontinental/hotels/tw/zh/taipei/tpepi/hoteldetail/amenities",
+        "https://www.ihg.com/intercontinental/hotels/us/en/taipei/tpepi/hoteldetail/dining"
+      ]
+    },
+    {
       "hotel_id": "capella_taipei",
       "verified_at": "2026-10-07",
       "stay_times": {

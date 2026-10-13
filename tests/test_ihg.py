@@ -24,11 +24,17 @@ def test_regent_booking_url():
 
 
 def test_intercontinental_booking_urls():
+    taipei = Hotel(id="intercontinental_taipei", name="InterContinental Taipei", short_name="IC Taipei", city="Taipei", country="TW", booking_url="https://example.com", adapter="ihg")
     taichung = Hotel(id="intercontinental_taichung", name="InterContinental Taichung", short_name="IC Taichung", city="Taichung", country="TW", booking_url="https://example.com", adapter="ihg")
     kaohsiung = Hotel(id="intercontinental_kaohsiung", name="InterContinental Kaohsiung", short_name="IC Kaohsiung", city="Kaohsiung", country="TW", booking_url="https://example.com", adapter="ihg")
     scraper = IHGScraper()
+    taipei_url = scraper.booking_url(taipei, date(2026, 11, 12), date(2026, 11, 13), 2)
     taichung_url = scraper.booking_url(taichung, date(2026, 10, 11), date(2026, 10, 12), 2)
     kaohsiung_url = scraper.booking_url(kaohsiung, date(2026, 10, 11), date(2026, 10, 12), 2)
+    assert "/hotels/tw/zh/find-hotels/select-roomrate?" in taipei_url
+    assert "qSlH=TPEPI" in taipei_url and "qSHBrC=IC" in taipei_url
+    assert "qCiD=12" in taipei_url and "qCiMy=102026" in taipei_url
+    assert "%E8%87%BA%E5%8C%97%E6%B4%B2%E9%9A%9B%E9%85%92%E5%BA%97" in taipei_url
     assert "/hotels/tw/zh/find-hotels/select-roomrate?" in taichung_url
     assert "qSlH=RMQTT" in taichung_url and "qAkamaiCC=TW" in taichung_url
     assert "qSHBrC=IC" in taichung_url and "qCiMy=092026" in taichung_url

@@ -11,6 +11,16 @@ from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_
 
 
 IHG_HOTELS = {
+    "intercontinental_taipei": {
+        "hotel_code": "TPEPI",
+        "brand_code": "IC",
+        "brand_slug": "intercontinental",
+        "destination": "InterContinental 臺北洲際酒店",
+        "booking_path": "tw/zh/find-hotels/select-roomrate",
+        "qAAR": "6CBARC",
+        "qpMn": 0,
+        "official_form": True,
+    },
     "regent_taipei": {
         "hotel_code": "TPERG",
         "brand_code": "RE",

@@ -3654,6 +3654,33 @@
           "average_response_ms": 61895.14
         }
       }
+    },
+    "ihg:intercontinental_taipei": {
+      "adapter": "ihg",
+      "hotel_id": "intercontinental_taipei",
+      "attempts": 1,
+      "successes": 0,
+      "failures": 1,
+      "blocked_count": 1,
+      "consecutive_failures": 1,
+      "total_response_ms": 6052.8562999970745,
+      "average_response_ms": 6052.86,
+      "success_rate": 0.0,
+      "last_status": "blocked",
+      "last_attempt_at": "2026-10-13T05:52:12.789191+00:00",
+      "last_success_at": null,
+      "cooldown_until": "2026-10-14T05:52:12.789191+00:00",
+      "daily": {
+        "2026-10-13": {
+          "attempts": 1,
+          "successes": 0,
+          "failures": 1,
+          "blocked": 1,
+          "response_ms": 6052.86,
+          "success_rate": 0.0,
+          "average_response_ms": 6052.86
+        }
+      }
     }
   }
 }

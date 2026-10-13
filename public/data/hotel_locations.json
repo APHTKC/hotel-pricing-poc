@@ -1,8 +1,21 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-10-08T12:43:10.362017+00:00",
+  "updated_at": "2026-10-13T05:30:00+00:00",
   "source_note": "Coordinates are cached from OpenStreetMap place data and official hotel address cross-checks. They are for visualization, not navigation.",
   "locations": [
+    {
+      "hotel_id": "intercontinental_taipei",
+      "name_zh": "台北洲際酒店",
+      "name_en": "InterContinental Taipei",
+      "city": "Taipei",
+      "district": "Xinyi",
+      "latitude": 25.0427108,
+      "longitude": 121.5614186,
+      "booking_url": "https://www.ihg.com/intercontinental/hotels/tw/zh/taipei/tpepi/hoteldetail",
+      "daily_tracked": false,
+      "source": "Official address cross-check and Wikidata coordinates",
+      "accuracy": "mapped_point"
+    },
     {
       "hotel_id": "episode_hsinchu",
       "name_zh": "新竹伊普索酒店",

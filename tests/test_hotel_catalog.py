@@ -16,6 +16,21 @@ NEW_TAIPEI_HOTELS = {
 }
 
 
+def test_intercontinental_taipei_is_registered_for_initial_rate_feasibility_check():
+    payload = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+    hotel = next(row for row in payload["hotels"] if row["id"] == "intercontinental_taipei")
+
+    assert hotel["city"] == "Taipei"
+    assert hotel["district"] == "Xinyi"
+    assert hotel["adapter"] == "ihg"
+    assert hotel["enabled"] is False
+    assert hotel["automation_status"] == "skipped"
+    assert "403" in hotel["automation_note"]
+    assert hotel["priority"] == "high"
+
+
 def test_new_taipei_high_end_hotels_are_registered_once_and_marked_skipped():
     payload = yaml.safe_load(
         Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
@@ -37,8 +52,8 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
     ids = {hotel["id"] for hotel in payload["hotels"]}
 
-    assert set(NEW_TAIPEI_HOTELS) <= ids
-    assert len(payload["hotels"]) == 67
+    assert set(NEW_TAIPEI_HOTELS) | {"intercontinental_taipei"} <= ids
+    assert len(payload["hotels"]) == 68
 
 
 def test_location_tracking_is_derived_from_catalog(tmp_path):
@@ -73,7 +88,7 @@ def test_every_open_hotel_has_a_valid_opening_year():
     published_by_id = {hotel["id"]: hotel for hotel in payload["hotels"]}
 
     assert set(source_by_id) == set(published_by_id)
-    assert len(source_by_id) == 67
+    assert len(source_by_id) == 68
     assert all(1900 <= hotel["opened_year"] <= 2026 for hotel in source)
     assert all(
         published_by_id[hotel_id]["opened_year"] == opening["opened_year"]
