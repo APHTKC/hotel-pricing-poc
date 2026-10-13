@@ -488,6 +488,8 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         "okura_prestige_taipei",
         "hotel_resonance_taipei",
         "doubletree_taipei_zhongshan",
+        "humble_house_taipei",
+        "kimpton_da_an",
     }
     assert all(row.source_method == "visible_browser_snapshot" for row in rows)
     assert all(
@@ -591,6 +593,30 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in doubletree_rows) == Decimal("16748")
     assert all(row.tax_inclusion == "unknown" for row in doubletree_rows)
     assert all(canonical_comparison_key(row) is None for row in doubletree_rows)
+
+    humble_house_rows = [
+        row for row in rows if row.hotel_id == "humble_house_taipei"
+    ]
+    assert len(humble_house_rows) == 4
+    assert {row.room_size_sqm for row in humble_house_rows} == {
+        Decimal("26"), Decimal("36")
+    }
+    assert {row.breakfast_included for row in humble_house_rows} == {False}
+    assert min(row.total_price for row in humble_house_rows) == Decimal("10395")
+    assert max(row.total_price for row in humble_house_rows) == Decimal("13282")
+    assert all(row.tax_inclusion == "unknown" for row in humble_house_rows)
+    assert all(canonical_comparison_key(row) is None for row in humble_house_rows)
+
+    kimpton_rows = [row for row in rows if row.hotel_id == "kimpton_da_an"]
+    assert len(kimpton_rows) == 6
+    assert {row.room_size_sqm for row in kimpton_rows} == {
+        Decimal("32"), Decimal("38")
+    }
+    assert {row.breakfast_included for row in kimpton_rows} == {False, True}
+    assert min(row.total_price for row in kimpton_rows) == Decimal("10060")
+    assert max(row.total_price for row in kimpton_rows) == Decimal("12289")
+    assert all(row.tax_inclusion == "unknown" for row in kimpton_rows)
+    assert all(canonical_comparison_key(row) is None for row in kimpton_rows)
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):

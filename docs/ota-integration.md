@@ -196,6 +196,22 @@ Suite, with totals from TWD 11,204 to TWD 16,748. The page did not explicitly
 label the displayed total's tax-inclusion basis, so these records use
 `tax_inclusion: unknown` and remain outside strict parity calculations.
 
+The fourteenth verified capture was Humble House Taipei for 2026-12-13 to
+2026-12-14. Booking.com's public room table exposed four selected two-adult,
+room-only, free-cancellation products across 26 sqm Deluxe and Landmark Deluxe
+rooms plus 36 sqm Premium and Landmark Premium rooms. Displayed totals ranged
+from TWD 10,395 to TWD 13,282. The visible table did not explicitly label the
+tax-inclusion basis, so these records use `tax_inclusion: unknown` and remain
+outside strict parity calculations.
+
+The fifteenth verified capture was Kimpton Da An Hotel for 2026-12-14 to
+2026-12-15. Booking.com's public room table exposed six selected two-adult,
+free-cancellation products: room-only and breakfast-inclusive variants for a
+32 sqm Essential room, a 38 sqm accessible King room, and a 32 sqm Balcony
+King room. Displayed totals ranged from TWD 10,060 to TWD 12,289. The visible
+table did not explicitly label the tax-inclusion basis, so these records use
+`tax_inclusion: unknown` and remain outside strict parity calculations.
+
 The next low-cost availability batch checked Le Meridien Taipei and Taipei
 Marriott Hotel for 2026-10-19 to 2026-10-20. Booking.com's public property
 pages explicitly reported no availability for both hotels. No rate rows were
