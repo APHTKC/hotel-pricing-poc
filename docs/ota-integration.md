@@ -316,6 +316,11 @@ site search resolved the canonical property page but explicitly reported no
 availability. No price row was published and the batch did not retry another
 date.
 
+Hotel Nikko Kaohsiung was checked once for 2026-12-07 to 2026-12-08.
+Booking.com's site search resolved the canonical property page but explicitly
+reported no availability. No price row was published and the batch did not
+retry another date.
+
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,
 status, and reason without publishing a price row. It prevents the next batch

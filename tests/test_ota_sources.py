@@ -448,6 +448,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert eda_royal["check_out"] == "2026-12-07"
     assert "kaohsiung-e-da-world" in eda_royal["source_url"]
 
+    nikko_kaohsiung = by_hotel["hotel_nikko_kaohsiung"]
+    assert nikko_kaohsiung["status"] == "no_availability"
+    assert nikko_kaohsiung["check_in"] == "2026-12-07"
+    assert nikko_kaohsiung["check_out"] == "2026-12-08"
+    assert "nikko-kaohsiung" in nikko_kaohsiung["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
