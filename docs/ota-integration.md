@@ -181,6 +181,21 @@ and pay-at-property terms. The page did not explicitly label the displayed
 total's tax-inclusion basis, so these records use `tax_inclusion: unknown` and
 remain outside strict parity calculations.
 
+The twelfth verified capture was Hotel Resonance Taipei for 2026-12-11 to
+2026-12-12. Booking.com's public room table exposed a 30 sqm King room for two
+adults under a dated free-cancellation and pay-at-property policy: TWD 10,395
+without breakfast and TWD 10,857 with continental breakfast. The page did not
+explicitly label the displayed total's tax-inclusion basis, so both records use
+`tax_inclusion: unknown` and remain outside strict parity calculations.
+
+The thirteenth verified capture was DoubleTree by Hilton Taipei Zhongshan for
+2026-12-12 to 2026-12-13. Booking.com's public room table exposed four
+two-adult, free-cancellation products: room-only and breakfast-inclusive
+variants for a 33 sqm Corner King Balcony room and a 46 sqm One-Bedroom Corner
+Suite, with totals from TWD 11,204 to TWD 16,748. The page did not explicitly
+label the displayed total's tax-inclusion basis, so these records use
+`tax_inclusion: unknown` and remain outside strict parity calculations.
+
 The next low-cost availability batch checked Le Meridien Taipei and Taipei
 Marriott Hotel for 2026-10-19 to 2026-10-20. Booking.com's public property
 pages explicitly reported no availability for both hotels. No rate rows were
@@ -330,6 +345,11 @@ Sheraton Hsinchu Hotel was checked once for 2026-12-09 to 2026-12-10.
 Booking.com's site search resolved the canonical property page but explicitly
 reported no availability. No price row was published and the batch did not
 retry another date.
+
+EPISODE Hsinchu was checked once for 2026-12-10 to 2026-12-11. Booking.com's
+site search resolved the canonical property page but explicitly reported no
+availability. No price row was published and the batch did not retry another
+date.
 
 Visible-browser checks that do not yield a complete bookable product are kept
 in `data/ota_browser_checks.jsonl`. The log records the hotel, platform, stay,

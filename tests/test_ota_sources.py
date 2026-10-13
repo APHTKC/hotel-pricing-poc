@@ -466,6 +466,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert sheraton_hsinchu["check_out"] == "2026-12-10"
     assert "sheraton-hsinchu" in sheraton_hsinchu["source_url"]
 
+    episode_hsinchu = by_hotel["episode_hsinchu"]
+    assert episode_hsinchu["status"] == "no_availability"
+    assert episode_hsinchu["check_in"] == "2026-12-10"
+    assert episode_hsinchu["check_out"] == "2026-12-11"
+    assert "miramar-hsinchu" in episode_hsinchu["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")
@@ -480,6 +486,8 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         "w_taipei",
         "hotel_metropolitan_premier_taipei",
         "okura_prestige_taipei",
+        "hotel_resonance_taipei",
+        "doubletree_taipei_zhongshan",
     }
     assert all(row.source_method == "visible_browser_snapshot" for row in rows)
     assert all(
@@ -558,6 +566,31 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in sheraton_rows) == Decimal("12821")
     assert all(row.tax_inclusion == "unknown" for row in sheraton_rows)
     assert all(canonical_comparison_key(row) is None for row in sheraton_rows)
+
+    resonance_rows = [
+        row for row in rows if row.hotel_id == "hotel_resonance_taipei"
+    ]
+    assert len(resonance_rows) == 2
+    assert {row.room_size_sqm for row in resonance_rows} == {Decimal("30")}
+    assert {row.breakfast_included for row in resonance_rows} == {False, True}
+    assert {row.total_price for row in resonance_rows} == {
+        Decimal("10395"), Decimal("10857")
+    }
+    assert all(row.tax_inclusion == "unknown" for row in resonance_rows)
+    assert all(canonical_comparison_key(row) is None for row in resonance_rows)
+
+    doubletree_rows = [
+        row for row in rows if row.hotel_id == "doubletree_taipei_zhongshan"
+    ]
+    assert len(doubletree_rows) == 4
+    assert {row.room_size_sqm for row in doubletree_rows} == {
+        Decimal("33"), Decimal("46")
+    }
+    assert {row.breakfast_included for row in doubletree_rows} == {False, True}
+    assert min(row.total_price for row in doubletree_rows) == Decimal("11204")
+    assert max(row.total_price for row in doubletree_rows) == Decimal("16748")
+    assert all(row.tax_inclusion == "unknown" for row in doubletree_rows)
+    assert all(canonical_comparison_key(row) is None for row in doubletree_rows)
 
 
 def test_ota_mapping_loader_ignores_blank_property_ids(tmp_path):
