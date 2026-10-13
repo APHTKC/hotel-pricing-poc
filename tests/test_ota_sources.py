@@ -436,6 +436,12 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert amnis["check_out"] == "2026-12-05"
     assert "jing-ying-guo-ji-xing-guan" in amnis["source_url"]
 
+    tai_urban = by_hotel["tai_urban_resort"]
+    assert tai_urban["status"] == "no_availability"
+    assert tai_urban["check_in"] == "2026-12-05"
+    assert tai_urban["check_out"] == "2026-12-06"
+    assert "cheng-yi-jiu-dian" in tai_urban["source_url"]
+
 
 def test_repository_visible_browser_snapshots_are_canonical_products():
     path = Path("data/ota_browser_snapshots.jsonl")

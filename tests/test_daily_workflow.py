@@ -4,6 +4,13 @@ from pathlib import Path
 WORKFLOW = Path(".github/workflows/daily-capella.yml")
 
 
+def test_daily_workflow_avoids_top_of_hour_schedule() -> None:
+    workflow = WORKFLOW.read_text(encoding="utf-8")
+
+    assert 'cron: "17 22 * * *"' in workflow
+    assert 'cron: "0 22 * * *"' not in workflow
+
+
 def test_daily_workflow_rebases_before_generating_dashboard_shards() -> None:
     workflow = WORKFLOW.read_text(encoding="utf-8")
 

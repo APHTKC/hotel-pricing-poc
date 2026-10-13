@@ -3,8 +3,10 @@ name: Daily Taiwan hotel rates
 on:
   workflow_dispatch:
   schedule:
-    # GitHub Actions uses UTC. 22:00 UTC = 06:00 Asia/Taipei next day.
-    - cron: "0 22 * * *"
+    # GitHub Actions uses UTC. 22:17 UTC = 06:17 Asia/Taipei next day.
+    # Avoid the top of the hour, when GitHub warns scheduled runs are more
+    # likely to be delayed or dropped during Actions load spikes.
+    - cron: "17 22 * * *"
 
 permissions:
   contents: write
