@@ -128,6 +128,18 @@ def test_browser_snapshot_loader_accepts_unknown_tax_but_keeps_it_non_comparable
     assert loaded[0]["total_twd"] == "12705"
 
 
+def test_regent_visible_booking_snapshot_has_complete_dated_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    regent = [row for row in rows if row["hotel_id"] == "regent_taipei"]
+
+    assert len(regent) == 17
+    assert {float(row["room_size_sqm"]) for row in regent} == {45.0, 56.0, 65.0}
+    assert min(float(row["total_price"]) for row in regent) == 8835
+    assert max(float(row["total_price"]) for row in regent) == 24140
+    assert {row["check_in"] for row in regent} == {"2026-12-16"}
+    assert all(build_static_data.canonical_comparison_key(row) is None for row in regent)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
