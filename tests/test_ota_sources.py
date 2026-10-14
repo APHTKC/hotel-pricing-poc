@@ -577,12 +577,16 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(row.tax_inclusion == "unknown" for row in grand_hyatt_rows)
     assert all(canonical_comparison_key(row) is None for row in grand_hyatt_rows)
     sheraton_rows = [row for row in rows if row.hotel_id == "sheraton_grand_taipei"]
-    assert len(sheraton_rows) == 6
+    latest_sheraton_query = max(row.queried_at for row in sheraton_rows)
+    sheraton_rows = [
+        row for row in sheraton_rows if row.queried_at == latest_sheraton_query
+    ]
+    assert len(sheraton_rows) == 14
     assert {row.room_size_sqm for row in sheraton_rows} == {
-        Decimal("35"), Decimal("40")
+        Decimal("32"), Decimal("35"), Decimal("40")
     }
     assert {row.breakfast_included for row in sheraton_rows} == {False, True}
-    assert min(row.total_price for row in sheraton_rows) == Decimal("10280")
+    assert min(row.total_price for row in sheraton_rows) == Decimal("9240")
     assert max(row.total_price for row in sheraton_rows) == Decimal("12821")
     assert all(row.tax_inclusion == "unknown" for row in sheraton_rows)
     assert all(canonical_comparison_key(row) is None for row in sheraton_rows)

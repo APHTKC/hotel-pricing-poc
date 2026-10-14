@@ -279,6 +279,22 @@ def test_kimpton_visible_booking_snapshot_uses_two_adult_baseline_products():
     assert all(build_static_data.canonical_comparison_key(row) is None for row in kimpton)
 
 
+def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    sheraton = [row for row in rows if row["hotel_id"] == "sheraton_grand_taipei"]
+    latest_query = max(row["queried_at"] for row in sheraton)
+    sheraton = [row for row in sheraton if row["queried_at"] == latest_query]
+
+    assert len(sheraton) == 14
+    assert len({row["room_type_code"] for row in sheraton}) == 7
+    assert {float(row["room_size_sqm"]) for row in sheraton} == {32.0, 35.0, 40.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in sheraton} == {(2, 0, 1)}
+    assert min(float(row["total_price"]) for row in sheraton) == 9240
+    assert max(float(row["total_price"]) for row in sheraton) == 12821
+    assert {row["breakfast_included"] for row in sheraton} == {False, True}
+    assert all(build_static_data.canonical_comparison_key(row) is None for row in sheraton)
+
+
 def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
     payload = json.loads(
         build_static_data.LATEST_HEATMAP_TARGET.read_text(encoding="utf-8")
@@ -296,6 +312,7 @@ def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
         "radium_kagaya_taipei",
         "the_landis_taipei",
         "kimpton_da_an",
+        "sheraton_grand_taipei",
     } <= ota_hotel_ids
 
 
