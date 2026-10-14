@@ -2109,7 +2109,7 @@
     },
     {
       "hotel_id": "miramar_garden_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-10-14",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -2152,7 +2152,8 @@
         "https://www.miramargarden.com.tw/zh-tw/%E5%8F%B0%E5%8C%97%E7%BE%8E%E9%BA%97%E4%BF%A1/Room",
         "https://www.miramargarden.com.tw/en/Miramar%2BGarden%2BTaipei/Room",
         "https://www.miramargarden.com.tw/zh-tw/%E5%8F%B0%E5%8C%97%E7%BE%8E%E9%BA%97%E4%BF%A1/Facility",
-        "https://www.miramargarden.com.tw/zh-tw/%E5%8F%B0%E5%8C%97%E7%BE%8E%E9%BA%97%E4%BF%A1/Restaurant"
+        "https://www.miramargarden.com.tw/zh-tw/%E5%8F%B0%E5%8C%97%E7%BE%8E%E9%BA%97%E4%BF%A1/Restaurant",
+        "https://www.booking.com/hotel/tw/miramar-garden.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ]
     },
     {

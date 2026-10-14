@@ -338,6 +338,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     miramar = by_id["miramar_garden_taipei"]
     assert miramar["room_inventory"] == 203
     assert miramar["service_charge_percent"] == 10
+    assert miramar["verified_at"] == "2026-10-14"
+    assert any("booking.com/hotel/tw/miramar-garden" in url for url in miramar["source_urls"])
     assert miramar["stay_times"]["check_in"] == "15:00"
     assert miramar["stay_times"]["check_out"] == "11:00"
     assert len(miramar["room_snapshot"]["rooms"]) == 11
@@ -1706,6 +1708,20 @@ def test_room_size_options_show_unique_room_type_counts_for_current_scope():
         assert "counts[band(size)]++" in html
         assert "suffix(total)" in html
         assert "updateSizeOptions" in html
+
+
+def test_hotel_profiles_show_room_name_and_distinct_area_spec_counts():
+    profiles = Path("public/hotels.html").read_text(encoding="utf-8")
+
+    assert "房型名稱數／面積規格數" in profiles
+    assert "Room names / size specs" in profiles
+    assert "客室名数／面積規格数" in profiles
+    assert "function roomAreaSpecKey(room)" in profiles
+    assert "new Set(rooms.map(roomAreaSpecKey).filter(Boolean)).size" in profiles
+    assert 'class="room-count-pair"' in profiles
+    assert 'value="areaSpecs"' in profiles
+    assert "key==='areaSpecs'?a.areaSpecs" in profiles
+    assert "!Number.isFinite(min)||min<=0" in profiles
 
 
 def test_room_names_are_localized_and_profile_snapshots_show_source_date():
