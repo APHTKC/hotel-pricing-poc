@@ -173,6 +173,22 @@ def test_courtyard_taipei_visible_booking_snapshot_has_strict_two_adult_products
     assert all(build_static_data.canonical_comparison_key(row) is not None for row in courtyard)
 
 
+def test_grand_view_resort_visible_booking_snapshot_replaces_empty_date_with_live_rates():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    grand_view = [row for row in rows if row["hotel_id"] == "grand_view_resort_beitou"]
+
+    assert len(grand_view) == 5
+    assert len({row["room_type_code"] for row in grand_view}) == 5
+    assert {float(row["room_size_sqm"]) for row in grand_view} == {50.0, 63.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in grand_view} == {(2, 0, 1)}
+    assert min(float(row["total_price"]) for row in grand_view) == 13860
+    assert max(float(row["total_price"]) for row in grand_view) == 28160
+    assert {row["tax_inclusion"] for row in grand_view} == {"included"}
+    assert {row["breakfast_included"] for row in grand_view} == {True}
+    assert all(float(row["total_price"]) > float(row["price_before_tax"]) for row in grand_view)
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in grand_view)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True

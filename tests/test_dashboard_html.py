@@ -1254,6 +1254,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     grand_view = by_id["grand_view_resort_beitou"]
     assert grand_view["room_inventory"] == 66
     assert grand_view["service_charge_percent"] == 10
+    assert grand_view["verified_at"] == "2026-10-14"
+    assert any("booking.com/hotel/tw/grand-view-resort-beitou" in url for url in grand_view["source_urls"])
     assert len(grand_view["restaurants"]) == 3
     assert grand_view["facilities"] == {
         "pool": True,
