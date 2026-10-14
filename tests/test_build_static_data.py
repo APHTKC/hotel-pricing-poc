@@ -249,6 +249,20 @@ def test_radium_kagaya_visible_booking_snapshot_excludes_four_person_product():
     assert all(build_static_data.canonical_comparison_key(row) is None for row in kagaya)
 
 
+def test_landis_visible_booking_snapshot_uses_two_adult_baseline_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    landis = [row for row in rows if row["hotel_id"] == "the_landis_taipei"]
+
+    assert len(landis) == 8
+    assert len({row["room_type_code"] for row in landis}) == 8
+    assert {float(row["room_size_sqm"]) for row in landis} == {26.0, 43.0, 53.0, 56.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in landis} == {(2, 0, 1)}
+    assert min(float(row["total_price"]) for row in landis) == 5450
+    assert max(float(row["total_price"]) for row in landis) == 9260
+    assert {row["breakfast_included"] for row in landis} == {False}
+    assert all(build_static_data.canonical_comparison_key(row) is None for row in landis)
+
+
 def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
     payload = json.loads(
         build_static_data.LATEST_HEATMAP_TARGET.read_text(encoding="utf-8")
@@ -264,6 +278,7 @@ def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
         "w_taipei",
         "mitsui_garden_taipei_zhongxiao",
         "radium_kagaya_taipei",
+        "the_landis_taipei",
     } <= ota_hotel_ids
 
 
