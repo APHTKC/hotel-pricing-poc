@@ -1883,7 +1883,7 @@
     },
     {
       "hotel_id": "mitsui_garden_taipei_zhongxiao",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-10-14",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -1927,7 +1927,8 @@
         "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/room/",
         "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/facility/",
         "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/bath/",
-        "https://www.mitsuifudosan.co.jp/english/corporate/news/2020/0713/"
+        "https://www.mitsuifudosan.co.jp/english/corporate/news/2020/0713/",
+        "https://www.booking.com/hotel/tw/mgh-mitsui-garden-taipei-zhongxiao.html"
       ]
     },
     {

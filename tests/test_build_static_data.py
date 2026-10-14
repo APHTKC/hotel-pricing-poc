@@ -219,6 +219,21 @@ def test_hotel_gracery_visible_booking_snapshot_has_strict_two_adult_products():
     assert all(build_static_data.canonical_comparison_key(row) is None for row in gracery)
 
 
+def test_mitsui_garden_visible_booking_snapshot_has_strict_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    mitsui = [row for row in rows if row["hotel_id"] == "mitsui_garden_taipei_zhongxiao"]
+
+    assert len(mitsui) == 14
+    assert len({row["room_type_code"] for row in mitsui}) == 8
+    assert {float(row["room_size_sqm"]) for row in mitsui} == {22.0, 25.0, 26.0, 28.0, 30.0, 35.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in mitsui} == {(2, 0, 1)}
+    assert min(float(row["total_price"]) for row in mitsui) == 6290
+    assert max(float(row["total_price"]) for row in mitsui) == 10098
+    assert {row["tax_inclusion"] for row in mitsui} == {"unknown"}
+    assert {row["breakfast_included"] for row in mitsui} == {False, True}
+    assert all(build_static_data.canonical_comparison_key(row) is None for row in mitsui)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True

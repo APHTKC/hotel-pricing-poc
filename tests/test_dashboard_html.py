@@ -297,6 +297,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "hotel_royal_hsinchu" in by_id
     assert "eda_royal" in by_id
     mitsui = by_id["mitsui_garden_taipei_zhongxiao"]
+    assert mitsui["verified_at"] == "2026-10-14"
     assert mitsui["room_inventory"] == 297
     assert mitsui["stay_times"]["source_type"] == "official"
     assert mitsui["stay_times"]["check_in"] == "15:00"
@@ -305,6 +306,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert min(room["size_sqm"] for room in mitsui["room_snapshot"]["rooms"]) == 21
     assert max(room["size_sqm"] for room in mitsui["room_snapshot"]["rooms"]) == 60.4
     assert "大浴場" in mitsui["facility_notes"]["zh"]
+    assert any("mgh-mitsui-garden-taipei-zhongxiao" in url for url in mitsui["source_urls"])
     doubletree = by_id["doubletree_taipei_zhongshan"]
     assert doubletree["room_inventory"] == 106
     assert doubletree["stay_times"]["source_type"] == "official"
