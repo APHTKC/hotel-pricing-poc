@@ -518,6 +518,21 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in latest_w_rows) == Decimal("27605")
     assert all(row.tax_inclusion == "unknown" for row in latest_w_rows)
     assert all(canonical_comparison_key(row) is None for row in latest_w_rows)
+    palais_rows = [row for row in rows if row.hotel_id == "palais_de_chine"]
+    latest_palais_query = max(row.queried_at for row in palais_rows)
+    palais_rows = [
+        row for row in palais_rows if row.queried_at == latest_palais_query
+    ]
+    assert len(palais_rows) == 9
+    assert len({row.room_type_code for row in palais_rows}) == 9
+    assert {row.room_size_sqm for row in palais_rows} == {
+        Decimal("30"), Decimal("37"), Decimal("50"), Decimal("67")
+    }
+    assert {row.breakfast_included for row in palais_rows} == {True}
+    assert min(row.total_price for row in palais_rows) == Decimal("11829")
+    assert max(row.total_price for row in palais_rows) == Decimal("20372")
+    assert all(row.tax_inclusion == "unknown" for row in palais_rows)
+    assert all(canonical_comparison_key(row) is None for row in palais_rows)
     jr_rows = [
         row for row in rows
         if row.hotel_id == "hotel_metropolitan_premier_taipei"
