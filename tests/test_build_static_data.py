@@ -133,12 +133,19 @@ def test_regent_visible_booking_snapshot_has_complete_dated_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
     regent = [row for row in rows if row["hotel_id"] == "regent_taipei"]
 
-    assert len(regent) == 17
+    assert len(regent) == 29
     assert {float(row["room_size_sqm"]) for row in regent} == {45.0, 56.0, 65.0}
-    assert min(float(row["total_price"]) for row in regent) == 8835
-    assert max(float(row["total_price"]) for row in regent) == 24140
-    assert {row["check_in"] for row in regent} == {"2026-12-16"}
-    assert all(build_static_data.canonical_comparison_key(row) is None for row in regent)
+    assert {row["check_in"] for row in regent} == {"2026-12-16", "2026-12-18"}
+    latest_query = max(row["queried_at"] for row in regent)
+    latest = [row for row in regent if row["queried_at"] == latest_query]
+    assert len(latest) == 12
+    assert len({row["room_type_code"] for row in latest}) == 4
+    assert {float(row["room_size_sqm"]) for row in latest} == {45.0, 56.0, 65.0}
+    assert min(float(row["total_price"]) for row in latest) == 11178
+    assert max(float(row["total_price"]) for row in latest) == 26743
+    assert {row["breakfast_included"] for row in latest} == {False, True}
+    assert all(row["tax_inclusion"] == "unknown" for row in latest)
+    assert all(build_static_data.canonical_comparison_key(row) is None for row in latest)
 
 
 def test_taipei_marriott_visible_booking_snapshot_has_complete_dated_products():
