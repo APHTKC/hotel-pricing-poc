@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 
 import scripts.build_static_data as build_static_data
 from scripts.build_static_data import (
@@ -151,6 +152,25 @@ def test_taipei_marriott_visible_booking_snapshot_has_complete_dated_products():
     assert max(float(row["total_price"]) for row in marriott) == 48395
     assert {row["check_in"] for row in marriott} == {"2026-12-16"}
     assert all(build_static_data.canonical_comparison_key(row) is None for row in marriott)
+
+
+def test_courtyard_taipei_visible_booking_snapshot_has_strict_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    courtyard = [row for row in rows if row["hotel_id"] == "courtyard_taipei"]
+
+    assert len(courtyard) == 9
+    assert len({row["room_type_code"] for row in courtyard}) == 7
+    assert {float(row["room_size_sqm"]) for row in courtyard} == {36.0, 43.0, 69.0, 82.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in courtyard} == {(2, 0, 1)}
+    assert min(float(row["total_price"]) for row in courtyard) == 6988.3
+    assert max(float(row["total_price"]) for row in courtyard) == 21598.5
+    assert {row["tax_inclusion"] for row in courtyard} == {"excluded"}
+    assert all(
+        Decimal(str(row["service_charge"]))
+        == Decimal(str(row["price_before_tax"])) * Decimal("0.1")
+        for row in courtyard
+    )
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in courtyard)
 
 
 def test_implausibly_low_twd_rate_is_not_published():

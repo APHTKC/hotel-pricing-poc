@@ -1565,7 +1565,7 @@
     },
     {
       "hotel_id": "courtyard_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-14",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -1573,6 +1573,10 @@
         "source_url": "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/overview/"
       },
       "room_inventory": 465,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "observed",
+      "service_charge_observed_at": "2026-10-14",
+      "service_charge_source_url": "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD",
       "restaurants": [
         {"name": "Sunrise All Day Dining", "type_zh": "國際自助餐與全日餐廳", "type_en": "International buffet and all-day dining", "type_ja": "各国料理ビュッフェ・オールデイダイニング"},
         {"name": "Moonlight Cantonese Restaurant", "type_zh": "粵菜與港式點心", "type_en": "Cantonese cuisine and dim sum", "type_ja": "広東料理・点心"},
@@ -1605,7 +1609,8 @@
         "https://www.courtyardtaipei.com.tw/room/display/7",
         "https://www.courtyardtaipei.com.tw/floor",
         "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/overview/",
-        "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/experiences/"
+        "https://www.marriott.com/en-us/hotels/tpecy-courtyard-taipei/experiences/",
+        "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ]
     },
     {

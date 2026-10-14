@@ -1356,7 +1356,12 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in sheraton_taipei["room_snapshot"]["rooms"]) == 562
     courtyard_taipei = by_id["courtyard_taipei"]
     assert courtyard_taipei["room_inventory"] == 465
-    assert "service_charge_percent" not in courtyard_taipei
+    assert courtyard_taipei["service_charge_percent"] == 10
+    assert courtyard_taipei["service_charge_source_type"] == "observed"
+    assert courtyard_taipei["service_charge_observed_at"] == "2026-10-14"
+    assert courtyard_taipei["service_charge_source_url"].startswith(
+        "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei"
+    )
     assert len(courtyard_taipei["restaurants"]) == 3
     assert courtyard_taipei["facilities"] == {
         "pool": False,
