@@ -1754,7 +1754,7 @@
     },
     {
       "hotel_id": "hotel_gracery_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-10-14",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -1794,7 +1794,8 @@
         "https://tw.gracery.com/taipei/room/",
         "https://tw.gracery.com/taipei/facilities/",
         "https://en.gracery.com/taipei/restaurant/",
-        "https://en.gracery.com/taipei/faq/"
+        "https://en.gracery.com/taipei/faq/",
+        "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.html"
       ]
     },
     {

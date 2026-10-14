@@ -760,6 +760,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert min(room["size_sqm"] for room in grand_hotel_rooms) == 20
     assert max(room["size_sqm"] for room in grand_hotel_rooms) == 926
     gracery = by_id["hotel_gracery_taipei"]
+    assert gracery["verified_at"] == "2026-10-14"
     assert gracery["room_inventory"] == 248
     assert gracery["stay_times"] == {
         "check_in": "15:00",
@@ -769,6 +770,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert len(gracery["room_snapshot"]["rooms"]) == 15
     assert {room["size_sqm"] for room in gracery["room_snapshot"]["rooms"]} == {25, 26, 50}
+    assert any("ge-la-si-li-tai-bei-fan-dian" in url for url in gracery["source_urls"])
     royal_nikko = by_id["royal_nikko_taipei"]
     assert royal_nikko["verified_at"] == "2026-10-07"
     assert royal_nikko["facilities"] == {
