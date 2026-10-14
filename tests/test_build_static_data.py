@@ -234,6 +234,23 @@ def test_mitsui_garden_visible_booking_snapshot_has_strict_two_adult_products():
     assert all(build_static_data.canonical_comparison_key(row) is None for row in mitsui)
 
 
+def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
+    payload = json.loads(
+        build_static_data.LATEST_HEATMAP_TARGET.read_text(encoding="utf-8")
+    )
+    ota_hotel_ids = {
+        row["hotel_id"]
+        for row in payload["rates"]
+        if row.get("source_platform") != "official"
+    }
+
+    assert {
+        "regent_taipei",
+        "w_taipei",
+        "mitsui_garden_taipei_zhongxiao",
+    } <= ota_hotel_ids
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True

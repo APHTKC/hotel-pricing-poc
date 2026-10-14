@@ -745,10 +745,10 @@ def main() -> None:
             {
                 "generated_from": "data/rates.jsonl",
                 "latest_queried_at": latest_queried_at,
-                "rates": [
-                    _heatmap_row(row) for row in latest_rows
-                    if (row.get("source_platform") or "official") == "official"
-                ],
+                # Include validated OTA snapshots in the first-screen payload.
+                # Snapshot-only hotels must be selectable before the larger
+                # details payload is lazily loaded.
+                "rates": [_heatmap_row(row) for row in latest_rows],
             },
             ensure_ascii=False,
         ),

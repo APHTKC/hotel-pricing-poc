@@ -1655,13 +1655,13 @@ def test_both_dashboards_filter_and_export_rate_sources():
     assert history.count("if(source)rows=rows.filter(r=>sourceOf(r)===source)") == 1
 
 
-def test_both_dashboards_default_to_official_rates_and_remember_source_choice():
+def test_both_dashboards_default_to_all_visible_sources_and_remember_source_choice():
     home = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
 
     for html in (home, history):
         assert "preferredSource=localStorage.getItem('hotel-rate-source')" in html
-        assert "if(preferredSource===null)preferredSource='official'" in html
+        assert "if(preferredSource===null)preferredSource=''" in html
         assert "localStorage.setItem('hotel-rate-source',preferredSource)" in html
 
 
