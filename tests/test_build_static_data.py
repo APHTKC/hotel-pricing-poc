@@ -140,6 +140,19 @@ def test_regent_visible_booking_snapshot_has_complete_dated_products():
     assert all(build_static_data.canonical_comparison_key(row) is None for row in regent)
 
 
+def test_taipei_marriott_visible_booking_snapshot_has_complete_dated_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    marriott = [row for row in rows if row["hotel_id"] == "taipei_marriott"]
+
+    assert len(marriott) == 31
+    assert len({row["room_type_code"] for row in marriott}) == 14
+    assert {float(row["room_size_sqm"]) for row in marriott} == {40.0, 43.0, 51.0, 65.0, 80.0}
+    assert min(float(row["total_price"]) for row in marriott) == 8538
+    assert max(float(row["total_price"]) for row in marriott) == 48395
+    assert {row["check_in"] for row in marriott} == {"2026-12-16"}
+    assert all(build_static_data.canonical_comparison_key(row) is None for row in marriott)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True

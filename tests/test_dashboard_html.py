@@ -63,11 +63,12 @@ def test_history_shows_preaggregated_weekly_executive_digest():
     assert "週間マーケット概要" in html
 
 
-def test_home_distinguishes_skipped_automation_candidates():
+def test_home_marks_skipped_candidates_as_alternative_source_collection():
     html = Path("public/index.html").read_text(encoding="utf-8")
 
     assert "automation_status==='skipped'" in html
-    assert "暫不支援" in html
+    assert "替代來源蒐集中" in html
+    assert "暫不支援" not in html
     assert "status-skipped" in html
 
 
@@ -224,6 +225,10 @@ def test_home_explains_suite_skew_and_compares_room_types_and_sizes():
     assert "median(item.values)" in html
     assert "Math.max(...item.values)" in html
     assert "filteredRows({ignoreSize:true})" in html
+    assert "房型名稱／面積規格" in html
+    assert "roomNames=new Set(rows.map" in html
+    assert "areaSpecs:new Set(sizes).size" in html
+    assert "${h.rooms}</strong><small>／${h.areaSpecs}" in html
 
 
 def test_history_explains_suite_skew_and_has_room_type_quality_table():

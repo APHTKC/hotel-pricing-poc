@@ -56,6 +56,27 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     assert len(payload["hotels"]) == 68
 
 
+def test_published_hotel_sources_do_not_label_candidates_permanently_unsupported():
+    visible_sources = (
+        Path("public/data/hotels.json"),
+        Path("public/data/hotel_profiles.json"),
+        Path("public/index.html"),
+    )
+    banned_phrases = (
+        "暫不支援",
+        "尚未支援",
+        "currently unsupported",
+        "previously unsupported",
+        "not automatable",
+        "現在未対応",
+        "自動取得対象外",
+    )
+
+    for source in visible_sources:
+        content = source.read_text(encoding="utf-8").lower()
+        assert all(phrase.lower() not in content for phrase in banned_phrases), source
+
+
 def test_location_tracking_is_derived_from_catalog(tmp_path):
     target = tmp_path / "hotel_locations.json"
     target.write_text(
