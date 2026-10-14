@@ -626,13 +626,17 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(canonical_comparison_key(row) is None for row in humble_house_rows)
 
     kimpton_rows = [row for row in rows if row.hotel_id == "kimpton_da_an"]
-    assert len(kimpton_rows) == 6
+    latest_kimpton_query = max(row.queried_at for row in kimpton_rows)
+    kimpton_rows = [
+        row for row in kimpton_rows if row.queried_at == latest_kimpton_query
+    ]
+    assert len(kimpton_rows) == 11
     assert {row.room_size_sqm for row in kimpton_rows} == {
-        Decimal("32"), Decimal("38")
+        Decimal("32"), Decimal("37"), Decimal("38"), Decimal("58")
     }
-    assert {row.breakfast_included for row in kimpton_rows} == {False, True}
-    assert min(row.total_price for row in kimpton_rows) == Decimal("10060")
-    assert max(row.total_price for row in kimpton_rows) == Decimal("12289")
+    assert {row.breakfast_included for row in kimpton_rows} == {False}
+    assert min(row.total_price for row in kimpton_rows) == Decimal("11689")
+    assert max(row.total_price for row in kimpton_rows) == Decimal("24394")
     assert all(row.tax_inclusion == "unknown" for row in kimpton_rows)
     assert all(canonical_comparison_key(row) is None for row in kimpton_rows)
 
