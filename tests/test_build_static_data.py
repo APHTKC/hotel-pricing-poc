@@ -295,6 +295,23 @@ def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
     assert all(build_static_data.canonical_comparison_key(row) is None for row in sheraton)
 
 
+def test_okura_visible_booking_snapshot_keeps_free_cancellation_products_separate():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    okura = [row for row in rows if row["hotel_id"] == "okura_prestige_taipei"]
+    latest_query = max(row["queried_at"] for row in okura)
+    okura = [row for row in okura if row["queried_at"] == latest_query]
+
+    assert len(okura) == 8
+    assert len({row["room_type_code"] for row in okura}) == 4
+    assert {float(row["room_size_sqm"]) for row in okura} == {44.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in okura} == {(2, 0, 1)}
+    assert min(float(row["total_price"]) for row in okura) == 8384
+    assert max(float(row["total_price"]) for row in okura) == 12181
+    assert {row["breakfast_included"] for row in okura} == {False, True}
+    assert all("可免費取消" in row["cancellation_policy"] for row in okura)
+    assert all(build_static_data.canonical_comparison_key(row) is None for row in okura)
+
+
 def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
     payload = json.loads(
         build_static_data.LATEST_HEATMAP_TARGET.read_text(encoding="utf-8")
@@ -313,6 +330,7 @@ def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
         "the_landis_taipei",
         "kimpton_da_an",
         "sheraton_grand_taipei",
+        "okura_prestige_taipei",
     } <= ota_hotel_ids
 
 
