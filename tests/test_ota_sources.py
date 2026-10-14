@@ -537,9 +537,18 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         row for row in rows
         if row.hotel_id == "hotel_metropolitan_premier_taipei"
     ]
-    assert len(jr_rows) == 3
-    assert {row.room_size_sqm for row in jr_rows} == {Decimal("36"), Decimal("43")}
-    assert {row.total_price for row in jr_rows} == {Decimal("6696"), Decimal("7254")}
+    latest_jr_query = max(row.queried_at for row in jr_rows)
+    jr_rows = [row for row in jr_rows if row.queried_at == latest_jr_query]
+    assert len(jr_rows) == 14
+    assert len({row.room_type_code for row in jr_rows}) == 10
+    assert {row.room_size_sqm for row in jr_rows} == {
+        Decimal("36"), Decimal("43"), Decimal("62")
+    }
+    assert {row.breakfast_included for row in jr_rows} == {False, True}
+    assert min(row.total_price for row in jr_rows) == Decimal("6975")
+    assert max(row.total_price for row in jr_rows) == Decimal("13485")
+    assert all(row.tax_inclusion == "unknown" for row in jr_rows)
+    assert all(canonical_comparison_key(row) is None for row in jr_rows)
     okura_rows = [row for row in rows if row.hotel_id == "okura_prestige_taipei"]
     latest_okura_query = max(row.queried_at for row in okura_rows)
     okura_rows = [row for row in okura_rows if row.queried_at == latest_okura_query]

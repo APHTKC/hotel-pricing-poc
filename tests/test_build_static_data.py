@@ -329,6 +329,23 @@ def test_palais_visible_booking_snapshot_uses_two_adult_breakfast_products():
     assert all(build_static_data.canonical_comparison_key(row) is None for row in palais)
 
 
+def test_jr_east_visible_booking_snapshot_excludes_non_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    jr = [row for row in rows if row["hotel_id"] == "hotel_metropolitan_premier_taipei"]
+    latest_query = max(row["queried_at"] for row in jr)
+    jr = [row for row in jr if row["queried_at"] == latest_query]
+
+    assert len(jr) == 14
+    assert len({row["room_type_code"] for row in jr}) == 10
+    assert {float(row["room_size_sqm"]) for row in jr} == {36.0, 43.0, 62.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in jr} == {(2, 0, 1)}
+    assert min(float(row["total_price"]) for row in jr) == 6975
+    assert max(float(row["total_price"]) for row in jr) == 13485
+    assert {row["breakfast_included"] for row in jr} == {False, True}
+    assert all(row["room_type_code"] not in {"booking:715720913", "booking:715720937"} for row in jr)
+    assert all(build_static_data.canonical_comparison_key(row) is None for row in jr)
+
+
 def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
     payload = json.loads(
         build_static_data.LATEST_HEATMAP_TARGET.read_text(encoding="utf-8")
@@ -349,6 +366,7 @@ def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
         "sheraton_grand_taipei",
         "okura_prestige_taipei",
         "palais_de_chine",
+        "hotel_metropolitan_premier_taipei",
     } <= ota_hotel_ids
 
 
