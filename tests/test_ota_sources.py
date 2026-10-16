@@ -865,7 +865,11 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         for row in taipei_marriott_expedia_rows
     )
 
-    kimpton_rows = [row for row in rows if row.hotel_id == "kimpton_da_an"]
+    kimpton_rows = [
+        row for row in rows
+        if row.hotel_id == "kimpton_da_an"
+        and row.source_platform == "booking_com"
+    ]
     latest_kimpton_query = max(row.queried_at for row in kimpton_rows)
     kimpton_rows = [
         row for row in kimpton_rows if row.queried_at == latest_kimpton_query
@@ -879,6 +883,24 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in kimpton_rows) == Decimal("24394")
     assert all(row.tax_inclusion == "unknown" for row in kimpton_rows)
     assert all(canonical_comparison_key(row) is None for row in kimpton_rows)
+
+    kimpton_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "kimpton_da_an"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(kimpton_expedia_rows) == 4
+    assert {row.room_size_sqm for row in kimpton_expedia_rows} == {
+        Decimal("37"), Decimal("38")
+    }
+    assert {row.breakfast_included for row in kimpton_expedia_rows} == {False}
+    assert min(row.total_price for row in kimpton_expedia_rows) == Decimal("22061")
+    assert max(row.total_price for row in kimpton_expedia_rows) == Decimal("29395")
+    assert all(row.tax_inclusion == "included" for row in kimpton_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in kimpton_expedia_rows
+    )
 
     episode_rows = [row for row in rows if row.hotel_id == "episode_daan_taipei"]
     assert len(episode_rows) == 8

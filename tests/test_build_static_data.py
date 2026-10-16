@@ -331,7 +331,11 @@ def test_landis_visible_booking_snapshot_uses_two_adult_baseline_products():
 
 def test_kimpton_visible_booking_snapshot_uses_two_adult_baseline_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    kimpton = [row for row in rows if row["hotel_id"] == "kimpton_da_an"]
+    kimpton = [
+        row for row in rows
+        if row["hotel_id"] == "kimpton_da_an"
+        and row["source_platform"] == "booking_com"
+    ]
     latest_query = max(row["queried_at"] for row in kimpton)
     kimpton = [row for row in kimpton if row["queried_at"] == latest_query]
 
@@ -343,6 +347,24 @@ def test_kimpton_visible_booking_snapshot_uses_two_adult_baseline_products():
     assert max(float(row["total_price"]) for row in kimpton) == 24394
     assert {row["breakfast_included"] for row in kimpton} == {False}
     assert all(build_static_data.canonical_comparison_key(row) is None for row in kimpton)
+
+
+def test_latest_payload_keeps_hotels_com_kimpton_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    kimpton = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "kimpton_da_an"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(kimpton) == 4
+    assert {float(row["room_size_sqm"]) for row in kimpton} == {37.0, 38.0}
+    assert {row["breakfast_included"] for row in kimpton} == {False}
+    assert min(float(row["total_price"]) for row in kimpton) == 22061
+    assert max(float(row["total_price"]) for row in kimpton) == 29395
+    assert {row["comparison_status"] for row in kimpton} == {"comparable"}
 
 
 def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
