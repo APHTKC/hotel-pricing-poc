@@ -1100,7 +1100,9 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(canonical_comparison_key(row) is not None for row in indigo_rows)
 
     proverbs_rows = [
-        row for row in rows if row.hotel_id == "hotel_proverbs_taipei"
+        row for row in rows
+        if row.hotel_id == "hotel_proverbs_taipei"
+        and row.source_platform == "booking_com"
     ]
     assert len(proverbs_rows) == 8
     assert {row.room_size_sqm for row in proverbs_rows} == {
@@ -1111,6 +1113,23 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in proverbs_rows) == Decimal("10950")
     assert all(row.tax_inclusion == "unknown" for row in proverbs_rows)
     assert all(canonical_comparison_key(row) is None for row in proverbs_rows)
+
+    proverbs_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "hotel_proverbs_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(proverbs_expedia_rows) == 3
+    assert {row.room_size_sqm for row in proverbs_expedia_rows} == {
+        Decimal("37"), Decimal("38"), Decimal("41")
+    }
+    assert {row.breakfast_included for row in proverbs_expedia_rows} == {False}
+    assert min(row.total_price for row in proverbs_expedia_rows) == Decimal("14621")
+    assert max(row.total_price for row in proverbs_expedia_rows) == Decimal("17363")
+    assert all(row.tax_inclusion == "included" for row in proverbs_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None for row in proverbs_expedia_rows
+    )
 
     le_meridien_booking_rows = [
         row for row in rows
