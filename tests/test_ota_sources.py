@@ -577,13 +577,33 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(row.tax_inclusion == "included" for row in hotels_com_mo)
     assert all(canonical_comparison_key(row) is not None for row in hotels_com_mo)
     shangrila_rows = [row for row in rows if row.hotel_id == "shangrila_taipei"]
-    assert len(shangrila_rows) == 10
-    assert {row.room_size_sqm for row in shangrila_rows} == {
+    assert len(shangrila_rows) == 28
+    booking_shangrila = [
+        row for row in shangrila_rows if row.source_platform == "booking_com"
+    ]
+    hotels_com_shangrila = [
+        row for row in shangrila_rows if row.source_platform == "expedia_group"
+    ]
+    assert len(booking_shangrila) == 10
+    assert {row.room_size_sqm for row in booking_shangrila} == {
         Decimal("40"), Decimal("60"), Decimal("72")
     }
-    assert {row.breakfast_included for row in shangrila_rows} == {False, True}
-    assert all(row.tax_inclusion == "unknown" for row in shangrila_rows)
-    assert all(canonical_comparison_key(row) is None for row in shangrila_rows)
+    assert all(row.tax_inclusion == "unknown" for row in booking_shangrila)
+    assert all(canonical_comparison_key(row) is None for row in booking_shangrila)
+    assert len(hotels_com_shangrila) == 18
+    assert {row.room_size_sqm for row in hotels_com_shangrila} == {
+        Decimal("36"), Decimal("40"), Decimal("41"), Decimal("56"),
+        Decimal("60"), Decimal("75")
+    }
+    assert {row.breakfast_included for row in hotels_com_shangrila} == {
+        False, True
+    }
+    assert min(row.total_price for row in hotels_com_shangrila) == Decimal("8830")
+    assert max(row.total_price for row in hotels_com_shangrila) == Decimal("27203")
+    assert all(row.tax_inclusion == "included" for row in hotels_com_shangrila)
+    assert all(
+        canonical_comparison_key(row) is not None for row in hotels_com_shangrila
+    )
     grand_hilai_rows = [row for row in rows if row.hotel_id == "grand_hilai_taipei"]
     assert len(grand_hilai_rows) == 5
     assert {row.room_size_sqm for row in grand_hilai_rows} == {
