@@ -520,6 +520,28 @@ def test_latest_payload_keeps_three_shangrila_taipei_sources():
     assert all(row["comparison_status"] == "comparable" for row in hotels_com)
 
 
+def test_latest_payload_keeps_hotels_com_royal_nikko_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    royal_nikko = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "royal_nikko_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(royal_nikko) == 7
+    assert {float(row["room_size_sqm"]) for row in royal_nikko} == {
+        32.0,
+        38.0,
+        65.0,
+    }
+    assert {row["breakfast_included"] for row in royal_nikko} == {False, True}
+    assert min(float(row["total_twd"]) for row in royal_nikko) == 6732
+    assert max(float(row["total_twd"]) for row in royal_nikko) == 13690
+    assert all(row["comparison_status"] == "comparable" for row in royal_nikko)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
