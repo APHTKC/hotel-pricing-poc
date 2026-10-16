@@ -187,7 +187,11 @@ def test_courtyard_taipei_visible_booking_snapshot_has_strict_two_adult_products
 
 def test_grand_view_resort_visible_booking_snapshot_replaces_empty_date_with_live_rates():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    grand_view = [row for row in rows if row["hotel_id"] == "grand_view_resort_beitou"]
+    grand_view = [
+        row for row in rows
+        if row["hotel_id"] == "grand_view_resort_beitou"
+        and row["source_platform"] == "booking_com"
+    ]
 
     assert len(grand_view) == 5
     assert len({row["room_type_code"] for row in grand_view}) == 5
@@ -199,6 +203,29 @@ def test_grand_view_resort_visible_booking_snapshot_replaces_empty_date_with_liv
     assert {row["breakfast_included"] for row in grand_view} == {True}
     assert all(float(row["total_price"]) > float(row["price_before_tax"]) for row in grand_view)
     assert all(build_static_data.canonical_comparison_key(row) is not None for row in grand_view)
+
+
+def test_latest_payload_keeps_hotels_com_grand_view_resort_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    grand_view = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "grand_view_resort_beitou"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(grand_view) == 7
+    assert {float(row["room_size_sqm"]) for row in grand_view} == {
+        49.0,
+        50.0,
+        56.0,
+        63.0,
+    }
+    assert {row["breakfast_included"] for row in grand_view} == {True}
+    assert min(float(row["total_twd"]) for row in grand_view) == 15725
+    assert max(float(row["total_twd"]) for row in grand_view) == 27572
+    assert all(row["comparison_status"] == "comparable" for row in grand_view)
 
 
 def test_miramar_garden_visible_booking_snapshot_has_strict_two_adult_products():

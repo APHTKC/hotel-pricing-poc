@@ -748,6 +748,24 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         for row in sheraton_expedia_rows
     )
 
+    grand_view_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "grand_view_resort_beitou"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(grand_view_expedia_rows) == 7
+    assert {row.room_size_sqm for row in grand_view_expedia_rows} == {
+        Decimal("49"), Decimal("50"), Decimal("56"), Decimal("63")
+    }
+    assert {row.breakfast_included for row in grand_view_expedia_rows} == {True}
+    assert min(row.total_price for row in grand_view_expedia_rows) == Decimal("15725")
+    assert max(row.total_price for row in grand_view_expedia_rows) == Decimal("27572")
+    assert all(row.tax_inclusion == "included" for row in grand_view_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in grand_view_expedia_rows
+    )
+
     resonance_rows = [
         row for row in rows if row.hotel_id == "hotel_resonance_taipei"
     ]
