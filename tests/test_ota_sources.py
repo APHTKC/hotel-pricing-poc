@@ -1023,6 +1023,26 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         for row in windsor_taichung_expedia_rows
     )
 
+    intercontinental_kaohsiung_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "intercontinental_kaohsiung"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(intercontinental_kaohsiung_expedia_rows) == 9
+    assert {row.room_size_sqm for row in intercontinental_kaohsiung_expedia_rows} == {
+        Decimal("36"), Decimal("46"), Decimal("56")
+    }
+    assert {row.breakfast_included for row in intercontinental_kaohsiung_expedia_rows} == {
+        False
+    }
+    assert min(row.total_price for row in intercontinental_kaohsiung_expedia_rows) == Decimal("7830")
+    assert max(row.total_price for row in intercontinental_kaohsiung_expedia_rows) == Decimal("16860")
+    assert all(row.tax_inclusion == "included" for row in intercontinental_kaohsiung_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in intercontinental_kaohsiung_expedia_rows
+    )
+
     episode_rows = [row for row in rows if row.hotel_id == "episode_daan_taipei"]
     assert len(episode_rows) == 8
     assert {row.room_size_sqm for row in episode_rows} == {
