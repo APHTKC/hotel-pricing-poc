@@ -564,6 +564,28 @@ def test_latest_payload_keeps_hotels_com_eslite_snapshot():
     assert all(row["comparison_status"] == "comparable" for row in eslite)
 
 
+def test_latest_payload_keeps_hotels_com_gaia_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    gaia = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "the_gaia_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(gaia) == 4
+    assert {float(row["room_size_sqm"]) for row in gaia} == {
+        36.0,
+        50.0,
+        66.0,
+    }
+    assert {row["breakfast_included"] for row in gaia} == {True}
+    assert min(float(row["total_twd"]) for row in gaia) == 10292
+    assert max(float(row["total_twd"]) for row in gaia) == 61358
+    assert all(row["comparison_status"] == "comparable" for row in gaia)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
