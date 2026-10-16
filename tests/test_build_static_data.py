@@ -293,7 +293,11 @@ def test_kimpton_visible_booking_snapshot_uses_two_adult_baseline_products():
 
 def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    sheraton = [row for row in rows if row["hotel_id"] == "sheraton_grand_taipei"]
+    sheraton = [
+        row for row in rows
+        if row["hotel_id"] == "sheraton_grand_taipei"
+        and row["source_platform"] == "booking_com"
+    ]
     latest_query = max(row["queried_at"] for row in sheraton)
     sheraton = [row for row in sheraton if row["queried_at"] == latest_query]
 
@@ -724,6 +728,28 @@ def test_latest_payload_keeps_hotels_com_taipei_marriott_snapshot():
     assert min(float(row["total_twd"]) for row in marriott) == 7928
     assert max(float(row["total_twd"]) for row in marriott) == 47702
     assert all(row["comparison_status"] == "comparable" for row in marriott)
+
+
+def test_latest_payload_keeps_hotels_com_sheraton_taipei_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    sheraton = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "sheraton_grand_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(sheraton) == 7
+    assert {float(row["room_size_sqm"]) for row in sheraton} == {
+        32.0,
+        35.0,
+        40.0,
+    }
+    assert {row["breakfast_included"] for row in sheraton} == {False}
+    assert min(float(row["total_twd"]) for row in sheraton) == 8501
+    assert max(float(row["total_twd"]) for row in sheraton) == 11550
+    assert all(row["comparison_status"] == "comparable" for row in sheraton)
 
 
 def test_implausibly_low_twd_rate_is_not_published():

@@ -711,7 +711,11 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in hotels_com_hyatt) == Decimal("25156")
     assert all(row.tax_inclusion == "included" for row in hotels_com_hyatt)
     assert all(canonical_comparison_key(row) is not None for row in hotels_com_hyatt)
-    sheraton_rows = [row for row in rows if row.hotel_id == "sheraton_grand_taipei"]
+    sheraton_rows = [
+        row for row in rows
+        if row.hotel_id == "sheraton_grand_taipei"
+        and row.source_platform == "booking_com"
+    ]
     latest_sheraton_query = max(row.queried_at for row in sheraton_rows)
     sheraton_rows = [
         row for row in sheraton_rows if row.queried_at == latest_sheraton_query
@@ -725,6 +729,24 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in sheraton_rows) == Decimal("12821")
     assert all(row.tax_inclusion == "unknown" for row in sheraton_rows)
     assert all(canonical_comparison_key(row) is None for row in sheraton_rows)
+
+    sheraton_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "sheraton_grand_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(sheraton_expedia_rows) == 7
+    assert {row.room_size_sqm for row in sheraton_expedia_rows} == {
+        Decimal("32"), Decimal("35"), Decimal("40")
+    }
+    assert {row.breakfast_included for row in sheraton_expedia_rows} == {False}
+    assert min(row.total_price for row in sheraton_expedia_rows) == Decimal("8501")
+    assert max(row.total_price for row in sheraton_expedia_rows) == Decimal("11550")
+    assert all(row.tax_inclusion == "included" for row in sheraton_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in sheraton_expedia_rows
+    )
 
     resonance_rows = [
         row for row in rows if row.hotel_id == "hotel_resonance_taipei"
