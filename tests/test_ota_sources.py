@@ -606,15 +606,19 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(row.tax_inclusion == "unknown" for row in mayfull_rows)
     assert all(canonical_comparison_key(row) is None for row in mayfull_rows)
     grand_hyatt_rows = [row for row in rows if row.hotel_id == "grand_hyatt_taipei"]
-    assert len(grand_hyatt_rows) == 28
-    assert {row.room_size_sqm for row in grand_hyatt_rows} == {
-        Decimal("30"), Decimal("33"), Decimal("40"), Decimal("50"), Decimal("83")
+    assert len(grand_hyatt_rows) == 38
+    hotels_com_hyatt = [
+        row for row in grand_hyatt_rows if row.source_platform == "expedia_group"
+    ]
+    assert len(hotels_com_hyatt) == 10
+    assert {row.room_size_sqm for row in hotels_com_hyatt} == {
+        Decimal("33"), Decimal("40"), Decimal("50"), Decimal("60"),
+        Decimal("83")
     }
-    assert {row.breakfast_included for row in grand_hyatt_rows} == {False, True}
-    assert min(row.total_price for row in grand_hyatt_rows) == Decimal("16055")
-    assert max(row.total_price for row in grand_hyatt_rows) == Decimal("29915")
-    assert all(row.tax_inclusion == "unknown" for row in grand_hyatt_rows)
-    assert all(canonical_comparison_key(row) is None for row in grand_hyatt_rows)
+    assert min(row.total_price for row in hotels_com_hyatt) == Decimal("12017")
+    assert max(row.total_price for row in hotels_com_hyatt) == Decimal("25156")
+    assert all(row.tax_inclusion == "included" for row in hotels_com_hyatt)
+    assert all(canonical_comparison_key(row) is not None for row in hotels_com_hyatt)
     sheraton_rows = [row for row in rows if row.hotel_id == "sheraton_grand_taipei"]
     latest_sheraton_query = max(row.queried_at for row in sheraton_rows)
     sheraton_rows = [

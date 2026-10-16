@@ -459,6 +459,36 @@ def test_latest_payload_keeps_booking_and_hotels_com_mandarin_snapshots():
     assert all(row["comparison_status"] == "comparable" for row in hotels_com)
 
 
+def test_latest_payload_keeps_booking_and_hotels_com_grand_hyatt_snapshots():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    grand_hyatt = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "grand_hyatt_taipei"
+    ]
+    hotels_com = [
+        row for row in grand_hyatt
+        if row["source_platform"] == "expedia_group"
+    ]
+
+    assert {row["source_platform"] for row in grand_hyatt} == {
+        "booking_com",
+        "expedia_group",
+    }
+    assert len(hotels_com) == 10
+    assert {float(row["room_size_sqm"]) for row in hotels_com} == {
+        33.0,
+        40.0,
+        50.0,
+        60.0,
+        83.0,
+    }
+    assert min(float(row["total_twd"]) for row in hotels_com) == 12017
+    assert max(float(row["total_twd"]) for row in hotels_com) == 25156
+    assert all(row["comparison_status"] == "comparable" for row in hotels_com)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
