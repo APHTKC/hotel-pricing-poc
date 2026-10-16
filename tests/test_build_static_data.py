@@ -586,6 +586,30 @@ def test_latest_payload_keeps_hotels_com_gaia_snapshot():
     assert all(row["comparison_status"] == "comparable" for row in gaia)
 
 
+def test_latest_payload_keeps_hotels_com_solaria_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    solaria = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "solaria_nishitetsu_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(solaria) == 8
+    assert {float(row["room_size_sqm"]) for row in solaria} == {
+        21.0,
+        23.0,
+        24.0,
+        26.0,
+        33.0,
+    }
+    assert {row["breakfast_included"] for row in solaria} == {False}
+    assert min(float(row["total_twd"]) for row in solaria) == 7645
+    assert max(float(row["total_twd"]) for row in solaria) == 12385
+    assert all(row["comparison_status"] == "comparable" for row in solaria)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True

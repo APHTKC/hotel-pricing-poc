@@ -137,4 +137,5 @@ def test_full_booking_value_cancellation_fee_is_non_refundable():
         normalize_cancellation_class("取消須付費（訂單總額）；無需訂金，入住時付款")
         == "non_refundable"
     )
+    assert normalize_cancellation_class("不得退款") == "non_refundable"
     assert normalize_cancellation_class("取消須付費") == "unknown"

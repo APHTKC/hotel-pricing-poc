@@ -24,6 +24,7 @@ def normalize_cancellation_class(policy: str | None) -> str:
         "non-refundable",
         "non refundable",
         "不可退款",
+        "不得退款",
         "不得取消",
         "取消不可",
         "取消須付費（訂單總額）",
