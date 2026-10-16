@@ -962,6 +962,26 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         for row in the_lin_taichung_expedia_rows
     )
 
+    millennium_taichung_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "millennium_taichung"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(millennium_taichung_expedia_rows) == 6
+    assert {row.room_size_sqm for row in millennium_taichung_expedia_rows} == {
+        Decimal("32"), Decimal("36"), Decimal("53")
+    }
+    assert {row.breakfast_included for row in millennium_taichung_expedia_rows} == {
+        False, True
+    }
+    assert min(row.total_price for row in millennium_taichung_expedia_rows) == Decimal("3690")
+    assert max(row.total_price for row in millennium_taichung_expedia_rows) == Decimal("8735")
+    assert all(row.tax_inclusion == "included" for row in millennium_taichung_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in millennium_taichung_expedia_rows
+    )
+
     episode_rows = [row for row in rows if row.hotel_id == "episode_daan_taipei"]
     assert len(episode_rows) == 8
     assert {row.room_size_sqm for row in episode_rows} == {
