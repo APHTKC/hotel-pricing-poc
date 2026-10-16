@@ -766,6 +766,24 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         for row in grand_view_expedia_rows
     )
 
+    kagaya_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "radium_kagaya_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(kagaya_expedia_rows) == 11
+    assert {row.room_size_sqm for row in kagaya_expedia_rows} == {
+        Decimal("43"), Decimal("50"), Decimal("52"), Decimal("53")
+    }
+    assert {row.breakfast_included for row in kagaya_expedia_rows} == {False, True}
+    assert min(row.total_price for row in kagaya_expedia_rows) == Decimal("15447")
+    assert max(row.total_price for row in kagaya_expedia_rows) == Decimal("38144")
+    assert all(row.tax_inclusion == "included" for row in kagaya_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in kagaya_expedia_rows
+    )
+
     resonance_rows = [
         row for row in rows if row.hotel_id == "hotel_resonance_taipei"
     ]

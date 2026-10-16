@@ -275,7 +275,11 @@ def test_mitsui_garden_visible_booking_snapshot_has_strict_two_adult_products():
 
 def test_radium_kagaya_visible_booking_snapshot_excludes_four_person_product():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    kagaya = [row for row in rows if row["hotel_id"] == "radium_kagaya_taipei"]
+    kagaya = [
+        row for row in rows
+        if row["hotel_id"] == "radium_kagaya_taipei"
+        and row["source_platform"] == "booking_com"
+    ]
 
     assert len(kagaya) == 6
     assert len({row["room_type_code"] for row in kagaya}) == 4
@@ -286,6 +290,29 @@ def test_radium_kagaya_visible_booking_snapshot_excludes_four_person_product():
     assert {row["breakfast_included"] for row in kagaya} == {False, True}
     assert all("505734817" not in row["room_type_code"] for row in kagaya)
     assert all(build_static_data.canonical_comparison_key(row) is None for row in kagaya)
+
+
+def test_latest_payload_keeps_hotels_com_radium_kagaya_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    kagaya = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "radium_kagaya_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(kagaya) == 11
+    assert {float(row["room_size_sqm"]) for row in kagaya} == {
+        43.0,
+        50.0,
+        52.0,
+        53.0,
+    }
+    assert {row["breakfast_included"] for row in kagaya} == {False, True}
+    assert min(float(row["total_twd"]) for row in kagaya) == 15447
+    assert max(float(row["total_twd"]) for row in kagaya) == 38144
+    assert all(row["comparison_status"] == "comparable" for row in kagaya)
 
 
 def test_landis_visible_booking_snapshot_uses_two_adult_baseline_products():
