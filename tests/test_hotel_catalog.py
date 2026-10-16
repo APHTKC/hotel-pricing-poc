@@ -32,7 +32,7 @@ def test_intercontinental_taipei_keeps_official_block_and_browser_snapshot_statu
     assert hotel["priority"] == "high"
 
 
-def test_new_taipei_high_end_hotels_are_registered_once_and_marked_skipped():
+def test_new_taipei_high_end_hotels_are_registered_once_with_source_status():
     payload = yaml.safe_load(
         Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
     )
@@ -45,7 +45,12 @@ def test_new_taipei_high_end_hotels_are_registered_once_and_marked_skipped():
         assert hotel["city"] == "Taipei"
         assert hotel["district"] == district
         assert hotel["enabled"] is False
-        assert hotel["automation_status"] == "skipped"
+        expected_status = (
+            "browser_snapshot"
+            if hotel_id == "courtyard_taipei_downtown"
+            else "skipped"
+        )
+        assert hotel["automation_status"] == expected_status
         assert hotel["automation_note"]
 
 
