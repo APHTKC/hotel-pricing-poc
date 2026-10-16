@@ -786,6 +786,27 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         for row in humble_house_expedia_rows
     )
 
+    taipei_marriott_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "taipei_marriott"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(taipei_marriott_expedia_rows) == 16
+    assert {row.room_size_sqm for row in taipei_marriott_expedia_rows} == {
+        Decimal("40"), Decimal("43"), Decimal("51"), Decimal("66"),
+        Decimal("79")
+    }
+    assert {row.breakfast_included for row in taipei_marriott_expedia_rows} == {
+        False
+    }
+    assert min(row.total_price for row in taipei_marriott_expedia_rows) == Decimal("7928")
+    assert max(row.total_price for row in taipei_marriott_expedia_rows) == Decimal("47702")
+    assert all(row.tax_inclusion == "included" for row in taipei_marriott_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in taipei_marriott_expedia_rows
+    )
+
     kimpton_rows = [row for row in rows if row.hotel_id == "kimpton_da_an"]
     latest_kimpton_query = max(row.queried_at for row in kimpton_rows)
     kimpton_rows = [

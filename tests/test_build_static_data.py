@@ -151,7 +151,11 @@ def test_regent_visible_booking_snapshot_has_complete_dated_products():
 
 def test_taipei_marriott_visible_booking_snapshot_has_complete_dated_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    marriott = [row for row in rows if row["hotel_id"] == "taipei_marriott"]
+    marriott = [
+        row for row in rows
+        if row["hotel_id"] == "taipei_marriott"
+        and row["source_platform"] == "booking_com"
+    ]
 
     assert len(marriott) == 31
     assert len({row["room_type_code"] for row in marriott}) == 14
@@ -696,6 +700,30 @@ def test_latest_payload_keeps_hotels_com_humble_house_snapshot():
     assert min(float(row["total_twd"]) for row in humble_house) == 10395
     assert max(float(row["total_twd"]) for row in humble_house) == 20790
     assert all(row["comparison_status"] == "comparable" for row in humble_house)
+
+
+def test_latest_payload_keeps_hotels_com_taipei_marriott_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    marriott = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "taipei_marriott"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(marriott) == 16
+    assert {float(row["room_size_sqm"]) for row in marriott} == {
+        40.0,
+        43.0,
+        51.0,
+        66.0,
+        79.0,
+    }
+    assert {row["breakfast_included"] for row in marriott} == {False}
+    assert min(float(row["total_twd"]) for row in marriott) == 7928
+    assert max(float(row["total_twd"]) for row in marriott) == 47702
+    assert all(row["comparison_status"] == "comparable" for row in marriott)
 
 
 def test_implausibly_low_twd_rate_is_not_published():
