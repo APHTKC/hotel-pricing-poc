@@ -377,6 +377,31 @@ def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
     } <= ota_hotel_ids
 
 
+def test_latest_payload_keeps_each_ota_platforms_newest_w_taipei_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    w_rows = [row for row in payload["rates"] if row["hotel_id"] == "w_taipei"]
+    hotels_com = [
+        row for row in w_rows if row["source_platform"] == "expedia_group"
+    ]
+
+    assert {row["source_platform"] for row in w_rows} == {
+        "booking_com",
+        "expedia_group",
+    }
+    assert len(hotels_com) == 7
+    assert {float(row["room_size_sqm"]) for row in hotels_com} == {
+        43.0,
+        46.0,
+        70.0,
+        95.0,
+    }
+    assert min(float(row["total_twd"]) for row in hotels_com) == 13860
+    assert max(float(row["total_twd"]) for row in hotels_com) == 25410
+    assert all(row["comparison_status"] == "comparable" for row in hotels_com)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
