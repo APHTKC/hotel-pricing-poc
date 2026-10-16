@@ -662,6 +662,20 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in solaria_rows) == Decimal("12385")
     assert all(row.tax_inclusion == "included" for row in solaria_rows)
     assert all(canonical_comparison_key(row) is not None for row in solaria_rows)
+    grand_hotel_rows = [
+        row for row in rows
+        if row.hotel_id == "grand_hotel_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(grand_hotel_rows) == 4
+    assert {row.room_size_sqm for row in grand_hotel_rows} == {
+        Decimal("20"), Decimal("36"), Decimal("79")
+    }
+    assert {row.breakfast_included for row in grand_hotel_rows} == {False, True}
+    assert min(row.total_price for row in grand_hotel_rows) == Decimal("4487")
+    assert max(row.total_price for row in grand_hotel_rows) == Decimal("11928")
+    assert all(row.tax_inclusion == "included" for row in grand_hotel_rows)
+    assert all(canonical_comparison_key(row) is not None for row in grand_hotel_rows)
     grand_hilai_rows = [row for row in rows if row.hotel_id == "grand_hilai_taipei"]
     assert len(grand_hilai_rows) == 5
     assert {row.room_size_sqm for row in grand_hilai_rows} == {
