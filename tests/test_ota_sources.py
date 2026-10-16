@@ -885,7 +885,9 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(canonical_comparison_key(row) is None for row in howard_rows)
 
     intercontinental_rows = [
-        row for row in rows if row.hotel_id == "intercontinental_taipei"
+        row for row in rows
+        if row.hotel_id == "intercontinental_taipei"
+        and row.source_platform == "booking_com"
     ]
     assert len(intercontinental_rows) == 12
     assert {row.room_size_sqm for row in intercontinental_rows} == {
@@ -897,6 +899,26 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(row.tax_inclusion == "unknown" for row in intercontinental_rows)
     assert all(
         canonical_comparison_key(row) is None for row in intercontinental_rows
+    )
+
+    intercontinental_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "intercontinental_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(intercontinental_expedia_rows) == 6
+    assert {row.room_size_sqm for row in intercontinental_expedia_rows} == {
+        Decimal("38"), Decimal("48")
+    }
+    assert {row.breakfast_included for row in intercontinental_expedia_rows} == {
+        False
+    }
+    assert min(row.total_price for row in intercontinental_expedia_rows) == Decimal("16262")
+    assert max(row.total_price for row in intercontinental_expedia_rows) == Decimal("22107")
+    assert all(row.tax_inclusion == "included" for row in intercontinental_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in intercontinental_expedia_rows
     )
 
 

@@ -16,7 +16,7 @@ NEW_TAIPEI_HOTELS = {
 }
 
 
-def test_intercontinental_taipei_is_registered_for_initial_rate_feasibility_check():
+def test_intercontinental_taipei_keeps_official_block_and_browser_snapshot_status():
     payload = yaml.safe_load(
         Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
     )
@@ -26,8 +26,9 @@ def test_intercontinental_taipei_is_registered_for_initial_rate_feasibility_chec
     assert hotel["district"] == "Xinyi"
     assert hotel["adapter"] == "ihg"
     assert hotel["enabled"] is False
-    assert hotel["automation_status"] == "skipped"
+    assert hotel["automation_status"] == "browser_snapshot"
     assert "403" in hotel["automation_note"]
+    assert "Hotels.com" in hotel["automation_note"]
     assert hotel["priority"] == "high"
 
 
