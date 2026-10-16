@@ -632,6 +632,29 @@ def test_latest_payload_keeps_hotels_com_grand_hotel_snapshot():
     assert all(row["comparison_status"] == "comparable" for row in grand_hotel)
 
 
+def test_latest_payload_keeps_hotels_com_le_meridien_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    le_meridien = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "le_meridien_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(le_meridien) == 9
+    assert {float(row["room_size_sqm"]) for row in le_meridien} == {
+        35.0,
+        38.0,
+        60.0,
+        75.0,
+    }
+    assert {row["breakfast_included"] for row in le_meridien} == {False}
+    assert min(float(row["total_twd"]) for row in le_meridien) == 15015
+    assert max(float(row["total_twd"]) for row in le_meridien) == 56364
+    assert all(row["comparison_status"] == "comparable" for row in le_meridien)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
