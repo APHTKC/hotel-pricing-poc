@@ -752,7 +752,9 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(canonical_comparison_key(row) is None for row in doubletree_rows)
 
     humble_house_rows = [
-        row for row in rows if row.hotel_id == "humble_house_taipei"
+        row for row in rows
+        if row.hotel_id == "humble_house_taipei"
+        and row.source_platform == "booking_com"
     ]
     assert len(humble_house_rows) == 4
     assert {row.room_size_sqm for row in humble_house_rows} == {
@@ -763,6 +765,26 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in humble_house_rows) == Decimal("13282")
     assert all(row.tax_inclusion == "unknown" for row in humble_house_rows)
     assert all(canonical_comparison_key(row) is None for row in humble_house_rows)
+
+    humble_house_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "humble_house_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(humble_house_expedia_rows) == 8
+    assert {row.room_size_sqm for row in humble_house_expedia_rows} == {
+        Decimal("26"), Decimal("36"), Decimal("53")
+    }
+    assert {row.breakfast_included for row in humble_house_expedia_rows} == {
+        False
+    }
+    assert min(row.total_price for row in humble_house_expedia_rows) == Decimal("10395")
+    assert max(row.total_price for row in humble_house_expedia_rows) == Decimal("20790")
+    assert all(row.tax_inclusion == "included" for row in humble_house_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in humble_house_expedia_rows
+    )
 
     kimpton_rows = [row for row in rows if row.hotel_id == "kimpton_da_an"]
     latest_kimpton_query = max(row.queried_at for row in kimpton_rows)

@@ -676,6 +676,28 @@ def test_latest_payload_keeps_hotels_com_intercontinental_taipei_snapshot():
     assert all(row["comparison_status"] == "comparable" for row in intercontinental)
 
 
+def test_latest_payload_keeps_hotels_com_humble_house_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    humble_house = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "humble_house_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(humble_house) == 8
+    assert {float(row["room_size_sqm"]) for row in humble_house} == {
+        26.0,
+        36.0,
+        53.0,
+    }
+    assert {row["breakfast_included"] for row in humble_house} == {False}
+    assert min(float(row["total_twd"]) for row in humble_house) == 10395
+    assert max(float(row["total_twd"]) for row in humble_house) == 20790
+    assert all(row["comparison_status"] == "comparable" for row in humble_house)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
