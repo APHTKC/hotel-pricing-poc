@@ -439,6 +439,23 @@ def test_latest_payload_keeps_hotels_com_millennium_taichung_snapshot():
     assert {row["comparison_status"] for row in hotel} == {"comparable"}
 
 
+def test_latest_payload_keeps_hotels_com_le_meridien_taichung_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    hotel = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "le_meridien_taichung"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(hotel) == 2
+    assert {float(row["room_size_sqm"]) for row in hotel} == {43.0}
+    assert {row["breakfast_included"] for row in hotel} == {False}
+    assert {float(row["total_price"]) for row in hotel} == {7277}
+    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+
+
 def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
     sheraton = [
