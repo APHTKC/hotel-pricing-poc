@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01",
+  "updated_at": "2026-10-16",
   "hotels": [
     {
       "id": "four_seasons_taipei",
@@ -145,6 +145,46 @@
       "source_urls": [
         "https://travel.udn.com/travel/story/7934/9491055",
         "https://www.economic.taichung.gov.tw/16103/16153/16163/16181/2880637/2880660/2880928/post"
+      ]
+    },
+    {
+      "id": "capella_kenting",
+      "name": "Capella Kenting",
+      "name_zh": "墾丁嘉佩樂酒店",
+      "city": "Pingtung",
+      "district": "Hengchun",
+      "country": "TW",
+      "opening_status": "upcoming",
+      "expected_opening_zh": "預計 2029 年（品牌官網最新資訊；先前公布為 2028 年）",
+      "expected_opening_en": "Expected in 2029 (latest brand website; previously announced for 2028)",
+      "expected_opening_ja": "2029年開業予定（ブランド公式サイト最新情報、当初発表は2028年）",
+      "planned_rooms": 65,
+      "planned_room_size_min_sqm": 197,
+      "planned_facilities": ["Private pool", "Private hot spring", "SPA", "Swimming pools", "Fitness gym", "Onsen bathhouses", "Capella Living Room", "Clubhouse"],
+      "project_highlights_zh": [
+        "品牌官網目前將墾丁列為 2029 年開幕；2024 年最初公告為 2028 年，故以最新官方年份為主",
+        "規劃 65 棟獨立 Villa，住宿空間自約 197㎡ 起；最終房型與面積仍待開幕前官方資料表確認",
+        "每棟 Villa 規劃私人泳池、溫泉設施及海景；基地位於屏東恆春半島西岸",
+        "建築團隊公開規劃 SPA、泳池、健身房、溫泉浴場、Capella Living Room、Clubhouse、餐飲及婚宴空間"
+      ],
+      "project_highlights_en": [
+        "The brand website currently lists Kenting for 2029; the original 2024 announcement targeted 2028, so the latest official year is used",
+        "The project plans 65 private villas with accommodation starting at about 197 sq m; final room types and areas remain subject to pre-opening factsheets",
+        "Each villa is planned with a private pool, hot-spring facilities, and sea views on the western coast of the Hengchun Peninsula",
+        "Published design plans include a spa, pools, gym, onsen bathhouses, Capella Living Room, clubhouse, dining, and wedding spaces"
+      ],
+      "project_highlights_ja": [
+        "ブランド公式サイトは現在、墾丁を2029年開業予定と掲載。2024年の当初発表は2028年のため、最新の公式年を採用",
+        "独立型ヴィラ65棟、客室面積は約197㎡からを計画。最終的な客室タイプと面積は開業前の公式資料で再確認予定",
+        "各ヴィラにプライベートプール、温泉設備、海景を計画。屏東県・恒春半島西岸に位置",
+        "公開設計ではスパ、プール、ジム、温泉浴場、Capella Living Room、クラブハウス、飲食・婚礼施設を計画"
+      ],
+      "source_urls": [
+        "https://capellahotels.com/en",
+        "https://www.linkedin.com/posts/capellahotels_capellakenting-newopening-taiwan-activity-7221760559979843584-cdCm",
+        "https://www.archilovers.com/projects/328925/capella-kenting-resort.html",
+        "https://www.hospitalitynet.org/announcement/41011318.html",
+        "https://www.atp.gov.tw/Upload/202408071614_%E5%B1%8F%E6%9D%B1%E7%B8%A3%E7%94%A2%E6%A5%AD%E6%83%85%E5%A0%B1%E6%9C%8D%E5%8B%99%E9%9B%99%E9%80%B1%E5%A0%B1.pdf"
       ]
     },
     {

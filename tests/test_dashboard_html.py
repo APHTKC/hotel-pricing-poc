@@ -1516,6 +1516,7 @@ def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
         "jw_marriott_taichung",
         "andaz_taichung",
         "kempinski_taichung",
+        "capella_kenting",
         "hyatt_regency_kaohsiung",
     }
     assert all(hotel["opening_status"] == "upcoming" for hotel in by_id.values())
@@ -1523,6 +1524,13 @@ def test_hotel_profile_page_lists_upcoming_luxury_hotels_separately():
     assert "2028" in by_id["four_seasons_taipei"]["expected_opening_zh"]
     assert by_id["kempinski_taichung"]["planned_rooms"] == 312
     assert "2027" in by_id["kempinski_taichung"]["expected_opening_zh"]
+    capella_kenting = by_id["capella_kenting"]
+    assert capella_kenting["city"] == "Pingtung"
+    assert capella_kenting["planned_rooms"] == 65
+    assert capella_kenting["planned_room_size_min_sqm"] == 197
+    assert "2029" in capella_kenting["expected_opening_zh"]
+    assert "Private pool" in capella_kenting["planned_facilities"]
+    assert len(capella_kenting["source_urls"]) >= 4
     ambassador_palace = by_id["ambassador_palace_hotel_taipei"]
     assert ambassador_palace["name_zh"] == "台北國賓皇宮酒店"
     assert ambassador_palace["district"] == "Zhongshan"
