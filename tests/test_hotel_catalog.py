@@ -47,7 +47,7 @@ def test_new_taipei_high_end_hotels_are_registered_once_with_source_status():
         assert hotel["enabled"] is False
         expected_status = (
             "browser_snapshot"
-            if hotel_id == "courtyard_taipei_downtown"
+            if hotel_id in {"courtyard_taipei_downtown", "renaissance_taipei_shihlin"}
             else "skipped"
         )
         assert hotel["automation_status"] == expected_status
