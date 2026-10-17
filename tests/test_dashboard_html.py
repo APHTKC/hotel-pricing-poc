@@ -1905,6 +1905,20 @@ def test_home_loads_daily_market_digest_and_quality_warnings():
     assert "資料核實中" in home and "資料核實中" in hotels
 
 
+def test_frontend_adr_paths_prefer_nightly_normalized_values():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+    hotels = Path("public/hotels.html").read_text(encoding="utf-8")
+    charts = Path("public/assets/js/charts.js").read_text(encoding="utf-8")
+
+    assert home.count("nightly_adr_twd??r.total_twd") >= 5
+    assert "display_nightly_adr" in home
+    assert "r.nightly_adr_twd??r.total_twd" in history
+    assert "'nightly_adr_twd'" in history
+    assert "r.nightly_adr_twd??r.total_twd" in hotels
+    assert "row.nightly_adr_twd ?? row.total_twd" in charts
+
+
 def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     html = Path("public/hotels.html").read_text(encoding="utf-8")
     data = json.loads(

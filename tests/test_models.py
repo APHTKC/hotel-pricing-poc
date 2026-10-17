@@ -58,3 +58,21 @@ def test_missing_room_size_has_unknown_band():
 
     assert row.size_band == "unknown"
     assert row.price_per_sqm is None
+
+
+def test_multinight_totals_are_normalized_to_nightly_adr():
+    row = RateObservation(
+        observation_id="two-nights", queried_at=datetime.now(UTC),
+        check_in=date(2026, 9, 1), check_out=date(2026, 9, 3),
+        lead_days=5, nights=1, hotel_id="h", hotel_name="Hotel",
+        room_type_name="Room", room_size_sqm=Decimal("50"),
+        rate_plan_name="Flexible", total_price=Decimal("24000"), currency="TWD",
+        source_url="https://example.com", status=ScrapeStatus.LIVE,
+        cpi_index=Decimal("100"), cpi_base_index=Decimal("100"),
+    )
+
+    assert row.nights == 2
+    assert row.total_twd == Decimal("24000")
+    assert row.nightly_adr_twd == Decimal("12000")
+    assert row.price_per_sqm == Decimal("240")
+    assert row.cpi_adjusted_twd == Decimal("12000")

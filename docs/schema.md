@@ -8,14 +8,14 @@
 | 欄位群組 | 主要欄位 | 說明 |
 |---|---|---|
 | 批次 | `schema_version`, `observation_id`, `run_id`, `scheduled_for`, `queried_at` | `run_id` 為一次發布批次共用 ID；同一 workflow 的官網與 OTA 工作共用 |
-| 入住 | `check_in`, `check_out`, `lead_days`, `nights` | 預設一晚；`lead_days` 依飯店 IANA 時區的查詢當地日期計算 |
+| 入住 | `check_in`, `check_out`, `lead_days`, `nights` | `nights` 由退房日減入住日校正；`lead_days` 依飯店 IANA 時區的查詢當地日期計算 |
 | 人數 | `rooms`, `adults`, `children` | 預設 1 房、2 成人、0 兒童 |
 | 飯店 | `hotel_id`, `hotel_name`, `city`, `district` | `hotel_id` 為穩定識別碼 |
 | 房型 | `room_type_code`, `room_type_name`, `room_size_sqm`, `size_band` | 無面積一律為 `unknown` |
 | 方案 | `rate_plan_code`, `rate_plan_name`, `breakfast_included`, `cancellation_policy` | 無可靠資訊保留空值 |
 | 價格 | `price_before_tax`, `service_charge`, `tax`, `tax_inclusion`, `total_price`, `currency` | 不可臆測稅費拆分 |
 | 來源 | `source_platform`, `source_method`, `source_property_id`, `source_url`, `status` | 官網預設 `official` |
-| 分析 | `price_per_sqm`, `fx_rate_to_twd`, `total_twd`, `cpi_index`, `cpi_base_index`, `cpi_adjusted_twd` | 衍生欄位 |
+| 分析 | `nightly_adr_twd`, `price_per_sqm`, `fx_rate_to_twd`, `total_twd`, `cpi_index`, `cpi_base_index`, `cpi_adjusted_twd` | `total_twd` 為住宿總額；ADR、每㎡與 CPI 指標皆採每晚金額 |
 
 `total_price` 必須是完成訂房前可確認的完整住宿總價。無法可靠拆分未稅價、服務費或
 稅額時，相關欄位維持空值。`status=demo` 永遠只代表測試資料；預設 Demo 關閉。
@@ -48,6 +48,7 @@ hotel_id + source_platform + check_in + check_out
 市場 ADR 與每㎡指標採飯店等權：先計算每家飯店在目前篩選範圍內的中位數，
 再取所有飯店中位數的中位數。FastAPI 與靜態 JSON 共用 `services/market_metrics.py`，
 避免兩套算法不一致。無效、非正數或缺少 TWD 換算值的資料不納入。
+`nightly_adr_twd = total_twd / nights`；一晚資料與既有數值完全相同。
 
 ## OTA Canonical Comparison Key
 

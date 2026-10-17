@@ -42,6 +42,22 @@ def test_exact_same_product_is_compared():
     assert comparisons[0]["gap_percent"] == pytest.approx(0.1)
 
 
+def test_multinight_parity_compares_nightly_adr():
+    official = product(
+        check_out=date(2026, 10, 3), nights=2, total_price=Decimal("24000")
+    )
+    ota = product(
+        check_out=date(2026, 10, 3), nights=2,
+        source_platform="booking_com", total_price=Decimal("26000"),
+    )
+
+    comparison = calculate_rate_parity([official, ota])[0]
+
+    assert comparison["official_median_twd"] == 12000
+    assert comparison["ota_median_twd"] == 13000
+    assert comparison["gap_percent"] == pytest.approx(1 / 12)
+
+
 def test_comparison_uses_nearest_observation_batch_within_one_day():
     official_old = product(
         queried_at="2026-10-01T01:00:00Z", total_price=Decimal("7000")

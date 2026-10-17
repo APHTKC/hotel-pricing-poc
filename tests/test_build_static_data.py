@@ -1501,6 +1501,19 @@ def test_static_partition_ids_fail_closed_and_heatmap_rows_are_lightweight():
     assert "source_url" not in row
 
 
+def test_dashboard_row_publishes_nightly_adr_and_nightly_unit_price():
+    row = _dashboard_row({
+        "hotel_id": "hotel-a", "check_in": "2026-10-01",
+        "check_out": "2026-10-03", "nights": 1,
+        "total_twd": 24000, "room_size_sqm": 50,
+    })
+
+    assert row["nights"] == 2
+    assert row["total_twd"] == 24000
+    assert row["nightly_adr_twd"] == 12000
+    assert row["price_per_sqm"] == 240
+
+
 def test_month_key_uses_observation_month_and_rejects_missing_timestamp():
     assert _month_key({"queried_at": "2026-09-30T23:59:00+00:00"}) == "2026-09"
     assert _month_key({}) is None

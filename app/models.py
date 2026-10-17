@@ -2,7 +2,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from enum import StrEnum
 
-from pydantic import BaseModel, Field, computed_field
+from pydantic import BaseModel, Field, computed_field, model_validator
 
 
 class ScrapeStatus(StrEnum):
@@ -70,10 +70,23 @@ class RateObservation(BaseModel):
     cpi_index: Decimal | None = None
     cpi_base_index: Decimal | None = None
 
+    @model_validator(mode="after")
+    def synchronize_stay_length(self):
+        actual_nights = (self.check_out - self.check_in).days
+        if actual_nights < 1:
+            raise ValueError("check_out must be after check_in")
+        self.nights = actual_nights
+        return self
+
+    @computed_field
+    @property
+    def nightly_adr_twd(self) -> Decimal | None:
+        return self.total_twd / self.nights if self.total_twd and self.nights else None
+
     @computed_field
     @property
     def price_per_sqm(self) -> Decimal | None:
-        return self.total_twd / self.room_size_sqm if self.room_size_sqm and self.total_twd else None
+        return self.nightly_adr_twd / self.room_size_sqm if self.room_size_sqm and self.nightly_adr_twd else None
 
     @computed_field
     @property
@@ -85,9 +98,9 @@ class RateObservation(BaseModel):
     @computed_field
     @property
     def cpi_adjusted_twd(self) -> Decimal | None:
-        if not self.total_twd or not self.cpi_index or not self.cpi_base_index:
+        if not self.nightly_adr_twd or not self.cpi_index or not self.cpi_base_index:
             return None
-        return self.total_twd * self.cpi_base_index / self.cpi_index
+        return self.nightly_adr_twd * self.cpi_base_index / self.cpi_index
 
     @computed_field
     @property

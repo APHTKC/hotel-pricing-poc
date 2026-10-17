@@ -8,6 +8,7 @@ from pathlib import Path
 from app.models import RateObservation
 from services.deduplication import deduplicate_observations
 from services.market_metrics import calculate_market_summary
+from services.pricing import nightly_adr_twd, nightly_price_per_sqm_twd, stay_nights
 from services.rate_parity import (
     calculate_rate_parity,
     canonical_comparison_key,
@@ -35,7 +36,7 @@ DASHBOARD_FIELDS = (
     "run_id", "scheduled_for", "hotel_id", "hotel_name", "city", "district", "room_type_code", "room_type_name",
     "room_size_sqm", "check_in", "check_out", "lead_days", "nights", "rooms", "adults", "children",
     "rate_plan_name", "breakfast_included", "cancellation_policy", "price_before_tax",
-    "service_charge", "tax", "tax_inclusion", "total_price", "total_twd",
+    "service_charge", "tax", "tax_inclusion", "total_price", "total_twd", "nightly_adr_twd",
     "price_per_sqm", "queried_at", "currency", "source_platform",
     "source_method", "source_property_id", "source_url",
     "size_band", "occupancy", "cancellation_class", "comparison_key", "comparison_status",
@@ -44,7 +45,7 @@ DASHBOARD_FIELDS = (
 HEATMAP_FIELDS = (
     "hotel_id", "hotel_name", "city", "district", "room_type_code",
     "room_type_name", "room_size_sqm", "check_in", "lead_days",
-    "rate_plan_name", "total_price", "total_twd", "price_per_sqm",
+    "rate_plan_name", "total_price", "total_twd", "nightly_adr_twd", "price_per_sqm",
     "queried_at", "source_platform", "comparison_key",
 )
 
@@ -60,13 +61,18 @@ def _dashboard_row(row: dict) -> dict:
     # the full history after OTA records are introduced.
     published["source_platform"] = row.get("source_platform") or "official"
     published["source_method"] = row.get("source_method") or "public_booking_page"
+    published["nights"] = stay_nights(row)
+    nightly = nightly_adr_twd(row)
+    unit = nightly_price_per_sqm_twd(row)
+    published["nightly_adr_twd"] = float(nightly) if nightly is not None else None
+    published["price_per_sqm"] = float(unit) if unit is not None else None
     published.update(comparison_metadata(row))
     return published
 
 
 def _plausible_luxury_rate(row: dict) -> bool:
     """Fail closed when a foreign price was accidentally labelled as TWD."""
-    total_twd = row.get("total_twd")
+    total_twd = nightly_adr_twd(row)
     try:
         return total_twd is not None and 3000 <= float(total_twd) <= 2_000_000
     except (TypeError, ValueError):
@@ -231,7 +237,7 @@ def _period_market(rows: list[dict]) -> dict:
     names: dict[str, str | None] = {}
     for row in rows:
         hotel_id = row.get("hotel_id")
-        value = _number(row.get("total_twd"))
+        value = _number(nightly_adr_twd(row))
         if not hotel_id or value is None:
             continue
         by_hotel[hotel_id].append(value)
@@ -262,7 +268,7 @@ def _weekly_digest(rows: list[dict]) -> dict:
     rows = _verified_market_rows(rows)
     dated_rows = []
     for row in rows:
-        if not row.get("queried_at") or _number(row.get("total_twd")) is None:
+        if not row.get("queried_at") or _number(nightly_adr_twd(row)) is None:
             continue
         try:
             day = _parse_timestamp(row["queried_at"]).date()
@@ -321,7 +327,7 @@ def _weekly_digest(rows: list[dict]) -> dict:
         except (TypeError, ValueError):
             continue
         hotel_id = row.get("hotel_id")
-        value = _number(row.get("total_twd"))
+        value = _number(nightly_adr_twd(row))
         if hotel_id and value is not None:
             lead_hotel_values[lead][hotel_id].append(value)
     lead_time_curve = []
@@ -375,7 +381,7 @@ def _equal_weight_median(rows: list[dict], *, core_only: bool = False) -> float 
             size = _number(row.get("room_size_sqm"))
             if size is None or not 45 <= size < 60:
                 continue
-        value = _number(row.get("total_twd"))
+        value = _number(nightly_adr_twd(row))
         if row.get("hotel_id") and value is not None:
             by_hotel[row["hotel_id"]].append(value)
     return _median([_median(values) for values in by_hotel.values() if values])
@@ -389,7 +395,7 @@ def _hotel_forward_medians(rows: list[dict], start, end) -> dict[str, dict]:
             check_in = datetime.fromisoformat(str(row.get("check_in"))).date()
         except (TypeError, ValueError):
             continue
-        value = _number(row.get("total_twd"))
+        value = _number(nightly_adr_twd(row))
         hotel_id = row.get("hotel_id")
         if hotel_id and value is not None and start <= check_in <= end:
             grouped[hotel_id].append(value)
@@ -490,7 +496,7 @@ def _data_quality_warnings(rows: list[dict]) -> dict:
     days = set()
     for row in rows:
         hotel_id = row.get("hotel_id")
-        value = _number(row.get("total_twd"))
+        value = _number(nightly_adr_twd(row))
         try:
             day = _parse_timestamp(row.get("queried_at", "")).date()
         except (TypeError, ValueError):
@@ -540,7 +546,7 @@ def _history_summary(rows: list[dict]) -> dict:
     hotel_groups: dict[tuple, list[dict]] = defaultdict(list)
     for row in rows:
         queried_at = row.get("queried_at")
-        total = _number(row.get("total_twd"))
+        total = _number(nightly_adr_twd(row))
         if not queried_at or total is None:
             continue
         queried_date = _parse_timestamp(queried_at).date().isoformat()
@@ -554,16 +560,16 @@ def _history_summary(rows: list[dict]) -> dict:
             lead_groups[(*identity, int(lead))].append(row)
 
     def stats(group: list[dict]) -> dict:
-        values = [_number(row.get("total_twd")) for row in group]
+        values = [_number(nightly_adr_twd(row)) for row in group]
         values = [value for value in values if value is not None]
         core = [
-            _number(row.get("total_twd"))
+            _number(nightly_adr_twd(row))
             for row in group
             if _number(row.get("room_size_sqm")) is not None
             and 45 <= float(row["room_size_sqm"]) < 60
         ]
         core = [value for value in core if value is not None]
-        unit = [_number(row.get("price_per_sqm")) for row in group]
+        unit = [_number(nightly_price_per_sqm_twd(row)) for row in group]
         unit = [value for value in unit if value is not None]
         return {
             "observations": len(values),

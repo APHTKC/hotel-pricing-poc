@@ -5,6 +5,8 @@ from collections.abc import Iterable, Mapping
 from statistics import mean, median
 from typing import Any
 
+from services.pricing import nightly_adr_twd, nightly_price_per_sqm_twd, stay_nights
+
 
 def _field(row: object, name: str) -> Any:
     if isinstance(row, Mapping):
@@ -51,9 +53,20 @@ def calculate_market_summary(rows: Iterable[object]) -> dict[str, int | float | 
     hotel_per_sqm_medians: list[float] = []
     hotel_cpi_medians: list[float] = []
     for hotel_rows in grouped.values():
-        totals = [value for row in hotel_rows if (value := _number(row, "total_twd")) is not None]
-        per_sqm = [value for row in hotel_rows if (value := _number(row, "price_per_sqm")) is not None]
-        cpi = [value for row in hotel_rows if (value := _number(row, "cpi_adjusted_twd")) is not None]
+        totals = [float(value) for row in hotel_rows if (value := nightly_adr_twd(row)) is not None]
+        per_sqm = [float(value) for row in hotel_rows if (value := nightly_price_per_sqm_twd(row)) is not None]
+        cpi: list[float] = []
+        for row in hotel_rows:
+            nightly = nightly_adr_twd(row)
+            index = _number(row, "cpi_index")
+            base = _number(row, "cpi_base_index")
+            if nightly is not None and index and base:
+                cpi.append(float(nightly) * base / index)
+                continue
+            adjusted = _number(row, "cpi_adjusted_twd")
+            nights = stay_nights(row)
+            if adjusted is not None and nights:
+                cpi.append(adjusted / nights)
         if totals:
             hotel_averages.append(mean(totals))
             hotel_medians.append(median(totals))

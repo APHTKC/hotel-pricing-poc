@@ -8,8 +8,10 @@ from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from datetime import datetime
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal
 from typing import Any
+
+from services.pricing import nightly_adr_twd
 
 UNKNOWN = "unknown"
 
@@ -135,10 +137,8 @@ def calculate_rate_parity(
         key = canonical_comparison_key(row)
         if key is None:
             continue
-        total = _value(row, "total_twd") or _value(row, "total_price")
-        try:
-            value = Decimal(str(total))
-        except (TypeError, ValueError, InvalidOperation):
+        value = nightly_adr_twd(row)
+        if value is None:
             continue
         platform = str(_value(row, "source_platform", "official") or "official")
         serialized = key.serialize()

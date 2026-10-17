@@ -37,3 +37,21 @@ def test_market_summary_excludes_ota_and_keeps_legacy_official_rows():
     assert result["observations"] == 2
     assert result["hotels"] == 2
     assert result["median_adr_twd"] == 11000
+
+
+def test_market_summary_uses_nightly_adr_for_multinight_stays():
+    result = calculate_market_summary([
+        {
+            "hotel_id": "hotel-a", "check_in": "2026-10-01",
+            "check_out": "2026-10-03", "nights": 2,
+            "total_twd": 24000, "room_size_sqm": 50,
+        },
+        {
+            "hotel_id": "hotel-b", "check_in": "2026-10-01",
+            "check_out": "2026-10-02", "nights": 1,
+            "total_twd": 10000, "room_size_sqm": 50,
+        },
+    ])
+
+    assert result["median_adr_twd"] == 11000
+    assert result["median_per_sqm_twd"] == 220

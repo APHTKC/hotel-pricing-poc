@@ -69,7 +69,7 @@ export function renderPriceHeatmap({
   };
   const groups = new Map();
   rows.forEach(row => {
-    const base = Number(row.total_twd ?? row.total_price);
+    const base = Number(row.nightly_adr_twd ?? row.total_twd ?? row.total_price);
     if (!row.hotel_id || !row.check_in || !Number.isFinite(base)) return;
     const key = `${row.hotel_id}|${row.check_in}`;
     const group = groups.get(key) || { hotelId: row.hotel_id, hotel: hotelLabel(row), date: row.check_in, values: [], rooms: new Set(), leads: new Set() };
