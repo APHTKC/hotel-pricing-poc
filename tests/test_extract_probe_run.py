@@ -29,3 +29,23 @@ def test_extract_probe_run_requires_ignored_probe_suffix(tmp_path):
     source.write_text('{"run_id":"probe"}\n', encoding="utf-8")
     with pytest.raises(ValueError, match="-local-probe.jsonl"):
         extract_probe_run(source, tmp_path / "probe.jsonl", "probe")
+
+
+def test_extract_probe_run_scans_bounded_daily_shards(tmp_path):
+    source = tmp_path / "rates"
+    first = source / "2026-09" / "2026-09-30.jsonl"
+    second = source / "2026-10" / "2026-10-01.jsonl"
+    first.parent.mkdir(parents=True)
+    second.parent.mkdir(parents=True)
+    first.write_text('{"run_id":"daily","hotel_id":"a"}\n', encoding="utf-8")
+    second.write_text(
+        '{"run_id":"probe","hotel_id":"b"}\n'
+        '{"run_id":"daily","hotel_id":"c"}\n',
+        encoding="utf-8",
+    )
+    target = tmp_path / "daily-local-probe.jsonl"
+
+    assert extract_probe_run(source, target, "probe") == 1
+    assert json.loads(target.read_text()) == {"run_id": "probe", "hotel_id": "b"}
+    assert json.loads(first.read_text()) == {"run_id": "daily", "hotel_id": "a"}
+    assert json.loads(second.read_text()) == {"run_id": "daily", "hotel_id": "c"}

@@ -10,11 +10,13 @@ from storage.base import RateStore
 
 
 def jsonl_partition_paths(path: Path) -> list[Path]:
-    """Return deterministic JSONL inputs for a legacy file or shard directory."""
+    """Return deterministic inputs for legacy, monthly, or bounded daily shards."""
     if path.is_file():
         return [path]
     if path.is_dir():
-        return sorted(path.glob("????-??.jsonl"))
+        monthly = path.glob("????-??.jsonl")
+        daily = path.glob("????-??/????-??-??.jsonl")
+        return sorted([*monthly, *daily])
     return []
 
 
@@ -32,11 +34,11 @@ def iter_jsonl_records(path: Path) -> Iterator[dict]:
                     ) from exc
 
 
-def observation_month(row: RateObservation) -> str:
+def observation_partition(row: RateObservation) -> tuple[str, str]:
     queried_at = row.queried_at
     if not isinstance(queried_at, datetime):
         raise ValueError("queried_at must be a datetime")
-    return queried_at.strftime("%Y-%m")
+    return queried_at.strftime("%Y-%m"), queried_at.strftime("%Y-%m-%d")
 
 
 class LocalJsonlStore(RateStore):
@@ -45,23 +47,24 @@ class LocalJsonlStore(RateStore):
 
     def append(self, rows: list[RateObservation]) -> int:
         # A .jsonl path remains supported for tests and one-off tools. The
-        # production path is a directory whose files are bounded by query
-        # month so no append-only Git object can approach the 100 MiB limit.
+        # production path is a month/day hierarchy. Daily files keep every Git
+        # object bounded even when a high-volume month continues to grow.
         if self.path.suffix == ".jsonl":
             groups = {self.path: rows}
             self.path.parent.mkdir(parents=True, exist_ok=True)
         else:
             self.path.mkdir(parents=True, exist_ok=True)
-            grouped: dict[str, list[RateObservation]] = defaultdict(list)
+            grouped: dict[tuple[str, str], list[RateObservation]] = defaultdict(list)
             for row in rows:
-                grouped[observation_month(row)].append(row)
+                grouped[observation_partition(row)].append(row)
             groups = {
-                self.path / f"{month}.jsonl": month_rows
-                for month, month_rows in grouped.items()
+                self.path / month / f"{day}.jsonl": partition_rows
+                for (month, day), partition_rows in grouped.items()
             }
 
         written = 0
         for shard, shard_rows in sorted(groups.items(), key=lambda item: str(item[0])):
+            shard.parent.mkdir(parents=True, exist_ok=True)
             existing_keys = {
                 observation_natural_key(record)
                 for record in iter_jsonl_records(shard)

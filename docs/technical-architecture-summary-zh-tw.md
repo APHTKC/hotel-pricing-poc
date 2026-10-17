@@ -13,7 +13,7 @@
                   ↓
        Python + Playwright/httpx adapters
                   ↓
-      data/rates/YYYY-MM.jsonl（按查價月份分片的 append-only 原始歷史）
+      data/rates/YYYY-MM/YYYY-MM-DD.jsonl（按查價月份／日期分片的 append-only 原始歷史）
                   ↓
        Python build scripts（清理、裁切欄位）
                   ↓
@@ -232,7 +232,7 @@ gap = (lowest_ota_median - official_median) / official_median
 
 `scripts/build_static_data.py` 會：
 
-1. 依月份逐行讀取 `data/rates/YYYY-MM.jsonl`。
+1. 依月份／查價日期逐行讀取 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl`。
 2. 只保留 `3,000 <= total_twd <= 2,000,000` 的資料。
 3. 裁成 dashboard 所需欄位。
 4. 依 `queried_at` 新到舊排序。
@@ -314,7 +314,7 @@ schedule 22:00 UTC
 
 ### 3.4 儲存
 
-- 正式 GitHub 模式：`LocalJsonlStore` 依 `queried_at` 月份逐行 append 至 `data/rates/YYYY-MM.jsonl`。
+- 正式 GitHub 模式：`LocalJsonlStore` 依 `queried_at` 月份與日期逐行 append 至 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl`，避免任何單檔隨整月資料無界成長。
 - Google Sheets 模式：確保 `rates` 工作表與 schema 欄位後，使用 `append_rows`；讀取時載入整張表。
 - 沒有資料庫索引、唯一鍵 constraint、upsert 或 partition。
 

@@ -31,7 +31,7 @@
 
 ## 去重
 
-寫入 `data/rates/YYYY-MM.jsonl` 及產生公開 JSON 前，以每日自然鍵去重：
+寫入 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl` 及產生公開 JSON 前，以每日自然鍵去重；日期取自 `queried_at` 的 UTC 日曆日，使每個 Git object 維持有界：
 
 ```text
 hotel_id + check_in + room_type_code + rate_plan_code + queried_at_date

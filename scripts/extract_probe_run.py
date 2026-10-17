@@ -13,7 +13,15 @@ def extract_probe_run(source: Path, target: Path, run_id: str) -> int:
     if source == target:
         raise ValueError("Source and target must differ")
 
-    sources = sorted(source.glob("????-??.jsonl")) if source.is_dir() else [source]
+    if source.is_dir():
+        sources = sorted(
+            [
+                *source.glob("????-??.jsonl"),
+                *source.glob("????-??/????-??-??.jsonl"),
+            ]
+        )
+    else:
+        sources = [source]
     selected: list[bytes] = []
     retained_by_source: dict[Path, list[bytes]] = {}
     for shard in sources:

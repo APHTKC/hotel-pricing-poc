@@ -11,7 +11,7 @@
 - 前台：原生 HTML、CSS、JavaScript、SVG 圖表與 Leaflet／OpenStreetMap 地圖，提供繁中／英文／日文及 TWD／USD／JPY 切換。
 - API：Python 3.12、FastAPI、Pydantic。
 - 抓價：可插拔 Python adapter；依訂房引擎使用 HTTPX 或 Playwright。
-- 儲存：正式歷史按查價月份保存在 `data/rates/YYYY-MM.jsonl`；Google Sheets 模組保留為選用後端。
+- 儲存：正式歷史按查價月份／日期保存在 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl`；Google Sheets 模組保留為選用後端。
 - 自動化：GitHub Actions 每日執行抓價、去重、靜態資料建置及 GitHub Pages 發布。
 - 測試：pytest，涵蓋資料模型、adapter、指標、去重、靜態建置與前台結構。
 
@@ -108,7 +108,7 @@ python -m scripts.deduplicate_rate_history
 python -m scripts.build_static_data
 ```
 
-若未設定 Google Sheets 憑證，資料寫入 `data/rates/YYYY-MM.jsonl`。完整部署步驟見
+若未設定 Google Sheets 憑證，資料寫入 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl`。完整部署步驟見
 [docs/deployment.md](docs/deployment.md)，欄位定義見 [docs/schema.md](docs/schema.md)，
 OTA 啟用條件見 [docs/ota-integration.md](docs/ota-integration.md)。
 
