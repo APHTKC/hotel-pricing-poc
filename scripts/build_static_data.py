@@ -1,4 +1,5 @@
 import json
+import hashlib
 import re
 import shutil
 import statistics
@@ -52,10 +53,10 @@ DASHBOARD_FIELDS = (
 )
 
 HEATMAP_FIELDS = (
-    "hotel_id", "hotel_name", "city", "district", "room_type_code",
+    "hotel_id", "room_type_code",
     "room_type_name", "room_size_sqm", "check_in", "lead_days",
-    "rate_plan_name", "total_price", "total_twd", "nightly_adr_twd", "price_per_sqm",
-    "queried_at", "source_platform", "comparison_key",
+    "rate_plan_name", "nightly_adr_twd", "price_per_sqm",
+    "queried_at", "source_platform",
 )
 
 
@@ -212,7 +213,17 @@ def _partition_id(value: str) -> str:
 
 
 def _heatmap_row(row: dict) -> dict:
-    return {field: row.get(field) for field in HEATMAP_FIELDS}
+    published = {field: row.get(field) for field in HEATMAP_FIELDS}
+    # The canonical key is intentionally verbose and is retained in the full
+    # detail partition. The first-screen payload only needs a stable grouping
+    # token for official-vs-OTA matching.
+    comparison_key = row.get("comparison_key")
+    published["comparison_group_id"] = (
+        hashlib.sha256(str(comparison_key).encode("utf-8")).hexdigest()[:16]
+        if comparison_key
+        else None
+    )
+    return published
 
 
 def _number(value) -> float | None:

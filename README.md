@@ -21,7 +21,7 @@
 
 ```text
 public/data/latest_summary.json          首頁 KPI 與市場摘要
-public/data/latest_heatmap.json          首頁趨勢圖與熱力圖輕量資料
+public/data/latest_heatmap.json          首頁趨勢圖與熱力圖精簡資料（目錄欄位由 hotels.json 補齊）
 public/data/latest_details/index.json    最新完整明細索引
 public/data/latest_details/<hotel>.json  按飯店分片，展開／選取／匯出時才載入
 public/data/history_summary.json         輕量預聚合歷史趨勢與每週市場摘要

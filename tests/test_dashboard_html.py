@@ -1708,7 +1708,7 @@ def test_home_has_official_vs_ota_rate_gap_comparison():
     assert 'data-i18n="sourceCompare">官網與 OTA 價差' in html
     assert "function renderSourceComparison()" in html
     assert "sourceOf(r)==='official'" in html
-    assert "comparison_key" in html
+    assert "comparison_group_id||r.comparison_key" in html
     assert "條件完全一致" in html
     assert "renderSourceComparison();" in html
 

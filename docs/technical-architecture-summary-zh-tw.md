@@ -240,7 +240,7 @@ gap = (lowest_ota_median - official_median) / official_median
 5. 產出 `latest_summary.json`、`latest_heatmap.json`，以及 `latest_details/index.json` 與每飯店明細分片。
 6. 產出 `history_summary.json`，並將歷史明細拆成 `rates/YYYY-MM/<hotel_id>.json`；`rates/index.json` 保存可用月份與飯店索引。
 
-公開明細保留同商品比價所需欄位；首屏摘要只保存 KPI、趨勢與熱力圖需要的輕量資料。
+公開明細保留同商品比價所需欄位；首屏摘要只保存 KPI、趨勢與熱力圖需要的輕量資料。`latest_heatmap` 以 16 字元雜湊群組鍵取代冗長 Canonical Comparison Key，並由 `hotels.json` 補齊重複的飯店名稱與地理欄位；完整、可稽核的比較鍵仍保留在按飯店明細分片。
 
 ### 2.8 飯店、房型與籌備中飯店主檔
 

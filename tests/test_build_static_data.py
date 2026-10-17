@@ -1450,9 +1450,10 @@ def test_static_partition_ids_fail_closed_and_heatmap_rows_are_lightweight():
     else:
         raise AssertionError("unsafe hotel ids must not become output paths")
 
-    row = _heatmap_row({"hotel_id": "hotel-a", "total_twd": 10000, "source_url": "secret"})
+    row = _heatmap_row({"hotel_id": "hotel-a", "total_twd": 10000, "source_url": "secret", "comparison_key": "same-product"})
     assert row["hotel_id"] == "hotel-a"
-    assert row["total_twd"] == 10000
+    assert "total_twd" not in row
+    assert row["comparison_group_id"] == "6966aafb2ab4821d"
     assert "source_url" not in row
 
 
