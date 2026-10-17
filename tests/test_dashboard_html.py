@@ -1611,10 +1611,21 @@ def test_home_loads_lightweight_payloads_before_details():
 
     assert "./data/latest_summary.json" in html
     assert "./data/latest_heatmap.json" in html
-    assert "loadJson('./data/latest_details.json')" in html
+    assert "loadJson('./data/latest_details/index.json')" in html
+    assert "Promise.all(paths.map" in html
+    assert "./data/latest_details.json" not in html
     assert "./data/latest.json" not in html
     assert 'id="loadLatestDetails"' in html
     assert "IntersectionObserver" in html
+
+
+def test_hotel_comparison_loads_selected_detail_partition():
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+
+    assert "loadJson('./data/latest_heatmap.json')" in html
+    assert "loadJson('./data/latest_details/index.json')" in html
+    assert "loadHotelRateDetails(hotelId)" in html
+    assert "./data/latest_details.json" not in html
 
 
 def test_hotel_detail_has_return_to_list_control():

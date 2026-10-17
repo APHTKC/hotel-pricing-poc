@@ -78,7 +78,8 @@ public/data/latest_summary.json
 public/data/latest_heatmap.json
   latest_queried_at + rates（首頁趨勢與熱力圖所需欄位）
 
-public/data/latest_details.json
+public/data/latest_details/index.json
+public/data/latest_details/<hotel_id>.json
   latest_queried_at + market_summary + rate_parity + rates（最新批次完整明細）
 
 public/data/history_summary.json

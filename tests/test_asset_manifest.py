@@ -8,13 +8,14 @@ from services.asset_manifest import build_asset_manifest
 def test_asset_manifest_matches_published_json_content():
     published = json.loads(Path("public/data/asset_manifest.json").read_text(encoding="utf-8"))
     assert published == build_asset_manifest(Path("public"))
-    assert "data/latest_details.json" in published["assets"]
+    assert "data/latest_details/index.json" in published["assets"]
+    assert "data/latest_details.json" not in published["assets"]
     assert "data/rates/index.json" in published["assets"]
     assert "data/asset_manifest.json" not in published["assets"]
     assert "data/site_meta.json" not in published["assets"]
 
-    details = Path("public/data/latest_details.json").read_bytes()
-    assert published["assets"]["data/latest_details.json"] == {
+    details = Path("public/data/latest_details/index.json").read_bytes()
+    assert published["assets"]["data/latest_details/index.json"] == {
         "sha256": hashlib.sha256(details).hexdigest()[:16],
         "bytes": len(details),
     }

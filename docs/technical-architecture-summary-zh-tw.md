@@ -26,7 +26,7 @@ FastAPI、Google Sheets、Cloud Run 與 Cloud Scheduler 仍保留在程式中，
 
 - 飯店 Catalog：68 家，其中 23 家啟用每日資料管線；其餘候選來源依健康狀態與可行性檢查結果暫緩。
 - 原始歷史資料：截至 2026-10-08 共 61,751 筆、31 家已有歷史房價；新升級的北投大地酒店會由下一次每日工作開始累積正式歷史。
-- 最新完整明細依每日成功批次動態變化；`public/data/latest_details.json` 採按需載入，不阻塞首頁首屏。
+- 最新完整明細依每日成功批次動態變化；`public/data/latest_details/index.json` 搭配每飯店分片按需載入，不阻塞首頁首屏。
 - 飯店基本資料：68 家皆有已核實 profile 與獨立 `room_snapshot`；來源不足的欄位維持待核實。
 - 籌備中飯店：8 家，獨立存放於 `upcoming_hotels.json`，不參與 ADR 計算。
 - OTA：Booking.com Demand API client 已完成，但目前沒有可發布的 OTA 房價；現有歷史資料皆標記為 `official`。
@@ -237,7 +237,7 @@ gap = (lowest_ota_median - official_median) / official_median
 2. 只保留 `3,000 <= total_twd <= 2,000,000` 的資料。
 3. 裁成 dashboard 所需欄位。
 4. 依 `queried_at` 新到舊排序。
-5. 產出 `latest_summary.json`、`latest_heatmap.json` 與按需載入的 `latest_details.json`。
+5. 產出 `latest_summary.json`、`latest_heatmap.json`，以及 `latest_details/index.json` 與每飯店明細分片。
 6. 產出 `history_summary.json`，並將歷史明細拆成 `rates/YYYY-MM/<hotel_id>.json`；`rates/index.json` 保存可用月份與飯店索引。
 
 公開明細保留同商品比價所需欄位；首屏摘要只保存 KPI、趨勢與熱力圖需要的輕量資料。
@@ -414,7 +414,7 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 nightly_adr_twd)
 ### P1：效能與擴充性
 
 1. **歷史 JSON 分片已完成，最新明細仍會成長。**  
-   history 首屏已改用預聚合摘要，月份明細按飯店下載；首頁的 `latest_details.json` 亦採懶載入。後續仍需監控單一飯店月分片與最新完整明細的成長速度。
+   history 首屏已改用預聚合摘要，月份明細按飯店下載；首頁最新完整明細亦按飯店分片並懶載入。後續仍需監控單一飯店月分片與最新分片的成長速度。
 
 2. **前端多次 O(H × D × N) 掃描。**  
    各飯店、日期、lead time 都重新 `rows.filter`。資料量增加後，互動與重繪會明顯變慢。

@@ -22,7 +22,8 @@
 ```text
 public/data/latest_summary.json          首頁 KPI 與市場摘要
 public/data/latest_heatmap.json          首頁趨勢圖與熱力圖輕量資料
-public/data/latest_details.json          最新完整明細，展開／捲動／匯出時才載入
+public/data/latest_details/index.json    最新完整明細索引
+public/data/latest_details/<hotel>.json  按飯店分片，展開／選取／匯出時才載入
 public/data/history_summary.json         輕量預聚合歷史趨勢與每週市場摘要
 public/data/rates/index.json             可用月份與飯店明細索引
 public/data/rates/YYYY-MM/HOTEL_ID.json  選定月份與單一飯店後才載入
@@ -45,7 +46,7 @@ public/data/hotel_locations.json         68 家飯店的快取座標、城市、
 | 歷史分析 | `rates/2026-09.json` 56,005,329 bytes | 190,359 bytes | 4 個 JSON | 約減少 99.7% |
 
 即時總覽首屏數字包含 `latest_summary`、`latest_heatmap`、匯率、飯店目錄、adapter
-健康度及市場摘要；3,880,962-byte 的 `latest_details.json` 不在首屏下載。歷史首屏數字包含
+健康度及市場摘要；完整明細改由 `latest_details/index.json` 導向按飯店分片，不在首屏整批下載。歷史首屏數字包含
 `history_summary`、`rates/index`、匯率及飯店目錄；2026-09 的 18 個飯店分片總計
 56,011,071 bytes，只在使用者選定月份及單一飯店後下載其中一個分片。
 

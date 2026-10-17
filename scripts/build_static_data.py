@@ -28,7 +28,9 @@ HISTORY_SUMMARY_TARGET = Path("public/data/history_summary.json")
 RATES_INDEX_TARGET = RATES_DIR / "index.json"
 LATEST_SUMMARY_TARGET = Path("public/data/latest_summary.json")
 LATEST_HEATMAP_TARGET = Path("public/data/latest_heatmap.json")
-LATEST_DETAILS_TARGET = Path("public/data/latest_details.json")
+LATEST_DETAILS_DIR = Path("public/data/latest_details")
+LATEST_DETAILS_INDEX_TARGET = LATEST_DETAILS_DIR / "index.json"
+LEGACY_LATEST_DETAILS_TARGET = Path("public/data/latest_details.json")
 LEGACY_LATEST_TARGET = Path("public/data/latest.json")
 HEALTH_TARGET = Path("public/data/adapter_health.json")
 DIGEST_TARGET = Path("public/data/digest.json")
@@ -838,21 +840,60 @@ def main() -> None:
         ),
         encoding="utf-8",
     )
-    LATEST_DETAILS_TARGET.write_text(
+    # Keep the latest detail layer bounded and independently cacheable. The
+    # first-screen heatmap stays compact; consumers fetch only the selected
+    # hotel's complete observations (or all partitions for an explicit export).
+    if LATEST_DETAILS_DIR.exists():
+        shutil.rmtree(LATEST_DETAILS_DIR)
+    LATEST_DETAILS_DIR.mkdir(parents=True, exist_ok=True)
+    latest_detail_groups: dict[str, list[dict]] = defaultdict(list)
+    for row in latest_rows:
+        if row.get("hotel_id"):
+            latest_detail_groups[_partition_id(str(row["hotel_id"]))].append(row)
+    latest_detail_hotels = []
+    for hotel_id in sorted(latest_detail_groups):
+        hotel_rows = latest_detail_groups[hotel_id]
+        hotel_name = next(
+            (row.get("hotel_name") for row in hotel_rows if row.get("hotel_name")),
+            hotel_id,
+        )
+        filename = f"{hotel_id}.json"
+        (LATEST_DETAILS_DIR / filename).write_text(
+            json.dumps(
+                {
+                    "generated_from": str(SOURCE).replace("\\", "/"),
+                    "latest_queried_at": latest_queried_at,
+                    "hotel_id": hotel_id,
+                    "hotel_name": hotel_name,
+                    "rates": hotel_rows,
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        latest_detail_hotels.append(
+            {
+                "hotel_id": hotel_id,
+                "hotel_name": hotel_name,
+                "observations": len(hotel_rows),
+                "path": f"latest_details/{filename}",
+            }
+        )
+    LATEST_DETAILS_INDEX_TARGET.write_text(
         json.dumps(
             {
                 "generated_from": str(SOURCE).replace("\\", "/"),
                 "latest_queried_at": latest_queried_at,
-                "metric_scope": "verified_official_only",
-                "verified_market_metrics": latest_summary,
-                "market_summary": latest_summary,
-                "rate_parity": latest_parity,
-                "rates": latest_rows,
+                "record_count": len(latest_rows),
+                "hotel_count": len(latest_detail_hotels),
+                "hotels": latest_detail_hotels,
             },
             ensure_ascii=False,
         ),
         encoding="utf-8",
     )
+    if LEGACY_LATEST_DETAILS_TARGET.exists():
+        LEGACY_LATEST_DETAILS_TARGET.unlink()
     if HOTEL_PROFILES_SOURCE.exists():
         profiles_payload = json.loads(HOTEL_PROFILES_SOURCE.read_text(encoding="utf-8"))
         ROOM_TYPE_DIMENSION_TARGET.write_text(

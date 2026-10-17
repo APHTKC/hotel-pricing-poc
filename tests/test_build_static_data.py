@@ -1,5 +1,6 @@
 import json
 from decimal import Decimal
+from pathlib import Path
 
 import scripts.build_static_data as build_static_data
 from scripts.build_static_data import (
@@ -19,6 +20,22 @@ from scripts.build_static_data import (
     _public_adapter_health,
     _weekly_digest,
 )
+
+
+def _load_latest_details_payload():
+    index = json.loads(
+        build_static_data.LATEST_DETAILS_INDEX_TARGET.read_text(encoding="utf-8")
+    )
+    rates = []
+    for item in index["hotels"]:
+        rates.extend(
+            json.loads(
+                (build_static_data.LATEST_DETAILS_DIR / Path(item["path"]).name).read_text(
+                    encoding="utf-8"
+                )
+            )["rates"]
+        )
+    return {**index, "rates": rates}
 
 
 def test_latest_batch_uses_recent_workflow_window():
@@ -190,9 +207,7 @@ def test_courtyard_taipei_visible_booking_snapshot_has_strict_two_adult_products
 
 
 def test_latest_payload_keeps_hotels_com_courtyard_taipei_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "courtyard_taipei"
@@ -228,9 +243,7 @@ def test_grand_view_resort_visible_booking_snapshot_replaces_empty_date_with_liv
 
 
 def test_latest_payload_keeps_hotels_com_grand_view_resort_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     grand_view = [
         row for row in payload["rates"]
         if row["hotel_id"] == "grand_view_resort_beitou"
@@ -381,9 +394,7 @@ def test_radium_kagaya_visible_booking_snapshot_excludes_four_person_product():
 
 
 def test_latest_payload_keeps_hotels_com_radium_kagaya_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     kagaya = [
         row for row in payload["rates"]
         if row["hotel_id"] == "radium_kagaya_taipei"
@@ -480,9 +491,7 @@ def test_kimpton_visible_booking_snapshot_uses_two_adult_baseline_products():
 
 
 def test_latest_payload_keeps_hotels_com_kimpton_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     kimpton = [
         row for row in payload["rates"]
         if row["hotel_id"] == "kimpton_da_an"
@@ -498,9 +507,7 @@ def test_latest_payload_keeps_hotels_com_kimpton_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_taipei_garden_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     garden = [
         row for row in payload["rates"]
         if row["hotel_id"] == "taipei_garden_hotel"
@@ -516,9 +523,7 @@ def test_latest_payload_keeps_hotels_com_taipei_garden_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_intercontinental_taichung_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "intercontinental_taichung"
@@ -534,9 +539,7 @@ def test_latest_payload_keeps_hotels_com_intercontinental_taichung_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_the_lin_taichung_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "the_lin_taichung"
@@ -552,9 +555,7 @@ def test_latest_payload_keeps_hotels_com_the_lin_taichung_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_millennium_taichung_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "millennium_taichung"
@@ -570,9 +571,7 @@ def test_latest_payload_keeps_hotels_com_millennium_taichung_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_le_meridien_taichung_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "le_meridien_taichung"
@@ -587,9 +586,7 @@ def test_latest_payload_keeps_hotels_com_le_meridien_taichung_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_windsor_taichung_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "windsor_taichung"
@@ -605,9 +602,7 @@ def test_latest_payload_keeps_hotels_com_windsor_taichung_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_intercontinental_kaohsiung_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "intercontinental_kaohsiung"
@@ -623,9 +618,7 @@ def test_latest_payload_keeps_hotels_com_intercontinental_kaohsiung_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_kaohsiung_marriott_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "kaohsiung_marriott"
@@ -641,9 +634,7 @@ def test_latest_payload_keeps_hotels_com_kaohsiung_marriott_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_courtyard_taipei_downtown_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "courtyard_taipei_downtown"
@@ -659,9 +650,7 @@ def test_latest_payload_keeps_hotels_com_courtyard_taipei_downtown_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_renaissance_taipei_shihlin_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "renaissance_taipei_shihlin"
@@ -677,9 +666,7 @@ def test_latest_payload_keeps_hotels_com_renaissance_taipei_shihlin_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_hotel_proverbs_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "hotel_proverbs_taipei"
@@ -695,9 +682,7 @@ def test_latest_payload_keeps_hotels_com_hotel_proverbs_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_grand_mayfull_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "grand_mayfull_taipei"
@@ -715,9 +700,7 @@ def test_latest_payload_keeps_hotels_com_grand_mayfull_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_grand_hilai_taipei_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "grand_hilai_taipei"
@@ -733,9 +716,7 @@ def test_latest_payload_keeps_hotels_com_grand_hilai_taipei_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_episode_daan_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "episode_daan_taipei"
@@ -894,9 +875,7 @@ def test_first_screen_payload_includes_validated_ota_snapshot_hotels():
 
 
 def test_latest_payload_keeps_each_ota_platforms_newest_w_taipei_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     w_rows = [row for row in payload["rates"] if row["hotel_id"] == "w_taipei"]
     hotels_com = [
         row for row in w_rows if row["source_platform"] == "expedia_group"
@@ -919,9 +898,7 @@ def test_latest_payload_keeps_each_ota_platforms_newest_w_taipei_snapshot():
 
 
 def test_latest_payload_keeps_booking_and_hotels_com_regent_snapshots():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     regent = [
         row for row in payload["rates"] if row["hotel_id"] == "regent_taipei"
     ]
@@ -946,9 +923,7 @@ def test_latest_payload_keeps_booking_and_hotels_com_regent_snapshots():
 
 
 def test_latest_payload_keeps_booking_and_hotels_com_mandarin_snapshots():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     mandarin = [
         row for row in payload["rates"] if row["hotel_id"] == "mo_taipei"
     ]
@@ -973,9 +948,7 @@ def test_latest_payload_keeps_booking_and_hotels_com_mandarin_snapshots():
 
 
 def test_latest_payload_keeps_booking_and_hotels_com_grand_hyatt_snapshots():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     grand_hyatt = [
         row for row in payload["rates"]
         if row["hotel_id"] == "grand_hyatt_taipei"
@@ -1003,9 +976,7 @@ def test_latest_payload_keeps_booking_and_hotels_com_grand_hyatt_snapshots():
 
 
 def test_latest_payload_keeps_three_shangrila_taipei_sources():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     shangrila = [
         row for row in payload["rates"]
         if row["hotel_id"] == "shangrila_taipei"
@@ -1034,9 +1005,7 @@ def test_latest_payload_keeps_three_shangrila_taipei_sources():
 
 
 def test_latest_payload_keeps_hotels_com_royal_nikko_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     royal_nikko = [
         row for row in payload["rates"]
         if row["hotel_id"] == "royal_nikko_taipei"
@@ -1056,9 +1025,7 @@ def test_latest_payload_keeps_hotels_com_royal_nikko_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_eslite_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     eslite = [
         row for row in payload["rates"]
         if row["hotel_id"] == "eslite_hotel"
@@ -1078,9 +1045,7 @@ def test_latest_payload_keeps_hotels_com_eslite_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_gaia_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     gaia = [
         row for row in payload["rates"]
         if row["hotel_id"] == "the_gaia_taipei"
@@ -1100,9 +1065,7 @@ def test_latest_payload_keeps_hotels_com_gaia_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_solaria_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     solaria = [
         row for row in payload["rates"]
         if row["hotel_id"] == "solaria_nishitetsu_taipei"
@@ -1124,9 +1087,7 @@ def test_latest_payload_keeps_hotels_com_solaria_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_grand_hotel_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     grand_hotel = [
         row for row in payload["rates"]
         if row["hotel_id"] == "grand_hotel_taipei"
@@ -1146,9 +1107,7 @@ def test_latest_payload_keeps_hotels_com_grand_hotel_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_le_meridien_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     le_meridien = [
         row for row in payload["rates"]
         if row["hotel_id"] == "le_meridien_taipei"
@@ -1169,9 +1128,7 @@ def test_latest_payload_keeps_hotels_com_le_meridien_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_intercontinental_taipei_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     intercontinental = [
         row for row in payload["rates"]
         if row["hotel_id"] == "intercontinental_taipei"
@@ -1190,9 +1147,7 @@ def test_latest_payload_keeps_hotels_com_intercontinental_taipei_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_humble_house_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     humble_house = [
         row for row in payload["rates"]
         if row["hotel_id"] == "humble_house_taipei"
@@ -1212,9 +1167,7 @@ def test_latest_payload_keeps_hotels_com_humble_house_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_taipei_marriott_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     marriott = [
         row for row in payload["rates"]
         if row["hotel_id"] == "taipei_marriott"
@@ -1236,9 +1189,7 @@ def test_latest_payload_keeps_hotels_com_taipei_marriott_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_sheraton_taipei_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     sheraton = [
         row for row in payload["rates"]
         if row["hotel_id"] == "sheraton_grand_taipei"
@@ -1258,9 +1209,7 @@ def test_latest_payload_keeps_hotels_com_sheraton_taipei_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_hotel_indigo_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     indigo = [
         row for row in payload["rates"]
         if row["hotel_id"] == "indigo_taipei_north"
@@ -1281,9 +1230,7 @@ def test_latest_payload_keeps_hotels_com_hotel_indigo_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_doubletree_zhongshan_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     doubletree = [
         row for row in payload["rates"]
         if row["hotel_id"] == "doubletree_taipei_zhongshan"
@@ -1304,9 +1251,7 @@ def test_latest_payload_keeps_hotels_com_doubletree_zhongshan_snapshot():
 
 
 def test_latest_payload_keeps_hotels_com_howard_plaza_snapshot():
-    payload = json.loads(
-        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
-    )
+    payload = _load_latest_details_payload()
     howard = [
         row for row in payload["rates"]
         if row["hotel_id"] == "howard_plaza_taipei"
@@ -1379,7 +1324,9 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     rates_index = rates_dir / "index.json"
     latest_summary = tmp_path / "latest_summary.json"
     latest_heatmap = tmp_path / "latest_heatmap.json"
-    latest_details = tmp_path / "latest_details.json"
+    latest_details_dir = tmp_path / "latest_details"
+    latest_details_index = latest_details_dir / "index.json"
+    legacy_latest_details = tmp_path / "latest_details.json"
     legacy_latest = tmp_path / "latest.json"
     legacy_latest.write_text("legacy", encoding="utf-8")
     health_source = tmp_path / "adapter_health.json"
@@ -1447,7 +1394,9 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     monkeypatch.setattr(build_static_data, "RATES_INDEX_TARGET", rates_index)
     monkeypatch.setattr(build_static_data, "LATEST_SUMMARY_TARGET", latest_summary)
     monkeypatch.setattr(build_static_data, "LATEST_HEATMAP_TARGET", latest_heatmap)
-    monkeypatch.setattr(build_static_data, "LATEST_DETAILS_TARGET", latest_details)
+    monkeypatch.setattr(build_static_data, "LATEST_DETAILS_DIR", latest_details_dir)
+    monkeypatch.setattr(build_static_data, "LATEST_DETAILS_INDEX_TARGET", latest_details_index)
+    monkeypatch.setattr(build_static_data, "LEGACY_LATEST_DETAILS_TARGET", legacy_latest_details)
     monkeypatch.setattr(build_static_data, "LEGACY_LATEST_TARGET", legacy_latest)
     monkeypatch.setattr(build_static_data, "HEALTH_SOURCE", health_source)
     monkeypatch.setattr(build_static_data, "HEALTH_TARGET", health_target)
@@ -1467,11 +1416,17 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     assert {item["path"] for item in index_payload["months"][0]["hotels"]} == {
         "rates/2026-09/hotel-a.json", "rates/2026-09/hotel-b.json"
     }
-    details_payload = json.loads(latest_details.read_text(encoding="utf-8"))
+    details_index = json.loads(latest_details_index.read_text(encoding="utf-8"))
+    detail_rows = []
+    for item in details_index["hotels"]:
+        detail_rows.extend(
+            json.loads((tmp_path / item["path"]).read_text(encoding="utf-8"))["rates"]
+        )
     summary_latest_payload = json.loads(latest_summary.read_text(encoding="utf-8"))
     heatmap_payload = json.loads(latest_heatmap.read_text(encoding="utf-8"))
-    assert details_payload["market_summary"]["median_adr_twd"] == 15000
-    assert summary_latest_payload["market_summary"] == details_payload["market_summary"]
+    assert details_index["record_count"] == 2
+    assert len(detail_rows) == 2
+    assert summary_latest_payload["market_summary"]["median_adr_twd"] == 15000
     assert summary_latest_payload["record_count"] == 2
     assert len(heatmap_payload["rates"]) == 2
     assert "cancellation_policy" not in heatmap_payload["rates"][0]
