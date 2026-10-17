@@ -27,6 +27,7 @@ public/data/history_summary.json         輕量預聚合歷史趨勢與每週市
 public/data/rates/index.json             可用月份與飯店明細索引
 public/data/rates/YYYY-MM/HOTEL_ID.json  選定月份與單一飯店後才載入
 public/data/hotels.json                  68 家飯店 Catalog 與設施／房型快照
+public/data/room_type_dimension.json      有來源證據的正規化房型維度、名稱數與面積規格數
 public/data/hotel_locations.json         68 家飯店的快取座標、城市、台北行政區及追蹤狀態
 ```
 

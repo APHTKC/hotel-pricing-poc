@@ -14,6 +14,7 @@ from services.rate_parity import (
     canonical_comparison_key,
     comparison_metadata,
 )
+from services.room_type_dimension import build_room_type_dimension
 from storage.local_jsonl import iter_jsonl_records
 
 
@@ -30,6 +31,8 @@ LEGACY_LATEST_TARGET = Path("public/data/latest.json")
 HEALTH_TARGET = Path("public/data/adapter_health.json")
 DIGEST_TARGET = Path("public/data/digest.json")
 HOTEL_NAMES_SOURCE = Path("public/data/hotel_names_zh.json")
+HOTEL_PROFILES_SOURCE = Path("public/data/hotel_profiles.json")
+ROOM_TYPE_DIMENSION_TARGET = Path("public/data/room_type_dimension.json")
 LEGACY_TARGET = Path("public/data/rates.json")
 
 DASHBOARD_FIELDS = (
@@ -799,6 +802,12 @@ def main() -> None:
         ),
         encoding="utf-8",
     )
+    if HOTEL_PROFILES_SOURCE.exists():
+        profiles_payload = json.loads(HOTEL_PROFILES_SOURCE.read_text(encoding="utf-8"))
+        ROOM_TYPE_DIMENSION_TARGET.write_text(
+            json.dumps(build_room_type_dimension(profiles_payload), ensure_ascii=False),
+            encoding="utf-8",
+        )
     if LEGACY_LATEST_TARGET.exists():
         LEGACY_LATEST_TARGET.unlink()
     print(
