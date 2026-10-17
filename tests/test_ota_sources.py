@@ -551,7 +551,11 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in jr_rows) == Decimal("13485")
     assert all(row.tax_inclusion == "unknown" for row in jr_rows)
     assert all(canonical_comparison_key(row) is None for row in jr_rows)
-    okura_rows = [row for row in rows if row.hotel_id == "okura_prestige_taipei"]
+    okura_rows = [
+        row for row in rows
+        if row.hotel_id == "okura_prestige_taipei"
+        and row.source_platform == "booking_com"
+    ]
     latest_okura_query = max(row.queried_at for row in okura_rows)
     okura_rows = [row for row in okura_rows if row.queried_at == latest_okura_query]
     assert len(okura_rows) == 8
@@ -562,6 +566,19 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in okura_rows) == Decimal("12181")
     assert all(row.tax_inclusion == "unknown" for row in okura_rows)
     assert all(canonical_comparison_key(row) is None for row in okura_rows)
+    okura_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "okura_prestige_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(okura_expedia_rows) == 4
+    assert len({row.room_type_code for row in okura_expedia_rows}) == 4
+    assert {row.room_size_sqm for row in okura_expedia_rows} == {Decimal("44")}
+    assert {row.breakfast_included for row in okura_expedia_rows} == {False}
+    assert min(row.total_price for row in okura_expedia_rows) == Decimal("8384")
+    assert max(row.total_price for row in okura_expedia_rows) == Decimal("9419")
+    assert all(row.tax_inclusion == "included" for row in okura_expedia_rows)
+    assert all(canonical_comparison_key(row) is not None for row in okura_expedia_rows)
     mo_rows = [row for row in rows if row.hotel_id == "mo_taipei"]
     assert len(mo_rows) == 22
     hotels_com_mo = [

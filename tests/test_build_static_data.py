@@ -685,7 +685,11 @@ def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
 
 def test_okura_visible_booking_snapshot_keeps_free_cancellation_products_separate():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    okura = [row for row in rows if row["hotel_id"] == "okura_prestige_taipei"]
+    okura = [
+        row for row in rows
+        if row["hotel_id"] == "okura_prestige_taipei"
+        and row["source_platform"] == "booking_com"
+    ]
     latest_query = max(row["queried_at"] for row in okura)
     okura = [row for row in okura if row["queried_at"] == latest_query]
 
@@ -698,6 +702,24 @@ def test_okura_visible_booking_snapshot_keeps_free_cancellation_products_separat
     assert {row["breakfast_included"] for row in okura} == {False, True}
     assert all("可免費取消" in row["cancellation_policy"] for row in okura)
     assert all(build_static_data.canonical_comparison_key(row) is None for row in okura)
+
+
+def test_okura_visible_expedia_snapshot_has_comparable_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    okura = [
+        row for row in rows
+        if row["hotel_id"] == "okura_prestige_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(okura) == 4
+    assert len({row["room_type_code"] for row in okura}) == 4
+    assert {float(row["room_size_sqm"]) for row in okura} == {44.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in okura} == {(2, 0, 1)}
+    assert {row["breakfast_included"] for row in okura} == {False}
+    assert min(float(row["total_twd"]) for row in okura) == 8384
+    assert max(float(row["total_twd"]) for row in okura) == 9419
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in okura)
 
 
 def test_palais_visible_booking_snapshot_uses_two_adult_breakfast_products():

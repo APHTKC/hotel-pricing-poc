@@ -183,3 +183,13 @@ def test_published_catalog_contains_miramar_with_public_ota_coverage():
     assert hotel["automation_status"] == "browser_snapshot"
     assert "403" in hotel["automation_note"]
     assert "Hotels.com" in hotel["automation_note"]
+
+
+def test_published_catalog_records_okura_official_and_ota_coverage():
+    payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    hotel = next(item for item in payload["hotels"] if item["id"] == "okura_prestige_taipei")
+
+    assert hotel["enabled"] is True
+    assert hotel["automation_status"] == "verified"
+    assert "Official Okura daily tracking remains active" in hotel["automation_note"]
+    assert "Hotels.com/Expedia" in hotel["automation_note"]
