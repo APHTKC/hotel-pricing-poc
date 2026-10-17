@@ -174,11 +174,12 @@ def test_published_catalog_contains_gaia_as_verified_daily_hotel():
     assert "Hotels.com/Expedia" in hotel["automation_note"]
 
 
-def test_published_catalog_contains_miramar_after_single_403_check():
+def test_published_catalog_contains_miramar_with_public_ota_coverage():
     payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
     hotel = next(item for item in payload["hotels"] if item["id"] == "miramar_garden_taipei")
 
     assert hotel["district"] == "Zhongshan"
     assert hotel["enabled"] is False
-    assert hotel["automation_status"] == "skipped"
+    assert hotel["automation_status"] == "browser_snapshot"
     assert "403" in hotel["automation_note"]
+    assert "Hotels.com" in hotel["automation_note"]

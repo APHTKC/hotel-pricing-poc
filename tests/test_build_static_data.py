@@ -252,7 +252,11 @@ def test_latest_payload_keeps_hotels_com_grand_view_resort_snapshot():
 
 def test_miramar_garden_visible_booking_snapshot_has_strict_two_adult_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    miramar = [row for row in rows if row["hotel_id"] == "miramar_garden_taipei"]
+    miramar = [
+        row for row in rows
+        if row["hotel_id"] == "miramar_garden_taipei"
+        and row["source_platform"] == "booking_com"
+    ]
 
     assert len(miramar) == 23
     assert len({row["room_type_code"] for row in miramar}) == 12
@@ -263,6 +267,23 @@ def test_miramar_garden_visible_booking_snapshot_has_strict_two_adult_products()
     assert {row["tax_inclusion"] for row in miramar} == {"unknown"}
     assert {row["breakfast_included"] for row in miramar} == {False, True}
     assert all(build_static_data.canonical_comparison_key(row) is None for row in miramar)
+
+
+def test_miramar_garden_visible_expedia_snapshot_has_comparable_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    miramar = [
+        row for row in rows
+        if row["hotel_id"] == "miramar_garden_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(miramar) == 9
+    assert {float(row["room_size_sqm"]) for row in miramar} == {42.0, 89.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in miramar} == {(2, 0, 1)}
+    assert {row["breakfast_included"] for row in miramar} == {False, True}
+    assert min(float(row["total_twd"]) for row in miramar) == 3671
+    assert max(float(row["total_twd"]) for row in miramar) == 6257
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in miramar)
 
 
 def test_hotel_gracery_visible_booking_snapshot_has_strict_two_adult_products():

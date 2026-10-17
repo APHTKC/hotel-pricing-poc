@@ -1355,6 +1355,25 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         canonical_comparison_key(row) is not None for row in howard_expedia_rows
     )
 
+    miramar_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "miramar_garden_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(miramar_expedia_rows) == 9
+    assert {row.room_size_sqm for row in miramar_expedia_rows} == {
+        Decimal("42"), Decimal("89")
+    }
+    assert {row.breakfast_included for row in miramar_expedia_rows} == {
+        False, True
+    }
+    assert min(row.total_price for row in miramar_expedia_rows) == Decimal("3671")
+    assert max(row.total_price for row in miramar_expedia_rows) == Decimal("6257")
+    assert all(row.tax_inclusion == "included" for row in miramar_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None for row in miramar_expedia_rows
+    )
+
     intercontinental_rows = [
         row for row in rows
         if row.hotel_id == "intercontinental_taipei"
