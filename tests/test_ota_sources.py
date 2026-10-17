@@ -1119,6 +1119,21 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         for row in courtyard_downtown_expedia_rows
     )
 
+    courtyard_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "courtyard_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(courtyard_expedia_rows) == 2
+    assert {row.room_size_sqm for row in courtyard_expedia_rows} == {
+        Decimal("62"), Decimal("90")
+    }
+    assert {row.breakfast_included for row in courtyard_expedia_rows} == {True}
+    assert min(row.total_price for row in courtyard_expedia_rows) == Decimal("18480")
+    assert max(row.total_price for row in courtyard_expedia_rows) == Decimal("20790")
+    assert all(row.tax_inclusion == "included" for row in courtyard_expedia_rows)
+    assert all(canonical_comparison_key(row) is not None for row in courtyard_expedia_rows)
+
     episode_rows = [
         row for row in rows
         if row.hotel_id == "episode_daan_taipei"

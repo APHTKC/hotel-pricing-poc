@@ -168,7 +168,11 @@ def test_taipei_marriott_visible_booking_snapshot_has_complete_dated_products():
 
 def test_courtyard_taipei_visible_booking_snapshot_has_strict_two_adult_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    courtyard = [row for row in rows if row["hotel_id"] == "courtyard_taipei"]
+    courtyard = [
+        row for row in rows
+        if row["hotel_id"] == "courtyard_taipei"
+        and row["source_platform"] == "booking_com"
+    ]
 
     assert len(courtyard) == 9
     assert len({row["room_type_code"] for row in courtyard}) == 7
@@ -183,6 +187,24 @@ def test_courtyard_taipei_visible_booking_snapshot_has_strict_two_adult_products
         for row in courtyard
     )
     assert all(build_static_data.canonical_comparison_key(row) is not None for row in courtyard)
+
+
+def test_latest_payload_keeps_hotels_com_courtyard_taipei_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    hotel = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "courtyard_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(hotel) == 2
+    assert {float(row["room_size_sqm"]) for row in hotel} == {62.0, 90.0}
+    assert {row["breakfast_included"] for row in hotel} == {True}
+    assert min(float(row["total_price"]) for row in hotel) == 18480
+    assert max(float(row["total_price"]) for row in hotel) == 20790
+    assert {row["comparison_status"] for row in hotel} == {"comparable"}
 
 
 def test_grand_view_resort_visible_booking_snapshot_replaces_empty_date_with_live_rates():
