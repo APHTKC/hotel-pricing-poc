@@ -1323,7 +1323,11 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(row.tax_inclusion == "included" for row in renaissance_expedia_rows)
     assert all(canonical_comparison_key(row) is not None for row in renaissance_expedia_rows)
 
-    howard_rows = [row for row in rows if row.hotel_id == "howard_plaza_taipei"]
+    howard_rows = [
+        row for row in rows
+        if row.hotel_id == "howard_plaza_taipei"
+        and row.source_platform == "booking_com"
+    ]
     assert len(howard_rows) == 4
     assert {row.room_size_sqm for row in howard_rows} == {
         Decimal("20"), Decimal("26")
@@ -1334,6 +1338,22 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     }
     assert all(row.tax_inclusion == "unknown" for row in howard_rows)
     assert all(canonical_comparison_key(row) is None for row in howard_rows)
+
+    howard_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "howard_plaza_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(howard_expedia_rows) == 2
+    assert {row.room_size_sqm for row in howard_expedia_rows} == {
+        Decimal("20"), Decimal("26")
+    }
+    assert {row.breakfast_included for row in howard_expedia_rows} == {False}
+    assert {row.total_price for row in howard_expedia_rows} == {Decimal("5350")}
+    assert all(row.tax_inclusion == "included" for row in howard_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None for row in howard_expedia_rows
+    )
 
     intercontinental_rows = [
         row for row in rows
