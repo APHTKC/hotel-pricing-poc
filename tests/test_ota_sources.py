@@ -839,7 +839,9 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(canonical_comparison_key(row) is None for row in resonance_rows)
 
     doubletree_rows = [
-        row for row in rows if row.hotel_id == "doubletree_taipei_zhongshan"
+        row for row in rows
+        if row.hotel_id == "doubletree_taipei_zhongshan"
+        and row.source_platform == "booking_com"
     ]
     assert len(doubletree_rows) == 4
     assert {row.room_size_sqm for row in doubletree_rows} == {
@@ -850,6 +852,24 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in doubletree_rows) == Decimal("16748")
     assert all(row.tax_inclusion == "unknown" for row in doubletree_rows)
     assert all(canonical_comparison_key(row) is None for row in doubletree_rows)
+
+    doubletree_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "doubletree_taipei_zhongshan"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(doubletree_expedia_rows) == 6
+    assert {row.room_size_sqm for row in doubletree_expedia_rows} == {
+        Decimal("33"), Decimal("35"), Decimal("36"), Decimal("46")
+    }
+    assert {row.breakfast_included for row in doubletree_expedia_rows} == {False}
+    assert min(row.total_price for row in doubletree_expedia_rows) == Decimal("6699")
+    assert max(row.total_price for row in doubletree_expedia_rows) == Decimal("12243")
+    assert all(row.tax_inclusion == "included" for row in doubletree_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None
+        for row in doubletree_expedia_rows
+    )
 
     humble_house_rows = [
         row for row in rows

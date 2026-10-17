@@ -52,6 +52,7 @@ def test_new_taipei_high_end_hotels_are_registered_once_with_source_status():
                 "courtyard_taipei_downtown",
                 "hotel_proverbs_taipei",
                 "renaissance_taipei_shihlin",
+                "doubletree_taipei_zhongshan",
             }
             else "skipped"
         )

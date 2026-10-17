@@ -1124,6 +1124,29 @@ def test_latest_payload_keeps_hotels_com_hotel_indigo_snapshot():
     assert all(row["comparison_status"] == "comparable" for row in indigo)
 
 
+def test_latest_payload_keeps_hotels_com_doubletree_zhongshan_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    doubletree = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "doubletree_taipei_zhongshan"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(doubletree) == 6
+    assert {float(row["room_size_sqm"]) for row in doubletree} == {
+        33.0,
+        35.0,
+        36.0,
+        46.0,
+    }
+    assert {row["breakfast_included"] for row in doubletree} == {False}
+    assert min(float(row["total_twd"]) for row in doubletree) == 6699
+    assert max(float(row["total_twd"]) for row in doubletree) == 12243
+    assert all(row["comparison_status"] == "comparable" for row in doubletree)
+
+
 def test_implausibly_low_twd_rate_is_not_published():
     assert _plausible_luxury_rate({"total_twd": "350"}) is False
     assert _plausible_luxury_rate({"total_twd": "12300"}) is True
