@@ -325,7 +325,11 @@ def test_hotel_gracery_visible_expedia_snapshot_has_comparable_two_adult_product
 
 def test_mitsui_garden_visible_booking_snapshot_has_strict_two_adult_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    mitsui = [row for row in rows if row["hotel_id"] == "mitsui_garden_taipei_zhongxiao"]
+    mitsui = [
+        row for row in rows
+        if row["hotel_id"] == "mitsui_garden_taipei_zhongxiao"
+        and row["source_platform"] == "booking_com"
+    ]
 
     assert len(mitsui) == 14
     assert len({row["room_type_code"] for row in mitsui}) == 8
@@ -336,6 +340,25 @@ def test_mitsui_garden_visible_booking_snapshot_has_strict_two_adult_products():
     assert {row["tax_inclusion"] for row in mitsui} == {"unknown"}
     assert {row["breakfast_included"] for row in mitsui} == {False, True}
     assert all(build_static_data.canonical_comparison_key(row) is None for row in mitsui)
+
+
+def test_mitsui_garden_visible_expedia_snapshot_has_comparable_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    mitsui = [
+        row for row in rows
+        if row["hotel_id"] == "mitsui_garden_taipei_zhongxiao"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(mitsui) == 6
+    assert len({row["room_type_code"] for row in mitsui}) == 6
+    assert {float(row["room_size_sqm"]) for row in mitsui} == {25.0, 26.0, 28.0, 30.0, 35.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in mitsui} == {(2, 0, 1)}
+    assert min(float(row["total_twd"]) for row in mitsui) == 5248
+    assert max(float(row["total_twd"]) for row in mitsui) == 7100
+    assert {row["breakfast_included"] for row in mitsui} == {False}
+    assert {row["tax_inclusion"] for row in mitsui} == {"included"}
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in mitsui)
 
 
 def test_radium_kagaya_visible_booking_snapshot_excludes_four_person_product():

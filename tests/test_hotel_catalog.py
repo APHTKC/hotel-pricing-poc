@@ -213,3 +213,16 @@ def test_published_catalog_records_gracery_multi_ota_coverage():
     assert hotel["automation_status"] == "browser_snapshot"
     assert "Booking.com plus Hotels.com/Expedia" in hotel["automation_note"]
     assert "strict canonical comparison" in hotel["automation_note"]
+
+
+def test_published_catalog_records_mitsui_multi_ota_coverage():
+    payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    hotel = next(
+        item for item in payload["hotels"]
+        if item["id"] == "mitsui_garden_taipei_zhongxiao"
+    )
+
+    assert hotel["enabled"] is True
+    assert hotel["automation_status"] == "verified"
+    assert "Booking.com plus Hotels.com/Expedia" in hotel["automation_note"]
+    assert "six complete refundable two-adult" in hotel["automation_note"]
