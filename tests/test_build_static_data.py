@@ -440,6 +440,25 @@ def test_landis_visible_expedia_snapshot_has_comparable_two_adult_products():
     assert all(build_static_data.canonical_comparison_key(row) is not None for row in landis)
 
 
+def test_grand_hilai_kaohsiung_visible_expedia_snapshot_has_comparable_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    hilai = [
+        row for row in rows
+        if row["hotel_id"] == "grand_hilai_kaohsiung"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(hilai) == 4
+    assert len({row["room_type_code"] for row in hilai}) == 4
+    assert {float(row["room_size_sqm"]) for row in hilai} == {30.0, 33.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in hilai} == {(2, 0, 1)}
+    assert min(float(row["total_twd"]) for row in hilai) == 4104
+    assert max(float(row["total_twd"]) for row in hilai) == 8358
+    assert {row["breakfast_included"] for row in hilai} == {False, True}
+    assert {row["tax_inclusion"] for row in hilai} == {"included"}
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in hilai)
+
+
 def test_kimpton_visible_booking_snapshot_uses_two_adult_baseline_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
     kimpton = [

@@ -236,3 +236,16 @@ def test_published_catalog_records_landis_multi_ota_and_lounge_evidence():
     assert hotel["automation_status"] == "browser_snapshot"
     assert "Booking.com plus Hotels.com/Expedia" in hotel["automation_note"]
     assert "Proust Lounge access" in hotel["automation_note"]
+
+
+def test_published_catalog_records_grand_hilai_kaohsiung_ota_coverage():
+    payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    hotel = next(
+        item for item in payload["hotels"]
+        if item["id"] == "grand_hilai_kaohsiung"
+    )
+
+    assert hotel["enabled"] is True
+    assert hotel["automation_status"] == "verified"
+    assert "Official daily tracking remains active" in hotel["automation_note"]
+    assert "Hotels.com/Expedia" in hotel["automation_note"]

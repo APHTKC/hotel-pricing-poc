@@ -336,9 +336,9 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
 
     resonance = by_hotel["hotel_resonance_taipei"]
     assert resonance["status"] == "no_availability"
-    assert resonance["check_in"] == "2026-11-17"
-    assert resonance["check_out"] == "2026-11-18"
-    assert "/resonance." in resonance["source_url"]
+    assert resonance["check_in"] == "2027-01-13"
+    assert resonance["check_out"] == "2027-01-14"
+    assert "tai-bei-shi-dai-yu-suo" in resonance["source_url"]
 
     doubletree = by_hotel["doubletree_taipei_zhongshan"]
     assert doubletree["status"] == "no_availability"
@@ -613,6 +613,21 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in landis_expedia_rows) == Decimal("7957")
     assert all(row.tax_inclusion == "included" for row in landis_expedia_rows)
     assert all(canonical_comparison_key(row) is not None for row in landis_expedia_rows)
+    hilai_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "grand_hilai_kaohsiung"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(hilai_expedia_rows) == 4
+    assert len({row.room_type_code for row in hilai_expedia_rows}) == 4
+    assert {row.room_size_sqm for row in hilai_expedia_rows} == {
+        Decimal("30"), Decimal("33")
+    }
+    assert {row.breakfast_included for row in hilai_expedia_rows} == {False, True}
+    assert min(row.total_price for row in hilai_expedia_rows) == Decimal("4104")
+    assert max(row.total_price for row in hilai_expedia_rows) == Decimal("8358")
+    assert all(row.tax_inclusion == "included" for row in hilai_expedia_rows)
+    assert all(canonical_comparison_key(row) is not None for row in hilai_expedia_rows)
     okura_rows = [
         row for row in rows
         if row.hotel_id == "okura_prestige_taipei"
