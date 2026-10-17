@@ -13,9 +13,10 @@ from services.rate_parity import (
     canonical_comparison_key,
     comparison_metadata,
 )
+from storage.local_jsonl import iter_jsonl_records
 
 
-SOURCE = Path("data/rates.jsonl")
+SOURCE = Path("data/rates")
 OTA_BROWSER_SOURCE = Path("data/ota_browser_snapshots.jsonl")
 HEALTH_SOURCE = Path("data/adapter_health.json")
 RATES_DIR = Path("public/data/rates")
@@ -575,7 +576,7 @@ def _history_summary(rows: list[dict]) -> dict:
             "district": district, "lead_days": lead, **stats(group),
         })
     return {
-        "generated_from": "data/rates.jsonl",
+        "generated_from": str(SOURCE).replace("\\", "/"),
         "available_months": sorted({key for row in rows if (key := _month_key(row))}, reverse=True),
         "market_summary": calculate_market_summary(rows),
         "weekly_digest": _weekly_digest(rows),
@@ -606,13 +607,10 @@ def _public_adapter_health(payload: dict, data_quality: dict | None = None) -> d
 
 
 def main() -> None:
-    source_rows = []
-    if SOURCE.exists():
-        for line in SOURCE.read_text(encoding="utf-8").splitlines():
-            if line.strip():
-                row = json.loads(line)
-                if _publishable_live_rate(row):
-                    source_rows.append(row)
+    source_rows = [
+        row for row in iter_jsonl_records(SOURCE)
+        if _publishable_live_rate(row)
+    ]
     source_rows.extend(
         row for row in _load_browser_snapshot_rows(OTA_BROWSER_SOURCE)
         if _publishable_live_rate(row)
@@ -643,7 +641,7 @@ def main() -> None:
                     stale_file.unlink()
                 stale_month_dir.rmdir()
 
-    rate_index = {"generated_from": "data/rates.jsonl", "months": []}
+    rate_index = {"generated_from": str(SOURCE).replace("\\", "/"), "months": []}
     partition_count = 0
     for month in sorted(partitions, reverse=True):
         month_dir = RATES_DIR / month
@@ -664,7 +662,7 @@ def main() -> None:
                     "month": month,
                     "hotel_id": hotel_id,
                     "hotel_name": hotel_name,
-                    "generated_from": "data/rates.jsonl",
+                    "generated_from": str(SOURCE).replace("\\", "/"),
                     "market_summary": calculate_market_summary(month_source_rows),
                     "rate_parity": calculate_rate_parity(month_source_rows),
                     "rates": month_rows,
@@ -725,7 +723,7 @@ def main() -> None:
     LATEST_SUMMARY_TARGET.write_text(
         json.dumps(
             {
-                "generated_from": "data/rates.jsonl",
+                "generated_from": str(SOURCE).replace("\\", "/"),
                 "latest_queried_at": latest_queried_at,
                 "record_count": len(latest_rows),
                 "hotel_count": len({row.get("hotel_id") for row in latest_rows if row.get("hotel_id")}),
@@ -743,7 +741,7 @@ def main() -> None:
     LATEST_HEATMAP_TARGET.write_text(
         json.dumps(
             {
-                "generated_from": "data/rates.jsonl",
+                "generated_from": str(SOURCE).replace("\\", "/"),
                 "latest_queried_at": latest_queried_at,
                 # Include validated OTA snapshots in the first-screen payload.
                 # Snapshot-only hotels must be selectable before the larger
@@ -757,7 +755,7 @@ def main() -> None:
     LATEST_DETAILS_TARGET.write_text(
         json.dumps(
             {
-                "generated_from": "data/rates.jsonl",
+                "generated_from": str(SOURCE).replace("\\", "/"),
                 "latest_queried_at": latest_queried_at,
                 "market_summary": latest_summary,
                 "rate_parity": latest_parity,

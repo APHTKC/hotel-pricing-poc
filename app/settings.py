@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     app_name: str = "Luxury Hotel Pricing Intelligence System"
     demo_mode: bool = False
     storage_backend: str = "local"
-    local_data_path: Path = Path("data/rates.jsonl")
+    local_data_path: Path = Path("data/rates")
     google_sheet_id: str = ""
     google_service_account_json: str = ""
     job_token: str = "change-me"

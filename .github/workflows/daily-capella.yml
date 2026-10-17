@@ -56,7 +56,7 @@ jobs:
         env:
           DEMO_MODE: "false"
           STORAGE_BACKEND: local
-          LOCAL_DATA_PATH: data/rates.jsonl
+          LOCAL_DATA_PATH: data/rates
           ADAPTER_HEALTH_PATH: data/adapter_health.json
           DIAGNOSTIC_SNAPSHOT_DIR: data/diagnostics
           HOTELS_CONFIG_PATH: config/hotels.daily.yaml
@@ -67,7 +67,7 @@ jobs:
         env:
           DEMO_MODE: "false"
           STORAGE_BACKEND: local
-          LOCAL_DATA_PATH: data/rates.jsonl
+          LOCAL_DATA_PATH: data/rates
           ADAPTER_HEALTH_PATH: data/adapter_health.json
           DIAGNOSTIC_SNAPSHOT_DIR: data/diagnostics
           HOTELS_CONFIG_PATH: config/hotels.daily.yaml
@@ -86,7 +86,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/rates.jsonl data/adapter_health.json public/data/fx.json
+          git add data/rates data/adapter_health.json public/data/fx.json
           git diff --cached --quiet || git commit -m "data: collect Taiwan hotel rates"
           git pull --rebase origin main
 
@@ -99,7 +99,7 @@ jobs:
 
       - name: Save new rate history
         run: |
-          git add data/rates.jsonl data/adapter_health.json public/data
+          git add data/rates data/adapter_health.json public/data
           git diff --cached --quiet || git commit -m "data: update Taiwan hotel rates"
           git push
 

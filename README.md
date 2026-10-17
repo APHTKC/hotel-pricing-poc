@@ -1,6 +1,6 @@
 # 台灣飯店房價查詢平台
 
-以公開訂房資訊建立的高端飯店房價觀察平台。目前 Catalog 收錄 **67 家**飯店，
+以公開訂房資訊建立的高端飯店房價觀察平台。目前 Catalog 收錄 **68 家**飯店，
 其中 **23 家**進入每日自動追蹤清單；每天查詢未來 `+1/+7/+14/+30/+60/+90`
 天的一晚房價，並透過 GitHub Actions 更新 GitHub Pages。
 
@@ -11,7 +11,7 @@
 - 前台：原生 HTML、CSS、JavaScript、SVG 圖表與 Leaflet／OpenStreetMap 地圖，提供繁中／英文／日文及 TWD／USD／JPY 切換。
 - API：Python 3.12、FastAPI、Pydantic。
 - 抓價：可插拔 Python adapter；依訂房引擎使用 HTTPX 或 Playwright。
-- 儲存：正式歷史保存在 `data/rates.jsonl`；Google Sheets 模組保留為選用後端。
+- 儲存：正式歷史按查價月份保存在 `data/rates/YYYY-MM.jsonl`；Google Sheets 模組保留為選用後端。
 - 自動化：GitHub Actions 每日執行抓價、去重、靜態資料建置及 GitHub Pages 發布。
 - 測試：pytest，涵蓋資料模型、adapter、指標、去重、靜態建置與前台結構。
 
@@ -26,8 +26,8 @@ public/data/latest_details.json          最新完整明細，展開／捲動／
 public/data/history_summary.json         輕量預聚合歷史趨勢與每週市場摘要
 public/data/rates/index.json             可用月份與飯店明細索引
 public/data/rates/YYYY-MM/HOTEL_ID.json  選定月份與單一飯店後才載入
-public/data/hotels.json                  67 家飯店 Catalog 與設施／房型快照
-public/data/hotel_locations.json         67 家飯店的快取座標、城市、台北行政區及追蹤狀態
+public/data/hotels.json                  68 家飯店 Catalog 與設施／房型快照
+public/data/hotel_locations.json         68 家飯店的快取座標、城市、台北行政區及追蹤狀態
 ```
 
 `index.html` 首屏只下載 summary 與 heatmap，完整 details 採按需載入。`history.html`
@@ -108,7 +108,7 @@ python -m scripts.deduplicate_rate_history
 python -m scripts.build_static_data
 ```
 
-若未設定 Google Sheets 憑證，資料寫入 `data/rates.jsonl`。完整部署步驟見
+若未設定 Google Sheets 憑證，資料寫入 `data/rates/YYYY-MM.jsonl`。完整部署步驟見
 [docs/deployment.md](docs/deployment.md)，欄位定義見 [docs/schema.md](docs/schema.md)，
 OTA 啟用條件見 [docs/ota-integration.md](docs/ota-integration.md)。
 
@@ -124,7 +124,7 @@ OTA 啟用條件見 [docs/ota-integration.md](docs/ota-integration.md)。
 
 ```text
 app/                    FastAPI、資料模型與 API
-config/                 67 家 Catalog、23 家每日追蹤與 OTA 對照設定
+config/                 68 家 Catalog、23 家每日追蹤與 OTA 對照設定
 scrapers/               官網 adapter 與 OTA provider
 jobs/                   官網／OTA 每日工作
 services/               市場指標、去重、同商品比價、健康度、FX／CPI

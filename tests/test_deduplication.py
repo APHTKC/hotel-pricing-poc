@@ -57,3 +57,20 @@ def test_local_jsonl_store_deduplicates_existing_and_current_batch(tmp_path):
     assert [row["observation_id"] for row in saved] == ["first"]
     assert saved[0]["run_id"] == "run-first"
     assert saved[0]["scheduled_for"].startswith("2026-09-24T01:00:00")
+
+
+def test_local_jsonl_store_partitions_production_history_by_query_month(tmp_path):
+    store = LocalJsonlStore(tmp_path / "rates")
+    september = observation(
+        observation_id="september", queried_at=datetime(2026, 9, 30, 23, tzinfo=UTC)
+    )
+    october = observation(
+        observation_id="october", queried_at=datetime(2026, 10, 1, 1, tzinfo=UTC)
+    )
+
+    assert store.append([september, october]) == 2
+    assert sorted(path.name for path in (tmp_path / "rates").glob("*.jsonl")) == [
+        "2026-09.jsonl",
+        "2026-10.jsonl",
+    ]
+    assert {row.observation_id for row in store.read_all()} == {"september", "october"}

@@ -31,7 +31,7 @@
 
 ## 去重
 
-寫入 `data/rates.jsonl` 及產生公開 JSON 前，以每日自然鍵去重：
+寫入 `data/rates/YYYY-MM.jsonl` 及產生公開 JSON 前，以每日自然鍵去重：
 
 ```text
 hotel_id + check_in + room_type_code + rate_plan_code + queried_at_date
@@ -87,7 +87,7 @@ public/data/rates/YYYY-MM/HOTEL_ID.json
   month + hotel_id + hotel_name + market_summary + rate_parity + rates（單月單飯店明細）
 
 public/data/hotel_locations.json
-  schema_version + updated_at + source_note + locations（67 家飯店快取座標）
+  schema_version + updated_at + source_note + locations（68 家飯店快取座標）
 ```
 
 歷史頁首頁只讀取 `history_summary.json` 與 `rates/index.json`；特定月份、特定飯店的

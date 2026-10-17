@@ -29,7 +29,7 @@ def test_daily_workflow_checkpoints_only_authoritative_collector_outputs() -> No
         "- name: Build static dashboard data", 1
     )[0]
 
-    assert "data/rates.jsonl" in checkpoint
+    assert "git add data/rates " in checkpoint
     assert "data/adapter_health.json" in checkpoint
     assert "public/data/fx.json" in checkpoint
     assert "git add public/data" not in checkpoint

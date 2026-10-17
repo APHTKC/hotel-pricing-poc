@@ -13,7 +13,7 @@
                   ↓
        Python + Playwright/httpx adapters
                   ↓
-      data/rates.jsonl（append-only 原始歷史）
+      data/rates/YYYY-MM.jsonl（按查價月份分片的 append-only 原始歷史）
                   ↓
        Python build scripts（清理、裁切欄位）
                   ↓
@@ -24,10 +24,10 @@ FastAPI、Google Sheets、Cloud Run 與 Cloud Scheduler 仍保留在程式中，
 
 截至本次盤點：
 
-- 飯店 Catalog：67 家，其中 23 家啟用每日資料管線；其餘候選來源依健康狀態與可行性檢查結果暫緩。
+- 飯店 Catalog：68 家，其中 23 家啟用每日資料管線；其餘候選來源依健康狀態與可行性檢查結果暫緩。
 - 原始歷史資料：截至 2026-10-08 共 61,751 筆、31 家已有歷史房價；新升級的北投大地酒店會由下一次每日工作開始累積正式歷史。
 - 最新完整明細依每日成功批次動態變化；`public/data/latest_details.json` 採按需載入，不阻塞首頁首屏。
-- 飯店基本資料：67 家皆有已核實 profile 與獨立 `room_snapshot`；來源不足的欄位維持待核實。
+- 飯店基本資料：68 家皆有已核實 profile 與獨立 `room_snapshot`；來源不足的欄位維持待核實。
 - 籌備中飯店：8 家，獨立存放於 `upcoming_hotels.json`，不參與 ADR 計算。
 - OTA：Booking.com Demand API client 已完成，但目前沒有可發布的 OTA 房價；現有歷史資料皆標記為 `official`。
 
@@ -232,7 +232,7 @@ gap = (lowest_ota_median - official_median) / official_median
 
 `scripts/build_static_data.py` 會：
 
-1. 逐行讀取 `data/rates.jsonl`。
+1. 依月份逐行讀取 `data/rates/YYYY-MM.jsonl`。
 2. 只保留 `3,000 <= total_twd <= 2,000,000` 的資料。
 3. 裁成 dashboard 所需欄位。
 4. 依 `queried_at` 新到舊排序。
@@ -245,8 +245,8 @@ gap = (lowest_ota_median - official_median) / official_median
 
 目前已有三種獨立資料：
 
-- `hotels.json`：67 家營運中／候選飯店與自動化狀態。
-- `hotel_profiles.json`：67 家已核實飯店的客房總數、餐飲、設施、lounge、服務費、房型快照與來源；未取得可靠證據者維持待核實。
+- `hotels.json`：68 家營運中／候選飯店與自動化狀態。
+- `hotel_profiles.json`：68 家已核實飯店的客房總數、餐飲、設施、lounge、服務費、房型快照與來源；未取得可靠證據者維持待核實。
 - `upcoming_hotels.json`：8 家籌備中飯店、預計開幕文字、規劃房數與來源。
 
 這個方向正確：抓不到房價不等於抓不到房型。被擋住的飯店仍可由官網客房介紹、官方 factsheet，必要時再由可信 OTA 靜態頁面補充房型名稱與面積，並保存 `source_type`、`source_url`、`observed_at`。房型主檔不應依賴每日房價成功與否。
@@ -314,7 +314,7 @@ schedule 22:00 UTC
 
 ### 3.4 儲存
 
-- 正式 GitHub 模式：`LocalJsonlStore` 逐行 append 至 `data/rates.jsonl`。
+- 正式 GitHub 模式：`LocalJsonlStore` 依 `queried_at` 月份逐行 append 至 `data/rates/YYYY-MM.jsonl`。
 - Google Sheets 模式：確保 `rates` 工作表與 schema 欄位後，使用 `append_rows`；讀取時載入整張表。
 - 沒有資料庫索引、唯一鍵 constraint、upsert 或 partition。
 
@@ -395,7 +395,7 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
    FastAPI 與每日 job 現在預設讀取 `config/hotels.daily.yaml`；公開 catalog 則合併 daily + candidates。早期 `config/hotels.yaml` 僅保留相容性，不再是執行預設值。後續仍可把 daily 與 candidates 改為單一主檔加狀態欄位。
 
 2. **抓不到房價的飯店，房型主檔覆蓋不足。**  
-   目前 67 家飯店皆已有 profile 與房型快照；後續仍應將房型主檔正式獨立於 rate observation：
+   目前 68 家飯店皆已有 profile 與房型快照；後續仍應將房型主檔正式獨立於 rate observation：
    - 優先官方客房頁／官方 factsheet。
    - 官方缺失時才用 OTA 靜態介紹頁。
    - 每個房型保存中英日名稱、精確／最小／最大面積、source type、URL、核實日期、備註。
