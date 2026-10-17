@@ -598,6 +598,21 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in mitsui_expedia_rows) == Decimal("7100")
     assert all(row.tax_inclusion == "included" for row in mitsui_expedia_rows)
     assert all(canonical_comparison_key(row) is not None for row in mitsui_expedia_rows)
+    landis_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "the_landis_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(landis_expedia_rows) == 5
+    assert len({row.room_type_code for row in landis_expedia_rows}) == 5
+    assert {row.room_size_sqm for row in landis_expedia_rows} == {
+        Decimal("26"), Decimal("53"), Decimal("56")
+    }
+    assert {row.breakfast_included for row in landis_expedia_rows} == {False}
+    assert min(row.total_price for row in landis_expedia_rows) == Decimal("4691")
+    assert max(row.total_price for row in landis_expedia_rows) == Decimal("7957")
+    assert all(row.tax_inclusion == "included" for row in landis_expedia_rows)
+    assert all(canonical_comparison_key(row) is not None for row in landis_expedia_rows)
     okura_rows = [
         row for row in rows
         if row.hotel_id == "okura_prestige_taipei"

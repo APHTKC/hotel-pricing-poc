@@ -405,7 +405,11 @@ def test_latest_payload_keeps_hotels_com_radium_kagaya_snapshot():
 
 def test_landis_visible_booking_snapshot_uses_two_adult_baseline_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    landis = [row for row in rows if row["hotel_id"] == "the_landis_taipei"]
+    landis = [
+        row for row in rows
+        if row["hotel_id"] == "the_landis_taipei"
+        and row["source_platform"] == "booking_com"
+    ]
 
     assert len(landis) == 8
     assert len({row["room_type_code"] for row in landis}) == 8
@@ -415,6 +419,25 @@ def test_landis_visible_booking_snapshot_uses_two_adult_baseline_products():
     assert max(float(row["total_price"]) for row in landis) == 9260
     assert {row["breakfast_included"] for row in landis} == {False}
     assert all(build_static_data.canonical_comparison_key(row) is None for row in landis)
+
+
+def test_landis_visible_expedia_snapshot_has_comparable_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    landis = [
+        row for row in rows
+        if row["hotel_id"] == "the_landis_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(landis) == 5
+    assert len({row["room_type_code"] for row in landis}) == 5
+    assert {float(row["room_size_sqm"]) for row in landis} == {26.0, 53.0, 56.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in landis} == {(2, 0, 1)}
+    assert min(float(row["total_twd"]) for row in landis) == 4691
+    assert max(float(row["total_twd"]) for row in landis) == 7957
+    assert {row["breakfast_included"] for row in landis} == {False}
+    assert {row["tax_inclusion"] for row in landis} == {"included"}
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in landis)
 
 
 def test_kimpton_visible_booking_snapshot_uses_two_adult_baseline_products():

@@ -226,3 +226,13 @@ def test_published_catalog_records_mitsui_multi_ota_coverage():
     assert hotel["automation_status"] == "verified"
     assert "Booking.com plus Hotels.com/Expedia" in hotel["automation_note"]
     assert "six complete refundable two-adult" in hotel["automation_note"]
+
+
+def test_published_catalog_records_landis_multi_ota_and_lounge_evidence():
+    payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    hotel = next(item for item in payload["hotels"] if item["id"] == "the_landis_taipei")
+
+    assert hotel["enabled"] is False
+    assert hotel["automation_status"] == "browser_snapshot"
+    assert "Booking.com plus Hotels.com/Expedia" in hotel["automation_note"]
+    assert "Proust Lounge access" in hotel["automation_note"]
