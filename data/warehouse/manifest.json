@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "sources": [
+    "data/rates",
+    "data/ota_browser_snapshots.jsonl"
+  ],
+  "format": "parquet",
+  "query_engine": "duckdb",
+  "compression": "zstd",
+  "rows": 85643,
+  "natural_keys": 85643,
+  "partitions": [
+    {
+      "month": "2026-09",
+      "path": "rates/2026-09.parquet",
+      "source_shards": 28,
+      "rows": 43324,
+      "natural_keys": 43324,
+      "bytes": 1453643,
+      "sha256": "71f1cdd7490fbe2531be1f017ddab40edcb09102404b846e55d154828be93521"
+    },
+    {
+      "month": "2026-10",
+      "path": "rates/2026-10.parquet",
+      "source_shards": 16,
+      "rows": 42319,
+      "natural_keys": 42319,
+      "bytes": 1436945,
+      "sha256": "7d4d634e4712e4928f380ce3718ac2263800c414415c54e338befacc477fe900"
+    }
+  ]
+}

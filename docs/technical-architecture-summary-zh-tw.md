@@ -20,7 +20,7 @@
  public/data/*.json → 原生 HTML/CSS/JS → GitHub Pages
 ```
 
-FastAPI、Google Sheets、Cloud Run 與 Cloud Scheduler 仍保留在程式中，但現行公開網站的主路徑是 **GitHub Actions + JSONL + GitHub Pages**。前端沒有 React、Vue、D3.js 或 Chart.js；圖表由原生 JavaScript 直接產生 SVG。
+FastAPI、Google Sheets、Cloud Run 與 Cloud Scheduler 仍保留在程式中，但現行公開網站的主路徑是 **GitHub Actions + JSONL + DuckDB／Parquet 分析鏡像 + GitHub Pages**。前端沒有 React、Vue、D3.js 或 Chart.js；圖表由原生 JavaScript 直接產生 SVG。
 
 截至本次盤點：
 
@@ -83,7 +83,7 @@ FastAPI 提供：
 .github/workflows/       每日排程、單飯店 probe、GitHub Pages 發布
 app/                     FastAPI、Pydantic models、settings、舊版 template
 config/                  每日飯店、候選飯店、單飯店測試、OTA mapping
-data/                    append-only JSONL 原始房價及本機 probe 結果
+data/                    append-only JSONL 原始房價、Parquet 分析鏡像及本機 probe 結果
 docs/                    schema、部署、OTA 計畫與本報告
 jobs/                    官網每日抓價與 OTA 抓價協調流程
 public/                  GitHub Pages 前端與已建置 JSON

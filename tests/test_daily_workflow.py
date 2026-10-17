@@ -50,6 +50,19 @@ def test_daily_workflow_tests_before_each_commit_and_before_pages_upload() -> No
     assert workflow.count("run: python -m pytest -q") == 2
 
 
+def test_daily_workflow_builds_and_commits_verified_parquet_mirror() -> None:
+    workflow = WORKFLOW.read_text(encoding="utf-8")
+
+    deduplicate = workflow.index("python -m scripts.deduplicate_rate_history")
+    warehouse = workflow.index("python -m scripts.build_rate_warehouse")
+    static = workflow.index("python -m scripts.build_static_data")
+    release_test = workflow.index("- name: Validate release artifacts")
+    save = workflow.index("- name: Save new rate history")
+
+    assert deduplicate < warehouse < static < release_test < save
+    assert "git add data/rates data/warehouse data/adapter_health.json public/data" in workflow
+
+
 def test_dashboard_publish_is_blocked_by_full_test_suite() -> None:
     workflow = PUBLISH_WORKFLOW.read_text(encoding="utf-8")
 

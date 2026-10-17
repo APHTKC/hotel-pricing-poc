@@ -33,6 +33,10 @@
 
 寫入 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl` 及產生公開 JSON 前，以每日自然鍵去重；日期取自 `queried_at` 的 UTC 日曆日，使每個 Git object 維持有界：
 
+`data/rates` 與 `data/ota_browser_snapshots.jsonl` 是權威來源；`scripts.build_rate_warehouse` 另產生
+`data/warehouse/rates/YYYY-MM.parquet` 的 ZSTD 月分片與
+`data/warehouse/manifest.json`。Parquet 只作分析鏡像，每次建置均逐月驗證列數與完整自然鍵集合相同後才原子換檔。
+
 ```text
 hotel_id + source_platform + check_in + check_out
 + rooms + adults + children

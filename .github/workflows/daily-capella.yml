@@ -96,6 +96,7 @@ jobs:
       - name: Build static dashboard data
         run: |
           python -m scripts.deduplicate_rate_history
+          python -m scripts.build_rate_warehouse
           python -m scripts.build_static_data
           python -m scripts.build_hotel_catalog
           python -m scripts.build_site_meta
@@ -105,7 +106,7 @@ jobs:
 
       - name: Save new rate history
         run: |
-          git add data/rates data/adapter_health.json public/data
+          git add data/rates data/warehouse data/adapter_health.json public/data
           git diff --cached --quiet || git commit -m "data: update Taiwan hotel rates"
           git push
 

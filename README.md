@@ -11,7 +11,7 @@
 - 前台：原生 HTML、CSS、JavaScript、SVG 圖表與 Leaflet／OpenStreetMap 地圖，提供繁中／英文／日文及 TWD／USD／JPY 切換。
 - API：Python 3.12、FastAPI、Pydantic。
 - 抓價：可插拔 Python adapter；依訂房引擎使用 HTTPX 或 Playwright。
-- 儲存：正式歷史按查價月份／日期保存在 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl`；Google Sheets 模組保留為選用後端。
+- 儲存：正式歷史按查價月份／日期保存在 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl`；另以 DuckDB 建立 ZSTD Parquet 月分片分析鏡像，Google Sheets 模組保留為選用後端。
 - 自動化：GitHub Actions 每日執行抓價、去重、靜態資料建置及 GitHub Pages 發布。
 - 測試：pytest，涵蓋資料模型、adapter、指標、去重、靜態建置與前台結構。
 
@@ -107,12 +107,23 @@ uvicorn app.main:app --reload
 python -m scripts.run_daily_once
 python -m scripts.run_ota_once
 python -m scripts.deduplicate_rate_history
+python -m scripts.build_rate_warehouse
 python -m scripts.build_static_data
 ```
 
 若未設定 Google Sheets 憑證，資料寫入 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl`。完整部署步驟見
 [docs/deployment.md](docs/deployment.md)，欄位定義見 [docs/schema.md](docs/schema.md)，
 OTA 啟用條件見 [docs/ota-integration.md](docs/ota-integration.md)。
+
+`build_rate_warehouse` 不取代 `data/rates` 與已核實 OTA 快照等 JSONL 權威來源；它建立
+`data/warehouse/rates/YYYY-MM.parquet`，並在換檔前逐月核對列數與完整自然鍵集合。
+`data/warehouse/manifest.json` 保存分片筆數、大小與 SHA-256。可直接用 DuckDB 查詢：
+
+```sql
+SELECT hotel_id, median(total_price)
+FROM read_parquet('data/warehouse/rates/*.parquet')
+GROUP BY hotel_id;
+```
 
 ## API
 
