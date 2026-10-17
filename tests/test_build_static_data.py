@@ -1530,6 +1530,29 @@ def test_history_summary_preaggregates_daily_and_lead_metrics():
     assert payload["lead_curve"][0]["median_twd"] == 12000
 
 
+def test_history_and_weekly_market_metrics_exclude_ota_rows():
+    official = {
+        "hotel_id": "hotel-a", "hotel_name": "Hotel A", "city": "Taipei",
+        "district": "Xinyi", "queried_at": "2026-09-24T01:00:00+00:00",
+        "check_in": "2026-10-01", "lead_days": 7, "room_size_sqm": 50,
+        "total_twd": 10000, "price_per_sqm": 200,
+        "source_platform": "official",
+    }
+    ota = {
+        **official, "source_platform": "booking_com", "total_twd": 50000,
+        "price_per_sqm": 1000,
+    }
+
+    payload = _history_summary([official, ota])
+
+    assert payload["metric_scope"] == "verified_official_only"
+    assert payload["verified_market_metrics"]["observations"] == 1
+    assert payload["market_summary"]["median_adr_twd"] == 10000
+    assert payload["daily"][0]["observations"] == 1
+    assert payload["daily"][0]["median_twd"] == 10000
+    assert payload["weekly_digest"]["current_period"]["observations"] == 1
+
+
 def test_weekly_digest_uses_equal_weight_hotel_medians_and_previous_week():
     rows = []
     for day, hotel_id, values in [
@@ -1604,7 +1627,8 @@ def test_daily_market_digest_uses_core_rooms_movers_and_strict_parity():
     digest = _daily_market_digest(rows)
 
     assert digest["available"] is True
-    assert digest["metrics"]["core_adr_change_pct"] == 0.005
+    # OTA rows are excluded from the verified market movement calculation.
+    assert digest["metrics"]["core_adr_change_pct"] == 0.0
     assert digest["metrics"]["largest_increase"]["hotel_id"] == "hotel-a"
     assert digest["metrics"]["largest_decrease"]["hotel_id"] == "hotel-b"
     assert digest["metrics"]["rate_parity_normal_rate"] == 1

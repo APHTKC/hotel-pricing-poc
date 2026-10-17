@@ -32,7 +32,14 @@ def calculate_market_summary(rows: Iterable[object]) -> dict[str, int | float | 
     so the API and static-data build use exactly the same implementation.
     """
 
-    observations = list(rows)
+    # Market KPIs intentionally describe direct public hotel rates only.
+    # Legacy observations predate ``source_platform`` and are known to be
+    # official-site records, so a missing value remains backward compatible.
+    observations = [
+        row for row in rows
+        if str(_field(row, "source_platform") or "official").strip().lower()
+        == "official"
+    ]
     grouped: dict[str, list[object]] = defaultdict(list)
     for row in observations:
         hotel_id = _field(row, "hotel_id")

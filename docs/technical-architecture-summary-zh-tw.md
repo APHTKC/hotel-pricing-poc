@@ -434,7 +434,7 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
 7. Agoda、Expedia／Hotels.com、Rakuten、Yahoo Travel、Ikyu 尚未實作正式 provider。
 8. GitHub daily workflow 發布前沒有固定執行完整 pytest；單一 probe workflow 才偶爾執行測試。
 9. FastAPI summary 讀取 storage 全歷史資料；靜態首頁使用 latest batch，兩者雖公式接近但資料時間範圍不同。
-10. 2026-10-17 自然鍵批次已在 Python 3.12 完整執行 pytest，結果為 294 tests passed。
+10. 2026-10-17 官方市場指標隔離批次已在 Python 3.12 完整執行 pytest，結果為 296 tests passed。
 
 ### Hardcode 盤點
 
@@ -497,12 +497,11 @@ fx_observation / cpi_observation
 
 ## 建議優先執行順序
 
-1. 已完成：台北時區 lead date、live-only、IHG 保守稅費、run_id、latest run、完整自然鍵，以及每日有界原始分片。
-2. 嚴格隔離官方市場指標與 OTA 快照／Rate Parity 指標。
-3. 全面改用 `nightly_adr = total_twd / nights`，保持一晚資料結果不變。
-4. 把房型主檔從房價 observation 解耦，優先補台北高價飯店與目前被擋飯店。
-5. 擴充籌備中飯店 schema 及 field-level evidence。
-6. 每日 workflow 加入完整 pytest 發布門檻。
-7. 抽離共用前端 modules，再導入真 `.xlsx` 與固定版 PDF 匯出。
-8. 完成官方 CPI provider 與 CPI-adjusted 指標。
+1. 已完成：台北時區 lead date、live-only、IHG 保守稅費、run_id、latest run、完整自然鍵、每日有界原始分片，以及官方市場指標與 OTA 快照／Rate Parity 指標隔離。
+2. 全面改用 `nightly_adr = total_twd / nights`，保持一晚資料結果不變。
+3. 把房型主檔從房價 observation 解耦，優先補台北高價飯店與目前被擋飯店。
+4. 擴充籌備中飯店 schema 及 field-level evidence。
+5. 每日 workflow 加入完整 pytest 發布門檻。
+6. 抽離共用前端 modules，再導入真 `.xlsx` 與固定版 PDF 匯出。
+7. 完成官方 CPI provider 與 CPI-adjusted 指標。
 

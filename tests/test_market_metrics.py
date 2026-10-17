@@ -25,3 +25,15 @@ def test_market_summary_accepts_missing_optional_analysis_values():
     assert result["median_adr_twd"] == 12000
     assert result["median_per_sqm_twd"] is None
     assert result["median_cpi_adjusted_twd"] is None
+
+
+def test_market_summary_excludes_ota_and_keeps_legacy_official_rows():
+    result = calculate_market_summary([
+        {"hotel_id": "legacy", "total_twd": 10000},
+        {"hotel_id": "official", "total_twd": 12000, "source_platform": "official"},
+        {"hotel_id": "ota", "total_twd": 50000, "source_platform": "booking_com"},
+    ])
+
+    assert result["observations"] == 2
+    assert result["hotels"] == 2
+    assert result["median_adr_twd"] == 11000

@@ -216,6 +216,15 @@ def _average(values: list[float]) -> float | None:
     return statistics.fmean(values) if values else None
 
 
+def _verified_market_rows(rows: list[dict]) -> list[dict]:
+    """Return official-site observations eligible for verified market KPIs."""
+    return [
+        row for row in rows
+        if str(row.get("source_platform") or "official").strip().lower()
+        == "official"
+    ]
+
+
 def _period_market(rows: list[dict]) -> dict:
     """Summarize a period after giving each hotel one equal-weight value."""
     by_hotel: dict[str, list[float]] = defaultdict(list)
@@ -250,6 +259,7 @@ def _period_market(rows: list[dict]) -> dict:
 
 def _weekly_digest(rows: list[dict]) -> dict:
     """Compare the latest seven calendar days with the preceding seven days."""
+    rows = _verified_market_rows(rows)
     dated_rows = []
     for row in rows:
         if not row.get("queried_at") or _number(row.get("total_twd")) is None:
@@ -328,6 +338,7 @@ def _weekly_digest(rows: list[dict]) -> dict:
         "available": current_value is not None,
         "currency": "TWD",
         "method": "hotel_equal_weight_median",
+        "metric_scope": "verified_official_only",
         "current_period": {
             "start": latest_start.isoformat(),
             "end": latest_end.isoformat(),
@@ -391,6 +402,8 @@ def _hotel_forward_medians(rows: list[dict], start, end) -> dict[str, dict]:
 
 def _daily_market_digest(rows: list[dict], names_zh: dict[str, str] | None = None) -> dict:
     """Build concise, traceable insights for the latest observation day."""
+    comparison_rows = rows
+    rows = _verified_market_rows(rows)
     valid_days = []
     for row in rows:
         try:
@@ -429,7 +442,9 @@ def _daily_market_digest(rows: list[dict], names_zh: dict[str, str] | None = Non
     largest_increase = max(movers, key=lambda item: item["change_pct"], default=None)
     largest_decrease = min(movers, key=lambda item: item["change_pct"], default=None)
 
-    parity = calculate_rate_parity(current)
+    # Rate parity is a separate source-comparison metric. It may use OTA rows,
+    # but those rows never enter the market ADR/mover calculations above.
+    parity = calculate_rate_parity(comparison_rows)
     comparable = [item for item in parity if item.get("gap_percent") is not None]
     normal = [item for item in comparable if abs(item["gap_percent"]) <= .05]
     parity_rate = len(normal) / len(comparable) if comparable else None
@@ -455,6 +470,7 @@ def _daily_market_digest(rows: list[dict], names_zh: dict[str, str] | None = Non
         "comparison_date": comparison_day.isoformat(),
         "available": bool(insights),
         "method": "hotel_equal_weight_median",
+        "metric_scope": "verified_official_only",
         "insights": insights[:4],
         "metrics": {
             "core_adr_change_pct": core_change,
@@ -468,6 +484,7 @@ def _daily_market_digest(rows: list[dict], names_zh: dict[str, str] | None = Non
 
 def _data_quality_warnings(rows: list[dict]) -> dict:
     """Detect volume drops and day-over-day ADR spikes without guessing."""
+    rows = _verified_market_rows(rows)
     dated: dict = defaultdict(lambda: defaultdict(list))
     names: dict[str, str | None] = {}
     days = set()
@@ -517,6 +534,7 @@ def _data_quality_warnings(rows: list[dict]) -> dict:
 
 def _history_summary(rows: list[dict]) -> dict:
     """Build the small, chart-ready payload loaded by the history landing page."""
+    rows = _verified_market_rows(rows)
     daily_groups: dict[tuple, list[dict]] = defaultdict(list)
     lead_groups: dict[tuple, list[dict]] = defaultdict(list)
     hotel_groups: dict[tuple, list[dict]] = defaultdict(list)
@@ -575,10 +593,13 @@ def _history_summary(rows: list[dict]) -> dict:
             "hotel_id": hotel_id, "hotel_name": hotel_name, "city": city,
             "district": district, "lead_days": lead, **stats(group),
         })
+    market_summary = calculate_market_summary(rows)
     return {
         "generated_from": str(SOURCE).replace("\\", "/"),
+        "metric_scope": "verified_official_only",
         "available_months": sorted({key for row in rows if (key := _month_key(row))}, reverse=True),
-        "market_summary": calculate_market_summary(rows),
+        "verified_market_metrics": market_summary,
+        "market_summary": market_summary,
         "weekly_digest": _weekly_digest(rows),
         "daily": daily,
         "hotels": hotels,
@@ -657,13 +678,16 @@ def main() -> None:
             month_source_rows = source_partitions[month][hotel_id]
             hotel_name = next((row.get("hotel_name") for row in month_rows if row.get("hotel_name")), hotel_id)
             relative_path = f"rates/{month}/{hotel_id}.json"
+            month_market_summary = calculate_market_summary(month_source_rows)
             (month_dir / f"{hotel_id}.json").write_text(
                 json.dumps({
                     "month": month,
                     "hotel_id": hotel_id,
                     "hotel_name": hotel_name,
                     "generated_from": str(SOURCE).replace("\\", "/"),
-                    "market_summary": calculate_market_summary(month_source_rows),
+                    "metric_scope": "verified_official_only",
+                    "verified_market_metrics": month_market_summary,
+                    "market_summary": month_market_summary,
                     "rate_parity": calculate_rate_parity(month_source_rows),
                     "rates": month_rows,
                 }, ensure_ascii=False),
@@ -731,6 +755,8 @@ def main() -> None:
                     (row.get("hotel_id"), row.get("room_type_code"))
                     for row in latest_rows if row.get("hotel_id") and row.get("room_type_code")
                 }),
+                "metric_scope": "verified_official_only",
+                "verified_market_metrics": latest_summary,
                 "market_summary": latest_summary,
                 "rate_parity": latest_parity,
             },
@@ -757,6 +783,8 @@ def main() -> None:
             {
                 "generated_from": str(SOURCE).replace("\\", "/"),
                 "latest_queried_at": latest_queried_at,
+                "metric_scope": "verified_official_only",
+                "verified_market_metrics": latest_summary,
                 "market_summary": latest_summary,
                 "rate_parity": latest_parity,
                 "rates": latest_rows,
