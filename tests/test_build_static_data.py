@@ -564,6 +564,26 @@ def test_latest_payload_keeps_hotels_com_hotel_proverbs_snapshot():
     assert {row["comparison_status"] for row in hotel} == {"comparable"}
 
 
+def test_latest_payload_keeps_hotels_com_grand_mayfull_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    hotel = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "grand_mayfull_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(hotel) == 5
+    assert {float(row["room_size_sqm"]) for row in hotel} == {
+        50.0, 60.0, 70.0, 105.0
+    }
+    assert {row["breakfast_included"] for row in hotel} == {False, True}
+    assert min(float(row["total_price"]) for row in hotel) == 20561
+    assert max(float(row["total_price"]) for row in hotel) == 54830
+    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+
+
 def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
     sheraton = [
