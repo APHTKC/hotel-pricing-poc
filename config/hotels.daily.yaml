@@ -102,6 +102,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/LDC-PALAIS-TP
     adapter: gobooking
+    automation_status: verified
+    automation_note: "Official GoBooking daily tracking remains active. Public OTA coverage now also includes Booking.com plus Hotels.com/Expedia. On 2026-10-17, Hotels.com produced eight complete two-adult refundable offers for 2027-01-09 across visible 30, 36, 50, and 66 sqm rooms, with tax-and-fee-inclusive totals from TWD 9,556 to 17,672. Room-only and included-breakfast products are stored separately; five sold-out products and unselected paid breakfast add-ons were excluded. Strict parity requires the same canonical official product."
   - id: solaria_nishitetsu_taipei
     name: Solaria Nishitetsu Hotel Taipei Ximen
     short_name: Solaria Nishitetsu

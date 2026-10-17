@@ -520,7 +520,11 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert {row.breakfast_included for row in latest_w_rows} == {False}
     assert all(row.tax_inclusion == "included" for row in latest_w_rows)
     assert all(canonical_comparison_key(row) is not None for row in latest_w_rows)
-    palais_rows = [row for row in rows if row.hotel_id == "palais_de_chine"]
+    palais_rows = [
+        row for row in rows
+        if row.hotel_id == "palais_de_chine"
+        and row.source_platform == "booking_com"
+    ]
     latest_palais_query = max(row.queried_at for row in palais_rows)
     palais_rows = [
         row for row in palais_rows if row.queried_at == latest_palais_query
@@ -535,6 +539,21 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in palais_rows) == Decimal("20372")
     assert all(row.tax_inclusion == "unknown" for row in palais_rows)
     assert all(canonical_comparison_key(row) is None for row in palais_rows)
+    palais_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "palais_de_chine"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(palais_expedia_rows) == 8
+    assert len({row.room_type_code for row in palais_expedia_rows}) == 8
+    assert {row.room_size_sqm for row in palais_expedia_rows} == {
+        Decimal("30"), Decimal("36"), Decimal("50"), Decimal("66")
+    }
+    assert {row.breakfast_included for row in palais_expedia_rows} == {False, True}
+    assert min(row.total_price for row in palais_expedia_rows) == Decimal("9556")
+    assert max(row.total_price for row in palais_expedia_rows) == Decimal("17672")
+    assert all(row.tax_inclusion == "included" for row in palais_expedia_rows)
+    assert all(canonical_comparison_key(row) is not None for row in palais_expedia_rows)
     jr_rows = [
         row for row in rows
         if row.hotel_id == "hotel_metropolitan_premier_taipei"

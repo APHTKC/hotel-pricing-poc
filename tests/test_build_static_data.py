@@ -724,7 +724,11 @@ def test_okura_visible_expedia_snapshot_has_comparable_two_adult_products():
 
 def test_palais_visible_booking_snapshot_uses_two_adult_breakfast_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    palais = [row for row in rows if row["hotel_id"] == "palais_de_chine"]
+    palais = [
+        row for row in rows
+        if row["hotel_id"] == "palais_de_chine"
+        and row["source_platform"] == "booking_com"
+    ]
     latest_query = max(row["queried_at"] for row in palais)
     palais = [row for row in palais if row["queried_at"] == latest_query]
 
@@ -737,6 +741,24 @@ def test_palais_visible_booking_snapshot_uses_two_adult_breakfast_products():
     assert {row["breakfast_included"] for row in palais} == {True}
     assert all("可免費取消" in row["cancellation_policy"] for row in palais)
     assert all(build_static_data.canonical_comparison_key(row) is None for row in palais)
+
+
+def test_palais_visible_expedia_snapshot_has_comparable_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    palais = [
+        row for row in rows
+        if row["hotel_id"] == "palais_de_chine"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(palais) == 8
+    assert len({row["room_type_code"] for row in palais}) == 8
+    assert {float(row["room_size_sqm"]) for row in palais} == {30.0, 36.0, 50.0, 66.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in palais} == {(2, 0, 1)}
+    assert {row["breakfast_included"] for row in palais} == {False, True}
+    assert min(float(row["total_twd"]) for row in palais) == 9556
+    assert max(float(row["total_twd"]) for row in palais) == 17672
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in palais)
 
 
 def test_jr_east_visible_booking_snapshot_excludes_non_two_adult_products():
