@@ -48,6 +48,7 @@ def test_new_taipei_high_end_hotels_are_registered_once_with_source_status():
         expected_status = (
             "browser_snapshot"
             if hotel_id in {
+                "episode_daan_taipei",
                 "courtyard_taipei_downtown",
                 "hotel_proverbs_taipei",
                 "renaissance_taipei_shihlin",
@@ -127,7 +128,7 @@ def test_every_open_hotel_has_a_valid_opening_year():
     )
 
 
-def test_episode_hotels_are_registered_with_official_profiles_but_not_reprobed():
+def test_episode_hotels_keep_official_profiles_and_source_status():
     catalog = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))["hotels"]
     profiles = json.loads(
         Path("public/data/hotel_profiles.json").read_text(encoding="utf-8")
@@ -140,8 +141,8 @@ def test_episode_hotels_are_registered_with_official_profiles_but_not_reprobed()
         ("episode_hsinchu", 140, 7),
     ):
         assert hotels[hotel_id]["enabled"] is False
-        assert hotels[hotel_id]["automation_status"] == "skipped"
-        assert "without repeating" in hotels[hotel_id]["automation_note"]
+        expected_status = "browser_snapshot" if hotel_id == "episode_daan_taipei" else "skipped"
+        assert hotels[hotel_id]["automation_status"] == expected_status
         assert profile_by_id[hotel_id]["room_inventory"] == inventory
         assert len(profile_by_id[hotel_id]["room_snapshot"]["rooms"]) == room_types
         assert profile_by_id[hotel_id]["room_snapshot"]["source_type"] == "official"

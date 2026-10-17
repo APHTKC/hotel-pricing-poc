@@ -1119,7 +1119,11 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         for row in courtyard_downtown_expedia_rows
     )
 
-    episode_rows = [row for row in rows if row.hotel_id == "episode_daan_taipei"]
+    episode_rows = [
+        row for row in rows
+        if row.hotel_id == "episode_daan_taipei"
+        and row.source_platform == "booking_com"
+    ]
     assert len(episode_rows) == 8
     assert {row.room_size_sqm for row in episode_rows} == {
         Decimal("30"), Decimal("33"), Decimal("36")
@@ -1129,6 +1133,21 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in episode_rows) == Decimal("10164")
     assert all(row.tax_inclusion == "unknown" for row in episode_rows)
     assert all(canonical_comparison_key(row) is None for row in episode_rows)
+
+    episode_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "episode_daan_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(episode_expedia_rows) == 5
+    assert {row.room_size_sqm for row in episode_expedia_rows} == {
+        Decimal("30"), Decimal("36")
+    }
+    assert {row.breakfast_included for row in episode_expedia_rows} == {False}
+    assert min(row.total_price for row in episode_expedia_rows) == Decimal("13052")
+    assert max(row.total_price for row in episode_expedia_rows) == Decimal("13629")
+    assert all(row.tax_inclusion == "included" for row in episode_expedia_rows)
+    assert all(canonical_comparison_key(row) is not None for row in episode_expedia_rows)
 
     indigo_rows = [row for row in rows if row.hotel_id == "indigo_taipei_north"]
     assert len(indigo_rows) == 8
