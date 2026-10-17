@@ -20,6 +20,20 @@ def test_asset_manifest_matches_published_json_content():
     }
 
 
+def test_asset_manifest_hash_is_independent_of_windows_line_endings(tmp_path):
+    data = tmp_path / "data"
+    data.mkdir()
+    (data / "sample.json").write_bytes(b'{\r\n  "ok": true\r\n}\r\n')
+    normalized = b'{\n  "ok": true\n}\n'
+
+    manifest = build_asset_manifest(tmp_path)
+
+    assert manifest["assets"]["data/sample.json"] == {
+        "sha256": hashlib.sha256(normalized).hexdigest()[:16],
+        "bytes": len(normalized),
+    }
+
+
 def test_dashboard_uses_content_versioned_shared_loader():
     loader = Path("public/assets/js/data-loader.js").read_text(encoding="utf-8")
     assert "asset_manifest.json" in loader

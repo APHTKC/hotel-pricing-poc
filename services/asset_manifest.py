@@ -16,7 +16,10 @@ def build_asset_manifest(public_root: Path) -> dict:
         if path.name in EXCLUDED_NAMES:
             continue
         relative = path.relative_to(public_root).as_posix()
-        content = path.read_bytes()
+        # GitHub Pages deploys the checked-out Git blobs, whose text files use
+        # LF.  Normalize Windows working-tree CRLF before hashing so the
+        # version token is identical locally and on the Linux runner.
+        content = path.read_bytes().replace(b"\r\n", b"\n")
         assets[relative] = {
             "sha256": hashlib.sha256(content).hexdigest()[:16],
             "bytes": len(content),
