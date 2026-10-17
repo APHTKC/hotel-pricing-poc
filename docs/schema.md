@@ -34,11 +34,14 @@
 寫入 `data/rates/YYYY-MM/YYYY-MM-DD.jsonl` 及產生公開 JSON 前，以每日自然鍵去重；日期取自 `queried_at` 的 UTC 日曆日，使每個 Git object 維持有界：
 
 ```text
-hotel_id + check_in + room_type_code + rate_plan_code + queried_at_date
+hotel_id + source_platform + check_in + check_out
++ rooms + adults + children
++ room_type_code + rate_plan_code + currency + queried_at_date
 ```
 
 訂房引擎未提供 code 時，才使用正規化房型／方案名稱作 fallback；相同自然鍵保留
-`queried_at` 較新的 observation。
+`queried_at` 較新的 observation。舊資料缺少新維度時採模型既有預設值
+`official / 1 房 / 2 成人 / 0 兒童`；`NTD` 與 `TWD` 視為同一幣別。
 
 ## 市場指標
 

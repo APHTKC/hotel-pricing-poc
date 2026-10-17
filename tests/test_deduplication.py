@@ -41,6 +41,47 @@ def test_natural_key_uses_queried_calendar_date_not_exact_time():
     assert deduplicate_observations([morning, evening]) == [evening]
 
 
+def test_natural_key_keeps_source_stay_occupancy_and_currency_distinct():
+    base = observation(
+        observation_id="base", queried_at=datetime(2026, 9, 24, 1, tzinfo=UTC)
+    ).model_dump(mode="json")
+    variants = [
+        {**base, "observation_id": "source", "source_platform": "booking_com"},
+        {**base, "observation_id": "checkout", "check_out": "2026-10-03"},
+        {**base, "observation_id": "rooms", "rooms": 2},
+        {**base, "observation_id": "adults", "adults": 1},
+        {**base, "observation_id": "children", "children": 1},
+        {**base, "observation_id": "currency", "currency": "USD"},
+    ]
+
+    keys = {observation_natural_key(row) for row in [base, *variants]}
+
+    assert len(keys) == 7
+    assert len(deduplicate_observations([base, *variants])) == 7
+
+
+def test_natural_key_applies_model_defaults_to_legacy_rows():
+    current = observation(
+        observation_id="current", queried_at=datetime(2026, 9, 24, 1, tzinfo=UTC)
+    ).model_dump(mode="json")
+    legacy = {
+        key: value
+        for key, value in current.items()
+        if key not in {"source_platform", "rooms", "adults", "children"}
+    }
+
+    assert observation_natural_key(legacy) == observation_natural_key(current)
+
+
+def test_natural_key_normalizes_platform_and_taiwan_currency_alias():
+    base = observation(
+        observation_id="base", queried_at=datetime(2026, 9, 24, 1, tzinfo=UTC)
+    ).model_dump(mode="json")
+    alias = {**base, "source_platform": " OFFICIAL ", "currency": "ntd"}
+
+    assert observation_natural_key(alias) == observation_natural_key(base)
+
+
 def test_local_jsonl_store_deduplicates_existing_and_current_batch(tmp_path):
     path = tmp_path / "rates.jsonl"
     store = LocalJsonlStore(path)

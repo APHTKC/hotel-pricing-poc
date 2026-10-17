@@ -419,14 +419,14 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
    各飯店、日期、lead time 都重新 `rows.filter`。資料量增加後，互動與重繪會明顯變慢。
 
 3. **Google Sheets 不適合長期 fact table。**  
-   `read_all()` 讀整張表，append 無去重；當資料達數十萬列時，速度、quota 與維護性都會惡化。
+   `read_all()` 仍需讀整張表；append 雖已依完整自然鍵去重，但資料達數十萬列時，速度、quota 與維護性仍會惡化。既有工作表新增欄位時會保留原欄序，避免 append 欄位錯位。
 
 目前已完成依年月／飯店 partition 及預聚合 summary。中期可改 SQLite／DuckDB／Parquet 或 PostgreSQL／BigQuery，再由 API 或 build job 輸出小型前端資料。
 
 ### P2：工程品質與產品完整度
 
 1. 三個頁面的 CSS、i18n、篩選與圖表函式大量重複，應拆成共用 JS/CSS modules。
-2. `observation_id` 包含查詢時間，JSONL append 沒有唯一 constraint；重跑同日期會留下新 observation，沒有 idempotency。
+2. JSONL 沒有資料庫層唯一 constraint，但 append 與發布均已使用完整自然鍵（來源、住宿區間、人數、房型、方案、幣別、查價日）達成應用層 idempotency；仍需以測試維持此不變量。
 3. 公開 JSON 移除取消條件、稅、服務費與 status，限制稽核與 OTA 公平比較。
 4. 主頁明細只顯示前 300 筆，沒有分頁或虛擬列表。
 5. 「Excel」實際輸出 CSV，不是 `.xlsx`；「PDF」是 `window.print()`，不是固定版型 PDF。
@@ -434,7 +434,7 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
 7. Agoda、Expedia／Hotels.com、Rakuten、Yahoo Travel、Ikyu 尚未實作正式 provider。
 8. GitHub daily workflow 發布前沒有固定執行完整 pytest；單一 probe workflow 才偶爾執行測試。
 9. FastAPI summary 讀取 storage 全歷史資料；靜態首頁使用 latest batch，兩者雖公式接近但資料時間範圍不同。
-10. 本次環境沒有可用 Python executable，因此未重新執行 pytest；repo 內有 28 個測試檔，最近一次專案驗證紀錄為 98 tests passed。
+10. 2026-10-17 自然鍵批次已在 Python 3.12 完整執行 pytest，結果為 294 tests passed。
 
 ### Hardcode 盤點
 
@@ -459,8 +459,8 @@ CoreMedian(h) = median(該飯店 45 <= room_size_sqm < 60 的 total_twd)
 **測試／示範資料**
 
 - `DemoScraper` 固定產生 45㎡、55㎡、82㎡三種房型及可重現價格，用於 pipeline/UI 測試。
-- `.env.example` 預設 `DEMO_MODE=true`。
-- 現行公開資料沒有 OTA rows；raw JSONL 搜尋到的正式資料為 `status=live`，但建置程式本身沒有防止 demo 混入的保護。
+- `.env.example` 預設 `DEMO_MODE=false`。
+- 靜態建置採 live-only fail-closed；正式 OTA 快照已可進入有日期明細與同商品比價，缺少 Canonical Comparison Key 必要條件時只展示快照、不計算價差。
 
 ---
 
@@ -497,12 +497,12 @@ fx_observation / cpi_observation
 
 ## 建議優先執行順序
 
-1. 修正台北時區 lead date、只發布 `status=live`、核實 IHG 稅費。
-2. 加入 `scrape_run_id`、真正的 latest run 與去重策略。
-3. 把房型主檔從房價 observation 解耦，優先補台北高價飯店與目前被擋飯店。
-4. 擴充籌備中飯店 schema 及 field-level evidence。
-5. 嚴格定義 OTA comparability key，再開啟 UI 比價。
-6. 持續監控已完成的歷史 JSON partition／預聚合，設定分片大小回歸門檻。
+1. 已完成：台北時區 lead date、live-only、IHG 保守稅費、run_id、latest run、完整自然鍵，以及每日有界原始分片。
+2. 嚴格隔離官方市場指標與 OTA 快照／Rate Parity 指標。
+3. 全面改用 `nightly_adr = total_twd / nights`，保持一晚資料結果不變。
+4. 把房型主檔從房價 observation 解耦，優先補台北高價飯店與目前被擋飯店。
+5. 擴充籌備中飯店 schema 及 field-level evidence。
+6. 每日 workflow 加入完整 pytest 發布門檻。
 7. 抽離共用前端 modules，再導入真 `.xlsx` 與固定版 PDF 匯出。
 8. 完成官方 CPI provider 與 CPI-adjusted 指標。
 

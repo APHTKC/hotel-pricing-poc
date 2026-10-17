@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 
 
 T = TypeVar("T")
-NaturalKey = tuple[str, str, str, str, str]
+NaturalKey = tuple[str, ...]
 
 
 def _field(row: object, name: str) -> Any:
@@ -31,6 +31,26 @@ def _timestamp_text(row: object) -> str:
     return str(value or "")
 
 
+def _normalized_text(row: object, name: str, default: str = "") -> str:
+    value = _field(row, name)
+    if value in (None, ""):
+        value = default
+    return str(value).strip()
+
+
+def _occupancy_text(row: object, name: str, default: int) -> str:
+    """Normalize model defaults while keeping invalid legacy values distinct."""
+    value = _field(row, name)
+    if value in (None, ""):
+        value = default
+    return str(value).strip()
+
+
+def _currency_text(row: object) -> str:
+    currency = _normalized_text(row, "currency").upper()
+    return "TWD" if currency == "NTD" else currency
+
+
 def observation_natural_key(row: object) -> NaturalKey:
     """Return the stable daily natural key used by storage and publishing.
 
@@ -44,9 +64,15 @@ def observation_natural_key(row: object) -> NaturalKey:
     rate_key = str(rate_code) if rate_code not in (None, "") else f"name:{_field(row, 'rate_plan_name') or ''}"
     return (
         str(_field(row, "hotel_id") or ""),
+        _normalized_text(row, "source_platform", "official").lower(),
         _date_text(_field(row, "check_in")),
+        _date_text(_field(row, "check_out")),
+        _occupancy_text(row, "rooms", 1),
+        _occupancy_text(row, "adults", 2),
+        _occupancy_text(row, "children", 0),
         room_key,
         rate_key,
+        _currency_text(row),
         _date_text(_field(row, "queried_at")),
     )
 

@@ -10,15 +10,31 @@ from storage.base import RateStore
 
 SHEET_COLUMNS = [
     "schema_version", "observation_id", "run_id", "scheduled_for", "queried_at", "check_in", "check_out",
-    "lead_days", "nights", "adults", "hotel_id", "hotel_name", "city",
+    "lead_days", "nights", "rooms", "adults", "children", "hotel_id", "hotel_name", "city",
     "room_type_code", "room_type_name", "room_size_sqm", "size_band",
     "rate_plan_code", "rate_plan_name", "breakfast_included",
-    "cancellation_policy", "price_before_tax", "service_charge", "tax",
+    "cancellation_policy", "price_before_tax", "service_charge", "tax", "tax_inclusion",
     "total_price", "currency", "fx_rate_to_twd", "total_twd",
     "price_per_sqm", "cpi_index", "cpi_base_index", "cpi_adjusted_twd",
     "source_url", "status", "district", "source_platform", "source_method",
     "source_property_id",
 ]
+LEGACY_DEFAULTABLE_COLUMNS = {
+    "rooms",
+    "adults",
+    "children",
+    "source_platform",
+    "source_method",
+}
+
+
+def model_payload(record: dict) -> dict:
+    base_fields = set(RateObservation.model_fields)
+    payload = {key: value for key, value in record.items() if key in base_fields}
+    for column in LEGACY_DEFAULTABLE_COLUMNS:
+        if payload.get(column) in (None, ""):
+            payload.pop(column, None)
+    return payload
 
 
 class GoogleSheetsStore(RateStore):
@@ -42,6 +58,7 @@ class GoogleSheetsStore(RateStore):
             if column not in existing:
                 existing.append(column)
                 self.sheet.update_cell(1, len(existing), column)
+        self.columns = existing
 
     def append(self, rows: list[RateObservation]) -> int:
         existing_keys = {
@@ -55,18 +72,15 @@ class GoogleSheetsStore(RateStore):
                 continue
             existing_keys.add(key)
             data = row.model_dump(mode="json")
-            values.append(["" if data.get(column) is None else str(data.get(column)) for column in SHEET_COLUMNS])
+            values.append(["" if data.get(column) is None else str(data.get(column)) for column in self.columns])
         if values:
             self.sheet.append_rows(values, value_input_option="RAW")
         return len(values)
 
     def read_all(self) -> list[RateObservation]:
         records = self.sheet.get_all_records()
-        base_fields = set(RateObservation.model_fields)
         rows = [
-            RateObservation.model_validate(
-                {k: v for k, v in record.items() if k in base_fields}
-            )
+            RateObservation.model_validate(model_payload(record))
             for record in records
         ]
         return deduplicate_observations(rows, keep="latest")
