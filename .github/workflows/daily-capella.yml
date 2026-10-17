@@ -77,6 +77,9 @@ jobs:
           BOOKING_COM_AFFILIATE_ID: ${{ secrets.BOOKING_COM_AFFILIATE_ID }}
         run: python -m scripts.run_ota_once
 
+      - name: Validate collected source data
+        run: python -m pytest -q
+
       # Commit only the authoritative collector outputs before syncing main.
       # Manual code/dashboard publishes can happen during the roughly 20-minute
       # collection window.  Rebasing before the generated dashboard exists
@@ -96,6 +99,9 @@ jobs:
           python -m scripts.build_static_data
           python -m scripts.build_hotel_catalog
           python -m scripts.build_site_meta
+
+      - name: Validate release artifacts
+        run: python -m pytest -q
 
       - name: Save new rate history
         run: |

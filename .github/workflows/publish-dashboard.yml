@@ -25,6 +25,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: pip install -r requirements.txt
+      - name: Validate dashboard release
+        run: python -m pytest -q
       - name: Generate deployment metadata
         run: python -m scripts.build_site_meta
       - uses: actions/configure-pages@v5

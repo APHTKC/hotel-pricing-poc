@@ -2,6 +2,7 @@ from pathlib import Path
 
 
 WORKFLOW = Path(".github/workflows/daily-capella.yml")
+PUBLISH_WORKFLOW = Path(".github/workflows/publish-dashboard.yml")
 
 
 def test_daily_workflow_avoids_top_of_hour_schedule() -> None:
@@ -33,3 +34,29 @@ def test_daily_workflow_checkpoints_only_authoritative_collector_outputs() -> No
     assert "data/adapter_health.json" in checkpoint
     assert "public/data/fx.json" in checkpoint
     assert "git add public/data" not in checkpoint
+
+
+def test_daily_workflow_tests_before_each_commit_and_before_pages_upload() -> None:
+    workflow = WORKFLOW.read_text(encoding="utf-8")
+
+    source_test = workflow.index("- name: Validate collected source data")
+    checkpoint = workflow.index("- name: Checkpoint collected source data")
+    release_test = workflow.index("- name: Validate release artifacts")
+    save = workflow.index("- name: Save new rate history")
+    upload = workflow.index("- name: Upload dashboard")
+
+    assert source_test < checkpoint
+    assert release_test < save < upload
+    assert workflow.count("run: python -m pytest -q") == 2
+
+
+def test_dashboard_publish_is_blocked_by_full_test_suite() -> None:
+    workflow = PUBLISH_WORKFLOW.read_text(encoding="utf-8")
+
+    install = workflow.index("- name: Install project")
+    test = workflow.index("- name: Validate dashboard release")
+    metadata = workflow.index("- name: Generate deployment metadata")
+    upload = workflow.index("uses: actions/upload-pages-artifact@v3")
+
+    assert install < test < metadata < upload
+    assert "run: python -m pytest -q" in workflow
