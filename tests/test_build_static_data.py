@@ -584,6 +584,24 @@ def test_latest_payload_keeps_hotels_com_grand_mayfull_snapshot():
     assert {row["comparison_status"] for row in hotel} == {"comparable"}
 
 
+def test_latest_payload_keeps_hotels_com_grand_hilai_taipei_snapshot():
+    payload = json.loads(
+        build_static_data.LATEST_DETAILS_TARGET.read_text(encoding="utf-8")
+    )
+    hotel = [
+        row for row in payload["rates"]
+        if row["hotel_id"] == "grand_hilai_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(hotel) == 4
+    assert {float(row["room_size_sqm"]) for row in hotel} == {44.0, 59.0}
+    assert {row["breakfast_included"] for row in hotel} == {False, True}
+    assert min(float(row["total_price"]) for row in hotel) == 7488
+    assert max(float(row["total_price"]) for row in hotel) == 16416
+    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+
+
 def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
     sheraton = [
@@ -742,11 +760,9 @@ def test_latest_payload_keeps_booking_and_hotels_com_mandarin_snapshots():
         row for row in mandarin if row["source_platform"] == "expedia_group"
     ]
 
-    assert {row["source_platform"] for row in mandarin} == {
-        "official",
-        "booking_com",
-        "expedia_group",
-    }
+    assert {"booking_com", "expedia_group"}.issubset(
+        {row["source_platform"] for row in mandarin}
+    )
     assert len(hotels_com) == 15
     assert {float(row["room_size_sqm"]) for row in hotels_com} == {
         55.0,

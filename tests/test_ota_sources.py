@@ -676,7 +676,11 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert max(row.total_price for row in grand_hotel_rows) == Decimal("11928")
     assert all(row.tax_inclusion == "included" for row in grand_hotel_rows)
     assert all(canonical_comparison_key(row) is not None for row in grand_hotel_rows)
-    grand_hilai_rows = [row for row in rows if row.hotel_id == "grand_hilai_taipei"]
+    grand_hilai_rows = [
+        row for row in rows
+        if row.hotel_id == "grand_hilai_taipei"
+        and row.source_platform == "booking_com"
+    ]
     assert len(grand_hilai_rows) == 5
     assert {row.room_size_sqm for row in grand_hilai_rows} == {
         Decimal("44"), Decimal("59")
@@ -687,6 +691,24 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     }
     assert all(row.tax_inclusion == "unknown" for row in grand_hilai_rows)
     assert all(canonical_comparison_key(row) is None for row in grand_hilai_rows)
+    grand_hilai_expedia_rows = [
+        row for row in rows
+        if row.hotel_id == "grand_hilai_taipei"
+        and row.source_platform == "expedia_group"
+    ]
+    assert len(grand_hilai_expedia_rows) == 4
+    assert {row.room_size_sqm for row in grand_hilai_expedia_rows} == {
+        Decimal("44"), Decimal("59")
+    }
+    assert {row.breakfast_included for row in grand_hilai_expedia_rows} == {
+        False, True
+    }
+    assert min(row.total_price for row in grand_hilai_expedia_rows) == Decimal("7488")
+    assert max(row.total_price for row in grand_hilai_expedia_rows) == Decimal("16416")
+    assert all(row.tax_inclusion == "included" for row in grand_hilai_expedia_rows)
+    assert all(
+        canonical_comparison_key(row) is not None for row in grand_hilai_expedia_rows
+    )
     mayfull_rows = [
         row for row in rows
         if row.hotel_id == "grand_mayfull_taipei"

@@ -167,8 +167,8 @@ def test_published_catalog_contains_gaia_as_verified_daily_hotel():
     assert hotel["district"] == "Beitou"
     assert hotel["enabled"] is True
     assert hotel["automation_status"] == "verified"
-    assert "+30 days" in hotel["automation_note"]
-    assert "+60 days" in hotel["automation_note"]
+    assert "Official SiteMinder daily tracking remains active" in hotel["automation_note"]
+    assert "Hotels.com/Expedia" in hotel["automation_note"]
 
 
 def test_published_catalog_contains_miramar_after_single_403_check():
