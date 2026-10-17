@@ -1666,3 +1666,14 @@ def test_data_quality_flags_low_volume_and_large_price_change():
     assert quality["as_of"] == "2026-09-30"
     codes = {item["code"] for item in quality["hotels"][0]["warnings"]}
     assert codes == {"low_volume", "price_spike"}
+
+
+def test_history_row_chunks_stay_bounded_without_losing_rows():
+    from scripts.build_static_data import _chunk_rate_rows
+
+    rows = [{"id": index, "value": "房價" * 30} for index in range(20)]
+    chunks = _chunk_rate_rows(rows, max_bytes=400)
+
+    assert len(chunks) > 1
+    assert [row for chunk in chunks for row in chunk] == rows
+    assert all(chunk for chunk in chunks)

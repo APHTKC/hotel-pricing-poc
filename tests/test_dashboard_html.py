@@ -1597,7 +1597,8 @@ def test_history_loads_summary_first_and_month_details_on_demand():
 
     assert "./data/history_summary.json" in html
     assert "./data/rates/index.json" in html
-    assert "indexedHistoryFile(month,hotelId)" in html
+    assert "indexedHistoryFiles(month,hotelId)" in html
+    assert "Promise.all(paths.map" in html
     assert "loadJson(`./data/${path}`)" in html
     assert "./data/rates/${month}.json" not in html
     assert "./data/rates.json" not in html

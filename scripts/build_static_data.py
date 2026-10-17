@@ -1,5 +1,6 @@
 import json
 import re
+import shutil
 import statistics
 from collections import defaultdict
 from datetime import datetime, timedelta
@@ -35,6 +36,7 @@ HOTEL_NAMES_SOURCE = Path("public/data/hotel_names_zh.json")
 HOTEL_PROFILES_SOURCE = Path("public/data/hotel_profiles.json")
 ROOM_TYPE_DIMENSION_TARGET = Path("public/data/room_type_dimension.json")
 ASSET_MANIFEST_TARGET = Path("public/data/asset_manifest.json")
+MAX_HISTORY_SHARD_BYTES = 3_000_000
 LEGACY_TARGET = Path("public/data/rates.json")
 
 DASHBOARD_FIELDS = (
@@ -638,6 +640,24 @@ def _public_adapter_health(payload: dict, data_quality: dict | None = None) -> d
     }
 
 
+def _chunk_rate_rows(rows: list[dict], max_bytes: int = MAX_HISTORY_SHARD_BYTES) -> list[list[dict]]:
+    """Split rows without allowing one public JSON response to grow unbounded."""
+    chunks: list[list[dict]] = []
+    current: list[dict] = []
+    current_bytes = 0
+    for row in rows:
+        row_bytes = len(json.dumps(row, ensure_ascii=False, separators=(",", ":")).encode("utf-8")) + 1
+        if current and current_bytes + row_bytes > max_bytes:
+            chunks.append(current)
+            current = []
+            current_bytes = 0
+        current.append(row)
+        current_bytes += row_bytes
+    if current:
+        chunks.append(current)
+    return chunks
+
+
 def main() -> None:
     source_rows = [
         row for row in iter_jsonl_records(SOURCE)
@@ -677,11 +697,9 @@ def main() -> None:
     partition_count = 0
     for month in sorted(partitions, reverse=True):
         month_dir = RATES_DIR / month
+        if month_dir.exists():
+            shutil.rmtree(month_dir)
         month_dir.mkdir(parents=True, exist_ok=True)
-        expected_files = {f"{hotel_id}.json" for hotel_id in partitions[month]}
-        for stale_file in month_dir.glob("*.json"):
-            if stale_file.name not in expected_files:
-                stale_file.unlink()
         hotels = []
         for hotel_id in sorted(partitions[month]):
             month_rows = partitions[month][hotel_id]
@@ -690,8 +708,7 @@ def main() -> None:
             hotel_name = next((row.get("hotel_name") for row in month_rows if row.get("hotel_name")), hotel_id)
             relative_path = f"rates/{month}/{hotel_id}.json"
             month_market_summary = calculate_market_summary(month_source_rows)
-            (month_dir / f"{hotel_id}.json").write_text(
-                json.dumps({
+            payload = {
                     "month": month,
                     "hotel_id": hotel_id,
                     "hotel_name": hotel_name,
@@ -701,16 +718,48 @@ def main() -> None:
                     "market_summary": month_market_summary,
                     "rate_parity": calculate_rate_parity(month_source_rows),
                     "rates": month_rows,
-                }, ensure_ascii=False),
-                encoding="utf-8",
-            )
-            hotels.append({
+                }
+            encoded_payload = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+            hotel_entry = {
                 "hotel_id": hotel_id,
                 "hotel_name": hotel_name,
                 "observations": len(month_rows),
-                "path": relative_path,
-            })
-            partition_count += 1
+            }
+            if len(encoded_payload) <= MAX_HISTORY_SHARD_BYTES:
+                (month_dir / f"{hotel_id}.json").write_bytes(encoded_payload)
+                hotel_entry["path"] = relative_path
+                partition_count += 1
+            else:
+                hotel_dir = month_dir / hotel_id
+                hotel_dir.mkdir()
+                day_groups: dict[str, list[dict]] = defaultdict(list)
+                for row in month_rows:
+                    stamp = row.get("queried_at") or ""
+                    day = stamp[:10] if re.fullmatch(r"\d{4}-\d{2}-\d{2}.*", stamp) else "unknown-date"
+                    day_groups[day].append(row)
+                shard_entries = []
+                for day in sorted(day_groups, reverse=True):
+                    for number, shard_rows in enumerate(_chunk_rate_rows(day_groups[day]), start=1):
+                        filename = f"{day}-{number:02d}.json"
+                        shard_payload = {
+                            "month": month,
+                            "queried_date": None if day == "unknown-date" else day,
+                            "hotel_id": hotel_id,
+                            "hotel_name": hotel_name,
+                            "generated_from": str(SOURCE).replace("\\", "/"),
+                            "rates": shard_rows,
+                        }
+                        (hotel_dir / filename).write_text(
+                            json.dumps(shard_payload, ensure_ascii=False), encoding="utf-8"
+                        )
+                        shard_entries.append({
+                            "queried_date": shard_payload["queried_date"],
+                            "path": f"rates/{month}/{hotel_id}/{filename}",
+                            "observations": len(shard_rows),
+                        })
+                        partition_count += 1
+                hotel_entry["partitions"] = shard_entries
+            hotels.append(hotel_entry)
         rate_index["months"].append({"month": month, "hotels": hotels})
     RATES_INDEX_TARGET.write_text(json.dumps(rate_index, ensure_ascii=False), encoding="utf-8")
     HISTORY_SUMMARY_TARGET.parent.mkdir(parents=True, exist_ok=True)
