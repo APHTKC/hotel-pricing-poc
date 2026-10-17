@@ -288,7 +288,11 @@ def test_miramar_garden_visible_expedia_snapshot_has_comparable_two_adult_produc
 
 def test_hotel_gracery_visible_booking_snapshot_has_strict_two_adult_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    gracery = [row for row in rows if row["hotel_id"] == "hotel_gracery_taipei"]
+    gracery = [
+        row for row in rows
+        if row["hotel_id"] == "hotel_gracery_taipei"
+        and row["source_platform"] == "booking_com"
+    ]
 
     assert len(gracery) == 24
     assert len({row["room_type_code"] for row in gracery}) == 12
@@ -299,6 +303,24 @@ def test_hotel_gracery_visible_booking_snapshot_has_strict_two_adult_products():
     assert {row["tax_inclusion"] for row in gracery} == {"unknown"}
     assert {row["breakfast_included"] for row in gracery} == {False, True}
     assert all(build_static_data.canonical_comparison_key(row) is None for row in gracery)
+
+
+def test_hotel_gracery_visible_expedia_snapshot_has_comparable_two_adult_products():
+    rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
+    gracery = [
+        row for row in rows
+        if row["hotel_id"] == "hotel_gracery_taipei"
+        and row["source_platform"] == "expedia_group"
+    ]
+
+    assert len(gracery) == 2
+    assert len({row["room_type_code"] for row in gracery}) == 2
+    assert {float(row["room_size_sqm"]) for row in gracery} == {25.0}
+    assert {(row["adults"], row["children"], row["rooms"]) for row in gracery} == {(2, 0, 1)}
+    assert {float(row["total_twd"]) for row in gracery} == {6184.0}
+    assert {row["breakfast_included"] for row in gracery} == {False}
+    assert {row["tax_inclusion"] for row in gracery} == {"included"}
+    assert all(build_static_data.canonical_comparison_key(row) is not None for row in gracery)
 
 
 def test_mitsui_garden_visible_booking_snapshot_has_strict_two_adult_products():
@@ -763,7 +785,11 @@ def test_palais_visible_expedia_snapshot_has_comparable_two_adult_products():
 
 def test_jr_east_visible_booking_snapshot_excludes_non_two_adult_products():
     rows = _load_browser_snapshot_rows(build_static_data.OTA_BROWSER_SOURCE)
-    jr = [row for row in rows if row["hotel_id"] == "hotel_metropolitan_premier_taipei"]
+    jr = [
+        row for row in rows
+        if row["hotel_id"] == "hotel_metropolitan_premier_taipei"
+        and row["source_platform"] == "booking_com"
+    ]
     latest_query = max(row["queried_at"] for row in jr)
     jr = [row for row in jr if row["queried_at"] == latest_query]
 

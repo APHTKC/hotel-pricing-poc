@@ -203,3 +203,13 @@ def test_published_catalog_records_palais_official_and_ota_coverage():
     assert hotel["automation_status"] == "verified"
     assert "Official GoBooking daily tracking remains active" in hotel["automation_note"]
     assert "Hotels.com/Expedia" in hotel["automation_note"]
+
+
+def test_published_catalog_records_gracery_multi_ota_coverage():
+    payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    hotel = next(item for item in payload["hotels"] if item["id"] == "hotel_gracery_taipei")
+
+    assert hotel["enabled"] is False
+    assert hotel["automation_status"] == "browser_snapshot"
+    assert "Booking.com plus Hotels.com/Expedia" in hotel["automation_note"]
+    assert "strict canonical comparison" in hotel["automation_note"]
