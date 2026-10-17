@@ -1,6 +1,6 @@
 const LABELS={zh:{version:'版本',build:'Build',data:'資料更新',views:'瀏覽次數'},en:{version:'Version',build:'Build',data:'Data updated',views:'Views'},ja:{version:'バージョン',build:'Build',data:'データ更新',views:'閲覧数'}};
 const lang=()=>{const value=document.documentElement.lang||'zh';return value.toLowerCase().startsWith('en')?'en':value.toLowerCase().startsWith('ja')?'ja':'zh'};
-const load=path=>fetch(`${path}?v=${Date.now()}`,{cache:'no-store'}).then(response=>{if(!response.ok)throw Error(`HTTP ${response.status}`);return response.json()});
+const load=path=>window.HotelDataLoader?.loadJson(path)??fetch(path,{cache:'no-cache'}).then(response=>{if(!response.ok)throw Error(`HTTP ${response.status}`);return response.json()});
 let metaNode=null,cachedMeta=null,cachedAnalytics=null;
 
 function renderMeta(meta){

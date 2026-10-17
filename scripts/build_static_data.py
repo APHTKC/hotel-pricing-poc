@@ -7,6 +7,7 @@ from pathlib import Path
 
 from app.models import RateObservation
 from services.deduplication import deduplicate_observations
+from services.asset_manifest import build_asset_manifest
 from services.market_metrics import calculate_market_summary
 from services.pricing import nightly_adr_twd, nightly_price_per_sqm_twd, stay_nights
 from services.rate_parity import (
@@ -33,6 +34,7 @@ DIGEST_TARGET = Path("public/data/digest.json")
 HOTEL_NAMES_SOURCE = Path("public/data/hotel_names_zh.json")
 HOTEL_PROFILES_SOURCE = Path("public/data/hotel_profiles.json")
 ROOM_TYPE_DIMENSION_TARGET = Path("public/data/room_type_dimension.json")
+ASSET_MANIFEST_TARGET = Path("public/data/asset_manifest.json")
 LEGACY_TARGET = Path("public/data/rates.json")
 
 DASHBOARD_FIELDS = (
@@ -810,6 +812,10 @@ def main() -> None:
         )
     if LEGACY_LATEST_TARGET.exists():
         LEGACY_LATEST_TARGET.unlink()
+    ASSET_MANIFEST_TARGET.write_text(
+        json.dumps(build_asset_manifest(Path("public")), ensure_ascii=False),
+        encoding="utf-8",
+    )
     print(
         f"Published {len(rows)} historical observations across {partition_count} month/hotel files, "
         f"a summary to {HISTORY_SUMMARY_TARGET}, and {len(latest_rows)} latest observations "
