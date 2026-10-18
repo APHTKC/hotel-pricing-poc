@@ -120,6 +120,10 @@ OTA 啟用條件見 [docs/ota-integration.md](docs/ota-integration.md)。
 `data/warehouse/rates/YYYY-MM.parquet`，並在換檔前逐月核對列數與完整自然鍵集合。
 `data/warehouse/manifest.json` 保存分片筆數、大小與 SHA-256。可直接用 DuckDB 查詢：
 
+`python -m scripts.build_warehouse_analysis` 會從 Parquet 重新計算
+`data/warehouse/analysis.json`，列出來源／飯店筆數，以及原始房價的面積、稅費、取消條件與
+nightly ADR 完整率；輸入分片雜湊與 manifest 筆數不一致時會直接失敗，供每日品質稽核重現。
+
 ```sql
 SELECT hotel_id, median(total_price)
 FROM read_parquet('data/warehouse/rates/*.parquet')

@@ -97,6 +97,7 @@ jobs:
         run: |
           python -m scripts.deduplicate_rate_history
           python -m scripts.build_rate_warehouse
+          python -m scripts.build_warehouse_analysis
           python -m scripts.build_static_data
           python -m scripts.build_hotel_catalog
           python -m scripts.build_site_meta

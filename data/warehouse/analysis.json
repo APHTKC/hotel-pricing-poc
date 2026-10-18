@@ -1,0 +1,420 @@
+{
+  "schema_version": "1.0",
+  "input": "data/warehouse/rates/*.parquet",
+  "manifest_sha256": [
+    {
+      "month": "2026-09",
+      "sha256": "71f1cdd7490fbe2531be1f017ddab40edcb09102404b846e55d154828be93521"
+    },
+    {
+      "month": "2026-10",
+      "sha256": "d8ad83849fa5dae654d69ead4992e76a7fda379051cb8847af676c5336565aee"
+    }
+  ],
+  "rows": 89047,
+  "natural_keys": 89047,
+  "hotels": 52,
+  "queried_at": {
+    "min": "2026-09-04 02:48:48.293979",
+    "max": "2026-10-18 19:13:04.552098"
+  },
+  "quality": {
+    "known_room_size_rows": 87637,
+    "known_room_size_ratio": 0.984166,
+    "known_tax_rows": 1733,
+    "known_tax_ratio": 0.019462,
+    "known_cancellation_policy_rows": 53609,
+    "known_cancellation_policy_ratio": 0.60203,
+    "nightly_adr_rows": 3348,
+    "nightly_adr_ratio": 0.037598
+  },
+  "sources": [
+    {
+      "source_platform": "booking_com",
+      "rows": 391,
+      "hotels": 32,
+      "known_room_size_rows": 391,
+      "known_tax_rows": 33
+    },
+    {
+      "source_platform": "expedia_group",
+      "rows": 345,
+      "hotels": 43,
+      "known_room_size_rows": 345,
+      "known_tax_rows": 345
+    },
+    {
+      "source_platform": "official",
+      "rows": 88311,
+      "hotels": 22,
+      "known_room_size_rows": 86901,
+      "known_tax_rows": 1355
+    }
+  ],
+  "hotels_by_unknown_room_size": [
+    {
+      "hotel_id": "silks_place_yilan",
+      "rows": 1235,
+      "known_room_size_rows": 0,
+      "known_tax_rows": 0,
+      "unknown_room_size_rows": 1235
+    },
+    {
+      "hotel_id": "solaria_nishitetsu_taipei",
+      "rows": 2689,
+      "known_room_size_rows": 2522,
+      "known_tax_rows": 17,
+      "unknown_room_size_rows": 167
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "rows": 62,
+      "known_room_size_rows": 54,
+      "known_tax_rows": 9,
+      "unknown_room_size_rows": 8
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "rows": 5373,
+      "known_room_size_rows": 5373,
+      "known_tax_rows": 2,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "courtyard_taipei",
+      "rows": 11,
+      "known_room_size_rows": 11,
+      "known_tax_rows": 11,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "rows": 16,
+      "known_room_size_rows": 16,
+      "known_tax_rows": 4,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "doubletree_taipei_zhongshan",
+      "rows": 10,
+      "known_room_size_rows": 10,
+      "known_tax_rows": 6,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "episode_daan_taipei",
+      "rows": 13,
+      "known_room_size_rows": 13,
+      "known_tax_rows": 5,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "eslite_hotel",
+      "rows": 4991,
+      "known_room_size_rows": 4991,
+      "known_tax_rows": 5,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "fleur_de_chine",
+      "rows": 1242,
+      "known_room_size_rows": 1242,
+      "known_tax_rows": 0,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "grand_hilai_kaohsiung",
+      "rows": 26176,
+      "known_room_size_rows": 26176,
+      "known_tax_rows": 4,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "grand_hilai_taipei",
+      "rows": 2313,
+      "known_room_size_rows": 2313,
+      "known_tax_rows": 4,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "grand_hotel_taipei",
+      "rows": 862,
+      "known_room_size_rows": 862,
+      "known_tax_rows": 4,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "grand_hyatt_taipei",
+      "rows": 38,
+      "known_room_size_rows": 38,
+      "known_tax_rows": 10,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "rows": 4825,
+      "known_room_size_rows": 4825,
+      "known_tax_rows": 5,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "grand_view_resort_beitou",
+      "rows": 12,
+      "known_room_size_rows": 12,
+      "known_tax_rows": 12,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "hoshinoya_guguan",
+      "rows": 2796,
+      "known_room_size_rows": 2796,
+      "known_tax_rows": 0,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "hotel_gracery_taipei",
+      "rows": 26,
+      "known_room_size_rows": 26,
+      "known_tax_rows": 2,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "hotel_metropolitan_premier_taipei",
+      "rows": 518,
+      "known_room_size_rows": 518,
+      "known_tax_rows": 121,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "hotel_nikko_kaohsiung",
+      "rows": 2661,
+      "known_room_size_rows": 2661,
+      "known_tax_rows": 810,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "hotel_proverbs_taipei",
+      "rows": 11,
+      "known_room_size_rows": 11,
+      "known_tax_rows": 3,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "hotel_resonance_taipei",
+      "rows": 2,
+      "known_room_size_rows": 2,
+      "known_tax_rows": 0,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "hotel_royal_hsinchu",
+      "rows": 53,
+      "known_room_size_rows": 53,
+      "known_tax_rows": 53,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "howard_plaza_taipei",
+      "rows": 6,
+      "known_room_size_rows": 6,
+      "known_tax_rows": 2,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "humble_house_taipei",
+      "rows": 12,
+      "known_room_size_rows": 12,
+      "known_tax_rows": 8,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "indigo_taipei_north",
+      "rows": 14,
+      "known_room_size_rows": 14,
+      "known_tax_rows": 14,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "intercontinental_kaohsiung",
+      "rows": 9,
+      "known_room_size_rows": 9,
+      "known_tax_rows": 9,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "intercontinental_taichung",
+      "rows": 9,
+      "known_room_size_rows": 9,
+      "known_tax_rows": 9,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "intercontinental_taipei",
+      "rows": 18,
+      "known_room_size_rows": 18,
+      "known_tax_rows": 6,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "kaohsiung_marriott",
+      "rows": 8,
+      "known_room_size_rows": 8,
+      "known_tax_rows": 8,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "kimpton_da_an",
+      "rows": 21,
+      "known_room_size_rows": 21,
+      "known_tax_rows": 4,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "le_meridien_taichung",
+      "rows": 2,
+      "known_room_size_rows": 2,
+      "known_tax_rows": 2,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "le_meridien_taipei",
+      "rows": 27,
+      "known_room_size_rows": 27,
+      "known_tax_rows": 9,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "millennium_taichung",
+      "rows": 6,
+      "known_room_size_rows": 6,
+      "known_tax_rows": 6,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "miramar_garden_taipei",
+      "rows": 32,
+      "known_room_size_rows": 32,
+      "known_tax_rows": 9,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "mitsui_garden_taipei_zhongxiao",
+      "rows": 20,
+      "known_room_size_rows": 20,
+      "known_tax_rows": 6,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "mo_taipei",
+      "rows": 8616,
+      "known_room_size_rows": 8616,
+      "known_tax_rows": 30,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "rows": 3872,
+      "known_room_size_rows": 3872,
+      "known_tax_rows": 7,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "palais_de_chine",
+      "rows": 1039,
+      "known_room_size_rows": 1039,
+      "known_tax_rows": 16,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "radium_kagaya_taipei",
+      "rows": 17,
+      "known_room_size_rows": 17,
+      "known_tax_rows": 11,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "regent_taipei",
+      "rows": 34,
+      "known_room_size_rows": 34,
+      "known_tax_rows": 5,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "renaissance_taipei_shihlin",
+      "rows": 9,
+      "known_room_size_rows": 9,
+      "known_tax_rows": 2,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "royal_nikko_taipei",
+      "rows": 2257,
+      "known_room_size_rows": 2257,
+      "known_tax_rows": 388,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "shangrila_tainan",
+      "rows": 4996,
+      "known_room_size_rows": 4996,
+      "known_tax_rows": 0,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "shangrila_taipei",
+      "rows": 5952,
+      "known_room_size_rows": 5952,
+      "known_tax_rows": 36,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "sheraton_grand_taipei",
+      "rows": 27,
+      "known_room_size_rows": 27,
+      "known_tax_rows": 7,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "rows": 47,
+      "known_room_size_rows": 47,
+      "known_tax_rows": 16,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "the_gaia_taipei",
+      "rows": 1492,
+      "known_room_size_rows": 1492,
+      "known_tax_rows": 4,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "the_landis_taipei",
+      "rows": 13,
+      "known_room_size_rows": 13,
+      "known_tax_rows": 5,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "the_lin_taichung",
+      "rows": 13,
+      "known_room_size_rows": 13,
+      "known_tax_rows": 13,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "w_taipei",
+      "rows": 23,
+      "known_room_size_rows": 23,
+      "known_tax_rows": 9,
+      "unknown_room_size_rows": 0
+    },
+    {
+      "hotel_id": "windsor_taichung",
+      "rows": 4521,
+      "known_room_size_rows": 4521,
+      "known_tax_rows": 5,
+      "unknown_room_size_rows": 0
+    }
+  ]
+}

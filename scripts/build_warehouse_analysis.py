@@ -1,0 +1,145 @@
+"""Build a reproducible DuckDB quality profile from the Parquet rate mirror."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import duckdb
+
+
+PARQUET_GLOB = Path("data/warehouse/rates/*.parquet")
+MANIFEST_SOURCE = Path("data/warehouse/manifest.json")
+TARGET = Path("data/warehouse/analysis.json")
+
+
+def _sql_path(path: Path) -> str:
+    return path.resolve().as_posix().replace("'", "''")
+
+
+def _ratio(numerator: int, denominator: int) -> float:
+    return round(numerator / denominator, 6) if denominator else 0.0
+
+
+def build_warehouse_analysis(
+    parquet_glob: Path = PARQUET_GLOB,
+    manifest_source: Path = MANIFEST_SOURCE,
+    target: Path = TARGET,
+) -> dict:
+    manifest = json.loads(manifest_source.read_text(encoding="utf-8"))
+    connection = duckdb.connect()
+    try:
+        connection.execute(
+            f"CREATE TEMP VIEW rates AS SELECT * FROM read_parquet("
+            f"'{_sql_path(parquet_glob)}', union_by_name=true)"
+        )
+        summary_row = connection.execute(
+            """
+            SELECT
+                count(*) AS rows,
+                count(DISTINCT hotel_id) AS hotels,
+                min(cast(queried_at AS VARCHAR)) AS queried_at_min,
+                max(cast(queried_at AS VARCHAR)) AS queried_at_max,
+                count_if(room_size_sqm IS NOT NULL) AS known_room_size_rows,
+                count_if(coalesce(tax_inclusion, 'unknown') <> 'unknown') AS known_tax_rows,
+                count_if(
+                    cancellation_policy IS NOT NULL
+                    AND trim(cancellation_policy) <> ''
+                ) AS known_cancellation_policy_rows,
+                count_if(nightly_adr_twd IS NOT NULL) AS nightly_adr_rows
+            FROM rates
+            """
+        ).fetchone()
+        columns = [item[0] for item in connection.description]
+        summary = dict(zip(columns, summary_row))
+
+        source_rows = connection.execute(
+            """
+            SELECT
+                coalesce(source_platform, 'unknown') AS source_platform,
+                count(*) AS rows,
+                count(DISTINCT hotel_id) AS hotels,
+                count_if(room_size_sqm IS NOT NULL) AS known_room_size_rows,
+                count_if(coalesce(tax_inclusion, 'unknown') <> 'unknown') AS known_tax_rows
+            FROM rates
+            GROUP BY 1
+            ORDER BY 1
+            """
+        ).fetchall()
+        source_columns = [item[0] for item in connection.description]
+
+        hotel_rows = connection.execute(
+            """
+            SELECT
+                hotel_id,
+                count(*) AS rows,
+                count_if(room_size_sqm IS NOT NULL) AS known_room_size_rows,
+                count_if(coalesce(tax_inclusion, 'unknown') <> 'unknown') AS known_tax_rows,
+                count_if(room_size_sqm IS NULL) AS unknown_room_size_rows
+            FROM rates
+            GROUP BY hotel_id
+            ORDER BY unknown_room_size_rows DESC, hotel_id
+            """
+        ).fetchall()
+        hotel_columns = [item[0] for item in connection.description]
+    finally:
+        connection.close()
+
+    if summary["rows"] != manifest["rows"]:
+        raise ValueError(
+            f"Warehouse analysis row mismatch: manifest={manifest['rows']}, "
+            f"parquet={summary['rows']}"
+        )
+
+    row_count = int(summary["rows"])
+    room_size = int(summary["known_room_size_rows"])
+    known_tax = int(summary["known_tax_rows"])
+    known_cancel = int(summary["known_cancellation_policy_rows"])
+    nightly_adr = int(summary["nightly_adr_rows"])
+    payload = {
+        "schema_version": "1.0",
+        "input": str(parquet_glob).replace("\\", "/"),
+        "manifest_sha256": [
+            {"month": item["month"], "sha256": item["sha256"]}
+            for item in manifest["partitions"]
+        ],
+        "rows": row_count,
+        "natural_keys": int(manifest["natural_keys"]),
+        "hotels": int(summary["hotels"]),
+        "queried_at": {
+            "min": summary["queried_at_min"],
+            "max": summary["queried_at_max"],
+        },
+        "quality": {
+            "known_room_size_rows": room_size,
+            "known_room_size_ratio": _ratio(room_size, row_count),
+            "known_tax_rows": known_tax,
+            "known_tax_ratio": _ratio(known_tax, row_count),
+            "known_cancellation_policy_rows": known_cancel,
+            "known_cancellation_policy_ratio": _ratio(known_cancel, row_count),
+            "nightly_adr_rows": nightly_adr,
+            "nightly_adr_ratio": _ratio(nightly_adr, row_count),
+        },
+        "sources": [dict(zip(source_columns, row)) for row in source_rows],
+        "hotels_by_unknown_room_size": [
+            dict(zip(hotel_columns, row)) for row in hotel_rows
+        ],
+    }
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return payload
+
+
+def main() -> None:
+    payload = build_warehouse_analysis()
+    print(
+        f"Profiled {payload['rows']} Parquet rows across "
+        f"{payload['hotels']} hotels and {len(payload['sources'])} sources"
+    )
+
+
+if __name__ == "__main__":
+    main()
