@@ -1,7 +1,15 @@
 import json
 from pathlib import Path
 
-from services.room_type_dimension import area_spec, bed_type, build_room_type_dimension, room_class
+from services.room_type_dimension import (
+    area_spec,
+    bed_type,
+    build_room_type_dimension,
+    build_room_type_lookup,
+    match_room_type,
+    normalize_room_label,
+    room_class,
+)
 
 
 def test_room_normalization_helpers():
@@ -31,3 +39,44 @@ def test_published_room_type_dimension_matches_builder_output():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
     published = json.loads(Path("public/data/room_type_dimension.json").read_text(encoding="utf-8"))
     assert published == build_room_type_dimension(profiles)
+
+
+def test_evidenced_room_match_is_exact_and_checks_area():
+    dimension = {
+        "room_types": [{
+            "hotel_id": "hotel-a",
+            "stable_room_type_id": "rt_deluxe_king",
+            "normalized_room_family": "room:55",
+            "room_class": "room",
+            "name_zh": "豪華客房（一大床）",
+            "name_en": "Deluxe Room – King",
+            "name_ja": None,
+            "aliases_zh": ["豪華大床房"],
+            "size_sqm_min": 55,
+            "size_sqm_max": 55,
+        }]
+    }
+    lookup = build_room_type_lookup(dimension)
+
+    matched = match_room_type({
+        "hotel_id": "hotel-a",
+        "room_type_name": "Deluxe Room - King",
+        "room_size_sqm": 55,
+    }, lookup)
+    mismatch = match_room_type({
+        "hotel_id": "hotel-a",
+        "room_type_name": "Deluxe Room - King",
+        "room_size_sqm": 80,
+    }, lookup)
+    described = match_room_type({
+        "hotel_id": "hotel-a",
+        "room_type_name": "Deluxe Room - King, City View",
+        "room_size_sqm": 56,
+    }, lookup)
+
+    assert normalize_room_label(" Deluxe Room – King ") == normalize_room_label("deluxe room-king")
+    assert matched["stable_room_type_id"] == "rt_deluxe_king"
+    assert described["stable_room_type_id"] == "rt_deluxe_king"
+    assert described["room_match_status"] == "matched_evidenced_label_with_descriptors"
+    assert mismatch["stable_room_type_id"] is None
+    assert mismatch["room_match_status"] == "area_mismatch"

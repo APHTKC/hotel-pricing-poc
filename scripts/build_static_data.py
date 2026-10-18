@@ -17,7 +17,11 @@ from services.rate_parity import (
     canonical_comparison_key,
     comparison_metadata,
 )
-from services.room_type_dimension import build_room_type_dimension
+from services.room_type_dimension import (
+    build_room_type_dimension,
+    build_room_type_lookup,
+    match_room_type,
+)
 from storage.local_jsonl import iter_jsonl_records
 
 
@@ -49,6 +53,8 @@ DASHBOARD_FIELDS = (
     "service_charge", "tax", "tax_inclusion", "total_price", "total_twd", "nightly_adr_twd",
     "price_per_sqm", "queried_at", "currency", "source_platform",
     "source_method", "source_property_id", "source_url",
+    "stable_room_type_id", "normalized_room_family", "room_class",
+    "room_match_status", "strict_parity_eligible",
     "size_band", "occupancy", "cancellation_class", "comparison_key", "comparison_status",
 )
 
@@ -64,7 +70,7 @@ def _parse_timestamp(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
-def _dashboard_row(row: dict) -> dict:
+def _dashboard_row(row: dict, room_type_lookup=None) -> dict:
     published = {field: row.get(field) for field in DASHBOARD_FIELDS}
     # Observations written before schema 1.1 are all official-site records.
     # Backfill them so source filtering and exports remain consistent across
@@ -76,7 +82,10 @@ def _dashboard_row(row: dict) -> dict:
     unit = nightly_price_per_sqm_twd(row)
     published["nightly_adr_twd"] = float(nightly) if nightly is not None else None
     published["price_per_sqm"] = float(unit) if unit is not None else None
-    published.update(comparison_metadata(row))
+    if room_type_lookup is not None:
+        published.update(match_room_type(row, room_type_lookup))
+    published.update(comparison_metadata(published, require_stable_room_type=True))
+    published["strict_parity_eligible"] = published["comparison_key"] is not None
     return published
 
 
@@ -672,6 +681,13 @@ def _chunk_rate_rows(rows: list[dict], max_bytes: int = MAX_HISTORY_SHARD_BYTES)
 
 
 def main() -> None:
+    profiles_payload = (
+        json.loads(HOTEL_PROFILES_SOURCE.read_text(encoding="utf-8"))
+        if HOTEL_PROFILES_SOURCE.exists()
+        else {"profiles": []}
+    )
+    room_type_dimension = build_room_type_dimension(profiles_payload)
+    room_type_lookup = build_room_type_lookup(room_type_dimension)
     source_rows = [
         row for row in iter_jsonl_records(SOURCE)
         if _publishable_live_rate(row)
@@ -681,7 +697,7 @@ def main() -> None:
         if _publishable_live_rate(row)
     )
     source_rows = deduplicate_observations(source_rows, keep="latest")
-    rows = [_dashboard_row(row) for row in source_rows]
+    rows = [_dashboard_row(row, room_type_lookup) for row in source_rows]
     rows.sort(key=lambda row: row.get("queried_at", ""), reverse=True)
     RATES_DIR.mkdir(parents=True, exist_ok=True)
     partitions: dict[str, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
@@ -692,7 +708,9 @@ def main() -> None:
         if month and hotel_id:
             safe_hotel_id = _partition_id(str(hotel_id))
             source_partitions[month][safe_hotel_id].append(source_row)
-            partitions[month][safe_hotel_id].append(_dashboard_row(source_row))
+            partitions[month][safe_hotel_id].append(
+                _dashboard_row(source_row, room_type_lookup)
+            )
 
     # The old month-wide JSON files were tens of megabytes. Publish only
     # month/hotel partitions and a small manifest used for lazy loading.
@@ -729,7 +747,7 @@ def main() -> None:
                     "metric_scope": "verified_official_only",
                     "verified_market_metrics": month_market_summary,
                     "market_summary": month_market_summary,
-                    "rate_parity": calculate_rate_parity(month_source_rows),
+                    "rate_parity": calculate_rate_parity(month_rows),
                     "rates": month_rows,
                 }
             encoded_payload = json.dumps(payload, ensure_ascii=False).encode("utf-8")
@@ -796,7 +814,7 @@ def main() -> None:
         except (json.JSONDecodeError, OSError):
             pass
     DIGEST_TARGET.write_text(
-        json.dumps(_daily_market_digest(source_rows, names_zh), ensure_ascii=False),
+        json.dumps(_daily_market_digest(rows, names_zh), ensure_ascii=False),
         encoding="utf-8",
     )
     if LEGACY_TARGET.exists():
@@ -815,7 +833,7 @@ def main() -> None:
     # forward. Keep strict comparisons from disappearing by pairing each OTA
     # product with the closest official observation (within 24 hours) from the
     # complete deduplicated history, not only today's latest official batch.
-    latest_parity = calculate_rate_parity(source_rows)
+    latest_parity = calculate_rate_parity(rows)
     latest_queried_at = max((row.get("queried_at") or "" for row in latest_rows), default=None)
     LATEST_SUMMARY_TARGET.write_text(
         json.dumps(
@@ -906,9 +924,8 @@ def main() -> None:
     if LEGACY_LATEST_DETAILS_TARGET.exists():
         LEGACY_LATEST_DETAILS_TARGET.unlink()
     if HOTEL_PROFILES_SOURCE.exists():
-        profiles_payload = json.loads(HOTEL_PROFILES_SOURCE.read_text(encoding="utf-8"))
         ROOM_TYPE_DIMENSION_TARGET.write_text(
-            json.dumps(build_room_type_dimension(profiles_payload), ensure_ascii=False),
+            json.dumps(room_type_dimension, ensure_ascii=False),
             encoding="utf-8",
         )
     if LEGACY_LATEST_TARGET.exists():

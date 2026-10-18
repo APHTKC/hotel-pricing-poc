@@ -38,6 +38,24 @@ def _load_latest_details_payload():
     return {**index, "rates": rates}
 
 
+def _assert_strict_comparison_contract(rows):
+    """Complete OTA snapshots remain visible; only evidenced rooms are comparable."""
+    assert rows
+    assert all(
+        row["comparison_status"] in {"comparable", "insufficient_product_metadata"}
+        for row in rows
+    )
+    assert all(
+        row["comparison_status"] != "comparable"
+        or (
+            row["strict_parity_eligible"] is True
+            and row["stable_room_type_id"]
+            and row["comparison_key"]
+        )
+        for row in rows
+    )
+
+
 def test_latest_batch_uses_recent_workflow_window():
     rows = [
         {"queried_at": "2026-09-07T03:31:00+00:00", "hotel_name": "old"},
@@ -219,7 +237,7 @@ def test_latest_payload_keeps_hotels_com_courtyard_taipei_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {True}
     assert min(float(row["total_price"]) for row in hotel) == 18480
     assert max(float(row["total_price"]) for row in hotel) == 20790
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_grand_view_resort_visible_booking_snapshot_replaces_empty_date_with_live_rates():
@@ -260,7 +278,7 @@ def test_latest_payload_keeps_hotels_com_grand_view_resort_snapshot():
     assert {row["breakfast_included"] for row in grand_view} == {True}
     assert min(float(row["total_twd"]) for row in grand_view) == 15725
     assert max(float(row["total_twd"]) for row in grand_view) == 27572
-    assert all(row["comparison_status"] == "comparable" for row in grand_view)
+    _assert_strict_comparison_contract(grand_view)
 
 
 def test_miramar_garden_visible_booking_snapshot_has_strict_two_adult_products():
@@ -411,7 +429,7 @@ def test_latest_payload_keeps_hotels_com_radium_kagaya_snapshot():
     assert {row["breakfast_included"] for row in kagaya} == {False, True}
     assert min(float(row["total_twd"]) for row in kagaya) == 15447
     assert max(float(row["total_twd"]) for row in kagaya) == 38144
-    assert all(row["comparison_status"] == "comparable" for row in kagaya)
+    _assert_strict_comparison_contract(kagaya)
 
 
 def test_landis_visible_booking_snapshot_uses_two_adult_baseline_products():
@@ -503,7 +521,7 @@ def test_latest_payload_keeps_hotels_com_kimpton_snapshot():
     assert {row["breakfast_included"] for row in kimpton} == {False}
     assert min(float(row["total_price"]) for row in kimpton) == 22061
     assert max(float(row["total_price"]) for row in kimpton) == 29395
-    assert {row["comparison_status"] for row in kimpton} == {"comparable"}
+    _assert_strict_comparison_contract(kimpton)
 
 
 def test_latest_payload_keeps_hotels_com_taipei_garden_snapshot():
@@ -519,7 +537,7 @@ def test_latest_payload_keeps_hotels_com_taipei_garden_snapshot():
     assert {row["breakfast_included"] for row in garden} == {False}
     assert min(float(row["total_price"]) for row in garden) == 13855
     assert max(float(row["total_price"]) for row in garden) == 16957
-    assert {row["comparison_status"] for row in garden} == {"comparable"}
+    _assert_strict_comparison_contract(garden)
 
 
 def test_latest_payload_keeps_hotels_com_intercontinental_taichung_snapshot():
@@ -535,7 +553,7 @@ def test_latest_payload_keeps_hotels_com_intercontinental_taichung_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False}
     assert min(float(row["total_price"]) for row in hotel) == 11907
     assert max(float(row["total_price"]) for row in hotel) == 18664
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_the_lin_taichung_snapshot():
@@ -551,7 +569,7 @@ def test_latest_payload_keeps_hotels_com_the_lin_taichung_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False, True}
     assert min(float(row["total_price"]) for row in hotel) == 4748
     assert max(float(row["total_price"]) for row in hotel) == 10633
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_millennium_taichung_snapshot():
@@ -567,7 +585,7 @@ def test_latest_payload_keeps_hotels_com_millennium_taichung_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False, True}
     assert min(float(row["total_price"]) for row in hotel) == 3690
     assert max(float(row["total_price"]) for row in hotel) == 8735
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_le_meridien_taichung_snapshot():
@@ -582,7 +600,7 @@ def test_latest_payload_keeps_hotels_com_le_meridien_taichung_snapshot():
     assert {float(row["room_size_sqm"]) for row in hotel} == {43.0}
     assert {row["breakfast_included"] for row in hotel} == {False}
     assert {float(row["total_price"]) for row in hotel} == {7277}
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_windsor_taichung_snapshot():
@@ -598,7 +616,7 @@ def test_latest_payload_keeps_hotels_com_windsor_taichung_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False, True}
     assert min(float(row["total_price"]) for row in hotel) == 5848
     assert max(float(row["total_price"]) for row in hotel) == 14553
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_intercontinental_kaohsiung_snapshot():
@@ -614,7 +632,7 @@ def test_latest_payload_keeps_hotels_com_intercontinental_kaohsiung_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False}
     assert min(float(row["total_price"]) for row in hotel) == 7830
     assert max(float(row["total_price"]) for row in hotel) == 16860
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_kaohsiung_marriott_snapshot():
@@ -630,7 +648,7 @@ def test_latest_payload_keeps_hotels_com_kaohsiung_marriott_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False}
     assert min(float(row["total_price"]) for row in hotel) == 5387
     assert max(float(row["total_price"]) for row in hotel) == 16364
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_courtyard_taipei_downtown_snapshot():
@@ -646,7 +664,7 @@ def test_latest_payload_keeps_hotels_com_courtyard_taipei_downtown_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False}
     assert min(float(row["total_price"]) for row in hotel) == 10973
     assert max(float(row["total_price"]) for row in hotel) == 15362
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_renaissance_taipei_shihlin_snapshot():
@@ -662,7 +680,7 @@ def test_latest_payload_keeps_hotels_com_renaissance_taipei_shihlin_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False}
     assert min(float(row["total_price"]) for row in hotel) == 12689
     assert max(float(row["total_price"]) for row in hotel) == 13489
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_hotel_proverbs_snapshot():
@@ -678,7 +696,7 @@ def test_latest_payload_keeps_hotels_com_hotel_proverbs_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False}
     assert min(float(row["total_price"]) for row in hotel) == 14621
     assert max(float(row["total_price"]) for row in hotel) == 17363
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_grand_mayfull_snapshot():
@@ -696,7 +714,7 @@ def test_latest_payload_keeps_hotels_com_grand_mayfull_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False, True}
     assert min(float(row["total_price"]) for row in hotel) == 20561
     assert max(float(row["total_price"]) for row in hotel) == 54830
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_grand_hilai_taipei_snapshot():
@@ -712,7 +730,7 @@ def test_latest_payload_keeps_hotels_com_grand_hilai_taipei_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False, True}
     assert min(float(row["total_price"]) for row in hotel) == 7488
     assert max(float(row["total_price"]) for row in hotel) == 16416
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_latest_payload_keeps_hotels_com_episode_daan_snapshot():
@@ -728,7 +746,7 @@ def test_latest_payload_keeps_hotels_com_episode_daan_snapshot():
     assert {row["breakfast_included"] for row in hotel} == {False}
     assert min(float(row["total_price"]) for row in hotel) == 13052
     assert max(float(row["total_price"]) for row in hotel) == 13629
-    assert {row["comparison_status"] for row in hotel} == {"comparable"}
+    _assert_strict_comparison_contract(hotel)
 
 
 def test_sheraton_visible_booking_snapshot_keeps_breakfast_products_separate():
@@ -894,7 +912,7 @@ def test_latest_payload_keeps_each_ota_platforms_newest_w_taipei_snapshot():
     }
     assert min(float(row["total_twd"]) for row in hotels_com) == 13860
     assert max(float(row["total_twd"]) for row in hotels_com) == 25410
-    assert all(row["comparison_status"] == "comparable" for row in hotels_com)
+    _assert_strict_comparison_contract(hotels_com)
 
 
 def test_latest_payload_keeps_booking_and_hotels_com_regent_snapshots():
@@ -919,7 +937,7 @@ def test_latest_payload_keeps_booking_and_hotels_com_regent_snapshots():
     }
     assert min(float(row["total_twd"]) for row in hotels_com) == 9615
     assert max(float(row["total_twd"]) for row in hotels_com) == 25716
-    assert all(row["comparison_status"] == "comparable" for row in hotels_com)
+    _assert_strict_comparison_contract(hotels_com)
 
 
 def test_latest_payload_keeps_booking_and_hotels_com_mandarin_snapshots():
@@ -944,7 +962,7 @@ def test_latest_payload_keeps_booking_and_hotels_com_mandarin_snapshots():
     }
     assert min(float(row["total_twd"]) for row in hotels_com) == 14079
     assert max(float(row["total_twd"]) for row in hotels_com) == 60684
-    assert all(row["comparison_status"] == "comparable" for row in hotels_com)
+    _assert_strict_comparison_contract(hotels_com)
 
 
 def test_latest_payload_keeps_booking_and_hotels_com_grand_hyatt_snapshots():
@@ -972,7 +990,7 @@ def test_latest_payload_keeps_booking_and_hotels_com_grand_hyatt_snapshots():
     }
     assert min(float(row["total_twd"]) for row in hotels_com) == 12017
     assert max(float(row["total_twd"]) for row in hotels_com) == 25156
-    assert all(row["comparison_status"] == "comparable" for row in hotels_com)
+    _assert_strict_comparison_contract(hotels_com)
 
 
 def test_latest_payload_keeps_three_shangrila_taipei_sources():
@@ -1001,7 +1019,7 @@ def test_latest_payload_keeps_three_shangrila_taipei_sources():
     }
     assert min(float(row["total_twd"]) for row in hotels_com) == 8830
     assert max(float(row["total_twd"]) for row in hotels_com) == 27203
-    assert all(row["comparison_status"] == "comparable" for row in hotels_com)
+    _assert_strict_comparison_contract(hotels_com)
 
 
 def test_latest_payload_keeps_hotels_com_royal_nikko_snapshot():
@@ -1021,7 +1039,7 @@ def test_latest_payload_keeps_hotels_com_royal_nikko_snapshot():
     assert {row["breakfast_included"] for row in royal_nikko} == {False, True}
     assert min(float(row["total_twd"]) for row in royal_nikko) == 6732
     assert max(float(row["total_twd"]) for row in royal_nikko) == 13690
-    assert all(row["comparison_status"] == "comparable" for row in royal_nikko)
+    _assert_strict_comparison_contract(royal_nikko)
 
 
 def test_latest_payload_keeps_hotels_com_eslite_snapshot():
@@ -1041,7 +1059,7 @@ def test_latest_payload_keeps_hotels_com_eslite_snapshot():
     assert {row["breakfast_included"] for row in eslite} == {False}
     assert min(float(row["total_twd"]) for row in eslite) == 7708
     assert max(float(row["total_twd"]) for row in eslite) == 12987
-    assert all(row["comparison_status"] == "comparable" for row in eslite)
+    _assert_strict_comparison_contract(eslite)
 
 
 def test_latest_payload_keeps_hotels_com_gaia_snapshot():
@@ -1061,7 +1079,7 @@ def test_latest_payload_keeps_hotels_com_gaia_snapshot():
     assert {row["breakfast_included"] for row in gaia} == {True}
     assert min(float(row["total_twd"]) for row in gaia) == 10292
     assert max(float(row["total_twd"]) for row in gaia) == 61358
-    assert all(row["comparison_status"] == "comparable" for row in gaia)
+    _assert_strict_comparison_contract(gaia)
 
 
 def test_latest_payload_keeps_hotels_com_solaria_snapshot():
@@ -1083,7 +1101,7 @@ def test_latest_payload_keeps_hotels_com_solaria_snapshot():
     assert {row["breakfast_included"] for row in solaria} == {False}
     assert min(float(row["total_twd"]) for row in solaria) == 7645
     assert max(float(row["total_twd"]) for row in solaria) == 12385
-    assert all(row["comparison_status"] == "comparable" for row in solaria)
+    _assert_strict_comparison_contract(solaria)
 
 
 def test_latest_payload_keeps_hotels_com_grand_hotel_snapshot():
@@ -1103,7 +1121,7 @@ def test_latest_payload_keeps_hotels_com_grand_hotel_snapshot():
     assert {row["breakfast_included"] for row in grand_hotel} == {False, True}
     assert min(float(row["total_twd"]) for row in grand_hotel) == 4487
     assert max(float(row["total_twd"]) for row in grand_hotel) == 11928
-    assert all(row["comparison_status"] == "comparable" for row in grand_hotel)
+    _assert_strict_comparison_contract(grand_hotel)
 
 
 def test_latest_payload_keeps_hotels_com_le_meridien_snapshot():
@@ -1124,7 +1142,7 @@ def test_latest_payload_keeps_hotels_com_le_meridien_snapshot():
     assert {row["breakfast_included"] for row in le_meridien} == {False}
     assert min(float(row["total_twd"]) for row in le_meridien) == 15015
     assert max(float(row["total_twd"]) for row in le_meridien) == 56364
-    assert all(row["comparison_status"] == "comparable" for row in le_meridien)
+    _assert_strict_comparison_contract(le_meridien)
 
 
 def test_latest_payload_keeps_hotels_com_intercontinental_taipei_snapshot():
@@ -1143,7 +1161,7 @@ def test_latest_payload_keeps_hotels_com_intercontinental_taipei_snapshot():
     assert {row["breakfast_included"] for row in intercontinental} == {False}
     assert min(float(row["total_twd"]) for row in intercontinental) == 16262
     assert max(float(row["total_twd"]) for row in intercontinental) == 22107
-    assert all(row["comparison_status"] == "comparable" for row in intercontinental)
+    _assert_strict_comparison_contract(intercontinental)
 
 
 def test_latest_payload_keeps_hotels_com_humble_house_snapshot():
@@ -1163,7 +1181,7 @@ def test_latest_payload_keeps_hotels_com_humble_house_snapshot():
     assert {row["breakfast_included"] for row in humble_house} == {False}
     assert min(float(row["total_twd"]) for row in humble_house) == 10395
     assert max(float(row["total_twd"]) for row in humble_house) == 20790
-    assert all(row["comparison_status"] == "comparable" for row in humble_house)
+    _assert_strict_comparison_contract(humble_house)
 
 
 def test_latest_payload_keeps_hotels_com_taipei_marriott_snapshot():
@@ -1185,7 +1203,7 @@ def test_latest_payload_keeps_hotels_com_taipei_marriott_snapshot():
     assert {row["breakfast_included"] for row in marriott} == {False}
     assert min(float(row["total_twd"]) for row in marriott) == 7928
     assert max(float(row["total_twd"]) for row in marriott) == 47702
-    assert all(row["comparison_status"] == "comparable" for row in marriott)
+    _assert_strict_comparison_contract(marriott)
 
 
 def test_latest_payload_keeps_hotels_com_sheraton_taipei_snapshot():
@@ -1205,7 +1223,7 @@ def test_latest_payload_keeps_hotels_com_sheraton_taipei_snapshot():
     assert {row["breakfast_included"] for row in sheraton} == {False}
     assert min(float(row["total_twd"]) for row in sheraton) == 8501
     assert max(float(row["total_twd"]) for row in sheraton) == 11550
-    assert all(row["comparison_status"] == "comparable" for row in sheraton)
+    _assert_strict_comparison_contract(sheraton)
 
 
 def test_latest_payload_keeps_hotels_com_hotel_indigo_snapshot():
@@ -1226,7 +1244,7 @@ def test_latest_payload_keeps_hotels_com_hotel_indigo_snapshot():
     assert {row["breakfast_included"] for row in indigo} == {False}
     assert min(float(row["total_twd"]) for row in indigo) == 5523
     assert max(float(row["total_twd"]) for row in indigo) == 11298
-    assert all(row["comparison_status"] == "comparable" for row in indigo)
+    _assert_strict_comparison_contract(indigo)
 
 
 def test_latest_payload_keeps_hotels_com_doubletree_zhongshan_snapshot():
@@ -1247,7 +1265,7 @@ def test_latest_payload_keeps_hotels_com_doubletree_zhongshan_snapshot():
     assert {row["breakfast_included"] for row in doubletree} == {False}
     assert min(float(row["total_twd"]) for row in doubletree) == 6699
     assert max(float(row["total_twd"]) for row in doubletree) == 12243
-    assert all(row["comparison_status"] == "comparable" for row in doubletree)
+    _assert_strict_comparison_contract(doubletree)
 
 
 def test_latest_payload_keeps_hotels_com_howard_plaza_snapshot():
@@ -1262,7 +1280,7 @@ def test_latest_payload_keeps_hotels_com_howard_plaza_snapshot():
     assert {float(row["room_size_sqm"]) for row in howard} == {20.0, 26.0}
     assert {row["breakfast_included"] for row in howard} == {False}
     assert {float(row["total_twd"]) for row in howard} == {5350}
-    assert all(row["comparison_status"] == "comparable" for row in howard)
+    _assert_strict_comparison_contract(howard)
 
 
 def test_implausibly_low_twd_rate_is_not_published():
@@ -1588,6 +1606,7 @@ def test_daily_market_digest_uses_core_rooms_movers_and_strict_parity():
             "total_twd": value, "rooms": 1, "adults": 2, "children": 0,
             "breakfast_included": True, "cancellation_policy": "Free cancellation",
             "tax_inclusion": "included", "source_platform": "official",
+            "stable_room_type_id": f"rt_{hotel_id}_core_room",
         })
     rows.append({
         **rows[-2], "source_platform": "booking_com", "total_twd": 12300,

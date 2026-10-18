@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+import unicodedata
 from collections import defaultdict
 from decimal import Decimal
 
@@ -85,6 +86,110 @@ def _stable_id(hotel_id: str, room: dict, area_key: str | None) -> str:
     )
     digest = hashlib.sha256(identity.encode("utf-8")).hexdigest()[:16]
     return f"rt_{digest}"
+
+
+def normalize_room_label(value: str | None) -> str:
+    """Normalize an evidenced room label without fuzzy guessing.
+
+    The matcher deliberately removes only presentation differences such as
+    case, Unicode width, punctuation and whitespace.  It does not remove bed,
+    view, club or suite wording because those attributes can describe a
+    materially different product.
+    """
+    if not value:
+        return ""
+    normalized = unicodedata.normalize("NFKC", str(value)).casefold()
+    return "".join(character for character in normalized if character.isalnum())
+
+
+def build_room_type_lookup(dimension_payload: dict) -> dict[tuple[str, str], tuple[dict, ...]]:
+    """Index exact evidenced labels, retaining ambiguity for fail-closed matching."""
+    candidates: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    hotel_candidates: dict[str, list[dict]] = defaultdict(list)
+    for room in dimension_payload.get("room_types", []):
+        hotel_id = str(room.get("hotel_id") or "")
+        if not hotel_id:
+            continue
+        labels = [room.get(key) for key in ("name_zh", "name_en", "name_ja")]
+        labels.extend(room.get("aliases_zh") or [])
+        for label in labels:
+            normalized = normalize_room_label(label)
+            if normalized and room not in candidates[(hotel_id, normalized)]:
+                candidates[(hotel_id, normalized)].append(room)
+                labeled_room = {**room, "_match_label": normalized}
+                if not any(
+                    item["_match_label"] == normalized
+                    and item["stable_room_type_id"] == room["stable_room_type_id"]
+                    for item in hotel_candidates[hotel_id]
+                ):
+                    hotel_candidates[hotel_id].append(labeled_room)
+    for hotel_id, labeled_rooms in hotel_candidates.items():
+        candidates[(hotel_id, "")] = labeled_rooms
+    return {key: tuple(value) for key, value in candidates.items()}
+
+
+def match_room_type(row: dict, lookup: dict[tuple[str, str], tuple[dict, ...]]) -> dict:
+    """Resolve a rate observation to one evidenced stable room type.
+
+    Matching is exact after presentation-only normalization.  When a source
+    publishes an area it must also agree with the dimension.  Ambiguous,
+    missing, or conflicting observations stay visible but are not eligible
+    for strict rate parity.
+    """
+    hotel_id = str(row.get("hotel_id") or "")
+    normalized = normalize_room_label(row.get("room_type_name"))
+    empty = {
+        "stable_room_type_id": None,
+        "normalized_room_family": None,
+        "room_class": None,
+        "room_match_status": "unmatched_label" if normalized else "missing_room_type_name",
+    }
+    candidates = list(lookup.get((hotel_id, normalized), ()))
+    match_status = "matched_exact_evidenced_label"
+    if not candidates:
+        # OTA labels commonly append bed, view and occupancy wording to the
+        # hotel's evidenced room name.  Accept only literal containment of an
+        # evidenced label, then keep the longest match so "Club Deluxe Room"
+        # does not collapse into the shorter "Deluxe Room".  This is not a
+        # fuzzy or area-only match.
+        contained = [
+            candidate
+            for candidate in lookup.get((hotel_id, ""), ())
+            if len(candidate.get("_match_label", "")) >= 5
+            and candidate["_match_label"] in normalized
+        ]
+        if not contained:
+            return empty
+        longest = max(len(candidate["_match_label"]) for candidate in contained)
+        candidates = [
+            candidate for candidate in contained
+            if len(candidate["_match_label"]) == longest
+        ]
+        match_status = "matched_evidenced_label_with_descriptors"
+
+    observed_area = _number(row.get("room_size_sqm"))
+    if observed_area is not None:
+        area_matches = [
+            candidate
+            for candidate in candidates
+            if candidate.get("size_sqm_min") is not None
+            # A one-square-metre tolerance handles public sources that round
+            # the same room differently (for example 110 vs 111 sqm).
+            and float(candidate["size_sqm_min"]) - 1 <= observed_area <= float(candidate["size_sqm_max"]) + 1
+        ]
+        if not area_matches:
+            return {**empty, "room_match_status": "area_mismatch"}
+        candidates = area_matches
+    if len(candidates) != 1:
+        return {**empty, "room_match_status": "ambiguous_label"}
+
+    matched = candidates[0]
+    return {
+        "stable_room_type_id": matched["stable_room_type_id"],
+        "normalized_room_family": matched["normalized_room_family"],
+        "room_class": matched["room_class"],
+        "room_match_status": match_status,
+    }
 
 
 def build_room_type_dimension(profiles_payload: dict) -> dict:

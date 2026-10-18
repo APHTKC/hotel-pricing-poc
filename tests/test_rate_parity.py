@@ -20,6 +20,7 @@ def product(**updates):
         "adults": 2,
         "children": 0,
         "room_size_sqm": Decimal("55"),
+        "stable_room_type_id": "rt_evidenced_deluxe_king",
         "breakfast_included": True,
         "cancellation_policy": "Free cancellation before arrival",
         "tax_inclusion": "included",
@@ -98,7 +99,7 @@ def test_comparison_rejects_stale_official_observation():
         ("rooms", 2),
         ("adults", 1),
         ("children", 1),
-        ("room_size_sqm", Decimal("80")),
+        ("stable_room_type_id", "rt_evidenced_suite"),
         ("breakfast_included", False),
         ("cancellation_policy", "Non-refundable"),
         ("tax_inclusion", "excluded"),
@@ -120,6 +121,17 @@ def test_incomplete_metadata_is_not_comparable(missing_field):
     row = product()
     row[missing_field] = None if missing_field != "tax_inclusion" else "unknown"
     assert canonical_comparison_key(row) is None
+
+
+def test_strict_key_requires_evidenced_stable_room_type():
+    row = product(stable_room_type_id=None)
+
+    assert canonical_comparison_key(row) is not None
+    assert canonical_comparison_key(row, require_stable_room_type=True) is None
+    assert calculate_rate_parity([
+        row,
+        product(source_platform="booking_com", stable_room_type_id=None),
+    ]) == []
 
 
 @pytest.mark.parametrize(

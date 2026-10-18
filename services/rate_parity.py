@@ -89,28 +89,59 @@ class CanonicalComparisonKey:
     check_out: str
     occupancy: str
     size_band: str
+    stable_room_type_id: str | None
     breakfast_included: bool
     cancellation_class: str
     tax_inclusion: str
 
     def serialize(self) -> str:
-        values = (self.hotel_id, self.check_in, self.check_out, self.occupancy, self.size_band, "breakfast" if self.breakfast_included else "room_only", self.cancellation_class, self.tax_inclusion)
+        room_key = self.stable_room_type_id or self.size_band
+        values = (self.hotel_id, self.check_in, self.check_out, self.occupancy, room_key, "breakfast" if self.breakfast_included else "room_only", self.cancellation_class, self.tax_inclusion)
         return "|".join(str(value) for value in values)
 
-def canonical_comparison_key(row: Mapping[str, Any] | Any) -> CanonicalComparisonKey | None:
+def canonical_comparison_key(
+    row: Mapping[str, Any] | Any,
+    *,
+    require_stable_room_type: bool = False,
+) -> CanonicalComparisonKey | None:
     hotel_id, check_in, check_out = _value(row, "hotel_id"), _value(row, "check_in"), _value(row, "check_out")
     breakfast = _value(row, "breakfast_included")
     occupancy = occupancy_key(row)
     size_band = normalize_size_band(row)
     cancellation = normalize_cancellation_class(_value(row, "cancellation_policy"))
     tax_inclusion = normalize_tax_inclusion(row)
-    if not hotel_id or not check_in or not check_out or breakfast is None or UNKNOWN in {occupancy, size_band, cancellation, tax_inclusion}:
+    stable_room_type_id = _value(row, "stable_room_type_id")
+    if (
+        not hotel_id
+        or not check_in
+        or not check_out
+        or breakfast is None
+        or UNKNOWN in {occupancy, size_band, cancellation, tax_inclusion}
+        or (require_stable_room_type and not stable_room_type_id)
+    ):
         return None
-    return CanonicalComparisonKey(str(hotel_id), str(check_in), str(check_out), occupancy, size_band, bool(breakfast), cancellation, tax_inclusion)
+    return CanonicalComparisonKey(
+        str(hotel_id), str(check_in), str(check_out), occupancy, size_band,
+        str(stable_room_type_id) if stable_room_type_id else None,
+        bool(breakfast), cancellation, tax_inclusion,
+    )
 
-def comparison_metadata(row: Mapping[str, Any] | Any) -> dict[str, Any]:
-    key = canonical_comparison_key(row)
-    return {"comparison_key": key.serialize() if key else None, "comparison_status": "comparable" if key else "insufficient_product_metadata", "occupancy": occupancy_key(row), "cancellation_class": normalize_cancellation_class(_value(row, "cancellation_policy")), "tax_inclusion": normalize_tax_inclusion(row), "size_band": normalize_size_band(row)}
+def comparison_metadata(
+    row: Mapping[str, Any] | Any,
+    *,
+    require_stable_room_type: bool = False,
+) -> dict[str, Any]:
+    key = canonical_comparison_key(
+        row, require_stable_room_type=require_stable_room_type
+    )
+    return {
+        "comparison_key": key.serialize() if key else None,
+        "comparison_status": "comparable" if key else "insufficient_product_metadata",
+        "occupancy": occupancy_key(row),
+        "cancellation_class": normalize_cancellation_class(_value(row, "cancellation_policy")),
+        "tax_inclusion": normalize_tax_inclusion(row),
+        "size_band": normalize_size_band(row),
+    }
 
 def _queried_at(row: Mapping[str, Any] | Any) -> datetime | None:
     value = _value(row, "queried_at")
@@ -134,7 +165,7 @@ def calculate_rate_parity(
     )
     examples: dict[str, CanonicalComparisonKey] = {}
     for row in rows:
-        key = canonical_comparison_key(row)
+        key = canonical_comparison_key(row, require_stable_room_type=True)
         if key is None:
             continue
         value = nightly_adr_twd(row)
@@ -188,6 +219,7 @@ def calculate_rate_parity(
                 "check_out": key.check_out,
                 "occupancy": key.occupancy,
                 "size_band": key.size_band,
+                "stable_room_type_id": key.stable_room_type_id,
                 "breakfast_included": key.breakfast_included,
                 "cancellation_class": key.cancellation_class,
                 "tax_inclusion": key.tax_inclusion,
