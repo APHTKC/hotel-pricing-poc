@@ -94,11 +94,43 @@ def build_rate_warehouse(
                 temp_target.unlink()
             files = [str(path.resolve()) for path in input_paths]
             connection.execute(
-                "CREATE OR REPLACE TEMP TABLE month_rates AS "
+                "CREATE OR REPLACE TEMP TABLE month_rates_raw AS "
                 "SELECT * FROM read_json_auto(?, format='newline_delimited', "
                 "union_by_name=true, sample_size=-1) "
                 "WHERE substr(cast(queried_at AS VARCHAR), 1, 7) = ?",
                 [files, month],
+            )
+            raw_columns = {
+                row[0]
+                for row in connection.execute("DESCRIBE month_rates_raw").fetchall()
+            }
+            if "nights" not in raw_columns:
+                connection.execute("ALTER TABLE month_rates_raw ADD COLUMN nights INTEGER")
+            if "nightly_adr_twd" not in raw_columns:
+                connection.execute(
+                    "ALTER TABLE month_rates_raw ADD COLUMN nightly_adr_twd DOUBLE"
+                )
+            if "total_twd" not in raw_columns:
+                connection.execute("ALTER TABLE month_rates_raw ADD COLUMN total_twd DOUBLE")
+            if "total_price" not in raw_columns:
+                connection.execute("ALTER TABLE month_rates_raw ADD COLUMN total_price DOUBLE")
+            connection.execute(
+                "CREATE OR REPLACE TEMP TABLE month_rates AS "
+                "SELECT * REPLACE ("
+                "coalesce("
+                "  try_cast(nights AS INTEGER), "
+                "  date_diff('day', try_cast(check_in AS DATE), try_cast(check_out AS DATE))"
+                ") AS nights, "
+                "coalesce("
+                "  try_cast(nightly_adr_twd AS DOUBLE), "
+                "  try_cast(coalesce(total_twd, total_price) AS DOUBLE) / nullif("
+                "    coalesce("
+                "      try_cast(nights AS INTEGER), "
+                "      date_diff('day', try_cast(check_in AS DATE), try_cast(check_out AS DATE))"
+                "    ), 0"
+                "  )"
+                ") AS nightly_adr_twd"
+                ") FROM month_rates_raw"
             )
             connection.execute(
                 f"COPY (SELECT * FROM month_rates ORDER BY queried_at, observation_id) "

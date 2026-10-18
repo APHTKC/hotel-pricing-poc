@@ -4,11 +4,11 @@
   "manifest_sha256": [
     {
       "month": "2026-09",
-      "sha256": "71f1cdd7490fbe2531be1f017ddab40edcb09102404b846e55d154828be93521"
+      "sha256": "268711db841f58cd764c3bdbe6a82b0a42a534762e2563fd0fc95cb6645f8d6a"
     },
     {
       "month": "2026-10",
-      "sha256": "d8ad83849fa5dae654d69ead4992e76a7fda379051cb8847af676c5336565aee"
+      "sha256": "bab71a1653342eceb34c61d0e0d406765b611e5c18f52e0561e4765b1a7535c8"
     }
   ],
   "rows": 89047,
@@ -25,8 +25,8 @@
     "known_tax_ratio": 0.019462,
     "known_cancellation_policy_rows": 53609,
     "known_cancellation_policy_ratio": 0.60203,
-    "nightly_adr_rows": 3348,
-    "nightly_adr_ratio": 0.037598
+    "nightly_adr_rows": 89047,
+    "nightly_adr_ratio": 1.0
   },
   "sources": [
     {

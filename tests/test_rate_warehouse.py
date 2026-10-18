@@ -60,6 +60,40 @@ def test_build_rate_warehouse_preserves_rows_and_natural_keys(tmp_path):
     assert manifest["partitions"][0]["source_shards"] == 1
     assert manifest_target.exists()
     assert duckdb.connect().execute(
-        "SELECT observation_id, total_price FROM read_parquet(?) ORDER BY observation_id",
+        "SELECT observation_id, total_price, nights, nightly_adr_twd "
+        "FROM read_parquet(?) ORDER BY observation_id",
         [str(target / "2026-10.parquet")],
-    ).fetchall() == [("a", 10000), ("b", 11000)]
+    ).fetchall() == [("a", 10000, 1, 10000.0), ("b", 11000, 1, 11000.0)]
+
+
+def test_build_rate_warehouse_normalizes_multi_night_adr_without_mutating_source(tmp_path):
+    source = tmp_path / "rates"
+    month = source / "2026-10"
+    month.mkdir(parents=True)
+    row = {
+        "observation_id": "multi",
+        "hotel_id": "hotel-a",
+        "source_platform": "official",
+        "check_in": "2026-11-01",
+        "check_out": "2026-11-03",
+        "rooms": 1,
+        "adults": 2,
+        "children": 0,
+        "room_type_code": "ROOM",
+        "rate_plan_code": "BAR",
+        "currency": "TWD",
+        "total_price": 18000,
+        "queried_at": "2026-10-17T01:00:00+00:00",
+    }
+    shard = month / "2026-10-17.jsonl"
+    original = json.dumps(row) + "\n"
+    shard.write_text(original, encoding="utf-8")
+
+    target = tmp_path / "warehouse" / "rates"
+    build_rate_warehouse(source, target, tmp_path / "warehouse" / "manifest.json")
+
+    assert duckdb.connect().execute(
+        "SELECT nights, nightly_adr_twd FROM read_parquet(?)",
+        [str(target / "2026-10.parquet")],
+    ).fetchone() == (2, 9000.0)
+    assert shard.read_text(encoding="utf-8") == original
