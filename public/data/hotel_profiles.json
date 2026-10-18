@@ -27,9 +27,9 @@
         "source_type": "official",
         "source_url": "https://www.ihg.com/intercontinental/hotels/us/en/taipei/tpepi/hoteldetail/rooms",
         "rooms": [
-          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 38},
-          {"name_zh": "普通套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm_min": 43, "size_sqm_max": 48},
-          {"name_zh": "住宅式套房", "name_en": "Residential Suite", "name_ja": "Residential Suite", "size_sqm_min": 76}
+          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 38, "aliases": [{"label": "經典雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/intercontinental-hotels-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "普通套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm_min": 43, "size_sqm_max": 48, "aliases": [{"label": "小型特大雙人床套房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/intercontinental-hotels-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "住宅式套房", "name_en": "Residential Suite", "name_ja": "Residential Suite", "size_sqm_min": 76, "aliases": [{"label": "單臥室套房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/intercontinental-hotels-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]}
         ]
       },
       "source_urls": [

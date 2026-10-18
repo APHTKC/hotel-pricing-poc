@@ -182,3 +182,33 @@ def test_dated_evidenced_alias_is_published_and_matchable():
 
     assert room["aliases"][0]["source_platform"] == "booking_com"
     assert matched["stable_room_type_id"] == room["stable_room_type_id"]
+
+
+def test_intercontinental_taipei_booking_aliases_match_official_room_types():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+
+    expected = {
+        ("經典雙床房", 38): "Classic Room",
+        ("小型特大雙人床套房", 43): "Junior Suite",
+        ("單臥室套房", 76): "Residential Suite",
+    }
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "intercontinental_taipei"
+    }
+
+    for (label, area), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "intercontinental_taipei",
+            "room_type_name": label,
+            "room_size_sqm": area,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["label"] == label)
+
+        assert room["name_en"] == official_name
+        assert alias["source_platform"] == "booking_com"
+        assert alias["observed_at"] == "2026-10-13"
