@@ -6,6 +6,7 @@ from services.room_type_dimension import (
     bed_type,
     build_room_type_dimension,
     build_room_type_lookup,
+    evidenced_aliases,
     match_room_type,
     normalize_room_label,
     room_class,
@@ -18,6 +19,17 @@ def test_room_normalization_helpers():
     assert room_class({"name_zh": "豪華套房"}) == "suite"
     assert room_class({"name_en": "Pool Villa"}) == "villa"
     assert bed_type({"name_zh": "豪華雙床客房"}) == "twin"
+    assert evidenced_aliases({"aliases": [
+        {"label": "小型套房", "source_url": "https://example.com", "observed_at": "2026-10-18"},
+        {"label": "沒有日期", "source_url": "https://example.com"},
+    ]}) == [{
+        "label": "小型套房",
+        "language": None,
+        "source_type": None,
+        "source_platform": None,
+        "source_url": "https://example.com",
+        "observed_at": "2026-10-18",
+    }]
 
 
 def test_room_type_dimension_has_stable_ids_evidence_and_dual_counts():
@@ -132,3 +144,41 @@ def test_four_character_cjk_label_requires_matching_published_area():
     assert matched["room_match_status"] == "matched_evidenced_label_with_descriptors"
     assert missing_area["stable_room_type_id"] is None
     assert generic_english["stable_room_type_id"] is None
+
+
+def test_dated_evidenced_alias_is_published_and_matchable():
+    profiles = {
+        "profiles": [{
+            "hotel_id": "hotel-a",
+            "room_snapshot": {
+                "source_type": "official",
+                "source_url": "https://official.example/rooms",
+                "observed_at": "2026-10-18",
+                "rooms": [{
+                    "name_zh": "精緻套房",
+                    "name_en": "Junior Suite",
+                    "name_ja": None,
+                    "size_sqm": 65,
+                    "aliases": [{
+                        "label": "小型套房",
+                        "language": "zh-TW",
+                        "source_type": "ota",
+                        "source_platform": "booking_com",
+                        "source_url": "https://ota.example/dated-snapshot",
+                        "observed_at": "2026-10-14",
+                    }],
+                }],
+            },
+        }]
+    }
+
+    dimension = build_room_type_dimension(profiles)
+    room = dimension["room_types"][0]
+    matched = match_room_type({
+        "hotel_id": "hotel-a",
+        "room_type_name": "小型套房",
+        "room_size_sqm": 65,
+    }, build_room_type_lookup(dimension))
+
+    assert room["aliases"][0]["source_platform"] == "booking_com"
+    assert matched["stable_room_type_id"] == room["stable_room_type_id"]

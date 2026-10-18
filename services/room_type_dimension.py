@@ -102,6 +102,28 @@ def normalize_room_label(value: str | None) -> str:
     return "".join(character for character in normalized if character.isalnum())
 
 
+def evidenced_aliases(room: dict) -> list[dict]:
+    """Return only aliases carrying a dated, directly inspectable source."""
+    aliases = []
+    for alias in room.get("aliases") or []:
+        if not isinstance(alias, dict):
+            continue
+        label = str(alias.get("label") or "").strip()
+        source_url = str(alias.get("source_url") or "").strip()
+        observed_at = str(alias.get("observed_at") or "").strip()
+        if not label or not source_url.startswith("https://") or not observed_at:
+            continue
+        aliases.append({
+            "label": label,
+            "language": alias.get("language"),
+            "source_type": alias.get("source_type"),
+            "source_platform": alias.get("source_platform"),
+            "source_url": source_url,
+            "observed_at": observed_at,
+        })
+    return aliases
+
+
 def _cjk_character_count(value: str) -> int:
     return sum(
         "\u3400" <= character <= "\u4dbf" or "\u4e00" <= character <= "\u9fff"
@@ -119,6 +141,7 @@ def build_room_type_lookup(dimension_payload: dict) -> dict[tuple[str, str], tup
             continue
         labels = [room.get(key) for key in ("name_zh", "name_en", "name_ja")]
         labels.extend(room.get("aliases_zh") or [])
+        labels.extend(alias["label"] for alias in evidenced_aliases(room))
         for label in labels:
             normalized = normalize_room_label(label)
             if normalized and room not in candidates[(hotel_id, normalized)]:
@@ -229,6 +252,7 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
                 "name_en": room.get("name_en"),
                 "name_ja": room.get("name_ja"),
                 "aliases_zh": room.get("aliases_zh", []),
+                "aliases": evidenced_aliases(room),
                 "size_sqm": _number(room.get("size_sqm")),
                 "size_sqm_min": minimum,
                 "size_sqm_max": maximum,
