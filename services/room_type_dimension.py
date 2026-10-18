@@ -102,6 +102,13 @@ def normalize_room_label(value: str | None) -> str:
     return "".join(character for character in normalized if character.isalnum())
 
 
+def _cjk_character_count(value: str) -> int:
+    return sum(
+        "\u3400" <= character <= "\u4dbf" or "\u4e00" <= character <= "\u9fff"
+        for character in value
+    )
+
+
 def build_room_type_lookup(dimension_payload: dict) -> dict[tuple[str, str], tuple[dict, ...]]:
     """Index exact evidenced labels, retaining ambiguity for fail-closed matching."""
     candidates: dict[tuple[str, str], list[dict]] = defaultdict(list)
@@ -144,6 +151,7 @@ def match_room_type(row: dict, lookup: dict[tuple[str, str], tuple[dict, ...]]) 
         "room_class": None,
         "room_match_status": "unmatched_label" if normalized else "missing_room_type_name",
     }
+    observed_area = _number(row.get("room_size_sqm"))
     candidates = list(lookup.get((hotel_id, normalized), ()))
     match_status = "matched_exact_evidenced_label"
     if not candidates:
@@ -152,12 +160,19 @@ def match_room_type(row: dict, lookup: dict[tuple[str, str], tuple[dict, ...]]) 
         # evidenced label, then keep the longest match so "Club Deluxe Room"
         # does not collapse into the shorter "Deluxe Room".  This is not a
         # fuzzy or area-only match.
-        contained = [
-            candidate
-            for candidate in lookup.get((hotel_id, ""), ())
-            if len(candidate.get("_match_label", "")) >= 5
-            and candidate["_match_label"] in normalized
-        ]
+        contained = []
+        for candidate in lookup.get((hotel_id, ""), ()):
+            label = candidate.get("_match_label", "")
+            # Four-character Chinese room names such as 卓越客房 and 壯美客房
+            # are complete branded labels, but shorter than the previous
+            # generic safety threshold.  Accept them only when the source also
+            # publishes an area that can be checked below.  English "Room"
+            # and other short generic fragments remain ineligible.
+            sufficiently_specific = len(label) >= 5 or (
+                observed_area is not None and _cjk_character_count(label) >= 4
+            )
+            if sufficiently_specific and label in normalized:
+                contained.append(candidate)
         if not contained:
             return empty
         longest = max(len(candidate["_match_label"]) for candidate in contained)
@@ -167,7 +182,6 @@ def match_room_type(row: dict, lookup: dict[tuple[str, str], tuple[dict, ...]]) 
         ]
         match_status = "matched_evidenced_label_with_descriptors"
 
-    observed_area = _number(row.get("room_size_sqm"))
     if observed_area is not None:
         area_matches = [
             candidate

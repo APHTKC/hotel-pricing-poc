@@ -80,3 +80,55 @@ def test_evidenced_room_match_is_exact_and_checks_area():
     assert described["room_match_status"] == "matched_evidenced_label_with_descriptors"
     assert mismatch["stable_room_type_id"] is None
     assert mismatch["room_match_status"] == "area_mismatch"
+
+
+def test_four_character_cjk_label_requires_matching_published_area():
+    dimension = {
+        "room_types": [
+            {
+                "hotel_id": "hotel-a",
+                "stable_room_type_id": "rt_superior",
+                "normalized_room_family": "room:48",
+                "room_class": "room",
+                "name_zh": "卓越客房",
+                "name_en": "Superior Room",
+                "name_ja": None,
+                "aliases_zh": [],
+                "size_sqm_min": 48,
+                "size_sqm_max": 48,
+            },
+            {
+                "hotel_id": "hotel-b",
+                "stable_room_type_id": "rt_generic",
+                "normalized_room_family": "room:48",
+                "room_class": "room",
+                "name_zh": None,
+                "name_en": "Room",
+                "name_ja": None,
+                "aliases_zh": [],
+                "size_sqm_min": 48,
+                "size_sqm_max": 48,
+            },
+        ]
+    }
+    lookup = build_room_type_lookup(dimension)
+
+    matched = match_room_type({
+        "hotel_id": "hotel-a",
+        "room_type_name": "卓越客房一大床",
+        "room_size_sqm": 48,
+    }, lookup)
+    missing_area = match_room_type({
+        "hotel_id": "hotel-a",
+        "room_type_name": "卓越客房一大床",
+    }, lookup)
+    generic_english = match_room_type({
+        "hotel_id": "hotel-b",
+        "room_type_name": "Room with city view",
+        "room_size_sqm": 48,
+    }, lookup)
+
+    assert matched["stable_room_type_id"] == "rt_superior"
+    assert matched["room_match_status"] == "matched_evidenced_label_with_descriptors"
+    assert missing_area["stable_room_type_id"] is None
+    assert generic_english["stable_room_type_id"] is None
