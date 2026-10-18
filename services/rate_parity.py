@@ -155,6 +155,32 @@ def _queried_at(row: Mapping[str, Any] | Any) -> datetime | None:
         return None
 
 
+def _latest_valid_timestamp_pair(
+    ota_entries: list[tuple[Decimal, datetime | None]],
+    official_entries: list[tuple[Decimal, datetime | None]],
+    max_query_gap_hours: float,
+) -> tuple[datetime, datetime, float] | None:
+    ota_timestamps = sorted(
+        {timestamp for _, timestamp in ota_entries if timestamp is not None},
+        reverse=True,
+    )
+    official_timestamps = {
+        timestamp for _, timestamp in official_entries if timestamp is not None
+    }
+    for ota_timestamp in ota_timestamps:
+        nearest = min(
+            official_timestamps,
+            key=lambda timestamp: abs((timestamp - ota_timestamp).total_seconds()),
+            default=None,
+        )
+        if nearest is None:
+            continue
+        gap_hours = abs((nearest - ota_timestamp).total_seconds()) / 3600
+        if gap_hours <= max_query_gap_hours:
+            return ota_timestamp, nearest, gap_hours
+    return None
+
+
 def calculate_rate_parity(
     rows: Iterable[Mapping[str, Any] | Any],
     *,
@@ -183,30 +209,20 @@ def calculate_rate_parity(
         for platform, ota_entries in sources.items():
             if platform == "official" or not ota_entries:
                 continue
-            ota_timestamps = [timestamp for _, timestamp in ota_entries if timestamp is not None]
-            official_timestamps = [
-                timestamp for _, timestamp in official_entries if timestamp is not None
+            # Strict parity always requires two dated observations inside the
+            # same query window.  Starting with the newest OTA timestamp that
+            # actually has a valid official counterpart avoids an unrelated,
+            # newer OTA snapshot suppressing an older valid comparison.
+            matched_pair = _latest_valid_timestamp_pair(
+                ota_entries, official_entries, max_query_gap_hours
+            )
+            if matched_pair is None:
+                continue
+            ota_timestamp, official_timestamp, gap_hours = matched_pair
+            selected_ota = [entry for entry in ota_entries if entry[1] == ota_timestamp]
+            selected_official = [
+                entry for entry in official_entries if entry[1] == official_timestamp
             ]
-            ota_timestamp = max(ota_timestamps) if ota_timestamps else None
-            official_timestamp = None
-            selected_ota = ota_entries
-            selected_official = official_entries
-            gap_hours = None
-            if ota_timestamp is not None:
-                selected_ota = [entry for entry in ota_entries if entry[1] == ota_timestamp]
-                if official_timestamps:
-                    official_timestamp = min(
-                        official_timestamps,
-                        key=lambda timestamp: abs((timestamp - ota_timestamp).total_seconds()),
-                    )
-                    gap_hours = abs(
-                        (official_timestamp - ota_timestamp).total_seconds()
-                    ) / 3600
-                    if gap_hours > max_query_gap_hours:
-                        continue
-                    selected_official = [
-                        entry for entry in official_entries if entry[1] == official_timestamp
-                    ]
             official = Decimal(
                 str(statistics.median(value for value, _ in selected_official))
             )

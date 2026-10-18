@@ -26,6 +26,7 @@ def product(**updates):
         "tax_inclusion": "included",
         "total_price": Decimal("10000"),
         "source_platform": "official",
+        "queried_at": "2026-09-01T01:00:00Z",
     }
     row.update(updates)
     return row
@@ -88,6 +89,35 @@ def test_comparison_rejects_stale_official_observation():
         queried_at="2026-10-08T12:00:00Z",
         total_price=Decimal("11000"),
     )
+
+    assert calculate_rate_parity([official, ota]) == []
+
+
+def test_comparison_uses_latest_ota_batch_that_has_a_valid_official_pair():
+    official = product(
+        queried_at="2026-10-08T01:00:00Z", total_price=Decimal("10000")
+    )
+    ota_valid = product(
+        source_platform="booking_com",
+        queried_at="2026-10-08T12:00:00Z",
+        total_price=Decimal("11000"),
+    )
+    ota_newer_but_stale = product(
+        source_platform="booking_com",
+        queried_at="2026-10-12T12:00:00Z",
+        total_price=Decimal("13000"),
+    )
+
+    comparison = calculate_rate_parity([official, ota_valid, ota_newer_but_stale])[0]
+
+    assert comparison["ota_median_twd"] == 11000
+    assert comparison["ota_queried_at"] == "2026-10-08T12:00:00+00:00"
+    assert comparison["query_time_gap_hours"] == 11
+
+
+def test_comparison_rejects_rows_without_query_timestamps():
+    official = product(queried_at=None)
+    ota = product(source_platform="booking_com", queried_at=None)
 
     assert calculate_rate_parity([official, ota]) == []
 
