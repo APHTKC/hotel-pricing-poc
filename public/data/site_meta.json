@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "version": "v2026.10.18",
-  "build": "local",
-  "deployment_run": "local",
-  "published_at": "2026-10-17T20:13:37.696518+00:00",
-  "data_updated_at": "2026-10-17T04:49:06Z"
+  "build": "2b4700c",
+  "deployment_run": "39081485405",
+  "published_at": "2026-10-18T00:32:23.742773+00:00",
+  "data_updated_at": "2026-10-18T00:31:36.940582Z"
 }
