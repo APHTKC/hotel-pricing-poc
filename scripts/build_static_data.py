@@ -3,7 +3,7 @@ import hashlib
 import re
 import shutil
 import statistics
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -42,6 +42,7 @@ DIGEST_TARGET = Path("public/data/digest.json")
 HOTEL_NAMES_SOURCE = Path("public/data/hotel_names_zh.json")
 HOTEL_PROFILES_SOURCE = Path("public/data/hotel_profiles.json")
 ROOM_TYPE_DIMENSION_TARGET = Path("public/data/room_type_dimension.json")
+ROOM_TYPE_MATCH_QUALITY_TARGET = Path("public/data/room_type_match_quality.json")
 ASSET_MANIFEST_TARGET = Path("public/data/asset_manifest.json")
 MAX_HISTORY_SHARD_BYTES = 3_000_000
 LEGACY_TARGET = Path("public/data/rates.json")
@@ -87,6 +88,97 @@ def _dashboard_row(row: dict, room_type_lookup=None) -> dict:
     published.update(comparison_metadata(published, require_stable_room_type=True))
     published["strict_parity_eligible"] = published["comparison_key"] is not None
     return published
+
+
+def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> dict:
+    """Summarize evidenced room matching without proposing unverified aliases."""
+    unresolved_statuses = {
+        "unmatched_label",
+        "area_mismatch",
+        "ambiguous_label",
+        "missing_room_type_name",
+    }
+    status_counts = Counter(row.get("room_match_status") or "not_evaluated" for row in rows)
+    mapped_count = sum(bool(row.get("stable_room_type_id")) for row in rows)
+    strict_count = sum(bool(row.get("strict_parity_eligible")) for row in rows)
+    hotel_groups: dict[str, list[dict]] = defaultdict(list)
+    for row in rows:
+        if row.get("hotel_id"):
+            hotel_groups[str(row["hotel_id"])].append(row)
+
+    hotels = []
+    for hotel_id, hotel_rows in hotel_groups.items():
+        hotel_statuses = Counter(
+            row.get("room_match_status") or "not_evaluated" for row in hotel_rows
+        )
+        unresolved = [
+            row for row in hotel_rows
+            if (row.get("room_match_status") or "not_evaluated") in unresolved_statuses
+        ]
+        if not unresolved:
+            continue
+        candidate_groups: dict[tuple, list[dict]] = defaultdict(list)
+        for row in unresolved:
+            key = (
+                row.get("room_match_status") or "not_evaluated",
+                row.get("room_type_name"),
+                row.get("room_type_code"),
+                row.get("source_platform") or "official",
+                row.get("room_size_sqm"),
+            )
+            candidate_groups[key].append(row)
+        candidates = []
+        for key, candidate_rows in candidate_groups.items():
+            status, name, code, platform, size = key
+            latest = max(candidate_rows, key=lambda row: row.get("queried_at") or "")
+            candidates.append({
+                "room_match_status": status,
+                "room_type_name": name,
+                "room_type_code": code,
+                "source_platform": platform,
+                "room_size_sqm": size,
+                "observations": len(candidate_rows),
+                "latest_queried_at": latest.get("queried_at"),
+                "sample_source_url": latest.get("source_url"),
+            })
+        candidates.sort(
+            key=lambda item: (
+                -item["observations"],
+                item["source_platform"],
+                item.get("room_type_name") or "",
+                item.get("room_type_code") or "",
+            )
+        )
+        mapped = sum(bool(row.get("stable_room_type_id")) for row in hotel_rows)
+        hotels.append({
+            "hotel_id": hotel_id,
+            "hotel_name": next(
+                (row.get("hotel_name") for row in hotel_rows if row.get("hotel_name")),
+                hotel_id,
+            ),
+            "city": next((row.get("city") for row in hotel_rows if row.get("city")), None),
+            "observations": len(hotel_rows),
+            "mapped_observations": mapped,
+            "mapped_rate": round(mapped / len(hotel_rows), 4),
+            "strict_parity_eligible_observations": sum(
+                bool(row.get("strict_parity_eligible")) for row in hotel_rows
+            ),
+            "unresolved_observations": len(unresolved),
+            "status_counts": dict(sorted(hotel_statuses.items())),
+            "top_unresolved_room_labels": candidates[:candidate_limit],
+        })
+    hotels.sort(key=lambda item: (-item["unresolved_observations"], item["hotel_id"]))
+    total = len(rows)
+    return {
+        "observation_count": total,
+        "mapped_observations": mapped_count,
+        "mapped_rate": round(mapped_count / total, 4) if total else None,
+        "strict_parity_eligible_observations": strict_count,
+        "strict_parity_eligible_rate": round(strict_count / total, 4) if total else None,
+        "status_counts": dict(sorted(status_counts.items())),
+        "hotels_requiring_evidence": len(hotels),
+        "hotels": hotels,
+    }
 
 
 def _plausible_luxury_rate(row: dict) -> bool:
@@ -820,6 +912,18 @@ def main() -> None:
     if LEGACY_TARGET.exists():
         LEGACY_TARGET.unlink()
     latest_rows = _latest_batches_by_platform(rows)
+    ROOM_TYPE_MATCH_QUALITY_TARGET.write_text(
+        json.dumps(
+            {
+                "schema_version": "1.0",
+                "generated_from": str(SOURCE).replace("\\", "/"),
+                "history": _room_type_match_quality(rows),
+                "latest": _room_type_match_quality(latest_rows),
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
     latest_timestamps = {row["queried_at"] for row in latest_rows}
     latest_source_rows = [
         row for row in source_rows if row.get("queried_at") in latest_timestamps

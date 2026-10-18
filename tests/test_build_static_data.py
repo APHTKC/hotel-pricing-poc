@@ -18,6 +18,7 @@ from scripts.build_static_data import (
     _plausible_luxury_rate,
     _publishable_live_rate,
     _public_adapter_health,
+    _room_type_match_quality,
     _weekly_digest,
 )
 
@@ -54,6 +55,64 @@ def _assert_strict_comparison_contract(rows):
         )
         for row in rows
     )
+
+
+def test_room_type_match_quality_prioritizes_unresolved_evidence_candidates():
+    rows = [
+        {
+            "hotel_id": "hotel-a",
+            "hotel_name": "Hotel A",
+            "city": "Taipei",
+            "room_type_name": "Deluxe King",
+            "room_type_code": "OTA-1",
+            "room_size_sqm": "45",
+            "source_platform": "booking_com",
+            "source_url": "https://example.com/latest",
+            "queried_at": "2026-10-18T01:00:00Z",
+            "room_match_status": "unmatched_label",
+            "strict_parity_eligible": False,
+        },
+        {
+            "hotel_id": "hotel-a",
+            "hotel_name": "Hotel A",
+            "city": "Taipei",
+            "room_type_name": "Deluxe King",
+            "room_type_code": "OTA-1",
+            "room_size_sqm": "45",
+            "source_platform": "booking_com",
+            "source_url": "https://example.com/older",
+            "queried_at": "2026-10-17T01:00:00Z",
+            "room_match_status": "unmatched_label",
+            "strict_parity_eligible": False,
+        },
+        {
+            "hotel_id": "hotel-a",
+            "hotel_name": "Hotel A",
+            "city": "Taipei",
+            "stable_room_type_id": "rt-1",
+            "room_match_status": "matched_exact_evidenced_label",
+            "strict_parity_eligible": True,
+        },
+    ]
+
+    quality = _room_type_match_quality(rows)
+
+    assert quality["observation_count"] == 3
+    assert quality["mapped_observations"] == 1
+    assert quality["strict_parity_eligible_observations"] == 1
+    assert quality["hotels_requiring_evidence"] == 1
+    hotel = quality["hotels"][0]
+    assert hotel["unresolved_observations"] == 2
+    assert hotel["top_unresolved_room_labels"] == [{
+        "room_match_status": "unmatched_label",
+        "room_type_name": "Deluxe King",
+        "room_type_code": "OTA-1",
+        "source_platform": "booking_com",
+        "room_size_sqm": "45",
+        "observations": 2,
+        "latest_queried_at": "2026-10-18T01:00:00Z",
+        "sample_source_url": "https://example.com/latest",
+    }]
 
 
 def test_latest_batch_uses_recent_workflow_window():
@@ -1350,6 +1409,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     health_source = tmp_path / "adapter_health.json"
     health_target = tmp_path / "public_health.json"
     digest_target = tmp_path / "digest.json"
+    room_type_match_quality_target = tmp_path / "room_type_match_quality.json"
     legacy = tmp_path / "rates.json"
     legacy.write_text("legacy", encoding="utf-8")
     common = {
@@ -1419,6 +1479,11 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     monkeypatch.setattr(build_static_data, "HEALTH_SOURCE", health_source)
     monkeypatch.setattr(build_static_data, "HEALTH_TARGET", health_target)
     monkeypatch.setattr(build_static_data, "DIGEST_TARGET", digest_target)
+    monkeypatch.setattr(
+        build_static_data,
+        "ROOM_TYPE_MATCH_QUALITY_TARGET",
+        room_type_match_quality_target,
+    )
     monkeypatch.setattr(build_static_data, "LEGACY_TARGET", legacy)
 
     build_static_data.main()
@@ -1457,6 +1522,9 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
         "hotel-a", "hotel-b"
     }
     assert digest_target.exists()
+    quality_payload = json.loads(room_type_match_quality_target.read_text(encoding="utf-8"))
+    assert quality_payload["schema_version"] == "1.0"
+    assert quality_payload["latest"]["observation_count"] == 2
 
 
 def test_static_partition_ids_fail_closed_and_heatmap_rows_are_lightweight():

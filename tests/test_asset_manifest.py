@@ -11,6 +11,7 @@ def test_asset_manifest_matches_published_json_content():
     assert "data/latest_details/index.json" in published["assets"]
     assert "data/latest_details.json" not in published["assets"]
     assert "data/rates/index.json" in published["assets"]
+    assert "data/room_type_match_quality.json" in published["assets"]
     assert "data/asset_manifest.json" not in published["assets"]
     assert "data/site_meta.json" not in published["assets"]
 
