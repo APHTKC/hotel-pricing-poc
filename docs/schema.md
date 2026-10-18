@@ -62,16 +62,18 @@ hotel_id + source_platform + check_in + check_out
 hotel_id
 + check_in + check_out
 + occupancy (rooms/adults/children)
-+ size_band（或後續可用的正規化房型）
++ stable_room_type_id（必須由有來源證據的房型維度對應）
 + breakfast_included
 + cancellation_class
++ cancellation_deadline
 + tax_inclusion
 ```
 
 必要欄位不足時 `comparison_key=null`、`comparison_status=insufficient_product_metadata`；
 不產生 Rate Parity 結果。`cancellation_class` 正規化為 `free_cancellation`、
-`conditional`、`non_refundable` 或 `unknown`；`tax_inclusion` 為 `included`、
-`excluded` 或 `unknown`。
+`conditional`、`non_refundable` 或 `unknown`；條件式取消另將公開日期或相對入住日
+正規化成精確 `cancellation_deadline`，期限不同不得比較。`tax_inclusion` 為
+`included`、`excluded` 或 `unknown`。
 
 ## 靜態發布資料
 

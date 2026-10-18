@@ -454,17 +454,17 @@
     "mandarin_oriental:mo_taipei": {
       "adapter": "mandarin_oriental",
       "hotel_id": "mo_taipei",
-      "attempts": 140,
-      "successes": 128,
+      "attempts": 141,
+      "successes": 129,
       "failures": 12,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 3079867.055048001,
-      "average_response_ms": 21999.05,
-      "success_rate": 0.9143,
+      "total_response_ms": 3115835.288347996,
+      "average_response_ms": 22098.12,
+      "success_rate": 0.9149,
       "last_status": "success",
-      "last_attempt_at": "2026-10-18T00:11:40.695989+00:00",
-      "last_success_at": "2026-10-18T00:11:40.695989+00:00",
+      "last_attempt_at": "2026-10-18T12:51:55.742224+00:00",
+      "last_success_at": "2026-10-18T12:51:55.742224+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -666,13 +666,13 @@
           "average_response_ms": 46786.79
         },
         "2026-10-18": {
-          "attempts": 6,
-          "successes": 6,
+          "attempts": 7,
+          "successes": 7,
           "failures": 0,
           "blocked": 0,
-          "response_ms": 134643.98,
+          "response_ms": 170612.21,
           "success_rate": 1.0,
-          "average_response_ms": 22440.66
+          "average_response_ms": 24373.17
         }
       }
     },

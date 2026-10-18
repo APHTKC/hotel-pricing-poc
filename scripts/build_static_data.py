@@ -56,7 +56,8 @@ DASHBOARD_FIELDS = (
     "source_method", "source_property_id", "source_url",
     "stable_room_type_id", "normalized_room_family", "room_class",
     "room_match_status", "strict_parity_eligible",
-    "size_band", "occupancy", "cancellation_class", "comparison_key", "comparison_status",
+    "size_band", "occupancy", "cancellation_class", "cancellation_deadline",
+    "comparison_key", "comparison_status",
 )
 
 HEATMAP_FIELDS = (

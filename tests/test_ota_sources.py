@@ -662,17 +662,24 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
     assert all(row.tax_inclusion == "included" for row in okura_expedia_rows)
     assert all(canonical_comparison_key(row) is not None for row in okura_expedia_rows)
     mo_rows = [row for row in rows if row.hotel_id == "mo_taipei"]
-    assert len(mo_rows) == 22
+    assert len(mo_rows) == 37
+    latest_mo_expedia_query = max(
+        row.queried_at
+        for row in mo_rows
+        if row.source_platform == "expedia_group"
+    )
     hotels_com_mo = [
-        row for row in mo_rows if row.source_platform == "expedia_group"
+        row for row in mo_rows
+        if row.source_platform == "expedia_group"
+        and row.queried_at == latest_mo_expedia_query
     ]
     assert len(hotels_com_mo) == 15
     assert {row.room_size_sqm for row in hotels_com_mo} == {
         Decimal("55"), Decimal("70"), Decimal("86"), Decimal("110"),
         Decimal("133")
     }
-    assert min(row.total_price for row in hotels_com_mo) == Decimal("14079")
-    assert max(row.total_price for row in hotels_com_mo) == Decimal("60684")
+    assert min(row.total_price for row in hotels_com_mo) == Decimal("14235")
+    assert max(row.total_price for row in hotels_com_mo) == Decimal("61359")
     assert all(row.tax_inclusion == "included" for row in hotels_com_mo)
     assert all(canonical_comparison_key(row) is not None for row in hotels_com_mo)
     shangrila_rows = [row for row in rows if row.hotel_id == "shangrila_taipei"]

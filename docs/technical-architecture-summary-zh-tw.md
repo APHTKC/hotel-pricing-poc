@@ -203,7 +203,7 @@ Booking.com parser 會讀取：
 **目前比價實作：**
 
 1. `services/rate_parity.py` 先建立嚴格 Canonical Comparison Key。
-2. Key 同時包含 `hotel_id`、`check_in`、`check_out`、`rooms/adults/children`、`size_band`、`breakfast_included`、`cancellation_class` 與 `tax_inclusion`。
+2. Key 同時包含 `hotel_id`、`check_in`、`check_out`、`rooms/adults/children`、有來源證據的 `stable_room_type_id`、`breakfast_included`、`cancellation_class`、精確 `cancellation_deadline` 與 `tax_inclusion`。
 3. 任一必要條件缺失或無效時採 fail-closed，標記 `insufficient_product_metadata`，不產生比價。
 4. 靜態建置將相同 Key 的官網與各 OTA 價格分別取中位數；首頁只以已產出的 `comparison_key` 分組，並選出最低 OTA 中位數。
 5. 價差：
@@ -212,7 +212,7 @@ Booking.com parser 會讀取：
 gap = (lowest_ota_median - official_median) / official_median
 ```
 
-入住晚數由完全一致的 `check_in + check_out` 保證。房型目前採面積級距匹配；尚未取得可靠正規化房型 ID 時，不跨級距比較。價格方案名稱本身不作 Key，避免各來源命名不同，但早餐、取消與稅別條件必須一致。
+入住晚數由完全一致的 `check_in + check_out` 保證。房型必須先對應到有來源證據的穩定房型 ID；面積級距只作展示與分析，不再單獨作為嚴格比價依據。價格方案名稱本身不作 Key，避免各來源命名不同，但早餐、取消類別、取消期限與稅別條件必須一致。
 
 ### 2.6 Lead time
 

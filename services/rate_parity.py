@@ -7,7 +7,7 @@ import statistics
 from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from decimal import Decimal
 from typing import Any
 
@@ -42,13 +42,105 @@ def normalize_cancellation_class(policy: str | None) -> str:
     # different word order.
     has_deadline = bool(
         re.search(r"(?:before|prior to|抵達前|入住前|日前|日まで).{0,30}\d+", text)
+        or re.search(r"\d+.{0,30}(?:before|prior to|日前|日まで)", text)
         or re.search(r"(?:入住|抵達)\s*\d+\s*(?:天|日)前", text)
         or re.search(r"\d{4}\s*[年/-]\s*\d{1,2}\s*[月/-]\s*\d{1,2}\s*日前", text)
+        or "day prior to arrival" in text
     )
     if has_deadline:
         return "conditional"
     if any(term in text for term in ("free cancellation", "free cancel", "免費取消", "可免費取消", "無料キャンセル", "キャンセル無料")):
         return "free_cancellation"
+    return UNKNOWN
+
+
+def _as_date(value: Any) -> date | None:
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, date):
+        return value
+    if not value:
+        return None
+    try:
+        return date.fromisoformat(str(value)[:10])
+    except ValueError:
+        return None
+
+
+def normalize_cancellation_deadline(row: Mapping[str, Any] | Any) -> str:
+    """Return a comparable refund deadline, not merely a broad policy class.
+
+    Conditional rates are strict-comparison eligible only when their refund
+    deadline can be normalized to an exact calendar date.  This prevents, for
+    example, an OTA rate refundable until five days before arrival from being
+    compared with an official rate refundable until the day before arrival.
+    """
+    policy = _value(row, "cancellation_policy")
+    policy_class = normalize_cancellation_class(policy)
+    if policy_class == "non_refundable":
+        return "non_refundable"
+    if policy_class == "free_cancellation":
+        return "unrestricted"
+    if policy_class != "conditional" or not policy:
+        return UNKNOWN
+
+    text = " ".join(str(policy).lower().split())
+    check_in = _as_date(_value(row, "check_in"))
+
+    # Fully dated public policies, including the forms used by Hotels.com and
+    # Booking.com snapshots.
+    match = re.search(r"(20\d{2})\s*[年/-]\s*(\d{1,2})\s*[月/-]\s*(\d{1,2})", text)
+    if match:
+        try:
+            return date(*(int(part) for part in match.groups())).isoformat()
+        except ValueError:
+            return UNKNOWN
+
+    # Localized month/day labels omit the year.  Select the latest occurrence
+    # that does not fall after check-in (important for January stays).
+    match = re.search(r"(\d{1,2})\s*月\s*(\d{1,2})\s*日", text)
+    if match and check_in:
+        month, day = (int(part) for part in match.groups())
+        try:
+            candidate = date(check_in.year, month, day)
+            if candidate > check_in:
+                candidate = date(check_in.year - 1, month, day)
+            return candidate.isoformat()
+        except ValueError:
+            return UNKNOWN
+
+    month_names = {
+        "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+        "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+    }
+    match = re.search(
+        r"(\d{1,2})\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(20\d{2})",
+        text,
+    )
+    if match:
+        day, month_name, year = match.groups()
+        try:
+            return date(int(year), month_names[month_name], int(day)).isoformat()
+        except ValueError:
+            return UNKNOWN
+
+    # Relative deadlines are anchored to the requested check-in date.
+    days = None
+    relative_patterns = (
+        r"入住日前至少\s*(\d+)\s*(?:天|日)",
+        r"入住\s*(\d+)\s*(?:天|日)前",
+        r"抵達前\s*(\d+)\s*(?:天|日)",
+        r"(\d+)\s*(?:\(\d+\))?\s*days?\s+prior to\s+(?:arrival|check[- ]?in)",
+    )
+    for pattern in relative_patterns:
+        match = re.search(pattern, text)
+        if match:
+            days = int(match.group(1))
+            break
+    if days is None and re.search(r"(?:the|one) day prior to arrival", text):
+        days = 1
+    if days is not None and check_in and days > 0:
+        return (check_in - timedelta(days=days)).isoformat()
     return UNKNOWN
 
 def normalize_tax_inclusion(row: Mapping[str, Any] | Any) -> str:
@@ -93,11 +185,12 @@ class CanonicalComparisonKey:
     stable_room_type_id: str | None
     breakfast_included: bool
     cancellation_class: str
+    cancellation_deadline: str
     tax_inclusion: str
 
     def serialize(self) -> str:
         room_key = self.stable_room_type_id or self.size_band
-        values = (self.hotel_id, self.check_in, self.check_out, self.occupancy, room_key, "breakfast" if self.breakfast_included else "room_only", self.cancellation_class, self.tax_inclusion)
+        values = (self.hotel_id, self.check_in, self.check_out, self.occupancy, room_key, "breakfast" if self.breakfast_included else "room_only", self.cancellation_class, self.cancellation_deadline, self.tax_inclusion)
         return "|".join(str(value) for value in values)
 
 def canonical_comparison_key(
@@ -110,6 +203,7 @@ def canonical_comparison_key(
     occupancy = occupancy_key(row)
     size_band = normalize_size_band(row)
     cancellation = normalize_cancellation_class(_value(row, "cancellation_policy"))
+    cancellation_deadline = normalize_cancellation_deadline(row)
     tax_inclusion = normalize_tax_inclusion(row)
     stable_room_type_id = _value(row, "stable_room_type_id")
     if (
@@ -117,14 +211,16 @@ def canonical_comparison_key(
         or not check_in
         or not check_out
         or breakfast is None
-        or UNKNOWN in {occupancy, size_band, cancellation, tax_inclusion}
+        or UNKNOWN in {
+            occupancy, size_band, cancellation, cancellation_deadline, tax_inclusion
+        }
         or (require_stable_room_type and not stable_room_type_id)
     ):
         return None
     return CanonicalComparisonKey(
         str(hotel_id), str(check_in), str(check_out), occupancy, size_band,
         str(stable_room_type_id) if stable_room_type_id else None,
-        bool(breakfast), cancellation, tax_inclusion,
+        bool(breakfast), cancellation, cancellation_deadline, tax_inclusion,
     )
 
 def comparison_metadata(
@@ -140,6 +236,7 @@ def comparison_metadata(
         "comparison_status": "comparable" if key else "insufficient_product_metadata",
         "occupancy": occupancy_key(row),
         "cancellation_class": normalize_cancellation_class(_value(row, "cancellation_policy")),
+        "cancellation_deadline": normalize_cancellation_deadline(row),
         "tax_inclusion": normalize_tax_inclusion(row),
         "size_band": normalize_size_band(row),
     }
@@ -239,6 +336,7 @@ def calculate_rate_parity(
                 "stable_room_type_id": key.stable_room_type_id,
                 "breakfast_included": key.breakfast_included,
                 "cancellation_class": key.cancellation_class,
+                "cancellation_deadline": key.cancellation_deadline,
                 "tax_inclusion": key.tax_inclusion,
                 "ota_source": platform,
                 "official_median_twd": float(official),

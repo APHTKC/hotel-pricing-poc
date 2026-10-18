@@ -8,6 +8,7 @@ from services.rate_parity import (
     canonical_comparison_key,
     calculate_rate_parity,
     normalize_cancellation_class,
+    normalize_cancellation_deadline,
 )
 
 
@@ -143,6 +144,34 @@ def test_different_product_conditions_are_not_compared(field, value):
     assert calculate_rate_parity([official, ota]) == []
 
 
+def test_different_conditional_refund_deadlines_are_not_compared():
+    official = product(
+        check_in=date(2026, 12, 20),
+        cancellation_policy="No charge for bookings cancelled the day prior to arrival",
+    )
+    ota = product(
+        check_in=date(2026, 12, 20),
+        source_platform="booking_com",
+        cancellation_policy="2026年12月15日前可全額退款",
+    )
+
+    assert calculate_rate_parity([official, ota]) == []
+
+
+def test_relative_and_absolute_matching_refund_deadlines_are_compared():
+    official = product(
+        check_in=date(2026, 12, 20),
+        cancellation_policy="入住 3 天前取消可全額退款",
+    )
+    ota = product(
+        check_in=date(2026, 12, 20),
+        source_platform="booking_com",
+        cancellation_policy="2026年12月17日前可全額退款",
+    )
+
+    assert len(calculate_rate_parity([official, ota])) == 1
+
+
 @pytest.mark.parametrize(
     "missing_field",
     ["hotel_id", "check_in", "check_out", "rooms", "adults", "children", "room_size_sqm", "breakfast_included", "cancellation_policy", "tax_inclusion"],
@@ -185,6 +214,23 @@ def test_invalid_occupancy_is_not_comparable(field, value):
 )
 def test_deadline_based_free_cancellation_is_conditional(policy):
     assert normalize_cancellation_class(policy) == "conditional"
+
+
+@pytest.mark.parametrize(
+    ("policy", "check_in", "expected"),
+    [
+        ("入住日前至少 3 天取消可免收取消費", date(2027, 1, 9), "2027-01-06"),
+        ("入住 3 天前取消可全額退款", date(2026, 12, 20), "2026-12-17"),
+        ("2026年12月17日前可全額退款", date(2026, 12, 20), "2026-12-17"),
+        ("12 月 15 日前可全額退款", date(2026, 12, 20), "2026-12-15"),
+        ("15 Dec 2026 before arrival", date(2026, 12, 20), "2026-12-15"),
+        ("No charge when cancelled the day prior to arrival", date(2026, 12, 20), "2026-12-19"),
+    ],
+)
+def test_cancellation_deadline_normalizes_to_calendar_date(policy, check_in, expected):
+    assert normalize_cancellation_deadline(
+        product(cancellation_policy=policy, check_in=check_in)
+    ) == expected
 
 
 def test_unrestricted_free_cancellation_remains_free_cancellation():

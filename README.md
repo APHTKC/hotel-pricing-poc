@@ -65,12 +65,13 @@ public/data/hotel_locations.json         68 家飯店的快取座標、城市、
 才會計算 Rate Parity：
 
 ```text
-hotel_id + check_in/check_out + occupancy + size_band
-+ breakfast_included + cancellation_class + tax_inclusion
+hotel_id + check_in/check_out + occupancy + stable_room_type_id
++ breakfast_included + cancellation_class + cancellation_deadline
++ tax_inclusion
 ```
 
 任一必要條件缺失或不一致，就標示為「無可比資料」，避免拿套房與標準房、含早餐與
-不含早餐或含稅與未稅價格互相比較。Booking.com Demand API 只有在合作夥伴憑證與
+不含早餐、不同免費取消期限或含稅與未稅價格互相比較。Booking.com Demand API 只有在合作夥伴憑證與
 飯店代碼均設定時才執行；未設定時會安全略過。
 
 ## Adapter 健康度與退避

@@ -104,8 +104,10 @@ without breakfast, with a dated free-cancellation deadline and a TWD 8,160
 tax-and-fee-inclusive total. This product shares the official observation's
 Canonical Comparison Key. Deadline-based free cancellation is normalized as
 `conditional` regardless of whether a source places the date before or after
-the words "free cancellation", preventing wording order from blocking a valid
-same-product comparison.
+the words "free cancellation". Its absolute or check-in-relative cutoff is
+also normalized to an exact `cancellation_deadline`, so wording order cannot
+block a valid comparison and two different refund deadlines cannot be treated
+as the same product.
 
 The fourth verified capture was Hotel Metropolitan Premier Taipei for
 2026-10-15 to 2026-10-16. Booking.com exposed three room-only products for two

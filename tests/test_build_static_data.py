@@ -1021,8 +1021,8 @@ def test_latest_payload_keeps_booking_and_hotels_com_mandarin_snapshots():
         110.0,
         133.0,
     }
-    assert min(float(row["total_twd"]) for row in hotels_com) == 14079
-    assert max(float(row["total_twd"]) for row in hotels_com) == 60684
+    assert min(float(row["total_twd"]) for row in hotels_com) == 14235
+    assert max(float(row["total_twd"]) for row in hotels_com) == 61359
     _assert_strict_comparison_contract(hotels_com)
 
 
