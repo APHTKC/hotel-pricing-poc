@@ -2479,17 +2479,17 @@
     "gobooking:solaria_nishitetsu_taipei": {
       "adapter": "gobooking",
       "hotel_id": "solaria_nishitetsu_taipei",
-      "attempts": 143,
-      "successes": 130,
+      "attempts": 144,
+      "successes": 131,
       "failures": 13,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 2539762.6310969987,
-      "average_response_ms": 17760.58,
-      "success_rate": 0.9091,
+      "total_response_ms": 2553622.1643970036,
+      "average_response_ms": 17733.49,
+      "success_rate": 0.9097,
       "last_status": "success",
-      "last_attempt_at": "2026-10-18T00:24:01.347647+00:00",
-      "last_success_at": "2026-10-18T00:24:01.347647+00:00",
+      "last_attempt_at": "2026-10-18T11:34:36.600750+00:00",
+      "last_success_at": "2026-10-18T11:34:36.600750+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -2691,13 +2691,13 @@
           "average_response_ms": 22188.3
         },
         "2026-10-18": {
-          "attempts": 6,
-          "successes": 6,
+          "attempts": 7,
+          "successes": 7,
           "failures": 0,
           "blocked": 0,
-          "response_ms": 112225.08,
+          "response_ms": 126084.61,
           "success_rate": 1.0,
-          "average_response_ms": 18704.18
+          "average_response_ms": 18012.09
         }
       }
     },

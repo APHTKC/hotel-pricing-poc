@@ -178,6 +178,7 @@ def test_invalid_occupancy_is_not_comparable(field, value):
     "policy",
     [
         "入住日前至少 3 天取消或更改可免收取消費",
+        "入住 3 天前取消可全額退款",
         "2026年10月12日前（不含當日）可免費取消",
         "Free cancellation before 2026-10-12",
     ],

@@ -42,6 +42,7 @@ def normalize_cancellation_class(policy: str | None) -> str:
     # different word order.
     has_deadline = bool(
         re.search(r"(?:before|prior to|抵達前|入住前|日前|日まで).{0,30}\d+", text)
+        or re.search(r"(?:入住|抵達)\s*\d+\s*(?:天|日)前", text)
         or re.search(r"\d{4}\s*[年/-]\s*\d{1,2}\s*[月/-]\s*\d{1,2}\s*日前", text)
     )
     if has_deadline:

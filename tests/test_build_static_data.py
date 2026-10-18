@@ -1151,7 +1151,7 @@ def test_latest_payload_keeps_hotels_com_solaria_snapshot():
         and row["source_platform"] == "expedia_group"
     ]
 
-    assert len(solaria) == 8
+    assert len(solaria) == 9
     assert {float(row["room_size_sqm"]) for row in solaria} == {
         21.0,
         23.0,
@@ -1160,8 +1160,8 @@ def test_latest_payload_keeps_hotels_com_solaria_snapshot():
         33.0,
     }
     assert {row["breakfast_included"] for row in solaria} == {False}
-    assert min(float(row["total_twd"]) for row in solaria) == 7645
-    assert max(float(row["total_twd"]) for row in solaria) == 12385
+    assert min(float(row["total_twd"]) for row in solaria) == 7810
+    assert max(float(row["total_twd"]) for row in solaria) == 12653
     _assert_strict_comparison_contract(solaria)
 
 
