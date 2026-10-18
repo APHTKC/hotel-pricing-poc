@@ -229,17 +229,17 @@
     "okura:okura_prestige_taipei": {
       "adapter": "okura",
       "hotel_id": "okura_prestige_taipei",
-      "attempts": 125,
-      "successes": 88,
+      "attempts": 126,
+      "successes": 89,
       "failures": 37,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 1911369.7854529994,
-      "average_response_ms": 15290.96,
-      "success_rate": 0.704,
+      "total_response_ms": 1926014.3081530072,
+      "average_response_ms": 15285.83,
+      "success_rate": 0.7063,
       "last_status": "success",
-      "last_attempt_at": "2026-10-18T00:09:25.974304+00:00",
-      "last_success_at": "2026-10-18T00:09:25.974304+00:00",
+      "last_attempt_at": "2026-10-18T19:13:19.207913+00:00",
+      "last_success_at": "2026-10-18T19:13:19.207913+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -441,13 +441,13 @@
           "average_response_ms": 7513.96
         },
         "2026-10-18": {
-          "attempts": 6,
-          "successes": 4,
+          "attempts": 7,
+          "successes": 5,
           "failures": 2,
           "blocked": 0,
-          "response_ms": 125483.77,
-          "success_rate": 0.6667,
-          "average_response_ms": 20913.96
+          "response_ms": 140128.29,
+          "success_rate": 0.7143,
+          "average_response_ms": 20018.33
         }
       }
     },

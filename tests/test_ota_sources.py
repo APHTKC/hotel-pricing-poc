@@ -298,6 +298,13 @@ def test_visible_browser_check_log_is_structured_and_non_retrying():
     assert courtyard["check_out"] == "2026-12-20"
     assert "courtyard-by-marriott-taipei" in courtyard["source_url"]
 
+    okura = by_hotel["okura_prestige_taipei"]
+    assert okura["status"] == "no_availability"
+    assert okura["source_platform"] == "expedia_group"
+    assert okura["check_in"] == "2026-12-22"
+    assert okura["check_out"] == "2026-12-23"
+    assert "ho415060" in okura["source_url"]
+
     courtyard_downtown = by_hotel["courtyard_taipei_downtown"]
     assert courtyard_downtown["status"] == "no_availability"
     assert courtyard_downtown["check_in"] == "2026-11-11"

@@ -225,6 +225,16 @@ def test_deadline_based_free_cancellation_is_conditional(policy):
         ("12 月 15 日前可全額退款", date(2026, 12, 20), "2026-12-15"),
         ("15 Dec 2026 before arrival", date(2026, 12, 20), "2026-12-15"),
         ("No charge when cancelled the day prior to arrival", date(2026, 12, 20), "2026-12-19"),
+        (
+            "Reservations must be cancelled three day prior to arrival",
+            date(2026, 12, 22),
+            "2026-12-19",
+        ),
+        (
+            "Reservations must be cancelled ten days prior to arrival",
+            date(2027, 1, 16),
+            "2027-01-06",
+        ),
     ],
 )
 def test_cancellation_deadline_normalizes_to_calendar_date(policy, check_in, expected):

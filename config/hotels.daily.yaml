@@ -16,7 +16,7 @@ hotels:
     booking_url: https://www.okurataipei.com.tw/en/
     adapter: okura
     automation_status: verified
-    automation_note: "Official Okura daily tracking remains active. Public OTA coverage now also includes Booking.com plus Hotels.com/Expedia. On 2026-10-17, Hotels.com produced four complete two-adult room-only refundable offers for 2027-01-08 across visible 44 sqm rooms, with tax-and-fee-inclusive totals from TWD 8,384 to 9,419. The query was explicitly for two adults; the room cards allow up to three guests with extra-person pricing. Three sold-out 56 sqm products and unselected breakfast add-ons were excluded. Strict parity requires the same canonical official product."
+    automation_note: "Official Okura daily tracking remains active. Public OTA coverage includes Booking.com plus Hotels.com/Expedia. On 2026-10-18, the official engine returned 23 offers for 2026-12-22; its written three-day cancellation deadline is normalized to 2026-12-19. Hotels.com loaded the canonical property but explicitly showed no availability for that stay, so no alternate date was retried and no false parity was produced. The prior 2027-01-08 Hotels.com snapshot remains available with four complete two-adult, room-only, tax-inclusive offers from TWD 8,384 to 9,419."
   - id: mo_taipei
     name: Mandarin Oriental Taipei
     short_name: MO Taipei

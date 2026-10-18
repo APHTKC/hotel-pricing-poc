@@ -15,6 +15,25 @@ from services.pricing import nightly_adr_twd
 
 UNKNOWN = "unknown"
 
+NUMBER_WORDS = {
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+    "eleven": 11,
+    "twelve": 12,
+    "fourteen": 14,
+    "fifteen": 15,
+    "twenty": 20,
+    "thirty": 30,
+}
+
 def _value(row: Mapping[str, Any] | Any, name: str, default=None):
     return row.get(name, default) if isinstance(row, Mapping) else getattr(row, name, default)
 
@@ -45,6 +64,11 @@ def normalize_cancellation_class(policy: str | None) -> str:
         or re.search(r"\d+.{0,30}(?:before|prior to|日前|日まで)", text)
         or re.search(r"(?:入住|抵達)\s*\d+\s*(?:天|日)前", text)
         or re.search(r"\d{4}\s*[年/-]\s*\d{1,2}\s*[月/-]\s*\d{1,2}\s*日前", text)
+        or re.search(
+            rf"(?:{'|'.join(NUMBER_WORDS)})\s+days?\s+prior to\s+"
+            r"(?:arrival|check[- ]?in)",
+            text,
+        )
         or "day prior to arrival" in text
     )
     if has_deadline:
@@ -137,6 +161,14 @@ def normalize_cancellation_deadline(row: Mapping[str, Any] | Any) -> str:
         if match:
             days = int(match.group(1))
             break
+    if days is None:
+        match = re.search(
+            rf"({'|'.join(NUMBER_WORDS)})\s+days?\s+prior to\s+"
+            r"(?:arrival|check[- ]?in)",
+            text,
+        )
+        if match:
+            days = NUMBER_WORDS[match.group(1)]
     if days is None and re.search(r"(?:the|one) day prior to arrival", text):
         days = 1
     if days is not None and check_in and days > 0:
