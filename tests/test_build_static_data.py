@@ -156,8 +156,8 @@ def test_latest_batch_prefers_exact_run_id_over_time_window():
 
 def test_latest_batches_keep_official_and_independent_ota_runs():
     rows = [
-        {"run_id": "official-old", "source_platform": "official", "queried_at": "2026-10-07T01:00:00+00:00", "hotel_name": "Old"},
-        {"run_id": "official-new", "source_platform": "official", "queried_at": "2026-10-08T01:00:00+00:00", "hotel_name": "Official"},
+        {"run_id": "official-old", "source_platform": "official", "hotel_id": "hotel-old", "queried_at": "2026-10-07T01:00:00+00:00", "hotel_name": "Old"},
+        {"run_id": "official-new", "source_platform": "official", "hotel_id": "hotel-new", "queried_at": "2026-10-08T01:00:00+00:00", "hotel_name": "Official"},
         {"run_id": "ota-a-old", "source_platform": "booking_com", "hotel_id": "hotel-a", "queried_at": "2026-10-07T12:00:00+00:00", "hotel_name": "OTA A old"},
         {"run_id": "ota-a-new", "source_platform": "booking_com", "hotel_id": "hotel-a", "queried_at": "2026-10-08T12:00:00+00:00", "hotel_name": "OTA A"},
         {"run_id": "ota-b-new", "source_platform": "booking_com", "hotel_id": "hotel-b", "queried_at": "2026-10-08T13:00:00+00:00", "hotel_name": "OTA B"},
@@ -165,7 +165,7 @@ def test_latest_batches_keep_official_and_independent_ota_runs():
 
     latest = _latest_batches_by_platform(rows)
 
-    assert {row["hotel_name"] for row in latest} == {"Official", "OTA A", "OTA B"}
+    assert {row["hotel_name"] for row in latest} == {"Old", "Official", "OTA A", "OTA B"}
 
 
 def test_browser_snapshot_loader_requires_complete_canonical_product(tmp_path):
@@ -895,9 +895,11 @@ def test_palais_visible_expedia_snapshot_has_comparable_two_adult_products():
         if row["hotel_id"] == "palais_de_chine"
         and row["source_platform"] == "expedia_group"
     ]
+    latest_query = max(row["queried_at"] for row in palais)
+    palais = [row for row in palais if row["queried_at"] == latest_query]
 
-    assert len(palais) == 8
-    assert len({row["room_type_code"] for row in palais}) == 8
+    assert len(palais) == 7
+    assert len({row["room_type_code"] for row in palais}) == 7
     assert {float(row["room_size_sqm"]) for row in palais} == {30.0, 36.0, 50.0, 66.0}
     assert {(row["adults"], row["children"], row["rooms"]) for row in palais} == {(2, 0, 1)}
     assert {row["breakfast_included"] for row in palais} == {False, True}

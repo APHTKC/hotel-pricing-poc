@@ -544,8 +544,13 @@ def test_repository_visible_browser_snapshots_are_canonical_products():
         if row.hotel_id == "palais_de_chine"
         and row.source_platform == "expedia_group"
     ]
-    assert len(palais_expedia_rows) == 8
-    assert len({row.room_type_code for row in palais_expedia_rows}) == 8
+    latest_palais_expedia_query = max(row.queried_at for row in palais_expedia_rows)
+    palais_expedia_rows = [
+        row for row in palais_expedia_rows
+        if row.queried_at == latest_palais_expedia_query
+    ]
+    assert len(palais_expedia_rows) == 7
+    assert len({row.room_type_code for row in palais_expedia_rows}) == 7
     assert {row.room_size_sqm for row in palais_expedia_rows} == {
         Decimal("30"), Decimal("36"), Decimal("50"), Decimal("66")
     }

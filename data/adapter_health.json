@@ -2254,17 +2254,17 @@
     "gobooking:palais_de_chine": {
       "adapter": "gobooking",
       "hotel_id": "palais_de_chine",
-      "attempts": 144,
-      "successes": 127,
+      "attempts": 145,
+      "successes": 128,
       "failures": 17,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 1761873.3079159977,
-      "average_response_ms": 12235.23,
-      "success_rate": 0.8819,
+      "total_response_ms": 1771529.1422159974,
+      "average_response_ms": 12217.44,
+      "success_rate": 0.8828,
       "last_status": "success",
-      "last_attempt_at": "2026-10-18T00:22:09.037384+00:00",
-      "last_success_at": "2026-10-18T00:22:09.037384+00:00",
+      "last_attempt_at": "2026-10-18T10:29:29.275052+00:00",
+      "last_success_at": "2026-10-18T10:29:29.275052+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -2466,13 +2466,13 @@
           "average_response_ms": 15289.28
         },
         "2026-10-18": {
-          "attempts": 6,
-          "successes": 6,
+          "attempts": 7,
+          "successes": 7,
           "failures": 0,
           "blocked": 0,
-          "response_ms": 45643.76,
+          "response_ms": 55299.59,
           "success_rate": 1.0,
-          "average_response_ms": 7607.29
+          "average_response_ms": 7899.94
         }
       }
     },

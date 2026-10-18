@@ -215,14 +215,14 @@ def _latest_batch(rows: list[dict]) -> list[dict]:
 
 
 def _latest_batches_by_platform(rows: list[dict]) -> list[dict]:
-    """Keep official rates plus each OTA hotel's newest independent run.
+    """Keep each hotel's newest independent run on every platform.
 
-    Browser-assisted OTA observations are collected independently from the
-    daily official-site run. Selecting one global newest run would therefore
-    make a small OTA snapshot replace the full official dashboard batch. OTA
-    hotels are also checked at different times, so one hotel's new snapshot
-    must not remove the most recent snapshot for every previously checked
-    hotel on the same platform.
+    Official and browser-assisted OTA observations can both be refreshed for a
+    single hotel between full daily runs. Selecting one global newest run would
+    therefore make a small targeted refresh remove every other hotel's latest
+    observation from the dashboard. Treat every hotel/platform pair as an
+    independent stream so partial coverage work cannot regress the public
+    latest snapshot.
     """
     platforms = sorted({str(row.get("source_platform") or "official") for row in rows})
     latest: list[dict] = []
@@ -231,10 +231,6 @@ def _latest_batches_by_platform(rows: list[dict]) -> list[dict]:
             row for row in rows
             if str(row.get("source_platform") or "official") == platform
         ]
-        if platform == "official":
-            latest.extend(_latest_batch(platform_rows))
-            continue
-
         hotel_ids = sorted({str(row.get("hotel_id") or "") for row in platform_rows})
         for hotel_id in hotel_ids:
             latest.extend(
