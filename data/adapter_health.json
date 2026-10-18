@@ -1354,17 +1354,17 @@
     "royal_nikko:royal_nikko_taipei": {
       "adapter": "royal_nikko",
       "hotel_id": "royal_nikko_taipei",
-      "attempts": 123,
-      "successes": 91,
+      "attempts": 124,
+      "successes": 92,
       "failures": 32,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 2678598.0790440002,
-      "average_response_ms": 21777.22,
-      "success_rate": 0.7398,
+      "total_response_ms": 2692208.0143439956,
+      "average_response_ms": 21711.35,
+      "success_rate": 0.7419,
       "last_status": "success",
-      "last_attempt_at": "2026-10-18T00:15:18.927808+00:00",
-      "last_success_at": "2026-10-18T00:15:18.927808+00:00",
+      "last_attempt_at": "2026-10-18T12:31:46.754757+00:00",
+      "last_success_at": "2026-10-18T12:31:46.754757+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -1566,13 +1566,13 @@
           "average_response_ms": 39078.69
         },
         "2026-10-18": {
-          "attempts": 6,
-          "successes": 5,
+          "attempts": 7,
+          "successes": 6,
           "failures": 1,
           "blocked": 0,
-          "response_ms": 114033.16,
-          "success_rate": 0.8333,
-          "average_response_ms": 19005.53
+          "response_ms": 127643.1,
+          "success_rate": 0.8571,
+          "average_response_ms": 18234.73
         }
       }
     },

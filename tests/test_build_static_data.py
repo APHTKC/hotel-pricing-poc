@@ -1098,8 +1098,8 @@ def test_latest_payload_keeps_hotels_com_royal_nikko_snapshot():
         65.0,
     }
     assert {row["breakfast_included"] for row in royal_nikko} == {False, True}
-    assert min(float(row["total_twd"]) for row in royal_nikko) == 6732
-    assert max(float(row["total_twd"]) for row in royal_nikko) == 13690
+    assert min(float(row["total_twd"]) for row in royal_nikko) == 6807
+    assert max(float(row["total_twd"]) for row in royal_nikko) == 13843
     _assert_strict_comparison_contract(royal_nikko)
 
 
