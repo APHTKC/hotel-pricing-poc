@@ -3,9 +3,15 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from pathlib import Path
 
 import duckdb
+
+from services.rate_parity import (
+    normalize_cancellation_class,
+    normalize_cancellation_deadline,
+)
 
 
 PARQUET_GLOB = Path("data/warehouse/rates/*.parquet")
@@ -60,13 +66,27 @@ def build_warehouse_analysis(
                 count(*) AS rows,
                 count(DISTINCT hotel_id) AS hotels,
                 count_if(room_size_sqm IS NOT NULL) AS known_room_size_rows,
-                count_if(coalesce(tax_inclusion, 'unknown') <> 'unknown') AS known_tax_rows
+                count_if(coalesce(tax_inclusion, 'unknown') <> 'unknown') AS known_tax_rows,
+                count_if(
+                    cancellation_policy IS NOT NULL
+                    AND trim(cancellation_policy) <> ''
+                ) AS known_cancellation_policy_rows
             FROM rates
             GROUP BY 1
             ORDER BY 1
             """
         ).fetchall()
         source_columns = [item[0] for item in connection.description]
+
+        cancellation_rows = connection.execute(
+            """
+            SELECT
+                coalesce(source_platform, 'unknown') AS source_platform,
+                cancellation_policy,
+                cast(check_in AS VARCHAR) AS check_in
+            FROM rates
+            """
+        ).fetchall()
 
         hotel_rows = connection.execute(
             """
@@ -96,8 +116,30 @@ def build_warehouse_analysis(
     known_tax = int(summary["known_tax_rows"])
     known_cancel = int(summary["known_cancellation_policy_rows"])
     nightly_adr = int(summary["nightly_adr_rows"])
+    cancellation_class_counts: Counter[str] = Counter()
+    cancellation_deadline_counts: Counter[str] = Counter()
+    for source_platform, policy, check_in in cancellation_rows:
+        if normalize_cancellation_class(policy) != "unknown":
+            cancellation_class_counts[source_platform] += 1
+        if normalize_cancellation_deadline(
+            {"cancellation_policy": policy, "check_in": check_in}
+        ) != "unknown":
+            cancellation_deadline_counts[source_platform] += 1
+    known_cancellation_class = sum(cancellation_class_counts.values())
+    known_cancellation_deadline = sum(cancellation_deadline_counts.values())
+
+    sources = [dict(zip(source_columns, row)) for row in source_rows]
+    for source in sources:
+        source_platform = source["source_platform"]
+        source["known_cancellation_class_rows"] = cancellation_class_counts[
+            source_platform
+        ]
+        source["known_cancellation_deadline_rows"] = cancellation_deadline_counts[
+            source_platform
+        ]
+
     payload = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -117,10 +159,18 @@ def build_warehouse_analysis(
             "known_tax_ratio": _ratio(known_tax, row_count),
             "known_cancellation_policy_rows": known_cancel,
             "known_cancellation_policy_ratio": _ratio(known_cancel, row_count),
+            "known_cancellation_class_rows": known_cancellation_class,
+            "known_cancellation_class_ratio": _ratio(
+                known_cancellation_class, row_count
+            ),
+            "known_cancellation_deadline_rows": known_cancellation_deadline,
+            "known_cancellation_deadline_ratio": _ratio(
+                known_cancellation_deadline, row_count
+            ),
             "nightly_adr_rows": nightly_adr,
             "nightly_adr_ratio": _ratio(nightly_adr, row_count),
         },
-        "sources": [dict(zip(source_columns, row)) for row in source_rows],
+        "sources": sources,
         "hotels_by_unknown_room_size": [
             dict(zip(hotel_columns, row)) for row in hotel_rows
         ],

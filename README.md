@@ -125,7 +125,9 @@ OTA 啟用條件見 [docs/ota-integration.md](docs/ota-integration.md)。
 
 `python -m scripts.build_warehouse_analysis` 會從 Parquet 重新計算
 `data/warehouse/analysis.json`，列出來源／飯店筆數，以及原始房價的面積、稅費、取消條件與
-nightly ADR 完整率；輸入分片雜湊與 manifest 筆數不一致時會直接失敗，供每日品質稽核重現。
+nightly ADR 完整率。取消條件同時區分「有原始文字」、「可正規化類別」及「可比較的精確
+截止日／不可退款／不限期取消」三種口徑，避免把無法形成 Canonical Comparison Key 的文字
+誤算為可比較資料；輸入分片雜湊與 manifest 筆數不一致時會直接失敗，供每日品質稽核重現。
 
 ```sql
 SELECT hotel_id, median(total_price)
