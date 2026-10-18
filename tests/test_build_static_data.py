@@ -1078,8 +1078,8 @@ def test_latest_payload_keeps_three_shangrila_taipei_sources():
         60.0,
         75.0,
     }
-    assert min(float(row["total_twd"]) for row in hotels_com) == 8830
-    assert max(float(row["total_twd"]) for row in hotels_com) == 27203
+    assert min(float(row["total_twd"]) for row in hotels_com) == 9395
+    assert max(float(row["total_twd"]) for row in hotels_com) == 27505
     _assert_strict_comparison_contract(hotels_com)
 
 

@@ -679,17 +679,17 @@
     "shangrila:shangrila_taipei": {
       "adapter": "shangrila",
       "hotel_id": "shangrila_taipei",
-      "attempts": 144,
-      "successes": 143,
+      "attempts": 145,
+      "successes": 144,
       "failures": 1,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 913133.2473190012,
-      "average_response_ms": 6341.2,
+      "total_response_ms": 925289.2357190029,
+      "average_response_ms": 6381.31,
       "success_rate": 0.9931,
       "last_status": "success",
-      "last_attempt_at": "2026-10-18T00:12:19.646556+00:00",
-      "last_success_at": "2026-10-18T00:12:19.646556+00:00",
+      "last_attempt_at": "2026-10-18T12:42:22.609089+00:00",
+      "last_success_at": "2026-10-18T12:42:22.609089+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -891,13 +891,13 @@
           "average_response_ms": 6628.57
         },
         "2026-10-18": {
-          "attempts": 6,
-          "successes": 6,
+          "attempts": 7,
+          "successes": 7,
           "failures": 0,
           "blocked": 0,
-          "response_ms": 38855.51,
+          "response_ms": 51011.5,
           "success_rate": 1.0,
-          "average_response_ms": 6475.92
+          "average_response_ms": 7287.36
         }
       }
     },
