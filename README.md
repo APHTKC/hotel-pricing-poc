@@ -119,7 +119,8 @@ OTA 啟用條件見 [docs/ota-integration.md](docs/ota-integration.md)。
 `build_rate_warehouse` 不取代 `data/rates` 與已核實 OTA 快照等 JSONL 權威來源；它建立
 `data/warehouse/rates/YYYY-MM.parquet`，並在換檔前逐月核對列數與完整自然鍵集合。
 分析鏡像會以 `check_out - check_in` 補齊缺漏晚數，並以 `total_twd / nights` 產生缺漏的
-`nightly_adr_twd`；原始 JSONL 不會被這個轉換改寫。
+`nightly_adr_twd`。只有未稅價、服務費／稅額與總價的算術加總吻合時，才會將缺漏的
+`tax_inclusion` 正規化為 `included`；其餘維持 `unknown`。原始 JSONL 不會被這些轉換改寫。
 `data/warehouse/manifest.json` 保存分片筆數、大小與 SHA-256。可直接用 DuckDB 查詢：
 
 `python -m scripts.build_warehouse_analysis` 會從 Parquet 重新計算

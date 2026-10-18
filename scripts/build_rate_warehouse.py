@@ -114,6 +114,15 @@ def build_rate_warehouse(
                 connection.execute("ALTER TABLE month_rates_raw ADD COLUMN total_twd DOUBLE")
             if "total_price" not in raw_columns:
                 connection.execute("ALTER TABLE month_rates_raw ADD COLUMN total_price DOUBLE")
+            if "tax_inclusion" not in raw_columns:
+                connection.execute(
+                    "ALTER TABLE month_rates_raw ADD COLUMN tax_inclusion VARCHAR"
+                )
+            for column in ("price_before_tax", "service_charge", "tax"):
+                if column not in raw_columns:
+                    connection.execute(
+                        f"ALTER TABLE month_rates_raw ADD COLUMN {column} DOUBLE"
+                    )
             connection.execute(
                 "CREATE OR REPLACE TEMP TABLE month_rates AS "
                 "SELECT * REPLACE ("
@@ -129,7 +138,25 @@ def build_rate_warehouse(
                 "      date_diff('day', try_cast(check_in AS DATE), try_cast(check_out AS DATE))"
                 "    ), 0"
                 "  )"
-                ") AS nightly_adr_twd"
+                ") AS nightly_adr_twd, "
+                "CASE "
+                "  WHEN coalesce(nullif(trim(cast(tax_inclusion AS VARCHAR)), ''), 'unknown') "
+                "       <> 'unknown' "
+                "    THEN cast(tax_inclusion AS VARCHAR) "
+                "  WHEN price_before_tax IS NOT NULL "
+                "   AND (service_charge IS NOT NULL OR tax IS NOT NULL) "
+                "   AND coalesce(total_twd, total_price) IS NOT NULL "
+                "   AND abs("
+                "     try_cast(coalesce(total_twd, total_price) AS DOUBLE) - "
+                "     (try_cast(price_before_tax AS DOUBLE) + "
+                "      coalesce(try_cast(service_charge AS DOUBLE), 0) + "
+                "      coalesce(try_cast(tax AS DOUBLE), 0))"
+                "   ) <= greatest("
+                "     1.0, abs(try_cast(coalesce(total_twd, total_price) AS DOUBLE)) * 0.0001"
+                "   ) "
+                "    THEN 'included' "
+                "  ELSE 'unknown' "
+                "END AS tax_inclusion"
                 ") FROM month_rates_raw"
             )
             connection.execute(
