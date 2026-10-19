@@ -4,10 +4,11 @@ from decimal import Decimal
 
 import pytest
 
-from app.models import Hotel
+from app.models import Hotel, TaxInclusion
 from scrapers.adapters.grand_hilai import (
     BOOKING_URLS,
     GrandHiLaiScraper,
+    TAX_INCLUDED_HOTELS,
     include_rate_plan,
     ping_to_sqm,
 )
@@ -29,6 +30,11 @@ def test_grand_hotel_uses_baseline_offer_not_event_packages():
     assert include_rate_plan("grand_hotel_taipei", "【圓山假期】2026住房專案")
     assert not include_rate_plan("grand_hotel_taipei", "【跨年晚宴】住房專案")
     assert not include_rate_plan("grand_hotel_taipei", "【煙火房】跨年住房專案")
+
+
+def test_only_verified_grand_hotel_total_is_marked_tax_inclusive():
+    assert TAX_INCLUDED_HOTELS == {"grand_hotel_taipei"}
+    assert "grand_hilai_taipei" not in TAX_INCLUDED_HOTELS
 
 
 def test_grand_hilai_rejects_unknown_hotel():

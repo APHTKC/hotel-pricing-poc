@@ -159,6 +159,19 @@ def test_build_rate_warehouse_verifies_tax_inclusion_only_when_components_reconc
             "tax_inclusion": "unknown",
             "total_price": 25200,
         },
+        {
+            **base,
+            "observation_id": "grand-hotel-visible-total",
+            "hotel_id": "grand_hotel_taipei",
+            "source_url": "https://tlathena.ec-hotel.net/webhotel-v5/1071",
+            "room_type_code": "DELUXE",
+            "rate_plan_code": "GRAND-HOLIDAY",
+            "price_before_tax": None,
+            "service_charge": None,
+            "tax": None,
+            "tax_inclusion": "unknown",
+            "total_price": 5360,
+        },
     ]
     shard = month / "2026-10-17.jsonl"
     original = "".join(json.dumps(row) + "\n" for row in rows)
@@ -174,6 +187,7 @@ def test_build_rate_warehouse_verifies_tax_inclusion_only_when_components_reconc
         ("capella-legacy-visible-total", "included"),
         ("capella-visible-total", "included"),
         ("foreign-currency-match", "included"),
+        ("grand-hotel-visible-total", "included"),
         ("matches", "included"),
         ("mismatch", "unknown"),
     ]

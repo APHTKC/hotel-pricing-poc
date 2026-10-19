@@ -25,8 +25,8 @@
       "source_shards": 17,
       "rows": 45723,
       "natural_keys": 45723,
-      "bytes": 1664511,
-      "sha256": "ba358ed658c19d22483b4c254e615c6e4b87a402dfe166cf257e485ffcf9e3e9"
+      "bytes": 1664521,
+      "sha256": "eabc2c8c35af1a7cd05389f1ba58230fdc94c8610e0712c134e34eb4829374f9"
     }
   ]
 }

@@ -8,7 +8,7 @@
     },
     {
       "month": "2026-10",
-      "sha256": "ba358ed658c19d22483b4c254e615c6e4b87a402dfe166cf257e485ffcf9e3e9"
+      "sha256": "eabc2c8c35af1a7cd05389f1ba58230fdc94c8610e0712c134e34eb4829374f9"
     }
   ],
   "rows": 89047,
@@ -21,8 +21,8 @@
   "quality": {
     "known_room_size_rows": 87637,
     "known_room_size_ratio": 0.984166,
-    "known_tax_rows": 42120,
-    "known_tax_ratio": 0.473009,
+    "known_tax_rows": 42978,
+    "known_tax_ratio": 0.482644,
     "known_cancellation_policy_rows": 53609,
     "known_cancellation_policy_ratio": 0.60203,
     "known_cancellation_class_rows": 45812,
@@ -62,7 +62,7 @@
       "rows": 88311,
       "hotels": 22,
       "known_room_size_rows": 86901,
-      "known_tax_rows": 41742,
+      "known_tax_rows": 42600,
       "known_cancellation_policy_rows": 52873,
       "known_cancellation_class_rows": 45076,
       "known_cancellation_deadline_rows": 34989,
@@ -158,7 +158,7 @@
       "hotel_id": "grand_hotel_taipei",
       "rows": 862,
       "known_room_size_rows": 862,
-      "known_tax_rows": 4,
+      "known_tax_rows": 862,
       "unknown_room_size_rows": 0
     },
     {
@@ -501,14 +501,6 @@
       "unknown_tax_rows": 1235
     },
     {
-      "hotel_id": "grand_hotel_taipei",
-      "rows": 862,
-      "known_room_size_rows": 862,
-      "known_tax_rows": 4,
-      "unknown_room_size_rows": 0,
-      "unknown_tax_rows": 858
-    },
-    {
       "hotel_id": "taipei_garden_hotel",
       "rows": 62,
       "known_room_size_rows": 54,
@@ -745,6 +737,14 @@
       "rows": 1242,
       "known_room_size_rows": 1242,
       "known_tax_rows": 1242,
+      "unknown_room_size_rows": 0,
+      "unknown_tax_rows": 0
+    },
+    {
+      "hotel_id": "grand_hotel_taipei",
+      "rows": 862,
+      "known_room_size_rows": 862,
+      "known_tax_rows": 862,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },

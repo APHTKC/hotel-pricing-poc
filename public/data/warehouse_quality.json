@@ -9,8 +9,8 @@
   "quality": {
     "known_room_size_rows": 87637,
     "known_room_size_ratio": 0.984166,
-    "known_tax_rows": 42120,
-    "known_tax_ratio": 0.473009,
+    "known_tax_rows": 42978,
+    "known_tax_ratio": 0.482644,
     "known_cancellation_policy_rows": 53609,
     "known_cancellation_policy_ratio": 0.60203,
     "known_cancellation_class_rows": 45812,
@@ -50,7 +50,7 @@
       "rows": 88311,
       "hotels": 22,
       "known_room_size_rows": 86901,
-      "known_tax_rows": 41742,
+      "known_tax_rows": 42600,
       "known_cancellation_policy_rows": 52873,
       "known_cancellation_class_rows": 45076,
       "known_cancellation_deadline_rows": 34989,
@@ -107,16 +107,16 @@
       "unknown_tax_rows": 1235
     },
     {
-      "hotel_id": "grand_hotel_taipei",
-      "rows": 862,
-      "known_tax_rows": 4,
-      "unknown_tax_rows": 858
-    },
-    {
       "hotel_id": "taipei_garden_hotel",
       "rows": 62,
       "known_tax_rows": 9,
       "unknown_tax_rows": 53
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "rows": 47,
+      "known_tax_rows": 16,
+      "unknown_tax_rows": 31
     }
   ],
   "unresolved_cancellation_rows": 7797,

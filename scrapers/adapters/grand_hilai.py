@@ -3,7 +3,7 @@ import re
 from datetime import UTC, date, datetime
 from decimal import Decimal
 
-from app.models import Hotel, RateObservation, ScrapeStatus
+from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
 from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_money
 
 
@@ -13,6 +13,7 @@ BOOKING_URLS = {
     "grand_hotel_taipei": "https://tlathena.ec-hotel.net/webhotel-v5/1071",
 }
 PING_TO_SQM = Decimal("3.305785")
+TAX_INCLUDED_HOTELS = {"grand_hotel_taipei"}
 
 
 def ping_to_sqm(text: str) -> Decimal | None:
@@ -149,6 +150,11 @@ class GrandHiLaiScraper(CapellaScraper):
                         price_before_tax=None,
                         service_charge=None,
                         tax=None,
+                        tax_inclusion=(
+                            TaxInclusion.INCLUDED
+                            if hotel.id in TAX_INCLUDED_HOTELS
+                            else TaxInclusion.UNKNOWN
+                        ),
                         total_price=total,
                         currency="TWD",
                         source_url=source_url,
