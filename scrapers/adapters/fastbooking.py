@@ -87,8 +87,10 @@ class FastBookingScraper(CapellaScraper):
     """Adapter for the public FastBooking/D-EDGE widget on official hotel sites.
 
     The official page supplies the current property id and public widget token.
-    Neither is bypassed or persisted. The quotation response does not state the
-    tax, breakfast, or cancellation treatment, so those fields remain unknown.
+    Neither is bypassed or persisted. Re-verified on 2026-10-19: the quotation
+    response exposes ``pricePerNight`` and ``totalPrice`` but no tax, fee,
+    service-charge, VAT, gross, or net field. Tax, breakfast, and cancellation
+    treatment therefore remain unknown rather than being inferred.
     """
 
     diagnostic_name = "FastBooking"
