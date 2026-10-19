@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "rows": 89047,
+  "hotels": 52,
+  "queried_at": {
+    "min": "2026-09-04 02:48:48.293979",
+    "max": "2026-10-18 19:13:04.552098"
+  },
+  "quality": {
+    "known_room_size_rows": 87637,
+    "known_room_size_ratio": 0.984166,
+    "known_tax_rows": 36749,
+    "known_tax_ratio": 0.412692,
+    "known_cancellation_policy_rows": 53609,
+    "known_cancellation_policy_ratio": 0.60203,
+    "known_cancellation_class_rows": 44062,
+    "known_cancellation_class_ratio": 0.494817,
+    "known_cancellation_deadline_rows": 35725,
+    "known_cancellation_deadline_ratio": 0.401193,
+    "nightly_adr_rows": 89047,
+    "nightly_adr_ratio": 1.0
+  },
+  "sources": [
+    {
+      "source_platform": "booking_com",
+      "rows": 391,
+      "hotels": 32,
+      "known_room_size_rows": 391,
+      "known_tax_rows": 33,
+      "known_cancellation_policy_rows": 391,
+      "known_cancellation_class_rows": 391,
+      "known_cancellation_deadline_rows": 391
+    },
+    {
+      "source_platform": "expedia_group",
+      "rows": 345,
+      "hotels": 43,
+      "known_room_size_rows": 345,
+      "known_tax_rows": 345,
+      "known_cancellation_policy_rows": 345,
+      "known_cancellation_class_rows": 345,
+      "known_cancellation_deadline_rows": 345
+    },
+    {
+      "source_platform": "official",
+      "rows": 88311,
+      "hotels": 22,
+      "known_room_size_rows": 86901,
+      "known_tax_rows": 36371,
+      "known_cancellation_policy_rows": 52873,
+      "known_cancellation_class_rows": 43326,
+      "known_cancellation_deadline_rows": 34989
+    }
+  ],
+  "top_tax_gaps": [
+    {
+      "hotel_id": "grand_hilai_kaohsiung",
+      "rows": 26176,
+      "known_tax_rows": 4,
+      "unknown_tax_rows": 26172
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "rows": 5373,
+      "known_tax_rows": 2,
+      "unknown_tax_rows": 5371
+    },
+    {
+      "hotel_id": "eslite_hotel",
+      "rows": 4991,
+      "known_tax_rows": 5,
+      "unknown_tax_rows": 4986
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "rows": 4825,
+      "known_tax_rows": 5,
+      "unknown_tax_rows": 4820
+    },
+    {
+      "hotel_id": "hoshinoya_guguan",
+      "rows": 2796,
+      "known_tax_rows": 0,
+      "unknown_tax_rows": 2796
+    },
+    {
+      "hotel_id": "grand_hilai_taipei",
+      "rows": 2313,
+      "known_tax_rows": 4,
+      "unknown_tax_rows": 2309
+    },
+    {
+      "hotel_id": "royal_nikko_taipei",
+      "rows": 2257,
+      "known_tax_rows": 388,
+      "unknown_tax_rows": 1869
+    },
+    {
+      "hotel_id": "the_gaia_taipei",
+      "rows": 1492,
+      "known_tax_rows": 4,
+      "unknown_tax_rows": 1488
+    },
+    {
+      "hotel_id": "silks_place_yilan",
+      "rows": 1235,
+      "known_tax_rows": 0,
+      "unknown_tax_rows": 1235
+    },
+    {
+      "hotel_id": "grand_hotel_taipei",
+      "rows": 862,
+      "known_tax_rows": 4,
+      "unknown_tax_rows": 858
+    }
+  ],
+  "unresolved_cancellation_rows": 9547,
+  "unresolved_cancellation_groups": 6
+}

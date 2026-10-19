@@ -17,6 +17,7 @@ from services.rate_parity import (
 PARQUET_GLOB = Path("data/warehouse/rates/*.parquet")
 MANIFEST_SOURCE = Path("data/warehouse/manifest.json")
 TARGET = Path("data/warehouse/analysis.json")
+PUBLIC_TARGET = Path("public/data/warehouse_quality.json")
 
 
 def _sql_path(path: Path) -> str:
@@ -25,6 +26,35 @@ def _sql_path(path: Path) -> str:
 
 def _ratio(numerator: int, denominator: int) -> float:
     return round(numerator / denominator, 6) if denominator else 0.0
+
+
+def public_quality_payload(payload: dict) -> dict:
+    """Return the compact, non-sensitive quality summary used by the site."""
+
+    return {
+        "schema_version": "1.0",
+        "rows": payload["rows"],
+        "hotels": payload["hotels"],
+        "queried_at": payload["queried_at"],
+        "quality": payload["quality"],
+        "sources": payload["sources"],
+        "top_tax_gaps": [
+            {
+                "hotel_id": item["hotel_id"],
+                "rows": item["rows"],
+                "known_tax_rows": item["known_tax_rows"],
+                "unknown_tax_rows": item["unknown_tax_rows"],
+            }
+            for item in payload["hotels_by_unknown_tax"][:10]
+            if item["unknown_tax_rows"] > 0
+        ],
+        "unresolved_cancellation_rows": sum(
+            item["rows"] for item in payload["unknown_cancellation_policies"]
+        ),
+        "unresolved_cancellation_groups": len(
+            payload["unknown_cancellation_policies"]
+        ),
+    }
 
 
 def build_warehouse_analysis(
@@ -214,9 +244,16 @@ def build_warehouse_analysis(
 
 def main() -> None:
     payload = build_warehouse_analysis()
+    PUBLIC_TARGET.parent.mkdir(parents=True, exist_ok=True)
+    PUBLIC_TARGET.write_text(
+        json.dumps(public_quality_payload(payload), ensure_ascii=False, indent=2)
+        + "\n",
+        encoding="utf-8",
+    )
     print(
         f"Profiled {payload['rows']} Parquet rows across "
-        f"{payload['hotels']} hotels and {len(payload['sources'])} sources"
+        f"{payload['hotels']} hotels and {len(payload['sources'])} sources; "
+        f"wrote {PUBLIC_TARGET}"
     )
 
 

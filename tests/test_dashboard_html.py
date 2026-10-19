@@ -1917,6 +1917,21 @@ def test_home_loads_daily_market_digest_and_quality_warnings():
     assert "資料核實中" in home and "資料核實中" in hotels
 
 
+def test_home_exposes_reproducible_comparability_quality():
+    home = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert "./data/warehouse_quality.json" in home
+    assert 'id="warehouseQuality"' in home
+    assert "function renderWarehouseQuality()" in home
+    assert "known_room_size_ratio" in home
+    assert "known_tax_ratio" in home
+    assert "known_cancellation_class_ratio" in home
+    assert "known_cancellation_deadline_ratio" in home
+    assert "未知欄位不以估算補值" in home
+    assert "unknown fields are never filled with estimates" in home
+    assert "未確認項目を推定値で補完しません" in home
+
+
 def test_frontend_adr_paths_prefer_nightly_normalized_values():
     home = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")

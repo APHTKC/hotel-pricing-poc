@@ -3,7 +3,10 @@ import json
 import duckdb
 import pytest
 
-from scripts.build_warehouse_analysis import build_warehouse_analysis
+from scripts.build_warehouse_analysis import (
+    build_warehouse_analysis,
+    public_quality_payload,
+)
 
 
 def _write_test_parquet(path):
@@ -77,6 +80,20 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     assert official["known_cancellation_deadline_rows"] == 1
     assert official["known_cancellation_policy_rows"] == 1
     assert json.loads(target.read_text(encoding="utf-8")) == payload
+
+    public = public_quality_payload(payload)
+    assert public["rows"] == 2
+    assert public["quality"]["known_tax_ratio"] == 0.5
+    assert public["top_tax_gaps"] == [
+        {
+            "hotel_id": "hotel-a",
+            "rows": 2,
+            "known_tax_rows": 1,
+            "unknown_tax_rows": 1,
+        }
+    ]
+    assert public["unresolved_cancellation_rows"] == 1
+    assert public["unresolved_cancellation_groups"] == 1
 
 
 def test_build_warehouse_analysis_rejects_manifest_row_mismatch(tmp_path):
