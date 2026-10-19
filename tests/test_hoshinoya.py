@@ -1,7 +1,14 @@
 from datetime import date
 from decimal import Decimal
 
-from scrapers.adapters.hoshinoya import booking_url, meal_included, plan_code, room_size
+from app.models import TaxInclusion
+from scrapers.adapters.hoshinoya import (
+    HoshinoyaScraper,
+    booking_url,
+    meal_included,
+    plan_code,
+    room_size,
+)
 
 
 def test_hoshinoya_booking_url():
@@ -16,3 +23,7 @@ def test_hoshinoya_room_and_plan_helpers():
     assert plan_code("/rooms/6/plans/0000000016?stay=1") == "0000000016"
     assert meal_included("基本住宿專案(不含餐)") is False
     assert meal_included("基本住宿專案(含早晚餐)") is True
+
+
+def test_hoshinoya_visible_total_remains_unknown_without_tax_label():
+    assert HoshinoyaScraper.displayed_total_tax_inclusion == TaxInclusion.UNKNOWN
