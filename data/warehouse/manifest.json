@@ -16,8 +16,8 @@
       "source_shards": 28,
       "rows": 43324,
       "natural_keys": 43324,
-      "bytes": 1555016,
-      "sha256": "7c414b591ac7817afbf090099edb5f393958cf398d34c22b73afd6edca40edb5"
+      "bytes": 1555009,
+      "sha256": "d528cd46d7252794c6156a0d3600a160eb1c4335ef6b3ee9bf8a4ad2ef9fb367"
     },
     {
       "month": "2026-10",
@@ -25,8 +25,8 @@
       "source_shards": 17,
       "rows": 45723,
       "natural_keys": 45723,
-      "bytes": 1664534,
-      "sha256": "eb9dbfa8087c277b858fd87ceaf55d1cc21398e5a69f0ae16b72536b71da97ee"
+      "bytes": 1664544,
+      "sha256": "2b2b4694b20a3c237deeb0463b21d5ab3f80aa0cf2f395b2a287d128c5463d99"
     }
   ]
 }

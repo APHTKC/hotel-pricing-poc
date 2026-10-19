@@ -122,6 +122,17 @@ def test_build_rate_warehouse_verifies_tax_inclusion_only_when_components_reconc
     rows = [
         {**base, "observation_id": "matches", "total_price": 11500},
         {**base, "observation_id": "mismatch", "total_price": 12000},
+        {
+            **base,
+            "observation_id": "foreign-currency-match",
+            "rate_plan_code": "BAR-USD",
+            "currency": "USD",
+            "price_before_tax": 100,
+            "service_charge": 10,
+            "tax": 5,
+            "total_price": 115,
+            "total_twd": 3680,
+        },
     ]
     shard = month / "2026-10-17.jsonl"
     original = "".join(json.dumps(row) + "\n" for row in rows)
@@ -133,5 +144,9 @@ def test_build_rate_warehouse_verifies_tax_inclusion_only_when_components_reconc
     assert duckdb.connect().execute(
         "SELECT observation_id, tax_inclusion FROM read_parquet(?) ORDER BY observation_id",
         [str(target / "2026-10.parquet")],
-    ).fetchall() == [("matches", "included"), ("mismatch", "unknown")]
+    ).fetchall() == [
+        ("foreign-currency-match", "included"),
+        ("matches", "included"),
+        ("mismatch", "unknown"),
+    ]
     assert shard.read_text(encoding="utf-8") == original
