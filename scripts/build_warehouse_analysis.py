@@ -29,6 +29,21 @@ def _ratio(numerator: int, denominator: int) -> float:
     return round(numerator / denominator, 6) if denominator else 0.0
 
 
+def classify_cancellation_blocker(policy: str | None) -> str:
+    """Classify why a non-empty cancellation policy cannot be normalized."""
+
+    text = str(policy or "").strip()
+    if "�" in text:
+        return "encoding_corruption"
+    if text.casefold() == (
+        "cancellation policy is available on the official booking page"
+    ).casefold():
+        return "generic_placeholder"
+    if text == "將收取取消費用":
+        return "generic_fee_notice"
+    return "unparsed_policy"
+
+
 def public_quality_payload(payload: dict) -> dict:
     """Return the compact, non-sensitive quality summary used by the site."""
 
@@ -55,6 +70,7 @@ def public_quality_payload(payload: dict) -> dict:
         "unresolved_cancellation_groups": len(
             payload["unknown_cancellation_policies"]
         ),
+        "cancellation_blockers": payload["cancellation_blockers"],
     }
 
 
@@ -153,12 +169,20 @@ def build_warehouse_analysis(
     cancellation_schedule_counts: Counter[str] = Counter()
     structured_cancellation_schedules: Counter[tuple[str, str, str, str]] = Counter()
     unknown_cancellation_policies: Counter[tuple[str, str, str]] = Counter()
+    cancellation_blockers: Counter[tuple[str, str, str]] = Counter()
     for hotel_id, source_platform, policy, check_in in cancellation_rows:
         if normalize_cancellation_class(policy) != "unknown":
             cancellation_class_counts[source_platform] += 1
         elif policy and str(policy).strip():
             unknown_cancellation_policies[
                 (hotel_id, source_platform, str(policy).strip())
+            ] += 1
+            cancellation_blockers[
+                (
+                    classify_cancellation_blocker(policy),
+                    hotel_id,
+                    source_platform,
+                )
             ] += 1
         if normalize_cancellation_deadline(
             {"cancellation_policy": policy, "check_in": check_in}
@@ -205,7 +229,7 @@ def build_warehouse_analysis(
     )
 
     payload = {
-        "schema_version": "1.3",
+        "schema_version": "1.4",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -252,6 +276,18 @@ def build_warehouse_analysis(
             }
             for (hotel_id, source_platform, policy), rows in sorted(
                 unknown_cancellation_policies.items(),
+                key=lambda item: (-item[1], *item[0]),
+            )
+        ],
+        "cancellation_blockers": [
+            {
+                "reason": reason,
+                "hotel_id": hotel_id,
+                "source_platform": source_platform,
+                "rows": rows,
+            }
+            for (reason, hotel_id, source_platform), rows in sorted(
+                cancellation_blockers.items(),
                 key=lambda item: (-item[1], *item[0]),
             )
         ],

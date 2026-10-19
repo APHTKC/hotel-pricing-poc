@@ -120,5 +120,37 @@
     }
   ],
   "unresolved_cancellation_rows": 7797,
-  "unresolved_cancellation_groups": 5
+  "unresolved_cancellation_groups": 5,
+  "cancellation_blockers": [
+    {
+      "reason": "generic_placeholder",
+      "hotel_id": "windsor_taichung",
+      "source_platform": "official",
+      "rows": 4516
+    },
+    {
+      "reason": "generic_fee_notice",
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "official",
+      "rows": 2063
+    },
+    {
+      "reason": "generic_fee_notice",
+      "hotel_id": "the_gaia_taipei",
+      "source_platform": "official",
+      "rows": 446
+    },
+    {
+      "reason": "generic_fee_notice",
+      "hotel_id": "eslite_hotel",
+      "source_platform": "official",
+      "rows": 429
+    },
+    {
+      "reason": "generic_fee_notice",
+      "hotel_id": "silks_place_yilan",
+      "source_platform": "official",
+      "rows": 343
+    }
+  ]
 }

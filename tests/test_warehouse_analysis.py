@@ -5,6 +5,7 @@ import pytest
 
 from scripts.build_warehouse_analysis import (
     build_warehouse_analysis,
+    classify_cancellation_blocker,
     public_quality_payload,
 )
 
@@ -16,7 +17,8 @@ def _write_test_parquet(path):
         CREATE TABLE rows AS SELECT * FROM (VALUES
           ('a', 'hotel-a', 'official', '2026-10-18T01:00:00Z', '2026-11-02', 45.0, 'included', 'Non-refundable', 10000.0),
           ('b', 'hotel-a', 'booking_com', '2026-10-18T01:01:00Z', '2026-11-02', NULL, 'unknown', 'Cancellation policy is available on the official booking page', NULL),
-          ('c', 'hotel-a', 'official', '2026-10-18T01:02:00Z', '2026-11-02', 45.0, 'unknown', '13~4天之前 訂金的30％ 3~1天之前 訂金的70％ 當天 訂金的100％', NULL)
+          ('c', 'hotel-a', 'official', '2026-10-18T01:02:00Z', '2026-11-02', 45.0, 'unknown', '13~4天之前 訂金的30％ 3~1天之前 訂金的70％ 當天 訂金的100％', NULL),
+          ('d', 'hotel-b', 'official', '2026-10-18T01:03:00Z', '2026-11-02', 45.0, 'unknown', '�N���������O��', NULL)
         ) AS t(observation_id, hotel_id, source_platform, queried_at,
                check_in, room_size_sqm, tax_inclusion, cancellation_policy, nightly_adr_twd)
         """
@@ -38,27 +40,39 @@ def _write_manifest(path, rows):
     )
 
 
+def test_classify_cancellation_blocker_preserves_non_comparable_notices():
+    assert (
+        classify_cancellation_blocker(
+            "Cancellation policy is available on the official booking page"
+        )
+        == "generic_placeholder"
+    )
+    assert classify_cancellation_blocker("將收取取消費用") == "generic_fee_notice"
+    assert classify_cancellation_blocker("�N���������O��") == "encoding_corruption"
+    assert classify_cancellation_blocker("special conditions apply") == "unparsed_policy"
+
+
 def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     warehouse = tmp_path / "warehouse"
     rates = warehouse / "rates"
     rates.mkdir(parents=True)
     _write_test_parquet(rates / "2026-10.parquet")
     manifest = warehouse / "manifest.json"
-    _write_manifest(manifest, 3)
+    _write_manifest(manifest, 4)
     target = warehouse / "analysis.json"
 
     payload = build_warehouse_analysis(rates / "*.parquet", manifest, target)
 
-    assert payload["schema_version"] == "1.3"
-    assert payload["rows"] == 3
-    assert payload["hotels"] == 1
-    assert payload["quality"]["known_room_size_ratio"] == 0.666667
-    assert payload["quality"]["known_tax_ratio"] == 0.333333
+    assert payload["schema_version"] == "1.4"
+    assert payload["rows"] == 4
+    assert payload["hotels"] == 2
+    assert payload["quality"]["known_room_size_ratio"] == 0.75
+    assert payload["quality"]["known_tax_ratio"] == 0.25
     assert payload["quality"]["known_cancellation_policy_ratio"] == 1.0
-    assert payload["quality"]["known_cancellation_class_ratio"] == 0.666667
-    assert payload["quality"]["known_cancellation_deadline_ratio"] == 0.333333
-    assert payload["quality"]["known_cancellation_schedule_ratio"] == 0.333333
-    assert payload["quality"]["nightly_adr_ratio"] == 0.333333
+    assert payload["quality"]["known_cancellation_class_ratio"] == 0.5
+    assert payload["quality"]["known_cancellation_deadline_ratio"] == 0.25
+    assert payload["quality"]["known_cancellation_schedule_ratio"] == 0.25
+    assert payload["quality"]["nightly_adr_ratio"] == 0.25
     assert [item["source_platform"] for item in payload["sources"]] == [
         "booking_com",
         "official",
@@ -73,7 +87,27 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
                 "Cancellation policy is available on the official booking page"
             ),
             "rows": 1,
-        }
+        },
+        {
+            "hotel_id": "hotel-b",
+            "source_platform": "official",
+            "cancellation_policy": "�N���������O��",
+            "rows": 1,
+        },
+    ]
+    assert payload["cancellation_blockers"] == [
+        {
+            "reason": "encoding_corruption",
+            "hotel_id": "hotel-b",
+            "source_platform": "official",
+            "rows": 1,
+        },
+        {
+            "reason": "generic_placeholder",
+            "hotel_id": "hotel-a",
+            "source_platform": "booking_com",
+            "rows": 1,
+        },
     ]
     official = next(
         item for item in payload["sources"] if item["source_platform"] == "official"
@@ -81,7 +115,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     assert official["known_cancellation_class_rows"] == 2
     assert official["known_cancellation_deadline_rows"] == 1
     assert official["known_cancellation_schedule_rows"] == 1
-    assert official["known_cancellation_policy_rows"] == 2
+    assert official["known_cancellation_policy_rows"] == 3
     assert payload["structured_cancellation_schedules"][0]["schedule"] == [
         {
             "days_before_from": 13,
@@ -105,18 +139,25 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     assert json.loads(target.read_text(encoding="utf-8")) == payload
 
     public = public_quality_payload(payload)
-    assert public["rows"] == 3
-    assert public["quality"]["known_tax_ratio"] == 0.333333
+    assert public["rows"] == 4
+    assert public["quality"]["known_tax_ratio"] == 0.25
     assert public["top_tax_gaps"] == [
         {
             "hotel_id": "hotel-a",
             "rows": 3,
             "known_tax_rows": 1,
             "unknown_tax_rows": 2,
-        }
+        },
+        {
+            "hotel_id": "hotel-b",
+            "rows": 1,
+            "known_tax_rows": 0,
+            "unknown_tax_rows": 1,
+        },
     ]
-    assert public["unresolved_cancellation_rows"] == 1
-    assert public["unresolved_cancellation_groups"] == 1
+    assert public["unresolved_cancellation_rows"] == 2
+    assert public["unresolved_cancellation_groups"] == 2
+    assert public["cancellation_blockers"] == payload["cancellation_blockers"]
 
 
 def test_build_warehouse_analysis_rejects_manifest_row_mismatch(tmp_path):
@@ -125,7 +166,7 @@ def test_build_warehouse_analysis_rejects_manifest_row_mismatch(tmp_path):
     rates.mkdir(parents=True)
     _write_test_parquet(rates / "2026-10.parquet")
     manifest = warehouse / "manifest.json"
-    _write_manifest(manifest, 4)
+    _write_manifest(manifest, 5)
 
     with pytest.raises(ValueError, match="row mismatch"):
         build_warehouse_analysis(rates / "*.parquet", manifest, warehouse / "analysis.json")
