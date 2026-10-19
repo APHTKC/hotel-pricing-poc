@@ -50,6 +50,8 @@ def normalize_cancellation_class(policy: str | None) -> str:
         "取消不可",
         "取消須付費（訂單總額）",
         "取消須付費 (訂單總額)",
+        "100% of stay room charge",
+        "無法退款",
         "返金不可",
         "キャンセル不可",
     )):
@@ -64,6 +66,10 @@ def normalize_cancellation_class(policy: str | None) -> str:
         or re.search(r"\d+.{0,30}(?:before|prior to|日前|日まで)", text)
         or re.search(r"(?:入住|抵達)\s*\d+\s*(?:天|日)前", text)
         or re.search(r"\d{4}\s*[年/-]\s*\d{1,2}\s*[月/-]\s*\d{1,2}\s*日前", text)
+        or re.search(
+            r"cancelled\s+after.{0,80}\d{1,2}\s+[a-z]{3,9}\s+20\d{2}",
+            text,
+        )
         or re.search(
             rf"(?:{'|'.join(NUMBER_WORDS)})\s+days?\s+prior to\s+"
             r"(?:arrival|check[- ]?in)",

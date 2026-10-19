@@ -254,3 +254,26 @@ def test_full_booking_value_cancellation_fee_is_non_refundable():
     )
     assert normalize_cancellation_class("不得退款") == "non_refundable"
     assert normalize_cancellation_class("取消須付費") == "unknown"
+
+
+def test_full_stay_charge_and_explicit_no_refund_are_non_refundable():
+    policy = (
+        "Room cancelled will be subject to 100% of stay room charge, plus "
+        "applicable service charges, taxes, and fees."
+    )
+    assert normalize_cancellation_class(policy) == "non_refundable"
+    assert normalize_cancellation_deadline(
+        product(cancellation_policy=policy)
+    ) == "non_refundable"
+    assert normalize_cancellation_class("事先付款・無法退款") == "non_refundable"
+
+
+def test_english_dated_room_charge_policy_is_conditional():
+    policy = (
+        "Room cancelled after 18:00 local hotel time on 11 Oct 2026 will be "
+        "subject to 1 night(s) room charge, plus applicable service charges, "
+        "taxes, and fees."
+    )
+    row = product(cancellation_policy=policy, check_in="2026-10-12")
+    assert normalize_cancellation_class(policy) == "conditional"
+    assert normalize_cancellation_deadline(row) == "2026-10-11"

@@ -25,10 +25,10 @@
     "known_tax_ratio": 0.2907,
     "known_cancellation_policy_rows": 53609,
     "known_cancellation_policy_ratio": 0.60203,
-    "known_cancellation_class_rows": 32114,
-    "known_cancellation_class_ratio": 0.360641,
-    "known_cancellation_deadline_rows": 23777,
-    "known_cancellation_deadline_ratio": 0.267016,
+    "known_cancellation_class_rows": 44062,
+    "known_cancellation_class_ratio": 0.494817,
+    "known_cancellation_deadline_rows": 35725,
+    "known_cancellation_deadline_ratio": 0.401193,
     "nightly_adr_rows": 89047,
     "nightly_adr_ratio": 1.0
   },
@@ -60,8 +60,8 @@
       "known_room_size_rows": 86901,
       "known_tax_rows": 25508,
       "known_cancellation_policy_rows": 52873,
-      "known_cancellation_class_rows": 31378,
-      "known_cancellation_deadline_rows": 23041
+      "known_cancellation_class_rows": 43326,
+      "known_cancellation_deadline_rows": 34989
     }
   ],
   "hotels_by_unknown_room_size": [
