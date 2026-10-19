@@ -8,6 +8,7 @@ from scrapers.adapters.capella import (
     parse_room_size,
     CapellaScraper,
 )
+from app.models import TaxInclusion
 
 
 def test_capella_parsers():
@@ -29,3 +30,7 @@ def test_capella_booking_url_contains_official_ids_and_dates():
     assert "Chain=21430" in url
     assert "arrive=2026-08-29" in url
     assert "adult=2" in url
+
+
+def test_capella_visible_total_is_tax_inclusive():
+    assert CapellaScraper.displayed_total_tax_inclusion == TaxInclusion.INCLUDED

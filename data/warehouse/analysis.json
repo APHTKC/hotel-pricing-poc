@@ -4,11 +4,11 @@
   "manifest_sha256": [
     {
       "month": "2026-09",
-      "sha256": "d528cd46d7252794c6156a0d3600a160eb1c4335ef6b3ee9bf8a4ad2ef9fb367"
+      "sha256": "8d3534ab9942d697a5613031f554cba45e33cb69794c7bb8474dd14db1c5e312"
     },
     {
       "month": "2026-10",
-      "sha256": "2b2b4694b20a3c237deeb0463b21d5ab3f80aa0cf2f395b2a287d128c5463d99"
+      "sha256": "ba358ed658c19d22483b4c254e615c6e4b87a402dfe166cf257e485ffcf9e3e9"
     }
   ],
   "rows": 89047,
@@ -21,8 +21,8 @@
   "quality": {
     "known_room_size_rows": 87637,
     "known_room_size_ratio": 0.984166,
-    "known_tax_rows": 36749,
-    "known_tax_ratio": 0.412692,
+    "known_tax_rows": 42120,
+    "known_tax_ratio": 0.473009,
     "known_cancellation_policy_rows": 53609,
     "known_cancellation_policy_ratio": 0.60203,
     "known_cancellation_class_rows": 45812,
@@ -62,7 +62,7 @@
       "rows": 88311,
       "hotels": 22,
       "known_room_size_rows": 86901,
-      "known_tax_rows": 36371,
+      "known_tax_rows": 41742,
       "known_cancellation_policy_rows": 52873,
       "known_cancellation_class_rows": 45076,
       "known_cancellation_deadline_rows": 34989,
@@ -95,7 +95,7 @@
       "hotel_id": "capella_taipei",
       "rows": 5373,
       "known_room_size_rows": 5373,
-      "known_tax_rows": 2,
+      "known_tax_rows": 5373,
       "unknown_room_size_rows": 0
     },
     {
@@ -445,14 +445,6 @@
       "unknown_tax_rows": 26172
     },
     {
-      "hotel_id": "capella_taipei",
-      "rows": 5373,
-      "known_room_size_rows": 5373,
-      "known_tax_rows": 2,
-      "unknown_room_size_rows": 0,
-      "unknown_tax_rows": 5371
-    },
-    {
       "hotel_id": "eslite_hotel",
       "rows": 4991,
       "known_room_size_rows": 4991,
@@ -731,6 +723,14 @@
       "known_tax_rows": 0,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 2
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "rows": 5373,
+      "known_room_size_rows": 5373,
+      "known_tax_rows": 5373,
+      "unknown_room_size_rows": 0,
+      "unknown_tax_rows": 0
     },
     {
       "hotel_id": "courtyard_taipei",

@@ -8,7 +8,7 @@ from urllib.parse import urlencode
 
 from playwright.async_api import Locator, Page, async_playwright
 
-from app.models import Hotel, RateObservation, ScrapeStatus
+from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
 from scrapers.base import HotelScraper
 
 
@@ -59,6 +59,7 @@ class CapellaScraper(HotelScraper):
 
     supported_hotel_id = "capella_taipei"
     diagnostic_name = "Capella"
+    displayed_total_tax_inclusion = TaxInclusion.INCLUDED
 
     def __init__(self, timeout_ms: int = 45_000):
         self.timeout_ms = timeout_ms
@@ -186,6 +187,7 @@ class CapellaScraper(HotelScraper):
                 breakfast_included=breakfast_included(features),
                 cancellation_policy=cancellation_text(features),
                 price_before_tax=None, service_charge=None, tax=None,
+                tax_inclusion=self.displayed_total_tax_inclusion,
                 total_price=total_price, currency="TWD", source_url=source_url,
                 status=ScrapeStatus.LIVE, fx_rate_to_twd=Decimal("1"),
             ))

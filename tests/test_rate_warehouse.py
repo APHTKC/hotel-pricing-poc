@@ -133,6 +133,32 @@ def test_build_rate_warehouse_verifies_tax_inclusion_only_when_components_reconc
             "total_price": 115,
             "total_twd": 3680,
         },
+        {
+            **base,
+            "observation_id": "capella-visible-total",
+            "hotel_id": "capella_taipei",
+            "source_method": "public_booking_page",
+            "room_type_code": "RS1",
+            "rate_plan_code": "BAR-CAPELLA",
+            "price_before_tax": None,
+            "service_charge": None,
+            "tax": None,
+            "tax_inclusion": "unknown",
+            "total_price": 25200,
+        },
+        {
+            **base,
+            "observation_id": "capella-legacy-visible-total",
+            "hotel_id": "capella_taipei",
+            "source_url": "https://be.synxis.com/?Hotel=47696&Chain=21430",
+            "room_type_code": "RS2",
+            "rate_plan_code": "BAR-CAPELLA-LEGACY",
+            "price_before_tax": None,
+            "service_charge": None,
+            "tax": None,
+            "tax_inclusion": "unknown",
+            "total_price": 25200,
+        },
     ]
     shard = month / "2026-10-17.jsonl"
     original = "".join(json.dumps(row) + "\n" for row in rows)
@@ -145,6 +171,8 @@ def test_build_rate_warehouse_verifies_tax_inclusion_only_when_components_reconc
         "SELECT observation_id, tax_inclusion FROM read_parquet(?) ORDER BY observation_id",
         [str(target / "2026-10.parquet")],
     ).fetchall() == [
+        ("capella-legacy-visible-total", "included"),
+        ("capella-visible-total", "included"),
         ("foreign-currency-match", "included"),
         ("matches", "included"),
         ("mismatch", "unknown"),

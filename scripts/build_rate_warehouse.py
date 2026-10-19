@@ -118,6 +118,14 @@ def build_rate_warehouse(
                 connection.execute(
                     "ALTER TABLE month_rates_raw ADD COLUMN tax_inclusion VARCHAR"
                 )
+            if "source_method" not in raw_columns:
+                connection.execute(
+                    "ALTER TABLE month_rates_raw ADD COLUMN source_method VARCHAR"
+                )
+            if "source_url" not in raw_columns:
+                connection.execute(
+                    "ALTER TABLE month_rates_raw ADD COLUMN source_url VARCHAR"
+                )
             for column in ("price_before_tax", "service_charge", "tax"):
                 if column not in raw_columns:
                     connection.execute(
@@ -143,6 +151,11 @@ def build_rate_warehouse(
                 "  WHEN coalesce(nullif(trim(cast(tax_inclusion AS VARCHAR)), ''), 'unknown') "
                 "       <> 'unknown' "
                 "    THEN cast(tax_inclusion AS VARCHAR) "
+                "  WHEN hotel_id = 'capella_taipei' "
+                "   AND source_platform = 'official' "
+                "   AND (source_method = 'public_booking_page' "
+                "        OR source_url LIKE '%Hotel=47696%') "
+                "    THEN 'included' "
                 "  WHEN price_before_tax IS NOT NULL "
                 "   AND (service_charge IS NOT NULL OR tax IS NOT NULL) "
                 "   AND coalesce(total_price, total_twd) IS NOT NULL "
