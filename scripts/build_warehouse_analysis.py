@@ -81,6 +81,7 @@ def build_warehouse_analysis(
         cancellation_rows = connection.execute(
             """
             SELECT
+                hotel_id,
                 coalesce(source_platform, 'unknown') AS source_platform,
                 cancellation_policy,
                 cast(check_in AS VARCHAR) AS check_in
@@ -118,9 +119,14 @@ def build_warehouse_analysis(
     nightly_adr = int(summary["nightly_adr_rows"])
     cancellation_class_counts: Counter[str] = Counter()
     cancellation_deadline_counts: Counter[str] = Counter()
-    for source_platform, policy, check_in in cancellation_rows:
+    unknown_cancellation_policies: Counter[tuple[str, str, str]] = Counter()
+    for hotel_id, source_platform, policy, check_in in cancellation_rows:
         if normalize_cancellation_class(policy) != "unknown":
             cancellation_class_counts[source_platform] += 1
+        elif policy and str(policy).strip():
+            unknown_cancellation_policies[
+                (hotel_id, source_platform, str(policy).strip())
+            ] += 1
         if normalize_cancellation_deadline(
             {"cancellation_policy": policy, "check_in": check_in}
         ) != "unknown":
@@ -138,8 +144,20 @@ def build_warehouse_analysis(
             source_platform
         ]
 
+    hotels_by_unknown_room_size = [
+        dict(zip(hotel_columns, row)) for row in hotel_rows
+    ]
+    hotels_by_unknown_tax = []
+    for hotel in hotels_by_unknown_room_size:
+        item = dict(hotel)
+        item["unknown_tax_rows"] = item["rows"] - item["known_tax_rows"]
+        hotels_by_unknown_tax.append(item)
+    hotels_by_unknown_tax.sort(
+        key=lambda item: (-item["unknown_tax_rows"], item["hotel_id"])
+    )
+
     payload = {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -171,8 +189,19 @@ def build_warehouse_analysis(
             "nightly_adr_ratio": _ratio(nightly_adr, row_count),
         },
         "sources": sources,
-        "hotels_by_unknown_room_size": [
-            dict(zip(hotel_columns, row)) for row in hotel_rows
+        "hotels_by_unknown_room_size": hotels_by_unknown_room_size,
+        "hotels_by_unknown_tax": hotels_by_unknown_tax,
+        "unknown_cancellation_policies": [
+            {
+                "hotel_id": hotel_id,
+                "source_platform": source_platform,
+                "cancellation_policy": policy,
+                "rows": rows,
+            }
+            for (hotel_id, source_platform, policy), rows in sorted(
+                unknown_cancellation_policies.items(),
+                key=lambda item: (-item[1], *item[0]),
+            )
         ],
     }
     target.parent.mkdir(parents=True, exist_ok=True)
