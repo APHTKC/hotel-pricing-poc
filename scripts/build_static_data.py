@@ -117,10 +117,53 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             hotel_groups[str(row["hotel_id"])].append(row)
 
     hotels = []
+    strict_gap_hotels = []
     for hotel_id, hotel_rows in hotel_groups.items():
         hotel_statuses = Counter(
             row.get("room_match_status") or "not_evaluated" for row in hotel_rows
         )
+        hotel_missing_fields = Counter(
+            field
+            for row in hotel_rows
+            if not row.get("strict_parity_eligible")
+            for field in comparison_key_missing_fields(
+                row, require_stable_room_type=True
+            )
+        )
+        strict_eligible = sum(
+            bool(row.get("strict_parity_eligible")) for row in hotel_rows
+        )
+        if hotel_missing_fields:
+            strict_gap_hotels.append({
+                "hotel_id": hotel_id,
+                "hotel_name": next(
+                    (
+                        row.get("hotel_name")
+                        for row in hotel_rows
+                        if row.get("hotel_name")
+                    ),
+                    hotel_id,
+                ),
+                "city": next(
+                    (row.get("city") for row in hotel_rows if row.get("city")),
+                    None,
+                ),
+                "observations": len(hotel_rows),
+                "strict_parity_eligible_observations": strict_eligible,
+                "strict_parity_gap_observations": sum(
+                    not row.get("strict_parity_eligible") for row in hotel_rows
+                ),
+                "source_platforms": sorted({
+                    str(row.get("source_platform") or "official")
+                    for row in hotel_rows
+                }),
+                "missing_fields": dict(
+                    sorted(
+                        hotel_missing_fields.items(),
+                        key=lambda item: (-item[1], item[0]),
+                    )
+                ),
+            })
         unresolved = [
             row for row in hotel_rows
             if (row.get("room_match_status") or "not_evaluated") in unresolved_statuses
@@ -160,14 +203,6 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             )
         )
         mapped = sum(bool(row.get("stable_room_type_id")) for row in hotel_rows)
-        hotel_missing_fields = Counter(
-            field
-            for row in hotel_rows
-            if not row.get("strict_parity_eligible")
-            for field in comparison_key_missing_fields(
-                row, require_stable_room_type=True
-            )
-        )
         hotels.append({
             "hotel_id": hotel_id,
             "hotel_name": next(
@@ -178,9 +213,7 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             "observations": len(hotel_rows),
             "mapped_observations": mapped,
             "mapped_rate": round(mapped / len(hotel_rows), 4),
-            "strict_parity_eligible_observations": sum(
-                bool(row.get("strict_parity_eligible")) for row in hotel_rows
-            ),
+            "strict_parity_eligible_observations": strict_eligible,
             "strict_parity_missing_fields": dict(
                 sorted(hotel_missing_fields.items(), key=lambda item: (-item[1], item[0]))
             ),
@@ -189,6 +222,9 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             "top_unresolved_room_labels": candidates[:candidate_limit],
         })
     hotels.sort(key=lambda item: (-item["unresolved_observations"], item["hotel_id"]))
+    strict_gap_hotels.sort(
+        key=lambda item: (-item["strict_parity_gap_observations"], item["hotel_id"])
+    )
     total = len(rows)
     return {
         "observation_count": total,
@@ -202,6 +238,7 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
         "status_counts": dict(sorted(status_counts.items())),
         "hotels_requiring_evidence": len(hotels),
         "hotels": hotels,
+        "strict_parity_gap_hotels": strict_gap_hotels,
     }
 
 

@@ -126,6 +126,16 @@ def test_room_type_match_quality_prioritizes_unresolved_evidence_candidates():
         "latest_queried_at": "2026-10-18T01:00:00Z",
         "sample_source_url": "https://example.com/latest",
     }]
+    assert quality["strict_parity_gap_hotels"] == [{
+        "hotel_id": "hotel-a",
+        "hotel_name": "Hotel A",
+        "city": "Taipei",
+        "observations": 3,
+        "strict_parity_eligible_observations": 1,
+        "strict_parity_gap_observations": 2,
+        "source_platforms": ["booking_com", "official"],
+        "missing_fields": quality["strict_parity_missing_fields"],
+    }]
 
 
 def test_latest_batch_uses_recent_workflow_window():
