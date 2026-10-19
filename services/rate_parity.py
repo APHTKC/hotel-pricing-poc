@@ -184,8 +184,27 @@ def normalize_cancellation_deadline(row: Mapping[str, Any] | Any) -> str:
 def normalize_tax_inclusion(row: Mapping[str, Any] | Any) -> str:
     explicit = _value(row, "tax_inclusion")
     if explicit in {"included", "excluded"}:
-        return explicit
-    if _value(row, "total_price") is not None and any(_value(row, name) is not None for name in ("price_before_tax", "tax", "service_charge")):
+        return str(explicit)
+
+    try:
+        total = Decimal(str(_value(row, "total_price")))
+        before_tax = Decimal(str(_value(row, "price_before_tax")))
+    except (TypeError, ValueError, ArithmeticError):
+        return UNKNOWN
+    component_values = tuple(_value(row, name) for name in ("service_charge", "tax"))
+    if not any(value is not None for value in component_values):
+        return UNKNOWN
+    try:
+        service_charge, tax = (
+            Decimal("0") if value is None else Decimal(str(value))
+            for value in component_values
+        )
+    except (TypeError, ValueError, ArithmeticError):
+        return UNKNOWN
+    if min(total, before_tax, service_charge, tax) < 0:
+        return UNKNOWN
+    tolerance = max(Decimal("1"), abs(total) * Decimal("0.0001"))
+    if abs(total - (before_tax + service_charge + tax)) <= tolerance:
         return "included"
     return UNKNOWN
 

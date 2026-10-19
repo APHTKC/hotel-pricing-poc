@@ -9,6 +9,7 @@ from services.rate_parity import (
     calculate_rate_parity,
     normalize_cancellation_class,
     normalize_cancellation_deadline,
+    normalize_tax_inclusion,
 )
 
 
@@ -201,6 +202,28 @@ def test_invalid_occupancy_is_not_comparable(field, value):
     row = product()
     row[field] = value
     assert canonical_comparison_key(row) is None
+
+
+def test_tax_inclusion_requires_reconciled_price_components():
+    matching = product(
+        tax_inclusion="unknown",
+        price_before_tax=Decimal("10000"),
+        service_charge=Decimal("1000"),
+        tax=Decimal("500"),
+        total_price=Decimal("11500"),
+    )
+    mismatch = {**matching, "total_price": Decimal("12000")}
+
+    assert normalize_tax_inclusion(matching) == "included"
+    assert canonical_comparison_key(matching) is not None
+    assert normalize_tax_inclusion(mismatch) == "unknown"
+    assert canonical_comparison_key(mismatch) is None
+
+
+def test_explicit_tax_inclusion_remains_authoritative():
+    assert normalize_tax_inclusion(
+        product(tax_inclusion="excluded", total_price=Decimal("10000"))
+    ) == "excluded"
 
 
 @pytest.mark.parametrize(
