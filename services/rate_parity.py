@@ -330,6 +330,38 @@ def canonical_comparison_key(
         bool(breakfast), cancellation, cancellation_deadline, tax_inclusion,
     )
 
+
+def comparison_key_missing_fields(
+    row: Mapping[str, Any] | Any,
+    *,
+    require_stable_room_type: bool = False,
+) -> list[str]:
+    """Return deterministic reasons a row cannot form a canonical key."""
+
+    missing = []
+    if not _value(row, "hotel_id"):
+        missing.append("hotel_id")
+    if not _value(row, "check_in"):
+        missing.append("check_in")
+    if not _value(row, "check_out"):
+        missing.append("check_out")
+    if occupancy_key(row) == UNKNOWN:
+        missing.append("occupancy")
+    if normalize_size_band(row) == UNKNOWN:
+        missing.append("room_size")
+    if require_stable_room_type and not _value(row, "stable_room_type_id"):
+        missing.append("stable_room_type_id")
+    if _value(row, "breakfast_included") is None:
+        missing.append("breakfast_included")
+    if normalize_cancellation_class(_value(row, "cancellation_policy")) == UNKNOWN:
+        missing.append("cancellation_class")
+    if normalize_cancellation_deadline(row) == UNKNOWN:
+        missing.append("cancellation_deadline")
+    if normalize_tax_inclusion(row) == UNKNOWN:
+        missing.append("tax_inclusion")
+    return missing
+
+
 def comparison_metadata(
     row: Mapping[str, Any] | Any,
     *,

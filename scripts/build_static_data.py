@@ -15,6 +15,7 @@ from services.pricing import nightly_adr_twd, nightly_price_per_sqm_twd, stay_ni
 from services.rate_parity import (
     calculate_rate_parity,
     canonical_comparison_key,
+    comparison_key_missing_fields,
     comparison_metadata,
 )
 from services.room_type_dimension import (
@@ -102,6 +103,14 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
     status_counts = Counter(row.get("room_match_status") or "not_evaluated" for row in rows)
     mapped_count = sum(bool(row.get("stable_room_type_id")) for row in rows)
     strict_count = sum(bool(row.get("strict_parity_eligible")) for row in rows)
+    missing_fields = Counter(
+        field
+        for row in rows
+        if not row.get("strict_parity_eligible")
+        for field in comparison_key_missing_fields(
+            row, require_stable_room_type=True
+        )
+    )
     hotel_groups: dict[str, list[dict]] = defaultdict(list)
     for row in rows:
         if row.get("hotel_id"):
@@ -151,6 +160,14 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             )
         )
         mapped = sum(bool(row.get("stable_room_type_id")) for row in hotel_rows)
+        hotel_missing_fields = Counter(
+            field
+            for row in hotel_rows
+            if not row.get("strict_parity_eligible")
+            for field in comparison_key_missing_fields(
+                row, require_stable_room_type=True
+            )
+        )
         hotels.append({
             "hotel_id": hotel_id,
             "hotel_name": next(
@@ -164,6 +181,9 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             "strict_parity_eligible_observations": sum(
                 bool(row.get("strict_parity_eligible")) for row in hotel_rows
             ),
+            "strict_parity_missing_fields": dict(
+                sorted(hotel_missing_fields.items(), key=lambda item: (-item[1], item[0]))
+            ),
             "unresolved_observations": len(unresolved),
             "status_counts": dict(sorted(hotel_statuses.items())),
             "top_unresolved_room_labels": candidates[:candidate_limit],
@@ -176,6 +196,9 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
         "mapped_rate": round(mapped_count / total, 4) if total else None,
         "strict_parity_eligible_observations": strict_count,
         "strict_parity_eligible_rate": round(strict_count / total, 4) if total else None,
+        "strict_parity_missing_fields": dict(
+            sorted(missing_fields.items(), key=lambda item: (-item[1], item[0]))
+        ),
         "status_counts": dict(sorted(status_counts.items())),
         "hotels_requiring_evidence": len(hotels),
         "hotels": hotels,

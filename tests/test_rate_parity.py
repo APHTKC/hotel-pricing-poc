@@ -7,6 +7,7 @@ import pytest
 from services.rate_parity import (
     canonical_comparison_key,
     calculate_rate_parity,
+    comparison_key_missing_fields,
     normalize_cancellation_class,
     normalize_cancellation_deadline,
     normalize_cancellation_schedule,
@@ -193,6 +194,25 @@ def test_strict_key_requires_evidenced_stable_room_type():
         row,
         product(source_platform="booking_com", stable_room_type_id=None),
     ]) == []
+
+
+def test_missing_fields_explain_strict_key_rejection():
+    row = product(
+        stable_room_type_id=None,
+        breakfast_included=None,
+        cancellation_policy="Cancellation policy is available on booking page",
+        tax_inclusion="unknown",
+    )
+
+    assert comparison_key_missing_fields(
+        row, require_stable_room_type=True
+    ) == [
+        "stable_room_type_id",
+        "breakfast_included",
+        "cancellation_class",
+        "cancellation_deadline",
+        "tax_inclusion",
+    ]
 
 
 @pytest.mark.parametrize(

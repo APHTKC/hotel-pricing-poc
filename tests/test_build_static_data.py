@@ -100,9 +100,22 @@ def test_room_type_match_quality_prioritizes_unresolved_evidence_candidates():
     assert quality["observation_count"] == 3
     assert quality["mapped_observations"] == 1
     assert quality["strict_parity_eligible_observations"] == 1
+    assert quality["strict_parity_missing_fields"] == {
+        "breakfast_included": 2,
+        "cancellation_class": 2,
+        "cancellation_deadline": 2,
+        "check_in": 2,
+        "check_out": 2,
+        "occupancy": 2,
+        "stable_room_type_id": 2,
+        "tax_inclusion": 2,
+    }
     assert quality["hotels_requiring_evidence"] == 1
     hotel = quality["hotels"][0]
     assert hotel["unresolved_observations"] == 2
+    assert hotel["strict_parity_missing_fields"] == quality[
+        "strict_parity_missing_fields"
+    ]
     assert hotel["top_unresolved_room_labels"] == [{
         "room_match_status": "unmatched_label",
         "room_type_name": "Deluxe King",
