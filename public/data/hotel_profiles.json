@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08",
+  "updated_at": "2026-10-19",
   "profiles": [
     {
       "hotel_id": "intercontinental_taipei",
@@ -87,6 +87,16 @@
           {"name_zh": "嘉佩樂套房", "name_en": "Capella Suite", "name_ja": "Capella Suite", "size_sqm": 228, "room_count": 2}
         ]
       },
+      "michelin_restaurants": [
+        {
+          "name": "Mizue",
+          "guide_year": 2026,
+          "distinction": "two_stars",
+          "verified_at": "2026-10-19",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/mizue"
+        }
+      ],
       "source_urls": [
         "https://capellahotels.com/en/capella-taipei",
         "https://capellahotels.com/en/capella-taipei/accommodation",
@@ -149,6 +159,16 @@
           {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 376}
         ]
       },
+      "michelin_restaurants": [
+        {
+          "name": "Ya Ge",
+          "guide_year": 2026,
+          "distinction": "one_star",
+          "verified_at": "2026-10-19",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/ya-ge"
+        }
+      ],
       "source_urls": [
         "https://cms.mandarinoriental.com/en/taipei/songshan/about",
         "https://www.mandarinoriental.com/en/taipei/songshan/wellness/the-spa",
@@ -537,6 +557,25 @@
           {"name_zh": "大班豪華客房", "name_en": "Tai Pan Room", "name_ja": "Tai Pan Room", "size_sqm": 45, "aliases": [{"label": "雅逸居一大床－可使用俱樂部酒廊", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho121325/tai-bei-jing-hua-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]}
         ]
       },
+      "michelin_restaurants": [
+        {
+          "name": "Silks House",
+          "guide_year": 2026,
+          "distinction": "one_star",
+          "verified_at": "2026-10-19",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/silks-house"
+        },
+        {
+          "name": "Impromptu by Paul Lee",
+          "guide_year": 2026,
+          "distinction": "one_star",
+          "verified_at": "2026-10-19",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/impromptu-by-paul-lee",
+          "relationship": "located_in_hotel"
+        }
+      ],
       "source_urls": [
         "https://www.regenttaiwan.com/accommodation",
         "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail",
@@ -789,6 +828,16 @@
           {"name_zh": "君品套房", "name_en": "Premier Suite", "name_ja": "Premier Suite", "size_sqm": 67}
         ]
       },
+      "michelin_restaurants": [
+        {
+          "name": "Le Palais",
+          "guide_year": 2026,
+          "distinction": "three_stars",
+          "verified_at": "2026-10-19",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/le-palais"
+        }
+      ],
       "source_urls": [
         "https://media.taiwan.net.tw/en-us/portal/travel/details/hotel_a15010000h_001187",
         "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
@@ -1555,6 +1604,16 @@
           {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 562}
         ]
       },
+      "michelin_restaurants": [
+        {
+          "name": "The Guest House",
+          "guide_year": 2026,
+          "distinction": "one_star",
+          "verified_at": "2026-10-19",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/the-guest-house"
+        }
+      ],
       "source_urls": [
         "https://www.sheratongrandtaipei.com/?cat=1&id=3&lang=zh-tw",
         "https://www.sheratongrandtaipei.com/websev?cat=1&id=1&lang=zh-tw&ref=pages",
@@ -2052,6 +2111,16 @@
           {"name_zh": "景隅套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 56}
         ]
       },
+      "michelin_restaurants": [
+        {
+          "name": "Tien Hsiang Lo",
+          "guide_year": 2026,
+          "distinction": "one_star",
+          "verified_at": "2026-10-19",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/tien-hsiang-lo"
+        }
+      ],
       "source_urls": [
         "https://taipei.landishotelsresorts.com/en/",
         "https://taipei.landishotelsresorts.com/en/room",

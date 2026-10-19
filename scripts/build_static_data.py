@@ -11,6 +11,7 @@ from app.models import RateObservation
 from services.deduplication import deduplicate_observations
 from services.asset_manifest import build_asset_manifest
 from services.market_metrics import calculate_market_summary
+from services.hotel_profile_quality import build_hotel_profile_quality
 from services.pricing import nightly_adr_twd, nightly_price_per_sqm_twd, stay_nights
 from services.rate_parity import (
     calculate_rate_parity,
@@ -44,6 +45,7 @@ HOTEL_NAMES_SOURCE = Path("public/data/hotel_names_zh.json")
 HOTEL_PROFILES_SOURCE = Path("public/data/hotel_profiles.json")
 ROOM_TYPE_DIMENSION_TARGET = Path("public/data/room_type_dimension.json")
 ROOM_TYPE_MATCH_QUALITY_TARGET = Path("public/data/room_type_match_quality.json")
+HOTEL_PROFILE_QUALITY_TARGET = Path("public/data/hotel_profile_quality.json")
 ASSET_MANIFEST_TARGET = Path("public/data/asset_manifest.json")
 MAX_HISTORY_SHARD_BYTES = 3_000_000
 LEGACY_TARGET = Path("public/data/rates.json")
@@ -1087,6 +1089,10 @@ def main() -> None:
     if HOTEL_PROFILES_SOURCE.exists():
         ROOM_TYPE_DIMENSION_TARGET.write_text(
             json.dumps(room_type_dimension, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        HOTEL_PROFILE_QUALITY_TARGET.write_text(
+            json.dumps(build_hotel_profile_quality(profiles_payload), ensure_ascii=False),
             encoding="utf-8",
         )
     if LEGACY_LATEST_TARGET.exists():

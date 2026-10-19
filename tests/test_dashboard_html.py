@@ -2006,3 +2006,38 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert "loyalty-badge" in html
     assert "program==='__pending__'" in html
     assert "affiliation.source_url" in html
+
+
+def test_hotel_profiles_publish_evidenced_michelin_restaurant_statistics():
+    payload = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    by_id = {item["hotel_id"]: item for item in payload["profiles"]}
+    entries = [
+        (hotel_id, restaurant)
+        for hotel_id, profile in by_id.items()
+        for restaurant in profile.get("michelin_restaurants", [])
+    ]
+
+    assert len(entries) == 7
+    assert {hotel_id for hotel_id, _ in entries} == {
+        "capella_taipei",
+        "mo_taipei",
+        "regent_taipei",
+        "palais_de_chine",
+        "sheraton_grand_taipei",
+        "the_landis_taipei",
+    }
+    assert all(item["guide_year"] == 2026 for _, item in entries)
+    assert all(item["source_url"].startswith("https://guide.michelin.com/") for _, item in entries)
+    assert next(
+        item for item in by_id["palais_de_chine"]["michelin_restaurants"]
+        if item["name"] == "Le Palais"
+    )["distinction"] == "three_stars"
+    assert next(
+        item for item in by_id["capella_taipei"]["michelin_restaurants"]
+        if item["name"] == "Mizue"
+    )["distinction"] == "two_stars"
+
+    html = Path("public/hotels.html").read_text(encoding="utf-8")
+    assert "michelin_restaurants" in html
+    assert "michelinBlock" in html
+    assert "有證據的米其林餐廳" in html
