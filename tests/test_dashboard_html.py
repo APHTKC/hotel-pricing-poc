@@ -1927,6 +1927,8 @@ def test_home_exposes_reproducible_comparability_quality():
     assert "known_tax_ratio" in home
     assert "known_cancellation_class_ratio" in home
     assert "known_cancellation_deadline_ratio" in home
+    assert "known_cancellation_schedule_ratio" in home
+    assert "分段取消規則" in home
     assert "未知欄位不以估算補值" in home
     assert "unknown fields are never filled with estimates" in home
     assert "未確認項目を推定値で補完しません" in home

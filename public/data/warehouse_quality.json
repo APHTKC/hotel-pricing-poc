@@ -13,10 +13,12 @@
     "known_tax_ratio": 0.412692,
     "known_cancellation_policy_rows": 53609,
     "known_cancellation_policy_ratio": 0.60203,
-    "known_cancellation_class_rows": 44062,
-    "known_cancellation_class_ratio": 0.494817,
+    "known_cancellation_class_rows": 45812,
+    "known_cancellation_class_ratio": 0.51447,
     "known_cancellation_deadline_rows": 35725,
     "known_cancellation_deadline_ratio": 0.401193,
+    "known_cancellation_schedule_rows": 1750,
+    "known_cancellation_schedule_ratio": 0.019653,
     "nightly_adr_rows": 89047,
     "nightly_adr_ratio": 1.0
   },
@@ -29,7 +31,8 @@
       "known_tax_rows": 33,
       "known_cancellation_policy_rows": 391,
       "known_cancellation_class_rows": 391,
-      "known_cancellation_deadline_rows": 391
+      "known_cancellation_deadline_rows": 391,
+      "known_cancellation_schedule_rows": 0
     },
     {
       "source_platform": "expedia_group",
@@ -39,7 +42,8 @@
       "known_tax_rows": 345,
       "known_cancellation_policy_rows": 345,
       "known_cancellation_class_rows": 345,
-      "known_cancellation_deadline_rows": 345
+      "known_cancellation_deadline_rows": 345,
+      "known_cancellation_schedule_rows": 0
     },
     {
       "source_platform": "official",
@@ -48,8 +52,9 @@
       "known_room_size_rows": 86901,
       "known_tax_rows": 36371,
       "known_cancellation_policy_rows": 52873,
-      "known_cancellation_class_rows": 43326,
-      "known_cancellation_deadline_rows": 34989
+      "known_cancellation_class_rows": 45076,
+      "known_cancellation_deadline_rows": 34989,
+      "known_cancellation_schedule_rows": 1750
     }
   ],
   "top_tax_gaps": [
@@ -114,6 +119,6 @@
       "unknown_tax_rows": 858
     }
   ],
-  "unresolved_cancellation_rows": 9547,
-  "unresolved_cancellation_groups": 6
+  "unresolved_cancellation_rows": 7797,
+  "unresolved_cancellation_groups": 5
 }

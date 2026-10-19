@@ -9,6 +9,7 @@ from services.rate_parity import (
     calculate_rate_parity,
     normalize_cancellation_class,
     normalize_cancellation_deadline,
+    normalize_cancellation_schedule,
     normalize_tax_inclusion,
 )
 
@@ -289,6 +290,41 @@ def test_full_stay_charge_and_explicit_no_refund_are_non_refundable():
         product(cancellation_policy=policy)
     ) == "non_refundable"
     assert normalize_cancellation_class("事先付款・無法退款") == "non_refundable"
+
+
+def test_tiered_deposit_penalties_are_structured_without_fake_deadline():
+    policy = (
+        "取消費用 取消日期 取消日期計費比例 "
+        "13~4天之前 訂金的30％ 3~1天之前 訂金的70％ 當天 訂金的100％"
+    )
+
+    assert normalize_cancellation_class(policy) == "conditional"
+    assert normalize_cancellation_deadline(
+        product(cancellation_policy=policy, check_in="2026-12-20")
+    ) == "unknown"
+    assert normalize_cancellation_schedule(policy) == [
+        {
+            "days_before_from": 13,
+            "days_before_to": 4,
+            "penalty_percent": 30,
+            "penalty_basis": "deposit",
+        },
+        {
+            "days_before_from": 3,
+            "days_before_to": 1,
+            "penalty_percent": 70,
+            "penalty_basis": "deposit",
+        },
+        {
+            "days_before_from": 0,
+            "days_before_to": 0,
+            "penalty_percent": 100,
+            "penalty_basis": "deposit",
+        },
+    ]
+    assert canonical_comparison_key(
+        product(cancellation_policy=policy, check_in="2026-12-20")
+    ) is None
 
 
 def test_english_dated_room_charge_policy_is_conditional():

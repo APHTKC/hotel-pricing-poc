@@ -11,6 +11,7 @@ import duckdb
 from services.rate_parity import (
     normalize_cancellation_class,
     normalize_cancellation_deadline,
+    normalize_cancellation_schedule,
 )
 
 
@@ -149,6 +150,8 @@ def build_warehouse_analysis(
     nightly_adr = int(summary["nightly_adr_rows"])
     cancellation_class_counts: Counter[str] = Counter()
     cancellation_deadline_counts: Counter[str] = Counter()
+    cancellation_schedule_counts: Counter[str] = Counter()
+    structured_cancellation_schedules: Counter[tuple[str, str, str, str]] = Counter()
     unknown_cancellation_policies: Counter[tuple[str, str, str]] = Counter()
     for hotel_id, source_platform, policy, check_in in cancellation_rows:
         if normalize_cancellation_class(policy) != "unknown":
@@ -161,8 +164,20 @@ def build_warehouse_analysis(
             {"cancellation_policy": policy, "check_in": check_in}
         ) != "unknown":
             cancellation_deadline_counts[source_platform] += 1
+        schedule = normalize_cancellation_schedule(policy)
+        if schedule:
+            cancellation_schedule_counts[source_platform] += 1
+            structured_cancellation_schedules[
+                (
+                    hotel_id,
+                    source_platform,
+                    str(policy).strip(),
+                    json.dumps(schedule, ensure_ascii=False, sort_keys=True),
+                )
+            ] += 1
     known_cancellation_class = sum(cancellation_class_counts.values())
     known_cancellation_deadline = sum(cancellation_deadline_counts.values())
+    known_cancellation_schedule = sum(cancellation_schedule_counts.values())
 
     sources = [dict(zip(source_columns, row)) for row in source_rows]
     for source in sources:
@@ -171,6 +186,9 @@ def build_warehouse_analysis(
             source_platform
         ]
         source["known_cancellation_deadline_rows"] = cancellation_deadline_counts[
+            source_platform
+        ]
+        source["known_cancellation_schedule_rows"] = cancellation_schedule_counts[
             source_platform
         ]
 
@@ -187,7 +205,7 @@ def build_warehouse_analysis(
     )
 
     payload = {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -215,6 +233,10 @@ def build_warehouse_analysis(
             "known_cancellation_deadline_ratio": _ratio(
                 known_cancellation_deadline, row_count
             ),
+            "known_cancellation_schedule_rows": known_cancellation_schedule,
+            "known_cancellation_schedule_ratio": _ratio(
+                known_cancellation_schedule, row_count
+            ),
             "nightly_adr_rows": nightly_adr,
             "nightly_adr_ratio": _ratio(nightly_adr, row_count),
         },
@@ -230,6 +252,24 @@ def build_warehouse_analysis(
             }
             for (hotel_id, source_platform, policy), rows in sorted(
                 unknown_cancellation_policies.items(),
+                key=lambda item: (-item[1], *item[0]),
+            )
+        ],
+        "structured_cancellation_schedules": [
+            {
+                "hotel_id": hotel_id,
+                "source_platform": source_platform,
+                "cancellation_policy": policy,
+                "schedule": json.loads(schedule_json),
+                "rows": rows,
+            }
+            for (
+                hotel_id,
+                source_platform,
+                policy,
+                schedule_json,
+            ), rows in sorted(
+                structured_cancellation_schedules.items(),
                 key=lambda item: (-item[1], *item[0]),
             )
         ],

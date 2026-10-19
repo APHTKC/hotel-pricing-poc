@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "input": "data/warehouse/rates/*.parquet",
   "manifest_sha256": [
     {
@@ -25,10 +25,12 @@
     "known_tax_ratio": 0.412692,
     "known_cancellation_policy_rows": 53609,
     "known_cancellation_policy_ratio": 0.60203,
-    "known_cancellation_class_rows": 44062,
-    "known_cancellation_class_ratio": 0.494817,
+    "known_cancellation_class_rows": 45812,
+    "known_cancellation_class_ratio": 0.51447,
     "known_cancellation_deadline_rows": 35725,
     "known_cancellation_deadline_ratio": 0.401193,
+    "known_cancellation_schedule_rows": 1750,
+    "known_cancellation_schedule_ratio": 0.019653,
     "nightly_adr_rows": 89047,
     "nightly_adr_ratio": 1.0
   },
@@ -41,7 +43,8 @@
       "known_tax_rows": 33,
       "known_cancellation_policy_rows": 391,
       "known_cancellation_class_rows": 391,
-      "known_cancellation_deadline_rows": 391
+      "known_cancellation_deadline_rows": 391,
+      "known_cancellation_schedule_rows": 0
     },
     {
       "source_platform": "expedia_group",
@@ -51,7 +54,8 @@
       "known_tax_rows": 345,
       "known_cancellation_policy_rows": 345,
       "known_cancellation_class_rows": 345,
-      "known_cancellation_deadline_rows": 345
+      "known_cancellation_deadline_rows": 345,
+      "known_cancellation_schedule_rows": 0
     },
     {
       "source_platform": "official",
@@ -60,8 +64,9 @@
       "known_room_size_rows": 86901,
       "known_tax_rows": 36371,
       "known_cancellation_policy_rows": 52873,
-      "known_cancellation_class_rows": 43326,
-      "known_cancellation_deadline_rows": 34989
+      "known_cancellation_class_rows": 45076,
+      "known_cancellation_deadline_rows": 34989,
+      "known_cancellation_schedule_rows": 1750
     }
   ],
   "hotels_by_unknown_room_size": [
@@ -862,12 +867,6 @@
       "rows": 2063
     },
     {
-      "hotel_id": "hoshinoya_guguan",
-      "source_platform": "official",
-      "cancellation_policy": "取消費用 取消日期 取消日期計費比例 13~4天之前 訂金的30％ 3~1天之前 訂金的70％ 當天 訂金的100％",
-      "rows": 1750
-    },
-    {
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
       "cancellation_policy": "將收取取消費用",
@@ -884,6 +883,34 @@
       "source_platform": "official",
       "cancellation_policy": "將收取取消費用",
       "rows": 343
+    }
+  ],
+  "structured_cancellation_schedules": [
+    {
+      "hotel_id": "hoshinoya_guguan",
+      "source_platform": "official",
+      "cancellation_policy": "取消費用 取消日期 取消日期計費比例 13~4天之前 訂金的30％ 3~1天之前 訂金的70％ 當天 訂金的100％",
+      "schedule": [
+        {
+          "days_before_from": 13,
+          "days_before_to": 4,
+          "penalty_basis": "deposit",
+          "penalty_percent": 30
+        },
+        {
+          "days_before_from": 3,
+          "days_before_to": 1,
+          "penalty_basis": "deposit",
+          "penalty_percent": 70
+        },
+        {
+          "days_before_from": 0,
+          "days_before_to": 0,
+          "penalty_basis": "deposit",
+          "penalty_percent": 100
+        }
+      ],
+      "rows": 1750
     }
   ]
 }

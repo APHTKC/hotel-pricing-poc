@@ -34,6 +34,54 @@ NUMBER_WORDS = {
     "thirty": 30,
 }
 
+
+def normalize_cancellation_schedule(policy: str | None) -> list[dict[str, Any]]:
+    """Return explicit multi-stage cancellation penalties without inference.
+
+    Some official booking engines publish tiered penalties instead of one
+    free-cancellation deadline. Preserving those tiers makes the policy useful
+    for analysis, while an empty result deliberately leaves vague text and
+    single-deadline products outside this representation.
+    """
+    if not policy:
+        return []
+    text = " ".join(str(policy).split())
+    tiers: list[dict[str, Any]] = []
+    for start, end, percent in re.findall(
+        r"(\d+)\s*[~～-]\s*(\d+)\s*(?:天|日)(?:之前|前)"
+        r".{0,30}?訂金(?:的)?\s*(\d+)\s*[％%]",
+        text,
+    ):
+        start_days, end_days, penalty = int(start), int(end), int(percent)
+        if start_days < end_days or not 0 <= penalty <= 100:
+            return []
+        tiers.append(
+            {
+                "days_before_from": start_days,
+                "days_before_to": end_days,
+                "penalty_percent": penalty,
+                "penalty_basis": "deposit",
+            }
+        )
+    same_day = re.search(
+        r"當天.{0,30}?訂金(?:的)?\s*(\d+)\s*[％%]",
+        text,
+    )
+    if same_day:
+        penalty = int(same_day.group(1))
+        if not 0 <= penalty <= 100:
+            return []
+        tiers.append(
+            {
+                "days_before_from": 0,
+                "days_before_to": 0,
+                "penalty_percent": penalty,
+                "penalty_basis": "deposit",
+            }
+        )
+    return tiers if len(tiers) >= 2 else []
+
+
 def _value(row: Mapping[str, Any] | Any, name: str, default=None):
     return row.get(name, default) if isinstance(row, Mapping) else getattr(row, name, default)
 
@@ -41,6 +89,8 @@ def normalize_cancellation_class(policy: str | None) -> str:
     if not policy:
         return UNKNOWN
     text = " ".join(policy.lower().split())
+    if normalize_cancellation_schedule(policy):
+        return "conditional"
     if any(term in text for term in (
         "non-refundable",
         "non refundable",
