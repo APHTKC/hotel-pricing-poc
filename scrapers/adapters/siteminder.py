@@ -6,7 +6,7 @@ from urllib.parse import urlencode
 
 from playwright.async_api import Locator, Page
 
-from app.models import Hotel, RateObservation, ScrapeStatus
+from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
 from scrapers.adapters.capella import CapellaScraper, breakfast_included, parse_money
 
 
@@ -76,6 +76,7 @@ class SiteMinderScraper(CapellaScraper):
     """Adapter for public SiteMinder Direct Booking availability pages."""
 
     diagnostic_name = "SiteMinder Direct Booking"
+    displayed_total_tax_inclusion = TaxInclusion.UNKNOWN
 
     async def fetch_rates(
         self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2
@@ -192,6 +193,7 @@ class SiteMinderScraper(CapellaScraper):
             price_before_tax=None,
             service_charge=None,
             tax=None,
+            tax_inclusion=self.displayed_total_tax_inclusion,
             total_price=total,
             currency="TWD",
             source_url=source_url,

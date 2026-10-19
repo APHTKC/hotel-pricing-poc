@@ -1,11 +1,14 @@
 from datetime import date
 from decimal import Decimal
 
+from app.models import TaxInclusion
+
 from scrapers.adapters.siteminder import (
     booking_url,
     parse_cancellation,
     parse_room_size,
     room_size,
+    SiteMinderScraper,
 )
 
 
@@ -46,3 +49,7 @@ def test_gaia_room_size_falls_back_to_verified_official_profile():
     assert room_size("the_gaia_taipei", "丹鳳套房 Danfeng Suite", "") == Decimal("50")
     assert room_size("the_gaia_taipei", "大地套房 The Gaia Suite", "") == Decimal("66")
     assert room_size("the_gaia_taipei", "Unknown room", "") is None
+
+
+def test_siteminder_visible_total_remains_unknown_without_tax_label():
+    assert SiteMinderScraper.displayed_total_tax_inclusion == TaxInclusion.UNKNOWN
