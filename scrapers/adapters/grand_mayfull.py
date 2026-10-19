@@ -4,7 +4,7 @@ from datetime import UTC, date, datetime
 from decimal import Decimal
 from urllib.parse import urlencode
 
-from app.models import Hotel, RateObservation, ScrapeStatus
+from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
 from scrapers.adapters.capella import CapellaScraper, parse_money
 
 
@@ -35,6 +35,7 @@ def booking_url(check_in: date, check_out: date, adults: int = 2) -> str:
 class GrandMayfullScraper(CapellaScraper):
     supported_hotel_id = "grand_mayfull_taipei"
     diagnostic_name = "Grand Mayfull Taipei"
+    displayed_total_tax_inclusion = TaxInclusion.UNKNOWN
 
     async def fetch_rates(
         self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2
@@ -116,6 +117,7 @@ class GrandMayfullScraper(CapellaScraper):
                         price_before_tax=None,
                         service_charge=None,
                         tax=None,
+                        tax_inclusion=self.displayed_total_tax_inclusion,
                         total_price=total,
                         currency="TWD",
                         source_url=source_url,

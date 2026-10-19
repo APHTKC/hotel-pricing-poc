@@ -2,7 +2,12 @@ from datetime import date
 from decimal import Decimal
 from urllib.parse import parse_qs, urlparse
 
-from scrapers.adapters.grand_mayfull import booking_url, parse_room_size
+from app.models import TaxInclusion
+from scrapers.adapters.grand_mayfull import (
+    GrandMayfullScraper,
+    booking_url,
+    parse_room_size,
+)
 
 
 def test_parse_room_size():
@@ -18,3 +23,7 @@ def test_booking_url():
     assert query["checkInDate"] == ["2026-10-10"]
     assert query["checkOutDate"] == ["2026-10-11"]
     assert query["currency"] == ["TWD"]
+
+
+def test_grand_mayfull_visible_total_remains_unknown_without_tax_label():
+    assert GrandMayfullScraper.displayed_total_tax_inclusion == TaxInclusion.UNKNOWN
