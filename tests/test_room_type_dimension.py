@@ -750,3 +750,52 @@ def test_kimpton_daan_dated_ota_codes_match_official_room_families_conservativel
             "room_size_sqm": size,
         }, lookup)
         assert ambiguous["stable_room_type_id"] is None
+
+
+def test_okura_dated_source_codes_match_official_rooms_and_leave_generic_deluxe_unmapped():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "okura_prestige_taipei"
+    }
+    expected = {
+        ("Okura Prestige King Bed", "OPKN", "official", 44): "Okura Prestige Room",
+        ("Okura Prestige Twin Bed", "OPHS", "official", 44): "Okura Prestige Room",
+        ("Executive King Bed WZ Balcony", "EXKB", "official", 56): "Executive Room with Balcony",
+        ("Executive King Bed", "EXKN", "official", 56): "Executive Room",
+        ("大倉特大雙人床房", "booking:44470803", "booking_com", 44): "Okura Prestige Room",
+        ("大倉雙床房", "booking:44470804", "booking_com", 44): "Okura Prestige Room",
+        ("大倉菁英一大床, 1 張特大雙人床", "expedia:5286939:okura-elite-king", "expedia_group", 44): "Okura Prestige Room",
+        ("大倉菁英兩小床, 2 張單人床", "expedia:5286939:okura-elite-twin", "expedia_group", 44): "Okura Prestige Room",
+    }
+
+    for (label, code, source_platform, size), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "okura_prestige_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": source_platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == ({"official": "2026-10-18", "booking_com": "2026-10-14", "expedia_group": "2026-10-17"}[source_platform])
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    for label, code in (
+        ("豪華特大雙人床房", "booking:44470801"),
+        ("豪華雙床房", "booking:44470802"),
+    ):
+        generic = match_room_type({
+            "hotel_id": "okura_prestige_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": 44,
+        }, lookup)
+        assert generic["stable_room_type_id"] is None
