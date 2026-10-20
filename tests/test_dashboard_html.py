@@ -2017,9 +2017,10 @@ def test_hotel_profiles_publish_evidenced_michelin_restaurant_statistics():
         for restaurant in profile.get("michelin_restaurants", [])
     ]
 
-    assert len(entries) == 7
+    assert len(entries) == 9
     assert {hotel_id for hotel_id, _ in entries} == {
         "capella_taipei",
+        "grand_mayfull_taipei",
         "mo_taipei",
         "regent_taipei",
         "palais_de_chine",
@@ -2036,6 +2037,14 @@ def test_hotel_profiles_publish_evidenced_michelin_restaurant_statistics():
         item for item in by_id["capella_taipei"]["michelin_restaurants"]
         if item["name"] == "Mizue"
     )["distinction"] == "two_stars"
+    assert next(
+        item for item in by_id["grand_mayfull_taipei"]["michelin_restaurants"]
+        if item["name"] == "MIPON"
+    )["distinction"] == "one_star"
+    assert next(
+        item for item in by_id["the_landis_taipei"]["michelin_restaurants"]
+        if item["name"] == "Paris 1930 de Hideki Takayama"
+    )["distinction"] == "selected"
 
     html = Path("public/hotels.html").read_text(encoding="utf-8")
     assert "michelin_restaurants" in html

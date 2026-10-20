@@ -361,7 +361,7 @@
     },
     {
       "hotel_id": "grand_mayfull_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-10-20",
       "stay_times": {
         "check_in": "16:00",
         "check_out": "11:00",
@@ -380,6 +380,16 @@
         {"name": "GMT Italian Restaurant", "type_zh": "義大利料理", "type_en": "Italian", "type_ja": "イタリア料理"},
         {"name": "Cocoon Poolside Bar", "type_zh": "池畔酒吧", "type_en": "Poolside bar", "type_ja": "プールサイドバー"},
         {"name": "Moment café & bakery", "type_zh": "咖啡、甜點與烘焙", "type_en": "Café, desserts and bakery", "type_ja": "カフェ・デザート・ベーカリー"}
+      ],
+      "michelin_restaurants": [
+        {
+          "name": "MIPON",
+          "guide_year": 2026,
+          "distinction": "one_star",
+          "verified_at": "2026-10-20",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/mipon"
+        }
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": true, "name": "Club9 Exclusive Lounge", "kind": "members_club"},
@@ -2119,6 +2129,14 @@
           "verified_at": "2026-10-19",
           "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
           "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/tien-hsiang-lo"
+        },
+        {
+          "name": "Paris 1930 de Hideki Takayama",
+          "guide_year": 2026,
+          "distinction": "selected",
+          "verified_at": "2026-10-20",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/paris-1930-de-hideki-takayama"
         }
       ],
       "source_urls": [
