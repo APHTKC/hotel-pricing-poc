@@ -27,6 +27,7 @@ def test_room_normalization_helpers():
         "language": None,
         "source_type": None,
         "source_platform": None,
+        "room_type_code": None,
         "source_url": "https://example.com",
         "observed_at": "2026-10-18",
     }]
@@ -381,3 +382,41 @@ def test_shangrila_taipei_dated_ota_aliases_match_official_room_types():
         assert room["name_en"] == official_name
         assert alias["source_platform"] == source_platform
         assert alias["observed_at"].startswith("2026-10-")
+
+
+def test_the_gaia_official_booking_alias_matches_qiyan_room():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+
+    matched = match_room_type({
+        "hotel_id": "the_gaia_taipei",
+        "room_type_name": "�_���M�ǩ� Qiyan Japanese Style Room",
+        "room_type_code": "310941",
+        "source_platform": "official",
+        "room_size_sqm": 33,
+    }, lookup)
+    room = next(
+        item for item in dimension["room_types"]
+        if item["stable_room_type_id"] == matched["stable_room_type_id"]
+    )
+    alias = next(
+        item for item in room["aliases"]
+        if item["label"] == "奇岩和洋房 Qiyan Japanese Style Room"
+    )
+
+    assert room["name_en"] == "Qiyan Room"
+    assert alias["source_type"] == "official"
+    assert alias["source_platform"] == "official"
+    assert alias["room_type_code"] == "310941"
+    assert alias["observed_at"] == "2026-10-18"
+    assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    wrong_source = match_room_type({
+        "hotel_id": "the_gaia_taipei",
+        "room_type_name": "corrupted label",
+        "room_type_code": "310941",
+        "source_platform": "booking_com",
+        "room_size_sqm": 33,
+    }, lookup)
+    assert wrong_source["stable_room_type_id"] is None

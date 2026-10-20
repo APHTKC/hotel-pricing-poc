@@ -1751,7 +1751,7 @@
         "source_type": "official",
         "source_url": "https://www.thegaiahotel.com/en/rooms/",
         "rooms": [
-          {"name_zh": "奇岩客房", "name_en": "Qiyan Room", "name_ja": "Qiyan Room", "size_sqm": 33},
+          {"name_zh": "奇岩客房", "name_en": "Qiyan Room", "name_ja": "Qiyan Room", "size_sqm": 33, "aliases": [{"label": "奇岩和洋房 Qiyan Japanese Style Room", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "310941", "source_url": "https://book-directonline.com/properties/thegaiahoteltaipeidirect?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-16&checkOutDate=2027-01-17", "observed_at": "2026-10-18"}]},
           {"name_zh": "楓林客房", "name_en": "Fenglin Room", "name_ja": "Fenglin Room", "size_sqm": 36},
           {"name_zh": "雲集客房", "name_en": "Yunji Room", "name_ja": "Yunji Room", "size_sqm": 43},
           {"name_zh": "丹鳳套房", "name_en": "Danfeng Room", "name_ja": "Danfeng Room", "size_sqm": 50},

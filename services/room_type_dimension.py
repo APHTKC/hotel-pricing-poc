@@ -118,6 +118,7 @@ def evidenced_aliases(room: dict) -> list[dict]:
             "language": alias.get("language"),
             "source_type": alias.get("source_type"),
             "source_platform": alias.get("source_platform"),
+            "room_type_code": alias.get("room_type_code"),
             "source_url": source_url,
             "observed_at": observed_at,
         })
@@ -141,7 +142,15 @@ def build_room_type_lookup(dimension_payload: dict) -> dict[tuple[str, str], tup
             continue
         labels = [room.get(key) for key in ("name_zh", "name_en", "name_ja")]
         labels.extend(room.get("aliases_zh") or [])
-        labels.extend(alias["label"] for alias in evidenced_aliases(room))
+        aliases = evidenced_aliases(room)
+        labels.extend(alias["label"] for alias in aliases)
+        for alias in aliases:
+            source_platform = str(alias.get("source_platform") or "").strip()
+            room_type_code = str(alias.get("room_type_code") or "").strip()
+            if source_platform and room_type_code:
+                code_key = (hotel_id, f"__code__{source_platform}:{room_type_code}")
+                if room not in candidates[code_key]:
+                    candidates[code_key].append(room)
         for label in labels:
             normalized = normalize_room_label(label)
             if normalized and room not in candidates[(hotel_id, normalized)]:
@@ -175,8 +184,14 @@ def match_room_type(row: dict, lookup: dict[tuple[str, str], tuple[dict, ...]]) 
         "room_match_status": "unmatched_label" if normalized else "missing_room_type_name",
     }
     observed_area = _number(row.get("room_size_sqm"))
-    candidates = list(lookup.get((hotel_id, normalized), ()))
-    match_status = "matched_exact_evidenced_label"
+    source_platform = str(row.get("source_platform") or "").strip()
+    room_type_code = str(row.get("room_type_code") or "").strip()
+    candidates = []
+    if source_platform and room_type_code:
+        candidates = list(lookup.get((hotel_id, f"__code__{source_platform}:{room_type_code}"), ()))
+    match_status = "matched_evidenced_source_code" if candidates else "matched_exact_evidenced_label"
+    if not candidates:
+        candidates = list(lookup.get((hotel_id, normalized), ()))
     if not candidates:
         # OTA labels commonly append bed, view and occupancy wording to the
         # hotel's evidenced room name.  Accept only literal containment of an
