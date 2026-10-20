@@ -349,3 +349,35 @@ def test_mandarin_oriental_taipei_dated_ota_aliases_match_official_room_types():
         assert room["name_en"] == official_name
         assert alias["source_platform"] == source_platform
         assert alias["observed_at"].startswith("2026-10-")
+
+
+def test_shangrila_taipei_dated_ota_aliases_match_official_room_types():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+
+    expected = {
+        ("豪華特大雙人床房", 40): ("Deluxe Room", "booking_com"),
+        ("豪華雙床房", 40): ("Deluxe Room", "booking_com"),
+        ("台北 101 景觀豪華特大雙人床房", 40): ("Deluxe Taipei 101 View Room", "booking_com"),
+        ("尊爵特大雙人床房", 60): ("Premier Room", "booking_com"),
+        ("Horizon 高級客房 1 King", 36): ("Horizon Superior Room", "expedia_group"),
+    }
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "shangrila_taipei"
+    }
+
+    for (label, area), (official_name, source_platform) in expected.items():
+        matched = match_room_type({
+            "hotel_id": "shangrila_taipei",
+            "room_type_name": label,
+            "room_size_sqm": area,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["label"] == label)
+
+        assert room["name_en"] == official_name
+        assert alias["source_platform"] == source_platform
+        assert alias["observed_at"].startswith("2026-10-")
