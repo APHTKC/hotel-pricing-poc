@@ -574,3 +574,49 @@ def test_miramar_garden_dated_booking_codes_match_official_rooms():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == ("2026-10-17" if code.startswith("expedia:") else "2026-10-14")
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_episode_daan_dated_ota_codes_match_official_rooms_and_reject_area_mismatch():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "episode_daan_taipei"
+    }
+    expected = {
+        ("雙床房", "booking:136265920", 30): "2 Twin Beds",
+        ("城市景觀大床房", "expedia:10965601:city-view-king", 30): "1 King Bed, City View",
+        ("城市景觀雙床房", "expedia:10965601:city-view-twin", 30): "2 Twin Beds, City View",
+        ("市景雙人房－附 2 張雙人床", "booking:136265917", 30): "2 Double Beds",
+        ("雙大床房", "expedia:10965601:double-queen", 30): "2 Double Beds",
+        ("豪華角落特大雙人床房－附沙發床", "booking:136265921", 33): "1 King Bed, Sofa Bed",
+        ("豪華特大雙人床房－附陽台", "booking:136265919", 36): "1 King Bed, Balcony, Deluxe",
+        ("豪華客房, 1 張特大雙人床, 陽台", "expedia:10965601:deluxe-king-balcony", 36): "1 King Bed, Balcony, Deluxe",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        source_platform = "expedia_group" if code.startswith("expedia:") else "booking_com"
+        matched = match_room_type({
+            "hotel_id": "episode_daan_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": source_platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == ("2026-10-17" if code.startswith("expedia:") else "2026-10-13")
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    area_mismatch = match_room_type({
+        "hotel_id": "episode_daan_taipei",
+        "room_type_name": "一大床沙發床房",
+        "room_type_code": "expedia:10965601:king-sofa-bed",
+        "source_platform": "expedia_group",
+        "room_size_sqm": 30,
+    }, lookup)
+    assert area_mismatch["stable_room_type_id"] is None
