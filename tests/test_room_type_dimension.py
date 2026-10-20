@@ -447,3 +447,51 @@ def test_shangrila_tainan_official_room_codes_match_grand_deluxe_room():
         assert alias["label"] == label
         assert alias["observed_at"] == "2026-10-18"
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_grand_hyatt_taipei_dated_booking_codes_match_official_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "grand_hyatt_taipei"
+    }
+    expected = {
+        ("101 景觀特級行政套房", "booking:134101233", 83): "Grand Executive 101 View Suite",
+        ("101 景觀雙床房", "booking:134101246", 33): "2 Twin Beds 101 View",
+        ("特大號床間－可進入俱樂部", "booking:134101219", 33): "1 King Bed Club Access",
+        ("101 景觀頂級特大雙人床單房公寓－可使用俱樂部", "booking:134101222", 50): "1 King Bed 101 View Club Access Premium Studio",
+        ("101 景觀頂級雙床單房公寓－可使用俱樂部", "booking:134101247", 50): "2 Twin Beds 101 View Club Access Premium Studio",
+        ("特級行政套房", "booking:134101234", 83): "Grand Executive Suite",
+        ("豪華特大號床間－可使用俱樂部", "booking:134101220", 40): "1 King Bed Club Access Deluxe",
+        ("豪華特大雙人床房", "booking:134101224", 40): "1 King Bed Deluxe",
+        ("豪華雙床房", "booking:134101225", 40): "2 Twin Beds Deluxe",
+        ("高級特大號床一室公寓", "booking:134101230", 50): "1 King Bed Premium Studio",
+        ("高級雙床一室公寓", "booking:134101231", 50): "2 Twin Beds Premium Studio",
+    }
+
+    for (label, code, area), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "grand_hyatt_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": area,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-12"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    area_mismatch = match_room_type({
+        "hotel_id": "grand_hyatt_taipei",
+        "room_type_name": "101 景觀特大雙人床房",
+        "room_type_code": "booking:134101245",
+        "source_platform": "booking_com",
+        "room_size_sqm": 30,
+    }, lookup)
+    assert area_mismatch["stable_room_type_id"] is None
