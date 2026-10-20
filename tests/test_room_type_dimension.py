@@ -276,3 +276,38 @@ def test_grand_mayfull_dated_hotels_com_aliases_match_official_room_types():
         assert room["name_en"] == official_name
         assert alias["source_platform"] == "expedia_group"
         assert alias["observed_at"] == "2026-10-17"
+
+
+def test_grand_hilai_taipei_evidenced_aliases_match_official_room_types():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+
+    expected = {
+        ("豪華特大雙人床房", 44): ("Deluxe Room", "booking_com"),
+        ("豪華雙床房", 44): ("Deluxe Room", "booking_com"),
+        ("豪華雙人房", 44): ("Deluxe Room", "expedia_group"),
+        ("行政雙人房", 44): ("Executive Deluxe Room", "expedia_group"),
+        ("豪華套房 Deluxe Suite(King)", 59.5): ("Executive Deluxe Suite", "official"),
+        ("豪華套房 Deluxe Suite(Twin)", 59.5): ("Executive Deluxe Suite", "official"),
+        ("豪華套房－可使用貴賓廳", 59): ("Executive Deluxe Suite", "booking_com"),
+        ("豪華套房", 59): ("Executive Deluxe Suite", "expedia_group"),
+    }
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "grand_hilai_taipei"
+    }
+
+    for (label, area), (official_name, source_platform) in expected.items():
+        matched = match_room_type({
+            "hotel_id": "grand_hilai_taipei",
+            "room_type_name": label,
+            "room_size_sqm": area,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["label"] == label)
+
+        assert room["name_en"] == official_name
+        assert alias["source_platform"] == source_platform
+        assert alias["observed_at"].startswith("2026-10-")
