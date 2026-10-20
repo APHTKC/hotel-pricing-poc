@@ -746,7 +746,7 @@
     },
     {
       "hotel_id": "taipei_marriott",
-    "verified_at": "2026-10-07",
+    "verified_at": "2026-10-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -765,15 +765,15 @@
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
       "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
       "room_snapshot": {
-        "observed_at": "2026-09-23",
+        "observed_at": "2026-10-20",
         "source_type": "official",
         "source_url": "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
         "rooms": [
-          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 40},
-          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 40},
-          {"name_zh": "極致客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 40},
+          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 40, "aliases": [{"label": "經典特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "經典雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 40, "aliases": [{"label": "豪華特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "豪華雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
+          {"name_zh": "極致客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 40, "aliases": [{"label": "尊爵特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "尊爵雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "極品客房，1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho550173/tai-bei-wan-hao-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-22&chkout=2026-12-23&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}, {"label": "極品雙床房，2 張單人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho550173/tai-bei-wan-hao-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-22&chkout=2026-12-23&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
           {"name_zh": "居家式客房", "name_en": "Homey Room", "name_ja": "Homey Room", "size_sqm": 51},
-          {"name_zh": "尊榮客房", "name_en": "Privilege Room", "name_ja": "Privilege Room", "size_sqm": 40},
+          {"name_zh": "尊榮客房", "name_en": "Privilege Room", "name_ja": "Privilege Room", "size_sqm": 40, "aliases": [{"label": "尊榮特大雙人床房－享行政貴賓廳使用權", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "尊榮雙床房－享行政貴賓廳使用權", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "豪華套房", "name_en": "Comfort Suite", "name_ja": "Comfort Suite", "size_sqm": 65},
           {"name_zh": "萬豪套房", "name_en": "Brilliant Suite", "name_ja": "Brilliant Suite", "size_sqm": 80}
         ]

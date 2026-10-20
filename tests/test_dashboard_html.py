@@ -966,7 +966,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["taipei_marriott"]["facilities"]["sauna"] is True
     assert by_id["taipei_marriott"]["lounge"]["name"] == "Executive Lounge"
     snapshot = by_id["taipei_marriott"]["room_snapshot"]
-    assert snapshot["observed_at"] == "2026-09-23"
+    assert snapshot["observed_at"] == "2026-10-20"
     assert snapshot["source_type"] == "official"
     assert len(snapshot["rooms"]) == 7
     assert {room["name_en"] for room in snapshot["rooms"]} >= {"Classic Room", "Brilliant Suite"}

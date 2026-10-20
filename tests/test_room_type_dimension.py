@@ -212,3 +212,38 @@ def test_intercontinental_taipei_booking_aliases_match_official_room_types():
         assert room["name_en"] == official_name
         assert alias["source_platform"] == "booking_com"
         assert alias["observed_at"] == "2026-10-13"
+
+
+def test_taipei_marriott_dated_ota_aliases_match_official_room_types():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+
+    expected = {
+        "經典特大雙人床房": "Classic Room",
+        "經典雙床房": "Classic Room",
+        "豪華特大雙人床房": "Deluxe Room",
+        "豪華雙床房": "Deluxe Room",
+        "尊爵特大雙人床房": "Premier Room",
+        "尊爵雙床房": "Premier Room",
+        "尊榮特大雙人床房－享行政貴賓廳使用權": "Privilege Room",
+        "尊榮雙床房－享行政貴賓廳使用權": "Privilege Room",
+    }
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "taipei_marriott"
+    }
+
+    for label, official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "taipei_marriott",
+            "room_type_name": label,
+            "room_size_sqm": 40,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["label"] == label)
+
+        assert room["name_en"] == official_name
+        assert alias["source_platform"] == "booking_com"
+        assert alias["observed_at"] == "2026-10-14"
