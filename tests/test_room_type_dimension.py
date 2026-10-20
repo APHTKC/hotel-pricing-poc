@@ -695,3 +695,58 @@ def test_metropolitan_premier_taipei_dated_booking_codes_match_official_rooms():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == "2026-10-14"
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_kimpton_daan_dated_ota_codes_match_official_room_families_conservatively():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "kimpton_da_an"
+    }
+    expected = {
+        ("Essential Room - Bed Type Not Guaranteed", "booking:415514709", 32): "Essential Room",
+        ("市景基本特大雙人床房", "booking:415514715", 32): "Essential Room",
+        ("市景基本特大雙人床房－附陽台", "booking:415514716", 32): "Essential Room",
+        ("基本特大雙人床房", "booking:415514719", 32): "Essential Room",
+        ("市景頂級特大雙人床房", "booking:415514712", 37): "Premium Room",
+        ("頂級特大雙人床房", "booking:415514721", 37): "Premium Room",
+        ("頂級特大雙人床房－獨立浴缸與步入式淋浴間", "booking:415514730", 37): "Premium Room",
+        ("頂級雙床房", "booking:415514731", 37): "Premium Room",
+        ("尊享房 大床", "expedia:23394208:premium-king", 37): "Premium Room",
+        ("尊享房 大床 獨立浴缸及步入式淋浴間", "expedia:23394208:premium-king-bathtub", 38): "Premium Room",
+        ("尊享房 大床 城市景觀", "expedia:23394208:premium-king-city-view", 38): "Premium Room",
+        ("尊榮客房, 2 張單人床", "expedia:23394208:premium-twin", 37): "Premium Room",
+        ("市景特大雙人床套房", "booking:415514707", 58): "Suite",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        source_platform = "expedia_group" if code.startswith("expedia:") else "booking_com"
+        matched = match_room_type({
+            "hotel_id": "kimpton_da_an",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": source_platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == ("2026-10-16" if code.startswith("expedia:") else ("2026-10-13" if code == "booking:415514709" else "2026-10-14"))
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    for label, code, size in (
+        ("精華特大雙人床房－無障礙設施", "booking:415514702", 38),
+        ("精選特大雙人床房－附陽台", "booking:415514720", 32),
+    ):
+        ambiguous = match_room_type({
+            "hotel_id": "kimpton_da_an",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": size,
+        }, lookup)
+        assert ambiguous["stable_room_type_id"] is None
