@@ -311,3 +311,41 @@ def test_grand_hilai_taipei_evidenced_aliases_match_official_room_types():
         assert room["name_en"] == official_name
         assert alias["source_platform"] == source_platform
         assert alias["observed_at"].startswith("2026-10-")
+
+
+def test_mandarin_oriental_taipei_dated_ota_aliases_match_official_room_types():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+
+    expected = {
+        ("豪華特大雙人床房", 55): ("Deluxe Room", "booking_com"),
+        ("豪華雙床房", 55): ("Deluxe Room", "booking_com"),
+        ("俱樂部豪華雙床房", 55): ("Club Deluxe Room", "booking_com"),
+        ("行政豪華特大雙人床房", 55): ("Club Deluxe Room", "booking_com"),
+        ("Club Deluxe 雙床房", 55): ("Club Deluxe Room", "expedia_group"),
+        ("Mandarin 客房－1 張特大雙人床", 70): ("Mandarin Room", "expedia_group"),
+        ("Mandarin 俱樂部客房－1 張特大雙人床", 70): ("Club Mandarin Room", "expedia_group"),
+        ("Lifestyle 俱樂部套房－1 張特大雙人床", 110): ("Club Lifestyle Suite", "expedia_group"),
+        ("俱樂部套房－1 張特大雙人床 (City)", 86): ("Club City Suite", "expedia_group"),
+        ("俱樂部套房－1 張特大雙人床 (Boulevard)", 110): ("Club Boulevard Suite", "expedia_group"),
+        ("俱樂部套房－1 張特大雙人床 (Premier)", 133): ("Club Premier Suite", "expedia_group"),
+    }
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "mo_taipei"
+    }
+
+    for (label, area), (official_name, source_platform) in expected.items():
+        matched = match_room_type({
+            "hotel_id": "mo_taipei",
+            "room_type_name": label,
+            "room_size_sqm": area,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["label"] == label)
+
+        assert room["name_en"] == official_name
+        assert alias["source_platform"] == source_platform
+        assert alias["observed_at"].startswith("2026-10-")
