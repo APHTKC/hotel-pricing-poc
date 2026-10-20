@@ -495,3 +495,42 @@ def test_grand_hyatt_taipei_dated_booking_codes_match_official_rooms():
         "room_size_sqm": 30,
     }, lookup)
     assert area_mismatch["stable_room_type_id"] is None
+
+
+def test_sheraton_grand_taipei_dated_ota_codes_match_official_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "sheraton_grand_taipei"
+    }
+    expected = {
+        ("高級加大雙人床房", "booking:33458317", "booking_com", 32): "Superior Room",
+        ("豪華特大雙人床房", "booking:33458313", "booking_com", 35): "Deluxe Room",
+        ("豪華雙床房", "booking:33458314", "booking_com", 35): "Deluxe Room",
+        ("尊爵特大雙人床房", "booking:33458315", "booking_com", 40): "Premier Room",
+        ("尊爵雙床房", "booking:33458316", "booking_com", 40): "Premier Room",
+        ("行政豪華特大雙人床房－禮賓樓層", "booking:33458318", "booking_com", 35): "Executive Deluxe Room",
+        ("行政豪華雙床房－禮賓樓層", "booking:33458319", "booking_com", 35): "Executive Deluxe Room",
+        ("極品客房，1 張特大雙人床", "expedia:674443:premium-king", "expedia_group", 40): "Premier Room",
+        ("極品雙床房，2 張單人床", "expedia:674443:premium-twin", "expedia_group", 40): "Premier Room",
+        ("高級客房，1 張加大雙人床", "expedia:674443:superior-queen", "expedia_group", 32): "Superior Room",
+    }
+
+    for (label, code, source_platform, area), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "sheraton_grand_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": source_platform,
+            "room_size_sqm": area,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["source_platform"] == source_platform
+        assert alias["observed_at"].startswith("2026-10-")
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
