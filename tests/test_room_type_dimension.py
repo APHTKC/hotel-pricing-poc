@@ -420,3 +420,30 @@ def test_the_gaia_official_booking_alias_matches_qiyan_room():
         "room_size_sqm": 33,
     }, lookup)
     assert wrong_source["stable_room_type_id"] is None
+
+
+def test_shangrila_tainan_official_room_codes_match_grand_deluxe_room():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "shangrila_tainan"
+    }
+
+    for label, code in (("Grand Deluxe King", "DGK"), ("Grand Deluxe Twin", "DGT")):
+        matched = match_room_type({
+            "hotel_id": "shangrila_tainan",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "official",
+            "room_size_sqm": 39,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == "Grand Deluxe Room"
+        assert alias["label"] == label
+        assert alias["observed_at"] == "2026-10-18"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
