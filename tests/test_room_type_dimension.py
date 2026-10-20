@@ -620,3 +620,40 @@ def test_episode_daan_dated_ota_codes_match_official_rooms_and_reject_area_misma
         "room_size_sqm": 30,
     }, lookup)
     assert area_mismatch["stable_room_type_id"] is None
+
+
+def test_doubletree_taipei_dated_ota_codes_match_evidenced_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "doubletree_taipei_zhongshan"
+    }
+    expected = {
+        ("客房, 1 張特大雙人床", "expedia:30690749:king", 35): "King Guest Room",
+        ("客房, 2 張單人床", "expedia:30690749:twin", 36): "Twin Guest Room with 2 Single Beds",
+        ("轉角特大雙人床房－附陽台", "booking:448071702", 33): "King Corner Room with Balcony",
+        ("客房, 1 張特大雙人床, 陽台, 邊間", "expedia:30690749:corner-balcony-king", 33): "King Corner Room with Balcony",
+        ("一臥室特大號床角落套房", "booking:448071703", 46): "King One Bedroom Corner Suite",
+        ("套房, 1 張特大雙人床和 1 張沙發床, 邊間", "expedia:30690749:corner-king-suite", 46): "King One Bedroom Corner Suite",
+        ("套房, 多張床, 邊間", "expedia:30690749:corner-twin-suite", 46): "Corner Suite with 2 Single Beds",
+        ("客房, 1 張特大雙人床, 無障礙", "expedia:30690749:accessible-king", 36): "King Accessible Room",
+    }
+
+    for (label, code, size), evidenced_name in expected.items():
+        source_platform = "expedia_group" if code.startswith("expedia:") else "booking_com"
+        matched = match_room_type({
+            "hotel_id": "doubletree_taipei_zhongshan",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": source_platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == evidenced_name
+        assert alias["observed_at"] == ("2026-10-17" if code.startswith("expedia:") else "2026-10-13")
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
