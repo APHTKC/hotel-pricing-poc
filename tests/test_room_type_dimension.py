@@ -534,3 +534,43 @@ def test_sheraton_grand_taipei_dated_ota_codes_match_official_rooms():
         assert alias["source_platform"] == source_platform
         assert alias["observed_at"].startswith("2026-10-")
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_miramar_garden_dated_booking_codes_match_official_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "miramar_garden_taipei"
+    }
+    expected = {
+        ("豪華雙人房", "booking:59177201"): "Deluxe Room",
+        ("家庭三人房", "booking:59177229"): "Deluxe Triple Room",
+        ("商務雙人房", "booking:59177203"): "Business Room",
+        ("商務雙床房", "booking:59177225"): "Business Room",
+        ("行政雙人房", "booking:59177205"): "Executive Room",
+        ("行政雙床房", "booking:59177226"): "Executive Room",
+        ("Elite Executive Double Room", "booking:59177236"): "Elite Executive Room",
+        ("精英行政雙床間", "booking:59177237"): "Elite Executive Room",
+        ("豪華雙床房", "booking:59177207"): "Deluxe Room",
+        ("豪華雙床房, 2 張單人床", "expedia:1460579:deluxe-twin"): "Deluxe Room",
+        ("精英行政大床房, 1 張特大雙人床", "expedia:1460579:elite-executive-king"): "Elite Executive Room",
+        ("老闆套房", "booking:59177235"): "Boss Suite",
+    }
+
+    for (label, code), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "miramar_garden_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group" if code.startswith("expedia:") else "booking_com",
+            "room_size_sqm": 80 if code == "booking:59177235" else 42,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == ("2026-10-17" if code.startswith("expedia:") else "2026-10-14")
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
