@@ -657,3 +657,41 @@ def test_doubletree_taipei_dated_ota_codes_match_evidenced_rooms():
         assert room["name_en"] == evidenced_name
         assert alias["observed_at"] == ("2026-10-17" if code.startswith("expedia:") else "2026-10-13")
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_metropolitan_premier_taipei_dated_booking_codes_match_official_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "hotel_metropolitan_premier_taipei"
+    }
+    expected = {
+        ("標準特大雙人床房", "booking:715720902", 36): "Deluxe King",
+        ("標準雙床房", "booking:715720901", 36): "Deluxe Twin",
+        ("高級特大雙人床房", "booking:715720903", 43): "Deluxe Premier King",
+        ("高級雙床房", "booking:715720904", 43): "Deluxe Premier Twin",
+        ("行政雙人房", "booking:715720905", 36): "Executive King",
+        ("行政特大雙人床房", "booking:715720906", 43): "Executive Premier King",
+        ("行政雙床房", "booking:715720907", 43): "Executive Premier Twin",
+        ("行政角落雙床房", "booking:715720915", 62): "Executive Corner Twin",
+        ("行政套房－特大雙人床", "booking:715720908", 62): "Executive Suite King",
+        ("行政雙床套房－兩張單人床", "booking:715720909", 62): "Executive Suite Twin",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "hotel_metropolitan_premier_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-14"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
