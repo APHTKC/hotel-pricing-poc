@@ -247,3 +247,32 @@ def test_taipei_marriott_dated_ota_aliases_match_official_room_types():
         assert room["name_en"] == official_name
         assert alias["source_platform"] == "booking_com"
         assert alias["observed_at"] == "2026-10-14"
+
+
+def test_grand_mayfull_dated_hotels_com_aliases_match_official_room_types():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+
+    expected = {
+        "行政客房, 1 張特大雙人床": "Executive King",
+        "行政客房, 2 張單人床": "Executive Twin",
+    }
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "grand_mayfull_taipei"
+    }
+
+    for label, official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "grand_mayfull_taipei",
+            "room_type_name": label,
+            "room_size_sqm": 50,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["label"] == label)
+
+        assert room["name_en"] == official_name
+        assert alias["source_platform"] == "expedia_group"
+        assert alias["observed_at"] == "2026-10-17"

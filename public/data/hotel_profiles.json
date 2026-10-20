@@ -398,8 +398,8 @@
         "source_type": "official",
         "source_url": "https://www.grandmayfull.com/room",
         "rooms": [
-          {"name_zh": "行政客房（一大床）", "name_en": "Executive King", "name_ja": "Executive King", "size_sqm": 50},
-          {"name_zh": "行政客房（兩小床）", "name_en": "Executive Twin", "name_ja": "Executive Twin", "size_sqm": 50},
+          {"name_zh": "行政客房（一大床）", "name_en": "Executive King", "name_ja": "Executive King", "size_sqm": 50, "aliases": [{"label": "行政客房, 1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho588590/tai-bei-mei-fu-da-fan-dian-tai-bei-tai-wan/?chkin=2026-12-31&chkout=2027-01-01&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
+          {"name_zh": "行政客房（兩小床）", "name_en": "Executive Twin", "name_ja": "Executive Twin", "size_sqm": 50, "aliases": [{"label": "行政客房, 2 張單人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho588590/tai-bei-mei-fu-da-fan-dian-tai-bei-tai-wan/?chkin=2026-12-31&chkout=2027-01-01&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
           {"name_zh": "雅仕客房", "name_en": "Prestige Room", "name_ja": "Prestige Room", "size_sqm": 60},
           {"name_zh": "菁英客房（一大床）", "name_en": "Elite King", "name_ja": "Elite King", "size_sqm": 70},
           {"name_zh": "菁英客房（兩中床）", "name_en": "Elite Queen", "name_ja": "Elite Queen", "size_sqm": 70},
