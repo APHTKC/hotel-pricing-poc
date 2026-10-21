@@ -971,3 +971,48 @@ def test_w_taipei_dated_booking_codes_match_evidenced_rooms_and_leave_generic_vi
         "room_size_sqm": 43,
     }, lookup)
     assert generic_view["stable_room_type_id"] is None
+
+
+def test_taipei_marriott_dated_expedia_codes_match_official_suites_and_leave_sky_rooms_unmapped():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "taipei_marriott"
+    }
+    expected = {
+        ("客房，2 張標準雙人床", "expedia:10911958:residential-double", 51): "Homey Room",
+        ("行政套房，1 張特大雙人床", "expedia:10911958:executive-suite-king", 66): "Comfort Suite",
+        ("行政套房，1 間臥室", "expedia:10911958:executive-suite-bedroom", 66): "Comfort Suite",
+        ("行政套房，1 張特大雙人床，獨立用餐區", "expedia:10911958:marriott-suite-king", 79): "Brilliant Suite",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "taipei_marriott",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    for label, code in (
+        ("天空特大雙人床房", "booking:146845510"),
+        ("天空尊榮雙床房－享行政貴賓廳使用權", "booking:146845513"),
+    ):
+        unmatched = match_room_type({
+            "hotel_id": "taipei_marriott",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": 43,
+        }, lookup)
+        assert unmatched["stable_room_type_id"] is None
