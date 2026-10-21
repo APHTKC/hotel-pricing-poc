@@ -167,6 +167,14 @@
           "verified_at": "2026-10-19",
           "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
           "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/ya-ge"
+        },
+        {
+          "name": "Bencotto",
+          "guide_year": 2026,
+          "distinction": "selected",
+          "verified_at": "2026-10-21",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/bencotto"
         }
       ],
       "source_urls": [
@@ -584,6 +592,14 @@
           "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
           "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/impromptu-by-paul-lee",
           "relationship": "located_in_hotel"
+        },
+        {
+          "name": "Robin's Teppanyaki",
+          "guide_year": 2026,
+          "distinction": "selected",
+          "verified_at": "2026-10-21",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/robin-s-teppanyaki"
         }
       ],
       "source_urls": [
@@ -1622,6 +1638,14 @@
           "verified_at": "2026-10-19",
           "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
           "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/the-guest-house"
+        },
+        {
+          "name": "The Dragon",
+          "guide_year": 2026,
+          "distinction": "selected",
+          "verified_at": "2026-10-21",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/the-dragon"
         }
       ],
       "source_urls": [
