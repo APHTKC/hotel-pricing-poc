@@ -1332,3 +1332,48 @@ def test_capella_skyline_synxis_codes_match_official_pool_terrace_rooms():
             "room_size_sqm": size,
         }, lookup)
         assert ambiguous["stable_room_type_id"] is None
+
+
+def test_grand_hyatt_hotels_view_codes_match_only_supported_101_view_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "grand_hyatt_taipei"
+    }
+    expected = {
+        ("君悅景觀客房(特大床)", "expedia:21035:view-king"): "1 King Bed 101 View",
+        ("客房－2 張單人床 (101 View)", "expedia:21035:view-twin"): "2 Twin Beds 101 View",
+        ("嘉賓軒景觀客房(特大床)", "expedia:21035:club-view-king"): "1 King Bed 101 View Club Access",
+    }
+
+    for (label, code), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "grand_hyatt_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": 33,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    for label, code, size in (
+        ("101 景觀特大雙人床房", "booking:134101245", 30),
+        ("嘉賓軒尊尚客房(特大床)", "expedia:21035:club-premium-king", 50),
+        ("嘉賓軒尊尚客房(雙床)", "expedia:21035:club-premium-twin", 50),
+    ):
+        unsupported = match_room_type({
+            "hotel_id": "grand_hyatt_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com" if code.startswith("booking:") else "expedia_group",
+            "room_size_sqm": size,
+        }, lookup)
+        assert unsupported["stable_room_type_id"] is None
