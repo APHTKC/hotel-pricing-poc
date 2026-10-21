@@ -711,7 +711,7 @@
     },
     {
       "hotel_id": "solaria_nishitetsu_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-10-21",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -2115,10 +2115,10 @@
         "source_type": "official",
         "source_url": "https://taipei.landishotelsresorts.com/en/room",
         "rooms": [
-          {"name_zh": "卓越客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 26},
-          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 43},
-          {"name_zh": "行政套房", "name_en": "Executive Suite", "name_ja": "Executive Suite", "size_sqm": 53},
-          {"name_zh": "景隅套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 56}
+          {"name_zh": "卓越客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 26, "aliases": [{"label": "高級雙人房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:24067801", "source_url": "https://www.booking.com/hotel/tw/the-landis-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "高級雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:24067818", "source_url": "https://www.booking.com/hotel/tw/the-landis-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "雙人房－無障礙空間", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:24067813", "source_url": "https://www.booking.com/hotel/tw/the-landis-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "無障礙房, 1 張標準雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:13043:accessible-double", "source_url": "https://tw.hotels.com/ho171084/tai-bei-ya-dou-li-zhi-da-fan-dian-tai-bei-tai-wan/?chkin=2027-01-12&chkout=2027-01-13&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 43, "aliases": [{"label": "豪華雙人房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:24067802", "source_url": "https://www.booking.com/hotel/tw/the-landis-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "豪華雙人房－附加床", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:24067806", "source_url": "https://www.booking.com/hotel/tw/the-landis-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
+          {"name_zh": "行政套房", "name_en": "Executive Suite", "name_ja": "Executive Suite", "size_sqm": 53, "aliases": [{"label": "行政客房, 1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:13043:executive-king", "source_url": "https://tw.hotels.com/ho171084/tai-bei-ya-dou-li-zhi-da-fan-dian-tai-bei-tai-wan/?chkin=2027-01-12&chkout=2027-01-13&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
+          {"name_zh": "景隅套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 56, "aliases": [{"label": "轉角套房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:24067805", "source_url": "https://www.booking.com/hotel/tw/the-landis-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "套房－附加床", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:24067821", "source_url": "https://www.booking.com/hotel/tw/the-landis-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]}
         ]
       },
       "michelin_restaurants": [

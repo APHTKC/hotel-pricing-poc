@@ -1084,3 +1084,40 @@ def test_indigo_taipei_north_dated_ota_codes_match_evidenced_ihg_room_categories
         assert room["name_en"] == official_name
         assert alias["observed_at"] == observed_at
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_landis_taipei_dated_ota_codes_match_official_room_categories():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "the_landis_taipei"
+    }
+    expected = {
+        ("高級雙人房", "booking:24067801", "booking_com", 26): ("Superior Room", "2026-10-14"),
+        ("高級雙床房", "booking:24067818", "booking_com", 26): ("Superior Room", "2026-10-14"),
+        ("雙人房－無障礙空間", "booking:24067813", "booking_com", 26): ("Superior Room", "2026-10-14"),
+        ("無障礙房, 1 張標準雙人床", "expedia:13043:accessible-double", "expedia_group", 26): ("Superior Room", "2026-10-17"),
+        ("豪華雙人房", "booking:24067802", "booking_com", 43): ("Deluxe Room", "2026-10-14"),
+        ("豪華雙人房－附加床", "booking:24067806", "booking_com", 43): ("Deluxe Room", "2026-10-14"),
+        ("行政客房, 1 張特大雙人床", "expedia:13043:executive-king", "expedia_group", 53): ("Executive Suite", "2026-10-17"),
+        ("轉角套房", "booking:24067805", "booking_com", 56): ("Corner Suite", "2026-10-14"),
+        ("套房－附加床", "booking:24067821", "booking_com", 56): ("Corner Suite", "2026-10-14"),
+    }
+
+    for (label, code, platform, size), (official_name, observed_at) in expected.items():
+        matched = match_room_type({
+            "hotel_id": "the_landis_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == observed_at
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
