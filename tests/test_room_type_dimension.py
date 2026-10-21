@@ -313,6 +313,21 @@ def test_grand_hilai_taipei_evidenced_aliases_match_official_room_types():
         assert alias["source_platform"] == source_platform
         assert alias["observed_at"].startswith("2026-10-")
 
+    standard = match_room_type({
+        "hotel_id": "grand_hilai_taipei",
+        "source_platform": "official",
+        "room_type_code": "SSK",
+        "room_type_name": "標準客房 Standard Room",
+        "room_size_sqm": 29.8,
+    }, lookup)
+    standard_room = rooms[standard["stable_room_type_id"]]
+    standard_alias = next(item for item in standard_room["aliases"] if item.get("room_type_code") == "SSK")
+
+    assert standard_room["name_en"] == "Standard Room"
+    assert standard["room_match_status"] == "matched_evidenced_source_code"
+    assert standard_alias["source_platform"] == "official"
+    assert standard_alias["observed_at"] == "2026-10-21"
+
 
 def test_mandarin_oriental_taipei_dated_ota_aliases_match_official_room_types():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
