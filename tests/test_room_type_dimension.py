@@ -1288,3 +1288,47 @@ def test_metropolitan_connecting_room_codes_use_area_to_disambiguate_official_la
         "room_size_sqm": 36,
     }, lookup)
     assert ambiguous["stable_room_type_id"] is None
+
+
+def test_capella_skyline_synxis_codes_match_official_pool_terrace_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "capella_taipei"
+    }
+    expected = {
+        ("璀璨景觀客房一大床", "RT1S", 78): "Pool Terrace Skyline Room",
+        ("璀璨景觀客房兩小床", "RT2S", 78): "Pool Terrace Skyline Room",
+        ("璀璨景觀套房一大床", "ST1S", 270): "Pool Terrace Skyline Suite",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "capella_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "official",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-21"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    for label, code, size in (
+        ("高級特大雙人床房", "booking:1331864201", 48),
+        ("雙人房－附陽台", "booking:1331864231", 60),
+    ):
+        ambiguous = match_room_type({
+            "hotel_id": "capella_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": size,
+        }, lookup)
+        assert ambiguous["stable_room_type_id"] is None

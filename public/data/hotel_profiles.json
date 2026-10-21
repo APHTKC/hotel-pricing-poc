@@ -81,9 +81,9 @@
           {"name_zh": "尊榮客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 60},
           {"name_zh": "尊榮景觀客房", "name_en": "Premier Skyline Room", "name_ja": "Premier Skyline Room", "size_sqm": 60},
           {"name_zh": "泳池露台客房", "name_en": "Pool Terrace Room", "name_ja": "Pool Terrace Room", "size_sqm": 78, "aliases_zh": ["璀璨客房"]},
-          {"name_zh": "泳池露台景觀客房", "name_en": "Pool Terrace Skyline Room", "name_ja": "Pool Terrace Skyline Room", "size_sqm": 78},
+          {"name_zh": "泳池露台景觀客房", "name_en": "Pool Terrace Skyline Room", "name_ja": "Pool Terrace Skyline Room", "size_sqm": 78, "aliases": [{"label": "璀璨景觀客房一大床", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "RT1S", "source_url": "https://be.synxis.com/?Hotel=47696&Chain=21430&arrive=2026-11-20&depart=2026-11-21&adult=2&child=0&rooms=1&currency=TWD&locale=zh-TW&level=hotel&productcurrency=TWD", "observed_at": "2026-10-21"}, {"label": "璀璨景觀客房兩小床", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "RT2S", "source_url": "https://be.synxis.com/?Hotel=47696&Chain=21430&arrive=2026-12-20&depart=2026-12-21&adult=2&child=0&rooms=1&currency=TWD&locale=zh-TW&level=hotel&productcurrency=TWD", "observed_at": "2026-10-21"}]},
           {"name_zh": "泳池露台套房", "name_en": "Pool Terrace Suite", "name_ja": "Pool Terrace Suite", "size_sqm": 270, "aliases_zh": ["璀璨套房"]},
-          {"name_zh": "泳池露台景觀套房", "name_en": "Pool Terrace Skyline Suite", "name_ja": "Pool Terrace Skyline Suite", "size_sqm": 270},
+          {"name_zh": "泳池露台景觀套房", "name_en": "Pool Terrace Skyline Suite", "name_ja": "Pool Terrace Skyline Suite", "size_sqm": 270, "aliases": [{"label": "璀璨景觀套房一大床", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "ST1S", "source_url": "https://be.synxis.com/?Hotel=47696&Chain=21430&arrive=2026-12-20&depart=2026-12-21&adult=2&child=0&rooms=1&currency=TWD&locale=zh-TW&level=hotel&productcurrency=TWD", "observed_at": "2026-10-21"}]},
           {"name_zh": "嘉佩樂套房", "name_en": "Capella Suite", "name_ja": "Capella Suite", "size_sqm": 228, "room_count": 2}
         ]
       },
