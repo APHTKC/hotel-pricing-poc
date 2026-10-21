@@ -895,3 +895,40 @@ def test_metropolitan_premier_synxis_codes_disambiguate_generic_official_labels(
         "room_size_sqm": 36,
     }, lookup)
     assert ambiguous["stable_room_type_id"] is None
+
+
+def test_humble_house_dated_ota_codes_match_official_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "humble_house_taipei"
+    }
+    expected = {
+        ("豪華雙床房", "booking:80123520", 26): "Deluxe Room",
+        ("地標景觀豪華特大雙人床房", "booking:80123516", 26): "Deluxe Room with Landmark View",
+        ("頂級特大雙人床房", "booking:80123518", 36): "Premium Room",
+        ("尊榮客房－特大雙人床", "expedia:7272454:premium-king", 36): "Premium Room",
+        ("尊榮客房－兩張單人床", "expedia:7272454:premium-twin", 36): "Premium Room",
+        ("地標景觀頂級特大雙人床房", "booking:80123519", 36): "Premium Room with Landmark View",
+        ("豪華套房－兩張單人床", "expedia:7272454:deluxe-suite-twin", 53): "Twin Deluxe Suite",
+        ("豪華套房－特大雙人床", "expedia:7272454:deluxe-suite-king", 53): "King Deluxe Suite with Landmark View",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        source_platform = "expedia_group" if code.startswith("expedia:") else "booking_com"
+        matched = match_room_type({
+            "hotel_id": "humble_house_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": source_platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == ("2026-10-16" if code.startswith("expedia:") else "2026-10-13")
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
