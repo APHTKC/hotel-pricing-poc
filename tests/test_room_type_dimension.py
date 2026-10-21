@@ -1444,3 +1444,34 @@ def test_hotel_gracery_booking_codes_match_supported_theme_rooms_only():
     ):
         unsupported = match_room_type({"hotel_id": "hotel_gracery_taipei", "room_type_name": label, "room_type_code": code, "source_platform": "booking_com", "room_size_sqm": 25}, lookup)
         assert unsupported["stable_room_type_id"] is None
+
+
+def test_hotel_proverbs_booking_codes_match_official_room_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "hotel_proverbs_taipei"
+    }
+
+    for label, code, size, official_name in (
+        ("都會雙人房", "booking:142443501", 33, "Urban Room"),
+        ("經典雙人或雙床房", "booking:142443502", 37, "Classic Room"),
+        ("豪華雙人或雙床房", "booking:142443503", 38, "Deluxe Room"),
+        ("頂級雙人或雙床房", "booking:142443504", 41, "Premium Room"),
+    ):
+        matched = match_room_type({
+            "hotel_id": "hotel_proverbs_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-13"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"

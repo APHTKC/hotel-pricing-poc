@@ -1453,10 +1453,10 @@
         "source_type": "official",
         "source_url": "https://www.hotel-proverbs.com/public/en/room",
         "rooms": [
-          {"name_zh": "都會客房", "name_en": "Urban Room", "name_ja": "Urban Room", "size_sqm": 33},
-          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 37},
-          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 38},
-          {"name_zh": "尊榮客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm": 41},
+          {"name_zh": "都會客房", "name_en": "Urban Room", "name_ja": "Urban Room", "size_sqm": 33, "aliases": [{"label": "都會雙人房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443501", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 37, "aliases": [{"label": "經典雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443502", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 38, "aliases": [{"label": "豪華雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443503", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "尊榮客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm": 41, "aliases": [{"label": "頂級雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443504", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
           {"name_zh": "賦樂客房", "name_en": "Proverbs Room", "name_ja": "Proverbs Room", "size_sqm": 49}
         ]
       },
