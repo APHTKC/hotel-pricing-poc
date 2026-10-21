@@ -1683,12 +1683,12 @@
         "source_type": "official",
         "source_url": "https://www.courtyardtaipei.com.tw/room",
         "rooms": [
-          {"name_zh": "卓越客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 35},
+          {"name_zh": "卓越客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 35, "aliases": [{"label": "高級特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:160824701", "source_url": "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "高級雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:160824712", "source_url": "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 42.3},
           {"name_zh": "豪華家庭房", "name_en": "Deluxe Family Room", "name_ja": "Deluxe Family Room", "size_sqm": 42.3},
-          {"name_zh": "行政客房", "name_en": "Executive Room", "name_ja": "Executive Room", "size_sqm": 43},
+          {"name_zh": "行政客房", "name_en": "Executive Room", "name_ja": "Executive Room", "size_sqm": 43, "aliases": [{"label": "行政房－特大雙人床與行政酒廊禮遇", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:160824704", "source_url": "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "精緻套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm": 66.3},
-          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 81.9},
+          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 81.9, "aliases": [{"label": "豪華特大雙人床套房－行政酒廊禮遇", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:160824702", "source_url": "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 168}
         ]
       },

@@ -1581,3 +1581,44 @@ def test_renaissance_taipei_source_codes_match_official_room_catalog():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == observed_at
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_courtyard_taipei_booking_codes_match_official_room_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "courtyard_taipei"
+    }
+    expected = (
+        ("高級特大雙人床房", "booking:160824701", 36, "Superior Room"),
+        ("高級雙床房", "booking:160824712", 36, "Superior Room"),
+        ("行政房－特大雙人床與行政酒廊禮遇", "booking:160824704", 43, "Executive Room"),
+        ("豪華特大雙人床套房－行政酒廊禮遇", "booking:160824702", 82, "Deluxe Suite"),
+    )
+
+    for label, code, size, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "courtyard_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-14"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    area_mismatch = match_room_type({
+        "hotel_id": "courtyard_taipei",
+        "room_type_name": "小型套房－特大雙人床與行政酒廊禮遇",
+        "room_type_code": "booking:160824703",
+        "source_platform": "booking_com",
+        "room_size_sqm": 69,
+    }, lookup)
+    assert area_mismatch["stable_room_type_id"] is None
