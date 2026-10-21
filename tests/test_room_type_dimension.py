@@ -1475,3 +1475,40 @@ def test_hotel_proverbs_booking_codes_match_official_room_catalog():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == "2026-10-13"
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_palais_de_chine_source_codes_match_official_room_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "palais_de_chine"
+    }
+    expected = (
+        ("豪華家庭客房二中床", "712e8b5f-470f-41ee-ac31-d7527960e728", "official", 37, "Deluxe Family Room", "2026-10-21"),
+        ("行政特大雙人床房", "booking:30497402", "booking_com", 37, "Executive Room", "2026-10-14"),
+        ("Executive Super King with Combined Beds", "booking:30497418", "booking_com", 37, "Executive Room", "2026-10-14"),
+        ("Prestige Deluxe King Room", "booking:30497403", "booking_com", 37, "Prestige Deluxe Room", "2026-10-14"),
+        ("尊貴豪華雙床間", "booking:30497420", "booking_com", 37, "Prestige Deluxe Room", "2026-10-14"),
+        ("尊貴高級雙人間", "booking:30497405", "booking_com", 30, "Prestige Superior Room", "2026-10-14"),
+        ("高級雙床房", "booking:30497407", "booking_com", 30, "Superior Room", "2026-10-14"),
+        ("豪華雙床房", "booking:30497408", "booking_com", 37, "Deluxe Room", "2026-10-14"),
+        ("單臥室套房", "booking:30497415", "booking_com", 67, "Premier Suite", "2026-10-14"),
+    )
+
+    for label, code, platform, size, official_name, observed_at in expected:
+        matched = match_room_type({
+            "hotel_id": "palais_de_chine",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == observed_at
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
