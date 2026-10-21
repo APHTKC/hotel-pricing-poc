@@ -549,6 +549,43 @@ def test_intercontinental_kaohsiung_hotels_com_codes_match_official_catalog():
         assert matched["room_match_status"] == "matched_evidenced_source_code"
 
 
+def test_intercontinental_taichung_hotels_com_codes_match_official_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "intercontinental_taichung"
+    }
+    expected = (
+        ("經典客房, 1 張特大雙人床", "expedia:106814977:classic-king", 40, "Classic Room"),
+        ("經典客房, 1 張特大雙人床 (Calligraphy Greenway View)", "expedia:106814977:classic-king-greenway", 40, "Classic Room"),
+        ("經典客房, 2 張單人床", "expedia:106814977:classic-twin", 40, "Classic Room"),
+        ("經典客房 - 不指定床型", "expedia:106814977:classic-unspecified", 40, "Classic Room"),
+        ("經典客房, 2 張單人床 (Calligraphy Greenway View)", "expedia:106814977:classic-twin-greenway", 40, "Classic Room"),
+        ("經典客房 (Upgraded) - 不指定床型", "expedia:106814977:classic-upgraded-unspecified", 40, "Classic Room"),
+        ("經典客房, 1 張特大雙人床, 可使用俱樂部酒廊", "expedia:106814977:classic-king-club-lounge", 40, "Classic Room"),
+        ("經典客房, 2 張單人床, 可使用俱樂部酒廊", "expedia:106814977:classic-twin-club-lounge", 40, "Classic Room"),
+        ("尊榮客房, 1 張特大雙人床 (Calligraphy Greenway View)", "expedia:106814977:premium-king-greenway", 55, "Premium Room"),
+    )
+
+    for label, code, size, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "intercontinental_taichung",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
 def test_sheraton_grand_taipei_dated_ota_codes_match_official_rooms():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
     dimension = build_room_type_dimension(profiles)
