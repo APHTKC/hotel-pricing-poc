@@ -1869,7 +1869,7 @@
     },
     {
       "hotel_id": "royal_nikko_taipei",
-      "verified_at": "2026-10-07",
+      "verified_at": "2026-10-18",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -1897,10 +1897,10 @@
         "source_url": "https://www.royal-taipei.com.tw/en/room/",
         "rooms": [
           {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "スーペリアルーム", "size_sqm": 26},
-          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックスルーム", "size_sqm": 32},
-          {"name_zh": "尊爵客房", "name_en": "Premier Room", "name_ja": "プレミアルーム", "size_sqm": 38},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックスルーム", "size_sqm": 32, "aliases": [{"label": "豪華雙人房(一大床)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:deluxe-king", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}, {"label": "豪華雙床房(二小床)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:deluxe-twin", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
+          {"name_zh": "尊爵客房", "name_en": "Premier Room", "name_ja": "プレミアルーム", "size_sqm": 38, "aliases": [{"label": "尊爵雙人房(一大床)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:premier-king", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}, {"label": "尊爵雙人房(一大床) 含Royal VIP Lounge", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:premier-king-lounge", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}, {"label": "尊爵雙床房(二小床)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:premier-twin", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}, {"label": "尊爵雙床房(二小床) 含Royal VIP Lounge", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:premier-twin-lounge", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
           {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "デラックススイート", "size_sqm": 50},
-          {"name_zh": "轉角套房", "name_en": "Corner Suite", "name_ja": "コーナースイート", "size_sqm": 65},
+          {"name_zh": "轉角套房", "name_en": "Corner Suite", "name_ja": "コーナースイート", "size_sqm": 65, "aliases": [{"label": "景隅套房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:corner-suite-king", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
           {"name_zh": "尊爵套房", "name_en": "Premier Suite", "name_ja": "プレミアスイート", "size_sqm": 89},
           {"name_zh": "皇家套房", "name_en": "Royal Suite", "name_ja": "ロイヤルスイート", "size_sqm": 125}
         ]
@@ -1911,7 +1911,8 @@
         "https://www.royal-taipei.com.tw/en/dining/",
         "https://www.royal-taipei.com.tw/en/facility/",
         "https://www.royal-taipei.com.tw/jp/room/",
-        "https://www.booking.com/hotel/tw/royal-taipei.html"
+        "https://www.booking.com/hotel/tw/royal-taipei.html",
+        "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD"
       ]
     },
     {

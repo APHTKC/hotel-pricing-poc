@@ -774,7 +774,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert {room["size_sqm"] for room in gracery["room_snapshot"]["rooms"]} == {25, 26, 50}
     assert any("ge-la-si-li-tai-bei-fan-dian" in url for url in gracery["source_urls"])
     royal_nikko = by_id["royal_nikko_taipei"]
-    assert royal_nikko["verified_at"] == "2026-10-07"
+    assert royal_nikko["verified_at"] == "2026-10-18"
     assert royal_nikko["facilities"] == {
         "pool": None,
         "fitness": None,

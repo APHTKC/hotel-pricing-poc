@@ -1214,3 +1214,38 @@ def test_grand_view_resort_dated_ota_codes_match_official_rooms_and_leave_area_m
         "room_size_sqm": 56,
     }, lookup)
     assert area_mismatch["stable_room_type_id"] is None
+
+
+def test_royal_nikko_dated_hotels_codes_match_official_rooms_by_name_and_area():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "royal_nikko_taipei"
+    }
+    expected = {
+        ("豪華雙人房(一大床)", "expedia:2839:deluxe-king", 32): "Deluxe Room",
+        ("豪華雙床房(二小床)", "expedia:2839:deluxe-twin", 32): "Deluxe Room",
+        ("尊爵雙人房(一大床)", "expedia:2839:premier-king", 38): "Premier Room",
+        ("尊爵雙人房(一大床) 含Royal VIP Lounge", "expedia:2839:premier-king-lounge", 38): "Premier Room",
+        ("尊爵雙床房(二小床)", "expedia:2839:premier-twin", 38): "Premier Room",
+        ("尊爵雙床房(二小床) 含Royal VIP Lounge", "expedia:2839:premier-twin-lounge", 38): "Premier Room",
+        ("景隅套房", "expedia:2839:corner-suite-king", 65): "Corner Suite",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "royal_nikko_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-18"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
