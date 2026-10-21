@@ -1376,7 +1376,7 @@
     },
     {
       "hotel_id": "renaissance_taipei_shihlin",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-10-21",
       "stay_times": {
         "check_in": "16:00",
         "check_out": "11:00",
@@ -1553,10 +1553,10 @@
         "source_type": "ota",
         "source_url": "https://www.booking.com/hotel/tw/indigo-taipei-north.html",
         "rooms": [
-          {"name_zh": "標準客房", "name_en": "Standard Room", "name_ja": "Standard Room", "size_sqm": 35},
-          {"name_zh": "尊榮客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm": 40},
-          {"name_zh": "一大床套房", "name_en": "King Suite", "name_ja": "King Suite", "size_sqm": 60},
-          {"name_zh": "一臥室套房", "name_en": "One Bedroom Suite", "name_ja": "One Bedroom Suite", "size_sqm": 73},
+          {"name_zh": "標準客房", "name_en": "Standard Room", "name_ja": "Standard Room", "size_sqm": 35, "aliases": [{"label": "標準特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:577965016", "source_url": "https://www.booking.com/hotel/tw/indigo-taipei-north.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "尊榮客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm": 40, "aliases": [{"label": "頂級特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:577965002", "source_url": "https://www.booking.com/hotel/tw/indigo-taipei-north.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}, {"label": "豪華客房 （一大床）", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:42515940:deluxe-king", "source_url": "https://tw.hotels.com/ho1361510080/tai-bei-da-zhi-ying-di-ge-jiu-dian-2020-nian-1-yue-1-ri-kai-ye-ihg-qi-xia-fan-dian-tai-bei-tai-wan/?chkin=2027-01-04&chkout=2027-01-05&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
+          {"name_zh": "一大床套房", "name_en": "King Suite", "name_ja": "King Suite", "size_sqm": 60, "aliases": [{"label": "特大雙人床套房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:577965011", "source_url": "https://www.booking.com/hotel/tw/indigo-taipei-north.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}, {"label": "套房, 1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:42515940:suite-king", "source_url": "https://tw.hotels.com/ho1361510080/tai-bei-da-zhi-ying-di-ge-jiu-dian-2020-nian-1-yue-1-ri-kai-ye-ihg-qi-xia-fan-dian-tai-bei-tai-wan/?chkin=2027-01-04&chkout=2027-01-05&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
+          {"name_zh": "一臥室套房", "name_en": "One Bedroom Suite", "name_ja": "One Bedroom Suite", "size_sqm": 73, "aliases": [{"label": "套房, 1 間臥室", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:42515940:one-bedroom-suite", "source_url": "https://tw.hotels.com/ho1361510080/tai-bei-da-zhi-ying-di-ge-jiu-dian-2020-nian-1-yue-1-ri-kai-ye-ihg-qi-xia-fan-dian-tai-bei-tai-wan/?chkin=2027-01-04&chkout=2027-01-05&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
           {"name_zh": "一臥室台北城市景觀套房", "name_en": "One Bedroom Suite with Taipei City View", "name_ja": "One Bedroom Suite with Taipei City View", "size_sqm": 135}
         ]
       },
