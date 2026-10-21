@@ -1249,3 +1249,42 @@ def test_royal_nikko_dated_hotels_codes_match_official_rooms_by_name_and_area():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == "2026-10-18"
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_metropolitan_connecting_room_codes_use_area_to_disambiguate_official_labels():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "hotel_metropolitan_premier_taipei"
+    }
+    expected = {
+        ("EPC", 86): "Deluxe Premier Connecting",
+        ("ECC", 105): "Executive Corner Connecting",
+    }
+
+    for (code, size), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "hotel_metropolitan_premier_taipei",
+            "room_type_name": "連通客房",
+            "room_type_code": code,
+            "source_platform": "official",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-21"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    ambiguous = match_room_type({
+        "hotel_id": "hotel_metropolitan_premier_taipei",
+        "room_type_name": "都會客房",
+        "room_type_code": "DXK",
+        "source_platform": "official",
+        "room_size_sqm": 36,
+    }, lookup)
+    assert ambiguous["stable_room_type_id"] is None
