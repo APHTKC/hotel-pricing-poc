@@ -1548,3 +1548,36 @@ def test_mitsui_garden_taipei_booking_codes_match_official_room_catalog():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == "2026-10-14"
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_renaissance_taipei_source_codes_match_official_room_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "renaissance_taipei_shihlin"
+    }
+    expected = (
+        ("豪華間－附特大雙人床和沙發", "booking:393390901", "booking_com", "Deluxe Room", "2026-10-13"),
+        ("山景頂級客房－附特大雙人床和沙發", "booking:393390902", "booking_com", "Premier Room", "2026-10-13"),
+        ("山景頂級客房－附 2 張雙人床", "booking:393390903", "booking_com", "Premier Room", "2026-10-13"),
+        ("尊爵客房－附特大雙人床及沙發－可使用俱樂部貴賓廳", "booking:393390907", "booking_com", "Executive Premier Room", "2026-10-13"),
+        ("極品客房, 1 張特大雙人床", "expedia:29144406:premium-king", "expedia_group", "Premier Room", "2026-10-16"),
+    )
+
+    for label, code, platform, official_name, observed_at in expected:
+        matched = match_room_type({
+            "hotel_id": "renaissance_taipei_shihlin",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": platform,
+            "room_size_sqm": 31,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == observed_at
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
