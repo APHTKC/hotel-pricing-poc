@@ -1512,3 +1512,39 @@ def test_palais_de_chine_source_codes_match_official_room_catalog():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == observed_at
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_mitsui_garden_taipei_booking_codes_match_official_room_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "mitsui_garden_taipei_zhongxiao"
+    }
+    expected = (
+        ("無障礙加大雙人床房", "booking:641452605", 25, "Accessible, 1 bed Queen"),
+        ("豪華房－附 2 張床", "booking:641452610", 30, "Deluxe, 2 beds"),
+        ("豪華房－附 3 張床", "booking:641452613", 30, "Deluxe, 3 beds"),
+        ("豪華特大雙人床房", "booking:641452607", 28, "Deluxe, 1 bed King"),
+        ("高級特大雙人床房", "booking:641452606", 26, "Superior, 1 bed King"),
+        ("高級雙床房", "booking:641452614", 25, "Superior, 2 beds"),
+        ("標準轉角加大雙人床房", "booking:641452604", 22, "Standard, 1 bed Queen, Corner room"),
+        ("豪華轉角房－附 2 張床", "booking:641452611", 35, "Deluxe, 2 beds, Corner room"),
+    )
+
+    for label, code, size, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "mitsui_garden_taipei_zhongxiao",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-14"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
