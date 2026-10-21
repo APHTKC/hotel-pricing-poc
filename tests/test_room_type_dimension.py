@@ -1168,3 +1168,49 @@ def test_radium_kagaya_dated_ota_codes_match_balcony_and_no_view_categories_cons
             "room_size_sqm": 43,
         }, lookup)
         assert unmatched["stable_room_type_id"] is None
+
+
+def test_grand_view_resort_dated_ota_codes_match_official_rooms_and_leave_area_mismatch_unmapped():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "grand_view_resort_beitou"
+    }
+    expected = {
+        ("高級雙人房", "booking:29809403", "booking_com", 50): ("Superior Room", "2026-10-14"),
+        ("豪華雙人房", "booking:29809404", "booking_com", 50): ("Deluxe Room", "2026-10-14"),
+        ("豪華雙床房", "booking:29809402", "booking_com", 50): ("Deluxe Room", "2026-10-14"),
+        ("豪華雙人房", "expedia:391029:deluxe-double", "expedia_group", 49): ("Deluxe Room", "2026-10-16"),
+        ("Deluxe Double Room", "expedia:391029:deluxe-double-50", "expedia_group", 50): ("Deluxe Room", "2026-10-16"),
+        ("豪華雙床房", "expedia:391029:deluxe-twin", "expedia_group", 49): ("Deluxe Room", "2026-10-16"),
+        ("Deluxe Twin Room", "expedia:391029:deluxe-twin-50", "expedia_group", 50): ("Deluxe Room", "2026-10-16"),
+        ("豪華四人房", "booking:29809408", "booking_com", 50): ("Deluxe Family Room", "2026-10-14"),
+        ("套房－附陽台", "booking:29809410", "booking_com", 63): ("You-Ya Suite", "2026-10-14"),
+    }
+
+    for (label, code, platform, size), (official_name, observed_at) in expected.items():
+        matched = match_room_type({
+            "hotel_id": "grand_view_resort_beitou",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == observed_at
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    area_mismatch = match_room_type({
+        "hotel_id": "grand_view_resort_beitou",
+        "room_type_name": "雅緻家庭房",
+        "room_type_code": "expedia:391029:elegant-family",
+        "source_platform": "expedia_group",
+        "room_size_sqm": 56,
+    }, lookup)
+    assert area_mismatch["stable_room_type_id"] is None
