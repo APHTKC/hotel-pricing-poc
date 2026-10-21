@@ -512,6 +512,43 @@ def test_grand_hyatt_taipei_dated_booking_codes_match_official_rooms():
     assert area_mismatch["stable_room_type_id"] is None
 
 
+def test_intercontinental_kaohsiung_hotels_com_codes_match_official_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "intercontinental_kaohsiung"
+    }
+    expected = (
+        ("經典客房", "expedia:71063917:classic", 36, "Classic Room"),
+        ("經典客房 (Upgraded)", "expedia:71063917:classic-upgraded", 46, "Classic Room"),
+        ("經典客房, 1 張特大雙人床, 海灣景觀", "expedia:71063917:classic-king-bay", 36, "Classic Room"),
+        ("經典客房, 1 張特大雙人床, 海灣景觀 (High Floor)", "expedia:71063917:classic-king-bay-high-floor", 36, "Classic Room"),
+        ("尊榮客房, 1 張特大雙人床", "expedia:71063917:premium-king", 46, "Premium Room"),
+        ("尊榮客房, 2 張單人床", "expedia:71063917:premium-twin", 46, "Premium Room"),
+        ("尊榮客房, 2 張單人床 (High Floor)", "expedia:71063917:premium-twin-high-floor", 46, "Premium Room"),
+        ("普通套房, 1 張特大雙人床, 海灣景觀", "expedia:71063917:junior-suite-king-bay", 56, "Junior Suite"),
+        ("普通套房, 2 張單人床", "expedia:71063917:junior-suite-twin", 56, "Junior Suite"),
+    )
+
+    for label, code, size, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "intercontinental_kaohsiung",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
 def test_sheraton_grand_taipei_dated_ota_codes_match_official_rooms():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
     dimension = build_room_type_dimension(profiles)
