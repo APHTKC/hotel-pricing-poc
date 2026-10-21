@@ -113,7 +113,7 @@ def evidenced_aliases(room: dict) -> list[dict]:
         observed_at = str(alias.get("observed_at") or "").strip()
         if not label or not source_url.startswith("https://") or not observed_at:
             continue
-        aliases.append({
+        item = {
             "label": label,
             "language": alias.get("language"),
             "source_type": alias.get("source_type"),
@@ -121,7 +121,13 @@ def evidenced_aliases(room: dict) -> list[dict]:
             "room_type_code": alias.get("room_type_code"),
             "source_url": source_url,
             "observed_at": observed_at,
-        })
+        }
+        # A generic label may be safe only when paired with the source's
+        # stable room code.  Preserve that evidence without allowing the
+        # label to match other, materially different products by containment.
+        if alias.get("label_match") is False:
+            item["label_match"] = False
+        aliases.append(item)
     return aliases
 
 
@@ -143,7 +149,10 @@ def build_room_type_lookup(dimension_payload: dict) -> dict[tuple[str, str], tup
         labels = [room.get(key) for key in ("name_zh", "name_en", "name_ja")]
         labels.extend(room.get("aliases_zh") or [])
         aliases = evidenced_aliases(room)
-        labels.extend(alias["label"] for alias in aliases)
+        labels.extend(
+            alias["label"] for alias in aliases
+            if alias.get("label_match") is not False
+        )
         for alias in aliases:
             source_platform = str(alias.get("source_platform") or "").strip()
             room_type_code = str(alias.get("room_type_code") or "").strip()

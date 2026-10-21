@@ -1377,3 +1377,55 @@ def test_grand_hyatt_hotels_view_codes_match_only_supported_101_view_rooms():
             "room_size_sqm": size,
         }, lookup)
         assert unsupported["stable_room_type_id"] is None
+
+
+def test_grand_mayfull_booking_codes_match_only_bed_specific_executive_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {room["stable_room_type_id"]: room for room in dimension["room_types"] if room["hotel_id"] == "grand_mayfull_taipei"}
+
+    for label, code, official_name in (
+        ("行政雙人房", "booking:172712714", "Executive King"),
+        ("行政雙床房", "booking:172712715", "Executive Twin"),
+    ):
+        matched = match_room_type({"hotel_id": "grand_mayfull_taipei", "room_type_name": label, "room_type_code": code, "source_platform": "booking_com", "room_size_sqm": 50}, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item.get("room_type_code") == code)
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-12"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    for label, code, size in (
+        ("菁英雙人房", "booking:172712712", 70),
+        ("尊爵套房", "booking:172712713", 95),
+        ("行政雙床房－無障礙空間", "booking:172712727", 50),
+    ):
+        ambiguous = match_room_type({"hotel_id": "grand_mayfull_taipei", "room_type_name": label, "room_type_code": code, "source_platform": "booking_com", "room_size_sqm": size}, lookup)
+        assert ambiguous["stable_room_type_id"] is None
+
+
+def test_hotel_gracery_booking_codes_match_supported_theme_rooms_only():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {room["stable_room_type_id"]: room for room in dimension["room_types"] if room["hotel_id"] == "hotel_gracery_taipei"}
+
+    for label, code, official_name in (
+        ("Godzilla Landing in Southern Taiwan (Twin Room)", "booking:727625409", "Godzilla Arrival in Southern Taiwan Twin Room"),
+        ("Welcome to Katsuya !", "booking:727625411", "Katsuya Room"),
+    ):
+        matched = match_room_type({"hotel_id": "hotel_gracery_taipei", "room_type_name": label, "room_type_code": code, "source_platform": "booking_com", "room_size_sqm": 25}, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-14"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    for label, code in (
+        ("Travel with HANDS!", "booking:727625410"),
+        ("Times PARKING Collaboration twin room", "booking:727625415"),
+        ("KIYOKEN Collaboration twin room", "booking:727625417"),
+    ):
+        unsupported = match_room_type({"hotel_id": "hotel_gracery_taipei", "room_type_name": label, "room_type_code": code, "source_platform": "booking_com", "room_size_sqm": 25}, lookup)
+        assert unsupported["stable_room_type_id"] is None

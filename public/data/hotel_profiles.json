@@ -398,8 +398,8 @@
         "source_type": "official",
         "source_url": "https://www.grandmayfull.com/room",
         "rooms": [
-          {"name_zh": "行政客房（一大床）", "name_en": "Executive King", "name_ja": "Executive King", "size_sqm": 50, "aliases": [{"label": "行政客房, 1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho588590/tai-bei-mei-fu-da-fan-dian-tai-bei-tai-wan/?chkin=2026-12-31&chkout=2027-01-01&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
-          {"name_zh": "行政客房（兩小床）", "name_en": "Executive Twin", "name_ja": "Executive Twin", "size_sqm": 50, "aliases": [{"label": "行政客房, 2 張單人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho588590/tai-bei-mei-fu-da-fan-dian-tai-bei-tai-wan/?chkin=2026-12-31&chkout=2027-01-01&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
+          {"name_zh": "行政客房（一大床）", "name_en": "Executive King", "name_ja": "Executive King", "size_sqm": 50, "aliases": [{"label": "行政客房, 1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho588590/tai-bei-mei-fu-da-fan-dian-tai-bei-tai-wan/?chkin=2026-12-31&chkout=2027-01-01&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}, {"label": "行政雙人房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:172712714", "label_match": false, "source_url": "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-12"}]},
+          {"name_zh": "行政客房（兩小床）", "name_en": "Executive Twin", "name_ja": "Executive Twin", "size_sqm": 50, "aliases": [{"label": "行政客房, 2 張單人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho588590/tai-bei-mei-fu-da-fan-dian-tai-bei-tai-wan/?chkin=2026-12-31&chkout=2027-01-01&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}, {"label": "行政雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:172712715", "label_match": false, "source_url": "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-12"}]},
           {"name_zh": "雅仕客房", "name_en": "Prestige Room", "name_ja": "Prestige Room", "size_sqm": 60},
           {"name_zh": "菁英客房（一大床）", "name_en": "Elite King", "name_ja": "Elite King", "size_sqm": 70},
           {"name_zh": "菁英客房（兩中床）", "name_en": "Elite Queen", "name_ja": "Elite Queen", "size_sqm": 70},
@@ -1843,7 +1843,7 @@
         "rooms": [
           {"name_zh": "四人客房（雙層床＋雙人床）", "name_en": "Four-Person Room (Bunk Beds + Double Bed)", "name_ja": "Four-Person Room (Bunk Beds + Double Bed)", "size_sqm": 25},
           {"name_zh": "哥吉拉登陸台北雙人房", "name_en": "Godzilla Arrival in Taipei Double Room", "name_ja": "Godzilla Arrival in Taipei Double Room", "size_sqm": 25},
-          {"name_zh": "哥吉拉登陸南台灣雙床房", "name_en": "Godzilla Arrival in Southern Taiwan Twin Room", "name_ja": "Godzilla Arrival in Southern Taiwan Twin Room", "size_sqm": 25},
+          {"name_zh": "哥吉拉登陸南台灣雙床房", "name_en": "Godzilla Arrival in Southern Taiwan Twin Room", "name_ja": "Godzilla Arrival in Southern Taiwan Twin Room", "size_sqm": 25, "aliases": [{"label": "Godzilla Landing in Southern Taiwan (Twin Room)", "language": "en", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:727625409", "source_url": "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "標準雙人房", "name_en": "Standard Double Room", "name_ja": "Standard Double Room", "size_sqm": 25},
           {"name_zh": "標準雙床房", "name_en": "Standard Twin Room", "name_ja": "Standard Twin Room", "size_sqm": 25},
           {"name_zh": "標準三人房", "name_en": "Standard Twin Room with Sofa Bed", "name_ja": "Standard Twin Room with Sofa Bed", "size_sqm": 25},
@@ -1854,7 +1854,7 @@
           {"name_zh": "無障礙家庭房", "name_en": "Universal Family Room", "name_ja": "Universal Family Room", "size_sqm": 26},
           {"name_zh": "HANDS 聯名客房", "name_en": "HANDS Concept Room", "name_ja": "HANDS Concept Room", "size_sqm": 25},
           {"name_zh": "HANDS 露營主題客房", "name_en": "HANDS Camping Room", "name_ja": "HANDS Camping Room", "size_sqm": 25},
-          {"name_zh": "吉豚屋主題客房", "name_en": "Katsuya Room", "name_ja": "Katsuya Room", "size_sqm": 25},
+          {"name_zh": "吉豚屋主題客房", "name_en": "Katsuya Room", "name_ja": "Katsuya Room", "size_sqm": 25, "aliases": [{"label": "Welcome to Katsuya !", "language": "en", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:727625411", "source_url": "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "Niseko 主題客房", "name_en": "Niseko Concept Room", "name_ja": "Niseko Concept Room", "size_sqm": 25}
         ]
       },
