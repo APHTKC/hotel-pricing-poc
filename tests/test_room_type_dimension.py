@@ -799,3 +799,58 @@ def test_okura_dated_source_codes_match_official_rooms_and_leave_generic_deluxe_
             "room_size_sqm": 44,
         }, lookup)
         assert generic["stable_room_type_id"] is None
+
+
+def test_le_meridien_dated_ota_codes_match_official_rooms_and_reject_area_mismatch():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "le_meridien_taipei"
+    }
+    expected = {
+        ("豪華特大雙人床房", "booking:33385818", 38): "Deluxe Room",
+        ("豪華雙床房", "booking:33385819", 38): "Deluxe Room",
+        ("豪華客房，1 張特大雙人床", "expedia:3884803:deluxe-king", 38): "Deluxe Room",
+        ("豪華雙床房，2 張單人床", "expedia:3884803:deluxe-twin", 38): "Deluxe Room",
+        ("純淨豪華特大號床間", "booking:33385820", 38): "Pure Deluxe Room",
+        ("純淨豪華雙床間", "booking:33385821", 38): "Pure Deluxe Room",
+        ("豪華客房，1 張特大雙人床，非吸煙房，純淨", "expedia:3884803:pure-deluxe-king", 38): "Pure Deluxe Room",
+        ("豪華客房，2 張單人床，非吸煙房，純淨", "expedia:3884803:pure-deluxe-twin", 38): "Pure Deluxe Room",
+        ("行政特大雙人床房", "booking:33385822", 38): "Executive Deluxe Room",
+        ("行政雙床房", "booking:33385823", 38): "Executive Deluxe Room",
+        ("俱樂部雙床房，2 張單人床", "expedia:3884803:club-twin", 38): "Executive Deluxe Room",
+        ("小型套房", "booking:33385824", 60): "Junior Suite",
+        ("普通套房，1 間臥室", "expedia:3884803:junior-suite", 60): "Junior Suite",
+        ("轉角套房", "booking:33385825", 60): "Corner Suite",
+        ("套房，1 間臥室（Corner）", "expedia:3884803:corner-suite", 60): "Corner Suite",
+        ("行政套房", "booking:33385826", 75): "Executive Suite",
+        ("行政套房，1 間臥室", "expedia:3884803:executive-suite", 75): "Executive Suite",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        source_platform = "expedia_group" if code.startswith("expedia:") else "booking_com"
+        matched = match_room_type({
+            "hotel_id": "le_meridien_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": source_platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == ("2026-10-16" if code.startswith("expedia:") else "2026-10-13")
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    area_mismatch = match_room_type({
+        "hotel_id": "le_meridien_taipei",
+        "room_type_name": "俱樂部客房，1 張特大雙人床",
+        "room_type_code": "expedia:3884803:club-king",
+        "source_platform": "expedia_group",
+        "room_size_sqm": 35,
+    }, lookup)
+    assert area_mismatch["stable_room_type_id"] is None
