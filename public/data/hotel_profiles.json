@@ -422,7 +422,7 @@
     },
     {
       "hotel_id": "grand_hyatt_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-10-21",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -729,11 +729,11 @@
         "source_type": "official",
         "source_url": "https://solaria-taipei.nnr-h.com/stay/",
         "rooms": [
-          {"name_zh": "精巧大床房", "name_en": "Compact Queen", "name_ja": "コンパクトクイーン", "size_sqm": 18},
+          {"name_zh": "精巧大床房", "name_en": "Compact Queen", "name_ja": "コンパクトクイーン", "size_sqm": 18, "aliases": [{"label": "景隅大床房", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "f21af558-7fcf-490f-89cd-ded83ba055bb", "source_url": "https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM/Reservations/Reserve?packageId=a25b928f-1de1-4e85-af69-2b62e246fd25&packageRoomId=f21af558-7fcf-490f-89cd-ded83ba055bb&arrival=2027-01-19", "observed_at": "2026-10-21"}]},
           {"name_zh": "淋浴大床房", "name_en": "Shower Queen", "name_ja": "シャワークイーン", "size_sqm": 21},
           {"name_zh": "標準大床房", "name_en": "Standard Queen", "name_ja": "スタンダードクイーン", "size_sqm": 21},
           {"name_zh": "轉角大床房", "name_en": "Corner Queen", "name_ja": "コーナークイーン", "size_sqm": 26},
-          {"name_zh": "舒適特大床房", "name_en": "Moderate King", "name_ja": "モデレートキング", "size_sqm": 24},
+          {"name_zh": "舒適特大床房", "name_en": "Moderate King", "name_ja": "モデレートキング", "size_sqm": 24, "aliases": [{"label": "舒適大床房", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "d0259873-2e7f-4aca-80ce-0c3da1a932e3", "source_url": "https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM/Reservations/Reserve?packageId=a25b928f-1de1-4e85-af69-2b62e246fd25&packageRoomId=d0259873-2e7f-4aca-80ce-0c3da1a932e3&arrival=2027-01-19", "observed_at": "2026-10-21"}, {"label": "舒適大床房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:93043356:comfort-double", "source_url": "https://tw.hotels.com/ho2978387392/solaria-nishitetsu-hotel-taipei-ximen-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
           {"name_zh": "淋浴雙床房", "name_en": "Shower Twin", "name_ja": "シャワーツイン", "size_sqm": 21},
           {"name_zh": "標準雙床房", "name_en": "Standard Twin", "name_ja": "スタンダードツイン", "size_sqm": 21},
           {"name_zh": "舒適雙床房", "name_en": "Moderate Twin", "name_ja": "モデレートツイン", "size_sqm": 24},
@@ -741,9 +741,9 @@
           {"name_zh": "高級雙床房 B", "name_en": "Superior Twin B", "name_ja": "スーペリアツインB", "size_sqm": 30},
           {"name_zh": "豪華雙床房", "name_en": "Deluxe Twin", "name_ja": "デラックスツイン", "size_sqm": 33},
           {"name_zh": "無障礙雙床房", "name_en": "Accessible Twin", "name_ja": "アクセシブルツイン", "size_sqm": 26},
-          {"name_zh": "轉角三人房", "name_en": "Corner Triple", "name_ja": "コーナートリプル", "size_sqm": 28},
-          {"name_zh": "三人房", "name_en": "Triple", "name_ja": "トリプル", "size_sqm": 39},
-          {"name_zh": "頂級客房", "name_en": "Premium Room", "name_ja": "プレミアムルーム", "size_sqm": 35}
+          {"name_zh": "轉角三人房", "name_en": "Corner Triple", "name_ja": "コーナートリプル", "size_sqm": 28, "aliases": [{"label": "景隅三人房", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "1493b6ab-7210-4cb5-8937-1a9fe0b928d3", "source_url": "https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM/Reservations/Reserve?packageId=a25b928f-1de1-4e85-af69-2b62e246fd25&packageRoomId=1493b6ab-7210-4cb5-8937-1a9fe0b928d3&arrival=2027-01-19", "observed_at": "2026-10-21"}]},
+          {"name_zh": "三人房", "name_en": "Triple", "name_ja": "トリプル", "size_sqm": 39, "aliases": [{"label": "經典三人房", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "fca7392f-68d5-4dfa-b3a6-adf52d321649", "source_url": "https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM/Reservations/Reserve?packageId=a25b928f-1de1-4e85-af69-2b62e246fd25&packageRoomId=fca7392f-68d5-4dfa-b3a6-adf52d321649&arrival=2027-01-19", "observed_at": "2026-10-21"}]},
+          {"name_zh": "頂級客房", "name_en": "Premium Room", "name_ja": "プレミアムルーム", "size_sqm": 35, "aliases": [{"label": "尊爵房", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "5f455e97-1b54-4e83-a429-b88e5a1260aa", "source_url": "https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM/Reservations/Reserve?packageId=a25b928f-1de1-4e85-af69-2b62e246fd25&packageRoomId=5f455e97-1b54-4e83-a429-b88e5a1260aa&arrival=2027-01-19", "observed_at": "2026-10-21"}]}
         ]
       },
       "source_urls": [

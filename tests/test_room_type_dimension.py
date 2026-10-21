@@ -1016,3 +1016,37 @@ def test_taipei_marriott_dated_expedia_codes_match_official_suites_and_leave_sky
             "room_size_sqm": 43,
         }, lookup)
         assert unmatched["stable_room_type_id"] is None
+
+
+def test_solaria_dated_official_codes_and_expedia_comfort_room_match_evidenced_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "solaria_nishitetsu_taipei"
+    }
+    expected = {
+        ("景隅大床房", "f21af558-7fcf-490f-89cd-ded83ba055bb", "official", 18): ("Compact Queen", "2026-10-21"),
+        ("舒適大床房", "d0259873-2e7f-4aca-80ce-0c3da1a932e3", "official", 24): ("Moderate King", "2026-10-21"),
+        ("景隅三人房", "1493b6ab-7210-4cb5-8937-1a9fe0b928d3", "official", 28): ("Corner Triple", "2026-10-21"),
+        ("經典三人房", "fca7392f-68d5-4dfa-b3a6-adf52d321649", "official", 39): ("Triple", "2026-10-21"),
+        ("尊爵房", "5f455e97-1b54-4e83-a429-b88e5a1260aa", "official", 35): ("Premium Room", "2026-10-21"),
+        ("舒適大床房", "expedia:93043356:comfort-double", "expedia_group", 23): ("Moderate King", "2026-10-18"),
+    }
+
+    for (label, code, platform, size), (official_name, observed_at) in expected.items():
+        matched = match_room_type({
+            "hotel_id": "solaria_nishitetsu_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == observed_at
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
