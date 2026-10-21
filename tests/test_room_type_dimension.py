@@ -932,3 +932,42 @@ def test_humble_house_dated_ota_codes_match_official_rooms():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == ("2026-10-16" if code.startswith("expedia:") else "2026-10-13")
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_w_taipei_dated_booking_codes_match_evidenced_rooms_and_leave_generic_view_unmapped():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "w_taipei"
+    }
+    expected = {
+        ("市景絕佳房－附特大雙人床", "booking:33385911", 46): "Fabulous Room",
+        ("市景非凡客房－單臥室套房－附 1 張特大雙人床", "booking:33385914", 95): "Marvelous Suite",
+    }
+
+    for (label, code, size), evidenced_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "w_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == evidenced_name
+        assert alias["observed_at"] == "2026-10-14"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    generic_view = match_room_type({
+        "hotel_id": "w_taipei",
+        "room_type_name": "Room, 1 King Bed (View)",
+        "room_type_code": "expedia:4071588:king-view",
+        "source_platform": "expedia_group",
+        "room_size_sqm": 43,
+    }, lookup)
+    assert generic_view["stable_room_type_id"] is None

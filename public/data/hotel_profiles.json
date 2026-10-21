@@ -505,10 +505,10 @@
         "rooms": [
           {"name_zh": "奇妙客房", "name_en": "Wonderful Room", "name_ja": "Wonderful Room", "size_sqm": 43},
           {"name_zh": "壯美客房", "name_en": "Spectacular Room", "name_ja": "Spectacular Room", "size_sqm": 43},
-          {"name_zh": "絕佳客房", "name_en": "Fabulous Room", "name_ja": "Fabulous Room", "size_sqm": 46},
+          {"name_zh": "絕佳客房", "name_en": "Fabulous Room", "name_ja": "Fabulous Room", "size_sqm": 46, "aliases": [{"label": "市景絕佳房－附特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:33385911", "source_url": "https://www.booking.com/hotel/tw/w-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "酷角客房", "name_en": "Cool Corner Room", "name_ja": "Cool Corner Room", "size_sqm": 53},
           {"name_zh": "奇幻套房", "name_en": "Fantastic Suite", "name_ja": "Fantastic Suite", "size_sqm": 70},
-          {"name_zh": "非凡套房", "name_en": "Marvelous Suite", "name_ja": "Marvelous Suite", "size_sqm": 95},
+          {"name_zh": "非凡套房", "name_en": "Marvelous Suite", "name_ja": "Marvelous Suite", "size_sqm": 95, "aliases": [{"label": "市景非凡客房－單臥室套房－附 1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:33385914", "source_url": "https://www.booking.com/hotel/tw/w-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "驚喜套房", "name_en": "WOW Suite", "name_ja": "WOW Suite", "size_sqm": 116},
           {"name_zh": "頂級驚喜套房", "name_en": "Extreme WOW Suite", "name_ja": "Extreme WOW Suite", "size_sqm": 365}
         ]
