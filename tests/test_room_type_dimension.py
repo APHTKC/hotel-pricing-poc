@@ -854,3 +854,44 @@ def test_le_meridien_dated_ota_codes_match_official_rooms_and_reject_area_mismat
         "room_size_sqm": 35,
     }, lookup)
     assert area_mismatch["stable_room_type_id"] is None
+
+
+def test_metropolitan_premier_synxis_codes_disambiguate_generic_official_labels():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "hotel_metropolitan_premier_taipei"
+    }
+    expected = {
+        ("大都會客房", "DPK", 43): "Deluxe Premier King",
+        ("行政尊榮客房", "EPK", 43): "Executive Premier King",
+        ("行政景隅客房", "ECT", 62): "Executive Corner Twin",
+        ("行政套房", "SEK", 62): "Executive Suite King",
+    }
+
+    for (label, code, size), official_name in expected.items():
+        matched = match_room_type({
+            "hotel_id": "hotel_metropolitan_premier_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "official",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-18"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    ambiguous = match_room_type({
+        "hotel_id": "hotel_metropolitan_premier_taipei",
+        "room_type_name": "都會客房",
+        "room_type_code": "DXTU",
+        "source_platform": "official",
+        "room_size_sqm": 36,
+    }, lookup)
+    assert ambiguous["stable_room_type_id"] is None
