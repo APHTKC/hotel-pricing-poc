@@ -1217,7 +1217,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert min(room["size_sqm"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]) == 40
     assert max(room["size_sqm"] for room in sheraton_hsinchu["room_snapshot"]["rooms"]) == 231
     radium_kagaya = by_id["radium_kagaya_taipei"]
-    assert radium_kagaya["verified_at"] == "2026-10-07"
+    assert radium_kagaya["verified_at"] == "2026-10-21"
     assert radium_kagaya["room_inventory"] == 90
     assert radium_kagaya["service_charge_percent"] == 10
     assert radium_kagaya["service_charge_source_type"] == "official"

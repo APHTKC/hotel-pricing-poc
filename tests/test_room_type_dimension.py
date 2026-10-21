@@ -1121,3 +1121,50 @@ def test_landis_taipei_dated_ota_codes_match_official_room_categories():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == observed_at
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_radium_kagaya_dated_ota_codes_match_balcony_and_no_view_categories_conservatively():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "radium_kagaya_taipei"
+    }
+    expected = {
+        ("溫馨和洋標準套房(兩張加大單人床 有陽台)", "expedia:5978371:standard-twin-balcony", "expedia_group", 43): ("Mixed Standard Suite Twin (With Terrace)", "2026-10-16"),
+        ("溫馨和洋標準套房(一張特大雙人床)", "expedia:5978371:standard-king", "expedia_group", 43): ("Mixed Standard Suite (No View)", "2026-10-16"),
+        ("標準雙人房－無窗", "booking:505734804", "booking_com", 43): ("Mixed Standard Suite (No View)", "2026-10-14"),
+        ("標準雙床房－無窗", "booking:505734813", "booking_com", 43): ("Mixed Standard Suite (No View)", "2026-10-14"),
+        ("園景和洋雅緻套房(兩張加大單人床 有陽台)", "expedia:5978371:elegant-garden-twin-balcony", "expedia_group", 50): ("Park Side View Mixed Deluxe Suite (With Terrace)", "2026-10-16"),
+        ("園景和洋雅緻套房(一張特大雙人床)", "expedia:5978371:elegant-garden-king", "expedia_group", 43): ("Park Side View Mixed Deluxe Suite", "2026-10-16"),
+    }
+
+    for (label, code, platform, size), (official_name, observed_at) in expected.items():
+        matched = match_room_type({
+            "hotel_id": "radium_kagaya_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": platform,
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == observed_at
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    for label, code in (
+        ("豪華雙人房", "booking:505734801"),
+        ("豪華雙床房", "booking:505734802"),
+    ):
+        unmatched = match_room_type({
+            "hotel_id": "radium_kagaya_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "booking_com",
+            "room_size_sqm": 43,
+        }, lookup)
+        assert unmatched["stable_room_type_id"] is None
