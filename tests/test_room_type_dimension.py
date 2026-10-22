@@ -667,6 +667,36 @@ def test_fleur_de_chine_official_duo_view_code_matches_catalog():
     assert matched["room_match_status"] == "matched_evidenced_source_code"
 
 
+def test_kaohsiung_marriott_hotels_com_codes_match_official_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "kaohsiung_marriott"
+    }
+    expected = (
+        ("行政客房, 2 張標準雙人床, 城市景觀", "expedia:66588735:executive-double-city", 46, "Executive Deluxe Room"),
+        ("極品套房, 1 張特大雙人床 (View)", "expedia:66588735:premium-suite-king-view", 69, "Premier Suite"),
+    )
+
+    for label, code, size, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "kaohsiung_marriott",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
 def test_sheraton_grand_taipei_dated_ota_codes_match_official_rooms():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
     dimension = build_room_type_dimension(profiles)

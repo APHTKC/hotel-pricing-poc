@@ -1191,8 +1191,8 @@
           {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 46},
           {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 46},
           {"name_zh": "豪華四人房", "name_en": "Family Room (Quadruple)", "name_ja": "Family Room (Quadruple)", "size_sqm": 46},
-          {"name_zh": "行政豪華客房", "name_en": "Executive Deluxe Room", "name_ja": "Executive Deluxe Room", "size_sqm": 46},
-          {"name_zh": "景觀尊榮套房", "name_en": "Premier Suite", "name_ja": "Premier Suite", "size_sqm": 69},
+          {"name_zh": "行政豪華客房", "name_en": "Executive Deluxe Room", "name_ja": "Executive Deluxe Room", "size_sqm": 46, "aliases": [{"label": "行政客房, 2 張標準雙人床, 城市景觀", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:66588735:executive-double-city", "source_url": "https://tw.hotels.com/ho2131839520/gao-xiong-wan-hao-jiu-dian-gao-xiong-tai-wan/?chkin=2026-12-21&chkout=2026-12-22&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
+          {"name_zh": "景觀尊榮套房", "name_en": "Premier Suite", "name_ja": "Premier Suite", "size_sqm": 69, "aliases": [{"label": "極品套房, 1 張特大雙人床 (View)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:66588735:premium-suite-king-view", "source_url": "https://tw.hotels.com/ho2131839520/gao-xiong-wan-hao-jiu-dian-gao-xiong-tai-wan/?chkin=2026-12-21&chkout=2026-12-22&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
           {"name_zh": "家庭套房", "name_en": "Family Suite Connector", "name_ja": "Family Suite Connector", "size_sqm": 92},
           {"name_zh": "行政萬豪套房", "name_en": "Executive Grand Suite", "name_ja": "Executive Grand Suite", "size_sqm": 92}
         ]
