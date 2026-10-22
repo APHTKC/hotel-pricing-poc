@@ -41,11 +41,12 @@ def test_room_type_dimension_has_stable_ids_evidence_and_dual_counts():
     assert len({row["stable_room_type_id"] for row in rows}) == len(rows)
     assert all(row["evidence"]["source_url"].startswith("https://") for row in rows)
     assert all(row["strict_parity_eligible"] is False for row in rows)
-    assert payload["schema_version"] == "1.1"
-    assert payload["evidence_quality"] == {
-        "source_code_conflict_count": 0,
-        "source_code_conflicts": [],
-    }
+    assert payload["schema_version"] == "1.2"
+    quality = payload["evidence_quality"]
+    assert quality["source_code_conflict_count"] == 0
+    assert quality["source_code_conflicts"] == []
+    assert quality["evidenced_label_conflict_count"] == 0
+    assert quality["evidenced_label_conflicts"] == []
 
     capella = next(row for row in payload["hotel_summaries"] if row["hotel_id"] == "capella_taipei")
     assert capella["room_name_count"] == 13
@@ -96,6 +97,53 @@ def test_room_type_dimension_reports_conflicting_source_codes():
     assert conflict["hotel_id"] == "hotel-a"
     assert conflict["source_platform"] == "booking_com"
     assert conflict["room_type_code"] == "booking:duplicate"
+    assert len(conflict["stable_room_type_ids"]) == 2
+
+
+def test_room_type_dimension_reports_conflicting_matchable_alias_labels():
+    profiles = {
+        "profiles": [{
+            "hotel_id": "hotel-a",
+            "room_snapshot": {
+                "source_type": "official",
+                "source_url": "https://official.example/rooms",
+                "observed_at": "2026-10-22",
+                "rooms": [
+                    {
+                        "name_en": "City King",
+                        "size_sqm": 40,
+                        "aliases": [{
+                            "label": "City Room",
+                            "source_platform": "booking_com",
+                            "room_type_code": "booking:king",
+                            "source_url": "https://ota.example/snapshot",
+                            "observed_at": "2026-10-22",
+                        }],
+                    },
+                    {
+                        "name_en": "City Twin",
+                        "size_sqm": 40,
+                        "aliases": [{
+                            "label": "City Room",
+                            "source_platform": "booking_com",
+                            "room_type_code": "booking:twin",
+                            "source_url": "https://ota.example/snapshot",
+                            "observed_at": "2026-10-22",
+                        }],
+                    },
+                ],
+            },
+        }],
+    }
+
+    payload = build_room_type_dimension(profiles)
+    quality = payload["evidence_quality"]
+    conflict = quality["evidenced_label_conflicts"][0]
+
+    assert quality["source_code_conflict_count"] == 0
+    assert quality["evidenced_label_conflict_count"] == 1
+    assert conflict["normalized_label"] == "cityroom"
+    assert conflict["example_label"] == "City Room"
     assert len(conflict["stable_room_type_ids"]) == 2
 
 

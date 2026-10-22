@@ -310,6 +310,8 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
             }
         )
     source_code_targets: dict[tuple[str, str, str], set[str]] = defaultdict(set)
+    evidenced_label_targets: dict[tuple[str, str], set[str]] = defaultdict(set)
+    evidenced_label_examples: dict[tuple[str, str], str] = {}
     for row in rows:
         for alias in row["aliases"]:
             source_platform = str(alias.get("source_platform") or "").strip()
@@ -318,6 +320,11 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
                 source_code_targets[(row["hotel_id"], source_platform, room_type_code)].add(
                     row["stable_room_type_id"]
                 )
+            normalized_label = normalize_room_label(alias.get("label"))
+            if normalized_label and alias.get("label_match") is not False:
+                label_key = (row["hotel_id"], normalized_label)
+                evidenced_label_targets[label_key].add(row["stable_room_type_id"])
+                evidenced_label_examples.setdefault(label_key, alias["label"])
     source_code_conflicts = [
         {
             "hotel_id": hotel_id,
@@ -328,8 +335,18 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
         for (hotel_id, source_platform, room_type_code), stable_ids in sorted(source_code_targets.items())
         if len(stable_ids) > 1
     ]
+    evidenced_label_conflicts = [
+        {
+            "hotel_id": hotel_id,
+            "normalized_label": normalized_label,
+            "example_label": evidenced_label_examples[(hotel_id, normalized_label)],
+            "stable_room_type_ids": sorted(stable_ids),
+        }
+        for (hotel_id, normalized_label), stable_ids in sorted(evidenced_label_targets.items())
+        if len(stable_ids) > 1
+    ]
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "updated_at": profiles_payload.get("updated_at"),
         "definition": {
             "room_name_count": "Distinct evidenced room labels published by the source.",
@@ -340,6 +357,8 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
         "evidence_quality": {
             "source_code_conflict_count": len(source_code_conflicts),
             "source_code_conflicts": source_code_conflicts,
+            "evidenced_label_conflict_count": len(evidenced_label_conflicts),
+            "evidenced_label_conflicts": evidenced_label_conflicts,
         },
         "hotel_summaries": summaries,
         "room_types": sorted(rows, key=lambda row: (row["hotel_id"], row["size_sqm_min"] or 1e9, row["stable_room_type_id"])),
