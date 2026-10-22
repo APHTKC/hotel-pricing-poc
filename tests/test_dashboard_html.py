@@ -2017,7 +2017,7 @@ def test_hotel_profiles_publish_evidenced_michelin_restaurant_statistics():
         for restaurant in profile.get("michelin_restaurants", [])
     ]
 
-    assert len(entries) == 12
+    assert len(entries) == 14
     assert {hotel_id for hotel_id, _ in entries} == {
         "capella_taipei",
         "grand_mayfull_taipei",
@@ -2050,7 +2050,18 @@ def test_hotel_profiles_publish_evidenced_michelin_restaurant_statistics():
         for hotel_id in {"mo_taipei", "regent_taipei", "sheraton_grand_taipei"}
         for item in by_id[hotel_id]["michelin_restaurants"]
         if item["distinction"] == "selected"
-    } == {"Bencotto", "Robin's Teppanyaki", "The Dragon"}
+    } == {
+        "Bencotto",
+        "Robin's Teppanyaki",
+        "Tajimaya Shabu Shabu",
+        "Thai & Thai",
+        "The Dragon",
+    }
+    assert {
+        item["name"]
+        for item in by_id["mo_taipei"]["michelin_restaurants"]
+        if item.get("relationship") == "located_in_hotel"
+    } == {"Tajimaya Shabu Shabu", "Thai & Thai"}
 
     html = Path("public/hotels.html").read_text(encoding="utf-8")
     assert "michelin_restaurants" in html

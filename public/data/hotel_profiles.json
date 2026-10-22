@@ -175,6 +175,24 @@
           "verified_at": "2026-10-21",
           "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
           "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/bencotto"
+        },
+        {
+          "name": "Thai & Thai",
+          "guide_year": 2026,
+          "distinction": "selected",
+          "verified_at": "2026-10-22",
+          "relationship": "located_in_hotel",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/thai-thai"
+        },
+        {
+          "name": "Tajimaya Shabu Shabu",
+          "guide_year": 2026,
+          "distinction": "selected",
+          "verified_at": "2026-10-22",
+          "relationship": "located_in_hotel",
+          "source_url": "https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list",
+          "restaurant_url": "https://guide.michelin.com/tw/en/taipei-region/taipei/restaurant/tajimaya-shabu-shabu"
         }
       ],
       "source_urls": [
