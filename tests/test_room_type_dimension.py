@@ -1952,3 +1952,33 @@ def test_hotel_resonance_booking_king_code_matches_base_king_room_only():
         "room_size_sqm": 30,
     }, lookup)
     assert generic_without_evidenced_code["stable_room_type_id"] is None
+
+
+def test_eslite_hotel_expedia_twin_codes_match_official_room_sizes():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "eslite_hotel"
+    }
+    expected = (
+        ("雅緻雙床房", "expedia:6640422:elegant-twin", 43, "Deluxe"),
+        ("經典雙床房", "expedia:6640422:classic-twin", 53, "Studio"),
+    )
+
+    for label, code, room_size, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "eslite_hotel",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": room_size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"

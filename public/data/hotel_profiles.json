@@ -726,8 +726,8 @@
         "source_type": "official",
         "source_url": "https://www.eslitehotel.com/room/",
         "rooms": [
-          {"name_zh": "雅緻客房", "name_en": "Deluxe", "name_ja": "Deluxe", "size_sqm": 43, "room_count": 31},
-          {"name_zh": "經典客房", "name_en": "Studio", "name_ja": "Studio", "size_sqm": 53, "room_count": 29},
+          {"name_zh": "雅緻客房", "name_en": "Deluxe", "name_ja": "Deluxe", "size_sqm": 43, "room_count": 31, "aliases": [{"label": "雅緻雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:6640422:elegant-twin", "source_url": "https://tw.hotels.com/ho443651/cheng-pin-xing-lu-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
+          {"name_zh": "經典客房", "name_en": "Studio", "name_ja": "Studio", "size_sqm": 53, "room_count": 29, "aliases": [{"label": "經典雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:6640422:classic-twin", "source_url": "https://tw.hotels.com/ho443651/cheng-pin-xing-lu-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
           {"name_zh": "行政套房", "name_en": "Suite", "name_ja": "Suite", "size_sqm": 69, "room_count": 38},
           {"name_zh": "行政家庭房", "name_en": "Family Suite", "name_ja": "Family Suite", "size_sqm": 69, "room_count": 1},
           {"name_zh": "人文套房", "name_en": "Library Suite", "name_ja": "Library Suite", "size_sqm_min": 89, "size_sqm_max": 182, "room_count": 5}
