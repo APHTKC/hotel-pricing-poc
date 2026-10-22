@@ -1877,3 +1877,43 @@ def test_howard_plaza_standard_double_codes_match_official_single_bed_room():
         "room_size_sqm": 20,
     }, lookup)
     assert generic_without_evidenced_code["stable_room_type_id"] is None
+
+
+def test_regent_taipei_classic_and_club_codes_match_official_45_sqm_rooms():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "regent_taipei"
+    }
+    expected = (
+        ("經典客房－1 張特大雙人床", "expedia:25187:classic-king", "expedia_group", "Deluxe Room", "2026-10-16"),
+        ("俱樂部特大雙人床房", "booking:33040907", "booking_com", "Tai Pan Room", "2026-10-14"),
+    )
+
+    for label, code, platform, official_name, observed_at in expected:
+        matched = match_room_type({
+            "hotel_id": "regent_taipei",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": platform,
+            "room_size_sqm": 45,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == observed_at
+        assert alias["label_match"] is False
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    generic_without_evidenced_code = match_room_type({
+        "hotel_id": "regent_taipei",
+        "room_type_name": "俱樂部特大雙人床房",
+        "room_type_code": "other:club-king",
+        "source_platform": "other_ota",
+        "room_size_sqm": 45,
+    }, lookup)
+    assert generic_without_evidenced_code["stable_room_type_id"] is None
