@@ -1,25 +1,25 @@
 {
   "schema_version": "1.0",
-  "rows": 92009,
+  "rows": 94796,
   "hotels": 52,
   "queried_at": {
     "min": "2026-09-04 02:48:48.293979",
-    "max": "2026-10-21 01:05:25.814032"
+    "max": "2026-10-22 01:03:32.273623"
   },
   "quality": {
-    "known_room_size_rows": 90537,
-    "known_room_size_ratio": 0.984002,
-    "known_tax_rows": 44231,
-    "known_tax_ratio": 0.480725,
-    "known_cancellation_policy_rows": 55305,
-    "known_cancellation_policy_ratio": 0.601083,
-    "known_cancellation_class_rows": 47226,
-    "known_cancellation_class_ratio": 0.513276,
-    "known_cancellation_deadline_rows": 36891,
-    "known_cancellation_deadline_ratio": 0.40095,
-    "known_cancellation_schedule_rows": 1800,
-    "known_cancellation_schedule_ratio": 0.019563,
-    "nightly_adr_rows": 92009,
+    "known_room_size_rows": 93265,
+    "known_room_size_ratio": 0.98385,
+    "known_tax_rows": 45429,
+    "known_tax_ratio": 0.479229,
+    "known_cancellation_policy_rows": 56755,
+    "known_cancellation_policy_ratio": 0.598707,
+    "known_cancellation_class_rows": 48419,
+    "known_cancellation_class_ratio": 0.51077,
+    "known_cancellation_deadline_rows": 37850,
+    "known_cancellation_deadline_ratio": 0.399278,
+    "known_cancellation_schedule_rows": 1850,
+    "known_cancellation_schedule_ratio": 0.019516,
+    "nightly_adr_rows": 94796,
     "nightly_adr_ratio": 1.0
   },
   "sources": [
@@ -47,46 +47,46 @@
     },
     {
       "source_platform": "official",
-      "rows": 91273,
+      "rows": 94060,
       "hotels": 22,
-      "known_room_size_rows": 89801,
-      "known_tax_rows": 43853,
-      "known_cancellation_policy_rows": 54569,
-      "known_cancellation_class_rows": 46490,
-      "known_cancellation_deadline_rows": 36155,
-      "known_cancellation_schedule_rows": 1800
+      "known_room_size_rows": 92529,
+      "known_tax_rows": 45051,
+      "known_cancellation_policy_rows": 56019,
+      "known_cancellation_class_rows": 47683,
+      "known_cancellation_deadline_rows": 37114,
+      "known_cancellation_schedule_rows": 1850
     }
   ],
   "top_tax_gaps": [
     {
       "hotel_id": "grand_hilai_kaohsiung",
-      "rows": 27196,
+      "rows": 28216,
       "known_tax_rows": 4,
-      "unknown_tax_rows": 27192
+      "unknown_tax_rows": 28212
     },
     {
       "hotel_id": "eslite_hotel",
-      "rows": 5191,
+      "rows": 5324,
       "known_tax_rows": 5,
-      "unknown_tax_rows": 5186
+      "unknown_tax_rows": 5319
     },
     {
       "hotel_id": "grand_mayfull_taipei",
-      "rows": 4935,
+      "rows": 5030,
       "known_tax_rows": 5,
-      "unknown_tax_rows": 4930
+      "unknown_tax_rows": 5025
     },
     {
       "hotel_id": "hoshinoya_guguan",
-      "rows": 2873,
+      "rows": 2950,
       "known_tax_rows": 0,
-      "unknown_tax_rows": 2873
+      "unknown_tax_rows": 2950
     },
     {
       "hotel_id": "grand_hilai_taipei",
-      "rows": 2385,
+      "rows": 2457,
       "known_tax_rows": 4,
-      "unknown_tax_rows": 2381
+      "unknown_tax_rows": 2453
     },
     {
       "hotel_id": "royal_nikko_taipei",
@@ -96,21 +96,21 @@
     },
     {
       "hotel_id": "the_gaia_taipei",
-      "rows": 1661,
+      "rows": 1796,
       "known_tax_rows": 4,
-      "unknown_tax_rows": 1657
+      "unknown_tax_rows": 1792
     },
     {
       "hotel_id": "silks_place_yilan",
-      "rows": 1290,
+      "rows": 1342,
       "known_tax_rows": 0,
-      "unknown_tax_rows": 1290
+      "unknown_tax_rows": 1342
     },
     {
       "hotel_id": "taipei_garden_hotel",
-      "rows": 68,
+      "rows": 73,
       "known_tax_rows": 9,
-      "unknown_tax_rows": 59
+      "unknown_tax_rows": 64
     },
     {
       "hotel_id": "taipei_marriott",
@@ -119,26 +119,26 @@
       "unknown_tax_rows": 31
     }
   ],
-  "unresolved_cancellation_rows": 8079,
+  "unresolved_cancellation_rows": 8336,
   "unresolved_cancellation_groups": 5,
   "cancellation_blockers": [
     {
       "reason": "generic_placeholder",
       "hotel_id": "windsor_taichung",
       "source_platform": "official",
-      "rows": 4689
+      "rows": 4836
     },
     {
       "reason": "generic_fee_notice",
       "hotel_id": "grand_mayfull_taipei",
       "source_platform": "official",
-      "rows": 2088
+      "rows": 2120
     },
     {
       "reason": "generic_fee_notice",
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
-      "rows": 502
+      "rows": 562
     },
     {
       "reason": "generic_fee_notice",
@@ -150,7 +150,7 @@
       "reason": "generic_fee_notice",
       "hotel_id": "silks_place_yilan",
       "source_platform": "official",
-      "rows": 361
+      "rows": 379
     }
   ]
 }
