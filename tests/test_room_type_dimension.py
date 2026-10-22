@@ -41,11 +41,62 @@ def test_room_type_dimension_has_stable_ids_evidence_and_dual_counts():
     assert len({row["stable_room_type_id"] for row in rows}) == len(rows)
     assert all(row["evidence"]["source_url"].startswith("https://") for row in rows)
     assert all(row["strict_parity_eligible"] is False for row in rows)
+    assert payload["schema_version"] == "1.1"
+    assert payload["evidence_quality"] == {
+        "source_code_conflict_count": 0,
+        "source_code_conflicts": [],
+    }
 
     capella = next(row for row in payload["hotel_summaries"] if row["hotel_id"] == "capella_taipei")
     assert capella["room_name_count"] == 13
     assert capella["area_spec_count"] == 7
     assert capella["normalized_family_count"] == 7
+
+
+def test_room_type_dimension_reports_conflicting_source_codes():
+    profiles = {
+        "profiles": [{
+            "hotel_id": "hotel-a",
+            "room_snapshot": {
+                "source_type": "official",
+                "source_url": "https://official.example/rooms",
+                "observed_at": "2026-10-22",
+                "rooms": [
+                    {
+                        "name_en": "Deluxe King",
+                        "size_sqm": 40,
+                        "aliases": [{
+                            "label": "Deluxe Room",
+                            "source_platform": "booking_com",
+                            "room_type_code": "booking:duplicate",
+                            "source_url": "https://ota.example/snapshot",
+                            "observed_at": "2026-10-22",
+                        }],
+                    },
+                    {
+                        "name_en": "Deluxe Twin",
+                        "size_sqm": 40,
+                        "aliases": [{
+                            "label": "Deluxe Room",
+                            "source_platform": "booking_com",
+                            "room_type_code": "booking:duplicate",
+                            "source_url": "https://ota.example/snapshot",
+                            "observed_at": "2026-10-22",
+                        }],
+                    },
+                ],
+            },
+        }],
+    }
+
+    payload = build_room_type_dimension(profiles)
+    conflict = payload["evidence_quality"]["source_code_conflicts"][0]
+
+    assert payload["evidence_quality"]["source_code_conflict_count"] == 1
+    assert conflict["hotel_id"] == "hotel-a"
+    assert conflict["source_platform"] == "booking_com"
+    assert conflict["room_type_code"] == "booking:duplicate"
+    assert len(conflict["stable_room_type_ids"]) == 2
 
 
 def test_published_room_type_dimension_matches_builder_output():

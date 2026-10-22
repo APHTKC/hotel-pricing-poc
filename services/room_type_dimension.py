@@ -309,8 +309,27 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
                 "normalized_family_count": len(item["room_family_keys"]),
             }
         )
+    source_code_targets: dict[tuple[str, str, str], set[str]] = defaultdict(set)
+    for row in rows:
+        for alias in row["aliases"]:
+            source_platform = str(alias.get("source_platform") or "").strip()
+            room_type_code = str(alias.get("room_type_code") or "").strip()
+            if source_platform and room_type_code:
+                source_code_targets[(row["hotel_id"], source_platform, room_type_code)].add(
+                    row["stable_room_type_id"]
+                )
+    source_code_conflicts = [
+        {
+            "hotel_id": hotel_id,
+            "source_platform": source_platform,
+            "room_type_code": room_type_code,
+            "stable_room_type_ids": sorted(stable_ids),
+        }
+        for (hotel_id, source_platform, room_type_code), stable_ids in sorted(source_code_targets.items())
+        if len(stable_ids) > 1
+    ]
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "updated_at": profiles_payload.get("updated_at"),
         "definition": {
             "room_name_count": "Distinct evidenced room labels published by the source.",
@@ -318,6 +337,10 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
             "normalized_family_count": "Conservative room class plus area grouping; not sufficient alone for strict rate parity.",
         },
         "strict_parity_note": "A matching area or family alone is never sufficient for strict rate parity.",
+        "evidence_quality": {
+            "source_code_conflict_count": len(source_code_conflicts),
+            "source_code_conflicts": source_code_conflicts,
+        },
         "hotel_summaries": summaries,
         "room_types": sorted(rows, key=lambda row: (row["hotel_id"], row["size_sqm_min"] or 1e9, row["stable_room_type_id"])),
     }
