@@ -1917,3 +1917,38 @@ def test_regent_taipei_classic_and_club_codes_match_official_45_sqm_rooms():
         "room_size_sqm": 45,
     }, lookup)
     assert generic_without_evidenced_code["stable_room_type_id"] is None
+
+
+def test_hotel_resonance_booking_king_code_matches_base_king_room_only():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "hotel_resonance_taipei"
+    }
+
+    matched = match_room_type({
+        "hotel_id": "hotel_resonance_taipei",
+        "room_type_name": "特大雙人床客房",
+        "room_type_code": "booking:688012101",
+        "source_platform": "booking_com",
+        "room_size_sqm": 30,
+    }, lookup)
+    room = rooms[matched["stable_room_type_id"]]
+    alias = next(item for item in room["aliases"] if item["room_type_code"] == "booking:688012101")
+
+    assert room["name_en"] == "King Guest Room"
+    assert alias["observed_at"] == "2026-10-13"
+    assert alias["label_match"] is False
+    assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+    generic_without_evidenced_code = match_room_type({
+        "hotel_id": "hotel_resonance_taipei",
+        "room_type_name": "特大雙人床客房",
+        "room_type_code": "other:king-room",
+        "source_platform": "other_ota",
+        "room_size_sqm": 30,
+    }, lookup)
+    assert generic_without_evidenced_code["stable_room_type_id"] is None

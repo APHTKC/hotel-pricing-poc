@@ -1772,7 +1772,7 @@
         "source_type": "ota",
         "source_url": "https://www.agoda.com/hotel-resonance-taipei-tapestry-collection-by-hilton/hotel/taipei-tw.html",
         "rooms": [
-          {"name_zh": "精選客房（一大床）", "name_en": "King Guest Room", "name_ja": "King Guest Room", "size_sqm": 30},
+          {"name_zh": "精選客房（一大床）", "name_en": "King Guest Room", "name_ja": "King Guest Room", "size_sqm": 30, "aliases": [{"label": "特大雙人床客房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:688012101", "label_match": false, "source_url": "https://www.booking.com/hotel/tw/resonance.zh-tw.html?checkin=2026-12-11&checkout=2026-12-12&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
           {"name_zh": "精選客房（兩小床）", "name_en": "Twin Guest Room", "name_ja": "Twin Guest Room", "size_sqm": 30},
           {"name_zh": "無障礙客房（一大床）", "name_en": "Accessible King Room", "name_ja": "Accessible King Room", "size_sqm": 30},
           {"name_zh": "轉角客房（一大床）", "name_en": "King Corner Room", "name_ja": "King Corner Room", "size_sqm": 34},
