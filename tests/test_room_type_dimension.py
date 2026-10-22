@@ -642,6 +642,31 @@ def test_millennium_taichung_hotels_com_codes_match_official_catalog():
         assert matched["room_match_status"] == "matched_evidenced_source_code"
 
 
+def test_fleur_de_chine_official_duo_view_code_matches_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    matched = match_room_type({
+        "hotel_id": "fleur_de_chine",
+        "room_type_name": "豪華山湖和式房",
+        "room_type_code": "06c8d06e-6c0f-4b38-92e2-4cefeb4992e5",
+        "source_platform": "official",
+        "room_size_sqm": 43,
+    }, lookup)
+    room = next(
+        item for item in dimension["room_types"]
+        if item["stable_room_type_id"] == matched["stable_room_type_id"]
+    )
+    alias = next(
+        item for item in room["aliases"]
+        if item["room_type_code"] == "06c8d06e-6c0f-4b38-92e2-4cefeb4992e5"
+    )
+
+    assert room["name_en"] == "Deluxe Japanese Style – Duo View"
+    assert alias["observed_at"] == "2026-10-22"
+    assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
 def test_sheraton_grand_taipei_dated_ota_codes_match_official_rooms():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
     dimension = build_room_type_dimension(profiles)
