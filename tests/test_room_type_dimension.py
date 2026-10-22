@@ -1807,3 +1807,33 @@ def test_courtyard_taipei_booking_codes_match_official_room_catalog():
         "room_size_sqm": 69,
     }, lookup)
     assert area_mismatch["stable_room_type_id"] is None
+
+
+def test_the_lin_taichung_hotels_com_family_codes_match_official_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "the_lin_taichung"
+    }
+    expected = (
+        ("豪華三人房, 2 張標準雙人床", "expedia:10027150:deluxe-triple", "Deluxe Family"),
+        ("行政三人房, 2 張標準雙人床", "expedia:10027150:executive-triple", "Executive Deluxe Family"),
+    )
+
+    for label, code, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "the_lin_taichung",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": 53,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
