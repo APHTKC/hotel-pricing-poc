@@ -608,6 +608,40 @@ def test_hotel_royal_hsinchu_official_family_room_code_matches_catalog():
     assert matched["room_match_status"] == "matched_evidenced_source_code"
 
 
+def test_millennium_taichung_hotels_com_codes_match_official_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "millennium_taichung"
+    }
+    expected = (
+        ("精緻雙人房 無景觀", "expedia:5494391:premier-king-no-view", 32, "Superior"),
+        ("豪華雙人房", "expedia:5494391:deluxe-king", 36, "Deluxe"),
+        ("豪華雙床房 無景觀", "expedia:5494391:deluxe-twin-no-view", 36, "Deluxe"),
+        ("行政雙人房－享俱樂部禮遇", "expedia:5494391:executive-king-club", 36, "Club"),
+        ("行政雙床房 無景觀－享俱樂部禮遇", "expedia:5494391:executive-twin-no-view-club", 36, "Club"),
+        ("行政雙人套房－享俱樂部禮遇", "expedia:5494391:executive-king-suite-club", 53, "Studio Vee"),
+    )
+
+    for label, code, size, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "millennium_taichung",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
 def test_sheraton_grand_taipei_dated_ota_codes_match_official_rooms():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
     dimension = build_room_type_dimension(profiles)
