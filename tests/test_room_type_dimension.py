@@ -586,6 +586,28 @@ def test_intercontinental_taichung_hotels_com_codes_match_official_catalog():
         assert matched["room_match_status"] == "matched_evidenced_source_code"
 
 
+def test_hotel_royal_hsinchu_official_family_room_code_matches_catalog():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    matched = match_room_type({
+        "hotel_id": "hotel_royal_hsinchu",
+        "room_type_name": "豪華家庭客房",
+        "room_type_code": "DD",
+        "source_platform": "official",
+        "room_size_sqm": 43,
+    }, lookup)
+    room = next(
+        item for item in dimension["room_types"]
+        if item["stable_room_type_id"] == matched["stable_room_type_id"]
+    )
+    alias = next(item for item in room["aliases"] if item["room_type_code"] == "DD")
+
+    assert room["name_en"] == "Family Twin Room"
+    assert alias["observed_at"] == "2026-10-17"
+    assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
 def test_sheraton_grand_taipei_dated_ota_codes_match_official_rooms():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
     dimension = build_room_type_dimension(profiles)

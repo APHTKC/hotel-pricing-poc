@@ -2638,7 +2638,7 @@
         "rooms": [
           {"name_zh": "雅緻客房", "name_en": "Superior Room", "name_ja": "スーペリアルーム", "size_sqm": 36},
           {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックスルーム", "size_sqm": 39},
-          {"name_zh": "豪華家庭房", "name_en": "Family Twin Room", "name_ja": "ファミリーツインルーム", "size_sqm": 43},
+          {"name_zh": "豪華家庭房", "name_en": "Family Twin Room", "name_ja": "ファミリーツインルーム", "size_sqm": 43, "aliases": [{"label": "豪華家庭客房", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "DD", "source_url": "https://tlathena.ec-hotel.net/webhotel-v4/0232/index?_rand=yxjsypu3uj", "observed_at": "2026-10-17"}]},
           {"name_zh": "行政客房", "name_en": "Executive Room", "name_ja": "エグゼクティブルーム", "size_sqm": 43},
           {"name_zh": "景緻客房", "name_en": "Corner Room", "name_ja": "コーナールーム", "size_sqm": 40},
           {"name_zh": "老爺套房", "name_en": "Royal Suite", "name_ja": "ロイヤルスイート", "size_sqm": 56}
