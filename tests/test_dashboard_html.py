@@ -1855,6 +1855,10 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()))" in script
     assert 'button.dataset.printBound==="true"' in script
     assert 'button.dataset.printBound="true"' in script
+    assert 'document.title=`${labels.title} - ${reportDate}`' in script
+    assert "document.title=previousDocumentTitle" in script
+    assert 'button.setAttribute("aria-label",labels.button)' in script
+    assert "button.title=labels.hint" in script
     assert "button:not(.heatmap-cell)" in shell
     assert "#a4BriefingPrint .heatmap-cell{display:block!important" in shell
     assert "#a4BriefingPrint .price-heatmap-table{width:100%!important;min-width:0!important" in shell
