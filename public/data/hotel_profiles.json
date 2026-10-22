@@ -2342,7 +2342,7 @@
         "source_type": "official",
         "source_url": "https://onlinebooking.howard-hotels.com.tw/Product/Item/7549",
         "rooms": [
-          {"name_zh": "標準單床房", "name_en": "Standard King Room", "name_ja": "Standard King Room", "size_sqm_min": 20, "size_sqm_max": 23},
+          {"name_zh": "標準單床房", "name_en": "Standard King Room", "name_ja": "Standard King Room", "size_sqm_min": 20, "size_sqm_max": 23, "aliases": [{"label": "標準雙人房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:27081726", "label_match": false, "source_url": "https://www.booking.com/hotel/tw/the-howard-plaza-taipei.zh-tw.html?checkin=2026-12-22&checkout=2026-12-23&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}, {"label": "標準雙人房, 1 張標準雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:13054:standard-double", "label_match": false, "source_url": "https://tw.hotels.com/ho114106/tai-bei-fu-hua-da-fan-dian-tai-bei-tai-wan/?chkin=2027-01-06&chkout=2027-01-07&rm1=a2&top_cur=TWD", "observed_at": "2026-10-17"}]},
           {"name_zh": "高級單床房", "name_en": "Superior King Room", "name_ja": "Superior King Room", "size_sqm_min": 26, "size_sqm_max": 27},
           {"name_zh": "高級雙床房", "name_en": "Superior Twin Room", "name_ja": "Superior Twin Room", "size_sqm_min": 24, "size_sqm_max": 27}
         ]
