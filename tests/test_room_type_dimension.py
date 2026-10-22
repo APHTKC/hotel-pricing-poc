@@ -1982,3 +1982,35 @@ def test_eslite_hotel_expedia_twin_codes_match_official_room_sizes():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == "2026-10-16"
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_windsor_taichung_expedia_codes_match_official_bed_types_and_sizes():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "windsor_taichung"
+    }
+    expected = (
+        ("高級雙人房, 1 張特大雙人床", "expedia:4612157:superior-king", 31, "Superior King Bed Room"),
+        ("豪華雙床房, 2 張單人床", "expedia:4612157:deluxe-twin", 37, "Deluxe Twin Beds Room"),
+        ("豪華客房, 1 張特大雙人床", "expedia:4612157:deluxe-king", 37, "Deluxe King Bed Room"),
+        ("商務客房, 1 張特大雙人床", "expedia:4612157:business-king", 41, "Business King Bed Room"),
+    )
+
+    for label, code, room_size, official_name in expected:
+        matched = match_room_type({
+            "hotel_id": "windsor_taichung",
+            "room_type_name": label,
+            "room_type_code": code,
+            "source_platform": "expedia_group",
+            "room_size_sqm": room_size,
+        }, lookup)
+        room = rooms[matched["stable_room_type_id"]]
+        alias = next(item for item in room["aliases"] if item["room_type_code"] == code)
+
+        assert room["name_en"] == official_name
+        assert alias["observed_at"] == "2026-10-16"
+        assert matched["room_match_status"] == "matched_evidenced_source_code"
