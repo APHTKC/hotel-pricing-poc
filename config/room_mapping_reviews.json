@@ -727,6 +727,62 @@
         "https://www.booking.com/hotel/tw/shangri-la-s-far-eastern-plaza-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 標示豪華閣 Premier King 為 60㎡；官方 Horizon Premier Room 為 58㎡，超出既有面積一致性門檻，不建立 alias。"
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:44470801",
+      "room_type_name": "豪華特大雙人床房",
+      "room_size_sqm": 44,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.okurataipei.com.tw/room/",
+        "https://www.booking.com/hotel/tw/the-okura-prestige-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 僅提供 44㎡豪華特大床泛稱；官方菁英客房與大倉菁英客房同為 44㎡，無法僅依此名稱與面積唯一判定系列。"
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:44470802",
+      "room_type_name": "豪華雙床房",
+      "room_size_sqm": 44,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.okurataipei.com.tw/room/",
+        "https://www.booking.com/hotel/tw/the-okura-prestige-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 僅提供 44㎡豪華雙床泛稱；官方菁英客房與大倉菁英客房同為 44㎡，無法僅依此名稱與面積唯一判定系列。"
+    },
+    {
+      "hotel_id": "radium_kagaya_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:505734801",
+      "room_type_name": "豪華雙人房",
+      "room_size_sqm": 43,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.kagaya.com.tw/rooms/",
+        "https://www.booking.com/hotel/tw/ri-sheng-sheng-jia-he-wu-guo-ji-wen-quan-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 僅提供 43㎡豪華雙人房泛稱；官方同面積範圍包含多種和洋／和式標準與雅緻套房，且未標陽台或景觀，無法唯一對應。"
+    },
+    {
+      "hotel_id": "radium_kagaya_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:505734802",
+      "room_type_name": "豪華雙床房",
+      "room_size_sqm": 43,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.kagaya.com.tw/rooms/",
+        "https://www.booking.com/hotel/tw/ri-sheng-sheng-jia-he-wu-guo-ji-wen-quan-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 僅提供 43㎡豪華雙床房泛稱；官方同面積範圍包含多種和洋／和式標準與雅緻套房，且未標陽台或景觀，無法唯一對應。"
     }
   ]
 }
