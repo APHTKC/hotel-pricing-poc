@@ -349,6 +349,118 @@
         "https://tw.hotels.com/ho514326/home-hotel-da-an-tai-bei-tai-wan/?chkin=2027-01-02&chkout=2027-01-03&rm1=a2&top_cur=TWD"
       ],
       "note": "Hotels.com 標示 30㎡；官方 1 King Bed, Sofa Bed 為 33㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:10911958:sky-king",
+      "room_type_name": "客房，1 張特大雙人床",
+      "room_size_sqm": 43,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://tw.hotels.com/ho550173/tai-bei-wan-hao-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-22&chkout=2026-12-23&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 標示天空特大床客房 43㎡；官方一般客房類別為 40㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:10911958:executive-king",
+      "room_type_name": "行政客房，1 張標準雙人床",
+      "room_size_sqm": 40,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://tw.hotels.com/ho550173/tai-bei-wan-hao-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-22&chkout=2026-12-23&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 僅提供 40㎡行政客房泛稱；官方經典、豪華、極致與尊榮客房同為 40㎡，現有標籤不足以唯一對應。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:10911958:executive-premium-king",
+      "room_type_name": "行政客房，1 張標準雙人床",
+      "room_size_sqm": 40,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://tw.hotels.com/ho550173/tai-bei-wan-hao-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-22&chkout=2026-12-23&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 僅提供 40㎡行政客房泛稱；官方經典、豪華、極致與尊榮客房同為 40㎡，來源代碼中的 premium 亦不足以證明唯一官方類別。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:10911958:executive-double",
+      "room_type_name": "行政雙人房，2 張標準雙人床",
+      "room_size_sqm": 43,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://tw.hotels.com/ho550173/tai-bei-wan-hao-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-22&chkout=2026-12-23&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 標示行政雙床客房 43㎡；官方一般客房類別為 40㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:10911958:executive-twin",
+      "room_type_name": "行政雙床房，1 張標準雙人床",
+      "room_size_sqm": 40,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://tw.hotels.com/ho550173/tai-bei-wan-hao-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-22&chkout=2026-12-23&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 的行政雙床房名稱與床型描述互相矛盾，且官方四種一般客房同為 40㎡，無法唯一對應。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:10911958:sky-double",
+      "room_type_name": "雙人房，2 張標準雙人床",
+      "room_size_sqm": 43,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://tw.hotels.com/ho550173/tai-bei-wan-hao-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-22&chkout=2026-12-23&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 標示天空雙床客房 43㎡；官方一般客房類別為 40㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:146845517",
+      "room_type_name": "天空雙床房",
+      "room_size_sqm": 43,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示天空雙床房 43㎡；官方一般客房類別為 40㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:146845510",
+      "room_type_name": "天空特大雙人床房",
+      "room_size_sqm": 43,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
+        "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示天空特大床房 43㎡；官方一般客房類別為 40㎡，超出既有面積一致性門檻。"
     }
   ]
 }
