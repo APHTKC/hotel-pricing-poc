@@ -96,6 +96,18 @@ def _dashboard_row(row: dict, room_type_lookup=None) -> dict:
 
 def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> dict:
     """Summarize evidenced room matching without proposing unverified aliases."""
+    def gap_category(row: dict) -> str:
+        missing = set(comparison_key_missing_fields(
+            row, require_stable_room_type=True
+        ))
+        if "stable_room_type_id" in missing:
+            return (
+                "room_evidence_only"
+                if missing == {"stable_room_type_id"}
+                else "room_evidence_and_metadata"
+            )
+        return "metadata_only"
+
     unresolved_statuses = {
         "unmatched_label",
         "area_mismatch",
@@ -105,6 +117,11 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
     status_counts = Counter(row.get("room_match_status") or "not_evaluated" for row in rows)
     mapped_count = sum(bool(row.get("stable_room_type_id")) for row in rows)
     strict_count = sum(bool(row.get("strict_parity_eligible")) for row in rows)
+    gap_categories = Counter(
+        gap_category(row)
+        for row in rows
+        if not row.get("strict_parity_eligible")
+    )
     missing_fields = Counter(
         field
         for row in rows
@@ -134,6 +151,11 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
         )
         strict_eligible = sum(
             bool(row.get("strict_parity_eligible")) for row in hotel_rows
+        )
+        hotel_gap_categories = Counter(
+            gap_category(row)
+            for row in hotel_rows
+            if not row.get("strict_parity_eligible")
         )
         if hotel_missing_fields:
             strict_gap_hotels.append({
@@ -165,6 +187,7 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
                         key=lambda item: (-item[1], item[0]),
                     )
                 ),
+                "gap_categories": dict(sorted(hotel_gap_categories.items())),
             })
         unresolved = [
             row for row in hotel_rows
@@ -227,6 +250,31 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
     strict_gap_hotels.sort(
         key=lambda item: (-item["strict_parity_gap_observations"], item["hotel_id"])
     )
+    room_mapping_priority_hotels = [
+        {
+            "hotel_id": item["hotel_id"],
+            "hotel_name": item["hotel_name"],
+            "city": item["city"],
+            "room_mapping_unlockable_observations": item["gap_categories"].get(
+                "room_evidence_only", 0
+            ),
+            "room_mapping_blocked_by_other_metadata_observations": item[
+                "gap_categories"
+            ].get("room_evidence_and_metadata", 0),
+        }
+        for item in strict_gap_hotels
+        if (
+            item["gap_categories"].get("room_evidence_only", 0)
+            or item["gap_categories"].get("room_evidence_and_metadata", 0)
+        )
+    ]
+    room_mapping_priority_hotels.sort(
+        key=lambda item: (
+            -item["room_mapping_unlockable_observations"],
+            -item["room_mapping_blocked_by_other_metadata_observations"],
+            item["hotel_id"],
+        )
+    )
     total = len(rows)
     return {
         "observation_count": total,
@@ -237,10 +285,12 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
         "strict_parity_missing_fields": dict(
             sorted(missing_fields.items(), key=lambda item: (-item[1], item[0]))
         ),
+        "strict_parity_gap_categories": dict(sorted(gap_categories.items())),
         "status_counts": dict(sorted(status_counts.items())),
         "hotels_requiring_evidence": len(hotels),
         "hotels": hotels,
         "strict_parity_gap_hotels": strict_gap_hotels,
+        "room_mapping_priority_hotels": room_mapping_priority_hotels,
     }
 
 
@@ -993,7 +1043,7 @@ def main() -> None:
     ROOM_TYPE_MATCH_QUALITY_TARGET.write_text(
         json.dumps(
             {
-                "schema_version": "1.0",
+                "schema_version": "1.1",
                 "generated_from": str(SOURCE).replace("\\", "/"),
                 "history": _room_type_match_quality(rows),
                 "latest": _room_type_match_quality(latest_rows),

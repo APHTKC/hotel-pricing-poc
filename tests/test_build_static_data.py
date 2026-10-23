@@ -142,6 +142,9 @@ def test_room_type_match_quality_prioritizes_unresolved_evidence_candidates():
         "stable_room_type_id": 2,
         "tax_inclusion": 2,
     }
+    assert quality["strict_parity_gap_categories"] == {
+        "room_evidence_and_metadata": 2,
+    }
     assert quality["hotels_requiring_evidence"] == 1
     hotel = quality["hotels"][0]
     assert hotel["unresolved_observations"] == 2
@@ -167,6 +170,55 @@ def test_room_type_match_quality_prioritizes_unresolved_evidence_candidates():
         "strict_parity_gap_observations": 2,
         "source_platforms": ["booking_com", "official"],
         "missing_fields": quality["strict_parity_missing_fields"],
+        "gap_categories": quality["strict_parity_gap_categories"],
+    }]
+
+
+def test_room_mapping_priority_separates_unlockable_and_metadata_blocked_rows():
+    complete = {
+        "hotel_name": "Hotel A",
+        "city": "Taipei",
+        "check_in": "2026-12-01",
+        "check_out": "2026-12-02",
+        "rooms": 1,
+        "adults": 2,
+        "children": 0,
+        "room_size_sqm": 45,
+        "breakfast_included": False,
+        "cancellation_policy": "Free cancellation until 2026-11-30",
+        "cancellation_deadline": "2026-11-30",
+        "tax_inclusion": "included",
+        "strict_parity_eligible": False,
+    }
+    rows = [
+        {**complete, "hotel_id": "hotel-a"},
+        {
+            **complete,
+            "hotel_id": "hotel-a",
+            "tax_inclusion": "unknown",
+        },
+        {
+            **complete,
+            "hotel_id": "hotel-b",
+            "hotel_name": "Hotel B",
+            "stable_room_type_id": "rt-b",
+            "tax_inclusion": "unknown",
+        },
+    ]
+
+    quality = _room_type_match_quality(rows)
+
+    assert quality["strict_parity_gap_categories"] == {
+        "metadata_only": 1,
+        "room_evidence_and_metadata": 1,
+        "room_evidence_only": 1,
+    }
+    assert quality["room_mapping_priority_hotels"] == [{
+        "hotel_id": "hotel-a",
+        "hotel_name": "Hotel A",
+        "city": "Taipei",
+        "room_mapping_unlockable_observations": 1,
+        "room_mapping_blocked_by_other_metadata_observations": 1,
     }]
 
 
@@ -1580,7 +1632,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     }
     assert digest_target.exists()
     quality_payload = json.loads(room_type_match_quality_target.read_text(encoding="utf-8"))
-    assert quality_payload["schema_version"] == "1.0"
+    assert quality_payload["schema_version"] == "1.1"
     assert quality_payload["latest"]["observation_count"] == 2
 
 
