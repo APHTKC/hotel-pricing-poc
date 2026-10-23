@@ -188,6 +188,83 @@
       "reviewed_at": "2026-10-23",
       "evidence_urls": ["https://www.lemeridien-taichung.com.tw/room/price.php", "https://tw.hotels.com/ho2693102304/le-meridien-taichung-tai-zhong-tai-wan/?chkin=2026-12-30&chkout=2026-12-31&rm1=a2&top_cur=TWD"],
       "note": "Hotels.com 標示 43㎡；官方 Premier Twin Room 為 45㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:160824703",
+      "room_type_name": "小型套房－特大雙人床與行政酒廊禮遇",
+      "room_size_sqm": 69,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.courtyardtaipei.com.tw/room", "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"],
+      "note": "Booking.com 標示 69㎡；官方 Junior Suite 為 66.3㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:13172659:junior-suite-king",
+      "room_type_name": "普通套房, 1 間臥室",
+      "room_size_sqm": 62,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.courtyardtaipei.com.tw/room", "https://tw.hotels.com/ho566151/tai-bei-liu-fu-wan-yi-jiu-dian-tai-bei-tai-wan/?chkin=2027-01-03&chkout=2027-01-04&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 62㎡；官方 Junior Suite 為 66.3㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:13172659:deluxe-suite-king",
+      "room_type_name": "豪華套房, 1 間臥室",
+      "room_size_sqm": 90,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.courtyardtaipei.com.tw/room", "https://tw.hotels.com/ho566151/tai-bei-liu-fu-wan-yi-jiu-dian-tai-bei-tai-wan/?chkin=2027-01-03&chkout=2027-01-04&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 90㎡；官方 Deluxe Suite 為 81.9㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "le_meridien_taipei",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:3884803:club-king",
+      "room_type_name": "俱樂部客房，1 張特大雙人床",
+      "room_size_sqm": 35,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.lemeridien-taipei.com/websev?cat=&id=460&lang=zh-tw", "https://tw.hotels.com/ho358982/tai-bei-han-she-ai-mei-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 35㎡；官方 Executive Deluxe Room 為 38㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:1331864231",
+      "room_type_name": "雙人房－附陽台",
+      "room_size_sqm": 60,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_EN.pdf?v11.19=", "https://www.booking.com/hotel/tw/capella-taipei.zh-tw.html?checkin=2026-11-06&checkout=2026-11-07&group_adults=2&no_rooms=1&group_children=0"],
+      "note": "Booking.com 只提供 60㎡附陽台雙人房泛稱；官方 Premier Room 與 Premier Skyline Room 同為 60㎡，無法唯一判定景觀版本。"
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:1331864201",
+      "room_type_name": "高級特大雙人床房",
+      "room_size_sqm": 48,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_EN.pdf?v11.19=", "https://www.booking.com/hotel/tw/capella-taipei.zh-tw.html?checkin=2026-11-06&checkout=2026-11-07&group_adults=2&no_rooms=1&group_children=0"],
+      "note": "Booking.com 只提供 48㎡高級特大床泛稱；官方 Superior Room 與 Superior Skyline Room 同為 48㎡，無法唯一判定景觀版本。"
+    },
+    {
+      "hotel_id": "w_taipei",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:4071588:king-view",
+      "room_type_name": "Room, 1 King Bed (View)",
+      "room_size_sqm": 43,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.marriott.com/en-us/hotels/tpewh-w-taipei/rooms/", "https://tw.hotels.com/ho369485/tai-bei-w-fan-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 僅標示 43㎡景觀特大床泛稱；Wonderful Room 與 Spectacular Room 同為 43㎡，無法唯一對應。"
     }
   ]
 }
