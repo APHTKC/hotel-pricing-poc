@@ -1936,12 +1936,16 @@ def test_home_exposes_reproducible_comparability_quality():
     assert "未知欄位不以估算補值" in home
     assert "unknown fields are never filled with estimates" in home
     assert "未確認項目を推定値で補完しません" in home
-    assert "依來源稅費完整率" in home
-    assert "Tax coverage by source" in home
-    assert "ソース別の税区分確認率" in home
+    assert "依來源關鍵欄位完整率" in home
+    assert "Key-field coverage by source" in home
+    assert "ソース別の主要項目確認率" in home
     assert "warehouseQuality.sources" in home
     assert "known_tax_rows" in home
+    assert "known_cancellation_class_rows" in home
+    assert "known_cancellation_deadline_rows" in home
+    assert "sourceCoverage=item=>Math.min" in home
     assert "warehouse-quality-source-list" in home
+    assert "warehouse-quality-source-metrics" in home
 
 
 def test_frontend_adr_paths_prefer_nightly_normalized_values():
