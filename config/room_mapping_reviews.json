@@ -685,6 +685,34 @@
         "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 僅提供 95㎡尊爵套房泛稱且未標床型；官方同面積分為一大床與兩中床，無法唯一對應。"
+    },
+    {
+      "hotel_id": "kimpton_da_an",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:415514702",
+      "room_type_name": "無障礙精選特大雙人床房",
+      "room_size_sqm": 38,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/rooms",
+        "https://www.booking.com/hotel/tw/kimpton-da-an.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 明確標示無障礙版本；IHG 官方房型目錄僅列一般 Premium Room，缺乏足以證明兩者為同一產品的無障礙規格，不跨類別合併。"
+    },
+    {
+      "hotel_id": "kimpton_da_an",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:415514720",
+      "room_type_name": "精選特大雙人床房－附陽台",
+      "room_size_sqm": 32,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/rooms",
+        "https://www.booking.com/hotel/tw/kimpton-da-an.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示 32㎡附陽台 Premium 商品；IHG 官方 Premium Room 為 37–38㎡，超出既有面積一致性門檻，不建立 alias。"
     }
   ]
 }
