@@ -204,12 +204,19 @@ def test_room_mapping_priority_separates_unlockable_and_metadata_blocked_rows():
             "stable_room_type_id": "rt-b",
             "tax_inclusion": "unknown",
         },
+        {
+            **complete,
+            "hotel_id": "hotel-c",
+            "hotel_name": "Hotel C",
+            "room_match_status": "area_mismatch",
+        },
     ]
 
     quality = _room_type_match_quality(rows)
 
     assert quality["strict_parity_gap_categories"] == {
         "metadata_only": 1,
+        "room_area_conflict_only": 1,
         "room_evidence_and_metadata": 1,
         "room_evidence_only": 1,
     }
@@ -219,6 +226,7 @@ def test_room_mapping_priority_separates_unlockable_and_metadata_blocked_rows():
         "city": "Taipei",
         "room_mapping_unlockable_observations": 1,
         "room_mapping_blocked_by_other_metadata_observations": 1,
+        "area_conflict_observations": 0,
     }]
 
 
@@ -1632,7 +1640,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     }
     assert digest_target.exists()
     quality_payload = json.loads(room_type_match_quality_target.read_text(encoding="utf-8"))
-    assert quality_payload["schema_version"] == "1.1"
+    assert quality_payload["schema_version"] == "1.2"
     assert quality_payload["latest"]["observation_count"] == 2
 
 

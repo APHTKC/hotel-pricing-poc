@@ -101,6 +101,12 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             row, require_stable_room_type=True
         ))
         if "stable_room_type_id" in missing:
+            if row.get("room_match_status") == "area_mismatch":
+                return (
+                    "room_area_conflict_only"
+                    if missing == {"stable_room_type_id"}
+                    else "room_area_conflict_and_metadata"
+                )
             return (
                 "room_evidence_only"
                 if missing == {"stable_room_type_id"}
@@ -261,6 +267,10 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             "room_mapping_blocked_by_other_metadata_observations": item[
                 "gap_categories"
             ].get("room_evidence_and_metadata", 0),
+            "area_conflict_observations": (
+                item["gap_categories"].get("room_area_conflict_only", 0)
+                + item["gap_categories"].get("room_area_conflict_and_metadata", 0)
+            ),
         }
         for item in strict_gap_hotels
         if (
@@ -1043,7 +1053,7 @@ def main() -> None:
     ROOM_TYPE_MATCH_QUALITY_TARGET.write_text(
         json.dumps(
             {
-                "schema_version": "1.1",
+                "schema_version": "1.2",
                 "generated_from": str(SOURCE).replace("\\", "/"),
                 "history": _room_type_match_quality(rows),
                 "latest": _room_type_match_quality(latest_rows),
