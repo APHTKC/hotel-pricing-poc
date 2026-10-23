@@ -713,6 +713,20 @@
         "https://www.booking.com/hotel/tw/kimpton-da-an.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 標示 32㎡附陽台 Premium 商品；IHG 官方 Premium Room 為 37–38㎡，超出既有面積一致性門檻，不建立 alias。"
+    },
+    {
+      "hotel_id": "shangrila_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:38202932",
+      "room_type_name": "Horizon Premier King Room with Horizon Club Lounge Access",
+      "room_size_sqm": 60,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.shangri-la.com/tc/taipei/fareasternplazashangrila/rooms-suites/",
+        "https://www.booking.com/hotel/tw/shangri-la-s-far-eastern-plaza-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示豪華閣 Premier King 為 60㎡；官方 Horizon Premier Room 為 58㎡，超出既有面積一致性門檻，不建立 alias。"
     }
   ]
 }
