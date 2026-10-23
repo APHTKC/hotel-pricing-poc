@@ -5,6 +5,7 @@ from pathlib import Path
 import scripts.build_static_data as build_static_data
 from scripts.build_static_data import (
     DASHBOARD_FIELDS,
+    _assert_room_type_dimension_integrity,
     _dashboard_row,
     _daily_market_digest,
     _data_quality_warnings,
@@ -21,6 +22,37 @@ from scripts.build_static_data import (
     _room_type_match_quality,
     _weekly_digest,
 )
+
+
+def test_room_type_integrity_gate_blocks_unsafe_publication():
+    payload = {
+        "evidence_quality": {
+            "source_code_conflict_count": 1,
+            "evidenced_label_conflict_count": 2,
+            "incomplete_code_only_alias_count": 3,
+        }
+    }
+
+    try:
+        _assert_room_type_dimension_integrity(payload)
+    except ValueError as error:
+        message = str(error)
+    else:
+        raise AssertionError("conflicting room evidence must block publication")
+
+    assert "1 source-code conflicts" in message
+    assert "2 matchable-label conflicts" in message
+    assert "3 incomplete code-only aliases" in message
+
+
+def test_room_type_integrity_gate_accepts_clean_dimension():
+    _assert_room_type_dimension_integrity({
+        "evidence_quality": {
+            "source_code_conflict_count": 0,
+            "evidenced_label_conflict_count": 0,
+            "incomplete_code_only_alias_count": 0,
+        }
+    })
 
 
 def _load_latest_details_payload():

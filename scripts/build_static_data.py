@@ -831,6 +831,24 @@ def _chunk_rate_rows(rows: list[dict], max_bytes: int = MAX_HISTORY_SHARD_BYTES)
     return chunks
 
 
+def _assert_room_type_dimension_integrity(payload: dict) -> None:
+    """Stop publication when deterministic room evidence is contradictory."""
+    quality = payload.get("evidence_quality") or {}
+    failures = []
+    for field, label in (
+        ("source_code_conflict_count", "source-code conflicts"),
+        ("evidenced_label_conflict_count", "matchable-label conflicts"),
+        ("incomplete_code_only_alias_count", "incomplete code-only aliases"),
+    ):
+        count = int(quality.get(field) or 0)
+        if count:
+            failures.append(f"{count} {label}")
+    if failures:
+        raise ValueError(
+            "Room-type evidence integrity gate failed: " + ", ".join(failures)
+        )
+
+
 def main() -> None:
     profiles_payload = (
         json.loads(HOTEL_PROFILES_SOURCE.read_text(encoding="utf-8"))
@@ -838,6 +856,7 @@ def main() -> None:
         else {"profiles": []}
     )
     room_type_dimension = build_room_type_dimension(profiles_payload)
+    _assert_room_type_dimension_integrity(room_type_dimension)
     room_type_lookup = build_room_type_lookup(room_type_dimension)
     source_rows = [
         row for row in iter_jsonl_records(SOURCE)
