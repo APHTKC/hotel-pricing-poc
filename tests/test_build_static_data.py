@@ -14,6 +14,7 @@ from scripts.build_static_data import (
     _latest_batch,
     _latest_batches_by_platform,
     _load_browser_snapshot_rows,
+    _load_room_mapping_reviews,
     _month_key,
     _partition_id,
     _plausible_luxury_rate,
@@ -245,6 +246,59 @@ def test_room_mapping_priority_separates_unlockable_and_metadata_blocked_rows():
             "area_conflict_observations": 0,
         }],
     }]
+
+
+def test_reviewed_ambiguous_candidate_is_audited_and_removed_from_priority(tmp_path):
+    review_path = tmp_path / "reviews.json"
+    review_path.write_text(json.dumps({
+        "schema_version": "1.0",
+        "reviews": [{
+            "hotel_id": "hotel-a",
+            "source_platform": "expedia_group",
+            "room_type_code": "expedia:1:double",
+            "room_type_name": "Double room",
+            "room_size_sqm": 25,
+            "status": "blocked_ambiguous_label",
+            "reviewed_at": "2026-10-23",
+            "evidence_urls": ["https://example.com/official", "https://example.com/ota"],
+            "note": "Multiple official rooms share the same generic label and area.",
+        }],
+    }), encoding="utf-8")
+    review_index = _load_room_mapping_reviews(review_path)
+    row = {
+        "hotel_id": "hotel-a",
+        "hotel_name": "Hotel A",
+        "city": "Taipei",
+        "source_platform": "expedia_group",
+        "room_type_code": "expedia:1:double",
+        "room_type_name": "Double room",
+        "room_size_sqm": 25,
+        "room_match_status": "unmatched_label",
+        "check_in": "2026-12-01",
+        "check_out": "2026-12-02",
+        "rooms": 1,
+        "adults": 2,
+        "children": 0,
+        "breakfast_included": False,
+        "cancellation_policy": "Free cancellation until 2026-11-30",
+        "cancellation_deadline": "2026-11-30",
+        "tax_inclusion": "included",
+        "strict_parity_eligible": False,
+    }
+
+    quality = _room_type_match_quality([row], review_index=review_index)
+
+    assert quality["room_mapping_priority_hotels"] == []
+    assert quality["reviewed_blocked_observations"] == 1
+    assert quality["reviewed_blocked_candidates"][0]["review_status"] == (
+        "blocked_ambiguous_label"
+    )
+    assert quality["reviewed_blocked_candidates"][0]["reviewed_at"] == "2026-10-23"
+
+    changed = {**row, "room_type_name": "Standard Double Room"}
+    changed_quality = _room_type_match_quality([changed], review_index=review_index)
+    assert changed_quality["reviewed_blocked_observations"] == 0
+    assert len(changed_quality["room_mapping_priority_hotels"]) == 1
 
 
 def test_latest_batch_uses_recent_workflow_window():
@@ -1657,7 +1711,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     }
     assert digest_target.exists()
     quality_payload = json.loads(room_type_match_quality_target.read_text(encoding="utf-8"))
-    assert quality_payload["schema_version"] == "1.3"
+    assert quality_payload["schema_version"] == "1.4"
     assert quality_payload["latest"]["observation_count"] == 2
 
 

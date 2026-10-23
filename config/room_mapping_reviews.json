@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "reviews": [
+    {
+      "hotel_id": "hotel_gracery_taipei",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:67251327:double",
+      "room_type_name": "雙人房, 1 張加大雙人床",
+      "room_size_sqm": 25,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://en.gracery.com/taipei/room/",
+        "https://tw.hotels.com/ho2153042464/ge-la-si-li-tai-bei-fan-dian-tai-bei-tai-wan/?chkin=2027-01-10&chkout=2027-01-11&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 僅提供 25㎡雙人房泛稱；官方同時列有標準、無障礙及多個主題雙人房，現有標籤與面積不足以唯一對應。"
+    }
+  ]
+}

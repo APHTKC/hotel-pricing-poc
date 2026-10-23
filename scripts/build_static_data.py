@@ -45,6 +45,7 @@ HOTEL_NAMES_SOURCE = Path("public/data/hotel_names_zh.json")
 HOTEL_PROFILES_SOURCE = Path("public/data/hotel_profiles.json")
 ROOM_TYPE_DIMENSION_TARGET = Path("public/data/room_type_dimension.json")
 ROOM_TYPE_MATCH_QUALITY_TARGET = Path("public/data/room_type_match_quality.json")
+ROOM_MAPPING_REVIEWS_SOURCE = Path("config/room_mapping_reviews.json")
 HOTEL_PROFILE_QUALITY_TARGET = Path("public/data/hotel_profile_quality.json")
 ASSET_MANIFEST_TARGET = Path("public/data/asset_manifest.json")
 MAX_HISTORY_SHARD_BYTES = 3_000_000
@@ -94,7 +95,54 @@ def _dashboard_row(row: dict, room_type_lookup=None) -> dict:
     return published
 
 
-def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> dict:
+def _room_review_key(row: dict) -> tuple[str, str, str, str, str]:
+    size = row.get("room_size_sqm")
+    try:
+        normalized_size = format(float(size), "g") if size is not None else ""
+    except (TypeError, ValueError):
+        normalized_size = str(size or "")
+    return (
+        str(row.get("hotel_id") or ""),
+        str(row.get("source_platform") or "official"),
+        str(row.get("room_type_code") or ""),
+        str(row.get("room_type_name") or ""),
+        normalized_size,
+    )
+
+
+def _load_room_mapping_reviews(path: Path | None = None) -> dict[tuple, dict]:
+    """Load exact, dated review dispositions so changed source labels resurface."""
+    path = path or ROOM_MAPPING_REVIEWS_SOURCE
+    if not path.exists():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    reviews = payload.get("reviews", [])
+    index = {}
+    required = {
+        "hotel_id", "source_platform", "room_type_code", "room_type_name",
+        "room_size_sqm", "status", "reviewed_at", "evidence_urls", "note",
+    }
+    for review in reviews:
+        missing = sorted(required - set(review))
+        if missing:
+            raise ValueError(f"Room mapping review is missing fields: {', '.join(missing)}")
+        if review["status"] not in {"blocked_ambiguous_label", "blocked_area_mismatch"}:
+            raise ValueError(f"Unsupported room mapping review status: {review['status']}")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(review["reviewed_at"])):
+            raise ValueError("Room mapping review reviewed_at must use YYYY-MM-DD")
+        urls = review["evidence_urls"]
+        if not urls or any(not str(url).startswith("https://") for url in urls):
+            raise ValueError("Room mapping review evidence_urls must contain HTTPS URLs")
+        key = _room_review_key(review)
+        if key in index:
+            raise ValueError(f"Duplicate room mapping review: {key}")
+        index[key] = review
+    return index
+
+
+def _room_type_match_quality(
+    rows: list[dict], *, candidate_limit: int = 8, review_index: dict | None = None
+) -> dict:
     """Summarize evidenced room matching without proposing unverified aliases."""
     def gap_category(row: dict) -> str:
         missing = set(comparison_key_missing_fields(
@@ -114,6 +162,7 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             )
         return "metadata_only"
 
+    review_index = review_index or {}
     unresolved_statuses = {
         "unmatched_label",
         "area_mismatch",
@@ -220,7 +269,8 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
                 for row in candidate_rows
                 if not row.get("strict_parity_eligible")
             )
-            candidates.append({
+            candidate = {
+                "hotel_id": hotel_id,
                 "room_match_status": status,
                 "room_type_name": name,
                 "room_type_code": code,
@@ -239,7 +289,17 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
                     candidate_gap_categories.get("room_area_conflict_only", 0)
                     + candidate_gap_categories.get("room_area_conflict_and_metadata", 0)
                 ),
-            })
+            }
+            review = review_index.get(_room_review_key(candidate))
+            if review:
+                candidate.update({
+                    "review_status": review["status"],
+                    "reviewed_at": review["reviewed_at"],
+                    "review_note": review["note"],
+                    "review_evidence_urls": review["evidence_urls"],
+                })
+            candidate.pop("hotel_id")
+            candidates.append(candidate)
         candidates.sort(
             key=lambda item: (
                 -item["observations"],
@@ -280,6 +340,7 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
                 candidate["room_mapping_unlockable_observations"]
                 or candidate["room_mapping_blocked_by_other_metadata_observations"]
             )
+            and not candidate.get("review_status")
         ]
         mapping_candidates.sort(key=lambda candidate: (
             -candidate["room_mapping_unlockable_observations"],
@@ -288,17 +349,31 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             candidate.get("room_type_name") or "",
         ))
         mapping_candidates_by_hotel[item["hotel_id"]] = mapping_candidates
+    reviewed_blocked_candidates = []
+    for item in hotels:
+        for candidate in item["top_unresolved_room_labels"]:
+            if candidate.get("review_status"):
+                reviewed_blocked_candidates.append({
+                    "hotel_id": item["hotel_id"],
+                    "hotel_name": item["hotel_name"],
+                    **candidate,
+                })
+    reviewed_blocked_candidates.sort(key=lambda item: (
+        item["hotel_id"], item["source_platform"], item.get("room_type_code") or ""
+    ))
     room_mapping_priority_hotels = [
         {
             "hotel_id": item["hotel_id"],
             "hotel_name": item["hotel_name"],
             "city": item["city"],
-            "room_mapping_unlockable_observations": item["gap_categories"].get(
-                "room_evidence_only", 0
+            "room_mapping_unlockable_observations": sum(
+                candidate["room_mapping_unlockable_observations"]
+                for candidate in mapping_candidates_by_hotel.get(item["hotel_id"], [])
             ),
-            "room_mapping_blocked_by_other_metadata_observations": item[
-                "gap_categories"
-            ].get("room_evidence_and_metadata", 0),
+            "room_mapping_blocked_by_other_metadata_observations": sum(
+                candidate["room_mapping_blocked_by_other_metadata_observations"]
+                for candidate in mapping_candidates_by_hotel.get(item["hotel_id"], [])
+            ),
             "area_conflict_observations": (
                 item["gap_categories"].get("room_area_conflict_only", 0)
                 + item["gap_categories"].get("room_area_conflict_and_metadata", 0)
@@ -309,8 +384,7 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
         }
         for item in strict_gap_hotels
         if (
-            item["gap_categories"].get("room_evidence_only", 0)
-            or item["gap_categories"].get("room_evidence_and_metadata", 0)
+            mapping_candidates_by_hotel.get(item["hotel_id"])
         )
     ]
     room_mapping_priority_hotels.sort(
@@ -336,6 +410,10 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
         "hotels": hotels,
         "strict_parity_gap_hotels": strict_gap_hotels,
         "room_mapping_priority_hotels": room_mapping_priority_hotels,
+        "reviewed_blocked_observations": sum(
+            item["observations"] for item in reviewed_blocked_candidates
+        ),
+        "reviewed_blocked_candidates": reviewed_blocked_candidates,
     }
 
 
@@ -1085,13 +1163,16 @@ def main() -> None:
     if LEGACY_TARGET.exists():
         LEGACY_TARGET.unlink()
     latest_rows = _latest_batches_by_platform(rows)
+    room_mapping_reviews = _load_room_mapping_reviews()
     ROOM_TYPE_MATCH_QUALITY_TARGET.write_text(
         json.dumps(
             {
-                "schema_version": "1.3",
+                "schema_version": "1.4",
                 "generated_from": str(SOURCE).replace("\\", "/"),
-                "history": _room_type_match_quality(rows),
-                "latest": _room_type_match_quality(latest_rows),
+                "history": _room_type_match_quality(rows, review_index=room_mapping_reviews),
+                "latest": _room_type_match_quality(
+                    latest_rows, review_index=room_mapping_reviews
+                ),
             },
             ensure_ascii=False,
         ),
