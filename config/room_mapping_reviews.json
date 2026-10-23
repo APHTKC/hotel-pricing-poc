@@ -56,6 +56,138 @@
         "https://tw.hotels.com/ho352321/jun-pin-jiu-dian-tai-bei-tai-wan/?chkin=2027-01-09&chkout=2027-01-10&rm1=a2&top_cur=TWD"
       ],
       "note": "Hotels.com 的 30㎡泛稱不足以排除官方同面積的雅緻無障礙客房，無法唯一對應君璽雅緻客房。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:2266753:luxury-double",
+      "room_type_name": "Luxury Double Room",
+      "room_size_sqm": 31,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.taipeigarden.com.tw/en/rooms/", "https://tw.hotels.com/ho275389/tai-bei-hua-yuan-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-26&chkout=2026-12-27&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 31㎡；官方 Luxury Room 為 25㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:2266753:premier-twin-english",
+      "room_type_name": "Premier Twin Room",
+      "room_size_sqm": 31,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.taipeigarden.com.tw/en/rooms/", "https://tw.hotels.com/ho275389/tai-bei-hua-yuan-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-26&chkout=2026-12-27&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 31㎡；官方 Premier 系列現行規格為 22–25㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:2266753:premier-triple-city-view",
+      "room_type_name": "尊爵三人房, 多張床, 城市景觀",
+      "room_size_sqm": 31,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.taipeigarden.com.tw/en/rooms/", "https://tw.hotels.com/ho275389/tai-bei-hua-yuan-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-26&chkout=2026-12-27&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 31㎡；官方 Premier Triple Room 為 25㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:2266753:premier-quad-city-view",
+      "room_type_name": "尊爵四人房, 城市景觀",
+      "room_size_sqm": 34,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.taipeigarden.com.tw/en/rooms/", "https://tw.hotels.com/ho275389/tai-bei-hua-yuan-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-26&chkout=2026-12-27&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 34㎡；官方 Premier Quad Room 為 25㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:2266753:premier-double",
+      "room_type_name": "尊爵雙人房",
+      "room_size_sqm": 31,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.taipeigarden.com.tw/en/rooms/", "https://tw.hotels.com/ho275389/tai-bei-hua-yuan-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-26&chkout=2026-12-27&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 31㎡；官方 Premier Double Room 為 22㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:2266753:premier-twin",
+      "room_type_name": "尊爵雙床房",
+      "room_size_sqm": 31,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.taipeigarden.com.tw/en/rooms/", "https://tw.hotels.com/ho275389/tai-bei-hua-yuan-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-26&chkout=2026-12-27&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 31㎡；官方 Premier 系列現行規格為 22–25㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:2266753:selected-triple-city-view",
+      "room_type_name": "精選三人房, 城市景觀",
+      "room_size_sqm": 31,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.taipeigarden.com.tw/en/rooms/", "https://tw.hotels.com/ho275389/tai-bei-hua-yuan-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-26&chkout=2026-12-27&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 31㎡；官方現行非套房房型最大為 25㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:2266753:premium-double-city-view",
+      "room_type_name": "頂級雙人房, 城市景觀",
+      "room_size_sqm": 35,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.taipeigarden.com.tw/en/rooms/", "https://tw.hotels.com/ho275389/tai-bei-hua-yuan-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-26&chkout=2026-12-27&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 35㎡；官方現行非套房房型最大為 25㎡，且最小套房為 43㎡，無一致規格可對應。"
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:32937294:king-view",
+      "room_type_name": "客房, 1 張特大雙人床 (View)",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.courtyardtaipeidowntown.com.tw/room/", "https://tw.hotels.com/ho1054993408/tai-bei-guo-tai-wan-yi-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-28&chkout=2026-12-29&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 30㎡；官方客房房型為 33.1㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:32937294:twin-view",
+      "room_type_name": "客房, 2 張單人床 (View)",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.courtyardtaipeidowntown.com.tw/room/", "https://tw.hotels.com/ho1054993408/tai-bei-guo-tai-wan-yi-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-28&chkout=2026-12-29&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 30㎡；官方客房房型為 33.1㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "le_meridien_taichung",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:84128197:premium-king-city",
+      "room_type_name": "極品客房, 1 張特大雙人床, 城市景觀",
+      "room_size_sqm": 43,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.lemeridien-taichung.com.tw/room/price.php", "https://tw.hotels.com/ho2693102304/le-meridien-taichung-tai-zhong-tai-wan/?chkin=2026-12-30&chkout=2026-12-31&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 43㎡；官方 Premier King Room 為 45㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "le_meridien_taichung",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:84128197:premium-double-city",
+      "room_type_name": "極品客房, 2 張標準雙人床, 城市景觀",
+      "room_size_sqm": 43,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": ["https://www.lemeridien-taichung.com.tw/room/price.php", "https://tw.hotels.com/ho2693102304/le-meridien-taichung-tai-zhong-tai-wan/?chkin=2026-12-30&chkout=2026-12-31&rm1=a2&top_cur=TWD"],
+      "note": "Hotels.com 標示 43㎡；官方 Premier Twin Room 為 45㎡，超出既有面積一致性門檻。"
     }
   ]
 }
