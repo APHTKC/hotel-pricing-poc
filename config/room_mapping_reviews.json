@@ -643,6 +643,48 @@
         "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 僅提供 25㎡舒適四人房泛稱且未列床型；官方同面積有多種一般、無障礙及主題配置，無法唯一對應。"
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:172712712",
+      "room_type_name": "菁英雙人房",
+      "room_size_sqm": 70,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.grandmayfull.com/room",
+        "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 僅提供 70㎡菁英雙人房泛稱且未標床型；官方同面積分為一大床與兩中床，無法唯一對應。"
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:172712727",
+      "room_type_name": "行政雙床房－無障礙空間",
+      "room_size_sqm": 50,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.grandmayfull.com/room",
+        "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 明確標示無障礙空間；官方目錄僅列一般行政雙床房，缺乏足以證明兩者為同一產品的無障礙規格，不跨類別合併。"
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:172712713",
+      "room_type_name": "尊爵套房",
+      "room_size_sqm": 95,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.grandmayfull.com/room",
+        "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 僅提供 95㎡尊爵套房泛稱且未標床型；官方同面積分為一大床與兩中床，無法唯一對應。"
     }
   ]
 }
