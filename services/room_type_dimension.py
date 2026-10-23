@@ -113,6 +113,14 @@ def evidenced_aliases(room: dict) -> list[dict]:
         observed_at = str(alias.get("observed_at") or "").strip()
         if not label or not source_url.startswith("https://") or not observed_at:
             continue
+        if alias.get("label_match") is False and not (
+            str(alias.get("source_platform") or "").strip()
+            and str(alias.get("room_type_code") or "").strip()
+            and re.fullmatch(r"\d{4}-\d{2}-\d{2}", observed_at)
+        ):
+            # A code-only alias has no safe text fallback. Without both
+            # source dimensions it cannot be matched deterministically.
+            continue
         item = {
             "label": label,
             "language": alias.get("language"),
@@ -255,6 +263,7 @@ def match_room_type(row: dict, lookup: dict[tuple[str, str], tuple[dict, ...]]) 
 
 def build_room_type_dimension(profiles_payload: dict) -> dict:
     rows = []
+    incomplete_code_only_aliases = []
     counts = defaultdict(lambda: {"room_name_count": 0, "area_spec_keys": set(), "room_family_keys": set()})
     for profile in profiles_payload.get("profiles", []):
         hotel_id = profile.get("hotel_id")
@@ -262,6 +271,27 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
         if not hotel_id or not snapshot.get("rooms"):
             continue
         for room in snapshot["rooms"]:
+            for alias in room.get("aliases") or []:
+                if not isinstance(alias, dict) or alias.get("label_match") is not False:
+                    continue
+                missing_fields = []
+                if not str(alias.get("label") or "").strip():
+                    missing_fields.append("label")
+                if not str(alias.get("source_platform") or "").strip():
+                    missing_fields.append("source_platform")
+                if not str(alias.get("room_type_code") or "").strip():
+                    missing_fields.append("room_type_code")
+                if not str(alias.get("source_url") or "").strip().startswith("https://"):
+                    missing_fields.append("source_url")
+                if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(alias.get("observed_at") or "").strip()):
+                    missing_fields.append("observed_at")
+                if missing_fields:
+                    incomplete_code_only_aliases.append({
+                        "hotel_id": hotel_id,
+                        "room_name": room.get("name_en") or room.get("name_zh") or room.get("name_ja"),
+                        "alias_label": alias.get("label"),
+                        "missing_fields": missing_fields,
+                    })
             minimum, maximum, area_key = area_spec(room)
             classification = room_class(room)
             # Conservative physical family: class + published area.  It is a
@@ -346,7 +376,7 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
         if len(stable_ids) > 1
     ]
     return {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "updated_at": profiles_payload.get("updated_at"),
         "definition": {
             "room_name_count": "Distinct evidenced room labels published by the source.",
@@ -359,6 +389,8 @@ def build_room_type_dimension(profiles_payload: dict) -> dict:
             "source_code_conflicts": source_code_conflicts,
             "evidenced_label_conflict_count": len(evidenced_label_conflicts),
             "evidenced_label_conflicts": evidenced_label_conflicts,
+            "incomplete_code_only_alias_count": len(incomplete_code_only_aliases),
+            "incomplete_code_only_aliases": incomplete_code_only_aliases,
         },
         "hotel_summaries": summaries,
         "room_types": sorted(rows, key=lambda row: (row["hotel_id"], row["size_sqm_min"] or 1e9, row["stable_room_type_id"])),

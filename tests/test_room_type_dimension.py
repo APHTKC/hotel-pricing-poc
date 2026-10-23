@@ -33,6 +33,28 @@ def test_room_normalization_helpers():
     }]
 
 
+def test_incomplete_code_only_alias_is_not_published():
+    aliases = evidenced_aliases({"aliases": [
+        {
+            "label": "Missing Code",
+            "label_match": False,
+            "source_platform": "booking_com",
+            "source_url": "https://example.com",
+            "observed_at": "2026-10-23",
+        },
+        {
+            "label": "Malformed Date",
+            "label_match": False,
+            "source_platform": "booking_com",
+            "room_type_code": "booking:123",
+            "source_url": "https://example.com",
+            "observed_at": "October 23",
+        },
+    ]})
+
+    assert aliases == []
+
+
 def test_room_type_dimension_has_stable_ids_evidence_and_dual_counts():
     profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
     payload = build_room_type_dimension(profiles)
@@ -41,12 +63,14 @@ def test_room_type_dimension_has_stable_ids_evidence_and_dual_counts():
     assert len({row["stable_room_type_id"] for row in rows}) == len(rows)
     assert all(row["evidence"]["source_url"].startswith("https://") for row in rows)
     assert all(row["strict_parity_eligible"] is False for row in rows)
-    assert payload["schema_version"] == "1.2"
+    assert payload["schema_version"] == "1.3"
     quality = payload["evidence_quality"]
     assert quality["source_code_conflict_count"] == 0
     assert quality["source_code_conflicts"] == []
     assert quality["evidenced_label_conflict_count"] == 0
     assert quality["evidenced_label_conflicts"] == []
+    assert quality["incomplete_code_only_alias_count"] == 0
+    assert quality["incomplete_code_only_aliases"] == []
 
     capella = next(row for row in payload["hotel_summaries"] if row["hotel_id"] == "capella_taipei")
     assert capella["room_name_count"] == 13
@@ -145,6 +169,40 @@ def test_room_type_dimension_reports_conflicting_matchable_alias_labels():
     assert conflict["normalized_label"] == "cityroom"
     assert conflict["example_label"] == "City Room"
     assert len(conflict["stable_room_type_ids"]) == 2
+
+
+def test_room_type_dimension_reports_incomplete_code_only_aliases():
+    profiles = {
+        "profiles": [{
+            "hotel_id": "hotel-a",
+            "room_snapshot": {
+                "source_type": "official",
+                "source_url": "https://official.example/rooms",
+                "observed_at": "2026-10-23",
+                "rooms": [{
+                    "name_en": "Deluxe King",
+                    "size_sqm": 40,
+                    "aliases": [{
+                        "label": "Deluxe Room",
+                        "label_match": False,
+                        "source_platform": "booking_com",
+                        "source_url": "http://ota.example/snapshot",
+                        "observed_at": "October 23",
+                    }],
+                }],
+            },
+        }],
+    }
+
+    payload = build_room_type_dimension(profiles)
+    quality = payload["evidence_quality"]
+    issue = quality["incomplete_code_only_aliases"][0]
+
+    assert quality["incomplete_code_only_alias_count"] == 1
+    assert issue["hotel_id"] == "hotel-a"
+    assert issue["room_name"] == "Deluxe King"
+    assert issue["missing_fields"] == ["room_type_code", "source_url", "observed_at"]
+    assert payload["room_types"][0]["aliases"] == []
 
 
 def test_published_room_type_dimension_matches_builder_output():
