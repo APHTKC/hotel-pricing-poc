@@ -461,6 +461,90 @@
         "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 標示天空特大床房 43㎡；官方一般客房類別為 40㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:441113102",
+      "room_type_name": "台北 101 景尊爵特大雙人床房",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei-downtown.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示 30㎡；官方一般客房類別皆為 33.1㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:441113103",
+      "room_type_name": "台北 101 景尊爵雙床房",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei-downtown.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示 30㎡；官方一般客房類別皆為 33.1㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:441113106",
+      "room_type_name": "豪華特大雙人床房",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei-downtown.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示豪華客房 30㎡；官方豪華客房為 33.1㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:441113101",
+      "room_type_name": "豪華雙床房",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei-downtown.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示豪華客房 30㎡；官方豪華客房為 33.1㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:441113104",
+      "room_type_name": "高級特大雙人床房",
+      "room_size_sqm": 28,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei-downtown.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示高級客房 28㎡；官方對應的一般客房類別為 33.1㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:441113108",
+      "room_type_name": "高級雙床房",
+      "room_size_sqm": 28,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei-downtown.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示高級客房 28㎡；官方對應的一般客房類別為 33.1㎡，超出既有面積一致性門檻。"
     }
   ]
 }
