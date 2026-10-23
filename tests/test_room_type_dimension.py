@@ -2171,3 +2171,29 @@ def test_windsor_taichung_expedia_codes_match_official_bed_types_and_sizes():
         assert room["name_en"] == official_name
         assert alias["observed_at"] == "2026-10-16"
         assert matched["room_match_status"] == "matched_evidenced_source_code"
+
+
+def test_taipei_garden_official_luxury_code_matches_catalog_room():
+    profiles = json.loads(Path("public/data/hotel_profiles.json").read_text(encoding="utf-8"))
+    dimension = build_room_type_dimension(profiles)
+    lookup = build_room_type_lookup(dimension)
+    rooms = {
+        room["stable_room_type_id"]: room
+        for room in dimension["room_types"]
+        if room["hotel_id"] == "taipei_garden_hotel"
+    }
+
+    matched = match_room_type({
+        "hotel_id": "taipei_garden_hotel",
+        "room_type_name": "Luxury Double",
+        "room_type_code": "Luxury-Double",
+        "source_platform": "official",
+        "room_size_sqm": None,
+    }, lookup)
+    room = rooms[matched["stable_room_type_id"]]
+    alias = next(item for item in room["aliases"] if item["room_type_code"] == "Luxury-Double")
+
+    assert room["name_en"] == "Luxury Room"
+    assert alias["observed_at"] == "2026-10-22"
+    assert alias["label_match"] is False
+    assert matched["room_match_status"] == "matched_evidenced_source_code"

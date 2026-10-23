@@ -2249,7 +2249,7 @@
           {"name_zh": "雅緻親子房", "name_en": "Premier Family Room", "name_ja": "Premier Family Room", "size_sqm": 25},
           {"name_zh": "雅緻三人房", "name_en": "Premier Triple Room", "name_ja": "Premier Triple Room", "size_sqm": 25},
           {"name_zh": "雅緻家庭房", "name_en": "Premier Quad Room", "name_ja": "Premier Quad Room", "size_sqm": 25},
-          {"name_zh": "卓越客房", "name_en": "Luxury Room", "name_ja": "Luxury Room", "size_sqm": 25},
+          {"name_zh": "卓越客房", "name_en": "Luxury Room", "name_ja": "Luxury Room", "size_sqm": 25, "aliases": [{"label": "Luxury Double", "language": "en", "source_type": "official", "source_platform": "official", "room_type_code": "Luxury-Double", "label_match": false, "source_url": "https://redirect.fastbooking.com/DIRECTORY/preresa.phtml?style=DIRECT&Hotelnames=ASIATWHTLTGarden&rate=Best-Available-Rate&FirstRoomName=Luxury-Double&FSTBKNGTrackLink=quotation&FirstDate=261029%3B1%3B2%3B0%3B0&CurrencyLabel=TWD&accessCode=", "observed_at": "2026-10-22"}]},
           {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 43},
           {"name_zh": "花園套房", "name_en": "Garden Suite", "name_ja": "Garden Suite", "size_sqm": 63}
         ]
