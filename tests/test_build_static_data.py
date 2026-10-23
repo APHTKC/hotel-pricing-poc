@@ -160,6 +160,9 @@ def test_room_type_match_quality_prioritizes_unresolved_evidence_candidates():
         "observations": 2,
         "latest_queried_at": "2026-10-18T01:00:00Z",
         "sample_source_url": "https://example.com/latest",
+        "room_mapping_unlockable_observations": 0,
+        "room_mapping_blocked_by_other_metadata_observations": 2,
+        "area_conflict_observations": 0,
     }]
     assert quality["strict_parity_gap_hotels"] == [{
         "hotel_id": "hotel-a",
@@ -189,6 +192,7 @@ def test_room_mapping_priority_separates_unlockable_and_metadata_blocked_rows():
         "cancellation_deadline": "2026-11-30",
         "tax_inclusion": "included",
         "strict_parity_eligible": False,
+        "room_match_status": "unmatched_label",
     }
     rows = [
         {**complete, "hotel_id": "hotel-a"},
@@ -227,6 +231,19 @@ def test_room_mapping_priority_separates_unlockable_and_metadata_blocked_rows():
         "room_mapping_unlockable_observations": 1,
         "room_mapping_blocked_by_other_metadata_observations": 1,
         "area_conflict_observations": 0,
+        "top_room_mapping_candidates": [{
+            "room_match_status": "unmatched_label",
+            "room_type_name": None,
+            "room_type_code": None,
+            "source_platform": "official",
+            "room_size_sqm": 45,
+            "observations": 2,
+            "latest_queried_at": None,
+            "sample_source_url": None,
+            "room_mapping_unlockable_observations": 1,
+            "room_mapping_blocked_by_other_metadata_observations": 1,
+            "area_conflict_observations": 0,
+        }],
     }]
 
 
@@ -1640,7 +1657,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     }
     assert digest_target.exists()
     quality_payload = json.loads(room_type_match_quality_target.read_text(encoding="utf-8"))
-    assert quality_payload["schema_version"] == "1.2"
+    assert quality_payload["schema_version"] == "1.3"
     assert quality_payload["latest"]["observation_count"] == 2
 
 

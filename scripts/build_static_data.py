@@ -215,6 +215,11 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
         for key, candidate_rows in candidate_groups.items():
             status, name, code, platform, size = key
             latest = max(candidate_rows, key=lambda row: row.get("queried_at") or "")
+            candidate_gap_categories = Counter(
+                gap_category(row)
+                for row in candidate_rows
+                if not row.get("strict_parity_eligible")
+            )
             candidates.append({
                 "room_match_status": status,
                 "room_type_name": name,
@@ -224,6 +229,16 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
                 "observations": len(candidate_rows),
                 "latest_queried_at": latest.get("queried_at"),
                 "sample_source_url": latest.get("source_url"),
+                "room_mapping_unlockable_observations": candidate_gap_categories.get(
+                    "room_evidence_only", 0
+                ),
+                "room_mapping_blocked_by_other_metadata_observations": (
+                    candidate_gap_categories.get("room_evidence_and_metadata", 0)
+                ),
+                "area_conflict_observations": (
+                    candidate_gap_categories.get("room_area_conflict_only", 0)
+                    + candidate_gap_categories.get("room_area_conflict_and_metadata", 0)
+                ),
             })
         candidates.sort(
             key=lambda item: (
@@ -256,6 +271,23 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
     strict_gap_hotels.sort(
         key=lambda item: (-item["strict_parity_gap_observations"], item["hotel_id"])
     )
+    mapping_candidates_by_hotel = {}
+    for item in hotels:
+        mapping_candidates = [
+            candidate
+            for candidate in item["top_unresolved_room_labels"]
+            if (
+                candidate["room_mapping_unlockable_observations"]
+                or candidate["room_mapping_blocked_by_other_metadata_observations"]
+            )
+        ]
+        mapping_candidates.sort(key=lambda candidate: (
+            -candidate["room_mapping_unlockable_observations"],
+            -candidate["room_mapping_blocked_by_other_metadata_observations"],
+            -candidate["observations"],
+            candidate.get("room_type_name") or "",
+        ))
+        mapping_candidates_by_hotel[item["hotel_id"]] = mapping_candidates
     room_mapping_priority_hotels = [
         {
             "hotel_id": item["hotel_id"],
@@ -270,6 +302,9 @@ def _room_type_match_quality(rows: list[dict], *, candidate_limit: int = 8) -> d
             "area_conflict_observations": (
                 item["gap_categories"].get("room_area_conflict_only", 0)
                 + item["gap_categories"].get("room_area_conflict_and_metadata", 0)
+            ),
+            "top_room_mapping_candidates": mapping_candidates_by_hotel.get(
+                item["hotel_id"], []
             ),
         }
         for item in strict_gap_hotels
@@ -1053,7 +1088,7 @@ def main() -> None:
     ROOM_TYPE_MATCH_QUALITY_TARGET.write_text(
         json.dumps(
             {
-                "schema_version": "1.2",
+                "schema_version": "1.3",
                 "generated_from": str(SOURCE).replace("\\", "/"),
                 "history": _room_type_match_quality(rows),
                 "latest": _room_type_match_quality(latest_rows),
