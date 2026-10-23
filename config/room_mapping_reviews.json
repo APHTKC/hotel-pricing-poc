@@ -335,6 +335,20 @@
         "https://tw.hotels.com/ho120725/tai-bei-jun-yue-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD"
       ],
       "note": "Hotels.com 僅提供 50㎡嘉賓軒尊尚雙床泛稱；官方 50㎡嘉賓軒尊尚房型明確標示 101 景觀，來源標籤不足以確認是否為同一景觀版本。"
+    },
+    {
+      "hotel_id": "episode_daan_taipei",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:10965601:king-sofa-bed",
+      "room_type_name": "一大床沙發床房",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/rooms",
+        "https://tw.hotels.com/ho514326/home-hotel-da-an-tai-bei-tai-wan/?chkin=2027-01-02&chkout=2027-01-03&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 標示 30㎡；官方 1 King Bed, Sofa Bed 為 33㎡，超出既有面積一致性門檻。"
     }
   ]
 }
