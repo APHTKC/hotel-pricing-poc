@@ -265,6 +265,76 @@
       "reviewed_at": "2026-10-23",
       "evidence_urls": ["https://www.marriott.com/en-us/hotels/tpewh-w-taipei/rooms/", "https://tw.hotels.com/ho369485/tai-bei-w-fan-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD"],
       "note": "Hotels.com 僅標示 43㎡景觀特大床泛稱；Wonderful Room 與 Spectacular Room 同為 43㎡，無法唯一對應。"
+    },
+    {
+      "hotel_id": "grand_hyatt_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:134101245",
+      "room_type_name": "101 景觀特大雙人床房",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
+        "https://www.booking.com/hotel/tw/grand-hyatt-taipei-taipei50.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示 30㎡；官方現行一般客房為 33㎡起，低於既有面積一致性門檻，且官方 101 景觀頁未提供可支持 30㎡的規格。"
+    },
+    {
+      "hotel_id": "grand_hyatt_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:134101248",
+      "room_type_name": "101 景觀特大雙人床房－可使用俱樂部",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
+        "https://www.booking.com/hotel/tw/grand-hyatt-taipei-taipei50.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示 30㎡；官方 Grand Club 客房現行規格為 33㎡或 40㎡，低於既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "grand_hyatt_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:134101249",
+      "room_type_name": "101 景觀雙床房－可使用俱樂部",
+      "room_size_sqm": 30,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
+        "https://www.booking.com/hotel/tw/grand-hyatt-taipei-taipei50.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 標示 30㎡；官方 Grand Club 客房現行規格為 33㎡或 40㎡，低於既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "grand_hyatt_taipei",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:21035:club-premium-king",
+      "room_type_name": "嘉賓軒尊尚客房(特大床)",
+      "room_size_sqm": 50,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
+        "https://tw.hotels.com/ho120725/tai-bei-jun-yue-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 僅提供 50㎡嘉賓軒尊尚特大床泛稱；官方 50㎡嘉賓軒尊尚房型明確標示 101 景觀，來源標籤不足以確認是否為同一景觀版本。"
+    },
+    {
+      "hotel_id": "grand_hyatt_taipei",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:21035:club-premium-twin",
+      "room_type_name": "嘉賓軒尊尚客房(雙床)",
+      "room_size_sqm": 50,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
+        "https://tw.hotels.com/ho120725/tai-bei-jun-yue-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 僅提供 50㎡嘉賓軒尊尚雙床泛稱；官方 50㎡嘉賓軒尊尚房型明確標示 101 景觀，來源標籤不足以確認是否為同一景觀版本。"
     }
   ]
 }
