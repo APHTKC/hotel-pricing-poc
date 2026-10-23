@@ -545,6 +545,20 @@
         "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei-downtown.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 標示高級客房 28㎡；官方對應的一般客房類別為 33.1㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "grand_hotel_taipei",
+      "source_platform": "official",
+      "room_type_code": "0003",
+      "room_type_name": "高級客房(後館麒麟)(兩中床)",
+      "room_size_sqm": 33.1,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.grand-hotel.org/TW/official/room.aspx",
+        "https://tlathena.ec-hotel.net/webhotel-v5/1071/index?_rand=dr1djsrtzog"
+      ],
+      "note": "官方訂房頁代碼 0003 標示後館麒麟高級客房 33.1㎡；官方房型目錄的高級客房（麒麟廳）為 40㎡，超出既有面積一致性門檻。"
     }
   ]
 }
