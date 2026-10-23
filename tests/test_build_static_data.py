@@ -297,11 +297,16 @@ def test_reviewed_ambiguous_candidate_is_audited_and_removed_from_priority(tmp_p
         "blocked_ambiguous_label"
     )
     assert quality["reviewed_blocked_candidates"][0]["reviewed_at"] == "2026-10-23"
+    assert quality["review_registry_entries"] == 1
+    assert quality["matched_review_entries"] == 1
+    assert quality["stale_review_entries"] == []
 
     changed = {**row, "room_type_name": "Standard Double Room"}
     changed_quality = _room_type_match_quality([changed], review_index=review_index)
     assert changed_quality["reviewed_blocked_observations"] == 0
     assert len(changed_quality["room_mapping_priority_hotels"]) == 1
+    assert changed_quality["matched_review_entries"] == 0
+    assert changed_quality["stale_review_entries"] == list(review_index.values())
 
 
 def test_latest_batch_uses_recent_workflow_window():
@@ -1714,7 +1719,7 @@ def test_static_build_deduplicates_and_embeds_shared_market_summary(
     }
     assert digest_target.exists()
     quality_payload = json.loads(room_type_match_quality_target.read_text(encoding="utf-8"))
-    assert quality_payload["schema_version"] == "1.4"
+    assert quality_payload["schema_version"] == "1.5"
     assert quality_payload["latest"]["observation_count"] == 2
 
 

@@ -163,6 +163,7 @@ def _room_type_match_quality(
         return "metadata_only"
 
     review_index = review_index or {}
+    matched_review_keys: set[tuple] = set()
     unresolved_statuses = {
         "unmatched_label",
         "area_mismatch",
@@ -291,8 +292,10 @@ def _room_type_match_quality(
                     + candidate_gap_categories.get("room_area_conflict_and_metadata", 0)
                 ),
             }
-            review = review_index.get(_room_review_key(candidate))
+            candidate_review_key = _room_review_key(candidate)
+            review = review_index.get(candidate_review_key)
             if review:
+                matched_review_keys.add(candidate_review_key)
                 candidate.update({
                     "review_status": review["status"],
                     "reviewed_at": review["reviewed_at"],
@@ -397,6 +400,14 @@ def _room_type_match_quality(
         )
     )
     total = len(rows)
+    stale_review_entries = [
+        review
+        for key, review in review_index.items()
+        if key not in matched_review_keys
+    ]
+    stale_review_entries.sort(key=lambda item: (
+        item["hotel_id"], item["source_platform"], item["room_type_code"]
+    ))
     return {
         "observation_count": total,
         "mapped_observations": mapped_count,
@@ -416,6 +427,9 @@ def _room_type_match_quality(
             item["observations"] for item in reviewed_blocked_candidates
         ),
         "reviewed_blocked_candidates": reviewed_blocked_candidates,
+        "review_registry_entries": len(review_index),
+        "matched_review_entries": len(matched_review_keys),
+        "stale_review_entries": stale_review_entries,
     }
 
 
@@ -1169,7 +1183,7 @@ def main() -> None:
     ROOM_TYPE_MATCH_QUALITY_TARGET.write_text(
         json.dumps(
             {
-                "schema_version": "1.4",
+                "schema_version": "1.5",
                 "generated_from": str(SOURCE).replace("\\", "/"),
                 "history": _room_type_match_quality(rows, review_index=room_mapping_reviews),
                 "latest": _room_type_match_quality(
