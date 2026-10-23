@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "rows": 94796,
   "hotels": 52,
   "queried_at": {
@@ -19,6 +19,8 @@
     "known_cancellation_deadline_ratio": 0.399278,
     "known_cancellation_schedule_rows": 1850,
     "known_cancellation_schedule_ratio": 0.019516,
+    "strict_metadata_ready_rows": 378,
+    "strict_metadata_ready_ratio": 0.003988,
     "nightly_adr_rows": 94796,
     "nightly_adr_ratio": 1.0
   },
@@ -32,7 +34,9 @@
       "known_cancellation_policy_rows": 391,
       "known_cancellation_class_rows": 391,
       "known_cancellation_deadline_rows": 391,
-      "known_cancellation_schedule_rows": 0
+      "known_cancellation_schedule_rows": 0,
+      "strict_metadata_ready_rows": 33,
+      "strict_metadata_ready_ratio": 0.084399
     },
     {
       "source_platform": "expedia_group",
@@ -43,7 +47,9 @@
       "known_cancellation_policy_rows": 345,
       "known_cancellation_class_rows": 345,
       "known_cancellation_deadline_rows": 345,
-      "known_cancellation_schedule_rows": 0
+      "known_cancellation_schedule_rows": 0,
+      "strict_metadata_ready_rows": 345,
+      "strict_metadata_ready_ratio": 1.0
     },
     {
       "source_platform": "official",
@@ -54,7 +60,9 @@
       "known_cancellation_policy_rows": 56019,
       "known_cancellation_class_rows": 47683,
       "known_cancellation_deadline_rows": 37114,
-      "known_cancellation_schedule_rows": 1850
+      "known_cancellation_schedule_rows": 1850,
+      "strict_metadata_ready_rows": 0,
+      "strict_metadata_ready_ratio": 0.0
     }
   ],
   "top_tax_gaps": [

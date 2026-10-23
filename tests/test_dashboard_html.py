@@ -1943,7 +1943,11 @@ def test_home_exposes_reproducible_comparability_quality():
     assert "known_tax_rows" in home
     assert "known_cancellation_class_rows" in home
     assert "known_cancellation_deadline_rows" in home
-    assert "sourceCoverage=item=>Math.min" in home
+    assert "strict_metadata_ready_rows" in home
+    assert "strict_metadata_ready_ratio" in home
+    assert "sourceCoverage=item=>Number(item.strict_metadata_ready_ratio)" in home
+    assert "Strict metadata 完整" in home
+    assert "Strict metadata ready" in home
     assert "warehouse-quality-source-list" in home
     assert "warehouse-quality-source-metrics" in home
 

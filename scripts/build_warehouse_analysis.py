@@ -9,6 +9,7 @@ from pathlib import Path
 import duckdb
 
 from services.rate_parity import (
+    comparison_key_missing_fields,
     normalize_cancellation_class,
     normalize_cancellation_deadline,
     normalize_cancellation_schedule,
@@ -48,7 +49,7 @@ def public_quality_payload(payload: dict) -> dict:
     """Return the compact, non-sensitive quality summary used by the site."""
 
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "rows": payload["rows"],
         "hotels": payload["hotels"],
         "queried_at": payload["queried_at"],
@@ -131,10 +132,22 @@ def build_warehouse_analysis(
                 hotel_id,
                 coalesce(source_platform, 'unknown') AS source_platform,
                 cancellation_policy,
-                cast(check_in AS VARCHAR) AS check_in
+                cast(check_in AS VARCHAR) AS check_in,
+                cast(check_out AS VARCHAR) AS check_out,
+                rooms,
+                adults,
+                children,
+                breakfast_included,
+                room_size_sqm,
+                tax_inclusion,
+                total_price,
+                price_before_tax,
+                service_charge,
+                tax
             FROM rates
             """
         ).fetchall()
+        cancellation_columns = [item[0] for item in connection.description]
 
         hotel_rows = connection.execute(
             """
@@ -167,10 +180,16 @@ def build_warehouse_analysis(
     cancellation_class_counts: Counter[str] = Counter()
     cancellation_deadline_counts: Counter[str] = Counter()
     cancellation_schedule_counts: Counter[str] = Counter()
+    strict_metadata_ready_counts: Counter[str] = Counter()
     structured_cancellation_schedules: Counter[tuple[str, str, str, str]] = Counter()
     unknown_cancellation_policies: Counter[tuple[str, str, str]] = Counter()
     cancellation_blockers: Counter[tuple[str, str, str]] = Counter()
-    for hotel_id, source_platform, policy, check_in in cancellation_rows:
+    for raw_row in cancellation_rows:
+        row = dict(zip(cancellation_columns, raw_row))
+        hotel_id = row["hotel_id"]
+        source_platform = row["source_platform"]
+        policy = row["cancellation_policy"]
+        check_in = row["check_in"]
         if normalize_cancellation_class(policy) != "unknown":
             cancellation_class_counts[source_platform] += 1
         elif policy and str(policy).strip():
@@ -199,6 +218,8 @@ def build_warehouse_analysis(
                     json.dumps(schedule, ensure_ascii=False, sort_keys=True),
                 )
             ] += 1
+        if not comparison_key_missing_fields(row):
+            strict_metadata_ready_counts[source_platform] += 1
     known_cancellation_class = sum(cancellation_class_counts.values())
     known_cancellation_deadline = sum(cancellation_deadline_counts.values())
     known_cancellation_schedule = sum(cancellation_schedule_counts.values())
@@ -215,6 +236,12 @@ def build_warehouse_analysis(
         source["known_cancellation_schedule_rows"] = cancellation_schedule_counts[
             source_platform
         ]
+        source["strict_metadata_ready_rows"] = strict_metadata_ready_counts[
+            source_platform
+        ]
+        source["strict_metadata_ready_ratio"] = _ratio(
+            source["strict_metadata_ready_rows"], source["rows"]
+        )
 
     hotels_by_unknown_room_size = [
         dict(zip(hotel_columns, row)) for row in hotel_rows
@@ -229,7 +256,7 @@ def build_warehouse_analysis(
     )
 
     payload = {
-        "schema_version": "1.4",
+        "schema_version": "1.5",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -260,6 +287,10 @@ def build_warehouse_analysis(
             "known_cancellation_schedule_rows": known_cancellation_schedule,
             "known_cancellation_schedule_ratio": _ratio(
                 known_cancellation_schedule, row_count
+            ),
+            "strict_metadata_ready_rows": sum(strict_metadata_ready_counts.values()),
+            "strict_metadata_ready_ratio": _ratio(
+                sum(strict_metadata_ready_counts.values()), row_count
             ),
             "nightly_adr_rows": nightly_adr,
             "nightly_adr_ratio": _ratio(nightly_adr, row_count),

@@ -15,12 +15,14 @@ def _write_test_parquet(path):
     connection.execute(
         """
         CREATE TABLE rows AS SELECT * FROM (VALUES
-          ('a', 'hotel-a', 'official', '2026-10-18T01:00:00Z', '2026-11-02', 45.0, 'included', 'Non-refundable', 10000.0),
-          ('b', 'hotel-a', 'booking_com', '2026-10-18T01:01:00Z', '2026-11-02', NULL, 'unknown', 'Cancellation policy is available on the official booking page', NULL),
-          ('c', 'hotel-a', 'official', '2026-10-18T01:02:00Z', '2026-11-02', 45.0, 'unknown', '13~4天之前 訂金的30％ 3~1天之前 訂金的70％ 當天 訂金的100％', NULL),
-          ('d', 'hotel-b', 'official', '2026-10-18T01:03:00Z', '2026-11-02', 45.0, 'unknown', '�N���������O��', NULL)
+          ('a', 'hotel-a', 'official', '2026-10-18T01:00:00Z', '2026-11-02', '2026-11-03', 1, 2, 0, false, 45.0, 'included', 'Non-refundable', 10000.0, NULL, NULL, NULL, NULL),
+          ('b', 'hotel-a', 'booking_com', '2026-10-18T01:01:00Z', '2026-11-02', '2026-11-03', 1, 2, 0, false, NULL, 'unknown', 'Cancellation policy is available on the official booking page', NULL, NULL, NULL, NULL, NULL),
+          ('c', 'hotel-a', 'official', '2026-10-18T01:02:00Z', '2026-11-02', '2026-11-03', 1, 2, 0, true, 45.0, 'unknown', '13~4天之前 訂金的30％ 3~1天之前 訂金的70％ 當天 訂金的100％', NULL, NULL, NULL, NULL, NULL),
+          ('d', 'hotel-b', 'official', '2026-10-18T01:03:00Z', '2026-11-02', '2026-11-03', 1, 2, 0, false, 45.0, 'unknown', '�N���������O��', NULL, NULL, NULL, NULL, NULL)
         ) AS t(observation_id, hotel_id, source_platform, queried_at,
-               check_in, room_size_sqm, tax_inclusion, cancellation_policy, nightly_adr_twd)
+               check_in, check_out, rooms, adults, children, breakfast_included,
+               room_size_sqm, tax_inclusion, cancellation_policy, nightly_adr_twd,
+               total_price, price_before_tax, service_charge, tax)
         """
     )
     connection.execute("COPY rows TO ? (FORMAT PARQUET)", [str(path)])
@@ -63,7 +65,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
 
     payload = build_warehouse_analysis(rates / "*.parquet", manifest, target)
 
-    assert payload["schema_version"] == "1.4"
+    assert payload["schema_version"] == "1.5"
     assert payload["rows"] == 4
     assert payload["hotels"] == 2
     assert payload["quality"]["known_room_size_ratio"] == 0.75
@@ -72,6 +74,8 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     assert payload["quality"]["known_cancellation_class_ratio"] == 0.5
     assert payload["quality"]["known_cancellation_deadline_ratio"] == 0.25
     assert payload["quality"]["known_cancellation_schedule_ratio"] == 0.25
+    assert payload["quality"]["strict_metadata_ready_rows"] == 1
+    assert payload["quality"]["strict_metadata_ready_ratio"] == 0.25
     assert payload["quality"]["nightly_adr_ratio"] == 0.25
     assert [item["source_platform"] for item in payload["sources"]] == [
         "booking_com",
@@ -116,6 +120,8 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     assert official["known_cancellation_deadline_rows"] == 1
     assert official["known_cancellation_schedule_rows"] == 1
     assert official["known_cancellation_policy_rows"] == 3
+    assert official["strict_metadata_ready_rows"] == 1
+    assert official["strict_metadata_ready_ratio"] == pytest.approx(1 / 3, abs=1e-6)
     assert payload["structured_cancellation_schedules"][0]["schedule"] == [
         {
             "days_before_from": 13,
@@ -140,7 +146,9 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
 
     public = public_quality_payload(payload)
     assert public["rows"] == 4
+    assert public["schema_version"] == "1.1"
     assert public["quality"]["known_tax_ratio"] == 0.25
+    assert public["quality"]["strict_metadata_ready_ratio"] == 0.25
     assert public["top_tax_gaps"] == [
         {
             "hotel_id": "hotel-a",
