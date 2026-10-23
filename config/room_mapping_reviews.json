@@ -14,6 +14,48 @@
         "https://tw.hotels.com/ho2153042464/ge-la-si-li-tai-bei-fan-dian-tai-bei-tai-wan/?chkin=2027-01-10&chkout=2027-01-11&rm1=a2&top_cur=TWD"
       ],
       "note": "Hotels.com 僅提供 25㎡雙人房泛稱；官方同時列有標準、無障礙及多個主題雙人房，現有標籤與面積不足以唯一對應。"
+    },
+    {
+      "hotel_id": "palais_de_chine",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:352321:executive-deluxe-king",
+      "room_type_name": "尊爵豪華一大床",
+      "room_size_sqm": 36,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
+        "https://tw.hotels.com/ho352321/jun-pin-jiu-dian-tai-bei-tai-wan/?chkin=2027-01-09&chkout=2027-01-10&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 標示 36㎡；官方君璽豪華客房為 37㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "palais_de_chine",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:352321:executive-deluxe-twin",
+      "room_type_name": "尊爵豪華兩小床",
+      "room_size_sqm": 36,
+      "status": "blocked_area_mismatch",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
+        "https://tw.hotels.com/ho352321/jun-pin-jiu-dian-tai-bei-tai-wan/?chkin=2027-01-09&chkout=2027-01-10&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 標示 36㎡；官方君璽豪華客房為 37㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "palais_de_chine",
+      "source_platform": "expedia_group",
+      "room_type_code": "expedia:352321:executive-classic-double",
+      "room_type_name": "尊爵雅緻一中床",
+      "room_size_sqm": 30,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
+        "https://tw.hotels.com/ho352321/jun-pin-jiu-dian-tai-bei-tai-wan/?chkin=2027-01-09&chkout=2027-01-10&rm1=a2&top_cur=TWD"
+      ],
+      "note": "Hotels.com 的 30㎡泛稱不足以排除官方同面積的雅緻無障礙客房，無法唯一對應君璽雅緻客房。"
     }
   ]
 }

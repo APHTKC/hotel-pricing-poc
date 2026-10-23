@@ -191,6 +191,7 @@ def _room_type_match_quality(
             hotel_groups[str(row["hotel_id"])].append(row)
 
     hotels = []
+    all_candidates_by_hotel: dict[str, list[dict]] = {}
     strict_gap_hotels = []
     for hotel_id, hotel_rows in hotel_groups.items():
         hotel_statuses = Counter(
@@ -308,6 +309,7 @@ def _room_type_match_quality(
                 item.get("room_type_code") or "",
             )
         )
+        all_candidates_by_hotel[hotel_id] = candidates
         mapped = sum(bool(row.get("stable_room_type_id")) for row in hotel_rows)
         hotels.append({
             "hotel_id": hotel_id,
@@ -335,7 +337,7 @@ def _room_type_match_quality(
     for item in hotels:
         mapping_candidates = [
             candidate
-            for candidate in item["top_unresolved_room_labels"]
+            for candidate in all_candidates_by_hotel[item["hotel_id"]]
             if (
                 candidate["room_mapping_unlockable_observations"]
                 or candidate["room_mapping_blocked_by_other_metadata_observations"]
@@ -351,7 +353,7 @@ def _room_type_match_quality(
         mapping_candidates_by_hotel[item["hotel_id"]] = mapping_candidates
     reviewed_blocked_candidates = []
     for item in hotels:
-        for candidate in item["top_unresolved_room_labels"]:
+        for candidate in all_candidates_by_hotel[item["hotel_id"]]:
             if candidate.get("review_status"):
                 reviewed_blocked_candidates.append({
                     "hotel_id": item["hotel_id"],

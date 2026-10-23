@@ -286,9 +286,12 @@ def test_reviewed_ambiguous_candidate_is_audited_and_removed_from_priority(tmp_p
         "strict_parity_eligible": False,
     }
 
-    quality = _room_type_match_quality([row], review_index=review_index)
+    quality = _room_type_match_quality(
+        [row], candidate_limit=0, review_index=review_index
+    )
 
     assert quality["room_mapping_priority_hotels"] == []
+    assert quality["hotels"][0]["top_unresolved_room_labels"] == []
     assert quality["reviewed_blocked_observations"] == 1
     assert quality["reviewed_blocked_candidates"][0]["review_status"] == (
         "blocked_ambiguous_label"
