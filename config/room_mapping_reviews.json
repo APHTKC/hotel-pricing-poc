@@ -559,6 +559,90 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1071/index?_rand=dr1djsrtzog"
       ],
       "note": "官方訂房頁代碼 0003 標示後館麒麟高級客房 33.1㎡；官方房型目錄的高級客房（麒麟廳）為 40㎡，超出既有面積一致性門檻。"
+    },
+    {
+      "hotel_id": "hotel_gracery_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:727625416",
+      "room_type_name": "KIYOKEN Collaboration double room",
+      "room_size_sqm": 25,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://tw.gracery.com/taipei/room/",
+        "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 的 25㎡ KIYOKEN 聯名雙人房未出現在官方現行房型目錄，無法確認其基礎房型。"
+    },
+    {
+      "hotel_id": "hotel_gracery_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:727625417",
+      "room_type_name": "KIYOKEN Collaboration twin room",
+      "room_size_sqm": 25,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://tw.gracery.com/taipei/room/",
+        "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 的 25㎡ KIYOKEN 聯名雙床房未出現在官方現行房型目錄，無法確認其基礎房型。"
+    },
+    {
+      "hotel_id": "hotel_gracery_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:727625414",
+      "room_type_name": "Times PARKING Collaboration double room",
+      "room_size_sqm": 25,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://tw.gracery.com/taipei/room/",
+        "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 的 25㎡ Times PARKING 聯名雙人房未出現在官方現行房型目錄，無法確認其基礎房型。"
+    },
+    {
+      "hotel_id": "hotel_gracery_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:727625415",
+      "room_type_name": "Times PARKING Collaboration twin room",
+      "room_size_sqm": 25,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://tw.gracery.com/taipei/room/",
+        "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 的 25㎡ Times PARKING 聯名雙床房未出現在官方現行房型目錄，無法確認其基礎房型。"
+    },
+    {
+      "hotel_id": "hotel_gracery_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:727625410",
+      "room_type_name": "Travel with HANDS!",
+      "room_size_sqm": 25,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://tw.gracery.com/taipei/room/",
+        "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 的 25㎡ HANDS 泛稱可能對應官方 HANDS 聯名客房或 HANDS 露營主題客房，無法唯一判定。"
+    },
+    {
+      "hotel_id": "hotel_gracery_taipei",
+      "source_platform": "booking_com",
+      "room_type_code": "booking:727625407",
+      "room_type_name": "舒適四人房",
+      "room_size_sqm": 25,
+      "status": "blocked_ambiguous_label",
+      "reviewed_at": "2026-10-23",
+      "evidence_urls": [
+        "https://tw.gracery.com/taipei/room/",
+        "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 僅提供 25㎡舒適四人房泛稱且未列床型；官方同面積有多種一般、無障礙及主題配置，無法唯一對應。"
     }
   ]
 }
