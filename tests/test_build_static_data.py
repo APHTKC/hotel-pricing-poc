@@ -10,6 +10,7 @@ from scripts.build_static_data import (
     _daily_market_digest,
     _data_quality_warnings,
     _history_summary,
+    _explicit_breakfast_from_rate_plan,
     _heatmap_row,
     _latest_batch,
     _latest_batches_by_platform,
@@ -23,6 +24,22 @@ from scripts.build_static_data import (
     _room_type_match_quality,
     _weekly_digest,
 )
+
+
+def test_explicit_breakfast_from_rate_plan_is_conservative():
+    assert _explicit_breakfast_from_rate_plan({
+        "rate_plan_name": "一般訂房｜含島語早餐",
+    }) is True
+    assert _explicit_breakfast_from_rate_plan({
+        "rate_plan_name": "一般訂房｜不含島語早餐",
+    }) is False
+    assert _explicit_breakfast_from_rate_plan({
+        "rate_plan_name": "一般訂房",
+    }) is None
+    assert _explicit_breakfast_from_rate_plan({
+        "rate_plan_name": "不含早餐",
+        "breakfast_included": True,
+    }) is True
 
 
 def test_room_type_integrity_gate_blocks_unsafe_publication():

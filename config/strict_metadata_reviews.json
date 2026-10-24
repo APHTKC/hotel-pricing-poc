@@ -104,6 +104,21 @@
         "https://hoshinoresorts.com/CH/hotels/0000000503/rooms/0000000006"
       ],
       "note": "官方訂房結果頁無法由既有讀取工具存取；最新 77 筆未提供商品層級稅費標示，其中 50 筆為 13–4／3–1／當天的分段訂金罰則，沒有單一免費取消期限，不得壓成虛構日期。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "grand_hilai_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "cancellation_class",
+        "cancellation_deadline",
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v5/1003/index"
+      ],
+      "note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足含／不含島語早餐，但最新 72 筆仍無商品層級取消類別、精確期限與稅費標示。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }

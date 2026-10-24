@@ -76,6 +76,28 @@ def _parse_timestamp(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
+def _explicit_breakfast_from_rate_plan(row: dict) -> bool | None:
+    """Read breakfast only when the same product label states it explicitly."""
+    existing = row.get("breakfast_included")
+    if existing is not None:
+        return existing
+
+    label = re.sub(r"\s+", " ", str(row.get("rate_plan_name") or "")).strip().lower()
+    if not label:
+        return None
+    if re.search(r"(?:不含|無)[^｜|]{0,12}早餐", label) or any(term in label for term in (
+        "不含早餐", "不含早", "無早餐", "純住宿",
+        "breakfast not included", "room only",
+    )):
+        return False
+    if re.search(r"含[^｜|]{0,12}早餐", label) or any(term in label for term in (
+        "含早餐", "含早", "早餐專案", "餐點: 早餐",
+        "breakfast included", "with breakfast",
+    )):
+        return True
+    return None
+
+
 def _dashboard_row(row: dict, room_type_lookup=None) -> dict:
     published = {field: row.get(field) for field in DASHBOARD_FIELDS}
     # Observations written before schema 1.1 are all official-site records.
@@ -83,6 +105,7 @@ def _dashboard_row(row: dict, room_type_lookup=None) -> dict:
     # the full history after OTA records are introduced.
     published["source_platform"] = row.get("source_platform") or "official"
     published["source_method"] = row.get("source_method") or "public_booking_page"
+    published["breakfast_included"] = _explicit_breakfast_from_rate_plan(row)
     published["nights"] = stay_nights(row)
     nightly = nightly_adr_twd(row)
     unit = nightly_price_per_sqm_twd(row)

@@ -99,6 +99,42 @@ def test_build_rate_warehouse_normalizes_multi_night_adr_without_mutating_source
     assert shard.read_text(encoding="utf-8") == original
 
 
+def test_build_rate_warehouse_normalizes_explicit_breakfast_rate_plans(tmp_path):
+    source = tmp_path / "rates"
+    month = source / "2026-10"
+    month.mkdir(parents=True)
+    base = {
+        "hotel_id": "grand_hilai_taipei",
+        "source_platform": "official",
+        "check_in": "2026-11-01",
+        "check_out": "2026-11-02",
+        "rooms": 1,
+        "adults": 2,
+        "children": 0,
+        "room_type_code": "ROOM",
+        "currency": "TWD",
+        "total_price": 10000,
+        "queried_at": "2026-10-17T01:00:00+00:00",
+    }
+    rows = [
+        {**base, "observation_id": "with", "rate_plan_code": "WITH", "rate_plan_name": "一般訂房｜含島語早餐"},
+        {**base, "observation_id": "without", "rate_plan_code": "WITHOUT", "rate_plan_name": "一般訂房｜不含島語早餐"},
+        {**base, "observation_id": "unknown", "rate_plan_code": "UNKNOWN", "rate_plan_name": "一般訂房"},
+    ]
+    shard = month / "2026-10-17.jsonl"
+    original = "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows)
+    shard.write_text(original, encoding="utf-8")
+
+    target = tmp_path / "warehouse" / "rates"
+    build_rate_warehouse(source, target, tmp_path / "warehouse" / "manifest.json")
+
+    assert duckdb.connect().execute(
+        "SELECT observation_id, breakfast_included FROM read_parquet(?) ORDER BY observation_id",
+        [str(target / "2026-10.parquet")],
+    ).fetchall() == [("unknown", None), ("with", True), ("without", False)]
+    assert shard.read_text(encoding="utf-8") == original
+
+
 def test_build_rate_warehouse_verifies_tax_inclusion_only_when_components_reconcile(tmp_path):
     source = tmp_path / "rates"
     month = source / "2026-10"

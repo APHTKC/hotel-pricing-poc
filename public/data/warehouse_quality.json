@@ -19,8 +19,8 @@
     "known_cancellation_deadline_ratio": 0.467974,
     "known_cancellation_schedule_rows": 1900,
     "known_cancellation_schedule_ratio": 0.01955,
-    "strict_metadata_ready_rows": 25052,
-    "strict_metadata_ready_ratio": 0.257771,
+    "strict_metadata_ready_rows": 25154,
+    "strict_metadata_ready_ratio": 0.258821,
     "latest_rows": 3050,
     "latest_strict_metadata_ready_rows": 726,
     "latest_strict_metadata_ready_ratio": 0.238033,
@@ -28,7 +28,7 @@
       "cancellation_deadline": 51706,
       "tax_inclusion": 50819,
       "cancellation_class": 47983,
-      "breakfast_included": 30147,
+      "breakfast_included": 28029,
       "room_size": 1577
     },
     "nightly_adr_rows": 97187,
@@ -75,13 +75,13 @@
       "known_cancellation_class_rows": 48468,
       "known_cancellation_deadline_rows": 44745,
       "known_cancellation_schedule_rows": 1900,
-      "strict_metadata_ready_rows": 24674,
-      "strict_metadata_ready_ratio": 0.255819,
+      "strict_metadata_ready_rows": 24776,
+      "strict_metadata_ready_ratio": 0.256877,
       "strict_metadata_missing_fields": {
         "cancellation_deadline": 51706,
         "tax_inclusion": 50461,
         "cancellation_class": 47983,
-        "breakfast_included": 30147,
+        "breakfast_included": 28029,
         "room_size": 1577
       }
     }
@@ -269,8 +269,7 @@
       "missing_fields": {
         "cancellation_class": 2520,
         "cancellation_deadline": 2520,
-        "tax_inclusion": 2520,
-        "breakfast_included": 2016
+        "tax_inclusion": 2520
       }
     },
     {
@@ -326,11 +325,11 @@
     {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
-      "rows": 945,
+      "rows": 843,
       "missing_fields": {
         "cancellation_class": 569,
         "cancellation_deadline": 569,
-        "breakfast_included": 409
+        "breakfast_included": 307
       }
     },
     {
@@ -462,17 +461,6 @@
       }
     },
     {
-      "hotel_id": "grand_hilai_taipei",
-      "source_platform": "official",
-      "rows": 2520,
-      "missing_fields": {
-        "cancellation_class": 2520,
-        "cancellation_deadline": 2520,
-        "tax_inclusion": 2520,
-        "breakfast_included": 2016
-      }
-    },
-    {
       "hotel_id": "royal_nikko_taipei",
       "source_platform": "official",
       "rows": 2243,
@@ -505,11 +493,11 @@
     {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
-      "rows": 945,
+      "rows": 843,
       "missing_fields": {
         "cancellation_class": 569,
         "cancellation_deadline": 569,
-        "breakfast_included": 409
+        "breakfast_included": 307
       }
     },
     {
@@ -646,6 +634,14 @@
       "missing_fields": {
         "tax_inclusion": 14
       }
+    },
+    {
+      "hotel_id": "courtyard_taipei_downtown",
+      "source_platform": "booking_com",
+      "rows": 12,
+      "missing_fields": {
+        "tax_inclusion": 12
+      }
     }
   ],
   "latest_strict_metadata_gap_hotels": [
@@ -721,7 +717,6 @@
       "rows": 72,
       "latest_queried_at": "2026-10-24 00:54:26.590396",
       "missing_fields": {
-        "breakfast_included": 72,
         "cancellation_class": 72,
         "cancellation_deadline": 72,
         "tax_inclusion": 72
@@ -902,18 +897,6 @@
     }
   ],
   "actionable_latest_strict_metadata_gaps": [
-    {
-      "hotel_id": "grand_hilai_taipei",
-      "source_platform": "official",
-      "rows": 72,
-      "latest_queried_at": "2026-10-24 00:54:26.590396",
-      "missing_fields": {
-        "breakfast_included": 72,
-        "cancellation_class": 72,
-        "cancellation_deadline": 72,
-        "tax_inclusion": 72
-      }
-    },
     {
       "hotel_id": "hotel_nikko_kaohsiung",
       "source_platform": "official",
@@ -1140,11 +1123,20 @@
         "cancellation_class": 8,
         "cancellation_deadline": 8
       }
+    },
+    {
+      "hotel_id": "hotel_proverbs_taipei",
+      "source_platform": "booking_com",
+      "rows": 8,
+      "latest_queried_at": "2026-10-13 05:16:58",
+      "missing_fields": {
+        "tax_inclusion": 8
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 7,
-    "matched_entries": 7,
+    "registry_entries": 8,
+    "matched_entries": 8,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1211,6 +1203,22 @@
         "https://be.synxis.com/?Hotel=59555&Chain=507&locale=en-US&level=hotel"
       ],
       "review_note": "官方 SynXis 結果頁無法由既有讀取工具存取；安全解析 five (5)／seven (7) days 後，最新仍有 71 筆未提供商品層級早餐標示，其中 30 筆僅述抵達前 72 小時，缺少可建立精確時間點的抵達時間。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "grand_hilai_taipei",
+      "source_platform": "official",
+      "rows": 2520,
+      "missing_fields": {
+        "cancellation_class": 2520,
+        "cancellation_deadline": 2520,
+        "tax_inclusion": 2520
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v5/1003/index"
+      ],
+      "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足含／不含島語早餐，但最新 72 筆仍無商品層級取消類別、精確期限與稅費標示。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "the_gaia_taipei",

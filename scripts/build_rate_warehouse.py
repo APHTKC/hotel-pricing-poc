@@ -118,6 +118,14 @@ def build_rate_warehouse(
                 connection.execute(
                     "ALTER TABLE month_rates_raw ADD COLUMN tax_inclusion VARCHAR"
                 )
+            if "breakfast_included" not in raw_columns:
+                connection.execute(
+                    "ALTER TABLE month_rates_raw ADD COLUMN breakfast_included BOOLEAN"
+                )
+            if "rate_plan_name" not in raw_columns:
+                connection.execute(
+                    "ALTER TABLE month_rates_raw ADD COLUMN rate_plan_name VARCHAR"
+                )
             if "source_method" not in raw_columns:
                 connection.execute(
                     "ALTER TABLE month_rates_raw ADD COLUMN source_method VARCHAR"
@@ -173,7 +181,24 @@ def build_rate_warehouse(
                 "   ) "
                 "    THEN 'included' "
                 "  ELSE 'unknown' "
-                "END AS tax_inclusion"
+                "END AS tax_inclusion, "
+                "coalesce(try_cast(breakfast_included AS BOOLEAN), CASE "
+                "  WHEN regexp_matches(lower(coalesce(cast(rate_plan_name AS VARCHAR), '')), "
+                "       '(不含|無)[^｜|]{0,12}早餐') "
+                "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%不含早%' "
+                "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%純住宿%' "
+                "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%breakfast not included%' "
+                "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%room only%' "
+                "    THEN false "
+                "  WHEN regexp_matches(lower(coalesce(cast(rate_plan_name AS VARCHAR), '')), "
+                "       '含[^｜|]{0,12}早餐') "
+                "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%含早%' "
+                "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%早餐專案%' "
+                "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%breakfast included%' "
+                "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%with breakfast%' "
+                "    THEN true "
+                "  ELSE NULL "
+                "END) AS breakfast_included"
                 ") FROM month_rates_raw"
             )
             connection.execute(
