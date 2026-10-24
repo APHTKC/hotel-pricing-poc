@@ -41,6 +41,14 @@ def test_latest_stream_rows_prefers_the_newest_explicit_run_id():
     ]
 
 
+def test_repository_metadata_reviews_preserve_known_source_blockers():
+    reviews = _load_strict_metadata_reviews(STRICT_METADATA_REVIEWS_SOURCE)
+    statuses = {review["hotel_id"]: review["status"] for review in reviews}
+
+    assert statuses["grand_hilai_kaohsiung"] == "blocked_source_shell"
+    assert statuses["windsor_taichung"] == "blocked_source_unavailable"
+
+
 def _write_test_parquet(path):
     connection = duckdb.connect()
     connection.execute(
@@ -93,8 +101,14 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     manifest = warehouse / "manifest.json"
     _write_manifest(manifest, 4)
     target = warehouse / "analysis.json"
+    reviews = tmp_path / "empty-reviews.json"
+    reviews.write_text(
+        json.dumps({"schema_version": "1.0", "reviews": []}), encoding="utf-8"
+    )
 
-    payload = build_warehouse_analysis(rates / "*.parquet", manifest, target)
+    payload = build_warehouse_analysis(
+        rates / "*.parquet", manifest, target, reviews
+    )
 
     assert payload["schema_version"] == "1.9"
     assert payload["rows"] == 4
@@ -197,9 +211,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
         "latest_strict_metadata_gap_hotels"
     ]
     assert payload["strict_metadata_matched_review_entries"] == 0
-    assert payload["strict_metadata_stale_review_entries"] == [
-        _load_strict_metadata_reviews(STRICT_METADATA_REVIEWS_SOURCE)[0]
-    ]
+    assert payload["strict_metadata_stale_review_entries"] == []
     official = next(
         item for item in payload["sources"] if item["source_platform"] == "official"
     )

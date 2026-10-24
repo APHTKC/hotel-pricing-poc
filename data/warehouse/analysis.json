@@ -1410,16 +1410,6 @@
       }
     },
     {
-      "hotel_id": "windsor_taichung",
-      "source_platform": "official",
-      "rows": 5007,
-      "missing_fields": {
-        "cancellation_class": 5007,
-        "cancellation_deadline": 5007,
-        "breakfast_included": 554
-      }
-    },
-    {
       "hotel_id": "shangrila_taipei",
       "source_platform": "official",
       "rows": 3550,
@@ -2249,17 +2239,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "windsor_taichung",
-      "source_platform": "official",
-      "rows": 171,
-      "latest_queried_at": "2026-10-24 01:07:37.116358",
-      "missing_fields": {
-        "cancellation_class": 171,
-        "cancellation_deadline": 171,
-        "breakfast_included": 19
-      }
-    },
-    {
       "hotel_id": "grand_hotel_taipei",
       "source_platform": "official",
       "rows": 162,
@@ -2718,10 +2697,26 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1084"
       ],
       "review_note": "官方流程僅回傳訂房 shell，無可核實的商品層級早餐、取消與稅費欄位；流程變更前不重試。"
+    },
+    {
+      "hotel_id": "windsor_taichung",
+      "source_platform": "official",
+      "rows": 5007,
+      "missing_fields": {
+        "cancellation_class": 5007,
+        "cancellation_deadline": 5007,
+        "breakfast_included": 554
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://bw.tripla.ai/booking/result?code=35107e0b-6d82-4b23-850c-a46c7b9e0e84&checkin=2026%2F12%2F23&checkout=2026%2F12%2F24&type=rooms&is_day_use=false&order=price_low_to_high&is_including_occupied=false&rooms=%5B%7B%22adults%22%3A2%7D%5D"
+      ],
+      "review_note": "官方 Tripla 結果頁無法由既有讀取工具存取；最新觀測取消欄全為官網 placeholder，部分商品未標示早餐。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 1,
-  "strict_metadata_matched_review_entries": 1,
+  "strict_metadata_review_registry_entries": 2,
+  "strict_metadata_matched_review_entries": 2,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {

@@ -38,7 +38,11 @@ def _load_strict_metadata_reviews(path: Path) -> list[dict]:
     reviews = payload.get("reviews")
     if payload.get("schema_version") != "1.0" or not isinstance(reviews, list):
         raise ValueError("Invalid strict metadata review registry schema")
-    allowed_statuses = {"blocked_source_shell", "blocked_no_explicit_label"}
+    allowed_statuses = {
+        "blocked_source_shell",
+        "blocked_source_unavailable",
+        "blocked_no_explicit_label",
+    }
     seen: set[tuple[str, str, tuple[str, ...]]] = set()
     for review in reviews:
         required = {
