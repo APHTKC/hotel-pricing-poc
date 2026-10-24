@@ -119,6 +119,20 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1003/index"
       ],
       "note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足含／不含島語早餐，但最新 72 筆仍無商品層級取消類別、精確期限與稅費標示。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "hotel_nikko_kaohsiung",
+      "source_platform": "official",
+      "missing_fields": [
+        "cancellation_class",
+        "cancellation_deadline"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://be.synxis.com/?adult=2&arrive=2026-11-23&chain=9542&child=0&currency=TWD&depart=2026-11-24&hotel=47062&level=hotel&locale=zh-TW&productcurrency=TWD&rooms=1"
+      ],
+      "note": "官方 SynXis 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足「不含餐食」，但最新 67 筆仍無商品層級取消類別與精確期限。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }

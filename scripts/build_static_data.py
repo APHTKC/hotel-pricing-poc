@@ -86,7 +86,7 @@ def _explicit_breakfast_from_rate_plan(row: dict) -> bool | None:
     if not label:
         return None
     if re.search(r"(?:不含|無)[^｜|]{0,12}早餐", label) or any(term in label for term in (
-        "不含早餐", "不含早", "無早餐", "純住宿",
+        "不含早餐", "不含早", "不含餐食", "無早餐", "純住宿",
         "breakfast not included", "room only",
     )):
         return False

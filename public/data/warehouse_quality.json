@@ -28,7 +28,7 @@
       "cancellation_deadline": 51706,
       "tax_inclusion": 50819,
       "cancellation_class": 47983,
-      "breakfast_included": 28029,
+      "breakfast_included": 27615,
       "room_size": 1577
     },
     "nightly_adr_rows": 97187,
@@ -81,7 +81,7 @@
         "cancellation_deadline": 51706,
         "tax_inclusion": 50461,
         "cancellation_class": 47983,
-        "breakfast_included": 28029,
+        "breakfast_included": 27615,
         "room_size": 1577
       }
     }
@@ -258,8 +258,7 @@
       "rows": 2883,
       "missing_fields": {
         "cancellation_class": 2883,
-        "cancellation_deadline": 2883,
-        "breakfast_included": 414
+        "cancellation_deadline": 2883
       }
     },
     {
@@ -451,16 +450,6 @@
       }
     },
     {
-      "hotel_id": "hotel_nikko_kaohsiung",
-      "source_platform": "official",
-      "rows": 2883,
-      "missing_fields": {
-        "cancellation_class": 2883,
-        "cancellation_deadline": 2883,
-        "breakfast_included": 414
-      }
-    },
-    {
       "hotel_id": "royal_nikko_taipei",
       "source_platform": "official",
       "rows": 2243,
@@ -642,6 +631,14 @@
       "missing_fields": {
         "tax_inclusion": 12
       }
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "booking_com",
+      "rows": 12,
+      "missing_fields": {
+        "tax_inclusion": 12
+      }
     }
   ],
   "latest_strict_metadata_gap_hotels": [
@@ -739,8 +736,7 @@
       "latest_queried_at": "2026-10-24 01:01:11.019309",
       "missing_fields": {
         "cancellation_class": 67,
-        "cancellation_deadline": 67,
-        "breakfast_included": 26
+        "cancellation_deadline": 67
       }
     },
     {
@@ -897,17 +893,6 @@
     }
   ],
   "actionable_latest_strict_metadata_gaps": [
-    {
-      "hotel_id": "hotel_nikko_kaohsiung",
-      "source_platform": "official",
-      "rows": 67,
-      "latest_queried_at": "2026-10-24 01:01:11.019309",
-      "missing_fields": {
-        "cancellation_class": 67,
-        "cancellation_deadline": 67,
-        "breakfast_included": 26
-      }
-    },
     {
       "hotel_id": "silks_place_yilan",
       "source_platform": "official",
@@ -1132,11 +1117,20 @@
       "missing_fields": {
         "tax_inclusion": 8
       }
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "source_platform": "booking_com",
+      "rows": 8,
+      "latest_queried_at": "2026-10-14 16:58:17",
+      "missing_fields": {
+        "tax_inclusion": 8
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 8,
-    "matched_entries": 8,
+    "registry_entries": 9,
+    "matched_entries": 9,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1203,6 +1197,21 @@
         "https://be.synxis.com/?Hotel=59555&Chain=507&locale=en-US&level=hotel"
       ],
       "review_note": "官方 SynXis 結果頁無法由既有讀取工具存取；安全解析 five (5)／seven (7) days 後，最新仍有 71 筆未提供商品層級早餐標示，其中 30 筆僅述抵達前 72 小時，缺少可建立精確時間點的抵達時間。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "hotel_nikko_kaohsiung",
+      "source_platform": "official",
+      "rows": 2883,
+      "missing_fields": {
+        "cancellation_class": 2883,
+        "cancellation_deadline": 2883
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://be.synxis.com/?adult=2&arrive=2026-11-23&chain=9542&child=0&currency=TWD&depart=2026-11-24&hotel=47062&level=hotel&locale=zh-TW&productcurrency=TWD&rooms=1"
+      ],
+      "review_note": "官方 SynXis 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足「不含餐食」，但最新 67 筆仍無商品層級取消類別與精確期限。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "grand_hilai_taipei",

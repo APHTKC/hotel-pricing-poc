@@ -119,6 +119,7 @@ def test_build_rate_warehouse_normalizes_explicit_breakfast_rate_plans(tmp_path)
     rows = [
         {**base, "observation_id": "with", "rate_plan_code": "WITH", "rate_plan_name": "一般訂房｜含島語早餐"},
         {**base, "observation_id": "without", "rate_plan_code": "WITHOUT", "rate_plan_name": "一般訂房｜不含島語早餐"},
+        {**base, "observation_id": "without-meal", "rate_plan_code": "WITHOUT-MEAL", "rate_plan_name": "提前7天訂房 - 不含餐食"},
         {**base, "observation_id": "unknown", "rate_plan_code": "UNKNOWN", "rate_plan_name": "一般訂房"},
     ]
     shard = month / "2026-10-17.jsonl"
@@ -131,7 +132,12 @@ def test_build_rate_warehouse_normalizes_explicit_breakfast_rate_plans(tmp_path)
     assert duckdb.connect().execute(
         "SELECT observation_id, breakfast_included FROM read_parquet(?) ORDER BY observation_id",
         [str(target / "2026-10.parquet")],
-    ).fetchall() == [("unknown", None), ("with", True), ("without", False)]
+    ).fetchall() == [
+        ("unknown", None),
+        ("with", True),
+        ("without", False),
+        ("without-meal", False),
+    ]
     assert shard.read_text(encoding="utf-8") == original
 
 

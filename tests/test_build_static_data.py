@@ -34,6 +34,9 @@ def test_explicit_breakfast_from_rate_plan_is_conservative():
         "rate_plan_name": "一般訂房｜不含島語早餐",
     }) is False
     assert _explicit_breakfast_from_rate_plan({
+        "rate_plan_name": "[會員價格] 提前7天訂房 - 不含餐食",
+    }) is False
+    assert _explicit_breakfast_from_rate_plan({
         "rate_plan_name": "一般訂房",
     }) is None
     assert _explicit_breakfast_from_rate_plan({
