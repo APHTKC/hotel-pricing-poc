@@ -27,17 +27,17 @@
     "known_cancellation_policy_ratio": 0.59473,
     "known_cancellation_class_rows": 49204,
     "known_cancellation_class_ratio": 0.506282,
-    "known_cancellation_deadline_rows": 38407,
-    "known_cancellation_deadline_ratio": 0.395187,
+    "known_cancellation_deadline_rows": 43816,
+    "known_cancellation_deadline_ratio": 0.450842,
     "known_cancellation_schedule_rows": 1900,
     "known_cancellation_schedule_ratio": 0.01955,
-    "strict_metadata_ready_rows": 18370,
-    "strict_metadata_ready_ratio": 0.189017,
+    "strict_metadata_ready_rows": 23779,
+    "strict_metadata_ready_ratio": 0.244673,
     "latest_rows": 3050,
-    "latest_strict_metadata_ready_rows": 586,
-    "latest_strict_metadata_ready_ratio": 0.192131,
+    "latest_strict_metadata_ready_rows": 701,
+    "latest_strict_metadata_ready_ratio": 0.229836,
     "strict_metadata_missing_fields": {
-      "cancellation_deadline": 58780,
+      "cancellation_deadline": 53371,
       "tax_inclusion": 50819,
       "cancellation_class": 47983,
       "breakfast_included": 30147,
@@ -85,12 +85,12 @@
       "known_tax_rows": 45990,
       "known_cancellation_policy_rows": 57064,
       "known_cancellation_class_rows": 48468,
-      "known_cancellation_deadline_rows": 37671,
+      "known_cancellation_deadline_rows": 43080,
       "known_cancellation_schedule_rows": 1900,
-      "strict_metadata_ready_rows": 17992,
-      "strict_metadata_ready_ratio": 0.18654,
+      "strict_metadata_ready_rows": 23401,
+      "strict_metadata_ready_ratio": 0.242621,
       "strict_metadata_missing_fields": {
-        "cancellation_deadline": 58780,
+        "cancellation_deadline": 53371,
         "tax_inclusion": 50461,
         "cancellation_class": 47983,
         "breakfast_included": 30147,
@@ -959,15 +959,6 @@
       }
     },
     {
-      "hotel_id": "capella_taipei",
-      "source_platform": "official",
-      "rows": 5725,
-      "missing_fields": {
-        "cancellation_deadline": 5725,
-        "cancellation_class": 316
-      }
-    },
-    {
       "hotel_id": "mo_taipei",
       "source_platform": "official",
       "rows": 5717,
@@ -1104,6 +1095,15 @@
         "cancellation_class": 569,
         "cancellation_deadline": 569,
         "breakfast_included": 409
+      }
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "source_platform": "official",
+      "rows": 316,
+      "missing_fields": {
+        "cancellation_class": 316,
+        "cancellation_deadline": 316
       }
     },
     {
@@ -1371,15 +1371,6 @@
   ],
   "actionable_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "capella_taipei",
-      "source_platform": "official",
-      "rows": 5725,
-      "missing_fields": {
-        "cancellation_deadline": 5725,
-        "cancellation_class": 316
-      }
-    },
-    {
       "hotel_id": "mo_taipei",
       "source_platform": "official",
       "rows": 5717,
@@ -1486,6 +1477,15 @@
         "cancellation_class": 569,
         "cancellation_deadline": 569,
         "breakfast_included": 409
+      }
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "source_platform": "official",
+      "rows": 316,
+      "missing_fields": {
+        "cancellation_class": 316,
+        "cancellation_deadline": 316
       }
     },
     {
@@ -1795,15 +1795,6 @@
         "tax_inclusion": 127,
         "cancellation_class": 34,
         "cancellation_deadline": 34
-      }
-    },
-    {
-      "hotel_id": "capella_taipei",
-      "source_platform": "official",
-      "rows": 115,
-      "latest_queried_at": "2026-10-24 00:48:07.533681",
-      "missing_fields": {
-        "cancellation_deadline": 115
       }
     },
     {
@@ -2218,15 +2209,6 @@
     }
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
-    {
-      "hotel_id": "capella_taipei",
-      "source_platform": "official",
-      "rows": 115,
-      "latest_queried_at": "2026-10-24 00:48:07.533681",
-      "missing_fields": {
-        "cancellation_deadline": 115
-      }
-    },
     {
       "hotel_id": "grand_mayfull_taipei",
       "source_platform": "official",

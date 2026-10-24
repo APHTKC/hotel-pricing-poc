@@ -210,6 +210,11 @@ def normalize_cancellation_deadline(row: Mapping[str, Any] | Any) -> str:
         r"入住日前至少\s*(\d+)\s*(?:天|日)",
         r"入住\s*(\d+)\s*(?:天|日)前",
         r"抵達前\s*(\d+)\s*(?:天|日)",
+        # SynXis exposes the cutoff time before the relative-day value in
+        # localized feature text, for example
+        # ``抵達前免費取消最多 15:00 1 天``.  Anchor on the time so ``15`` is
+        # never mistaken for the day offset.
+        r"抵達前.{0,40}?\d{1,2}:\d{2}\s*(\d+)\s*(?:天|日)",
         r"(\d+)\s*(?:\(\d+\))?\s*days?\s+prior to\s+(?:arrival|check[- ]?in)",
     )
     for pattern in relative_patterns:
