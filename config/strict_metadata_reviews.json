@@ -61,6 +61,21 @@
         "https://book-directonline.com/properties/thegaiahoteltaipeidirect?locale=zh-TW"
       ],
       "note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 127 筆皆無商品層級稅費標示，其中 34 筆取消欄為 placeholder。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "tax_inclusion",
+        "cancellation_class",
+        "cancellation_deadline"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://book-directonline.com/properties/GrandMayfullHotelTaipeiDirect?locale=zh-TW"
+      ],
+      "note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 98 筆皆無商品層級稅費標示，其中 28 筆取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或期限。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }

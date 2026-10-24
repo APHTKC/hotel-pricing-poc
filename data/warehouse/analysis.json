@@ -1391,16 +1391,6 @@
       }
     },
     {
-      "hotel_id": "grand_mayfull_taipei",
-      "source_platform": "official",
-      "rows": 5111,
-      "missing_fields": {
-        "tax_inclusion": 5111,
-        "cancellation_class": 2148,
-        "cancellation_deadline": 2148
-      }
-    },
-    {
       "hotel_id": "shangrila_taipei",
       "source_platform": "official",
       "rows": 3550,
@@ -2210,17 +2200,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "grand_mayfull_taipei",
-      "source_platform": "official",
-      "rows": 98,
-      "latest_queried_at": "2026-10-24 00:54:45.957839",
-      "missing_fields": {
-        "tax_inclusion": 98,
-        "cancellation_class": 28,
-        "cancellation_deadline": 28
-      }
-    },
-    {
       "hotel_id": "mo_taipei",
       "source_platform": "official",
       "rows": 96,
@@ -2639,6 +2618,22 @@
       "review_note": "官方流程僅回傳訂房 shell，無可核實的商品層級早餐、取消與稅費欄位；流程變更前不重試。"
     },
     {
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "official",
+      "rows": 5111,
+      "missing_fields": {
+        "tax_inclusion": 5111,
+        "cancellation_class": 2148,
+        "cancellation_deadline": 2148
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://book-directonline.com/properties/GrandMayfullHotelTaipeiDirect?locale=zh-TW"
+      ],
+      "review_note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 98 筆皆無商品層級稅費標示，其中 28 筆取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "windsor_taichung",
       "source_platform": "official",
       "rows": 5007,
@@ -2687,8 +2682,8 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新觀測未提供商品層級早餐與取消欄位。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 4,
-  "strict_metadata_matched_review_entries": 4,
+  "strict_metadata_review_registry_entries": 5,
+  "strict_metadata_matched_review_entries": 5,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {

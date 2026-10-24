@@ -443,16 +443,6 @@
       }
     },
     {
-      "hotel_id": "grand_mayfull_taipei",
-      "source_platform": "official",
-      "rows": 5111,
-      "missing_fields": {
-        "tax_inclusion": 5111,
-        "cancellation_class": 2148,
-        "cancellation_deadline": 2148
-      }
-    },
-    {
       "hotel_id": "shangrila_taipei",
       "source_platform": "official",
       "rows": 3550,
@@ -644,6 +634,14 @@
     },
     {
       "hotel_id": "hotel_metropolitan_premier_taipei",
+      "source_platform": "booking_com",
+      "rows": 14,
+      "missing_fields": {
+        "tax_inclusion": 14
+      }
+    },
+    {
+      "hotel_id": "mitsui_garden_taipei_zhongxiao",
       "source_platform": "booking_com",
       "rows": 14,
       "missing_fields": {
@@ -906,17 +904,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "grand_mayfull_taipei",
-      "source_platform": "official",
-      "rows": 98,
-      "latest_queried_at": "2026-10-24 00:54:45.957839",
-      "missing_fields": {
-        "tax_inclusion": 98,
-        "cancellation_class": 28,
-        "cancellation_deadline": 28
-      }
-    },
-    {
       "hotel_id": "mo_taipei",
       "source_platform": "official",
       "rows": 96,
@@ -1146,11 +1133,20 @@
       "missing_fields": {
         "tax_inclusion": 10
       }
+    },
+    {
+      "hotel_id": "palais_de_chine",
+      "source_platform": "booking_com",
+      "rows": 9,
+      "latest_queried_at": "2026-10-14 17:57:48",
+      "missing_fields": {
+        "tax_inclusion": 9
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 4,
-    "matched_entries": 4,
+    "registry_entries": 5,
+    "matched_entries": 5,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1170,6 +1166,22 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1084"
       ],
       "review_note": "官方流程僅回傳訂房 shell，無可核實的商品層級早餐、取消與稅費欄位；流程變更前不重試。"
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "official",
+      "rows": 5111,
+      "missing_fields": {
+        "tax_inclusion": 5111,
+        "cancellation_class": 2148,
+        "cancellation_deadline": 2148
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://book-directonline.com/properties/GrandMayfullHotelTaipeiDirect?locale=zh-TW"
+      ],
+      "review_note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 98 筆皆無商品層級稅費標示，其中 28 筆取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或期限。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "windsor_taichung",

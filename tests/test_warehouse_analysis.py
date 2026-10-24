@@ -49,6 +49,7 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["windsor_taichung"] == "blocked_source_unavailable"
     assert statuses["grand_hotel_taipei"] == "blocked_source_unavailable"
     assert statuses["the_gaia_taipei"] == "blocked_source_unavailable"
+    assert statuses["grand_mayfull_taipei"] == "blocked_source_unavailable"
 
 
 def _write_test_parquet(path):
