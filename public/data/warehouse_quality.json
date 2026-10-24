@@ -534,14 +534,6 @@
       }
     },
     {
-      "hotel_id": "le_meridien_taipei",
-      "source_platform": "booking_com",
-      "rows": 18,
-      "missing_fields": {
-        "tax_inclusion": 18
-      }
-    },
-    {
       "hotel_id": "kimpton_da_an",
       "source_platform": "booking_com",
       "rows": 17,
@@ -631,6 +623,14 @@
     },
     {
       "hotel_id": "okura_prestige_taipei",
+      "source_platform": "booking_com",
+      "rows": 8,
+      "missing_fields": {
+        "tax_inclusion": 8
+      }
+    },
+    {
+      "hotel_id": "the_landis_taipei",
       "source_platform": "booking_com",
       "rows": 8,
       "missing_fields": {
@@ -891,15 +891,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "le_meridien_taipei",
-      "source_platform": "booking_com",
-      "rows": 18,
-      "latest_queried_at": "2026-10-13 05:16:58",
-      "missing_fields": {
-        "tax_inclusion": 18
-      }
-    },
-    {
       "hotel_id": "royal_nikko_taipei",
       "source_platform": "official",
       "rows": 15,
@@ -1120,11 +1111,20 @@
       "missing_fields": {
         "tax_inclusion": 5
       }
+    },
+    {
+      "hotel_id": "solaria_nishitetsu_taipei",
+      "source_platform": "official",
+      "rows": 5,
+      "latest_queried_at": "2026-10-24 01:05:01.631879",
+      "missing_fields": {
+        "room_size": 5
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 15,
-    "matched_entries": 15,
+    "registry_entries": 16,
+    "matched_entries": 16,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1342,6 +1342,20 @@
         "https://www.booking.com/hotel/tw/miramar-garden.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 23 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "le_meridien_taipei",
+      "source_platform": "booking_com",
+      "rows": 18,
+      "missing_fields": {
+        "tax_inclusion": 18
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/le-meridien-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 18 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hoshinoya_guguan",
