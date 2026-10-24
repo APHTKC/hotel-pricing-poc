@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import duckdb
@@ -87,6 +88,37 @@ def _ratio(numerator: int, denominator: int) -> float:
     return round(numerator / denominator, 6) if denominator else 0.0
 
 
+def _parse_timestamp(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def _latest_stream_rows(rows: list[dict], window_minutes: int = 30) -> list[dict]:
+    """Return each hotel/source stream's newest bounded observation batch."""
+
+    streams: dict[tuple[str, str], list[dict]] = {}
+    for row in rows:
+        streams.setdefault((row["hotel_id"], row["source_platform"]), []).append(row)
+    latest_rows = []
+    for stream_rows in streams.values():
+        latest_row = max(
+            stream_rows, key=lambda row: _parse_timestamp(row["queried_at"])
+        )
+        latest_run_id = latest_row.get("run_id")
+        if latest_run_id:
+            latest_rows.extend(
+                row for row in stream_rows if row.get("run_id") == latest_run_id
+            )
+            continue
+        newest = _parse_timestamp(latest_row["queried_at"])
+        cutoff = newest - timedelta(minutes=window_minutes)
+        latest_rows.extend(
+            row
+            for row in stream_rows
+            if _parse_timestamp(row["queried_at"]) >= cutoff
+        )
+    return latest_rows
+
+
 def classify_cancellation_blocker(policy: str | None) -> str:
     """Classify why a non-empty cancellation policy cannot be normalized."""
 
@@ -106,7 +138,7 @@ def public_quality_payload(payload: dict) -> dict:
     """Return the compact, non-sensitive quality summary used by the site."""
 
     return {
-        "schema_version": "1.4",
+        "schema_version": "1.5",
         "rows": payload["rows"],
         "hotels": payload["hotels"],
         "queried_at": payload["queried_at"],
@@ -132,6 +164,12 @@ def public_quality_payload(payload: dict) -> dict:
         "top_strict_metadata_gaps": payload["strict_metadata_gap_hotels"][:25],
         "actionable_strict_metadata_gaps": payload[
             "actionable_strict_metadata_gap_hotels"
+        ][:25],
+        "latest_strict_metadata_gap_hotels": payload[
+            "latest_strict_metadata_gap_hotels"
+        ][:25],
+        "actionable_latest_strict_metadata_gaps": payload[
+            "actionable_latest_strict_metadata_gap_hotels"
         ][:25],
         "strict_metadata_review_coverage": {
             "registry_entries": payload["strict_metadata_review_registry_entries"],
@@ -203,6 +241,8 @@ def build_warehouse_analysis(
             SELECT
                 hotel_id,
                 coalesce(source_platform, 'unknown') AS source_platform,
+                cast(queried_at AS VARCHAR) AS queried_at,
+                run_id,
                 cancellation_policy,
                 cast(check_in AS VARCHAR) AS check_in,
                 cast(check_out AS VARCHAR) AS check_out,
@@ -268,8 +308,10 @@ def build_warehouse_analysis(
     structured_cancellation_schedules: Counter[tuple[str, str, str, str]] = Counter()
     unknown_cancellation_policies: Counter[tuple[str, str, str]] = Counter()
     cancellation_blockers: Counter[tuple[str, str, str]] = Counter()
-    for raw_row in cancellation_rows:
-        row = dict(zip(cancellation_columns, raw_row))
+    cancellation_records = [
+        dict(zip(cancellation_columns, raw_row)) for raw_row in cancellation_rows
+    ]
+    for row in cancellation_records:
         hotel_id = row["hotel_id"]
         source_platform = row["source_platform"]
         policy = row["cancellation_policy"]
@@ -318,6 +360,24 @@ def build_warehouse_analysis(
     known_cancellation_class = sum(cancellation_class_counts.values())
     known_cancellation_deadline = sum(cancellation_deadline_counts.values())
     known_cancellation_schedule = sum(cancellation_schedule_counts.values())
+    latest_records = _latest_stream_rows(cancellation_records)
+    latest_strict_metadata_ready_rows = 0
+    latest_strict_metadata_gap_rows: Counter[tuple[str, str]] = Counter()
+    latest_strict_metadata_gap_fields: dict[tuple[str, str], Counter[str]] = {}
+    latest_strict_metadata_gap_queried_at: dict[tuple[str, str], str] = {}
+    for row in latest_records:
+        missing_fields = comparison_key_missing_fields(row)
+        if not missing_fields:
+            latest_strict_metadata_ready_rows += 1
+            continue
+        gap_key = (row["hotel_id"], row["source_platform"])
+        latest_strict_metadata_gap_rows[gap_key] += 1
+        latest_strict_metadata_gap_fields.setdefault(gap_key, Counter()).update(
+            missing_fields
+        )
+        latest_strict_metadata_gap_queried_at[gap_key] = max(
+            row["queried_at"], latest_strict_metadata_gap_queried_at.get(gap_key, "")
+        )
 
     sources = [dict(zip(source_columns, row)) for row in source_rows]
     for source in sources:
@@ -375,6 +435,28 @@ def build_warehouse_analysis(
             key=lambda item: (-item[1], *item[0]),
         )
     ]
+    latest_strict_metadata_gap_hotels = [
+        {
+            "hotel_id": hotel_id,
+            "source_platform": source_platform,
+            "rows": rows,
+            "latest_queried_at": latest_strict_metadata_gap_queried_at[
+                (hotel_id, source_platform)
+            ],
+            "missing_fields": dict(
+                sorted(
+                    latest_strict_metadata_gap_fields[
+                        (hotel_id, source_platform)
+                    ].items(),
+                    key=lambda item: (-item[1], item[0]),
+                )
+            ),
+        }
+        for (hotel_id, source_platform), rows in sorted(
+            latest_strict_metadata_gap_rows.items(),
+            key=lambda item: (-item[1], *item[0]),
+        )
+    ]
     reviews = _load_strict_metadata_reviews(reviews_source)
     reviews_by_key = {_strict_metadata_review_key(item): item for item in reviews}
     matched_review_keys: set[tuple[str, str, tuple[str, ...]]] = set()
@@ -401,9 +483,14 @@ def build_warehouse_analysis(
         for review in reviews
         if _strict_metadata_review_key(review) not in matched_review_keys
     ]
+    actionable_latest_strict_metadata_gap_hotels = [
+        gap
+        for gap in latest_strict_metadata_gap_hotels
+        if _strict_metadata_review_key(gap) not in reviews_by_key
+    ]
 
     payload = {
-        "schema_version": "1.8",
+        "schema_version": "1.9",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -438,6 +525,11 @@ def build_warehouse_analysis(
             "strict_metadata_ready_rows": sum(strict_metadata_ready_counts.values()),
             "strict_metadata_ready_ratio": _ratio(
                 sum(strict_metadata_ready_counts.values()), row_count
+            ),
+            "latest_rows": len(latest_records),
+            "latest_strict_metadata_ready_rows": latest_strict_metadata_ready_rows,
+            "latest_strict_metadata_ready_ratio": _ratio(
+                latest_strict_metadata_ready_rows, len(latest_records)
             ),
             "strict_metadata_missing_fields": dict(
                 sorted(
@@ -478,6 +570,10 @@ def build_warehouse_analysis(
         "strict_metadata_gap_hotels": strict_metadata_gap_hotels,
         "actionable_strict_metadata_gap_hotels": (
             actionable_strict_metadata_gap_hotels
+        ),
+        "latest_strict_metadata_gap_hotels": latest_strict_metadata_gap_hotels,
+        "actionable_latest_strict_metadata_gap_hotels": (
+            actionable_latest_strict_metadata_gap_hotels
         ),
         "reviewed_strict_metadata_gaps": reviewed_strict_metadata_gaps,
         "strict_metadata_review_registry_entries": len(reviews),
