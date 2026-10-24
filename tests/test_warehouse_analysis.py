@@ -51,6 +51,7 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["the_gaia_taipei"] == "blocked_source_unavailable"
     assert statuses["grand_mayfull_taipei"] == "blocked_source_unavailable"
     assert statuses["mo_taipei"] == "blocked_source_unavailable"
+    assert statuses["hoshinoya_guguan"] == "blocked_source_unavailable"
 
 
 def _write_test_parquet(path):
@@ -114,7 +115,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
         rates / "*.parquet", manifest, target, reviews
     )
 
-    assert payload["schema_version"] == "1.9"
+    assert payload["schema_version"] == "1.10"
     assert payload["rows"] == 4
     assert payload["hotels"] == 2
     assert payload["quality"]["known_room_size_ratio"] == 0.75
@@ -254,7 +255,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
 
     public = public_quality_payload(payload)
     assert public["rows"] == 4
-    assert public["schema_version"] == "1.5"
+    assert public["schema_version"] == "1.6"
     assert public["quality"]["known_tax_ratio"] == 0.25
     assert public["quality"]["strict_metadata_ready_ratio"] == 0.25
     assert public["top_tax_gaps"] == [
@@ -338,6 +339,60 @@ def test_metadata_review_registry_excludes_exact_blocker_and_detects_stale(tmp_p
     )
     assert stale["strict_metadata_matched_review_entries"] == 0
     assert stale["strict_metadata_stale_review_entries"] == [review]
+
+
+def test_metadata_review_registry_matches_a_latest_only_signature(tmp_path):
+    warehouse = tmp_path / "warehouse"
+    rates = warehouse / "rates"
+    rates.mkdir(parents=True)
+    connection = duckdb.connect()
+    connection.execute(
+        """
+        CREATE TABLE rows AS SELECT * FROM (VALUES
+          ('old', 'hotel-a', 'official', '2026-10-18T01:00:00Z', '2026-11-02', '2026-11-03', 1, 2, 0, NULL, '45.0', 'unknown', 'Free cancellation', 10000.0, NULL, NULL, NULL, NULL, 'older'),
+          ('new', 'hotel-a', 'official', '2026-10-18T02:00:00Z', '2026-11-02', '2026-11-03', 1, 2, 0, true, '45.0', 'unknown', 'Free cancellation', 10000.0, NULL, NULL, NULL, NULL, 'newer')
+        ) AS t(observation_id, hotel_id, source_platform, queried_at,
+               check_in, check_out, rooms, adults, children, breakfast_included,
+               room_size_sqm, tax_inclusion, cancellation_policy, nightly_adr_twd,
+               total_price, price_before_tax, service_charge, tax, run_id)
+        """
+    )
+    connection.execute(
+        "COPY rows TO ? (FORMAT PARQUET)",
+        [str(rates / "2026-10.parquet")],
+    )
+    connection.close()
+    manifest = warehouse / "manifest.json"
+    _write_manifest(manifest, 2)
+    reviews = tmp_path / "reviews.json"
+    review = {
+        "hotel_id": "hotel-a",
+        "source_platform": "official",
+        "missing_fields": ["tax_inclusion"],
+        "status": "blocked_no_explicit_label",
+        "reviewed_at": "2026-10-24",
+        "evidence_urls": ["https://example.com/rate"],
+        "note": "The latest source exposes no explicit tax label.",
+    }
+    reviews.write_text(
+        json.dumps({"schema_version": "1.0", "reviews": [review]}),
+        encoding="utf-8",
+    )
+
+    payload = build_warehouse_analysis(
+        rates / "*.parquet", manifest, warehouse / "analysis.json", reviews
+    )
+
+    assert payload["strict_metadata_matched_review_entries"] == 1
+    assert payload["strict_metadata_stale_review_entries"] == []
+    assert payload["actionable_latest_strict_metadata_gap_hotels"] == []
+    assert payload["actionable_strict_metadata_gap_hotels"][0]["missing_fields"] == {
+        "breakfast_included": 1,
+        "tax_inclusion": 2,
+    }
+    assert payload["reviewed_strict_metadata_gaps"][0]["missing_fields"] == {
+        "tax_inclusion": 1,
+    }
 
 
 def test_build_warehouse_analysis_rejects_manifest_row_mismatch(tmp_path):

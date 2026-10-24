@@ -142,7 +142,7 @@ def public_quality_payload(payload: dict) -> dict:
     """Return the compact, non-sensitive quality summary used by the site."""
 
     return {
-        "schema_version": "1.5",
+        "schema_version": "1.6",
         "rows": payload["rows"],
         "hotels": payload["hotels"],
         "queried_at": payload["queried_at"],
@@ -482,19 +482,32 @@ def build_warehouse_analysis(
                 "review_note": review["note"],
             }
         )
+    actionable_latest_strict_metadata_gap_hotels = []
+    for gap in latest_strict_metadata_gap_hotels:
+        key = _strict_metadata_review_key(gap)
+        review = reviews_by_key.get(key)
+        if review is None:
+            actionable_latest_strict_metadata_gap_hotels.append(gap)
+            continue
+        if key not in matched_review_keys:
+            matched_review_keys.add(key)
+            reviewed_strict_metadata_gaps.append(
+                {
+                    **gap,
+                    "review_status": review["status"],
+                    "reviewed_at": review["reviewed_at"],
+                    "review_evidence_urls": review["evidence_urls"],
+                    "review_note": review["note"],
+                }
+            )
     stale_reviews = [
         review
         for review in reviews
         if _strict_metadata_review_key(review) not in matched_review_keys
     ]
-    actionable_latest_strict_metadata_gap_hotels = [
-        gap
-        for gap in latest_strict_metadata_gap_hotels
-        if _strict_metadata_review_key(gap) not in reviews_by_key
-    ]
 
     payload = {
-        "schema_version": "1.9",
+        "schema_version": "1.10",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
