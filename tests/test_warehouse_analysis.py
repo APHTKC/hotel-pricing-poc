@@ -61,6 +61,7 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["shangrila_taipei"] == "blocked_source_unavailable"
     assert statuses["miramar_garden_taipei"] == "blocked_source_unavailable"
     assert statuses["le_meridien_taipei"] == "blocked_source_unavailable"
+    assert statuses["royal_nikko_taipei"] == "blocked_source_unavailable"
 
 
 def _write_test_parquet(path):

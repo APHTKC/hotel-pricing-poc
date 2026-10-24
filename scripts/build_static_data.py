@@ -90,7 +90,7 @@ def _explicit_breakfast_from_rate_plan(row: dict) -> bool | None:
         "breakfast not included", "room only",
     )):
         return False
-    if re.search(r"含[^｜|]{0,12}早餐", label) or any(term in label for term in (
+    if re.search(r"含[^｜|]{0,12}早餐", label) or re.search(r"含\s*\d+\s*早", label) or any(term in label for term in (
         "含早餐", "含早", "早餐專案", "餐點: 早餐",
         "breakfast included", "with breakfast",
     )):

@@ -193,6 +193,8 @@ def build_rate_warehouse(
                 "    THEN false "
                 "  WHEN regexp_matches(lower(coalesce(cast(rate_plan_name AS VARCHAR), '')), "
                 "       '含[^｜|]{0,12}早餐') "
+                "    OR regexp_matches(lower(coalesce(cast(rate_plan_name AS VARCHAR), '')), "
+                "       '含[[:space:]]*[0-9]+[[:space:]]*早') "
                 "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%含早%' "
                 "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%早餐專案%' "
                 "    OR lower(coalesce(cast(rate_plan_name AS VARCHAR), '')) LIKE '%breakfast included%' "

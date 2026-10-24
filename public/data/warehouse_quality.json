@@ -28,7 +28,7 @@
       "cancellation_deadline": 51706,
       "tax_inclusion": 50819,
       "cancellation_class": 47983,
-      "breakfast_included": 27615,
+      "breakfast_included": 27579,
       "room_size": 1577
     },
     "nightly_adr_rows": 97187,
@@ -81,7 +81,7 @@
         "cancellation_deadline": 51706,
         "tax_inclusion": 50461,
         "cancellation_class": 47983,
-        "breakfast_included": 27615,
+        "breakfast_included": 27579,
         "room_size": 1577
       }
     }
@@ -279,7 +279,7 @@
         "cancellation_class": 2243,
         "cancellation_deadline": 2243,
         "tax_inclusion": 1869,
-        "breakfast_included": 1500
+        "breakfast_included": 1464
       }
     },
     {
@@ -449,7 +449,7 @@
         "cancellation_class": 2243,
         "cancellation_deadline": 2243,
         "tax_inclusion": 1869,
-        "breakfast_included": 1500
+        "breakfast_included": 1464
       }
     },
     {
@@ -810,7 +810,7 @@
       "missing_fields": {
         "cancellation_class": 15,
         "cancellation_deadline": 15,
-        "breakfast_included": 8
+        "breakfast_included": 6
       }
     },
     {
@@ -890,17 +890,6 @@
     }
   ],
   "actionable_latest_strict_metadata_gaps": [
-    {
-      "hotel_id": "royal_nikko_taipei",
-      "source_platform": "official",
-      "rows": 15,
-      "latest_queried_at": "2026-10-18 12:31:33.140118",
-      "missing_fields": {
-        "cancellation_class": 15,
-        "cancellation_deadline": 15,
-        "breakfast_included": 8
-      }
-    },
     {
       "hotel_id": "eslite_hotel",
       "source_platform": "official",
@@ -1120,11 +1109,24 @@
       "missing_fields": {
         "room_size": 5
       }
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "official",
+      "rows": 5,
+      "latest_queried_at": "2026-10-24 01:11:02.861358",
+      "missing_fields": {
+        "breakfast_included": 5,
+        "cancellation_class": 5,
+        "cancellation_deadline": 5,
+        "tax_inclusion": 5,
+        "room_size": 2
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 16,
-    "matched_entries": 16,
+    "registry_entries": 17,
+    "matched_entries": 17,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1372,6 +1374,23 @@
         "https://hoshinoresorts.com/CH/hotels/0000000503/rooms/0000000006"
       ],
       "review_note": "官方訂房結果頁無法由既有讀取工具存取；最新 77 筆未提供商品層級稅費標示，其中 50 筆為 13–4／3–1／當天的分段訂金罰則，沒有單一免費取消期限，不得壓成虛構日期。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "royal_nikko_taipei",
+      "source_platform": "official",
+      "rows": 15,
+      "latest_queried_at": "2026-10-18 12:31:33.140118",
+      "missing_fields": {
+        "cancellation_class": 15,
+        "cancellation_deadline": 15,
+        "breakfast_included": 6
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v4/0839/index?_rand=su4qfc4dm1"
+      ],
+      "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }

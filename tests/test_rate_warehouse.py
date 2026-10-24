@@ -118,6 +118,7 @@ def test_build_rate_warehouse_normalizes_explicit_breakfast_rate_plans(tmp_path)
     }
     rows = [
         {**base, "observation_id": "with", "rate_plan_code": "WITH", "rate_plan_name": "一般訂房｜含島語早餐"},
+        {**base, "observation_id": "with-count", "rate_plan_code": "WITH-COUNT", "rate_plan_name": "住宿券專案含2早送宵夜"},
         {**base, "observation_id": "without", "rate_plan_code": "WITHOUT", "rate_plan_name": "一般訂房｜不含島語早餐"},
         {**base, "observation_id": "without-meal", "rate_plan_code": "WITHOUT-MEAL", "rate_plan_name": "提前7天訂房 - 不含餐食"},
         {**base, "observation_id": "unknown", "rate_plan_code": "UNKNOWN", "rate_plan_name": "一般訂房"},
@@ -135,6 +136,7 @@ def test_build_rate_warehouse_normalizes_explicit_breakfast_rate_plans(tmp_path)
     ).fetchall() == [
         ("unknown", None),
         ("with", True),
+        ("with-count", True),
         ("without", False),
         ("without-meal", False),
     ]
