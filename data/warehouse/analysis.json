@@ -1474,14 +1474,6 @@
       }
     },
     {
-      "hotel_id": "miramar_garden_taipei",
-      "source_platform": "booking_com",
-      "rows": 23,
-      "missing_fields": {
-        "tax_inclusion": 23
-      }
-    },
-    {
       "hotel_id": "sheraton_grand_taipei",
       "source_platform": "booking_com",
       "rows": 20,
@@ -2123,15 +2115,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "miramar_garden_taipei",
-      "source_platform": "booking_com",
-      "rows": 23,
-      "latest_queried_at": "2026-10-14 01:53:00",
-      "missing_fields": {
-        "tax_inclusion": 23
-      }
-    },
-    {
       "hotel_id": "le_meridien_taipei",
       "source_platform": "booking_com",
       "rows": 18,
@@ -2634,6 +2617,20 @@
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 24 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "miramar_garden_taipei",
+      "source_platform": "booking_com",
+      "rows": 23,
+      "missing_fields": {
+        "tax_inclusion": 23
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/miramar-garden.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 23 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 77,
@@ -2650,8 +2647,8 @@
       "review_note": "官方訂房結果頁無法由既有讀取工具存取；最新 77 筆未提供商品層級稅費標示，其中 50 筆為 13–4／3–1／當天的分段訂金罰則，沒有單一免費取消期限，不得壓成虛構日期。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 14,
-  "strict_metadata_matched_review_entries": 14,
+  "strict_metadata_review_registry_entries": 15,
+  "strict_metadata_matched_review_entries": 15,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {

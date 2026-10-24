@@ -526,14 +526,6 @@
       }
     },
     {
-      "hotel_id": "miramar_garden_taipei",
-      "source_platform": "booking_com",
-      "rows": 23,
-      "missing_fields": {
-        "tax_inclusion": 23
-      }
-    },
-    {
       "hotel_id": "sheraton_grand_taipei",
       "source_platform": "booking_com",
       "rows": 20,
@@ -631,6 +623,14 @@
     },
     {
       "hotel_id": "hotel_proverbs_taipei",
+      "source_platform": "booking_com",
+      "rows": 8,
+      "missing_fields": {
+        "tax_inclusion": 8
+      }
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
       "source_platform": "booking_com",
       "rows": 8,
       "missing_fields": {
@@ -891,15 +891,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "miramar_garden_taipei",
-      "source_platform": "booking_com",
-      "rows": 23,
-      "latest_queried_at": "2026-10-14 01:53:00",
-      "missing_fields": {
-        "tax_inclusion": 23
-      }
-    },
-    {
       "hotel_id": "le_meridien_taipei",
       "source_platform": "booking_com",
       "rows": 18,
@@ -1120,11 +1111,20 @@
       "missing_fields": {
         "tax_inclusion": 6
       }
+    },
+    {
+      "hotel_id": "grand_hilai_taipei",
+      "source_platform": "booking_com",
+      "rows": 5,
+      "latest_queried_at": "2026-10-12 01:27:00",
+      "missing_fields": {
+        "tax_inclusion": 5
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 14,
-    "matched_entries": 14,
+    "registry_entries": 15,
+    "matched_entries": 15,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1328,6 +1328,20 @@
         "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 24 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "miramar_garden_taipei",
+      "source_platform": "booking_com",
+      "rows": 23,
+      "missing_fields": {
+        "tax_inclusion": 23
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/miramar-garden.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 23 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hoshinoya_guguan",
