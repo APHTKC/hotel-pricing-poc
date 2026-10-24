@@ -1489,16 +1489,6 @@
       }
     },
     {
-      "hotel_id": "grand_hotel_taipei",
-      "source_platform": "official",
-      "rows": 1260,
-      "missing_fields": {
-        "breakfast_included": 1260,
-        "cancellation_class": 1260,
-        "cancellation_deadline": 1260
-      }
-    },
-    {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
       "rows": 945,
@@ -2239,17 +2229,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "grand_hotel_taipei",
-      "source_platform": "official",
-      "rows": 162,
-      "latest_queried_at": "2026-10-24 01:11:37.783435",
-      "missing_fields": {
-        "breakfast_included": 162,
-        "cancellation_class": 162,
-        "cancellation_deadline": 162
-      }
-    },
-    {
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
       "rows": 127,
@@ -2713,10 +2692,26 @@
         "https://bw.tripla.ai/booking/result?code=35107e0b-6d82-4b23-850c-a46c7b9e0e84&checkin=2026%2F12%2F23&checkout=2026%2F12%2F24&type=rooms&is_day_use=false&order=price_low_to_high&is_including_occupied=false&rooms=%5B%7B%22adults%22%3A2%7D%5D"
       ],
       "review_note": "官方 Tripla 結果頁無法由既有讀取工具存取；最新觀測取消欄全為官網 placeholder，部分商品未標示早餐。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "grand_hotel_taipei",
+      "source_platform": "official",
+      "rows": 1260,
+      "missing_fields": {
+        "breakfast_included": 1260,
+        "cancellation_class": 1260,
+        "cancellation_deadline": 1260
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v5/1071/index"
+      ],
+      "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新觀測未提供商品層級早餐與取消欄位。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 2,
-  "strict_metadata_matched_review_entries": 2,
+  "strict_metadata_review_registry_entries": 3,
+  "strict_metadata_matched_review_entries": 3,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {

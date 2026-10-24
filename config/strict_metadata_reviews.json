@@ -31,6 +31,21 @@
         "https://bw.tripla.ai/booking/result?code=35107e0b-6d82-4b23-850c-a46c7b9e0e84&checkin=2026%2F12%2F23&checkout=2026%2F12%2F24&type=rooms&is_day_use=false&order=price_low_to_high&is_including_occupied=false&rooms=%5B%7B%22adults%22%3A2%7D%5D"
       ],
       "note": "官方 Tripla 結果頁無法由既有讀取工具存取；最新觀測取消欄全為官網 placeholder，部分商品未標示早餐。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "grand_hotel_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "breakfast_included",
+        "cancellation_class",
+        "cancellation_deadline"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v5/1071/index"
+      ],
+      "note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新觀測未提供商品層級早餐與取消欄位。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
