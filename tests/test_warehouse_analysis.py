@@ -65,7 +65,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
 
     payload = build_warehouse_analysis(rates / "*.parquet", manifest, target)
 
-    assert payload["schema_version"] == "1.6"
+    assert payload["schema_version"] == "1.7"
     assert payload["rows"] == 4
     assert payload["hotels"] == 2
     assert payload["quality"]["known_room_size_ratio"] == 0.75
@@ -119,6 +119,35 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
             "rows": 1,
         },
     ]
+    assert payload["strict_metadata_gap_hotels"] == [
+        {
+            "hotel_id": "hotel-a",
+            "source_platform": "booking_com",
+            "rows": 1,
+            "missing_fields": {
+                "cancellation_class": 1,
+                "cancellation_deadline": 1,
+                "room_size": 1,
+                "tax_inclusion": 1,
+            },
+        },
+        {
+            "hotel_id": "hotel-a",
+            "source_platform": "official",
+            "rows": 1,
+            "missing_fields": {"cancellation_deadline": 1, "tax_inclusion": 1},
+        },
+        {
+            "hotel_id": "hotel-b",
+            "source_platform": "official",
+            "rows": 1,
+            "missing_fields": {
+                "cancellation_class": 1,
+                "cancellation_deadline": 1,
+                "tax_inclusion": 1,
+            },
+        },
+    ]
     official = next(
         item for item in payload["sources"] if item["source_platform"] == "official"
     )
@@ -157,7 +186,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
 
     public = public_quality_payload(payload)
     assert public["rows"] == 4
-    assert public["schema_version"] == "1.2"
+    assert public["schema_version"] == "1.3"
     assert public["quality"]["known_tax_ratio"] == 0.25
     assert public["quality"]["strict_metadata_ready_ratio"] == 0.25
     assert public["top_tax_gaps"] == [
@@ -177,6 +206,9 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     assert public["unresolved_cancellation_rows"] == 2
     assert public["unresolved_cancellation_groups"] == 2
     assert public["cancellation_blockers"] == payload["cancellation_blockers"]
+    assert public["top_strict_metadata_gaps"] == payload[
+        "strict_metadata_gap_hotels"
+    ]
 
 
 def test_build_warehouse_analysis_rejects_manifest_row_mismatch(tmp_path):

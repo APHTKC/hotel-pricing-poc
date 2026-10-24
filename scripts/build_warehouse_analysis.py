@@ -49,7 +49,7 @@ def public_quality_payload(payload: dict) -> dict:
     """Return the compact, non-sensitive quality summary used by the site."""
 
     return {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "rows": payload["rows"],
         "hotels": payload["hotels"],
         "queried_at": payload["queried_at"],
@@ -72,6 +72,7 @@ def public_quality_payload(payload: dict) -> dict:
             payload["unknown_cancellation_policies"]
         ),
         "cancellation_blockers": payload["cancellation_blockers"],
+        "top_strict_metadata_gaps": payload["strict_metadata_gap_hotels"][:25],
     }
 
 
@@ -195,6 +196,8 @@ def build_warehouse_analysis(
     strict_metadata_ready_counts: Counter[str] = Counter()
     strict_metadata_missing_fields: Counter[str] = Counter()
     strict_metadata_missing_fields_by_source: dict[str, Counter[str]] = {}
+    strict_metadata_gap_rows: Counter[tuple[str, str]] = Counter()
+    strict_metadata_gap_fields: dict[tuple[str, str], Counter[str]] = {}
     structured_cancellation_schedules: Counter[tuple[str, str, str, str]] = Counter()
     unknown_cancellation_policies: Counter[tuple[str, str, str]] = Counter()
     cancellation_blockers: Counter[tuple[str, str, str]] = Counter()
@@ -240,6 +243,11 @@ def build_warehouse_analysis(
             strict_metadata_missing_fields_by_source.setdefault(
                 source_platform, Counter()
             ).update(missing_fields)
+            gap_key = (hotel_id, source_platform)
+            strict_metadata_gap_rows[gap_key] += 1
+            strict_metadata_gap_fields.setdefault(gap_key, Counter()).update(
+                missing_fields
+            )
     known_cancellation_class = sum(cancellation_class_counts.values())
     known_cancellation_deadline = sum(cancellation_deadline_counts.values())
     known_cancellation_schedule = sum(cancellation_schedule_counts.values())
@@ -284,7 +292,7 @@ def build_warehouse_analysis(
     )
 
     payload = {
-        "schema_version": "1.6",
+        "schema_version": "1.7",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -353,6 +361,23 @@ def build_warehouse_analysis(
             }
             for (reason, hotel_id, source_platform), rows in sorted(
                 cancellation_blockers.items(),
+                key=lambda item: (-item[1], *item[0]),
+            )
+        ],
+        "strict_metadata_gap_hotels": [
+            {
+                "hotel_id": hotel_id,
+                "source_platform": source_platform,
+                "rows": rows,
+                "missing_fields": dict(
+                    sorted(
+                        strict_metadata_gap_fields[(hotel_id, source_platform)].items(),
+                        key=lambda item: (-item[1], item[0]),
+                    )
+                ),
+            }
+            for (hotel_id, source_platform), rows in sorted(
+                strict_metadata_gap_rows.items(),
                 key=lambda item: (-item[1], *item[0]),
             )
         ],
