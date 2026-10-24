@@ -1960,6 +1960,15 @@ def test_home_exposes_reproducible_comparability_quality():
     assert "Actionable strict metadata gaps" in home
     assert "対応可能な Strict metadata 欠損" in home
     assert "warehouse-quality-priority-list" in home
+    assert "strict_metadata_review_coverage" in home
+    assert "reviewed_strict_metadata_gaps" in home
+    assert "已審查排除" in home
+    assert "Excluded after review" in home
+    assert "確認後に除外" in home
+    assert "需重新核實" in home
+    assert "Need re-verification" in home
+    assert "再確認が必要" in home
+    assert "warehouse-quality-review-stale" in home
 
 
 def test_frontend_adr_paths_prefer_nightly_normalized_values():
