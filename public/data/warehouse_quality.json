@@ -469,17 +469,6 @@
       }
     },
     {
-      "hotel_id": "silks_place_yilan",
-      "source_platform": "official",
-      "rows": 1381,
-      "missing_fields": {
-        "room_size": 1381,
-        "tax_inclusion": 1381,
-        "cancellation_class": 457,
-        "cancellation_deadline": 457
-      }
-    },
-    {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
       "rows": 843,
@@ -634,6 +623,14 @@
     },
     {
       "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "booking_com",
+      "rows": 12,
+      "missing_fields": {
+        "tax_inclusion": 12
+      }
+    },
+    {
+      "hotel_id": "intercontinental_taipei",
       "source_platform": "booking_com",
       "rows": 12,
       "missing_fields": {
@@ -894,18 +891,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "silks_place_yilan",
-      "source_platform": "official",
-      "rows": 39,
-      "latest_queried_at": "2026-10-24 01:07:55.585153",
-      "missing_fields": {
-        "room_size": 39,
-        "tax_inclusion": 39,
-        "cancellation_class": 13,
-        "cancellation_deadline": 13
-      }
-    },
-    {
       "hotel_id": "taipei_marriott",
       "source_platform": "booking_com",
       "rows": 31,
@@ -1126,11 +1111,20 @@
       "missing_fields": {
         "tax_inclusion": 8
       }
+    },
+    {
+      "hotel_id": "the_landis_taipei",
+      "source_platform": "booking_com",
+      "rows": 8,
+      "latest_queried_at": "2026-10-14 07:42:07",
+      "missing_fields": {
+        "tax_inclusion": 8
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 9,
-    "matched_entries": 9,
+    "registry_entries": 10,
+    "matched_entries": 10,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1244,6 +1238,24 @@
         "https://book-directonline.com/properties/thegaiahoteltaipeidirect?locale=zh-TW"
       ],
       "review_note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 127 筆皆無商品層級稅費標示，其中 34 筆取消欄為 placeholder。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "silks_place_yilan",
+      "source_platform": "official",
+      "rows": 1381,
+      "missing_fields": {
+        "room_size": 1381,
+        "tax_inclusion": 1381,
+        "cancellation_class": 457,
+        "cancellation_deadline": 457
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://book-directonline.com/properties/silksplaceyilanhoteldirect?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2026-11-23&checkOutDate=2026-11-24",
+        "https://tw.hotels.com/ho454031/lan-cheng-jing-ying-jiu-dian-yi-lan-shi-tai-wan/"
+      ],
+      "review_note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 39 筆皆無商品層級稅費與單一精確面積，既有可稽核房型資料部分僅有 36–43、39–43、42–43、43–46㎡範圍，不得壓成單值；其中 13 筆取消欄僅為一般收費通知，不能推定類別或期限。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "grand_hotel_taipei",

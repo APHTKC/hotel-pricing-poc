@@ -133,6 +133,23 @@
         "https://be.synxis.com/?adult=2&arrive=2026-11-23&chain=9542&child=0&currency=TWD&depart=2026-11-24&hotel=47062&level=hotel&locale=zh-TW&productcurrency=TWD&rooms=1"
       ],
       "note": "官方 SynXis 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足「不含餐食」，但最新 67 筆仍無商品層級取消類別與精確期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "silks_place_yilan",
+      "source_platform": "official",
+      "missing_fields": [
+        "cancellation_class",
+        "cancellation_deadline",
+        "room_size",
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://book-directonline.com/properties/silksplaceyilanhoteldirect?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2026-11-23&checkOutDate=2026-11-24",
+        "https://tw.hotels.com/ho454031/lan-cheng-jing-ying-jiu-dian-yi-lan-shi-tai-wan/"
+      ],
+      "note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 39 筆皆無商品層級稅費與單一精確面積，既有可稽核房型資料部分僅有 36–43、39–43、42–43、43–46㎡範圍，不得壓成單值；其中 13 筆取消欄僅為一般收費通知，不能推定類別或期限。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
