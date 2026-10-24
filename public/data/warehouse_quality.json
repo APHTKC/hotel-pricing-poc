@@ -432,14 +432,6 @@
       }
     },
     {
-      "hotel_id": "shangrila_taipei",
-      "source_platform": "official",
-      "rows": 3550,
-      "missing_fields": {
-        "breakfast_included": 3550
-      }
-    },
-    {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 3027,
@@ -631,6 +623,14 @@
     },
     {
       "hotel_id": "episode_daan_taipei",
+      "source_platform": "booking_com",
+      "rows": 8,
+      "missing_fields": {
+        "tax_inclusion": 8
+      }
+    },
+    {
+      "hotel_id": "hotel_proverbs_taipei",
       "source_platform": "booking_com",
       "rows": 8,
       "missing_fields": {
@@ -891,15 +891,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "shangrila_taipei",
-      "source_platform": "official",
-      "rows": 24,
-      "latest_queried_at": "2026-10-24 00:52:22.008952",
-      "missing_fields": {
-        "breakfast_included": 24
-      }
-    },
-    {
       "hotel_id": "miramar_garden_taipei",
       "source_platform": "booking_com",
       "rows": 23,
@@ -1120,11 +1111,20 @@
       "missing_fields": {
         "breakfast_included": 7
       }
+    },
+    {
+      "hotel_id": "radium_kagaya_taipei",
+      "source_platform": "booking_com",
+      "rows": 6,
+      "latest_queried_at": "2026-10-14 07:39:51",
+      "missing_fields": {
+        "tax_inclusion": 6
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 13,
-    "matched_entries": 13,
+    "registry_entries": 14,
+    "matched_entries": 14,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1191,6 +1191,20 @@
         "https://be.synxis.com/?Hotel=59555&Chain=507&locale=en-US&level=hotel"
       ],
       "review_note": "官方 SynXis 結果頁無法由既有讀取工具存取；安全解析 five (5)／seven (7) days 後，最新仍有 71 筆未提供商品層級早餐標示，其中 30 筆僅述抵達前 72 小時，缺少可建立精確時間點的抵達時間。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "shangrila_taipei",
+      "source_platform": "official",
+      "rows": 3550,
+      "missing_fields": {
+        "breakfast_included": 3550
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.shangri-la.com/en/taipei/fareasternplazashangrila/reservations/select-room-rate/?hotel=Shangri-La+Far+Eastern%2C+Taipei&hotelCode=TPE&timeZone=%2B8&city=Taipei&cityEn=Taipei&checkInDate=2026-11-23&checkOutDate=2026-11-24&rooms=%5B%7B%22adultNum%22%3A2%2C%22childNum%22%3A0%7D%5D&confirmationNo=&specialCode=&specialCodeType=&country=&specialCodeToken=&flexible=false&roomClassCodeList="
+      ],
+      "review_note": "官方日期結果頁無法由既有讀取工具存取；最新缺值集中於一般客房的 Book Early and Save／Flexible Rate 泛稱方案，方案名稱未明示含餐或不含餐，不能以豪華閣房型另有早餐權益跨商品推定。最新 24 筆早餐維持 unknown；來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hotel_nikko_kaohsiung",

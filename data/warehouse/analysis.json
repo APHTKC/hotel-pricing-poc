@@ -1380,14 +1380,6 @@
       }
     },
     {
-      "hotel_id": "shangrila_taipei",
-      "source_platform": "official",
-      "rows": 3550,
-      "missing_fields": {
-        "breakfast_included": 3550
-      }
-    },
-    {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 3027,
@@ -2131,15 +2123,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "shangrila_taipei",
-      "source_platform": "official",
-      "rows": 24,
-      "latest_queried_at": "2026-10-24 00:52:22.008952",
-      "missing_fields": {
-        "breakfast_included": 24
-      }
-    },
-    {
       "hotel_id": "miramar_garden_taipei",
       "source_platform": "booking_com",
       "rows": 23,
@@ -2514,6 +2497,20 @@
       "review_note": "官方 SynXis 結果頁無法由既有讀取工具存取；安全解析 five (5)／seven (7) days 後，最新仍有 71 筆未提供商品層級早餐標示，其中 30 筆僅述抵達前 72 小時，缺少可建立精確時間點的抵達時間。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "shangrila_taipei",
+      "source_platform": "official",
+      "rows": 3550,
+      "missing_fields": {
+        "breakfast_included": 3550
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.shangri-la.com/en/taipei/fareasternplazashangrila/reservations/select-room-rate/?hotel=Shangri-La+Far+Eastern%2C+Taipei&hotelCode=TPE&timeZone=%2B8&city=Taipei&cityEn=Taipei&checkInDate=2026-11-23&checkOutDate=2026-11-24&rooms=%5B%7B%22adultNum%22%3A2%2C%22childNum%22%3A0%7D%5D&confirmationNo=&specialCode=&specialCodeType=&country=&specialCodeToken=&flexible=false&roomClassCodeList="
+      ],
+      "review_note": "官方日期結果頁無法由既有讀取工具存取；最新缺值集中於一般客房的 Book Early and Save／Flexible Rate 泛稱方案，方案名稱未明示含餐或不含餐，不能以豪華閣房型另有早餐權益跨商品推定。最新 24 筆早餐維持 unknown；來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "hotel_nikko_kaohsiung",
       "source_platform": "official",
       "rows": 2883,
@@ -2653,8 +2650,8 @@
       "review_note": "官方訂房結果頁無法由既有讀取工具存取；最新 77 筆未提供商品層級稅費標示，其中 50 筆為 13–4／3–1／當天的分段訂金罰則，沒有單一免費取消期限，不得壓成虛構日期。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 13,
-  "strict_metadata_matched_review_entries": 13,
+  "strict_metadata_review_registry_entries": 14,
+  "strict_metadata_matched_review_entries": 14,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {

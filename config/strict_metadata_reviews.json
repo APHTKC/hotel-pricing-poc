@@ -189,6 +189,19 @@
         "https://www.booking.com/hotel/tw/ge-la-si-li-tai-bei-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 24 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "shangrila_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "breakfast_included"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "evidence_urls": [
+        "https://www.shangri-la.com/en/taipei/fareasternplazashangrila/reservations/select-room-rate/?hotel=Shangri-La+Far+Eastern%2C+Taipei&hotelCode=TPE&timeZone=%2B8&city=Taipei&cityEn=Taipei&checkInDate=2026-11-23&checkOutDate=2026-11-24&rooms=%5B%7B%22adultNum%22%3A2%2C%22childNum%22%3A0%7D%5D&confirmationNo=&specialCode=&specialCodeType=&country=&specialCodeToken=&flexible=false&roomClassCodeList="
+      ],
+      "note": "官方日期結果頁無法由既有讀取工具存取；最新缺值集中於一般客房的 Book Early and Save／Flexible Rate 泛稱方案，方案名稱未明示含餐或不含餐，不能以豪華閣房型另有早餐權益跨商品推定。最新 24 筆早餐維持 unknown；來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
