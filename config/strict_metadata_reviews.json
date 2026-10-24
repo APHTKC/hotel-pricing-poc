@@ -243,6 +243,21 @@
         "https://tlathena.ec-hotel.net/webhotel-v4/0839/index?_rand=su4qfc4dm1"
       ],
       "note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "eslite_hotel",
+      "source_platform": "official",
+      "missing_fields": [
+        "cancellation_class",
+        "cancellation_deadline",
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "evidence_urls": [
+        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2026-10-25&checkOutDate=2026-10-26"
+      ],
+      "note": "官方 Direct Booking 日期頁無法由既有讀取工具存取；最新 14 筆早餐已完整，但取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或精確期限；價格只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }

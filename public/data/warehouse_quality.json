@@ -891,17 +891,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "rows": 14,
-      "latest_queried_at": "2026-10-24 01:06:56.48699",
-      "missing_fields": {
-        "cancellation_class": 14,
-        "cancellation_deadline": 14,
-        "tax_inclusion": 14
-      }
-    },
-    {
       "hotel_id": "hotel_metropolitan_premier_taipei",
       "source_platform": "booking_com",
       "rows": 14,
@@ -1122,11 +1111,20 @@
         "tax_inclusion": 5,
         "room_size": 2
       }
+    },
+    {
+      "hotel_id": "doubletree_taipei_zhongshan",
+      "source_platform": "booking_com",
+      "rows": 4,
+      "latest_queried_at": "2026-10-13 03:54:15",
+      "missing_fields": {
+        "tax_inclusion": 4
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 17,
-    "matched_entries": 17,
+    "registry_entries": 18,
+    "matched_entries": 18,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1391,6 +1389,23 @@
         "https://tlathena.ec-hotel.net/webhotel-v4/0839/index?_rand=su4qfc4dm1"
       ],
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "eslite_hotel",
+      "source_platform": "official",
+      "rows": 14,
+      "latest_queried_at": "2026-10-24 01:06:56.48699",
+      "missing_fields": {
+        "cancellation_class": 14,
+        "cancellation_deadline": 14,
+        "tax_inclusion": 14
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2026-10-25&checkOutDate=2026-10-26"
+      ],
+      "review_note": "官方 Direct Booking 日期頁無法由既有讀取工具存取；最新 14 筆早餐已完整，但取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或精確期限；價格只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
