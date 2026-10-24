@@ -49,7 +49,7 @@ def public_quality_payload(payload: dict) -> dict:
     """Return the compact, non-sensitive quality summary used by the site."""
 
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "rows": payload["rows"],
         "hotels": payload["hotels"],
         "queried_at": payload["queried_at"],
@@ -94,7 +94,9 @@ def build_warehouse_analysis(
                 count(DISTINCT hotel_id) AS hotels,
                 min(cast(queried_at AS VARCHAR)) AS queried_at_min,
                 max(cast(queried_at AS VARCHAR)) AS queried_at_max,
-                count_if(room_size_sqm IS NOT NULL) AS known_room_size_rows,
+                count_if(
+                    try_cast(trim(cast(room_size_sqm AS VARCHAR), '"') AS DOUBLE) > 0
+                ) AS known_room_size_rows,
                 count_if(coalesce(tax_inclusion, 'unknown') <> 'unknown') AS known_tax_rows,
                 count_if(
                     cancellation_policy IS NOT NULL
@@ -113,7 +115,9 @@ def build_warehouse_analysis(
                 coalesce(source_platform, 'unknown') AS source_platform,
                 count(*) AS rows,
                 count(DISTINCT hotel_id) AS hotels,
-                count_if(room_size_sqm IS NOT NULL) AS known_room_size_rows,
+                count_if(
+                    try_cast(trim(cast(room_size_sqm AS VARCHAR), '"') AS DOUBLE) > 0
+                ) AS known_room_size_rows,
                 count_if(coalesce(tax_inclusion, 'unknown') <> 'unknown') AS known_tax_rows,
                 count_if(
                     cancellation_policy IS NOT NULL
@@ -138,7 +142,9 @@ def build_warehouse_analysis(
                 adults,
                 children,
                 breakfast_included,
-                room_size_sqm,
+                try_cast(
+                    trim(cast(room_size_sqm AS VARCHAR), '"') AS DOUBLE
+                ) AS room_size_sqm,
                 tax_inclusion,
                 total_price,
                 price_before_tax,
@@ -154,9 +160,15 @@ def build_warehouse_analysis(
             SELECT
                 hotel_id,
                 count(*) AS rows,
-                count_if(room_size_sqm IS NOT NULL) AS known_room_size_rows,
+                count_if(
+                    try_cast(trim(cast(room_size_sqm AS VARCHAR), '"') AS DOUBLE) > 0
+                ) AS known_room_size_rows,
                 count_if(coalesce(tax_inclusion, 'unknown') <> 'unknown') AS known_tax_rows,
-                count_if(room_size_sqm IS NULL) AS unknown_room_size_rows
+                count_if(
+                    try_cast(trim(cast(room_size_sqm AS VARCHAR), '"') AS DOUBLE)
+                    IS NULL
+                    OR try_cast(trim(cast(room_size_sqm AS VARCHAR), '"') AS DOUBLE) <= 0
+                ) AS unknown_room_size_rows
             FROM rates
             GROUP BY hotel_id
             ORDER BY unknown_room_size_rows DESC, hotel_id
@@ -181,6 +193,8 @@ def build_warehouse_analysis(
     cancellation_deadline_counts: Counter[str] = Counter()
     cancellation_schedule_counts: Counter[str] = Counter()
     strict_metadata_ready_counts: Counter[str] = Counter()
+    strict_metadata_missing_fields: Counter[str] = Counter()
+    strict_metadata_missing_fields_by_source: dict[str, Counter[str]] = {}
     structured_cancellation_schedules: Counter[tuple[str, str, str, str]] = Counter()
     unknown_cancellation_policies: Counter[tuple[str, str, str]] = Counter()
     cancellation_blockers: Counter[tuple[str, str, str]] = Counter()
@@ -218,8 +232,14 @@ def build_warehouse_analysis(
                     json.dumps(schedule, ensure_ascii=False, sort_keys=True),
                 )
             ] += 1
-        if not comparison_key_missing_fields(row):
+        missing_fields = comparison_key_missing_fields(row)
+        if not missing_fields:
             strict_metadata_ready_counts[source_platform] += 1
+        else:
+            strict_metadata_missing_fields.update(missing_fields)
+            strict_metadata_missing_fields_by_source.setdefault(
+                source_platform, Counter()
+            ).update(missing_fields)
     known_cancellation_class = sum(cancellation_class_counts.values())
     known_cancellation_deadline = sum(cancellation_deadline_counts.values())
     known_cancellation_schedule = sum(cancellation_schedule_counts.values())
@@ -242,6 +262,14 @@ def build_warehouse_analysis(
         source["strict_metadata_ready_ratio"] = _ratio(
             source["strict_metadata_ready_rows"], source["rows"]
         )
+        source["strict_metadata_missing_fields"] = dict(
+            sorted(
+                strict_metadata_missing_fields_by_source.get(
+                    source_platform, Counter()
+                ).items(),
+                key=lambda item: (-item[1], item[0]),
+            )
+        )
 
     hotels_by_unknown_room_size = [
         dict(zip(hotel_columns, row)) for row in hotel_rows
@@ -256,7 +284,7 @@ def build_warehouse_analysis(
     )
 
     payload = {
-        "schema_version": "1.5",
+        "schema_version": "1.6",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -291,6 +319,12 @@ def build_warehouse_analysis(
             "strict_metadata_ready_rows": sum(strict_metadata_ready_counts.values()),
             "strict_metadata_ready_ratio": _ratio(
                 sum(strict_metadata_ready_counts.values()), row_count
+            ),
+            "strict_metadata_missing_fields": dict(
+                sorted(
+                    strict_metadata_missing_fields.items(),
+                    key=lambda item: (-item[1], item[0]),
+                )
             ),
             "nightly_adr_rows": nightly_adr,
             "nightly_adr_ratio": _ratio(nightly_adr, row_count),

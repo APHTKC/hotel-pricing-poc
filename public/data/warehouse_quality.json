@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "rows": 94796,
   "hotels": 52,
   "queried_at": {
@@ -19,8 +19,15 @@
     "known_cancellation_deadline_ratio": 0.399278,
     "known_cancellation_schedule_rows": 1850,
     "known_cancellation_schedule_ratio": 0.019516,
-    "strict_metadata_ready_rows": 378,
-    "strict_metadata_ready_ratio": 0.003988,
+    "strict_metadata_ready_rows": 18098,
+    "strict_metadata_ready_ratio": 0.190915,
+    "strict_metadata_missing_fields": {
+      "cancellation_deadline": 56946,
+      "tax_inclusion": 49367,
+      "cancellation_class": 46377,
+      "breakfast_included": 29293,
+      "room_size": 1531
+    },
     "nightly_adr_rows": 94796,
     "nightly_adr_ratio": 1.0
   },
@@ -36,7 +43,10 @@
       "known_cancellation_deadline_rows": 391,
       "known_cancellation_schedule_rows": 0,
       "strict_metadata_ready_rows": 33,
-      "strict_metadata_ready_ratio": 0.084399
+      "strict_metadata_ready_ratio": 0.084399,
+      "strict_metadata_missing_fields": {
+        "tax_inclusion": 358
+      }
     },
     {
       "source_platform": "expedia_group",
@@ -49,7 +59,8 @@
       "known_cancellation_deadline_rows": 345,
       "known_cancellation_schedule_rows": 0,
       "strict_metadata_ready_rows": 345,
-      "strict_metadata_ready_ratio": 1.0
+      "strict_metadata_ready_ratio": 1.0,
+      "strict_metadata_missing_fields": {}
     },
     {
       "source_platform": "official",
@@ -61,8 +72,15 @@
       "known_cancellation_class_rows": 47683,
       "known_cancellation_deadline_rows": 37114,
       "known_cancellation_schedule_rows": 1850,
-      "strict_metadata_ready_rows": 0,
-      "strict_metadata_ready_ratio": 0.0
+      "strict_metadata_ready_rows": 17720,
+      "strict_metadata_ready_ratio": 0.18839,
+      "strict_metadata_missing_fields": {
+        "cancellation_deadline": 56946,
+        "tax_inclusion": 49009,
+        "cancellation_class": 46377,
+        "breakfast_included": 29293,
+        "room_size": 1531
+      }
     }
   ],
   "top_tax_gaps": [
