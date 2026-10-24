@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "reviews": [
+    {
+      "hotel_id": "grand_hilai_kaohsiung",
+      "source_platform": "official",
+      "missing_fields": [
+        "breakfast_included",
+        "cancellation_class",
+        "cancellation_deadline",
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_shell",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v5/1084"
+      ],
+      "note": "官方流程僅回傳訂房 shell，無可核實的商品層級早餐、取消與稅費欄位；流程變更前不重試。"
+    }
+  ]
+}

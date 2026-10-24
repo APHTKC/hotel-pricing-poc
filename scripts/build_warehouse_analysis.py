@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections import Counter
 from pathlib import Path
 
@@ -20,6 +21,62 @@ PARQUET_GLOB = Path("data/warehouse/rates/*.parquet")
 MANIFEST_SOURCE = Path("data/warehouse/manifest.json")
 TARGET = Path("data/warehouse/analysis.json")
 PUBLIC_TARGET = Path("public/data/warehouse_quality.json")
+STRICT_METADATA_REVIEWS_SOURCE = Path("config/strict_metadata_reviews.json")
+
+
+def _strict_metadata_review_key(item: dict) -> tuple[str, str, tuple[str, ...]]:
+    return (
+        item["hotel_id"],
+        item["source_platform"],
+        tuple(sorted(item["missing_fields"])),
+    )
+
+
+def _load_strict_metadata_reviews(path: Path) -> list[dict]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    reviews = payload.get("reviews")
+    if payload.get("schema_version") != "1.0" or not isinstance(reviews, list):
+        raise ValueError("Invalid strict metadata review registry schema")
+    allowed_statuses = {"blocked_source_shell", "blocked_no_explicit_label"}
+    seen: set[tuple[str, str, tuple[str, ...]]] = set()
+    for review in reviews:
+        required = {
+            "hotel_id",
+            "source_platform",
+            "missing_fields",
+            "status",
+            "reviewed_at",
+            "evidence_urls",
+            "note",
+        }
+        if not isinstance(review, dict) or not required.issubset(review):
+            raise ValueError("Incomplete strict metadata review entry")
+        if (
+            not review["hotel_id"]
+            or not review["source_platform"]
+            or not isinstance(review["missing_fields"], list)
+            or not review["missing_fields"]
+            or any(
+                not isinstance(field, str) or not field
+                for field in review["missing_fields"]
+            )
+            or len(set(review["missing_fields"])) != len(review["missing_fields"])
+            or review["status"] not in allowed_statuses
+            or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", review["reviewed_at"])
+            or not isinstance(review["evidence_urls"], list)
+            or not review["evidence_urls"]
+            or any(
+                not str(url).startswith("https://")
+                for url in review["evidence_urls"]
+            )
+            or not str(review["note"]).strip()
+        ):
+            raise ValueError("Invalid strict metadata review entry")
+        key = _strict_metadata_review_key(review)
+        if key in seen:
+            raise ValueError("Duplicate strict metadata review entry")
+        seen.add(key)
+    return reviews
 
 
 def _sql_path(path: Path) -> str:
@@ -49,7 +106,7 @@ def public_quality_payload(payload: dict) -> dict:
     """Return the compact, non-sensitive quality summary used by the site."""
 
     return {
-        "schema_version": "1.3",
+        "schema_version": "1.4",
         "rows": payload["rows"],
         "hotels": payload["hotels"],
         "queried_at": payload["queried_at"],
@@ -73,6 +130,15 @@ def public_quality_payload(payload: dict) -> dict:
         ),
         "cancellation_blockers": payload["cancellation_blockers"],
         "top_strict_metadata_gaps": payload["strict_metadata_gap_hotels"][:25],
+        "actionable_strict_metadata_gaps": payload[
+            "actionable_strict_metadata_gap_hotels"
+        ][:25],
+        "strict_metadata_review_coverage": {
+            "registry_entries": payload["strict_metadata_review_registry_entries"],
+            "matched_entries": payload["strict_metadata_matched_review_entries"],
+            "stale_entries": len(payload["strict_metadata_stale_review_entries"]),
+        },
+        "reviewed_strict_metadata_gaps": payload["reviewed_strict_metadata_gaps"],
     }
 
 
@@ -80,6 +146,7 @@ def build_warehouse_analysis(
     parquet_glob: Path = PARQUET_GLOB,
     manifest_source: Path = MANIFEST_SOURCE,
     target: Path = TARGET,
+    reviews_source: Path = STRICT_METADATA_REVIEWS_SOURCE,
 ) -> dict:
     manifest = json.loads(manifest_source.read_text(encoding="utf-8"))
     connection = duckdb.connect()
@@ -291,8 +358,52 @@ def build_warehouse_analysis(
         key=lambda item: (-item["unknown_tax_rows"], item["hotel_id"])
     )
 
+    strict_metadata_gap_hotels = [
+        {
+            "hotel_id": hotel_id,
+            "source_platform": source_platform,
+            "rows": rows,
+            "missing_fields": dict(
+                sorted(
+                    strict_metadata_gap_fields[(hotel_id, source_platform)].items(),
+                    key=lambda item: (-item[1], item[0]),
+                )
+            ),
+        }
+        for (hotel_id, source_platform), rows in sorted(
+            strict_metadata_gap_rows.items(),
+            key=lambda item: (-item[1], *item[0]),
+        )
+    ]
+    reviews = _load_strict_metadata_reviews(reviews_source)
+    reviews_by_key = {_strict_metadata_review_key(item): item for item in reviews}
+    matched_review_keys: set[tuple[str, str, tuple[str, ...]]] = set()
+    actionable_strict_metadata_gap_hotels = []
+    reviewed_strict_metadata_gaps = []
+    for gap in strict_metadata_gap_hotels:
+        key = _strict_metadata_review_key(gap)
+        review = reviews_by_key.get(key)
+        if review is None:
+            actionable_strict_metadata_gap_hotels.append(gap)
+            continue
+        matched_review_keys.add(key)
+        reviewed_strict_metadata_gaps.append(
+            {
+                **gap,
+                "review_status": review["status"],
+                "reviewed_at": review["reviewed_at"],
+                "review_evidence_urls": review["evidence_urls"],
+                "review_note": review["note"],
+            }
+        )
+    stale_reviews = [
+        review
+        for review in reviews
+        if _strict_metadata_review_key(review) not in matched_review_keys
+    ]
+
     payload = {
-        "schema_version": "1.7",
+        "schema_version": "1.8",
         "input": str(parquet_glob).replace("\\", "/"),
         "manifest_sha256": [
             {"month": item["month"], "sha256": item["sha256"]}
@@ -364,23 +475,14 @@ def build_warehouse_analysis(
                 key=lambda item: (-item[1], *item[0]),
             )
         ],
-        "strict_metadata_gap_hotels": [
-            {
-                "hotel_id": hotel_id,
-                "source_platform": source_platform,
-                "rows": rows,
-                "missing_fields": dict(
-                    sorted(
-                        strict_metadata_gap_fields[(hotel_id, source_platform)].items(),
-                        key=lambda item: (-item[1], item[0]),
-                    )
-                ),
-            }
-            for (hotel_id, source_platform), rows in sorted(
-                strict_metadata_gap_rows.items(),
-                key=lambda item: (-item[1], *item[0]),
-            )
-        ],
+        "strict_metadata_gap_hotels": strict_metadata_gap_hotels,
+        "actionable_strict_metadata_gap_hotels": (
+            actionable_strict_metadata_gap_hotels
+        ),
+        "reviewed_strict_metadata_gaps": reviewed_strict_metadata_gaps,
+        "strict_metadata_review_registry_entries": len(reviews),
+        "strict_metadata_matched_review_entries": len(matched_review_keys),
+        "strict_metadata_stale_review_entries": stale_reviews,
         "structured_cancellation_schedules": [
             {
                 "hotel_id": hotel_id,

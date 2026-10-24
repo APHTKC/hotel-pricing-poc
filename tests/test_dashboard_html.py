@@ -1955,10 +1955,10 @@ def test_home_exposes_reproducible_comparability_quality():
     assert "warehouse-quality-source-list" in home
     assert "warehouse-quality-source-metrics" in home
     assert "warehouse-quality-source-gap" in home
-    assert "top_strict_metadata_gaps" in home
-    assert "最大 Strict metadata 缺口" in home
-    assert "Largest strict metadata gaps" in home
-    assert "Strict metadata の主な欠損" in home
+    assert "actionable_strict_metadata_gaps" in home
+    assert "可行動 Strict metadata 缺口" in home
+    assert "Actionable strict metadata gaps" in home
+    assert "対応可能な Strict metadata 欠損" in home
     assert "warehouse-quality-priority-list" in home
 
 

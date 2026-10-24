@@ -4,6 +4,8 @@ import duckdb
 import pytest
 
 from scripts.build_warehouse_analysis import (
+    STRICT_METADATA_REVIEWS_SOURCE,
+    _load_strict_metadata_reviews,
     build_warehouse_analysis,
     classify_cancellation_blocker,
     public_quality_payload,
@@ -65,7 +67,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
 
     payload = build_warehouse_analysis(rates / "*.parquet", manifest, target)
 
-    assert payload["schema_version"] == "1.7"
+    assert payload["schema_version"] == "1.8"
     assert payload["rows"] == 4
     assert payload["hotels"] == 2
     assert payload["quality"]["known_room_size_ratio"] == 0.75
@@ -148,6 +150,13 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
             },
         },
     ]
+    assert payload["actionable_strict_metadata_gap_hotels"] == payload[
+        "strict_metadata_gap_hotels"
+    ]
+    assert payload["strict_metadata_matched_review_entries"] == 0
+    assert payload["strict_metadata_stale_review_entries"] == [
+        _load_strict_metadata_reviews(STRICT_METADATA_REVIEWS_SOURCE)[0]
+    ]
     official = next(
         item for item in payload["sources"] if item["source_platform"] == "official"
     )
@@ -186,7 +195,7 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
 
     public = public_quality_payload(payload)
     assert public["rows"] == 4
-    assert public["schema_version"] == "1.3"
+    assert public["schema_version"] == "1.4"
     assert public["quality"]["known_tax_ratio"] == 0.25
     assert public["quality"]["strict_metadata_ready_ratio"] == 0.25
     assert public["top_tax_gaps"] == [
@@ -209,6 +218,60 @@ def test_build_warehouse_analysis_profiles_parquet_deterministically(tmp_path):
     assert public["top_strict_metadata_gaps"] == payload[
         "strict_metadata_gap_hotels"
     ]
+    assert public["actionable_strict_metadata_gaps"] == payload[
+        "actionable_strict_metadata_gap_hotels"
+    ]
+
+
+def test_metadata_review_registry_excludes_exact_blocker_and_detects_stale(tmp_path):
+    warehouse = tmp_path / "warehouse"
+    rates = warehouse / "rates"
+    rates.mkdir(parents=True)
+    _write_test_parquet(rates / "2026-10.parquet")
+    manifest = warehouse / "manifest.json"
+    _write_manifest(manifest, 4)
+    reviews = tmp_path / "reviews.json"
+    review = {
+        "hotel_id": "hotel-a",
+        "source_platform": "booking_com",
+        "missing_fields": [
+            "cancellation_class",
+            "cancellation_deadline",
+            "room_size",
+            "tax_inclusion",
+        ],
+        "status": "blocked_no_explicit_label",
+        "reviewed_at": "2026-10-24",
+        "evidence_urls": ["https://example.com/rate"],
+        "note": "The source exposes no explicit product-level metadata.",
+    }
+    reviews.write_text(
+        json.dumps({"schema_version": "1.0", "reviews": [review]}),
+        encoding="utf-8",
+    )
+
+    payload = build_warehouse_analysis(
+        rates / "*.parquet", manifest, warehouse / "analysis.json", reviews
+    )
+    assert payload["strict_metadata_review_registry_entries"] == 1
+    assert payload["strict_metadata_matched_review_entries"] == 1
+    assert payload["strict_metadata_stale_review_entries"] == []
+    assert payload["reviewed_strict_metadata_gaps"][0]["hotel_id"] == "hotel-a"
+    assert all(
+        item["source_platform"] != "booking_com"
+        for item in payload["actionable_strict_metadata_gap_hotels"]
+    )
+
+    review["missing_fields"] = ["tax_inclusion"]
+    reviews.write_text(
+        json.dumps({"schema_version": "1.0", "reviews": [review]}),
+        encoding="utf-8",
+    )
+    stale = build_warehouse_analysis(
+        rates / "*.parquet", manifest, warehouse / "stale.json", reviews
+    )
+    assert stale["strict_metadata_matched_review_entries"] == 0
+    assert stale["strict_metadata_stale_review_entries"] == [review]
 
 
 def test_build_warehouse_analysis_rejects_manifest_row_mismatch(tmp_path):
