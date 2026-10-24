@@ -76,6 +76,20 @@
         "https://book-directonline.com/properties/GrandMayfullHotelTaipeiDirect?locale=zh-TW"
       ],
       "note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 98 筆皆無商品層級稅費標示，其中 28 筆取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "mo_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "breakfast_included",
+        "cancellation_deadline"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://be.synxis.com/?Hotel=59555&Chain=507&locale=en-US&level=hotel"
+      ],
+      "note": "官方 SynXis 結果頁無法由既有讀取工具存取；安全解析 five (5)／seven (7) days 後，最新仍有 71 筆未提供商品層級早餐標示，其中 30 筆僅述抵達前 72 小時，缺少可建立精確時間點的抵達時間。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }

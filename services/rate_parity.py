@@ -224,7 +224,7 @@ def normalize_cancellation_deadline(row: Mapping[str, Any] | Any) -> str:
             break
     if days is None:
         match = re.search(
-            rf"({'|'.join(NUMBER_WORDS)})\s+days?\s+prior to\s+"
+            rf"({'|'.join(NUMBER_WORDS)})\s+(?:\(\d+\)\s*)?days?\s+prior to\s+"
             r"(?:arrival|check[- ]?in)",
             text,
         )

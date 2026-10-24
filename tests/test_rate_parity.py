@@ -280,6 +280,16 @@ def test_deadline_based_free_cancellation_is_conditional(policy):
             date(2027, 1, 16),
             "2027-01-06",
         ),
+        (
+            "Any cancellation or amendment must be made by 3pm, five (5) days prior to arrival.",
+            date(2026, 12, 20),
+            "2026-12-15",
+        ),
+        (
+            "Any cancellation or amendment must be made by 3pm, seven (7) days prior to arrival.",
+            date(2027, 1, 16),
+            "2027-01-09",
+        ),
     ],
 )
 def test_cancellation_deadline_normalizes_to_calendar_date(policy, check_in, expected):
