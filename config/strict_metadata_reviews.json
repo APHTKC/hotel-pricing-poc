@@ -150,6 +150,19 @@
         "https://tw.hotels.com/ho454031/lan-cheng-jing-ying-jiu-dian-yi-lan-shi-tai-wan/"
       ],
       "note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 39 筆皆無商品層級稅費與單一精確面積，既有可稽核房型資料部分僅有 36–43、39–43、42–43、43–46㎡範圍，不得壓成單值；其中 13 筆取消欄僅為一般收費通知，不能推定類別或期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "booking_com",
+      "missing_fields": [
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 31 筆已有早餐與精確取消條件，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }

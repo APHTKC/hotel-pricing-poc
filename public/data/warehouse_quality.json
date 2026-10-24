@@ -526,14 +526,6 @@
       }
     },
     {
-      "hotel_id": "taipei_marriott",
-      "source_platform": "booking_com",
-      "rows": 31,
-      "missing_fields": {
-        "tax_inclusion": 31
-      }
-    },
-    {
       "hotel_id": "regent_taipei",
       "source_platform": "booking_com",
       "rows": 29,
@@ -635,6 +627,14 @@
       "rows": 12,
       "missing_fields": {
         "tax_inclusion": 12
+      }
+    },
+    {
+      "hotel_id": "shangrila_taipei",
+      "source_platform": "booking_com",
+      "rows": 10,
+      "missing_fields": {
+        "tax_inclusion": 10
       }
     }
   ],
@@ -891,15 +891,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "taipei_marriott",
-      "source_platform": "booking_com",
-      "rows": 31,
-      "latest_queried_at": "2026-10-14 01:09:09",
-      "missing_fields": {
-        "tax_inclusion": 31
-      }
-    },
-    {
       "hotel_id": "grand_hyatt_taipei",
       "source_platform": "booking_com",
       "rows": 28,
@@ -1120,11 +1111,20 @@
       "missing_fields": {
         "tax_inclusion": 8
       }
+    },
+    {
+      "hotel_id": "mo_taipei",
+      "source_platform": "booking_com",
+      "rows": 7,
+      "latest_queried_at": "2026-10-12 01:05:30",
+      "missing_fields": {
+        "tax_inclusion": 7
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 10,
-    "matched_entries": 10,
+    "registry_entries": 11,
+    "matched_entries": 11,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1272,6 +1272,20 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1071/index"
       ],
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新觀測未提供商品層級早餐與取消欄位。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "taipei_marriott",
+      "source_platform": "booking_com",
+      "rows": 31,
+      "missing_fields": {
+        "tax_inclusion": 31
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/taipei-marriott.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 31 筆已有早餐與精確取消條件，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hoshinoya_guguan",
