@@ -520,16 +520,6 @@
       }
     },
     {
-      "hotel_id": "the_gaia_taipei",
-      "source_platform": "official",
-      "rows": 1919,
-      "missing_fields": {
-        "tax_inclusion": 1919,
-        "cancellation_class": 596,
-        "cancellation_deadline": 596
-      }
-    },
-    {
       "hotel_id": "silks_place_yilan",
       "source_platform": "official",
       "rows": 1381,
@@ -650,6 +640,14 @@
       "rows": 17,
       "missing_fields": {
         "tax_inclusion": 17
+      }
+    },
+    {
+      "hotel_id": "hotel_metropolitan_premier_taipei",
+      "source_platform": "booking_com",
+      "rows": 14,
+      "missing_fields": {
+        "tax_inclusion": 14
       }
     }
   ],
@@ -907,17 +905,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "the_gaia_taipei",
-      "source_platform": "official",
-      "rows": 127,
-      "latest_queried_at": "2026-10-24 00:56:48.062013",
-      "missing_fields": {
-        "tax_inclusion": 127,
-        "cancellation_class": 34,
-        "cancellation_deadline": 34
-      }
-    },
-    {
       "hotel_id": "capella_taipei",
       "source_platform": "official",
       "rows": 115,
@@ -1149,11 +1136,20 @@
       "missing_fields": {
         "tax_inclusion": 12
       }
+    },
+    {
+      "hotel_id": "kimpton_da_an",
+      "source_platform": "booking_com",
+      "rows": 11,
+      "latest_queried_at": "2026-10-14 14:52:15",
+      "missing_fields": {
+        "tax_inclusion": 11
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 3,
-    "matched_entries": 3,
+    "registry_entries": 4,
+    "matched_entries": 4,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1189,6 +1185,22 @@
         "https://bw.tripla.ai/booking/result?code=35107e0b-6d82-4b23-850c-a46c7b9e0e84&checkin=2026%2F12%2F23&checkout=2026%2F12%2F24&type=rooms&is_day_use=false&order=price_low_to_high&is_including_occupied=false&rooms=%5B%7B%22adults%22%3A2%7D%5D"
       ],
       "review_note": "官方 Tripla 結果頁無法由既有讀取工具存取；最新觀測取消欄全為官網 placeholder，部分商品未標示早餐。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "the_gaia_taipei",
+      "source_platform": "official",
+      "rows": 1919,
+      "missing_fields": {
+        "tax_inclusion": 1919,
+        "cancellation_class": 596,
+        "cancellation_deadline": 596
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://book-directonline.com/properties/thegaiahoteltaipeidirect?locale=zh-TW"
+      ],
+      "review_note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 127 筆皆無商品層級稅費標示，其中 34 筆取消欄為 placeholder。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "grand_hotel_taipei",

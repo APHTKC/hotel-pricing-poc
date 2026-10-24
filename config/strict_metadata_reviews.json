@@ -46,6 +46,21 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1071/index"
       ],
       "note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新觀測未提供商品層級早餐與取消欄位。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "the_gaia_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "tax_inclusion",
+        "cancellation_class",
+        "cancellation_deadline"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "evidence_urls": [
+        "https://book-directonline.com/properties/thegaiahoteltaipeidirect?locale=zh-TW"
+      ],
+      "note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 127 筆皆無商品層級稅費標示，其中 34 筆取消欄為 placeholder。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
