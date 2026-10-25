@@ -258,6 +258,19 @@
         "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2026-10-25&checkOutDate=2026-10-26"
       ],
       "note": "官方 Direct Booking 日期頁無法由既有讀取工具存取；最新 14 筆早餐已完整，但取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或精確期限；價格只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "hotel_metropolitan_premier_taipei",
+      "source_platform": "booking_com",
+      "missing_fields": [
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "evidence_urls": [
+        "https://www.booking.com/hotel/tw/jr-dong-ri-ben-da-fan-dian-tai-bei.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 14 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
