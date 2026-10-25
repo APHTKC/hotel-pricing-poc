@@ -64,6 +64,7 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["hotel_metropolitan_premier_taipei"] == "blocked_source_unavailable"
     assert statuses["hotel_proverbs_taipei"] == "blocked_source_unavailable"
     assert statuses["okura_prestige_taipei"] == "blocked_source_unavailable"
+    assert statuses["the_landis_taipei"] == "blocked_source_unavailable"
     assert statuses["miramar_garden_taipei"] == "blocked_source_unavailable"
     assert statuses["le_meridien_taipei"] == "blocked_source_unavailable"
     assert statuses["royal_nikko_taipei"] == "blocked_source_unavailable"

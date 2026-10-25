@@ -482,6 +482,19 @@
         "https://www.booking.com/hotel/tw/the-okura-prestige-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 8 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有 44㎡豪華房同面積系列歧義仍由房型 review registry 獨立處理，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "the_landis_taipei",
+      "source_platform": "booking_com",
+      "missing_fields": [
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "evidence_urls": [
+        "https://www.booking.com/hotel/tw/the-landis-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 8 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
