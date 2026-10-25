@@ -351,6 +351,19 @@
         "https://www.booking.com/hotel/tw/courtyard-by-marriott-taipei-downtown.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 12 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有 28–30㎡ 與官方 33.1㎡面積衝突仍獨立處理，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "grand_mayfull_taipei",
+      "source_platform": "booking_com",
+      "missing_fields": [
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "evidence_urls": [
+        "https://www.booking.com/hotel/tw/tai-bei-mei-fu-da-fan-dian-grand-mayfull-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 12 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有無障礙與同面積房型歧義仍由房型 review registry 獨立處理，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
