@@ -67,6 +67,7 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["mitsui_garden_taipei_zhongxiao"] == "blocked_source_unavailable"
     assert statuses["shangrila_tainan"] == "blocked_source_unavailable"
     assert statuses["hotel_royal_hsinchu"] == "blocked_source_unavailable"
+    assert statuses["sheraton_grand_taipei"] == "blocked_source_unavailable"
 
 
 def _write_test_parquet(path):
