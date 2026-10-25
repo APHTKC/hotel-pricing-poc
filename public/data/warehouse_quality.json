@@ -478,15 +478,6 @@
       }
     },
     {
-      "hotel_id": "hotel_royal_hsinchu",
-      "source_platform": "official",
-      "rows": 83,
-      "missing_fields": {
-        "cancellation_class": 83,
-        "cancellation_deadline": 83
-      }
-    },
-    {
       "hotel_id": "taipei_garden_hotel",
       "source_platform": "official",
       "rows": 75,
@@ -632,6 +623,14 @@
       "rows": 5,
       "missing_fields": {
         "tax_inclusion": 5
+      }
+    },
+    {
+      "hotel_id": "doubletree_taipei_zhongshan",
+      "source_platform": "booking_com",
+      "rows": 4,
+      "missing_fields": {
+        "tax_inclusion": 4
       }
     }
   ],
@@ -889,16 +888,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "hotel_royal_hsinchu",
-      "source_platform": "official",
-      "rows": 18,
-      "latest_queried_at": "2026-10-25 00:31:18.126328",
-      "missing_fields": {
-        "cancellation_class": 18,
-        "cancellation_deadline": 18
-      }
-    },
-    {
       "hotel_id": "sheraton_grand_taipei",
       "source_platform": "booking_com",
       "rows": 14,
@@ -1118,11 +1107,21 @@
       "missing_fields": {
         "tax_inclusion": 2
       }
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "source_platform": "official",
+      "rows": 1,
+      "latest_queried_at": "2026-10-22 00:45:04.209104",
+      "missing_fields": {
+        "cancellation_class": 1,
+        "cancellation_deadline": 1
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 21,
-    "matched_entries": 21,
+    "registry_entries": 22,
+    "matched_entries": 22,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1315,6 +1314,21 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1071/index"
       ],
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新觀測未提供商品層級早餐與取消欄位。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "hotel_royal_hsinchu",
+      "source_platform": "official",
+      "rows": 83,
+      "missing_fields": {
+        "cancellation_class": 83,
+        "cancellation_deadline": 83
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v4/0232/index?_rand=af6j6rh8rsa"
+      ],
+      "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 18 筆的早餐與稅費狀態完整，但全數沒有商品層級取消文字，不能從「國人住房專案」方案名稱推定取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "taipei_marriott",

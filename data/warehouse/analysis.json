@@ -1426,15 +1426,6 @@
       }
     },
     {
-      "hotel_id": "hotel_royal_hsinchu",
-      "source_platform": "official",
-      "rows": 83,
-      "missing_fields": {
-        "cancellation_class": 83,
-        "cancellation_deadline": 83
-      }
-    },
-    {
       "hotel_id": "taipei_garden_hotel",
       "source_platform": "official",
       "rows": 75,
@@ -2073,16 +2064,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "hotel_royal_hsinchu",
-      "source_platform": "official",
-      "rows": 18,
-      "latest_queried_at": "2026-10-25 00:31:18.126328",
-      "missing_fields": {
-        "cancellation_class": 18,
-        "cancellation_deadline": 18
-      }
-    },
-    {
       "hotel_id": "sheraton_grand_taipei",
       "source_platform": "booking_com",
       "rows": 14,
@@ -2506,6 +2487,21 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新觀測未提供商品層級早餐與取消欄位。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "hotel_royal_hsinchu",
+      "source_platform": "official",
+      "rows": 83,
+      "missing_fields": {
+        "cancellation_class": 83,
+        "cancellation_deadline": 83
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v4/0232/index?_rand=af6j6rh8rsa"
+      ],
+      "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 18 筆的早餐與稅費狀態完整，但全數沒有商品層級取消文字，不能從「國人住房專案」方案名稱推定取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "taipei_marriott",
       "source_platform": "booking_com",
       "rows": 31,
@@ -2637,8 +2633,8 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 21,
-  "strict_metadata_matched_review_entries": 21,
+  "strict_metadata_review_registry_entries": 22,
+  "strict_metadata_matched_review_entries": 22,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {

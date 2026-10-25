@@ -298,6 +298,20 @@
         "https://www.shangri-la.com/en/tainan/fareasternplazashangrila/reservations/select-room-rate/?hotel=Shangri-La+Far+Eastern%2C+Tainan&hotelCode=SLTN&timeZone=%2B8&city=Tainan&cityEn=Tainan&checkInDate=2027-01-23&checkOutDate=2027-01-24&rooms=%5B%7B%22adultNum%22%3A2%2C%22childNum%22%3A0%7D%5D&confirmationNo=&specialCode=&specialCodeType=&country=&specialCodeToken=&flexible=false&roomClassCodeList="
       ],
       "note": "官方日期結果頁無法由既有讀取工具存取；最新 190 筆中 72 筆早餐缺值，集中於 Flexible Rate 與 Book Early and Save 的 King、Twin、Family 及組合房型。方案名稱未明示含餐或不含餐，且同批其他同名商品已有 breakfast=true 與 unknown 並存，不能由方案名稱或其他房型跨商品推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "hotel_royal_hsinchu",
+      "source_platform": "official",
+      "missing_fields": [
+        "cancellation_class",
+        "cancellation_deadline"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "evidence_urls": [
+        "https://tlathena.ec-hotel.net/webhotel-v4/0232/index?_rand=af6j6rh8rsa"
+      ],
+      "note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 18 筆的早餐與稅費狀態完整，但全數沒有商品層級取消文字，不能從「國人住房專案」方案名稱推定取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
