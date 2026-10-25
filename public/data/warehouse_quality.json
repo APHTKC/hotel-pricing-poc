@@ -506,14 +506,6 @@
       }
     },
     {
-      "hotel_id": "w_taipei",
-      "source_platform": "booking_com",
-      "rows": 14,
-      "missing_fields": {
-        "tax_inclusion": 14
-      }
-    },
-    {
       "hotel_id": "courtyard_taipei_downtown",
       "source_platform": "booking_com",
       "rows": 12,
@@ -627,6 +619,14 @@
     },
     {
       "hotel_id": "howard_plaza_taipei",
+      "source_platform": "booking_com",
+      "rows": 4,
+      "missing_fields": {
+        "tax_inclusion": 4
+      }
+    },
+    {
+      "hotel_id": "humble_house_taipei",
       "source_platform": "booking_com",
       "rows": 4,
       "missing_fields": {
@@ -888,15 +888,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "w_taipei",
-      "source_platform": "booking_com",
-      "rows": 14,
-      "latest_queried_at": "2026-10-14 07:35:46",
-      "missing_fields": {
-        "tax_inclusion": 14
-      }
-    },
-    {
       "hotel_id": "courtyard_taipei_downtown",
       "source_platform": "booking_com",
       "rows": 12,
@@ -1111,8 +1102,8 @@
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 23,
-    "matched_entries": 23,
+    "registry_entries": 24,
+    "matched_entries": 24,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1430,6 +1421,20 @@
       "reviewed_at": "2026-10-25",
       "review_evidence_urls": [
         "https://www.booking.com/hotel/tw/mgh-mitsui-garden-taipei-zhongxiao.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 14 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "w_taipei",
+      "source_platform": "booking_com",
+      "rows": 14,
+      "missing_fields": {
+        "tax_inclusion": 14
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/w-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 14 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
