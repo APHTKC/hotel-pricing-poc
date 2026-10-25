@@ -481,14 +481,6 @@
       }
     },
     {
-      "hotel_id": "okura_prestige_taipei",
-      "source_platform": "booking_com",
-      "rows": 8,
-      "missing_fields": {
-        "tax_inclusion": 8
-      }
-    },
-    {
       "hotel_id": "the_landis_taipei",
       "source_platform": "booking_com",
       "rows": 8,
@@ -815,15 +807,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "okura_prestige_taipei",
-      "source_platform": "booking_com",
-      "rows": 8,
-      "latest_queried_at": "2026-10-14 16:58:17",
-      "missing_fields": {
-        "tax_inclusion": 8
-      }
-    },
-    {
       "hotel_id": "the_landis_taipei",
       "source_platform": "booking_com",
       "rows": 8,
@@ -938,8 +921,8 @@
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 34,
-    "matched_entries": 34,
+    "registry_entries": 35,
+    "matched_entries": 35,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1414,6 +1397,20 @@
         "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 8 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "source_platform": "booking_com",
+      "rows": 8,
+      "missing_fields": {
+        "tax_inclusion": 8
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/the-okura-prestige-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 8 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有 44㎡豪華房同面積系列歧義仍由房型 review registry 獨立處理，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hoshinoya_guguan",
