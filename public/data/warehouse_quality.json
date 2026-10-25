@@ -490,14 +490,6 @@
       }
     },
     {
-      "hotel_id": "kimpton_da_an",
-      "source_platform": "booking_com",
-      "rows": 17,
-      "missing_fields": {
-        "tax_inclusion": 17
-      }
-    },
-    {
       "hotel_id": "shangrila_taipei",
       "source_platform": "booking_com",
       "rows": 10,
@@ -864,15 +856,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "kimpton_da_an",
-      "source_platform": "booking_com",
-      "rows": 11,
-      "latest_queried_at": "2026-10-14 14:52:15",
-      "missing_fields": {
-        "tax_inclusion": 11
-      }
-    },
-    {
       "hotel_id": "shangrila_taipei",
       "source_platform": "booking_com",
       "rows": 10,
@@ -1042,8 +1025,8 @@
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 28,
-    "matched_entries": 28,
+    "registry_entries": 29,
+    "matched_entries": 29,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1349,6 +1332,20 @@
         "https://www.booking.com/hotel/tw/le-meridien-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 18 筆已有早餐與精確取消期限，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "kimpton_da_an",
+      "source_platform": "booking_com",
+      "rows": 17,
+      "missing_fields": {
+        "tax_inclusion": 17
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/kimpton-da-an.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 11 筆已有早餐、取消類別／期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有無障礙與附陽台房型歧義仍由房型 review registry 獨立處理，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hotel_metropolitan_premier_taipei",
