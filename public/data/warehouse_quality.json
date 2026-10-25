@@ -461,14 +461,6 @@
       }
     },
     {
-      "hotel_id": "solaria_nishitetsu_taipei",
-      "source_platform": "official",
-      "rows": 189,
-      "missing_fields": {
-        "room_size": 189
-      }
-    },
-    {
       "hotel_id": "doubletree_taipei_zhongshan",
       "source_platform": "booking_com",
       "rows": 4,
@@ -755,15 +747,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "solaria_nishitetsu_taipei",
-      "source_platform": "official",
-      "rows": 5,
-      "latest_queried_at": "2026-10-25 00:37:20.13027",
-      "missing_fields": {
-        "room_size": 5
-      }
-    },
-    {
       "hotel_id": "doubletree_taipei_zhongshan",
       "source_platform": "booking_com",
       "rows": 4,
@@ -811,8 +794,8 @@
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 41,
-    "matched_entries": 41,
+    "registry_entries": 42,
+    "matched_entries": 42,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1005,6 +988,20 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1071/index"
       ],
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新觀測未提供商品層級早餐與取消欄位。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "solaria_nishitetsu_taipei",
+      "source_platform": "official",
+      "rows": 189,
+      "missing_fields": {
+        "room_size": 189
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "review_evidence_urls": [
+        "https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM/Reservations/Reserve?packageId=a25b928f-1de1-4e85-af69-2b62e246fd25&packageRoomId=8759f781-6a5a-4aa1-bec0-32c4f7b04523&arrival=2027-01-23"
+      ],
+      "review_note": "官方 GoBooking 日期頁無法由既有讀取工具存取；最新 5 筆缺值都屬同一個「相鄰房－兩間舒適雙床房（非連通房）」組合商品，早餐、取消與稅費均完整，但來源沒有提供該組合商品的單一面積。不得把兩間舒適雙床房的個別面積相加後當成來源標示，room_size 維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hotel_metropolitan_premier_taipei",

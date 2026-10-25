@@ -564,6 +564,19 @@
         "https://www.booking.com/hotel/tw/grand-hi-lai-taipei-tai-bei22.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 5 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有 official 取消與稅費缺口維持獨立審查，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "solaria_nishitetsu_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "room_size"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "evidence_urls": [
+        "https://hotel.gobooking.com.tw/zh-TW/SOLARIA-TPXM/Reservations/Reserve?packageId=a25b928f-1de1-4e85-af69-2b62e246fd25&packageRoomId=8759f781-6a5a-4aa1-bec0-32c4f7b04523&arrival=2027-01-23"
+      ],
+      "note": "官方 GoBooking 日期頁無法由既有讀取工具存取；最新 5 筆缺值都屬同一個「相鄰房－兩間舒適雙床房（非連通房）」組合商品，早餐、取消與稅費均完整，但來源沒有提供該組合商品的單一面積。不得把兩間舒適雙床房的個別面積相加後當成來源標示，room_size 維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
