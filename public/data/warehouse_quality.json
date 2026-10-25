@@ -469,14 +469,6 @@
       }
     },
     {
-      "hotel_id": "grand_hilai_taipei",
-      "source_platform": "booking_com",
-      "rows": 5,
-      "missing_fields": {
-        "tax_inclusion": 5
-      }
-    },
-    {
       "hotel_id": "doubletree_taipei_zhongshan",
       "source_platform": "booking_com",
       "rows": 4,
@@ -763,15 +755,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "grand_hilai_taipei",
-      "source_platform": "booking_com",
-      "rows": 5,
-      "latest_queried_at": "2026-10-12 01:27:00",
-      "missing_fields": {
-        "tax_inclusion": 5
-      }
-    },
-    {
       "hotel_id": "solaria_nishitetsu_taipei",
       "source_platform": "official",
       "rows": 5,
@@ -828,8 +811,8 @@
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 40,
-    "matched_entries": 40,
+    "registry_entries": 41,
+    "matched_entries": 41,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1392,6 +1375,20 @@
         "https://www.booking.com/hotel/tw/ri-sheng-sheng-jia-he-wu-guo-ji-wen-quan-fan-dian.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 6 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有 43㎡豪華房多版本歧義仍由房型 review registry 獨立處理，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "grand_hilai_taipei",
+      "source_platform": "booking_com",
+      "rows": 5,
+      "missing_fields": {
+        "tax_inclusion": 5
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/grand-hi-lai-taipei-tai-bei22.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 5 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有 official 取消與稅費缺口維持獨立審查，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hoshinoya_guguan",

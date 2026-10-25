@@ -44,6 +44,9 @@ def test_latest_stream_rows_prefers_the_newest_explicit_run_id():
 def test_repository_metadata_reviews_preserve_known_source_blockers():
     reviews = _load_strict_metadata_reviews(STRICT_METADATA_REVIEWS_SOURCE)
     statuses = {review["hotel_id"]: review["status"] for review in reviews}
+    source_keys = {
+        (review["hotel_id"], review["source_platform"]) for review in reviews
+    }
 
     assert statuses["grand_hilai_kaohsiung"] == "blocked_source_shell"
     assert statuses["windsor_taichung"] == "blocked_source_unavailable"
@@ -62,6 +65,8 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["grand_hyatt_taipei"] == "blocked_source_unavailable"
     assert statuses["hotel_gracery_taipei"] == "blocked_source_unavailable"
     assert statuses["shangrila_taipei"] == "blocked_source_unavailable"
+    assert ("grand_hilai_taipei", "official") in source_keys
+    assert ("grand_hilai_taipei", "booking_com") in source_keys
     assert statuses["palais_de_chine"] == "blocked_source_unavailable"
     assert statuses["episode_daan_taipei"] == "blocked_source_unavailable"
     assert statuses["hotel_metropolitan_premier_taipei"] == "blocked_source_unavailable"
