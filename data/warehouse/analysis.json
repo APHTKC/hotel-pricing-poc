@@ -1438,14 +1438,6 @@
       }
     },
     {
-      "hotel_id": "shangrila_taipei",
-      "source_platform": "booking_com",
-      "rows": 10,
-      "missing_fields": {
-        "tax_inclusion": 10
-      }
-    },
-    {
       "hotel_id": "palais_de_chine",
       "source_platform": "booking_com",
       "rows": 9,
@@ -2007,15 +1999,6 @@
     }
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
-    {
-      "hotel_id": "shangrila_taipei",
-      "source_platform": "booking_com",
-      "rows": 10,
-      "latest_queried_at": "2026-10-12 01:22:23",
-      "missing_fields": {
-        "tax_inclusion": 10
-      }
-    },
     {
       "hotel_id": "palais_de_chine",
       "source_platform": "booking_com",
@@ -2579,6 +2562,20 @@
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 12 筆已有早餐、取消類別／期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "shangrila_taipei",
+      "source_platform": "booking_com",
+      "rows": 10,
+      "missing_fields": {
+        "tax_inclusion": 10
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/shangri-la-s-far-eastern-plaza-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 10 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 77,
@@ -2612,8 +2609,8 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 29,
-  "strict_metadata_matched_review_entries": 29,
+  "strict_metadata_review_registry_entries": 30,
+  "strict_metadata_matched_review_entries": 30,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {
