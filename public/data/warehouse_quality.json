@@ -469,18 +469,6 @@
       }
     },
     {
-      "hotel_id": "taipei_garden_hotel",
-      "source_platform": "official",
-      "rows": 75,
-      "missing_fields": {
-        "breakfast_included": 75,
-        "cancellation_class": 75,
-        "cancellation_deadline": 75,
-        "tax_inclusion": 75,
-        "room_size": 13
-      }
-    },
-    {
       "hotel_id": "grand_hilai_taipei",
       "source_platform": "booking_com",
       "rows": 5,
@@ -775,19 +763,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "taipei_garden_hotel",
-      "source_platform": "official",
-      "rows": 6,
-      "latest_queried_at": "2026-10-25 00:43:38.248867",
-      "missing_fields": {
-        "breakfast_included": 6,
-        "cancellation_class": 6,
-        "cancellation_deadline": 6,
-        "tax_inclusion": 6,
-        "room_size": 1
-      }
-    },
-    {
       "hotel_id": "grand_hilai_taipei",
       "source_platform": "booking_com",
       "rows": 5,
@@ -853,8 +828,8 @@
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 39,
-    "matched_entries": 39,
+    "registry_entries": 40,
+    "matched_entries": 40,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1077,6 +1052,24 @@
         "https://tlathena.ec-hotel.net/webhotel-v4/0232/index?_rand=af6j6rh8rsa"
       ],
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 18 筆的早餐與稅費狀態完整，但全數沒有商品層級取消文字，不能從「國人住房專案」方案名稱推定取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "official",
+      "rows": 75,
+      "missing_fields": {
+        "breakfast_included": 75,
+        "cancellation_class": 75,
+        "cancellation_deadline": 75,
+        "tax_inclusion": 75,
+        "room_size": 13
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "review_evidence_urls": [
+        "https://redirect.fastbooking.com/DIRECTORY/preresa.phtml?style=DIRECT&Hotelnames=ASIATWHTLTGarden&rate=Best-Available-Rate&FirstRoomName=Premier-Double&FSTBKNGTrackLink=quotation&FirstDate=270123%3B1%3B2%3B0%3B0&CurrencyLabel=TWD&accessCode="
+      ],
+      "review_note": "官方 FastBooking 日期頁無法由既有讀取工具存取；最新 6 筆 Best Available Rate 全數沒有商品層級早餐、取消條款與稅費標籤，且 Premier Twin 另缺單一房型面積。其餘 5 筆既有面積予以保留，但不得跨商品補早餐、取消或稅費，也不得以其他房型面積推定 Premier Twin。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "taipei_marriott",
