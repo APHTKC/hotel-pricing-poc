@@ -1390,14 +1390,6 @@
       }
     },
     {
-      "hotel_id": "shangrila_tainan",
-      "source_platform": "official",
-      "rows": 2195,
-      "missing_fields": {
-        "breakfast_included": 2195
-      }
-    },
-    {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
       "rows": 843,
@@ -2081,15 +2073,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "shangrila_tainan",
-      "source_platform": "official",
-      "rows": 72,
-      "latest_queried_at": "2026-10-25 00:41:23.656258",
-      "missing_fields": {
-        "breakfast_included": 72
-      }
-    },
-    {
       "hotel_id": "hotel_royal_hsinchu",
       "source_platform": "official",
       "rows": 18,
@@ -2459,6 +2442,20 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足含／不含島語早餐，但最新 72 筆仍無商品層級取消類別、精確期限與稅費標示。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "shangrila_tainan",
+      "source_platform": "official",
+      "rows": 2195,
+      "missing_fields": {
+        "breakfast_included": 2195
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.shangri-la.com/en/tainan/fareasternplazashangrila/reservations/select-room-rate/?hotel=Shangri-La+Far+Eastern%2C+Tainan&hotelCode=SLTN&timeZone=%2B8&city=Tainan&cityEn=Tainan&checkInDate=2027-01-23&checkOutDate=2027-01-24&rooms=%5B%7B%22adultNum%22%3A2%2C%22childNum%22%3A0%7D%5D&confirmationNo=&specialCode=&specialCodeType=&country=&specialCodeToken=&flexible=false&roomClassCodeList="
+      ],
+      "review_note": "官方日期結果頁無法由既有讀取工具存取；最新 190 筆中 72 筆早餐缺值，集中於 Flexible Rate 與 Book Early and Save 的 King、Twin、Family 及組合房型。方案名稱未明示含餐或不含餐，且同批其他同名商品已有 breakfast=true 與 unknown 並存，不能由方案名稱或其他房型跨商品推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
       "rows": 2142,
@@ -2640,8 +2637,8 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 20,
-  "strict_metadata_matched_review_entries": 20,
+  "strict_metadata_review_registry_entries": 21,
+  "strict_metadata_matched_review_entries": 21,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {
