@@ -442,6 +442,20 @@
         "https://www.booking.com/hotel/tw/episode-daan-taipei.zh-tw.html?checkin=2026-12-15&checkout=2026-12-16&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 8 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown。既有 30㎡ 與官方 33㎡面積衝突仍由房型 review registry 獨立處理，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "hotel_metropolitan_premier_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "cancellation_class",
+        "cancellation_deadline"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "evidence_urls": [
+        "https://be.synxis.com/?adult=2&arrive=2026-10-26&chain=10197&child=0&currency=TWD&depart=2026-10-27&hotel=99659&level=hotel&locale=zh-TW&productcurrency=TWD&rooms=1"
+      ],
+      "note": "官方 SynXis 日期頁無法由既有讀取工具存取；最新 22 筆中另 14 筆已有「抵達前 2 天」明確條款，但此日期的 8 筆不指定房型／浮動優惠方案沒有保存商品層級取消文字，雖早餐、稅費與房型面積完整，仍不得跨商品推定取消類別或精確期限。既有不指定房型代碼歧義仍由房型 review registry 獨立處理。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }
