@@ -421,17 +421,6 @@
   ],
   "actionable_strict_metadata_gaps": [
     {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "rows": 5512,
-      "missing_fields": {
-        "tax_inclusion": 5512,
-        "cancellation_class": 480,
-        "cancellation_deadline": 480,
-        "breakfast_included": 252
-      }
-    },
-    {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 3104,
@@ -542,14 +531,6 @@
       }
     },
     {
-      "hotel_id": "mitsui_garden_taipei_zhongxiao",
-      "source_platform": "booking_com",
-      "rows": 14,
-      "missing_fields": {
-        "tax_inclusion": 14
-      }
-    },
-    {
       "hotel_id": "w_taipei",
       "source_platform": "booking_com",
       "rows": 14,
@@ -635,6 +616,22 @@
       "rows": 7,
       "missing_fields": {
         "tax_inclusion": 7
+      }
+    },
+    {
+      "hotel_id": "renaissance_taipei_shihlin",
+      "source_platform": "booking_com",
+      "rows": 7,
+      "missing_fields": {
+        "tax_inclusion": 7
+      }
+    },
+    {
+      "hotel_id": "radium_kagaya_taipei",
+      "source_platform": "booking_com",
+      "rows": 6,
+      "missing_fields": {
+        "tax_inclusion": 6
       }
     }
   ],
@@ -892,18 +889,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "rows": 179,
-      "latest_queried_at": "2026-10-25 00:39:36.658764",
-      "missing_fields": {
-        "tax_inclusion": 179,
-        "cancellation_class": 27,
-        "cancellation_deadline": 27,
-        "breakfast_included": 4
-      }
-    },
-    {
       "hotel_id": "shangrila_tainan",
       "source_platform": "official",
       "rows": 72,
@@ -920,15 +905,6 @@
       "missing_fields": {
         "cancellation_class": 18,
         "cancellation_deadline": 18
-      }
-    },
-    {
-      "hotel_id": "mitsui_garden_taipei_zhongxiao",
-      "source_platform": "booking_com",
-      "rows": 14,
-      "latest_queried_at": "2026-10-14 07:16:47",
-      "missing_fields": {
-        "tax_inclusion": 14
       }
     },
     {
@@ -1124,12 +1100,30 @@
       "missing_fields": {
         "tax_inclusion": 4
       }
+    },
+    {
+      "hotel_id": "howard_plaza_taipei",
+      "source_platform": "booking_com",
+      "rows": 4,
+      "latest_queried_at": "2026-10-13 05:38:01",
+      "missing_fields": {
+        "tax_inclusion": 4
+      }
+    },
+    {
+      "hotel_id": "humble_house_taipei",
+      "source_platform": "booking_com",
+      "rows": 4,
+      "latest_queried_at": "2026-10-13 03:58:29",
+      "missing_fields": {
+        "tax_inclusion": 4
+      }
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 19,
-    "matched_entries": 18,
-    "stale_entries": 1
+    "registry_entries": 20,
+    "matched_entries": 20,
+    "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
     {
@@ -1148,6 +1142,23 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1084"
       ],
       "review_note": "官方流程僅回傳訂房 shell，無可核實的商品層級早餐、取消與稅費欄位；流程變更前不重試。"
+    },
+    {
+      "hotel_id": "eslite_hotel",
+      "source_platform": "official",
+      "rows": 5512,
+      "missing_fields": {
+        "tax_inclusion": 5512,
+        "cancellation_class": 480,
+        "cancellation_deadline": 480,
+        "breakfast_included": 252
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-23&checkOutDate=2027-01-24"
+      ],
+      "review_note": "2026-10-25 新批次使缺欄集合變更，已重新核實；官方 Direct Booking 日期頁仍無法由既有讀取工具存取。最新 179 筆中 27 筆取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或精確期限；4 筆「早鳥21住房優惠｜房型升等」未明示餐食；全數價格只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "grand_mayfull_taipei",
@@ -1372,6 +1383,20 @@
       "reviewed_at": "2026-10-25",
       "review_evidence_urls": [
         "https://www.booking.com/hotel/tw/jr-dong-ri-ben-da-fan-dian-tai-bei.zh-tw.html?checkin=2026-12-20&checkout=2026-12-21&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 14 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "mitsui_garden_taipei_zhongxiao",
+      "source_platform": "booking_com",
+      "rows": 14,
+      "missing_fields": {
+        "tax_inclusion": 14
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/mgh-mitsui-garden-taipei-zhongxiao.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 14 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },

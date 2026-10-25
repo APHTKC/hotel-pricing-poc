@@ -1369,17 +1369,6 @@
   ],
   "actionable_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "rows": 5512,
-      "missing_fields": {
-        "tax_inclusion": 5512,
-        "cancellation_class": 480,
-        "cancellation_deadline": 480,
-        "breakfast_included": 252
-      }
-    },
-    {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 3104,
@@ -1487,14 +1476,6 @@
       "rows": 17,
       "missing_fields": {
         "tax_inclusion": 17
-      }
-    },
-    {
-      "hotel_id": "mitsui_garden_taipei_zhongxiao",
-      "source_platform": "booking_com",
-      "rows": 14,
-      "missing_fields": {
-        "tax_inclusion": 14
       }
     },
     {
@@ -2100,18 +2081,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "rows": 179,
-      "latest_queried_at": "2026-10-25 00:39:36.658764",
-      "missing_fields": {
-        "tax_inclusion": 179,
-        "cancellation_class": 27,
-        "cancellation_deadline": 27,
-        "breakfast_included": 4
-      }
-    },
-    {
       "hotel_id": "shangrila_tainan",
       "source_platform": "official",
       "rows": 72,
@@ -2128,15 +2097,6 @@
       "missing_fields": {
         "cancellation_class": 18,
         "cancellation_deadline": 18
-      }
-    },
-    {
-      "hotel_id": "mitsui_garden_taipei_zhongxiao",
-      "source_platform": "booking_com",
-      "rows": 14,
-      "latest_queried_at": "2026-10-14 07:16:47",
-      "missing_fields": {
-        "tax_inclusion": 14
       }
     },
     {
@@ -2390,6 +2350,23 @@
       "review_note": "官方流程僅回傳訂房 shell，無可核實的商品層級早餐、取消與稅費欄位；流程變更前不重試。"
     },
     {
+      "hotel_id": "eslite_hotel",
+      "source_platform": "official",
+      "rows": 5512,
+      "missing_fields": {
+        "tax_inclusion": 5512,
+        "cancellation_class": 480,
+        "cancellation_deadline": 480,
+        "breakfast_included": 252
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-23&checkOutDate=2027-01-24"
+      ],
+      "review_note": "2026-10-25 新批次使缺欄集合變更，已重新核實；官方 Direct Booking 日期頁仍無法由既有讀取工具存取。最新 179 筆中 27 筆取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或精確期限；4 筆「早鳥21住房優惠｜房型升等」未明示餐食；全數價格只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "grand_mayfull_taipei",
       "source_platform": "official",
       "rows": 5241,
@@ -2616,6 +2593,20 @@
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 14 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "mitsui_garden_taipei_zhongxiao",
+      "source_platform": "booking_com",
+      "rows": 14,
+      "missing_fields": {
+        "tax_inclusion": 14
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-25",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/mgh-mitsui-garden-taipei-zhongxiao.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 14 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 77,
@@ -2649,25 +2640,9 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 19,
-  "strict_metadata_matched_review_entries": 18,
-  "strict_metadata_stale_review_entries": [
-    {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "missing_fields": [
-        "cancellation_class",
-        "cancellation_deadline",
-        "tax_inclusion"
-      ],
-      "status": "blocked_source_unavailable",
-      "reviewed_at": "2026-10-25",
-      "evidence_urls": [
-        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2026-10-25&checkOutDate=2026-10-26"
-      ],
-      "note": "官方 Direct Booking 日期頁無法由既有讀取工具存取；最新 14 筆早餐已完整，但取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或精確期限；價格只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤。來源流程或精確缺欄組合變更前不重試。"
-    }
-  ],
+  "strict_metadata_review_registry_entries": 20,
+  "strict_metadata_matched_review_entries": 20,
+  "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {
       "hotel_id": "hoshinoya_guguan",
