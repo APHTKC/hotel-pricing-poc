@@ -1896,6 +1896,9 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "actionableCount" in script
     assert "print-report-quality-grid" in shell
     assert "print-report-quality-scope" in shell
+    assert "print-report-filter-grid" in shell
+    assert "grid-template-columns:repeat(4,minmax(0,1fr))" in shell
+    assert "min-width:0" in shell
     assert 'document.querySelector("#warehouseQuality,#historyWarehouseQuality")' in script
     assert 'data.qualityScope==="warehouse_all_history"' in script
     assert "全歷史倉庫快照；不是目前篩選結果。" in script
@@ -1903,6 +1906,15 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "全履歴ウェアハウスのスナップショットです。" in script
     assert 'cloneForPrint(document.querySelector("#weeklyDigest:not([hidden])")' in script
     assert "historyHint" in script
+    assert "function buildHistoryFilterSummary(labels)" in script
+    assert 'selectedOptionText("city",labels.all)' in script
+    assert 'selectedOptionText("metricMode",labels.all)' in script
+    assert "目前報表篩選範圍" in script
+    assert "Current report filters" in script
+    assert "現在のレポート絞り込み範囲" in script
+    assert 'all:"全部"' in script
+    assert 'all:"All"' in script
+    assert 'all:"すべて"' in script
     assert "grid-template-columns:repeat(4,minmax(0,1fr))" in shell
     assert "overflow-wrap:anywhere" in shell
     assert "button:not(.heatmap-cell)" in shell
