@@ -1859,6 +1859,21 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "document.title=previousDocumentTitle" in script
     assert 'button.setAttribute("aria-label",labels.button)' in script
     assert "button.title=labels.hint" in script
+    assert "function buildQualitySummary(labels)" in script
+    assert "buildQualitySummary(labels)" in script
+    assert "Strict metadata 完整" in script
+    assert "Strict metadata ready" in script
+    assert "Strict metadata 完備" in script
+    assert "最新缺口皆已審查" in script
+    assert "All latest gaps are reviewed" in script
+    assert "最新の欠損はすべて確認済み" in script
+    assert "strictLatestRows" in script
+    assert "reviewRegistry" in script
+    assert "reviewStale" in script
+    assert "actionableCount" in script
+    assert "print-report-quality-grid" in shell
+    assert "grid-template-columns:repeat(4,minmax(0,1fr))" in shell
+    assert "overflow-wrap:anywhere" in shell
     assert "button:not(.heatmap-cell)" in shell
     assert "#a4BriefingPrint .heatmap-cell{display:block!important" in shell
     assert "#a4BriefingPrint .price-heatmap-table{width:100%!important;min-width:0!important" in shell
