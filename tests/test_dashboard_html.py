@@ -1,4 +1,6 @@
+import ast
 import json
+import re
 from pathlib import Path
 
 
@@ -239,6 +241,36 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert {"strict_parity_eligible", "comparison_key", "display_currency", "source_url"} <= fields
     assert schema["authoritative_source"] == "JSONL"
     assert schema["analytics_mirror"].startswith("Parquet")
+    assert "function fieldMeta(field)" in dictionary
+    assert "definition.nullable?labels.nullable:labels.required" in dictionary
+    assert "definition.unknown_allowed?labels.unknown:null" in dictionary
+    assert "可為空值" in dictionary
+    assert "unknown allowed" in dictionary
+    assert "履歴 CSV" in dictionary
+    assert ".field-card" in dictionary
+    assert "grid-template-columns:repeat(2,minmax(0,1fr))" in dictionary
+
+
+def test_machine_readable_schema_matches_ordered_csv_columns_and_field_contracts():
+    latest = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+    schema = json.loads(Path("public/export-schema.json").read_text(encoding="utf-8"))
+
+    def columns_from(html):
+        match = re.search(r"const columns=(\[[^\]]+\]),csv=", html)
+        assert match
+        return ast.literal_eval(match.group(1))
+
+    assert schema["csv_columns"]["latest"] == columns_from(latest)
+    assert schema["csv_columns"]["history"] == columns_from(history)
+    exported_fields = set(schema["csv_columns"]["latest"]) | set(schema["csv_columns"]["history"])
+    grouped_fields = {field for group in schema["field_groups"] for field in group["fields"]}
+    assert exported_fields <= grouped_fields
+    assert grouped_fields == set(schema["field_definitions"])
+    for definition in schema["field_definitions"].values():
+        assert definition["type"] in {"string", "date", "datetime", "integer", "number", "boolean"}
+        assert isinstance(definition["nullable"], bool)
+        assert isinstance(definition["unknown_allowed"], bool)
 
 
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
