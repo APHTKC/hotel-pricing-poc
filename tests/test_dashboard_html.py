@@ -162,6 +162,24 @@ def test_latest_exports_prevent_duplicates_and_skip_empty_files():
     assert "async function exportExcel(){return withLatestExport" in html
 
 
+def test_latest_json_export_describes_its_filtered_batch_scope():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert "function latestExportScope(rows)" in html
+    assert "scope:'latest_filtered_rows'" in html
+    assert "filtered_rows:rows.length" in html
+    assert "latestDetailsIndex?.latest_queried_at||latestSummaryData?.latest_queried_at" in html
+    assert "run_id_summary:{count:runIds.length,values:runIds}" in html
+    assert "export_schema_version:'1.1'" in html
+    assert "export_scope:latestExportScope(rows)" in html
+    assert "最新篩選資料＋範圍" in html
+    assert "Latest filtered data + scope" in html
+    assert "最新絞り込みデータ＋範囲" in html
+    assert "不是完整歷史倉庫" in html
+    assert "not the full historical warehouse" in html
+    assert "全履歴ウェアハウスではありません" in html
+
+
 def test_history_shows_preaggregated_weekly_executive_digest():
     html = Path("public/history.html").read_text(encoding="utf-8")
 
