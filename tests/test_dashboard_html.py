@@ -46,6 +46,18 @@ def test_history_has_visible_export_tools():
     assert "function exportHistoryExcel()" in html
     assert "function historyWarehouseSnapshot()" in html
     assert "function historyDetailScope(rows)" in html
+    assert 'id="exportScopeStatus"' in html
+    assert 'role="status" aria-live="polite"' in html
+    assert "function updateExportScopeStatus(rows)" in html
+    assert "updateExportScopeStatus(valid)" in html
+    assert "status.dataset.state='pending'" in html
+    assert "status.dataset.state='ready'" in html
+    assert "filtered_rows.toLocaleString(locale[lang])" in html
+    assert "匯出範圍：尚未載入明細" in html
+    assert "Export scope: details not loaded" in html
+    assert "出力範囲：明細未読み込み" in html
+    assert "export-scope-status.is-ready" in html
+    assert "overflow-wrap:anywhere" in html
     assert "mode:'selected_month_hotel_details'" in html
     assert "filtered_rows:rows.length" in html
     assert "function historyExportStem()" in html
