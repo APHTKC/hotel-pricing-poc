@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1",
+  "formats": ["JSON", "CSV (UTF-8 BOM)"],
+  "authoritative_source": "JSONL",
+  "analytics_mirror": "Parquet (rebuildable)",
+  "scopes": [
+    {"key": "latest_filtered_rows", "applies_to": "latest JSON rates"},
+    {"key": "selected_month_hotel_details", "applies_to": "history JSON rates"},
+    {"key": "weekly_digest", "applies_to": "history JSON weekly_digest"},
+    {"key": "warehouse_all_history", "applies_to": "history JSON warehouse_snapshot"}
+  ],
+  "value_semantics": {
+    "null": "Source has no verifiable value; exported as an empty CSV cell.",
+    "unknown": "Explicit unknown category; not false, zero, or omitted.",
+    "boolean": "JSON true/false and CSV true/false remain machine-readable.",
+    "numbers": "Finite numbers omit display formatting and currency symbols.",
+    "display_fields": "display_* values use the selected display currency; normalized TWD fields do not.",
+    "csv_formula_safety": "Text beginning with =, +, -, or @ receives a leading apostrophe."
+  },
+  "strict_parity_rule": "hotel_id, dates, occupancy, room, breakfast, cancellation, tax treatment, and query time within 24 hours must all be comparable",
+  "field_groups": [
+    {"key": "identity", "fields": ["queried_at", "scheduled_for", "run_id", "hotel_id", "hotel_name_display", "city", "district"]},
+    {"key": "stay", "fields": ["stay_date", "check_in", "check_out", "nights", "lead_days", "rooms", "adults", "children"]},
+    {"key": "room", "fields": ["room_type_code", "room_name", "room_type_name", "stable_room_type_id", "room_size_sqm"]},
+    {"key": "terms", "fields": ["rate_plan", "rate_plan_name", "breakfast", "breakfast_included", "tax_inclusion", "cancellation", "cancellation_policy", "cancellation_class", "cancellation_deadline"]},
+    {"key": "strict", "fields": ["comparison_status", "strict_parity_eligible", "comparison_key"]},
+    {"key": "price", "fields": ["price_before_tax", "service_charge", "tax", "total_price", "currency", "total_twd", "nightly_adr_twd", "price_per_sqm", "display_currency", "display_total", "display_nightly_adr", "display_price_per_sqm"]},
+    {"key": "source", "fields": ["source_platform", "source_method", "source_property_id", "source_url"]}
+  ]
+}
