@@ -46,6 +46,7 @@ def test_history_has_visible_export_tools():
     assert "function exportHistoryExcel()" in html
     assert "function historyWarehouseSnapshot()" in html
     assert "function historyDetailScope(rows)" in html
+    assert "function historyExportScopes(rows)" in html
     assert 'id="exportScopeStatus"' in html
     assert 'role="status" aria-live="polite"' in html
     assert "function updateExportScopeStatus(rows)" in html
@@ -78,6 +79,17 @@ def test_history_has_visible_export_tools():
     assert "function historyExportStem()" in html
     assert "taiwan-hotel-rate-history-${month}-${hotel}-${date}" in html
     assert "detail_scope:scope" in html
+    assert "export_schema_version:'1.1'" in html
+    assert "export_scopes:historyExportScopes(rows)" in html
+    assert "scope:'selected_month_hotel_filtered_rows'" in html
+    assert "scope:'warehouse_all_history_preaggregated'" in html
+    assert "scope:'warehouse_all_history_snapshot'" in html
+    assert "所選明細＋資料範圍" in html
+    assert "Details + scope metadata" in html
+    assert "明細＋範囲メタデータ" in html
+    assert "全歷史資料的預先彙總週報，不受目前明細篩選影響" in html
+    assert "Preaggregated weekly digest for all history" in html
+    assert "全履歴ウェアハウスの品質スナップショット" in html
     assert "month:scope.month" in html
     assert "warehouse_snapshot:historyWarehouseSnapshot()" in html
     assert "scope:'warehouse_all_history'" in html
@@ -85,9 +97,6 @@ def test_history_has_visible_export_tools():
     assert "先載入所選月份與飯店明細，再輸出目前篩選結果" in html
     assert "Load the selected month and hotel details before exporting the filtered result" in html
     assert "選択した月・ホテルの明細を読み込んでから" in html
-    assert "所選月份／飯店明細" in html
-    assert "Selected month / hotel details" in html
-    assert "選択した月／ホテルの明細" in html
     assert "loadJson('./data/warehouse_quality.json')" in html
     assert 'id="historyWarehouseQuality"' in html
     assert 'data-quality-scope="warehouse_all_history"' in html
