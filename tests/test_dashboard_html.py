@@ -142,6 +142,26 @@ def test_csv_exports_share_a_spreadsheet_safe_serializer():
     assert "].join('\\r\\n');" in serializer
 
 
+def test_latest_exports_prevent_duplicates_and_skip_empty_files():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert html.count('aria-describedby="notice"') == 2
+    assert 'id="notice" role="status" aria-live="polite"' in html
+    assert "function latestExportButtons()" in html
+    assert "return['exportJson','exportExcel']" in html
+    assert "function setLatestExportBusy(busy)" in html
+    assert "button.setAttribute('aria-busy','true')" in html
+    assert "button.removeAttribute('aria-busy')" in html
+    assert "async function withLatestExport(callback)" in html
+    assert "if(!rows.length)" in html
+    assert "目前篩選條件沒有可匯出的最新房價資料。" in html
+    assert "No latest rate rows match the current filters." in html
+    assert "現在の絞り込み条件に一致する最新料金データはありません。" in html
+    assert ".export-controls button:disabled" in html
+    assert "async function exportJson(){return withLatestExport" in html
+    assert "async function exportExcel(){return withLatestExport" in html
+
+
 def test_history_shows_preaggregated_weekly_executive_digest():
     html = Path("public/history.html").read_text(encoding="utf-8")
 
