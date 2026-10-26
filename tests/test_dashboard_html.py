@@ -1969,6 +1969,10 @@ def test_home_exposes_reproducible_comparability_quality():
     assert "Need re-verification" in home
     assert "再確認が必要" in home
     assert "warehouse-quality-review-stale" in home
+    assert "warehouse-quality-zero" in home
+    assert "最新缺口皆已審查" in home
+    assert "All latest gaps reviewed" in home
+    assert "最新の欠損はすべて確認済み" in home
 
 
 def test_frontend_adr_paths_prefer_nightly_normalized_values():
