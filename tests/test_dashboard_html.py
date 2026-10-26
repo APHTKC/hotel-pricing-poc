@@ -201,6 +201,38 @@ def test_latest_page_shows_a_live_trilingual_export_scope():
     assert "overflow-wrap:anywhere" in html
 
 
+def test_latest_and_history_link_to_one_trilingual_export_dictionary():
+    latest = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+    dictionary = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    for html in (latest, history):
+        assert "function ensureExportDictionaryLink()" in html
+        assert "href='./export-schema.html'" in html
+        assert "查看匯出資料字典（schema 1.1）" in html
+        assert "View export data dictionary (schema 1.1)" in html
+        assert "出力データ辞書を見る（schema 1.1）" in html
+
+    assert "const schema={version:'1.1'" in dictionary
+    assert "scope-grid" in dictionary
+    assert "latest_filtered_rows" in dictionary
+    assert "selected_month_hotel_details" in dictionary
+    assert "weekly_digest" in dictionary
+    assert "warehouse_all_history" in dictionary
+    assert "JSON null and an empty CSV cell" in dictionary
+    assert "JSON の null と CSV の空セル" in dictionary
+    assert "JSON 的 null 與 CSV 的空白儲存格" in dictionary
+    assert "strict_parity_eligible" in dictionary
+    assert "comparison_key" in dictionary
+    assert "display_currency" in dictionary
+    assert "source_url" in dictionary
+    assert "JSONL 是權威來源" in dictionary
+    assert "JSONL is authoritative" in dictionary
+    assert "JSONL が正本" in dictionary
+    assert 'aria-pressed="true"' in dictionary
+    assert "overflow-wrap:anywhere" in dictionary
+
+
 def test_history_shows_preaggregated_weekly_executive_digest():
     html = Path("public/history.html").read_text(encoding="utf-8")
 
