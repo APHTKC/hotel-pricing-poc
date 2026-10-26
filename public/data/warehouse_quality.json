@@ -740,16 +740,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "okura_prestige_taipei",
-      "source_platform": "official",
-      "rows": 24,
-      "latest_queried_at": "2026-10-26 00:29:32.958816",
-      "missing_fields": {
-        "cancellation_class": 24,
-        "cancellation_deadline": 24
-      }
-    },
-    {
       "hotel_id": "howard_plaza_taipei",
       "source_platform": "booking_com",
       "rows": 4,
@@ -790,8 +780,8 @@
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 43,
-    "matched_entries": 43,
+    "registry_entries": 44,
+    "matched_entries": 44,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1412,6 +1402,22 @@
         "https://hoshinoresorts.com/CH/hotels/0000000503/rooms/0000000006"
       ],
       "review_note": "官方訂房結果頁無法由既有讀取工具存取；最新 77 筆未提供商品層級稅費標示，其中 50 筆為 13–4／3–1／當天的分段訂金罰則，沒有單一免費取消期限，不得壓成虛構日期。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "source_platform": "official",
+      "rows": 24,
+      "latest_queried_at": "2026-10-26 00:29:32.958816",
+      "missing_fields": {
+        "cancellation_class": 24,
+        "cancellation_deadline": 24
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "review_evidence_urls": [
+        "https://rsv.okura.com/?Hotel=56124&Chain=9542&arrive=2026-10-27&depart=2026-10-28&adult=2&child=0&rooms=1&currency=TWD&productcurrency=TWD&locale=en-US&level=hotel&config=EXCLTAX&theme=OHSBE&themecode=OHSBE&src=ohm"
+      ],
+      "review_note": "官方 Okura 日期頁無法由既有讀取工具存取；2026-10-26 最新批次 107 筆中有 24 筆未保存商品層級取消文字，涉及 BEST AVAILABLE RATE 與 ADVANCE 35 的特定日期／房型，早餐、稅費及房型面積均完整。即使同批其他同名方案已有 3 天或 10 天條款，也不得跨商品推定這 24 筆的取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "royal_nikko_taipei",

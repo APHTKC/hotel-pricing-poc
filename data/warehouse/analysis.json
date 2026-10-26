@@ -1890,16 +1890,6 @@
   ],
   "actionable_latest_strict_metadata_gap_hotels": [
     {
-      "hotel_id": "okura_prestige_taipei",
-      "source_platform": "official",
-      "rows": 24,
-      "latest_queried_at": "2026-10-26 00:29:32.958816",
-      "missing_fields": {
-        "cancellation_class": 24,
-        "cancellation_deadline": 24
-      }
-    },
-    {
       "hotel_id": "howard_plaza_taipei",
       "source_platform": "booking_com",
       "rows": 4,
@@ -2559,6 +2549,22 @@
       "review_note": "官方訂房結果頁無法由既有讀取工具存取；最新 77 筆未提供商品層級稅費標示，其中 50 筆為 13–4／3–1／當天的分段訂金罰則，沒有單一免費取消期限，不得壓成虛構日期。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "okura_prestige_taipei",
+      "source_platform": "official",
+      "rows": 24,
+      "latest_queried_at": "2026-10-26 00:29:32.958816",
+      "missing_fields": {
+        "cancellation_class": 24,
+        "cancellation_deadline": 24
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "review_evidence_urls": [
+        "https://rsv.okura.com/?Hotel=56124&Chain=9542&arrive=2026-10-27&depart=2026-10-28&adult=2&child=0&rooms=1&currency=TWD&productcurrency=TWD&locale=en-US&level=hotel&config=EXCLTAX&theme=OHSBE&themecode=OHSBE&src=ohm"
+      ],
+      "review_note": "官方 Okura 日期頁無法由既有讀取工具存取；2026-10-26 最新批次 107 筆中有 24 筆未保存商品層級取消文字，涉及 BEST AVAILABLE RATE 與 ADVANCE 35 的特定日期／房型，早餐、稅費及房型面積均完整。即使同批其他同名方案已有 3 天或 10 天條款，也不得跨商品推定這 24 筆的取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "royal_nikko_taipei",
       "source_platform": "official",
       "rows": 15,
@@ -2576,8 +2582,8 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 43,
-  "strict_metadata_matched_review_entries": 43,
+  "strict_metadata_review_registry_entries": 44,
+  "strict_metadata_matched_review_entries": 44,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {

@@ -69,6 +69,8 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["shangrila_taipei"] == "blocked_source_unavailable"
     assert ("grand_hilai_taipei", "official") in source_keys
     assert ("grand_hilai_taipei", "booking_com") in source_keys
+    assert ("okura_prestige_taipei", "official") in source_keys
+    assert ("okura_prestige_taipei", "booking_com") in source_keys
     assert statuses["palais_de_chine"] == "blocked_source_unavailable"
     assert statuses["episode_daan_taipei"] == "blocked_source_unavailable"
     assert statuses["hotel_metropolitan_premier_taipei"] == "blocked_source_unavailable"
