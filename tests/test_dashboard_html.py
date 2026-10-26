@@ -45,9 +45,22 @@ def test_history_has_visible_export_tools():
     assert "function exportHistoryJson()" in html
     assert "function exportHistoryExcel()" in html
     assert "function historyWarehouseSnapshot()" in html
+    assert "function historyDetailScope(rows)" in html
+    assert "mode:'selected_month_hotel_details'" in html
+    assert "filtered_rows:rows.length" in html
+    assert "function historyExportStem()" in html
+    assert "taiwan-hotel-rate-history-${month}-${hotel}-${date}" in html
+    assert "detail_scope:scope" in html
+    assert "month:scope.month" in html
     assert "warehouse_snapshot:historyWarehouseSnapshot()" in html
     assert "scope:'warehouse_all_history'" in html
     assert "weekly_digest:historySummary?.weekly_digest||null" in html
+    assert "先載入所選月份與飯店明細，再輸出目前篩選結果" in html
+    assert "Load the selected month and hotel details before exporting the filtered result" in html
+    assert "選択した月・ホテルの明細を読み込んでから" in html
+    assert "所選月份／飯店明細" in html
+    assert "Selected month / hotel details" in html
+    assert "選択した月／ホテルの明細" in html
     assert "loadJson('./data/warehouse_quality.json')" in html
     assert 'id="historyWarehouseQuality"' in html
     assert 'data-quality-scope="warehouse_all_history"' in html
