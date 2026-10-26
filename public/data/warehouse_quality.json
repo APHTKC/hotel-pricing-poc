@@ -459,14 +459,6 @@
         "cancellation_class": 316,
         "cancellation_deadline": 316
       }
-    },
-    {
-      "hotel_id": "hotel_resonance_taipei",
-      "source_platform": "booking_com",
-      "rows": 2,
-      "missing_fields": {
-        "tax_inclusion": 2
-      }
     }
   ],
   "latest_strict_metadata_gap_hotels": [
@@ -724,15 +716,6 @@
   ],
   "actionable_latest_strict_metadata_gaps": [
     {
-      "hotel_id": "hotel_resonance_taipei",
-      "source_platform": "booking_com",
-      "rows": 2,
-      "latest_queried_at": "2026-10-13 03:53:02",
-      "missing_fields": {
-        "tax_inclusion": 2
-      }
-    },
-    {
       "hotel_id": "taipei_garden_hotel",
       "source_platform": "official",
       "rows": 2,
@@ -746,8 +729,8 @@
     }
   ],
   "strict_metadata_review_coverage": {
-    "registry_entries": 46,
-    "matched_entries": 46,
+    "registry_entries": 47,
+    "matched_entries": 47,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1380,6 +1363,20 @@
         "https://www.booking.com/hotel/tw/humble-house-taipei-curio-collection-by-hilton.zh-tw.html?checkin=2026-12-13&checkout=2026-12-14&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 4 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "hotel_resonance_taipei",
+      "source_platform": "booking_com",
+      "rows": 2,
+      "missing_fields": {
+        "tax_inclusion": 2
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "review_evidence_urls": [
+        "https://www.booking.com/hotel/tw/resonance.zh-tw.html?checkin=2026-12-11&checkout=2026-12-12&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
+      ],
+      "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 2 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hoshinoya_guguan",
