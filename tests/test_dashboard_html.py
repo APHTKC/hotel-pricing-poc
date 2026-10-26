@@ -145,7 +145,7 @@ def test_csv_exports_share_a_spreadsheet_safe_serializer():
 def test_latest_exports_prevent_duplicates_and_skip_empty_files():
     html = Path("public/index.html").read_text(encoding="utf-8")
 
-    assert html.count('aria-describedby="notice"') == 2
+    assert html.count('aria-describedby="exportScopeStatus notice"') == 2
     assert 'id="notice" role="status" aria-live="polite"' in html
     assert "function latestExportButtons()" in html
     assert "return['exportJson','exportExcel']" in html
@@ -178,6 +178,27 @@ def test_latest_json_export_describes_its_filtered_batch_scope():
     assert "不是完整歷史倉庫" in html
     assert "not the full historical warehouse" in html
     assert "全履歴ウェアハウスではありません" in html
+
+
+def test_latest_page_shows_a_live_trilingual_export_scope():
+    html = Path("public/index.html").read_text(encoding="utf-8")
+
+    assert 'id="exportScopeStatus" role="status" aria-live="polite"' in html
+    assert html.count('aria-describedby="exportScopeStatus notice"') == 2
+    assert "function updateLatestExportScope(rows,state=" in html
+    assert "updateLatestExportScope(rows)" in html
+    assert "updateLatestExportScope(filteredRows(),state==='loading'?'loading':detailsLoaded?'ready':'deferred')" in html
+    assert "status.classList.toggle('is-ready',state==='ready')" in html
+    assert "new Date(batch).toLocaleString(locale[lang],{timeZone:'Asia/Taipei'})" in html
+    assert "rows.length.toLocaleString(locale[lang])" in html
+    assert "匯出範圍：最新明細尚未載入；下載時會自動載入" in html
+    assert "Export scope: latest details not loaded; download will load them automatically" in html
+    assert "出力範囲：最新明細は未読み込みです。ダウンロード時に自動で読み込みます" in html
+    assert "匯出範圍：正在載入最新明細…" in html
+    assert "Export scope: latest batch {batch} · {count} rows" in html
+    assert "出力範囲：最新バッチ {batch} · {count}件" in html
+    assert ".export-scope-status.is-ready" in html
+    assert "overflow-wrap:anywhere" in html
 
 
 def test_history_shows_preaggregated_weekly_executive_digest():
