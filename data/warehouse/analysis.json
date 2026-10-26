@@ -1864,20 +1864,7 @@
       }
     }
   ],
-  "actionable_latest_strict_metadata_gap_hotels": [
-    {
-      "hotel_id": "taipei_garden_hotel",
-      "source_platform": "official",
-      "rows": 2,
-      "latest_queried_at": "2026-10-26 00:51:08.767726",
-      "missing_fields": {
-        "breakfast_included": 2,
-        "cancellation_class": 2,
-        "cancellation_deadline": 2,
-        "tax_inclusion": 2
-      }
-    }
-  ],
+  "actionable_latest_strict_metadata_gap_hotels": [],
   "reviewed_strict_metadata_gaps": [
     {
       "hotel_id": "grand_hilai_kaohsiung",
@@ -2571,10 +2558,28 @@
         "https://tlathena.ec-hotel.net/webhotel-v4/0839/index?_rand=su4qfc4dm1"
       ],
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "official",
+      "rows": 2,
+      "latest_queried_at": "2026-10-26 00:51:08.767726",
+      "missing_fields": {
+        "breakfast_included": 2,
+        "cancellation_class": 2,
+        "cancellation_deadline": 2,
+        "tax_inclusion": 2
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-26",
+      "review_evidence_urls": [
+        "https://redirect.fastbooking.com/DIRECTORY/preresa.phtml?style=DIRECT&Hotelnames=ASIATWHTLTGarden&rate=Best-Available-Rate&FirstRoomName=Premier-Double&FSTBKNGTrackLink=quotation&FirstDate=261102%3B1%3B2%3B0%3B0&CurrencyLabel=TWD&accessCode="
+      ],
+      "review_note": "官方 FastBooking 日期頁仍無法由既有讀取工具存取；2026-10-26 新批次 2 筆 Premier Double／Best Available Rate 已有來源面積 22㎡，但全數沒有商品層級早餐、取消條款、價前／服務費／稅額拆項或含稅／未稅標籤。不得沿用舊批次或其他商品欄位推定，四項 metadata 維持 unknown。來源流程或此精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 47,
-  "strict_metadata_matched_review_entries": 47,
+  "strict_metadata_review_registry_entries": 48,
+  "strict_metadata_matched_review_entries": 48,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {

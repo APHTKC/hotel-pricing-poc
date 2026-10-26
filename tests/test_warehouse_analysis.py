@@ -47,6 +47,14 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     source_keys = {
         (review["hotel_id"], review["source_platform"]) for review in reviews
     }
+    missing_sets = {
+        (
+            review["hotel_id"],
+            review["source_platform"],
+            frozenset(review["missing_fields"]),
+        )
+        for review in reviews
+    }
 
     assert statuses["grand_hilai_kaohsiung"] == "blocked_source_shell"
     assert statuses["windsor_taichung"] == "blocked_source_unavailable"
@@ -57,6 +65,18 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["renaissance_taipei_shihlin"] == "blocked_source_unavailable"
     assert statuses["radium_kagaya_taipei"] == "blocked_source_unavailable"
     assert statuses["taipei_garden_hotel"] == "blocked_source_unavailable"
+    assert (
+        "taipei_garden_hotel",
+        "official",
+        frozenset(
+            {
+                "breakfast_included",
+                "cancellation_class",
+                "cancellation_deadline",
+                "tax_inclusion",
+            }
+        ),
+    ) in missing_sets
     assert statuses["solaria_nishitetsu_taipei"] == "blocked_source_unavailable"
     assert statuses["doubletree_taipei_zhongshan"] == "blocked_source_unavailable"
     assert statuses["howard_plaza_taipei"] == "blocked_source_unavailable"
