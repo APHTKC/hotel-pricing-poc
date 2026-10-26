@@ -273,6 +273,33 @@ def test_machine_readable_schema_matches_ordered_csv_columns_and_field_contracts
         assert isinstance(definition["unknown_allowed"], bool)
 
 
+def test_export_dictionary_shows_and_copies_ordered_csv_columns():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+    schema = json.loads(Path("public/export-schema.json").read_text(encoding="utf-8"))
+
+    assert 'id="columnOrderTitle"' in html
+    assert html.count('data-copy-columns=') == 2
+    assert 'id="copyStatus" role="status" aria-live="polite"' in html
+    assert 'aria-controls="latestColumns" aria-describedby="copyStatus"' in html
+    assert 'aria-controls="historyColumns" aria-describedby="copyStatus"' in html
+    assert "schema.csv_columns[kind].map" in html
+    assert "schema.csv_columns[kind].join(',')" in html
+    assert "navigator.clipboard&&window.isSecureContext" in html
+    assert "navigator.clipboard.writeText(text)" in html
+    assert "function legacyCopy(text)" in html
+    assert "document.execCommand('copy')" in html
+    assert "CSV 欄位順序" in html
+    assert "CSV column order" in html
+    assert "CSV 項目順序" in html
+    assert "已複製 {kind} 欄名" in html
+    assert "Copied {kind} column names" in html
+    assert "{kind} の項目名をコピーしました" in html
+    assert ".column-order-grid,.column-order{grid-template-columns:1fr}" in html
+    assert "@media print{.copy-columns,.copy-status{display:none}" in html
+    assert len(schema["csv_columns"]["latest"]) == 38
+    assert len(schema["csv_columns"]["history"]) == 46
+
+
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
     latest = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
