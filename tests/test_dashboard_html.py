@@ -1973,6 +1973,24 @@ def test_home_exposes_reproducible_comparability_quality():
     assert "最新缺口皆已審查" in home
     assert "All latest gaps reviewed" in home
     assert "最新の欠損はすべて確認済み" in home
+    assert "function exportQualitySummary()" in home
+    assert "strict_metadata:exportQualitySummary()" in home
+    assert "latest_strict_metadata_ready_rows" in home
+    assert "actionable_latest_strict_metadata_gaps" in home
+    for column in (
+        "room_type_code",
+        "stable_room_type_id",
+        "tax_inclusion",
+        "cancellation_policy",
+        "cancellation_class",
+        "cancellation_deadline",
+        "comparison_status",
+        "strict_parity_eligible",
+        "comparison_key",
+        "run_id",
+        "source_url",
+    ):
+        assert f"'{column}'" in home
 
 
 def test_frontend_adr_paths_prefer_nightly_normalized_values():
