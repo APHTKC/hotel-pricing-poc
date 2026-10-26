@@ -44,6 +44,25 @@ def test_history_has_visible_export_tools():
     assert html.count('id="exportA4Pdf"') == 1
     assert "function exportHistoryJson()" in html
     assert "function exportHistoryExcel()" in html
+    assert "function historyWarehouseSnapshot()" in html
+    assert "warehouse_snapshot:historyWarehouseSnapshot()" in html
+    assert "scope:'warehouse_all_history'" in html
+    assert "weekly_digest:historySummary?.weekly_digest||null" in html
+    assert "loadJson('./data/warehouse_quality.json')" in html
+    for column in (
+        "run_id",
+        "room_type_code",
+        "stable_room_type_id",
+        "tax_inclusion",
+        "cancellation_policy",
+        "cancellation_class",
+        "cancellation_deadline",
+        "comparison_status",
+        "strict_parity_eligible",
+        "comparison_key",
+        "source_url",
+    ):
+        assert f"'{column}'" in html
     assert html.index('<section class="data-tools"') < html.index('<section class="panel filters"')
     assert 'aria-label="資料匯出與列印"' in html
     assert ".export-controls{grid-template-columns:repeat(4,1fr)}" in html
