@@ -122,6 +122,26 @@ def test_history_has_visible_export_tools():
     assert "@media(max-width:760px){.export-controls{grid-template-columns:repeat(2,1fr)}.export-controls button:last-child{grid-column:auto}}" in html
 
 
+def test_csv_exports_share_a_spreadsheet_safe_serializer():
+    index = Path("public/index.html").read_text(encoding="utf-8")
+    history = Path("public/history.html").read_text(encoding="utf-8")
+    serializer = Path("public/assets/js/csv.js").read_text(encoding="utf-8")
+
+    for html in (index, history):
+        assert "import { csvTable } from './assets/js/csv.js';" in html
+        assert "csvTable(columns,rows)" in html
+        assert "'\\ufeff'" in html
+        assert "text/csv;charset=utf-8" in html
+
+    assert "const FORMULA_PREFIX = /^[=+\\-@]/;" in serializer
+    assert "if (value === null || value === undefined) return '';" in serializer
+    assert "if (typeof value === 'number') return Number.isFinite(value) ? String(value) : '';" in serializer
+    assert "if (typeof value === 'boolean') return value ? 'true' : 'false';" in serializer
+    assert "if (FORMULA_PREFIX.test(text)) text = `'${text}`;" in serializer
+    assert "text.replace(/\"/g, '\"\"')" in serializer
+    assert "].join('\\r\\n');" in serializer
+
+
 def test_history_shows_preaggregated_weekly_executive_digest():
     html = Path("public/history.html").read_text(encoding="utf-8")
 
