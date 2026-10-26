@@ -49,6 +49,21 @@ def test_history_has_visible_export_tools():
     assert 'id="exportScopeStatus"' in html
     assert 'role="status" aria-live="polite"' in html
     assert "function updateExportScopeStatus(rows)" in html
+    assert "function historyExportButtons()" in html
+    assert "function updateHistoryExportAvailability()" in html
+    assert "function setHistoryExportBusy(busy)" in html
+    assert "async function withHistoryExport(callback)" in html
+    assert html.count('disabled aria-describedby="exportScopeStatus"') == 2
+    assert "button.setAttribute('aria-busy','true')" in html
+    assert "button.removeAttribute('aria-busy')" in html
+    assert "if(!rows.length)" in html
+    assert "目前篩選條件沒有可匯出的明細資料。" in html
+    assert "No detail rows match the current filters." in html
+    assert "現在の絞り込み条件に一致する明細データはありません。" in html
+    assert "匯出範圍：請先選擇飯店" in html
+    assert "Export scope: select a hotel first" in html
+    assert "出力範囲：先にホテルを選択してください" in html
+    assert ".export-controls button:disabled" in html
     assert "updateExportScopeStatus(valid)" in html
     assert "status.dataset.state='pending'" in html
     assert "status.dataset.state='ready'" in html
