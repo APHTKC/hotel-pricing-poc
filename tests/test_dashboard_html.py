@@ -49,6 +49,10 @@ def test_history_has_visible_export_tools():
     assert "scope:'warehouse_all_history'" in html
     assert "weekly_digest:historySummary?.weekly_digest||null" in html
     assert "loadJson('./data/warehouse_quality.json')" in html
+    assert 'id="historyWarehouseQuality"' in html
+    assert 'data-quality-scope="warehouse_all_history"' in html
+    assert "function renderHistoryWarehouseQuality()" in html
+    assert 'src="./assets/js/print-report.js"' in html
     for column in (
         "run_id",
         "room_type_code",
@@ -1874,10 +1878,10 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()))" in script
     assert 'button.dataset.printBound==="true"' in script
     assert 'button.dataset.printBound="true"' in script
-    assert 'document.title=`${labels.title} - ${reportDate}`' in script
+    assert 'document.title=`${reportTitle} - ${reportDate}`' in script
     assert "document.title=previousDocumentTitle" in script
     assert 'button.setAttribute("aria-label",labels.button)' in script
-    assert "button.title=labels.hint" in script
+    assert "button.title=hint" in script
     assert "function buildQualitySummary(labels)" in script
     assert "buildQualitySummary(labels)" in script
     assert "Strict metadata 完整" in script
@@ -1891,6 +1895,14 @@ def test_home_a4_briefing_export_is_print_only_and_localized():
     assert "reviewStale" in script
     assert "actionableCount" in script
     assert "print-report-quality-grid" in shell
+    assert "print-report-quality-scope" in shell
+    assert 'document.querySelector("#warehouseQuality,#historyWarehouseQuality")' in script
+    assert 'data.qualityScope==="warehouse_all_history"' in script
+    assert "全歷史倉庫快照；不是目前篩選結果。" in script
+    assert "All-history warehouse snapshot; not the current filtered result." in script
+    assert "全履歴ウェアハウスのスナップショットです。" in script
+    assert 'cloneForPrint(document.querySelector("#weeklyDigest:not([hidden])")' in script
+    assert "historyHint" in script
     assert "grid-template-columns:repeat(4,minmax(0,1fr))" in shell
     assert "overflow-wrap:anywhere" in shell
     assert "button:not(.heatmap-cell)" in shell

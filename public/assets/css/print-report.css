@@ -11,6 +11,7 @@
   #a4BriefingPrint .print-report-header h1{margin:0;color:#111;font:700 22pt/1 Georgia,"Times New Roman",serif}
   #a4BriefingPrint .print-report-date{color:#333;font-size:8.5pt;white-space:nowrap}
   #a4BriefingPrint .print-report-quality{break-inside:avoid;page-break-inside:avoid;margin:0 0 7px;padding:6px 8px;border:1px solid #777;background:#fff}
+  #a4BriefingPrint .print-report-quality-scope{margin:0 0 4px;color:#444;font-size:7pt;overflow-wrap:anywhere}
   #a4BriefingPrint .print-report-quality-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid #999}
   #a4BriefingPrint .print-report-quality-grid>div{min-width:0;padding:5px 7px;border-right:1px solid #999}
   #a4BriefingPrint .print-report-quality-grid>div:last-child{border-right:0}
