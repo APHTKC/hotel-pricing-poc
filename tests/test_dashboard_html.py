@@ -253,13 +253,16 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert ".field-card" in dictionary
     assert ".field-description" in dictionary
     assert "const permalinkCopy={zh:'連結至欄位 {field}',en:'Link to field {field}',ja:'項目 {field} へのリンク'}" in dictionary
-    assert "const jumpCopy={zh:{label:'跳至欄位',placeholder:'選擇目前符合欄位'},en:{label:'Jump to field',placeholder:'Select a matching field'},ja:{label:'項目へ移動',placeholder:'現在の一致項目を選択'}}" in dictionary
+    assert "const jumpCopy={zh:{label:'跳至欄位',placeholder:'不指定欄位'},en:{label:'Jump to field',placeholder:'No field selected'},ja:{label:'項目へ移動',placeholder:'項目を指定しない'}}" in dictionary
     assert "function fieldAnchorId(field)" in dictionary
     assert "/^[a-z0-9_]+$/.test(field)" in dictionary
     assert "function fieldCardHtml(field)" in dictionary
     assert 'class="field-card" id="${id}"' in dictionary
     assert 'class="field-permalink" href="#${id}" aria-label="${esc(label)}" title="${esc(label)}"' in dictionary
     assert "function ensureFieldJumpControl()" in dictionary
+    assert "event.target.value?jumpToField(event.target.value):clearFieldJump()" in dictionary
+    assert "function clearFieldJump()" in dictionary
+    assert "url.hash=''" in dictionary
     assert "currentFilteredFields().includes(field)" in dictionary
     assert "history.replaceState(null,'',url)" in dictionary
     assert "card.focus({preventScroll:true})" in dictionary
@@ -270,7 +273,9 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "function focusVisibleFieldHash()" in dictionary
     assert "!currentFilteredFields().includes(match[1])" in dictionary
     assert "if(select)select.value=match[1]" in dictionary
-    assert "window.addEventListener('hashchange',()=>{if(focusVisibleFieldHash())initialFieldHashHandled=true})" in dictionary
+    assert "function handleFieldHashChange()" in dictionary
+    assert "if(!window.location.hash)" in dictionary
+    assert "window.addEventListener('hashchange',handleFieldHashChange)" in dictionary
     assert "function focusInitialFieldHash()" in dictionary
     assert "if(focusVisibleFieldHash())initialFieldHashHandled=true" in dictionary
     assert "window.location.hash.match(/^#field-([a-z0-9_]+)$/)" in dictionary
