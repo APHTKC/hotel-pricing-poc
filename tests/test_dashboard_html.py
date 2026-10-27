@@ -325,7 +325,7 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "No fields match the current search and output scope" in html
     assert "現在の検索条件と出力範囲に一致する項目はありません" in html
     assert ".field-tools{grid-template-columns:1fr}" in html
-    assert "@media print{.field-tools{display:none}" in html
+    assert "@media print{.field-tools,.filter-link-status{display:none}" in html
 
 
 def test_export_dictionary_filter_state_is_shareable_and_resettable():
@@ -350,7 +350,28 @@ def test_export_dictionary_filter_state_is_shareable_and_resettable():
     assert "重設篩選" in html
     assert "Reset filters" in html
     assert "絞り込みをリセット" in html
-    assert ".reset-fields{width:100%}" in html
+    assert ".reset-fields,.copy-filter-link{width:100%}" in html
+
+
+def test_export_dictionary_copies_current_filtered_link_accessibly():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'id="copyFilterLink" type="button" aria-describedby="filterLinkStatus"' in html
+    assert 'id="filterLinkStatus" role="status" aria-live="polite"' in html
+    assert "async function copyFieldFilterLink()" in html
+    assert "syncFieldFilterUrl();try" in html
+    assert "navigator.clipboard.writeText(window.location.href)" in html
+    assert "else legacyCopy(window.location.href)" in html
+    assert "document.querySelector('#filterLinkStatus').textContent=labels.linkSuccess" in html
+    assert "document.querySelector('#filterLinkStatus').textContent=labels.linkFailure" in html
+    assert "addEventListener('click',()=>schema&&copyFieldFilterLink())" in html
+    assert "document.querySelector('#copyFilterLink').textContent=labels.copyLink" in html
+    assert "複製目前篩選連結" in html
+    assert "Copy filtered link" in html
+    assert "現在の絞り込みリンクをコピー" in html
+    assert ".field-actions{display:grid;grid-template-columns:1fr}" in html
+    assert "@media print{.field-tools,.filter-link-status{display:none}" in html
+    assert "document.querySelector('#filterLinkStatus').textContent='';syncFieldFilterUrl()" in html
 
 
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
