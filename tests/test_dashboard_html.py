@@ -311,13 +311,14 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert 'id="fieldFilterStatus" role="status" aria-live="polite"' in html
     assert "function renderFields()" in html
     assert "schema.field_groups.map" in html
-    assert "schema.csv_columns[output].includes(field)" in html
+    assert "function orderedFieldsForOutput(output)" in html
+    assert "schema.csv_columns[output]" in html
     assert "Object.values(copy).flatMap(locale=>locale.groups[group.key])" in html
     assert "groupText.includes(query)" in html
     assert "field.toLocaleLowerCase().includes(query)" in html
     assert "schema.field_groups.reduce" in html
-    assert "addEventListener('input',()=>{if(!schema)return;syncFieldFilterUrl();renderFields()})" in html
-    assert "addEventListener('change',()=>{if(!schema)return;syncFieldFilterUrl();renderFields()})" in html
+    assert "addEventListener('input',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderFields()})" in html
+    assert "addEventListener('change',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderFields()})" in html
     assert "搜尋欄名或群組" in html
     assert "Search field or group" in html
     assert "項目名またはグループを検索" in html
@@ -325,7 +326,7 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "No fields match the current search and output scope" in html
     assert "現在の検索条件と出力範囲に一致する項目はありません" in html
     assert ".field-tools{grid-template-columns:1fr}" in html
-    assert "@media print{.field-tools,.filter-link-status{display:none}" in html
+    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status{display:none}" in html
 
 
 def test_export_dictionary_filter_state_is_shareable_and_resettable():
@@ -350,7 +351,7 @@ def test_export_dictionary_filter_state_is_shareable_and_resettable():
     assert "重設篩選" in html
     assert "Reset filters" in html
     assert "絞り込みをリセット" in html
-    assert ".reset-fields,.copy-filter-link{width:100%}" in html
+    assert ".reset-fields,.copy-filter-link,.copy-matching-fields{width:100%}" in html
 
 
 def test_export_dictionary_copies_current_filtered_link_accessibly():
@@ -370,8 +371,34 @@ def test_export_dictionary_copies_current_filtered_link_accessibly():
     assert "Copy filtered link" in html
     assert "現在の絞り込みリンクをコピー" in html
     assert ".field-actions{display:grid;grid-template-columns:1fr}" in html
-    assert "@media print{.field-tools,.filter-link-status{display:none}" in html
-    assert "document.querySelector('#filterLinkStatus').textContent='';syncFieldFilterUrl()" in html
+    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status{display:none}" in html
+    assert "function clearFilterActionStatus()" in html
+    assert "clearFilterActionStatus();syncFieldFilterUrl()" in html
+
+
+def test_export_dictionary_copies_matching_fields_in_schema_order():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'id="copyMatchingFields" type="button" aria-describedby="matchingCopyStatus"' in html
+    assert 'id="matchingCopyStatus" role="status" aria-live="polite"' in html
+    assert "function orderedFieldsForOutput(output)" in html
+    assert "[...new Set(output==='all'?[...schema.csv_columns.latest,...schema.csv_columns.history]:schema.csv_columns[output])]" in html
+    assert "function currentFilteredFields()" in html
+    assert "orderedFieldsForOutput(output).filter(field=>matched.has(field))" in html
+    assert "async function copyMatchingFieldNames()" in html
+    assert "if(!fields.length){status.textContent=labels.matchingEmpty;return}" in html
+    assert "const text=fields.join(',')" in html
+    assert "navigator.clipboard.writeText(text)" in html
+    assert "else legacyCopy(text)" in html
+    assert "labels.matchingSuccess.replace('{count}',fields.length)" in html
+    assert "addEventListener('click',()=>schema&&copyMatchingFieldNames())" in html
+    assert "複製符合欄名" in html
+    assert "Copy matching names" in html
+    assert "一致する項目名をコピー" in html
+    assert "目前沒有可複製的符合欄名" in html
+    assert "No matching field names to copy" in html
+    assert "コピーできる一致項目はありません" in html
+    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status{display:none}" in html
 
 
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
