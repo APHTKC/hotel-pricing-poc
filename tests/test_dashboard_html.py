@@ -318,7 +318,7 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "field.toLocaleLowerCase().includes(query)" in html
     assert "schema.field_groups.reduce" in html
     assert "addEventListener('input',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()})" in html
-    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue'])" in html
+    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue','#fieldApplicability'])" in html
     assert "addEventListener('change',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()})" in html
     assert "搜尋欄名或群組" in html
     assert "Search field or group" in html
@@ -344,7 +344,7 @@ def test_export_dictionary_filter_state_is_shareable_and_resettable():
     assert "function syncFieldFilterUrl()" in html
     assert "new URL(window.location.href)" in html
     assert "url.searchParams.set('q',query)" in html
-    assert "for(const[name,current]of[['output',output],['type',type],['value',value]])" in html
+    assert "for(const[name,current]of[['output',output],['type',type],['value',value],['applicability',applicability]])" in html
     assert "url.searchParams.set(name,current)" in html
     assert "history.replaceState(null,'',url)" in html
     assert "function resetFieldFilters()" in html
@@ -411,7 +411,7 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "function filteredSchemaSubset()" in html
     assert "export_schema_version:schema.schema_version" in html
     assert "key:'filtered_field_dictionary'" in html
-    assert "query,output,type,value,filtered_field_count:fields.length" in html
+    assert "query,output,type,value,applicability,filtered_field_count:fields.length" in html
     assert "fields,field_definitions:Object.fromEntries(fields.map" in html
     assert "field_groups:schema.field_groups.map" in html
     assert "function downloadFilteredSchemaSubset()" in html
@@ -447,15 +447,15 @@ def test_export_dictionary_filters_by_type_and_value_semantics_with_safe_urls():
     assert "value==='unknown'&&definition.unknown_allowed" in html
     assert "VALID_FIELD_TYPES.has(type)?type:'all'" in html
     assert "VALID_FIELD_VALUES.has(value)?value:'all'" in html
-    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue'])" in html
-    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue'])document.querySelector(id).value='all'" in html
+    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue','#fieldApplicability'])" in html
+    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue','#fieldApplicability'])document.querySelector(id).value='all'" in html
     assert "基本型別" in html
     assert "Base type" in html
     assert "基本型" in html
     assert "值語意" in html
     assert "Value semantics" in html
     assert "値の意味" in html
-    assert "grid-template-columns:minmax(0,2fr) repeat(3,minmax(140px,1fr))" in html
+    assert "grid-template-columns:minmax(0,2fr) repeat(4,minmax(120px,1fr))" in html
 
 
 def test_export_dictionary_shows_and_clears_individual_active_filters():
@@ -472,7 +472,7 @@ def test_export_dictionary_shows_and_clears_individual_active_filters():
     assert "labels.remove.replace('{label}',label).replace('{value}',current)" in html
     assert 'class="active-filter-all">${esc(labels.all)}</span>' in html
     assert "function clearActiveFilter(name)" in html
-    assert "const controls={q:'#fieldSearch',output:'#fieldOutput',type:'#fieldType',value:'#fieldValue'}" in html
+    assert "const controls={q:'#fieldSearch',output:'#fieldOutput',type:'#fieldType',value:'#fieldValue',applicability:'#fieldApplicability'}" in html
     assert "document.querySelector(controls[name]).value=name==='q'?'':'all'" in html
     assert "clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()" in html
     assert "event.target.closest('[data-clear-filter]')" in html
@@ -494,9 +494,8 @@ def test_export_dictionary_summarizes_filtered_output_applicability():
     assert "const applicabilityCopy=" in html
     assert "function fieldApplicabilitySummary(fields=currentFilteredFields())" in html
     assert "counts={latest_only:0,history_only:0,both:0}" in html
-    assert "if(inLatest&&inHistory)counts.both+=1" in html
-    assert "else if(inLatest)counts.latest_only+=1" in html
-    assert "else if(inHistory)counts.history_only+=1" in html
+    assert "const applicability=fieldApplicability(field)" in html
+    assert "if(applicability)counts[applicability]+=1" in html
     assert "function renderApplicabilitySummary(fields=currentFilteredFields())" in html
     assert "renderApplicabilitySummary(fields)" in html
     assert "output_applicability:fieldApplicabilitySummary(fields)" in html
@@ -505,6 +504,29 @@ def test_export_dictionary_summarizes_filtered_output_applicability():
     assert "一致項目の出力適用範囲" in html
     assert "grid-template-columns:repeat(3,minmax(0,1fr))" in html
     assert ".applicability-summary{grid-template-columns:1fr}" in html
+
+
+def test_export_dictionary_filters_by_shareable_output_applicability():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'id="fieldApplicability" aria-controls="fields"' in html
+    for applicability in ("latest_only", "history_only", "both"):
+        assert f'<option value="{applicability}"></option>' in html
+    assert "VALID_FIELD_APPLICABILITY=new Set(['all','latest_only','history_only','both'])" in html
+    assert "function fieldApplicability(field)" in html
+    assert "fieldApplicability(field)===applicability" in html
+    assert "if(applicability!=='all')filters.push(['applicability',labels.applicability,advanced[applicability]])" in html
+    assert "applicability:'#fieldApplicability'" in html
+    assert "['applicability',applicability]" in html
+    assert "VALID_FIELD_APPLICABILITY.has(applicability)?applicability:'all'" in html
+    assert "applicability,filtered_field_count:fields.length" in html
+    assert "q/output/type/value/applicability" in html
+    assert "輸出適用性" in html
+    assert "Output applicability" in html
+    assert "出力適用範囲" in html
+    assert "全部適用性" in html
+    assert "All applicability" in html
+    assert "すべての適用範囲" in html
 
 
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
