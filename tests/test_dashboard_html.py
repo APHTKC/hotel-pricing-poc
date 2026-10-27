@@ -300,6 +300,34 @@ def test_export_dictionary_shows_and_copies_ordered_csv_columns():
     assert len(schema["csv_columns"]["history"]) == 46
 
 
+def test_export_dictionary_filters_fields_by_query_and_output_scope():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'id="fieldSearch" type="search"' in html
+    assert 'id="fieldOutput" aria-controls="fields"' in html
+    assert '<option value="all"></option>' in html
+    assert '<option value="latest"></option>' in html
+    assert '<option value="history"></option>' in html
+    assert 'id="fieldFilterStatus" role="status" aria-live="polite"' in html
+    assert "function renderFields()" in html
+    assert "schema.field_groups.map" in html
+    assert "schema.csv_columns[output].includes(field)" in html
+    assert "Object.values(copy).flatMap(locale=>locale.groups[group.key])" in html
+    assert "groupText.includes(query)" in html
+    assert "field.toLocaleLowerCase().includes(query)" in html
+    assert "schema.field_groups.reduce" in html
+    assert "addEventListener('input',()=>schema&&renderFields())" in html
+    assert "addEventListener('change',()=>schema&&renderFields())" in html
+    assert "搜尋欄名或群組" in html
+    assert "Search field or group" in html
+    assert "項目名またはグループを検索" in html
+    assert "沒有符合目前搜尋與輸出範圍的欄位" in html
+    assert "No fields match the current search and output scope" in html
+    assert "現在の検索条件と出力範囲に一致する項目はありません" in html
+    assert ".field-tools{grid-template-columns:1fr}" in html
+    assert "@media print{.field-tools{display:none}" in html
+
+
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
     latest = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
