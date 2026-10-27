@@ -487,6 +487,26 @@ def test_export_dictionary_shows_and_clears_individual_active_filters():
     assert "@media print{.field-tools,.active-filters" in html
 
 
+def test_export_dictionary_summarizes_filtered_output_applicability():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'class="applicability-summary" id="applicabilitySummary" role="status" aria-live="polite"' in html
+    assert "const applicabilityCopy=" in html
+    assert "function fieldApplicabilitySummary(fields=currentFilteredFields())" in html
+    assert "counts={latest_only:0,history_only:0,both:0}" in html
+    assert "if(inLatest&&inHistory)counts.both+=1" in html
+    assert "else if(inLatest)counts.latest_only+=1" in html
+    assert "else if(inHistory)counts.history_only+=1" in html
+    assert "function renderApplicabilitySummary(fields=currentFilteredFields())" in html
+    assert "renderApplicabilitySummary(fields)" in html
+    assert "output_applicability:fieldApplicabilitySummary(fields)" in html
+    assert "符合欄位的輸出適用性" in html
+    assert "Output applicability of matching fields" in html
+    assert "一致項目の出力適用範囲" in html
+    assert "grid-template-columns:repeat(3,minmax(0,1fr))" in html
+    assert ".applicability-summary{grid-template-columns:1fr}" in html
+
+
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
     latest = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
