@@ -253,6 +253,11 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert ".field-card" in dictionary
     assert ".field-description" in dictionary
     assert "grid-template-columns:repeat(2,minmax(0,1fr))" in dictionary
+    assert "classList.add('field-dictionary-panel')" in dictionary
+    assert "@media print{.field-dictionary-panel{break-inside:auto}" in dictionary
+    assert ".field-dictionary-panel .field-group{break-inside:auto}" in dictionary
+    assert ".field-dictionary-panel .field-card{break-inside:avoid;page-break-inside:avoid}" in dictionary
+    assert ".field-dictionary-panel .field-group>h3,.field-dictionary-panel .field-group>p{break-after:avoid;page-break-after:avoid}" in dictionary
 
 
 def test_machine_readable_schema_matches_ordered_csv_columns_and_field_contracts():
