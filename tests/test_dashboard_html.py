@@ -252,6 +252,19 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "履歴 CSV" in dictionary
     assert ".field-card" in dictionary
     assert ".field-description" in dictionary
+    assert "const permalinkCopy={zh:'連結至欄位 {field}',en:'Link to field {field}',ja:'項目 {field} へのリンク'}" in dictionary
+    assert "function fieldAnchorId(field)" in dictionary
+    assert "/^[a-z0-9_]+$/.test(field)" in dictionary
+    assert "function fieldCardHtml(field)" in dictionary
+    assert 'class="field-card" id="${id}"' in dictionary
+    assert 'class="field-permalink" href="#${id}" aria-label="${esc(label)}" title="${esc(label)}"' in dictionary
+    assert "function focusInitialFieldHash()" in dictionary
+    assert "window.location.hash.match(/^#field-([a-z0-9_]+)$/)" in dictionary
+    assert "!schema.field_definitions[match[1]]" in dictionary
+    assert "card.focus({preventScroll:true})" in dictionary
+    assert "card.scrollIntoView({block:'center'})" in dictionary
+    assert ".field-card:target" in dictionary
+    assert "@media print{.field-permalink{display:none}}" in dictionary
     assert "grid-template-columns:repeat(2,minmax(0,1fr))" in dictionary
     assert "classList.add('field-dictionary-panel')" in dictionary
     assert "@media print{.field-dictionary-panel{break-inside:auto}" in dictionary
