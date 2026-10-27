@@ -267,7 +267,12 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "select.disabled=!fields.length" in dictionary
     assert "fields.includes(previous)?previous:fields.includes(hashField)?hashField:''" in dictionary
     assert "renderFieldJump(fields);focusInitialFieldHash()" in dictionary
+    assert "function focusVisibleFieldHash()" in dictionary
+    assert "!currentFilteredFields().includes(match[1])" in dictionary
+    assert "if(select)select.value=match[1]" in dictionary
+    assert "window.addEventListener('hashchange',()=>{if(focusVisibleFieldHash())initialFieldHashHandled=true})" in dictionary
     assert "function focusInitialFieldHash()" in dictionary
+    assert "if(focusVisibleFieldHash())initialFieldHashHandled=true" in dictionary
     assert "window.location.hash.match(/^#field-([a-z0-9_]+)$/)" in dictionary
     assert "!schema.field_definitions[match[1]]" in dictionary
     assert "card.focus({preventScroll:true})" in dictionary
