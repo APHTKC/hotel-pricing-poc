@@ -418,7 +418,7 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "if(!subset.fields.length){status.textContent=labels.downloadEmpty;return}" in html
     assert "new Blob([JSON.stringify(subset,null,2)+'\\n'],{type:'application/json;charset=utf-8'})" in html
     assert "URL.createObjectURL(blob)" in html
-    assert "hotel-pricing-export-fields-${subset.scope.output}.json" in html
+    assert "link.download=filteredSchemaFilename(subset.scope)" in html
     assert "setTimeout(()=>URL.revokeObjectURL(url),0)" in html
     assert "labels.downloadSuccess.replace('{count}',subset.fields.length)" in html
     assert "addEventListener('click',()=>schema&&downloadFilteredSchemaSubset())" in html
@@ -428,6 +428,22 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "目前沒有可下載的篩選欄位" in html
     assert "No filtered fields to download" in html
     assert "ダウンロードできる絞り込み項目はありません" in html
+
+
+def test_filtered_schema_subset_is_self_describing_and_uses_safe_filename_parts():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert "schema_reference:{version:schema.schema_version,url:new URL('./export-schema.json',window.location.href).href}" in html
+    assert "csv_position_semantics:{base:1,missing:null" in html
+    assert "One-based CSV column positions; null means the field is not present in that CSV output." in html
+    assert "function filteredSchemaFilename(scope)" in html
+    assert "VALID_FIELD_OUTPUTS.has(scope.output)?scope.output:'all'" in html
+    assert "VALID_FIELD_TYPES.has(scope.type)?scope.type:'all'" in html
+    assert "VALID_FIELD_VALUES.has(scope.value)?scope.value:'all'" in html
+    assert "VALID_FIELD_APPLICABILITY.has(scope.applicability)?scope.applicability:'all'" in html
+    assert "Number.isInteger(scope.filtered_field_count)&&scope.filtered_field_count>=0" in html
+    assert "hotel-pricing-export-fields-${output}-${type}-${value}-${applicability}-${count}.json" in html
+    assert "scope.query" not in html.split("function filteredSchemaFilename(scope)", 1)[1].split("function downloadFilteredSchemaSubset", 1)[0]
 
 
 def test_export_dictionary_filters_by_type_and_value_semantics_with_safe_urls():
