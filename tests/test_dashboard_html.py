@@ -244,10 +244,14 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "function fieldMeta(field)" in dictionary
     assert "definition.nullable?labels.nullable:labels.required" in dictionary
     assert "definition.unknown_allowed?labels.unknown:null" in dictionary
+    assert "function fieldDescription(field)" in dictionary
+    assert "description[lang]||description.en||''" in dictionary
+    assert 'class="field-description"' in dictionary
     assert "可為空值" in dictionary
     assert "unknown allowed" in dictionary
     assert "履歴 CSV" in dictionary
     assert ".field-card" in dictionary
+    assert ".field-description" in dictionary
     assert "grid-template-columns:repeat(2,minmax(0,1fr))" in dictionary
 
 

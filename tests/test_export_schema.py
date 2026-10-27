@@ -106,6 +106,17 @@ def test_field_definition_value_contracts(export_schema):
         assert type(definition.get("unknown_allowed")) is bool, (
             f"Field {field!r} unknown_allowed must be a boolean"
         )
+        descriptions = definition.get("description")
+        assert isinstance(descriptions, dict), (
+            f"Field {field!r} description must be an object"
+        )
+        assert set(descriptions) == {"zh", "en", "ja"}, (
+            f"Field {field!r} description locales must be zh, en, and ja"
+        )
+        for locale, text in descriptions.items():
+            assert isinstance(text, str) and text.strip(), (
+                f"Field {field!r} has an empty {locale} description"
+            )
 
 
 def test_scope_keys_are_unique_and_described(export_schema):
