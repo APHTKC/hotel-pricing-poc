@@ -317,9 +317,9 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "groupText.includes(query)" in html
     assert "field.toLocaleLowerCase().includes(query)" in html
     assert "schema.field_groups.reduce" in html
-    assert "addEventListener('input',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderFields()})" in html
+    assert "addEventListener('input',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()})" in html
     assert "for(const id of['#fieldOutput','#fieldType','#fieldValue'])" in html
-    assert "addEventListener('change',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderFields()})" in html
+    assert "addEventListener('change',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()})" in html
     assert "搜尋欄名或群組" in html
     assert "Search field or group" in html
     assert "項目名またはグループを検索" in html
@@ -327,7 +327,7 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "No fields match the current search and output scope" in html
     assert "現在の検索条件と出力範囲に一致する項目はありません" in html
     assert ".field-tools{grid-template-columns:1fr}" in html
-    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
+    assert "@media print{.field-tools,.active-filters,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
 
 
 def test_export_dictionary_filter_state_is_shareable_and_resettable():
@@ -373,7 +373,7 @@ def test_export_dictionary_copies_current_filtered_link_accessibly():
     assert "Copy filtered link" in html
     assert "現在の絞り込みリンクをコピー" in html
     assert ".field-actions{display:grid;grid-column:auto;grid-template-columns:1fr}" in html
-    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
+    assert "@media print{.field-tools,.active-filters,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
     assert "function clearFilterActionStatus()" in html
     assert "clearFilterActionStatus();syncFieldFilterUrl()" in html
 
@@ -400,7 +400,7 @@ def test_export_dictionary_copies_matching_fields_in_schema_order():
     assert "目前沒有可複製的符合欄名" in html
     assert "No matching field names to copy" in html
     assert "コピーできる一致項目はありません" in html
-    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
+    assert "@media print{.field-tools,.active-filters,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
 
 
 def test_export_dictionary_downloads_filtered_machine_readable_subset():
@@ -456,6 +456,35 @@ def test_export_dictionary_filters_by_type_and_value_semantics_with_safe_urls():
     assert "Value semantics" in html
     assert "値の意味" in html
     assert "grid-template-columns:minmax(0,2fr) repeat(3,minmax(140px,1fr))" in html
+
+
+def test_export_dictionary_shows_and_clears_individual_active_filters():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'class="active-filters" id="activeFilters"' in html
+    assert "function renderActiveFilters()" in html
+    assert "const activeFilterCopy=" in html
+    assert "if(query)filters.push(['q',labels.q,query])" in html
+    assert "if(output!=='all')filters.push(['output',labels.output,filterLabels[output]])" in html
+    assert "if(type!=='all')filters.push(['type',labels.type,advanced[type]])" in html
+    assert "if(value!=='all')filters.push(['value',labels.value,advanced[value]])" in html
+    assert 'class="active-filter-chip" type="button" data-clear-filter="${key}"' in html
+    assert "labels.remove.replace('{label}',label).replace('{value}',current)" in html
+    assert 'class="active-filter-all">${esc(labels.all)}</span>' in html
+    assert "function clearActiveFilter(name)" in html
+    assert "const controls={q:'#fieldSearch',output:'#fieldOutput',type:'#fieldType',value:'#fieldValue'}" in html
+    assert "document.querySelector(controls[name]).value=name==='q'?'':'all'" in html
+    assert "clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()" in html
+    assert "event.target.closest('[data-clear-filter]')" in html
+    assert "clearActiveFilter(button.dataset.clearFilter)" in html
+    assert "目前條件" in html
+    assert "Current filters" in html
+    assert "現在の条件" in html
+    assert "全部欄位" in html
+    assert "All fields" in html
+    assert "すべての項目" in html
+    assert ".active-filters{align-items:stretch;flex-direction:column}" in html
+    assert "@media print{.field-tools,.active-filters" in html
 
 
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
