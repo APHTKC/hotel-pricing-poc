@@ -326,7 +326,7 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "No fields match the current search and output scope" in html
     assert "現在の検索条件と出力範囲に一致する項目はありません" in html
     assert ".field-tools{grid-template-columns:1fr}" in html
-    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status{display:none}" in html
+    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
 
 
 def test_export_dictionary_filter_state_is_shareable_and_resettable():
@@ -351,7 +351,7 @@ def test_export_dictionary_filter_state_is_shareable_and_resettable():
     assert "重設篩選" in html
     assert "Reset filters" in html
     assert "絞り込みをリセット" in html
-    assert ".reset-fields,.copy-filter-link,.copy-matching-fields{width:100%}" in html
+    assert ".reset-fields,.copy-filter-link,.copy-matching-fields,.download-filtered-schema{width:100%}" in html
 
 
 def test_export_dictionary_copies_current_filtered_link_accessibly():
@@ -371,7 +371,7 @@ def test_export_dictionary_copies_current_filtered_link_accessibly():
     assert "Copy filtered link" in html
     assert "現在の絞り込みリンクをコピー" in html
     assert ".field-actions{display:grid;grid-template-columns:1fr}" in html
-    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status{display:none}" in html
+    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
     assert "function clearFilterActionStatus()" in html
     assert "clearFilterActionStatus();syncFieldFilterUrl()" in html
 
@@ -398,7 +398,34 @@ def test_export_dictionary_copies_matching_fields_in_schema_order():
     assert "目前沒有可複製的符合欄名" in html
     assert "No matching field names to copy" in html
     assert "コピーできる一致項目はありません" in html
-    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status{display:none}" in html
+    assert "@media print{.field-tools,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
+
+
+def test_export_dictionary_downloads_filtered_machine_readable_subset():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'id="downloadFilteredSchema" type="button" aria-describedby="filteredDownloadStatus"' in html
+    assert 'id="filteredDownloadStatus" role="status" aria-live="polite"' in html
+    assert "function filteredSchemaSubset()" in html
+    assert "export_schema_version:schema.schema_version" in html
+    assert "key:'filtered_field_dictionary'" in html
+    assert "query,output,filtered_field_count:fields.length" in html
+    assert "fields,field_definitions:Object.fromEntries(fields.map" in html
+    assert "field_groups:schema.field_groups.map" in html
+    assert "function downloadFilteredSchemaSubset()" in html
+    assert "if(!subset.fields.length){status.textContent=labels.downloadEmpty;return}" in html
+    assert "new Blob([JSON.stringify(subset,null,2)+'\\n'],{type:'application/json;charset=utf-8'})" in html
+    assert "URL.createObjectURL(blob)" in html
+    assert "hotel-pricing-export-fields-${subset.scope.output}.json" in html
+    assert "setTimeout(()=>URL.revokeObjectURL(url),0)" in html
+    assert "labels.downloadSuccess.replace('{count}',subset.fields.length)" in html
+    assert "addEventListener('click',()=>schema&&downloadFilteredSchemaSubset())" in html
+    assert "下載篩選欄位 JSON" in html
+    assert "Download filtered fields JSON" in html
+    assert "絞り込み項目 JSON をダウンロード" in html
+    assert "目前沒有可下載的篩選欄位" in html
+    assert "No filtered fields to download" in html
+    assert "ダウンロードできる絞り込み項目はありません" in html
 
 
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
