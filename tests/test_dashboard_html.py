@@ -320,7 +320,9 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "Object.values(copy).flatMap(locale=>locale.groups[group.key])" in html
     assert "function normalizeSearchText(value)" in html
     assert ".normalize('NFKC').toLocaleLowerCase().replace(/\\s+/g,' ').trim()" in html
-    assert "queryText?queryText.split(' '):[]" in html
+    assert "function currentSearchState()" in html
+    assert "tokens:normalized?normalized.split(' '):[]" in html
+    assert "const{tokens}=currentSearchState()" in html
     assert "[field,groupText,...Object.values(definition.description||{})].join(' ')" in html
     assert "tokens.every(token=>searchableText.includes(token))" in html
     assert "schema.field_groups.reduce" in html
@@ -333,6 +335,12 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "例如 cancellation、僅有總價、來源證據" in html
     assert "For example: cancellation, total price, source evidence" in html
     assert "例：cancellation、総額、出典証拠" in html
+    assert "可跨中英日搜尋；全形與半形視為相同，多個搜尋詞須全部符合。" in html
+    assert "Search across Chinese, English, and Japanese." in html
+    assert "中国語・英語・日本語を横断して検索できます。" in html
+    assert "help.id='fieldSearchHelp'" in html
+    assert "search.setAttribute('aria-describedby','fieldSearchHelp fieldFilterStatus')" in html
+    assert ".field-search-help" in html
     assert "Object.values(definition.description||{})" in html
     assert "沒有符合目前搜尋與輸出範圍的欄位" in html
     assert "No fields match the current search and output scope" in html
@@ -422,7 +430,11 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "function filteredSchemaSubset()" in html
     assert "export_schema_version:schema.schema_version" in html
     assert "key:'filtered_field_dictionary'" in html
-    assert "query,output,type,value,applicability,filtered_field_count:fields.length" in html
+    assert "query:search.query" in html
+    assert "search_semantics:{normalization:['unicode_nfkc','locale_lowercase','collapse_whitespace']" in html
+    assert "token_operator:'AND'" in html
+    assert "normalized_tokens:search.tokens" in html
+    assert "output,type,value,applicability,filtered_field_count:fields.length" in html
     assert "fields,field_definitions:Object.fromEntries(fields.map" in html
     assert "field_groups:schema.field_groups.map" in html
     assert "function downloadFilteredSchemaSubset()" in html
