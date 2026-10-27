@@ -529,6 +529,27 @@ def test_export_dictionary_filters_by_shareable_output_applicability():
     assert "すべての適用範囲" in html
 
 
+def test_export_dictionary_shows_csv_positions_and_exports_them_in_subsets():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+    schema = json.loads(Path("public/export-schema.json").read_text(encoding="utf-8"))
+
+    assert "function csvPositions(field)" in html
+    assert "schema.csv_columns.latest.indexOf(field)" in html
+    assert "schema.csv_columns.history.indexOf(field)" in html
+    assert "latest:latestIndex<0?null:latestIndex+1" in html
+    assert "history:historyIndex<0?null:historyIndex+1" in html
+    assert "labels.latest.replace('{position}',positions.latest)" in html
+    assert "labels.history.replace('{position}',positions.history)" in html
+    assert "csv_positions:Object.fromEntries(fields.map(field=>[field,csvPositions(field)]))" in html
+    assert "最新 CSV #{position}" in html
+    assert "Latest CSV #{position}" in html
+    assert "履歴 CSV #{position}" in html
+    assert schema["csv_columns"]["latest"][0] == "hotel_name_display"
+    assert schema["csv_columns"]["latest"][-1] == "source_url"
+    assert schema["csv_columns"]["history"][0] == "queried_at"
+    assert schema["csv_columns"]["history"][-1] == "source_url"
+
+
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
     latest = Path("public/index.html").read_text(encoding="utf-8")
     history = Path("public/history.html").read_text(encoding="utf-8")
