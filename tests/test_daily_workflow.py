@@ -12,6 +12,14 @@ def test_daily_workflow_avoids_top_of_hour_schedule() -> None:
     assert 'cron: "0 22 * * *"' not in workflow
 
 
+def test_daily_workflow_allows_release_validation_to_finish() -> None:
+    workflow = WORKFLOW.read_text(encoding="utf-8")
+
+    assert "timeout-minutes: 45" in workflow
+    assert "timeout-minutes: 30" not in workflow
+    assert "enough room to save" in workflow
+
+
 def test_daily_workflow_rebases_before_generating_dashboard_shards() -> None:
     workflow = WORKFLOW.read_text(encoding="utf-8")
 

@@ -20,7 +20,10 @@ concurrency:
 jobs:
   collect-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Collection plus the two full release gates can exceed 30 minutes as the
+    # active-hotel set grows. Keep a bounded ceiling, with enough room to save
+    # verified source and generated artifacts after the second pytest run.
+    timeout-minutes: 45
     env:
       # Daily official and OTA collectors belong to one publication batch.
       # Include run_attempt so a manual rerun cannot merge with the first try.
