@@ -318,8 +318,11 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "function orderedFieldsForOutput(output)" in html
     assert "schema.csv_columns[output]" in html
     assert "Object.values(copy).flatMap(locale=>locale.groups[group.key])" in html
-    assert "groupText.includes(query)" in html
-    assert "field.toLocaleLowerCase().includes(query)" in html
+    assert "function normalizeSearchText(value)" in html
+    assert ".normalize('NFKC').toLocaleLowerCase().replace(/\\s+/g,' ').trim()" in html
+    assert "queryText?queryText.split(' '):[]" in html
+    assert "[field,groupText,...Object.values(definition.description||{})].join(' ')" in html
+    assert "tokens.every(token=>searchableText.includes(token))" in html
     assert "schema.field_groups.reduce" in html
     assert "addEventListener('input',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()})" in html
     assert "for(const id of['#fieldOutput','#fieldType','#fieldValue','#fieldApplicability'])" in html
@@ -330,8 +333,7 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "例如 cancellation、僅有總價、來源證據" in html
     assert "For example: cancellation, total price, source evidence" in html
     assert "例：cancellation、総額、出典証拠" in html
-    assert "Object.values(definition.description||{}).join(' ')" in html
-    assert "descriptionText.includes(query)" in html
+    assert "Object.values(definition.description||{})" in html
     assert "沒有符合目前搜尋與輸出範圍的欄位" in html
     assert "No fields match the current search and output scope" in html
     assert "現在の検索条件と出力範囲に一致する項目はありません" in html
