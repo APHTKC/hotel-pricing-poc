@@ -132,3 +132,10 @@ def test_scope_keys_are_unique_and_described(export_schema):
         assert isinstance(scope.get("applies_to"), str) and scope["applies_to"].strip(), (
             f"Scope {scope['key']!r} has an invalid applies_to description"
         )
+
+
+def test_search_examples_exist_in_each_tax_description_locale(export_schema):
+    descriptions = export_schema["field_definitions"]["tax_inclusion"]["description"]
+    assert "僅有總價" in descriptions["zh"]
+    assert "total price" in descriptions["en"]
+    assert "総額" in descriptions["ja"]

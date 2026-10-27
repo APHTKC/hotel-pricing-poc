@@ -324,9 +324,14 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "addEventListener('input',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()})" in html
     assert "for(const id of['#fieldOutput','#fieldType','#fieldValue','#fieldApplicability'])" in html
     assert "addEventListener('change',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()})" in html
-    assert "搜尋欄名或群組" in html
-    assert "Search field or group" in html
-    assert "項目名またはグループを検索" in html
+    assert "搜尋欄名、說明或群組" in html
+    assert "Search field, description, or group" in html
+    assert "項目名・説明・グループを検索" in html
+    assert "例如 cancellation、僅有總價、來源證據" in html
+    assert "For example: cancellation, total price, source evidence" in html
+    assert "例：cancellation、総額、出典証拠" in html
+    assert "Object.values(definition.description||{}).join(' ')" in html
+    assert "descriptionText.includes(query)" in html
     assert "沒有符合目前搜尋與輸出範圍的欄位" in html
     assert "No fields match the current search and output scope" in html
     assert "現在の検索条件と出力範囲に一致する項目はありません" in html
