@@ -318,6 +318,7 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "field.toLocaleLowerCase().includes(query)" in html
     assert "schema.field_groups.reduce" in html
     assert "addEventListener('input',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderFields()})" in html
+    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue'])" in html
     assert "addEventListener('change',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderFields()})" in html
     assert "搜尋欄名或群組" in html
     assert "Search field or group" in html
@@ -343,7 +344,8 @@ def test_export_dictionary_filter_state_is_shareable_and_resettable():
     assert "function syncFieldFilterUrl()" in html
     assert "new URL(window.location.href)" in html
     assert "url.searchParams.set('q',query)" in html
-    assert "url.searchParams.set('output',output)" in html
+    assert "for(const[name,current]of[['output',output],['type',type],['value',value]])" in html
+    assert "url.searchParams.set(name,current)" in html
     assert "history.replaceState(null,'',url)" in html
     assert "function resetFieldFilters()" in html
     assert "document.querySelector('#fieldSearch').focus()" in html
@@ -370,7 +372,7 @@ def test_export_dictionary_copies_current_filtered_link_accessibly():
     assert "複製目前篩選連結" in html
     assert "Copy filtered link" in html
     assert "現在の絞り込みリンクをコピー" in html
-    assert ".field-actions{display:grid;grid-template-columns:1fr}" in html
+    assert ".field-actions{display:grid;grid-column:auto;grid-template-columns:1fr}" in html
     assert "@media print{.field-tools,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
     assert "function clearFilterActionStatus()" in html
     assert "clearFilterActionStatus();syncFieldFilterUrl()" in html
@@ -409,7 +411,7 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "function filteredSchemaSubset()" in html
     assert "export_schema_version:schema.schema_version" in html
     assert "key:'filtered_field_dictionary'" in html
-    assert "query,output,filtered_field_count:fields.length" in html
+    assert "query,output,type,value,filtered_field_count:fields.length" in html
     assert "fields,field_definitions:Object.fromEntries(fields.map" in html
     assert "field_groups:schema.field_groups.map" in html
     assert "function downloadFilteredSchemaSubset()" in html
@@ -426,6 +428,34 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "目前沒有可下載的篩選欄位" in html
     assert "No filtered fields to download" in html
     assert "ダウンロードできる絞り込み項目はありません" in html
+
+
+def test_export_dictionary_filters_by_type_and_value_semantics_with_safe_urls():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'id="fieldType" aria-controls="fields"' in html
+    assert 'id="fieldValue" aria-controls="fields"' in html
+    for field_type in ("string", "date", "datetime", "integer", "number", "boolean"):
+        assert f'<option value="{field_type}"></option>' in html
+    for value_mode in ("required", "nullable", "unknown"):
+        assert f'<option value="{value_mode}"></option>' in html
+    assert "VALID_FIELD_TYPES=new Set(['all','string','date','datetime','integer','number','boolean'])" in html
+    assert "VALID_FIELD_VALUES=new Set(['all','required','nullable','unknown'])" in html
+    assert "typeMatch=type==='all'||definition.type===type" in html
+    assert "value==='required'&&!definition.nullable" in html
+    assert "value==='nullable'&&definition.nullable" in html
+    assert "value==='unknown'&&definition.unknown_allowed" in html
+    assert "VALID_FIELD_TYPES.has(type)?type:'all'" in html
+    assert "VALID_FIELD_VALUES.has(value)?value:'all'" in html
+    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue'])" in html
+    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue'])document.querySelector(id).value='all'" in html
+    assert "基本型別" in html
+    assert "Base type" in html
+    assert "基本型" in html
+    assert "值語意" in html
+    assert "Value semantics" in html
+    assert "値の意味" in html
+    assert "grid-template-columns:minmax(0,2fr) repeat(3,minmax(140px,1fr))" in html
 
 
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
