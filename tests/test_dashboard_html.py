@@ -316,8 +316,8 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "groupText.includes(query)" in html
     assert "field.toLocaleLowerCase().includes(query)" in html
     assert "schema.field_groups.reduce" in html
-    assert "addEventListener('input',()=>schema&&renderFields())" in html
-    assert "addEventListener('change',()=>schema&&renderFields())" in html
+    assert "addEventListener('input',()=>{if(!schema)return;syncFieldFilterUrl();renderFields()})" in html
+    assert "addEventListener('change',()=>{if(!schema)return;syncFieldFilterUrl();renderFields()})" in html
     assert "搜尋欄名或群組" in html
     assert "Search field or group" in html
     assert "項目名またはグループを検索" in html
@@ -326,6 +326,31 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "現在の検索条件と出力範囲に一致する項目はありません" in html
     assert ".field-tools{grid-template-columns:1fr}" in html
     assert "@media print{.field-tools{display:none}" in html
+
+
+def test_export_dictionary_filter_state_is_shareable_and_resettable():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'id="fieldSearch" type="search" maxlength="120"' in html
+    assert 'id="resetFields" type="button"' in html
+    assert "const FIELD_QUERY_LIMIT=120" in html
+    assert "VALID_FIELD_OUTPUTS=new Set(['all','latest','history'])" in html
+    assert "function restoreFieldFilters()" in html
+    assert "new URLSearchParams(window.location.search)" in html
+    assert "query.length<=FIELD_QUERY_LIMIT?query:''" in html
+    assert "VALID_FIELD_OUTPUTS.has(output)?output:'all'" in html
+    assert "function syncFieldFilterUrl()" in html
+    assert "new URL(window.location.href)" in html
+    assert "url.searchParams.set('q',query)" in html
+    assert "url.searchParams.set('output',output)" in html
+    assert "history.replaceState(null,'',url)" in html
+    assert "function resetFieldFilters()" in html
+    assert "document.querySelector('#fieldSearch').focus()" in html
+    assert "restoreFieldFilters();fetch('./export-schema.json')" in html
+    assert "重設篩選" in html
+    assert "Reset filters" in html
+    assert "絞り込みをリセット" in html
+    assert ".reset-fields{width:100%}" in html
 
 
 def test_latest_and_history_json_exports_reference_machine_readable_schema():
