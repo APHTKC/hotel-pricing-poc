@@ -715,9 +715,9 @@
   ],
   "actionable_latest_strict_metadata_gaps": [],
   "strict_metadata_review_coverage": {
-    "registry_entries": 48,
+    "registry_entries": 47,
     "matched_entries": 47,
-    "stale_entries": 1
+    "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
     {

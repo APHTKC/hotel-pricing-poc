@@ -74,6 +74,7 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
                 "cancellation_class",
                 "cancellation_deadline",
                 "tax_inclusion",
+                "room_size",
             }
         ),
     ) in missing_sets
