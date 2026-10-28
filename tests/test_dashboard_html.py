@@ -240,11 +240,24 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
         "single_field_definition",
     }
     assert "item.description?.[lang]||item.description?.en||''" in dictionary
+    assert "schema.scope_semantics.categories[item.category]?.[lang]" in dictionary
+    assert "schema.scope_semantics.contains_hotel_rate_rows[String(item.contains_hotel_rate_rows)]?.[lang]" in dictionary
+    assert 'class="scope-kind"' in dictionary
     assert "t.scope[item.key]" not in dictionary
     assert "derivedScopeCopy" not in dictionary
     for key in ("filtered_field_dictionary", "single_field_definition"):
         descriptions = next(scope for scope in schema["scopes"] if scope["key"] == key)["description"]
         assert all(descriptions[locale] for locale in ("zh", "en", "ja"))
+    assert schema["scope_semantics"]["categories"]["rate_rows"] == {
+        "zh": "房價明細列",
+        "en": "Hotel-rate rows",
+        "ja": "ホテル料金明細行",
+    }
+    assert schema["scope_semantics"]["contains_hotel_rate_rows"]["false"] == {
+        "zh": "不含飯店房價資料列",
+        "en": "Does not contain hotel-rate rows",
+        "ja": "ホテル料金行を含まない",
+    }
     fields = {field for group in schema["field_groups"] for field in group["fields"]}
     assert {"strict_parity_eligible", "comparison_key", "display_currency", "source_url"} <= fields
     assert schema["authoritative_source"] == "JSONL"

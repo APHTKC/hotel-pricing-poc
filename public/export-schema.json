@@ -4,13 +4,25 @@
   "authoritative_source": "JSONL",
   "analytics_mirror": "Parquet (rebuildable)",
   "scopes": [
-    {"key": "latest_filtered_rows", "applies_to": "latest JSON rates", "description": {"zh": "最新批次中符合目前篩選條件的明細列；不是完整歷史倉庫。", "en": "Rows from the latest batch after current filters; not the full historical warehouse.", "ja": "最新バッチに現在の絞り込みを適用した明細行。全履歴ウェアハウスではありません。"}},
-    {"key": "selected_month_hotel_details", "applies_to": "history JSON rates", "description": {"zh": "所選月份、飯店與目前篩選條件的明細列。", "en": "Detail rows for the selected month and hotel after current filters.", "ja": "選択した月・ホテルに現在の絞り込みを適用した明細行。"}},
-    {"key": "weekly_digest", "applies_to": "history JSON weekly_digest", "description": {"zh": "全歷史預先彙總週報，不受目前明細篩選影響。", "en": "Preaggregated digest for all history; unaffected by detail filters.", "ja": "全履歴の事前集計済み週次ダイジェスト。明細絞り込みの対象外です。"}},
-    {"key": "warehouse_all_history", "applies_to": "history JSON warehouse_snapshot", "description": {"zh": "全歷史倉庫品質快照，不是 rates 明細。", "en": "Quality snapshot for the full historical warehouse; not rate details.", "ja": "全履歴ウェアハウスの品質スナップショット。料金明細ではありません。"}},
-    {"key": "filtered_field_dictionary", "applies_to": "schema-derived filtered field dictionary JSON; not hotel-rate rows", "description": {"zh": "依目前欄位條件產生的 schema 衍生資料字典；不是飯店房價資料列。", "en": "Schema-derived field dictionary for the current field filters; not hotel-rate rows.", "ja": "現在の項目絞り込みから生成する schema 派生データ辞書。ホテル料金行ではありません。"}},
-    {"key": "single_field_definition", "applies_to": "schema-derived single-field definition JSON; not hotel-rate rows", "description": {"zh": "單一欄位的 schema 衍生定義；不是飯店房價資料列。", "en": "Schema-derived definition for one field; not hotel-rate rows.", "ja": "1項目の schema 派生定義。ホテル料金行ではありません。"}}
+    {"key": "latest_filtered_rows", "category": "rate_rows", "contains_hotel_rate_rows": true, "applies_to": "latest JSON rates", "description": {"zh": "最新批次中符合目前篩選條件的明細列；不是完整歷史倉庫。", "en": "Rows from the latest batch after current filters; not the full historical warehouse.", "ja": "最新バッチに現在の絞り込みを適用した明細行。全履歴ウェアハウスではありません。"}},
+    {"key": "selected_month_hotel_details", "category": "rate_rows", "contains_hotel_rate_rows": true, "applies_to": "history JSON rates", "description": {"zh": "所選月份、飯店與目前篩選條件的明細列。", "en": "Detail rows for the selected month and hotel after current filters.", "ja": "選択した月・ホテルに現在の絞り込みを適用した明細行。"}},
+    {"key": "weekly_digest", "category": "preaggregated_summary", "contains_hotel_rate_rows": false, "applies_to": "history JSON weekly_digest", "description": {"zh": "全歷史預先彙總週報，不受目前明細篩選影響。", "en": "Preaggregated digest for all history; unaffected by detail filters.", "ja": "全履歴の事前集計済み週次ダイジェスト。明細絞り込みの対象外です。"}},
+    {"key": "warehouse_all_history", "category": "warehouse_snapshot", "contains_hotel_rate_rows": false, "applies_to": "history JSON warehouse_snapshot", "description": {"zh": "全歷史倉庫品質快照，不是 rates 明細。", "en": "Quality snapshot for the full historical warehouse; not rate details.", "ja": "全履歴ウェアハウスの品質スナップショット。料金明細ではありません。"}},
+    {"key": "filtered_field_dictionary", "category": "schema_view", "contains_hotel_rate_rows": false, "applies_to": "schema-derived filtered field dictionary JSON; not hotel-rate rows", "description": {"zh": "依目前欄位條件產生的 schema 衍生資料字典；不是飯店房價資料列。", "en": "Schema-derived field dictionary for the current field filters; not hotel-rate rows.", "ja": "現在の項目絞り込みから生成する schema 派生データ辞書。ホテル料金行ではありません。"}},
+    {"key": "single_field_definition", "category": "schema_view", "contains_hotel_rate_rows": false, "applies_to": "schema-derived single-field definition JSON; not hotel-rate rows", "description": {"zh": "單一欄位的 schema 衍生定義；不是飯店房價資料列。", "en": "Schema-derived definition for one field; not hotel-rate rows.", "ja": "1項目の schema 派生定義。ホテル料金行ではありません。"}}
   ],
+  "scope_semantics": {
+    "categories": {
+      "rate_rows": {"zh": "房價明細列", "en": "Hotel-rate rows", "ja": "ホテル料金明細行"},
+      "preaggregated_summary": {"zh": "預先彙總摘要", "en": "Preaggregated summary", "ja": "事前集計サマリー"},
+      "warehouse_snapshot": {"zh": "倉庫品質快照", "en": "Warehouse quality snapshot", "ja": "ウェアハウス品質スナップショット"},
+      "schema_view": {"zh": "Schema 衍生檢視", "en": "Schema-derived view", "ja": "Schema 派生ビュー"}
+    },
+    "contains_hotel_rate_rows": {
+      "true": {"zh": "包含飯店房價資料列", "en": "Contains hotel-rate rows", "ja": "ホテル料金行を含む"},
+      "false": {"zh": "不含飯店房價資料列", "en": "Does not contain hotel-rate rows", "ja": "ホテル料金行を含まない"}
+    }
+  },
   "value_semantics": {
     "null": "Source has no verifiable value; exported as an empty CSV cell.",
     "unknown": "Explicit unknown category; not false, zero, or omitted.",

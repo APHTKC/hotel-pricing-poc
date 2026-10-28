@@ -9,6 +9,12 @@ import pytest
 
 SCHEMA_PATH = Path("public/export-schema.json")
 ALLOWED_FIELD_TYPES = {"string", "date", "datetime", "integer", "number", "boolean"}
+ALLOWED_SCOPE_CATEGORIES = {
+    "rate_rows",
+    "preaggregated_summary",
+    "warehouse_snapshot",
+    "schema_view",
+}
 
 
 @pytest.fixture(scope="module")
@@ -132,6 +138,16 @@ def test_scope_keys_are_unique_and_described(export_schema):
         assert isinstance(scope.get("applies_to"), str) and scope["applies_to"].strip(), (
             f"Scope {scope['key']!r} has an invalid applies_to description"
         )
+        assert scope.get("category") in ALLOWED_SCOPE_CATEGORIES, (
+            f"Scope {scope['key']!r} has invalid category {scope.get('category')!r}"
+        )
+        assert isinstance(scope.get("contains_hotel_rate_rows"), bool), (
+            f"Scope {scope['key']!r} contains_hotel_rate_rows must be boolean"
+        )
+        if scope["category"] == "rate_rows":
+            assert scope["contains_hotel_rate_rows"] is True
+        else:
+            assert scope["contains_hotel_rate_rows"] is False
         descriptions = scope.get("description")
         assert isinstance(descriptions, dict), (
             f"Scope {scope['key']!r} description must be an object"
@@ -145,6 +161,16 @@ def test_scope_keys_are_unique_and_described(export_schema):
             )
 
     assert {"filtered_field_dictionary", "single_field_definition"} <= set(scope_keys)
+
+    semantics = export_schema["scope_semantics"]
+    assert set(semantics["categories"]) == ALLOWED_SCOPE_CATEGORIES
+    assert set(semantics["contains_hotel_rate_rows"]) == {"true", "false"}
+    for labels in [
+        *semantics["categories"].values(),
+        *semantics["contains_hotel_rate_rows"].values(),
+    ]:
+        assert set(labels) == {"zh", "en", "ja"}
+        assert all(isinstance(text, str) and text.strip() for text in labels.values())
 
 
 def test_dictionary_payload_scopes_are_registered(export_schema):
