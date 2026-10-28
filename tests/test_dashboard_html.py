@@ -334,6 +334,9 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "const fieldDefinitionCopy={zh:{label:'複製欄位 {field} 定義 JSON'" in dictionary
     assert "en:{label:'Copy definition JSON for field {field}'" in dictionary
     assert "ja:{label:'項目 {field} の定義 JSON をコピー'" in dictionary
+    assert "const fieldDefinitionDownload={zh:{label:'下載欄位 {field} 定義 JSON'" in dictionary
+    assert "en:{label:'Download definition JSON for field {field}'" in dictionary
+    assert "ja:{label:'項目 {field} の定義 JSON をダウンロード'" in dictionary
     assert "const jumpCopy={zh:{label:'跳至欄位',placeholder:'不指定欄位'},en:{label:'Jump to field',placeholder:'No field selected'},ja:{label:'項目へ移動',placeholder:'項目を指定しない'}}" in dictionary
     assert "function fieldAnchorId(field)" in dictionary
     assert "/^[a-z0-9_]+$/.test(field)" in dictionary
@@ -342,6 +345,7 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert 'class="field-permalink" href="#${id}" aria-label="${esc(label)}" title="${esc(label)}"' in dictionary
     assert 'data-copy-field-link="${esc(field)}" aria-label="${esc(copyLabel)}" title="${esc(copyLabel)}"' in dictionary
     assert 'data-copy-field-definition="${esc(field)}" aria-label="${esc(definitionLabel)}" title="${esc(definitionLabel)}"' in dictionary
+    assert 'data-download-field-definition="${esc(field)}"' in dictionary
     assert "function ensureFieldLinkCopyStatus()" in dictionary
     assert "status.setAttribute('role','status')" in dictionary
     assert "status.setAttribute('aria-live','polite')" in dictionary
@@ -357,7 +361,17 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "async function copyFieldDefinition(field)" in dictionary
     assert "JSON.stringify(payload,null,2)+'\\n'" in dictionary
     assert "else legacyCopy(text)" in dictionary
+    assert "function ensureFieldDefinitionDownloadStatus()" in dictionary
+    assert "function fieldDefinitionFilename(field)" in dictionary
+    assert "fieldAnchorId(field)&&schema.field_definitions[field]?`hotel-pricing-export-field-${field}.json`:null" in dictionary
+    assert "function downloadFieldDefinition(field)" in dictionary
+    assert "const payload=singleFieldDefinition(field),filename=fieldDefinitionFilename(field)" in dictionary
+    assert "if(!payload||!filename)return" in dictionary
+    assert "link.download=filename" in dictionary
+    assert "setTimeout(()=>URL.revokeObjectURL(url),0)" in dictionary
     assert "document.querySelector('#fields').addEventListener('click'" in dictionary
+    assert "downloadFieldDefinition(downloadButton.dataset.downloadFieldDefinition)" in dictionary
+    assert "@media print{.field-definition-download,.field-definition-download-status{display:none}}" in dictionary
     assert "function ensureFieldJumpControl()" in dictionary
     assert "event.target.value?jumpToField(event.target.value):clearFieldJump()" in dictionary
     assert "function clearFieldJump()" in dictionary
