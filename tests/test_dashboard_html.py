@@ -668,6 +668,13 @@ def test_export_dictionary_previews_the_canonical_filtered_share_link():
     assert "preview.setAttribute('role','status')" in html
     assert "preview.setAttribute('aria-live','polite')" in html
     assert "preview.setAttribute('aria-atomic','true')" in html
+    assert "preview.setAttribute('aria-labelledby','filterLinkPreviewTitle')" in html
+    assert "preview.setAttribute('aria-describedby','filterLinkPreviewState')" in html
+    assert "title.id='filterLinkPreviewTitle'" in html
+    assert "url.id='filterLinkPreviewUrl'" in html
+    assert "url.setAttribute('aria-hidden','true')" in html
+    assert "state.id='filterLinkPreviewState'" in html
+    assert "preview.append(title,url,state)" in html
     assert "button.setAttribute('aria-describedby','filterLinkPreview filterLinkStatus')" in html
     assert "function renderFilterLinkPreview()" in html
     assert "canonicalUrl=syncFieldFilterUrl()" in preview
@@ -675,7 +682,11 @@ def test_export_dictionary_previews_the_canonical_filtered_share_link():
     assert "buttonTemplate=count===1&&labels.buttonReadyOne?labels.buttonReadyOne:labels.buttonReady" in preview
     assert "button.setAttribute('aria-label',buttonLabel)" in preview
     assert "button.title=buttonLabel" in preview
-    assert '<code aria-hidden="true">${esc(canonicalUrl)}</code>' in preview
+    assert "preview.querySelector('#filterLinkPreviewTitle').textContent=labels.title" in preview
+    assert "preview.querySelector('#filterLinkPreviewUrl').textContent=canonicalUrl" in preview
+    assert "preview.querySelector('#filterLinkPreviewState').textContent=count?readyTemplate.replace('{count}',count):labels.empty" in preview
+    assert "preview.innerHTML" not in preview
+    assert "preview.setAttribute('aria-label'" not in preview
     assert "renderFilterLinkPreview();renderFilteredFieldActions()" in html
     assert "history.replaceState(null,'',url);return url.href" in html
     assert ".filter-link-preview code{min-width:0;overflow-wrap:anywhere;word-break:break-word}" in html
