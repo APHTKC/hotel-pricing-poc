@@ -253,12 +253,24 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert ".field-card" in dictionary
     assert ".field-description" in dictionary
     assert "const permalinkCopy={zh:'連結至欄位 {field}',en:'Link to field {field}',ja:'項目 {field} へのリンク'}" in dictionary
+    assert "const fieldLinkCopy={zh:{label:'複製欄位 {field} 連結'" in dictionary
+    assert "en:{label:'Copy link to field {field}'" in dictionary
+    assert "ja:{label:'項目 {field} のリンクをコピー'" in dictionary
     assert "const jumpCopy={zh:{label:'跳至欄位',placeholder:'不指定欄位'},en:{label:'Jump to field',placeholder:'No field selected'},ja:{label:'項目へ移動',placeholder:'項目を指定しない'}}" in dictionary
     assert "function fieldAnchorId(field)" in dictionary
     assert "/^[a-z0-9_]+$/.test(field)" in dictionary
     assert "function fieldCardHtml(field)" in dictionary
     assert 'class="field-card" id="${id}"' in dictionary
     assert 'class="field-permalink" href="#${id}" aria-label="${esc(label)}" title="${esc(label)}"' in dictionary
+    assert 'data-copy-field-link="${esc(field)}" aria-label="${esc(copyLabel)}" title="${esc(copyLabel)}"' in dictionary
+    assert "function ensureFieldLinkCopyStatus()" in dictionary
+    assert "status.setAttribute('role','status')" in dictionary
+    assert "status.setAttribute('aria-live','polite')" in dictionary
+    assert "async function copyFieldLink(field)" in dictionary
+    assert "if(!id||!schema.field_definitions[field])return" in dictionary
+    assert "navigator.clipboard.writeText(url.href)" in dictionary
+    assert "else legacyCopy(url.href)" in dictionary
+    assert "document.querySelector('#fields').addEventListener('click'" in dictionary
     assert "function ensureFieldJumpControl()" in dictionary
     assert "event.target.value?jumpToField(event.target.value):clearFieldJump()" in dictionary
     assert "function clearFieldJump()" in dictionary
@@ -283,7 +295,7 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "card.focus({preventScroll:true})" in dictionary
     assert "card.scrollIntoView({block:'center'})" in dictionary
     assert ".field-card:target" in dictionary
-    assert "@media print{.field-permalink{display:none}}" in dictionary
+    assert "@media print{.field-permalink,.field-link-copy,.field-link-copy-status{display:none}}" in dictionary
     assert "@media print{.field-jump{display:none}}" in dictionary
     assert "@media(max-width:720px){.field-jump{align-items:stretch;flex-direction:column}" in dictionary
     assert "grid-template-columns:repeat(2,minmax(0,1fr))" in dictionary
