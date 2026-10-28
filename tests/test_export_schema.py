@@ -67,6 +67,18 @@ def test_field_groups_are_unique_complete_and_non_overlapping(export_schema):
 
     memberships = defaultdict(list)
     for group in groups:
+        for property_name in ("label", "description"):
+            localized = group.get(property_name)
+            assert isinstance(localized, dict), (
+                f"field_group {group['key']!r} {property_name} must be an object"
+            )
+            assert set(localized) == {"zh", "en", "ja"}, (
+                f"field_group {group['key']!r} {property_name} locales must be zh, en, and ja"
+            )
+            for locale, text in localized.items():
+                assert isinstance(text, str) and text.strip(), (
+                    f"field_group {group['key']!r} has an empty {locale} {property_name}"
+                )
         fields = group["fields"]
         duplicates = duplicate_values(fields)
         assert not duplicates, (

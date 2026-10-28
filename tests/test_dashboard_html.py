@@ -321,6 +321,11 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "definition.unknown_allowed?labels.unknown:null" in dictionary
     assert "function fieldDescription(field)" in dictionary
     assert "description[lang]||description.en||''" in dictionary
+    assert "function groupText(group,kind)" in dictionary
+    assert "values[lang]||values.en||group?.key||''" in dictionary
+    assert "groupText(group,'label')" in dictionary
+    assert "groupText(group,'description')" in dictionary
+    assert "copy[lang].groups" not in dictionary
     assert 'class="field-description"' in dictionary
     assert "可為空值" in dictionary
     assert "unknown allowed" in dictionary
@@ -356,6 +361,7 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "function singleFieldDefinition(field)" in dictionary
     assert "scope:{key:'single_field_definition',field}" in dictionary
     assert "group_key:group.key" in dictionary
+    assert "field_group:{key:group.key,label:group.label,description:group.description}" in dictionary
     assert "csv_positions:csvPositions(field)" in dictionary
     assert "permalink:permalink.href" in dictionary
     assert "async function copyFieldDefinition(field)" in dictionary
@@ -469,13 +475,14 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "schema.field_groups.map" in html
     assert "function orderedFieldsForOutput(output)" in html
     assert "schema.csv_columns[output]" in html
-    assert "Object.values(copy).flatMap(locale=>locale.groups[group.key])" in html
+    assert "[...Object.values(group.label||{}),...Object.values(group.description||{})].join(' ')" in html
+    assert "locale.groups[group.key]" not in html
     assert "function normalizeSearchText(value)" in html
     assert ".normalize('NFKC').toLocaleLowerCase().replace(/\\s+/g,' ').trim()" in html
     assert "function currentSearchState()" in html
     assert "tokens:normalized?normalized.split(' '):[]" in html
     assert "const{tokens}=currentSearchState()" in html
-    assert "[field,groupText,...Object.values(definition.description||{})].join(' ')" in html
+    assert "[field,searchableGroupText,...Object.values(definition.description||{})].join(' ')" in html
     assert "tokens.every(token=>searchableText.includes(token))" in html
     assert "schema.field_groups.reduce" in html
     assert "addEventListener('input',()=>{if(!schema)return;clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()})" in html
@@ -615,6 +622,7 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "output,type,value,applicability,filtered_field_count:fields.length" in html
     assert "fields,field_definitions:Object.fromEntries(fields.map" in html
     assert "field_groups:schema.field_groups.map" in html
+    assert "label:group.label,description:group.description" in html
     assert "function downloadFilteredSchemaSubset()" in html
     assert "if(!subset.fields.length){status.textContent=labels.downloadEmpty;return}" in html
     assert "new Blob([JSON.stringify(subset,null,2)+'\\n'],{type:'application/json;charset=utf-8'})" in html

@@ -88,12 +88,12 @@
     "source_url": {"type": "string", "nullable": false, "unknown_allowed": false, "description": {"zh": "保存為證據的 HTTPS 來源網址。", "en": "HTTPS source URL preserved as evidence.", "ja": "証拠として保持する HTTPS ソース URL。"}}
   },
   "field_groups": [
-    {"key": "identity", "fields": ["queried_at", "scheduled_for", "run_id", "hotel_id", "hotel_name_display", "city", "district"]},
-    {"key": "stay", "fields": ["stay_date", "check_in", "check_out", "nights", "lead_days", "rooms", "adults", "children"]},
-    {"key": "room", "fields": ["room_type_code", "room_name", "room_type_name", "stable_room_type_id", "room_size_sqm"]},
-    {"key": "terms", "fields": ["rate_plan", "rate_plan_name", "breakfast", "breakfast_included", "tax_inclusion", "cancellation", "cancellation_policy", "cancellation_class", "cancellation_deadline"]},
-    {"key": "strict", "fields": ["comparison_status", "strict_parity_eligible", "comparison_key"]},
-    {"key": "price", "fields": ["price_before_tax", "service_charge", "tax", "total_price", "currency", "total_twd", "nightly_adr_twd", "price_per_sqm", "display_currency", "display_total", "display_nightly_adr", "display_price_per_sqm"]},
-    {"key": "source", "fields": ["source_platform", "source_method", "source_property_id", "source_url"]}
+    {"key": "identity", "label": {"zh": "識別與查價批次", "en": "Identity and query batch", "ja": "識別・検索バッチ"}, "description": {"zh": "飯店、地理位置、查價時間與 run_id。", "en": "Hotel, geography, query time, and run_id.", "ja": "ホテル、地域、検索時刻、run_id。"}, "fields": ["queried_at", "scheduled_for", "run_id", "hotel_id", "hotel_name_display", "city", "district"]},
+    {"key": "stay", "label": {"zh": "入住條件", "en": "Stay criteria", "ja": "宿泊条件"}, "description": {"zh": "入住日期、晚數、提前天數與人數。", "en": "Stay dates, nights, lead time, and occupancy.", "ja": "宿泊日、泊数、リードタイム、人数。"}, "fields": ["stay_date", "check_in", "check_out", "nights", "lead_days", "rooms", "adults", "children"]},
+    {"key": "room", "label": {"zh": "房型", "en": "Room", "ja": "客室"}, "description": {"zh": "來源房型代碼、穩定 ID、名稱與單一房型面積。", "en": "Source room code, stable ID, names, and single-room area.", "ja": "ソース客室コード、安定 ID、名称、1室あたり面積。"}, "fields": ["room_type_code", "room_name", "room_type_name", "stable_room_type_id", "room_size_sqm"]},
+    {"key": "terms", "label": {"zh": "商品條款", "en": "Product terms", "ja": "商品条件"}, "description": {"zh": "方案、早餐、稅費與取消條款；沒有證據時維持 null／unknown。", "en": "Rate plan, breakfast, tax, and cancellation; null/unknown without evidence.", "ja": "プラン、朝食、税、キャンセル。証拠がなければ null／unknown。"}, "fields": ["rate_plan", "rate_plan_name", "breakfast", "breakfast_included", "tax_inclusion", "cancellation", "cancellation_policy", "cancellation_class", "cancellation_deadline"]},
+    {"key": "strict", "label": {"zh": "Strict 比較", "en": "Strict comparison", "ja": "Strict 比較"}, "description": {"zh": "比較狀態、完整 canonical key 與 eligibility。", "en": "Comparison status, complete canonical key, and eligibility.", "ja": "比較状態、完全な canonical key、eligibility。"}, "fields": ["comparison_status", "strict_parity_eligible", "comparison_key"]},
+    {"key": "price", "label": {"zh": "價格與幣別", "en": "Price and currency", "ja": "料金・通貨"}, "description": {"zh": "來源價格拆項、TWD 正規化值與畫面幣別換算值。", "en": "Source price components, normalized TWD values, and display-currency values.", "ja": "ソース料金内訳、TWD 正規化値、表示通貨換算値。"}, "fields": ["price_before_tax", "service_charge", "tax", "total_price", "currency", "total_twd", "nightly_adr_twd", "price_per_sqm", "display_currency", "display_total", "display_nightly_adr", "display_price_per_sqm"]},
+    {"key": "source", "label": {"zh": "來源證據", "en": "Source evidence", "ja": "出典証拠"}, "description": {"zh": "平台、擷取方法、來源 property ID 與 HTTPS URL。", "en": "Platform, collection method, property ID, and HTTPS URL.", "ja": "プラットフォーム、収集方法、property ID、HTTPS URL。"}, "fields": ["source_platform", "source_method", "source_property_id", "source_url"]}
   ]
 }
