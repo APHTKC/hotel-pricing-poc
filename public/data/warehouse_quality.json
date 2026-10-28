@@ -713,23 +713,10 @@
       }
     }
   ],
-  "actionable_latest_strict_metadata_gaps": [
-    {
-      "hotel_id": "taipei_garden_hotel",
-      "source_platform": "official",
-      "rows": 6,
-      "latest_queried_at": "2026-10-28 01:51:11.249874",
-      "missing_fields": {
-        "breakfast_included": 6,
-        "cancellation_class": 6,
-        "cancellation_deadline": 6,
-        "tax_inclusion": 6
-      }
-    }
-  ],
+  "actionable_latest_strict_metadata_gaps": [],
   "strict_metadata_review_coverage": {
-    "registry_entries": 47,
-    "matched_entries": 47,
+    "registry_entries": 48,
+    "matched_entries": 48,
     "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
@@ -1425,6 +1412,24 @@
         "https://rsv.okura.com/?Hotel=56124&Chain=9542&arrive=2026-10-27&depart=2026-10-28&adult=2&child=0&rooms=1&currency=TWD&productcurrency=TWD&locale=en-US&level=hotel&config=EXCLTAX&theme=OHSBE&themecode=OHSBE&src=ohm"
       ],
       "review_note": "官方 Okura 日期頁無法由既有讀取工具存取；2026-10-26 最新批次 107 筆中有 24 筆未保存商品層級取消文字，涉及 BEST AVAILABLE RATE 與 ADVANCE 35 的特定日期／房型，早餐、稅費及房型面積均完整。即使同批其他同名方案已有 3 天或 10 天條款，也不得跨商品推定這 24 筆的取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "official",
+      "rows": 6,
+      "latest_queried_at": "2026-10-28 01:51:11.249874",
+      "missing_fields": {
+        "breakfast_included": 6,
+        "cancellation_class": 6,
+        "cancellation_deadline": 6,
+        "tax_inclusion": 6
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-28",
+      "review_evidence_urls": [
+        "https://redirect.fastbooking.com/DIRECTORY/preresa.phtml?style=DIRECT&Hotelnames=ASIATWHTLTGarden&rate=Best-Available-Rate&FirstRoomName=Premier-Triple&FSTBKNGTrackLink=quotation&FirstDate=261029%3B1%3B2%3B0%3B0&CurrencyLabel=TWD&accessCode="
+      ],
+      "review_note": "2026-10-28 官方 FastBooking 新批次 6 筆 Premier Double／Premier Triple／Premier Family 的 Best Available Rate 均已有來源面積 22㎡或 25㎡，但全數沒有商品層級早餐、取消條款、價前／服務費／稅額拆項或含稅／未稅標籤；一次低成本重新核實該精確日期頁回傳 HTTP 403。不得沿用其他日期、房型、方案或 OTA 欄位推定，四項 metadata 維持 unknown。來源流程或此精確缺欄組合變更前不重試。"
     }
   ]
 }
