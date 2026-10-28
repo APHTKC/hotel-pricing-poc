@@ -132,6 +132,17 @@ def test_scope_keys_are_unique_and_described(export_schema):
         assert isinstance(scope.get("applies_to"), str) and scope["applies_to"].strip(), (
             f"Scope {scope['key']!r} has an invalid applies_to description"
         )
+        descriptions = scope.get("description")
+        assert isinstance(descriptions, dict), (
+            f"Scope {scope['key']!r} description must be an object"
+        )
+        assert set(descriptions) == {"zh", "en", "ja"}, (
+            f"Scope {scope['key']!r} description locales must be zh, en, and ja"
+        )
+        for locale, text in descriptions.items():
+            assert isinstance(text, str) and text.strip(), (
+                f"Scope {scope['key']!r} has an empty {locale} description"
+            )
 
     assert {"filtered_field_dictionary", "single_field_definition"} <= set(scope_keys)
 
