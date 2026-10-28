@@ -540,21 +540,30 @@ def test_export_dictionary_filters_by_schema_registered_field_group():
     assert "group:'欄位群組',groupAll:'全部群組'" in html
     assert "group:'Field group',groupAll:'All groups'" in html
     assert "group:'項目グループ',groupAll:'すべてのグループ'" in html
+    assert "groupCount:'{label} · {count} 欄'" in html
+    assert "groupCount:'{label} · {count} fields'" in html
+    assert "groupCount:'{label} · {count}項目'" in html
     assert "function ensureFieldGroupControl()" in html
     assert 'id="fieldGroup" aria-controls="fields"' in html
+    assert "function fieldGroupContract(key)" in html
+    assert "function selectedFieldGroupContract(key)" in html
+    assert "field_count:group.fields.length" in html
+    assert "function fieldGroupOptionText(group)" in html
     assert "function renderFieldGroupOptions()" in html
     assert "schema.field_groups.map(group=>`<option" in html
-    assert "groupText(group,'label')" in html
-    assert "select.value=schema.field_groups.some(group=>group.key===selected)?selected:'all'" in html
+    assert "fieldGroupOptionText(group)" in html
+    assert "select.value=fieldGroupContract(selected)?selected:'all'" in html
     assert "groupControl.dataset.requested=group" in html
     assert "schema.field_groups.some(item=>item.key===group)?group:'all'" not in html
     assert "selectedGroup=ensureFieldGroupControl().value" in html
     assert "if(selectedGroup!=='all'&&group.key!==selectedGroup)continue" in html
-    assert "['group',labels.group,groupText(contract,'label')]" in html
+    assert "['group',labels.group,fieldGroupOptionText(contract)]" in html
     assert "group:'#fieldGroup'" in html
     assert "['output',output],['group',group]" in html
     assert "group=ensureFieldGroupControl().value" in html
-    assert "output,group,type,value,applicability,filtered_field_count:fields.length" in html
+    assert "selectedGroupContract=selectedFieldGroupContract(group)" in html
+    assert "output,group,selected_group_contract:selectedGroupContract,type,value,applicability,filtered_field_count:fields.length" in html
+    assert "fields:group.fields.filter(field=>fieldSet.has(field))" in html
     assert "#fieldOutput','#fieldGroup','#fieldType" in html
     assert "repeat(5,minmax(120px,1fr))" in html
     assert "@media(max-width:720px){.field-tools{grid-template-columns:1fr}}" in html
@@ -645,7 +654,7 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "search_semantics:{normalization:['unicode_nfkc','locale_lowercase','collapse_whitespace']" in html
     assert "token_operator:'AND'" in html
     assert "normalized_tokens:search.tokens" in html
-    assert "output,group,type,value,applicability,filtered_field_count:fields.length" in html
+    assert "output,group,selected_group_contract:selectedGroupContract,type,value,applicability,filtered_field_count:fields.length" in html
     assert "fields,field_definitions:Object.fromEntries(fields.map" in html
     assert "field_groups:schema.field_groups.map" in html
     assert "label:group.label,description:group.description" in html
