@@ -577,17 +577,32 @@ def test_export_dictionary_summarizes_selected_field_group_without_conflating_co
     assert "ja:{title:'選択グループの概要'" in html
     assert "allDescription:'目前顯示所有欄位群組。'" in html
     assert "selectedResult:'群組共 {total} 欄 · 其他條件後符合 {matched} 欄'" in html
-    assert "selectedResult:'{total} fields in group · {matched} match after other filters'" in html
+    assert "allResult:'Matching current filters: {matched}'" in html
+    assert "selectedResult:'{total} in group · Matching after other filters: {matched}'" in html
     assert "selectedResult:'グループ全体 {total}項目 · 他の条件適用後 {matched}項目'" in html
     assert "function ensureSelectedGroupSummary()" in html
     assert "container.setAttribute('role','status')" in html
     assert "container.setAttribute('aria-live','polite')" in html
+    assert "container.setAttribute('aria-atomic','true')" in html
+    assert "container.setAttribute('aria-labelledby','selectedGroupSummaryName')" in html
+    assert "container.setAttribute('aria-describedby','selectedGroupSummaryResult selectedGroupSummaryDescription')" in html
+    assert "name.id='selectedGroupSummaryName'" in html
+    assert "result.id='selectedGroupSummaryResult'" in html
+    assert "description.id='selectedGroupSummaryDescription'" in html
+    assert "container.append(name,result,description)" in html
     assert "document.querySelector('#activeFilters').after(container)" in html
+    assert "function summaryFieldCount(count){return lang==='en'?`${count} ${count===1?'field':'fields'}`:String(count)}" in html
     assert "function renderSelectedGroupSummary(fields=currentFilteredFields())" in html
     assert "contract=selectedFieldGroupContract(ensureFieldGroupControl().value)" in html
-    assert "labels.allResult.replace('{matched}',fields.length)" in html
-    assert "labels.selectedResult.replace('{total}',contract.field_count).replace('{matched}',fields.length)" in html
+    assert "matched=summaryFieldCount(fields.length)" in html
+    assert "result.textContent=labels.allResult.replace('{matched}',matched)" in html
+    assert "labels.selectedResult.replace('{total}',summaryFieldCount(contract.field_count)).replace('{matched}',matched)" in html
     assert "groupText(contract,'description')" in html
+    selected_render = html.split("function renderSelectedGroupSummary", 1)[1].split(
+        "function safeFilenameFieldGroup", 1
+    )[0]
+    assert "container.innerHTML" not in selected_render
+    assert "container.setAttribute('aria-label'" not in selected_render
     assert "renderSelectedGroupSummary(fields);renderApplicabilitySummary(fields)" in html
     assert "selected_group_contract:selectedGroupContract,selected_group_result_count:fields.length" in html
     assert ".selected-group-summary{display:grid" in html
@@ -905,6 +920,9 @@ def test_export_dictionary_shows_and_clears_individual_active_filters():
 
 def test_export_dictionary_summarizes_filtered_output_applicability():
     html = Path("public/export-schema.html").read_text(encoding="utf-8")
+    applicability_render = html.split("function renderApplicabilitySummary", 1)[1].split(
+        "function renderActiveFilters", 1
+    )[0]
 
     assert 'class="applicability-summary" id="applicabilitySummary" role="status" aria-live="polite"' in html
     assert "const applicabilityCopy=" in html
@@ -912,7 +930,20 @@ def test_export_dictionary_summarizes_filtered_output_applicability():
     assert "counts={latest_only:0,history_only:0,both:0}" in html
     assert "const applicability=fieldApplicability(field)" in html
     assert "if(applicability)counts[applicability]+=1" in html
+    assert "function ensureApplicabilitySummary()" in html
+    assert "container.setAttribute('aria-atomic','true')" in html
+    assert "container.setAttribute('aria-labelledby','applicabilitySummaryTitle')" in html
+    assert "container.setAttribute('aria-describedby','applicabilityLatestOnly applicabilityHistoryOnly applicabilityBoth')" in html
+    assert "title.id='applicabilitySummaryTitle'" in html
+    assert "item.dataset.applicability=key" in html
+    assert "label.dataset.applicabilityLabel=key" in html
+    assert "count.dataset.applicabilityCount=key" in html
     assert "function renderApplicabilitySummary(fields=currentFilteredFields())" in html
+    assert "container.querySelector('#applicabilitySummaryTitle').textContent=labels.title" in html
+    assert "container.querySelector(`[data-applicability-label=\"${key}\"]`).textContent=label" in html
+    assert "container.querySelector(`[data-applicability-count=\"${key}\"]`).textContent=counts[key]" in html
+    assert "container.innerHTML" not in applicability_render
+    assert "container.setAttribute('aria-label'" not in applicability_render
     assert "renderApplicabilitySummary(fields)" in html
     assert "output_applicability:fieldApplicabilitySummary(fields)" in html
     assert "符合欄位的輸出適用性" in html
