@@ -266,6 +266,9 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "const scopeDefinitionCopy={zh:{label:'複製資料範圍 {scope} 定義 JSON'" in dictionary
     assert "en:{label:'Copy definition JSON for data scope {scope}'" in dictionary
     assert "ja:{label:'データ範囲 {scope} の定義 JSON をコピー'" in dictionary
+    assert "const scopeDefinitionDownload={zh:{label:'下載資料範圍 {scope} 定義 JSON'" in dictionary
+    assert "en:{label:'Download definition JSON for data scope {scope}'" in dictionary
+    assert "ja:{label:'データ範囲 {scope} の定義 JSON をダウンロード'" in dictionary
     assert "function scopeAnchorId(key)" in dictionary
     assert "/^[a-z0-9_]+$/.test(key)&&schema?.scopes.some(item=>item.key===key)" in dictionary
     assert "function scopeCardHtml(item)" in dictionary
@@ -273,8 +276,10 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert 'class="scope-permalink" href="#${id}"' in dictionary
     assert 'data-copy-scope-link="${esc(item.key)}"' in dictionary
     assert 'data-copy-scope-definition="${esc(item.key)}"' in dictionary
+    assert 'data-download-scope-definition="${esc(item.key)}"' in dictionary
     assert "function ensureScopeLinkCopyStatus()" in dictionary
     assert "function ensureScopeDefinitionCopyStatus()" in dictionary
+    assert "function ensureScopeDefinitionDownloadStatus()" in dictionary
     assert "async function copyScopeLink(key)" in dictionary
     assert "url.hash=id" in dictionary
     assert "navigator.clipboard.writeText(url.href)" in dictionary
@@ -286,6 +291,14 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "contains_hotel_rate_rows_labels:schema.scope_semantics.contains_hotel_rate_rows[String(contract.contains_hotel_rate_rows)]" in dictionary
     assert "async function copyScopeDefinition(key)" in dictionary
     assert "JSON.stringify(payload,null,2)+'\\n'" in dictionary
+    assert "function scopeDefinitionFilename(key)" in dictionary
+    assert "scopeAnchorId(key)?`hotel-pricing-export-scope-${key}.json`:null" in dictionary
+    assert "function downloadScopeDefinition(key)" in dictionary
+    assert "const payload=singleScopeDefinition(key),filename=scopeDefinitionFilename(key)" in dictionary
+    assert "if(!payload||!filename)return" in dictionary
+    assert "URL.createObjectURL(blob)" in dictionary
+    assert "link.download=filename" in dictionary
+    assert "setTimeout(()=>URL.revokeObjectURL(url),0)" in dictionary
     assert "function focusScopeHash()" in dictionary
     assert "window.location.hash.match(/^#scope-([a-z0-9_]+)$/)" in dictionary
     assert "function focusInitialScopeHash()" in dictionary
@@ -294,6 +307,8 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "schema.scopes.map(scopeCardHtml).join('')" in dictionary
     assert "document.querySelector('#scopes').addEventListener('click'" in dictionary
     assert "copyScopeDefinition(definitionButton.dataset.copyScopeDefinition)" in dictionary
+    assert "downloadScopeDefinition(downloadButton.dataset.downloadScopeDefinition)" in dictionary
+    assert ".scope-definition-download-status{display:none}" in dictionary
     assert "window.addEventListener('hashchange',handleSchemaHashChange)" in dictionary
     assert ".scope:target" in dictionary
     assert "@media print{.scope-actions,.scope-link-copy-status{display:none}}" in dictionary
