@@ -706,13 +706,18 @@ def test_filtered_schema_subset_is_self_describing_and_uses_safe_filename_parts(
     assert "schema_reference:{version:schema.schema_version,url:new URL('./export-schema.json',window.location.href).href}" in html
     assert "csv_position_semantics:{base:1,missing:null" in html
     assert "One-based CSV column positions; null means the field is not present in that CSV output." in html
+    assert "function safeFilenameFieldGroup(value)" in html
+    assert "value==='all'?'all'" in html
+    assert "/^[a-z0-9_]+$/.test(value)&&fieldGroupContract(value)?value:'all'" in html
     assert "function filteredSchemaFilename(scope)" in html
     assert "VALID_FIELD_OUTPUTS.has(scope.output)?scope.output:'all'" in html
+    assert "group=safeFilenameFieldGroup(scope.group)" in html
     assert "VALID_FIELD_TYPES.has(scope.type)?scope.type:'all'" in html
     assert "VALID_FIELD_VALUES.has(scope.value)?scope.value:'all'" in html
     assert "VALID_FIELD_APPLICABILITY.has(scope.applicability)?scope.applicability:'all'" in html
     assert "Number.isInteger(scope.filtered_field_count)&&scope.filtered_field_count>=0" in html
-    assert "hotel-pricing-export-fields-${output}-${type}-${value}-${applicability}-${count}.json" in html
+    assert "hotel-pricing-export-fields-${output}-${group}-${type}-${value}-${applicability}-${count}.json" in html
+    assert "hotel-pricing-export-fields-${output}-${type}-${value}-${applicability}-${count}.json" not in html
     assert "scope.query" not in html.split("function filteredSchemaFilename(scope)", 1)[1].split("function downloadFilteredSchemaSubset", 1)[0]
 
 
