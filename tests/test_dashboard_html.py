@@ -562,11 +562,37 @@ def test_export_dictionary_filters_by_schema_registered_field_group():
     assert "['output',output],['group',group]" in html
     assert "group=ensureFieldGroupControl().value" in html
     assert "selectedGroupContract=selectedFieldGroupContract(group)" in html
-    assert "output,group,selected_group_contract:selectedGroupContract,type,value,applicability,filtered_field_count:fields.length" in html
+    assert "output,group,selected_group_contract:selectedGroupContract,selected_group_result_count:fields.length,type,value,applicability,filtered_field_count:fields.length" in html
     assert "fields:group.fields.filter(field=>fieldSet.has(field))" in html
     assert "#fieldOutput','#fieldGroup','#fieldType" in html
     assert "repeat(5,minmax(120px,1fr))" in html
     assert "@media(max-width:720px){.field-tools{grid-template-columns:1fr}}" in html
+
+
+def test_export_dictionary_summarizes_selected_field_group_without_conflating_counts():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert "const selectedGroupSummaryCopy={zh:{title:'所選群組摘要'" in html
+    assert "en:{title:'Selected group summary'" in html
+    assert "ja:{title:'選択グループの概要'" in html
+    assert "allDescription:'目前顯示所有欄位群組。'" in html
+    assert "selectedResult:'群組共 {total} 欄 · 其他條件後符合 {matched} 欄'" in html
+    assert "selectedResult:'{total} fields in group · {matched} match after other filters'" in html
+    assert "selectedResult:'グループ全体 {total}項目 · 他の条件適用後 {matched}項目'" in html
+    assert "function ensureSelectedGroupSummary()" in html
+    assert "container.setAttribute('role','status')" in html
+    assert "container.setAttribute('aria-live','polite')" in html
+    assert "document.querySelector('#activeFilters').after(container)" in html
+    assert "function renderSelectedGroupSummary(fields=currentFilteredFields())" in html
+    assert "contract=selectedFieldGroupContract(ensureFieldGroupControl().value)" in html
+    assert "labels.allResult.replace('{matched}',fields.length)" in html
+    assert "labels.selectedResult.replace('{total}',contract.field_count).replace('{matched}',fields.length)" in html
+    assert "groupText(contract,'description')" in html
+    assert "renderSelectedGroupSummary(fields);renderApplicabilitySummary(fields)" in html
+    assert "selected_group_contract:selectedGroupContract,selected_group_result_count:fields.length" in html
+    assert ".selected-group-summary{display:grid" in html
+    assert "@media(max-width:720px){.selected-group-summary{grid-template-columns:1fr}" in html
+    assert "@media print{.selected-group-summary{break-inside:avoid}}" in html
 
 
 def test_export_dictionary_filter_state_is_shareable_and_resettable():
@@ -654,7 +680,7 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "search_semantics:{normalization:['unicode_nfkc','locale_lowercase','collapse_whitespace']" in html
     assert "token_operator:'AND'" in html
     assert "normalized_tokens:search.tokens" in html
-    assert "output,group,selected_group_contract:selectedGroupContract,type,value,applicability,filtered_field_count:fields.length" in html
+    assert "output,group,selected_group_contract:selectedGroupContract,selected_group_result_count:fields.length,type,value,applicability,filtered_field_count:fields.length" in html
     assert "fields,field_definitions:Object.fromEntries(fields.map" in html
     assert "field_groups:schema.field_groups.map" in html
     assert "label:group.label,description:group.description" in html
