@@ -657,6 +657,8 @@ def test_export_dictionary_previews_the_canonical_filtered_share_link():
     assert "empty:'絞り込み条件なし。クリーンなページリンクを共有します'" in html
     assert "buttonReady:'複製目前篩選連結（{count} 個條件）'" in html
     assert "buttonReady:'Copy filtered link ({count} filters)'" in html
+    assert "readyOne:'1 filter active'" in html
+    assert "buttonReadyOne:'Copy filtered link (1 filter)'" in html
     assert "buttonReady:'現在の絞り込みリンクをコピー（{count}件）'" in html
     assert "function activeFieldFilterCount()" in html
     assert "Number(Boolean(query))+values.filter(value=>value!=='all').length" in html
@@ -665,12 +667,15 @@ def test_export_dictionary_previews_the_canonical_filtered_share_link():
     assert "preview.className='filter-link-preview'" in html
     assert "preview.setAttribute('role','status')" in html
     assert "preview.setAttribute('aria-live','polite')" in html
+    assert "preview.setAttribute('aria-atomic','true')" in html
     assert "button.setAttribute('aria-describedby','filterLinkPreview filterLinkStatus')" in html
     assert "function renderFilterLinkPreview()" in html
     assert "canonicalUrl=syncFieldFilterUrl()" in preview
+    assert "readyTemplate=count===1&&labels.readyOne?labels.readyOne:labels.ready" in preview
+    assert "buttonTemplate=count===1&&labels.buttonReadyOne?labels.buttonReadyOne:labels.buttonReady" in preview
     assert "button.setAttribute('aria-label',buttonLabel)" in preview
     assert "button.title=buttonLabel" in preview
-    assert "<code>${esc(canonicalUrl)}</code>" in preview
+    assert '<code aria-hidden="true">${esc(canonicalUrl)}</code>' in preview
     assert "renderFilterLinkPreview();renderFilteredFieldActions()" in html
     assert "history.replaceState(null,'',url);return url.href" in html
     assert ".filter-link-preview code{min-width:0;overflow-wrap:anywhere;word-break:break-word}" in html
