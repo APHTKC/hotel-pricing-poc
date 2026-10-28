@@ -501,6 +501,32 @@ def test_export_dictionary_filters_fields_by_query_and_output_scope():
     assert "@media print{.field-tools,.active-filters,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
 
 
+def test_export_dictionary_explains_card_action_symbols_from_one_trilingual_source():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert 'id="scopeActionLegend"' in html
+    assert 'id="fieldActionLegend"' in html
+    assert "const actionLegendCopy={zh:{title:'卡片動作'" in html
+    assert "en:{title:'Card actions'" in html
+    assert "ja:{title:'カード操作'" in html
+    assert "deepLink:'深層連結'" in html
+    assert "copyLink:'Copy link'" in html
+    assert "copyDefinition:'定義 JSON をコピー'" in html
+    assert "downloadDefinition:'下載定義 JSON'" in html
+    assert "function actionLegendHtml()" in html
+    assert "['#',labels.deepLink]" in html
+    assert "['⧉',labels.copyLink]" in html
+    assert "['{ }',labels.copyDefinition]" in html
+    assert "['⇩',labels.downloadDefinition]" in html
+    assert 'ul aria-label="${esc(labels.title)}"' in html
+    assert "function renderActionLegends()" in html
+    assert "document.querySelector('#scopeActionLegend').innerHTML=html" in html
+    assert "document.querySelector('#fieldActionLegend').innerHTML=html" in html
+    assert "renderActionLegends();document.querySelector('#scopes')" in html
+    assert "@media(max-width:720px){.action-legend ul{display:grid;grid-template-columns:1fr}" in html
+    assert "@media print{.action-legend{display:none}}" in html
+
+
 def test_export_dictionary_filter_state_is_shareable_and_resettable():
     html = Path("public/export-schema.html").read_text(encoding="utf-8")
 
