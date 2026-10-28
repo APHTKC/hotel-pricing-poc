@@ -258,6 +258,31 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
         "en": "Does not contain hotel-rate rows",
         "ja": "ホテル料金行を含まない",
     }
+    assert "const scopePermalinkCopy={zh:'連結至資料範圍 {scope}'" in dictionary
+    assert "en:'Link to data scope {scope}'" in dictionary
+    assert "ja:'データ範囲 {scope} へのリンク'" in dictionary
+    assert "const scopeLinkCopy={zh:{label:'複製資料範圍 {scope} 連結'" in dictionary
+    assert "function scopeAnchorId(key)" in dictionary
+    assert "/^[a-z0-9_]+$/.test(key)&&schema?.scopes.some(item=>item.key===key)" in dictionary
+    assert "function scopeCardHtml(item)" in dictionary
+    assert 'class="scope" id="${id}"' in dictionary
+    assert 'class="scope-permalink" href="#${id}"' in dictionary
+    assert 'data-copy-scope-link="${esc(item.key)}"' in dictionary
+    assert "function ensureScopeLinkCopyStatus()" in dictionary
+    assert "async function copyScopeLink(key)" in dictionary
+    assert "url.hash=id" in dictionary
+    assert "navigator.clipboard.writeText(url.href)" in dictionary
+    assert "else legacyCopy(url.href)" in dictionary
+    assert "function focusScopeHash()" in dictionary
+    assert "window.location.hash.match(/^#scope-([a-z0-9_]+)$/)" in dictionary
+    assert "function focusInitialScopeHash()" in dictionary
+    assert "function handleSchemaHashChange()" in dictionary
+    assert "if(focusScopeHash()){initialScopeHashHandled=true;return}handleFieldHashChange()" in dictionary
+    assert "schema.scopes.map(scopeCardHtml).join('')" in dictionary
+    assert "document.querySelector('#scopes').addEventListener('click'" in dictionary
+    assert "window.addEventListener('hashchange',handleSchemaHashChange)" in dictionary
+    assert ".scope:target" in dictionary
+    assert "@media print{.scope-actions,.scope-link-copy-status{display:none}}" in dictionary
     fields = {field for group in schema["field_groups"] for field in group["fields"]}
     assert {"strict_parity_eligible", "comparison_key", "display_currency", "source_url"} <= fields
     assert schema["authoritative_source"] == "JSONL"
@@ -320,7 +345,7 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "if(select)select.value=match[1]" in dictionary
     assert "function handleFieldHashChange()" in dictionary
     assert "if(!window.location.hash)" in dictionary
-    assert "window.addEventListener('hashchange',handleFieldHashChange)" in dictionary
+    assert "window.addEventListener('hashchange',handleSchemaHashChange)" in dictionary
     assert "function focusInitialFieldHash()" in dictionary
     assert "if(focusVisibleFieldHash())initialFieldHashHandled=true" in dictionary
     assert "window.location.hash.match(/^#field-([a-z0-9_]+)$/)" in dictionary
