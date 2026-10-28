@@ -627,9 +627,9 @@ def test_export_dictionary_copies_current_filtered_link_accessibly():
     assert 'id="copyFilterLink" type="button" aria-describedby="filterLinkStatus"' in html
     assert 'id="filterLinkStatus" role="status" aria-live="polite"' in html
     assert "async function copyFieldFilterLink()" in html
-    assert "syncFieldFilterUrl();try" in html
-    assert "navigator.clipboard.writeText(window.location.href)" in html
-    assert "else legacyCopy(window.location.href)" in html
+    assert "canonicalUrl=syncFieldFilterUrl();try" in html
+    assert "navigator.clipboard.writeText(canonicalUrl)" in html
+    assert "else legacyCopy(canonicalUrl)" in html
     assert "document.querySelector('#filterLinkStatus').textContent=labels.linkSuccess" in html
     assert "document.querySelector('#filterLinkStatus').textContent=labels.linkFailure" in html
     assert "addEventListener('click',()=>schema&&copyFieldFilterLink())" in html
@@ -641,6 +641,41 @@ def test_export_dictionary_copies_current_filtered_link_accessibly():
     assert "@media print{.field-tools,.active-filters,.filter-link-status,.matching-copy-status,.filtered-download-status{display:none}" in html
     assert "function clearFilterActionStatus()" in html
     assert "clearFilterActionStatus();syncFieldFilterUrl()" in html
+
+
+def test_export_dictionary_previews_the_canonical_filtered_share_link():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+    preview = html.split("function renderFilterLinkPreview()", 1)[1].split(
+        "async function copyFieldFilterLink", 1
+    )[0]
+
+    assert "const filterLinkPreviewCopy={zh:{title:'目前分享連結'" in html
+    assert "en:{title:'Current share link'" in html
+    assert "ja:{title:'現在の共有リンク'" in html
+    assert "empty:'未啟用篩選條件，將分享乾淨頁面連結'" in html
+    assert "empty:'No filters active; the clean page link will be shared'" in html
+    assert "empty:'絞り込み条件なし。クリーンなページリンクを共有します'" in html
+    assert "buttonReady:'複製目前篩選連結（{count} 個條件）'" in html
+    assert "buttonReady:'Copy filtered link ({count} filters)'" in html
+    assert "buttonReady:'現在の絞り込みリンクをコピー（{count}件）'" in html
+    assert "function activeFieldFilterCount()" in html
+    assert "Number(Boolean(query))+values.filter(value=>value!=='all').length" in html
+    assert "function ensureFilterLinkPreview()" in html
+    assert "preview.id='filterLinkPreview'" in html
+    assert "preview.className='filter-link-preview'" in html
+    assert "preview.setAttribute('role','status')" in html
+    assert "preview.setAttribute('aria-live','polite')" in html
+    assert "button.setAttribute('aria-describedby','filterLinkPreview filterLinkStatus')" in html
+    assert "function renderFilterLinkPreview()" in html
+    assert "canonicalUrl=syncFieldFilterUrl()" in preview
+    assert "button.setAttribute('aria-label',buttonLabel)" in preview
+    assert "button.title=buttonLabel" in preview
+    assert "<code>${esc(canonicalUrl)}</code>" in preview
+    assert "renderFilterLinkPreview();renderFilteredFieldActions()" in html
+    assert "history.replaceState(null,'',url);return url.href" in html
+    assert ".filter-link-preview code{min-width:0;overflow-wrap:anywhere;word-break:break-word}" in html
+    assert "@media(max-width:720px){.filter-link-preview{grid-template-columns:1fr}}" in html
+    assert "@media print{.filter-link-preview{display:none}}" in html
 
 
 def test_export_dictionary_copies_matching_fields_in_schema_order():
