@@ -238,6 +238,7 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
         "warehouse_all_history",
         "filtered_field_dictionary",
         "single_field_definition",
+        "single_scope_definition",
     }
     assert "item.description?.[lang]||item.description?.en||''" in dictionary
     assert "schema.scope_semantics.categories[item.category]?.[lang]" in dictionary
@@ -245,7 +246,7 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert 'class="scope-kind"' in dictionary
     assert "t.scope[item.key]" not in dictionary
     assert "derivedScopeCopy" not in dictionary
-    for key in ("filtered_field_dictionary", "single_field_definition"):
+    for key in ("filtered_field_dictionary", "single_field_definition", "single_scope_definition"):
         descriptions = next(scope for scope in schema["scopes"] if scope["key"] == key)["description"]
         assert all(descriptions[locale] for locale in ("zh", "en", "ja"))
     assert schema["scope_semantics"]["categories"]["rate_rows"] == {
@@ -262,17 +263,29 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "en:'Link to data scope {scope}'" in dictionary
     assert "ja:'データ範囲 {scope} へのリンク'" in dictionary
     assert "const scopeLinkCopy={zh:{label:'複製資料範圍 {scope} 連結'" in dictionary
+    assert "const scopeDefinitionCopy={zh:{label:'複製資料範圍 {scope} 定義 JSON'" in dictionary
+    assert "en:{label:'Copy definition JSON for data scope {scope}'" in dictionary
+    assert "ja:{label:'データ範囲 {scope} の定義 JSON をコピー'" in dictionary
     assert "function scopeAnchorId(key)" in dictionary
     assert "/^[a-z0-9_]+$/.test(key)&&schema?.scopes.some(item=>item.key===key)" in dictionary
     assert "function scopeCardHtml(item)" in dictionary
     assert 'class="scope" id="${id}"' in dictionary
     assert 'class="scope-permalink" href="#${id}"' in dictionary
     assert 'data-copy-scope-link="${esc(item.key)}"' in dictionary
+    assert 'data-copy-scope-definition="${esc(item.key)}"' in dictionary
     assert "function ensureScopeLinkCopyStatus()" in dictionary
+    assert "function ensureScopeDefinitionCopyStatus()" in dictionary
     assert "async function copyScopeLink(key)" in dictionary
     assert "url.hash=id" in dictionary
     assert "navigator.clipboard.writeText(url.href)" in dictionary
     assert "else legacyCopy(url.href)" in dictionary
+    assert "function singleScopeDefinition(key)" in dictionary
+    assert "scope:{key:'single_scope_definition',registered_scope:key}" in dictionary
+    assert "registered_scope:contract" in dictionary
+    assert "category_labels:schema.scope_semantics.categories[contract.category]" in dictionary
+    assert "contains_hotel_rate_rows_labels:schema.scope_semantics.contains_hotel_rate_rows[String(contract.contains_hotel_rate_rows)]" in dictionary
+    assert "async function copyScopeDefinition(key)" in dictionary
+    assert "JSON.stringify(payload,null,2)+'\\n'" in dictionary
     assert "function focusScopeHash()" in dictionary
     assert "window.location.hash.match(/^#scope-([a-z0-9_]+)$/)" in dictionary
     assert "function focusInitialScopeHash()" in dictionary
@@ -280,6 +293,7 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
     assert "if(focusScopeHash()){initialScopeHashHandled=true;return}handleFieldHashChange()" in dictionary
     assert "schema.scopes.map(scopeCardHtml).join('')" in dictionary
     assert "document.querySelector('#scopes').addEventListener('click'" in dictionary
+    assert "copyScopeDefinition(definitionButton.dataset.copyScopeDefinition)" in dictionary
     assert "window.addEventListener('hashchange',handleSchemaHashChange)" in dictionary
     assert ".scope:target" in dictionary
     assert "@media print{.scope-actions,.scope-link-copy-status{display:none}}" in dictionary

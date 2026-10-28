@@ -160,7 +160,11 @@ def test_scope_keys_are_unique_and_described(export_schema):
                 f"Scope {scope['key']!r} has an empty {locale} description"
             )
 
-    assert {"filtered_field_dictionary", "single_field_definition"} <= set(scope_keys)
+    assert {
+        "filtered_field_dictionary",
+        "single_field_definition",
+        "single_scope_definition",
+    } <= set(scope_keys)
 
     semantics = export_schema["scope_semantics"]
     assert set(semantics["categories"]) == ALLOWED_SCOPE_CATEGORIES
