@@ -236,7 +236,15 @@ def test_latest_and_history_link_to_one_trilingual_export_dictionary():
         "selected_month_hotel_details",
         "weekly_digest",
         "warehouse_all_history",
+        "filtered_field_dictionary",
+        "single_field_definition",
     }
+    assert "依目前欄位條件產生的 schema 衍生資料字典" in dictionary
+    assert "Schema-derived field dictionary for the current field filters" in dictionary
+    assert "現在の項目絞り込みから生成する schema 派生データ辞書" in dictionary
+    assert "單一欄位的 schema 衍生定義" in dictionary
+    assert "Schema-derived definition for one field" in dictionary
+    assert "1項目の schema 派生定義" in dictionary
     fields = {field for group in schema["field_groups"] for field in group["fields"]}
     assert {"strict_parity_eligible", "comparison_key", "display_currency", "source_url"} <= fields
     assert schema["authoritative_source"] == "JSONL"

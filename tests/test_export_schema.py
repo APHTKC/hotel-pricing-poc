@@ -133,6 +133,20 @@ def test_scope_keys_are_unique_and_described(export_schema):
             f"Scope {scope['key']!r} has an invalid applies_to description"
         )
 
+    assert {"filtered_field_dictionary", "single_field_definition"} <= set(scope_keys)
+
+
+def test_dictionary_payload_scopes_are_registered(export_schema):
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+    registered = {scope["key"] for scope in export_schema["scopes"]}
+    payload_scope_keys = set(
+        re.findall(r"scope:\{key:'([^']+)'", html)
+    )
+    assert payload_scope_keys <= registered, (
+        f"Dictionary payload scopes missing from export-schema.json: "
+        f"{sorted(payload_scope_keys - registered)}"
+    )
+
 
 def test_search_examples_exist_in_each_tax_description_locale(export_schema):
     descriptions = export_schema["field_definitions"]["tax_inclusion"]["description"]

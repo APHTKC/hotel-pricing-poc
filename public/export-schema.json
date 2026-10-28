@@ -7,7 +7,9 @@
     {"key": "latest_filtered_rows", "applies_to": "latest JSON rates"},
     {"key": "selected_month_hotel_details", "applies_to": "history JSON rates"},
     {"key": "weekly_digest", "applies_to": "history JSON weekly_digest"},
-    {"key": "warehouse_all_history", "applies_to": "history JSON warehouse_snapshot"}
+    {"key": "warehouse_all_history", "applies_to": "history JSON warehouse_snapshot"},
+    {"key": "filtered_field_dictionary", "applies_to": "schema-derived filtered field dictionary JSON; not hotel-rate rows"},
+    {"key": "single_field_definition", "applies_to": "schema-derived single-field definition JSON; not hotel-rate rows"}
   ],
   "value_semantics": {
     "null": "Source has no verifiable value; exported as an empty CSV cell.",
