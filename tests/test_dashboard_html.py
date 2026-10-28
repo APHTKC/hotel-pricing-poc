@@ -721,6 +721,33 @@ def test_filtered_schema_subset_is_self_describing_and_uses_safe_filename_parts(
     assert "scope.query" not in html.split("function filteredSchemaFilename(scope)", 1)[1].split("function downloadFilteredSchemaSubset", 1)[0]
 
 
+def test_export_dictionary_previews_current_filtered_download_filename():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert "const filteredDownloadPreviewCopy={zh:{title:'目前下載檔名'" in html
+    assert "en:{title:'Current download filename'" in html
+    assert "ja:{title:'現在のダウンロードファイル名'" in html
+    assert "empty:'目前 0 欄，不會產生檔案'" in html
+    assert "empty:'0 fields match; no file will be created'" in html
+    assert "empty:'一致項目は 0 件のため、ファイルは作成されません'" in html
+    assert "function ensureFilteredDownloadPreview()" in html
+    assert "preview.id='filteredDownloadPreview'" in html
+    assert "preview.className='filtered-download-preview'" in html
+    assert "preview.setAttribute('role','status')" in html
+    assert "preview.setAttribute('aria-live','polite')" in html
+    assert "button.setAttribute('aria-describedby','filteredDownloadPreview filteredDownloadStatus')" in html
+    assert "button.after(preview)" in html
+    assert "function renderFilteredDownloadPreview()" in html
+    assert "subset=filteredSchemaSubset()" in html
+    assert "if(!subset.fields.length){preview.innerHTML=" in html
+    assert "const filename=filteredSchemaFilename(subset.scope)" in html
+    assert "labels.ready.replace('{count}',subset.fields.length)" in html
+    assert "renderFilteredDownloadPreview();renderFieldJump(fields)" in html
+    assert ".filtered-download-preview code{min-width:0;overflow-wrap:anywhere}" in html
+    assert "@media(max-width:720px){.filtered-download-preview{grid-template-columns:1fr}}" in html
+    assert "@media print{.filtered-download-preview{display:none}}" in html
+
+
 def test_export_dictionary_filters_by_type_and_value_semantics_with_safe_urls():
     html = Path("public/export-schema.html").read_text(encoding="utf-8")
 
