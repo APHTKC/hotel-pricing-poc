@@ -723,6 +723,9 @@ def test_filtered_schema_subset_is_self_describing_and_uses_safe_filename_parts(
 
 def test_export_dictionary_previews_current_filtered_download_filename():
     html = Path("public/export-schema.html").read_text(encoding="utf-8")
+    field_actions = html.split("function renderFilteredFieldActions()", 1)[1].split(
+        "function downloadFilteredSchemaSubset", 1
+    )[0]
 
     assert "const filteredDownloadPreviewCopy={zh:{title:'目前下載檔名'" in html
     assert "en:{title:'Current download filename'" in html
@@ -736,6 +739,12 @@ def test_export_dictionary_previews_current_filtered_download_filename():
     assert "buttonEmpty:'沒有符合欄位，無法下載'" in html
     assert "buttonEmpty:'No matching fields; download unavailable'" in html
     assert "buttonEmpty:'一致項目がないためダウンロードできません'" in html
+    assert "copyReady:'複製 {count} 個符合欄名'" in html
+    assert "copyReady:'Copy {count} matching field names'" in html
+    assert "copyReady:'一致する項目名を {count} 件コピー'" in html
+    assert "copyEmpty:'沒有符合欄位，無法複製'" in html
+    assert "copyEmpty:'No matching fields; copy unavailable'" in html
+    assert "copyEmpty:'一致項目がないためコピーできません'" in html
     assert "function ensureFilteredDownloadPreview()" in html
     assert "preview.id='filteredDownloadPreview'" in html
     assert "preview.className='filtered-download-preview'" in html
@@ -743,21 +752,29 @@ def test_export_dictionary_previews_current_filtered_download_filename():
     assert "preview.setAttribute('aria-live','polite')" in html
     assert "button.setAttribute('aria-describedby','filteredDownloadPreview filteredDownloadStatus')" in html
     assert "button.after(preview)" in html
-    assert "function renderFilteredDownloadPreview()" in html
+    assert "function renderFilteredFieldActions()" in html
     assert "subset=filteredSchemaSubset()" in html
-    assert "button=document.querySelector('#downloadFilteredSchema')" in html
-    assert "if(!subset.fields.length){button.disabled=true" in html
-    assert "button.disabled=true" in html
-    assert "button.setAttribute('aria-label',labels.buttonEmpty)" in html
-    assert "button.title=labels.buttonEmpty" in html
+    assert "currentFilteredFields()" not in field_actions
+    assert "downloadButton=document.querySelector('#downloadFilteredSchema'),copyButton=document.querySelector('#copyMatchingFields')" in html
+    assert "if(!subset.fields.length){downloadButton.disabled=true" in html
+    assert "downloadButton.setAttribute('aria-label',labels.buttonEmpty)" in html
+    assert "downloadButton.title=labels.buttonEmpty" in html
+    assert "copyButton.disabled=true" in html
+    assert "copyButton.setAttribute('aria-label',labels.copyEmpty)" in html
+    assert "copyButton.title=labels.copyEmpty" in html
     assert "const filename=filteredSchemaFilename(subset.scope)" in html
-    assert "buttonLabel=labels.buttonReady.replace('{count}',subset.fields.length).replace('{filename}',filename)" in html
-    assert "button.disabled=false" in html
-    assert "button.setAttribute('aria-label',buttonLabel)" in html
-    assert "button.title=buttonLabel" in html
+    assert "downloadLabel=labels.buttonReady.replace('{count}',subset.fields.length).replace('{filename}',filename)" in html
+    assert "copyLabel=labels.copyReady.replace('{count}',subset.fields.length)" in html
+    assert "downloadButton.disabled=false" in html
+    assert "downloadButton.setAttribute('aria-label',downloadLabel)" in html
+    assert "downloadButton.title=downloadLabel" in html
+    assert "copyButton.disabled=false" in html
+    assert "copyButton.setAttribute('aria-label',copyLabel)" in html
+    assert "copyButton.title=copyLabel" in html
     assert "labels.ready.replace('{count}',subset.fields.length)" in html
-    assert "renderFilteredDownloadPreview();renderFieldJump(fields)" in html
+    assert "renderFilteredFieldActions();renderFieldJump(fields)" in html
     assert ".filtered-download-preview code{min-width:0;overflow-wrap:anywhere}" in html
+    assert ".copy-matching-fields:disabled" in html
     assert ".download-filtered-schema:disabled" in html
     assert "cursor:not-allowed;opacity:.6" in html
     assert "@media(max-width:720px){.filtered-download-preview{grid-template-columns:1fr}}" in html
