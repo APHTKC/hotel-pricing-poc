@@ -730,6 +730,12 @@ def test_export_dictionary_previews_current_filtered_download_filename():
     assert "empty:'目前 0 欄，不會產生檔案'" in html
     assert "empty:'0 fields match; no file will be created'" in html
     assert "empty:'一致項目は 0 件のため、ファイルは作成されません'" in html
+    assert "buttonReady:'下載 {count} 欄：{filename}'" in html
+    assert "buttonReady:'Download {count} fields: {filename}'" in html
+    assert "buttonReady:'{count}項目をダウンロード：{filename}'" in html
+    assert "buttonEmpty:'沒有符合欄位，無法下載'" in html
+    assert "buttonEmpty:'No matching fields; download unavailable'" in html
+    assert "buttonEmpty:'一致項目がないためダウンロードできません'" in html
     assert "function ensureFilteredDownloadPreview()" in html
     assert "preview.id='filteredDownloadPreview'" in html
     assert "preview.className='filtered-download-preview'" in html
@@ -739,11 +745,21 @@ def test_export_dictionary_previews_current_filtered_download_filename():
     assert "button.after(preview)" in html
     assert "function renderFilteredDownloadPreview()" in html
     assert "subset=filteredSchemaSubset()" in html
-    assert "if(!subset.fields.length){preview.innerHTML=" in html
+    assert "button=document.querySelector('#downloadFilteredSchema')" in html
+    assert "if(!subset.fields.length){button.disabled=true" in html
+    assert "button.disabled=true" in html
+    assert "button.setAttribute('aria-label',labels.buttonEmpty)" in html
+    assert "button.title=labels.buttonEmpty" in html
     assert "const filename=filteredSchemaFilename(subset.scope)" in html
+    assert "buttonLabel=labels.buttonReady.replace('{count}',subset.fields.length).replace('{filename}',filename)" in html
+    assert "button.disabled=false" in html
+    assert "button.setAttribute('aria-label',buttonLabel)" in html
+    assert "button.title=buttonLabel" in html
     assert "labels.ready.replace('{count}',subset.fields.length)" in html
     assert "renderFilteredDownloadPreview();renderFieldJump(fields)" in html
     assert ".filtered-download-preview code{min-width:0;overflow-wrap:anywhere}" in html
+    assert ".download-filtered-schema:disabled" in html
+    assert "cursor:not-allowed;opacity:.6" in html
     assert "@media(max-width:720px){.filtered-download-preview{grid-template-columns:1fr}}" in html
     assert "@media print{.filtered-download-preview{display:none}}" in html
 
