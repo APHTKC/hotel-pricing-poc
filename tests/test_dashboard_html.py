@@ -801,13 +801,23 @@ def test_export_dictionary_previews_current_filtered_download_filename():
     assert "preview.className='filtered-download-preview'" in html
     assert "preview.setAttribute('role','status')" in html
     assert "preview.setAttribute('aria-live','polite')" in html
+    assert "preview.setAttribute('aria-atomic','true')" in html
+    assert "preview.setAttribute('aria-labelledby','filteredDownloadPreviewTitle')" in html
+    assert "preview.setAttribute('aria-describedby','filteredDownloadPreviewState')" in html
+    assert "title.id='filteredDownloadPreviewTitle'" in html
+    assert "filename.id='filteredDownloadPreviewFilename'" in html
+    assert "state.id='filteredDownloadPreviewState'" in html
+    assert "preview.append(title,filename,state)" in html
     assert "button.setAttribute('aria-describedby','filteredDownloadPreview filteredDownloadStatus')" in html
     assert "button.after(preview)" in html
     assert "function renderFilteredFieldActions()" in html
     assert "subset=filteredSchemaSubset()" in html
     assert "currentFilteredFields()" not in field_actions
-    assert "downloadButton=document.querySelector('#downloadFilteredSchema'),copyButton=document.querySelector('#copyMatchingFields')" in html
-    assert "if(!subset.fields.length){downloadButton.disabled=true" in html
+    assert "title=preview.querySelector('#filteredDownloadPreviewTitle')" in html
+    assert "filenameNode=preview.querySelector('#filteredDownloadPreviewFilename')" in html
+    assert "state=preview.querySelector('#filteredDownloadPreviewState')" in html
+    assert "title.textContent=labels.title" in html
+    assert "if(!subset.fields.length){filenameNode.textContent='';filenameNode.hidden=true;state.textContent=labels.empty" in html
     assert "downloadButton.setAttribute('aria-label',labels.buttonEmpty)" in html
     assert "downloadButton.title=labels.buttonEmpty" in html
     assert "copyButton.disabled=true" in html
@@ -816,13 +826,17 @@ def test_export_dictionary_previews_current_filtered_download_filename():
     assert "const filename=filteredSchemaFilename(subset.scope)" in html
     assert "downloadLabel=labels.buttonReady.replace('{count}',subset.fields.length).replace('{filename}',filename)" in html
     assert "copyLabel=labels.copyReady.replace('{count}',subset.fields.length)" in html
+    assert "filenameNode.hidden=false" in html
+    assert "filenameNode.textContent=filename" in html
+    assert "state.textContent=labels.ready.replace('{count}',subset.fields.length)" in html
     assert "downloadButton.disabled=false" in html
     assert "downloadButton.setAttribute('aria-label',downloadLabel)" in html
     assert "downloadButton.title=downloadLabel" in html
     assert "copyButton.disabled=false" in html
     assert "copyButton.setAttribute('aria-label',copyLabel)" in html
     assert "copyButton.title=copyLabel" in html
-    assert "labels.ready.replace('{count}',subset.fields.length)" in html
+    assert "preview.innerHTML" not in field_actions
+    assert "preview.setAttribute('aria-label'" not in field_actions
     assert "renderFilteredFieldActions();renderFieldJump(fields)" in html
     assert ".filtered-download-preview code{min-width:0;overflow-wrap:anywhere}" in html
     assert ".copy-matching-fields:disabled" in html
