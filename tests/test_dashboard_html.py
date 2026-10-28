@@ -534,6 +534,32 @@ def test_export_dictionary_explains_card_action_symbols_from_one_trilingual_sour
     assert "@media print{.action-legend{display:none}}" in html
 
 
+def test_export_dictionary_filters_by_schema_registered_field_group():
+    html = Path("public/export-schema.html").read_text(encoding="utf-8")
+
+    assert "group:'欄位群組',groupAll:'全部群組'" in html
+    assert "group:'Field group',groupAll:'All groups'" in html
+    assert "group:'項目グループ',groupAll:'すべてのグループ'" in html
+    assert "function ensureFieldGroupControl()" in html
+    assert 'id="fieldGroup" aria-controls="fields"' in html
+    assert "function renderFieldGroupOptions()" in html
+    assert "schema.field_groups.map(group=>`<option" in html
+    assert "groupText(group,'label')" in html
+    assert "select.value=schema.field_groups.some(group=>group.key===selected)?selected:'all'" in html
+    assert "groupControl.dataset.requested=group" in html
+    assert "schema.field_groups.some(item=>item.key===group)?group:'all'" not in html
+    assert "selectedGroup=ensureFieldGroupControl().value" in html
+    assert "if(selectedGroup!=='all'&&group.key!==selectedGroup)continue" in html
+    assert "['group',labels.group,groupText(contract,'label')]" in html
+    assert "group:'#fieldGroup'" in html
+    assert "['output',output],['group',group]" in html
+    assert "group=ensureFieldGroupControl().value" in html
+    assert "output,group,type,value,applicability,filtered_field_count:fields.length" in html
+    assert "#fieldOutput','#fieldGroup','#fieldType" in html
+    assert "repeat(5,minmax(120px,1fr))" in html
+    assert "@media(max-width:720px){.field-tools{grid-template-columns:1fr}}" in html
+
+
 def test_export_dictionary_filter_state_is_shareable_and_resettable():
     html = Path("public/export-schema.html").read_text(encoding="utf-8")
 
@@ -548,7 +574,7 @@ def test_export_dictionary_filter_state_is_shareable_and_resettable():
     assert "function syncFieldFilterUrl()" in html
     assert "new URL(window.location.href)" in html
     assert "url.searchParams.set('q',query)" in html
-    assert "for(const[name,current]of[['output',output],['type',type],['value',value],['applicability',applicability]])" in html
+    assert "for(const[name,current]of[['output',output],['group',group],['type',type],['value',value],['applicability',applicability]])" in html
     assert "url.searchParams.set(name,current)" in html
     assert "history.replaceState(null,'',url)" in html
     assert "function resetFieldFilters()" in html
@@ -619,7 +645,7 @@ def test_export_dictionary_downloads_filtered_machine_readable_subset():
     assert "search_semantics:{normalization:['unicode_nfkc','locale_lowercase','collapse_whitespace']" in html
     assert "token_operator:'AND'" in html
     assert "normalized_tokens:search.tokens" in html
-    assert "output,type,value,applicability,filtered_field_count:fields.length" in html
+    assert "output,group,type,value,applicability,filtered_field_count:fields.length" in html
     assert "fields,field_definitions:Object.fromEntries(fields.map" in html
     assert "field_groups:schema.field_groups.map" in html
     assert "label:group.label,description:group.description" in html
@@ -673,7 +699,7 @@ def test_export_dictionary_filters_by_type_and_value_semantics_with_safe_urls():
     assert "VALID_FIELD_TYPES.has(type)?type:'all'" in html
     assert "VALID_FIELD_VALUES.has(value)?value:'all'" in html
     assert "for(const id of['#fieldOutput','#fieldType','#fieldValue','#fieldApplicability'])" in html
-    assert "for(const id of['#fieldOutput','#fieldType','#fieldValue','#fieldApplicability'])document.querySelector(id).value='all'" in html
+    assert "for(const id of['#fieldOutput','#fieldGroup','#fieldType','#fieldValue','#fieldApplicability'])document.querySelector(id).value='all'" in html
     assert "基本型別" in html
     assert "Base type" in html
     assert "基本型" in html
@@ -697,7 +723,7 @@ def test_export_dictionary_shows_and_clears_individual_active_filters():
     assert "labels.remove.replace('{label}',label).replace('{value}',current)" in html
     assert 'class="active-filter-all">${esc(labels.all)}</span>' in html
     assert "function clearActiveFilter(name)" in html
-    assert "const controls={q:'#fieldSearch',output:'#fieldOutput',type:'#fieldType',value:'#fieldValue',applicability:'#fieldApplicability'}" in html
+    assert "const controls={q:'#fieldSearch',output:'#fieldOutput',group:'#fieldGroup',type:'#fieldType',value:'#fieldValue',applicability:'#fieldApplicability'}" in html
     assert "document.querySelector(controls[name]).value=name==='q'?'':'all'" in html
     assert "clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()" in html
     assert "event.target.closest('[data-clear-filter]')" in html
@@ -745,7 +771,7 @@ def test_export_dictionary_filters_by_shareable_output_applicability():
     assert "['applicability',applicability]" in html
     assert "VALID_FIELD_APPLICABILITY.has(applicability)?applicability:'all'" in html
     assert "applicability,filtered_field_count:fields.length" in html
-    assert "q/output/type/value/applicability" in html
+    assert "q/output/group/type/value/applicability" in html
     assert "輸出適用性" in html
     assert "Output applicability" in html
     assert "出力適用範囲" in html
