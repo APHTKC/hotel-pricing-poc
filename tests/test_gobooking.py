@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 from pathlib import Path
 
@@ -216,28 +217,37 @@ def test_tango_xinyi_is_enabled_after_clean_single_probe():
     assert "component percentages are not published" in candidate["automation_note"]
 
 
-def test_tango_nanshi_is_enabled_after_clean_single_probe():
+def test_tango_nanshi_stays_disabled_after_remote_timeout():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
         Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
     )
 
-    daily_row = next(
-        row for row in daily["hotels"] if row["id"] == "tango_hotel_taipei_nanshi"
-    )
     candidate = next(
         row
         for row in candidates["hotels"]
         if row["id"] == "tango_hotel_taipei_nanshi"
     )
+    diagnostic = json.loads(
+        Path("artifacts/tango-nanshi-github-probe-diagnostic.json").read_text(
+            encoding="utf-8"
+        )
+    )
 
-    assert daily_row["adapter"] == "gobooking"
-    assert candidate["enabled"] is True
-    assert candidate["automation_status"] == "verified"
-    assert "collected 7 live +30-day breakfast-included rates" in candidate[
-        "automation_note"
-    ]
-    assert "component percentages are not published" in candidate["automation_note"]
+    assert not any(
+        row["id"] == "tango_hotel_taipei_nanshi" for row in daily["hotels"]
+    )
+    assert candidate["enabled"] is False
+    assert candidate["automation_status"] == "skipped"
+    assert "GitHub Linux probe timed out" in candidate["automation_note"]
+    assert diagnostic["status"] == "cooldown"
+    assert diagnostic["probe_limit"] == {
+        "candidate_attempts_this_batch": 1,
+        "retried": False,
+    }
+    assert diagnostic["remote_probe"]["observations"] == 0
+    assert diagnostic["local_probe"]["observations"] == 7
+    assert diagnostic["cooldown_until"] == "2026-11-05T09:25:43Z"
 
 
 def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():

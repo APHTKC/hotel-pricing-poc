@@ -220,11 +220,3 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPXY/Booking
     adapter: gobooking
-  - id: tango_hotel_taipei_nanshi
-    name: Tango Hotel Taipei Nanshi
-    short_name: Tango Nanshi
-    city: Taipei
-    district: Zhongshan
-    country: TW
-    booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPNS/Booking
-    adapter: gobooking
