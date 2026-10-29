@@ -100,3 +100,59 @@ def test_k_hotel_changan_is_enabled_in_daily_and_candidate_catalogs():
     assert candidate["enabled"] is True
     assert candidate["automation_status"] == "verified"
     assert "tax_inclusion remains unknown" in candidate["automation_note"]
+
+
+def test_tango_taichung_uses_verified_breakfast_plan_without_inferred_components():
+    prop = PROPERTIES["tango_hotel_taichung"]
+    assert prop["slug"] == "TANGO-TC"
+    assert prop["plan_code"] == "fbc0ffb6-f5fa-44df-b2ec-efe74822b2f6"
+    assert prop["breakfast_included"] is True
+    assert prop["tax_inclusion"].value == "included"
+    assert prop["tax_components_verified"] is False
+    assert prop["cancellation"] == "入住14天前取消可全額退款"
+
+
+def test_tango_taichung_is_enabled_after_clean_single_probe():
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+
+    daily_row = next(
+        row for row in daily["hotels"] if row["id"] == "tango_hotel_taichung"
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "tango_hotel_taichung"
+    )
+
+    assert daily_row["adapter"] == "gobooking"
+    assert candidate["enabled"] is True
+    assert candidate["automation_status"] == "verified"
+    assert "collected 11 live +30-day breakfast-included rates" in candidate[
+        "automation_note"
+    ]
+    assert "component percentages are not published" in candidate["automation_note"]
+
+
+def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
+    expected_paths = {
+        "probe-united-hotel-taipei.yml": (
+            "scripts/run_united_once.py",
+            "config/hotels.united-only.yaml",
+        ),
+        "probe-k-hotel-changan.yml": (
+            "scripts/run_k_hotel_changan_once.py",
+            "config/hotels.k-hotel-changan-only.yaml",
+        ),
+        "probe-tango-taichung.yml": (
+            "scripts/run_tango_taichung_once.py",
+            "config/hotels.tango-taichung-only.yaml",
+        ),
+    }
+    for workflow, paths in expected_paths.items():
+        text = Path(".github/workflows", workflow).read_text(encoding="utf-8")
+        assert "scrapers/adapters/gobooking.py" not in text
+        for path in paths:
+            assert path in text

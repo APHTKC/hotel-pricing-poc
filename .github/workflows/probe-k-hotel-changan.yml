@@ -5,7 +5,6 @@ on:
   push:
     branches: [main]
     paths:
-      - "scrapers/adapters/gobooking.py"
       - "scripts/run_k_hotel_changan_once.py"
       - "config/hotels.k-hotel-changan-only.yaml"
 
