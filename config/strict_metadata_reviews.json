@@ -249,16 +249,14 @@
       "source_platform": "official",
       "missing_fields": [
         "breakfast_included",
-        "cancellation_class",
-        "cancellation_deadline",
         "tax_inclusion"
       ],
       "status": "blocked_source_unavailable",
-      "reviewed_at": "2026-10-25",
+      "reviewed_at": "2026-10-29",
       "evidence_urls": [
-        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-23&checkOutDate=2027-01-24"
+        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-27&checkOutDate=2027-01-28"
       ],
-      "note": "2026-10-25 新批次使缺欄集合變更，已重新核實；官方 Direct Booking 日期頁仍無法由既有讀取工具存取。最新 179 筆中 27 筆取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或精確期限；4 筆「早鳥21住房優惠｜房型升等」未明示餐食；全數價格只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤。來源流程或精確缺欄組合變更前不重試。"
+      "note": "2026-10-29 新批次使精確缺欄集合縮小為早餐與稅費，已依規則做一次低成本核實；官方 Direct Booking 日期頁仍無法由既有讀取工具存取。最新 113 筆全數只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤；其中 5 筆「早鳥21住房優惠｜房型升等」未明示餐食。不得跨商品或其他來源推定，來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hotel_metropolitan_premier_taipei",

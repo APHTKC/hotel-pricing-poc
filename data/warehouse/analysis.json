@@ -1369,6 +1369,17 @@
   ],
   "actionable_strict_metadata_gap_hotels": [
     {
+      "hotel_id": "eslite_hotel",
+      "source_platform": "official",
+      "rows": 6071,
+      "missing_fields": {
+        "tax_inclusion": 6071,
+        "cancellation_class": 510,
+        "cancellation_deadline": 510,
+        "breakfast_included": 267
+      }
+    },
+    {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 3403,
@@ -1862,18 +1873,7 @@
       }
     }
   ],
-  "actionable_latest_strict_metadata_gap_hotels": [
-    {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "rows": 113,
-      "latest_queried_at": "2026-10-29 02:08:43.408167",
-      "missing_fields": {
-        "tax_inclusion": 113,
-        "breakfast_included": 5
-      }
-    }
-  ],
+  "actionable_latest_strict_metadata_gap_hotels": [],
   "reviewed_strict_metadata_gaps": [
     {
       "hotel_id": "grand_hilai_kaohsiung",
@@ -1891,23 +1891,6 @@
         "https://tlathena.ec-hotel.net/webhotel-v5/1084"
       ],
       "review_note": "官方流程僅回傳訂房 shell，無可核實的商品層級早餐、取消與稅費欄位；流程變更前不重試。"
-    },
-    {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "rows": 6071,
-      "missing_fields": {
-        "tax_inclusion": 6071,
-        "cancellation_class": 510,
-        "cancellation_deadline": 510,
-        "breakfast_included": 267
-      },
-      "review_status": "blocked_source_unavailable",
-      "reviewed_at": "2026-10-25",
-      "review_evidence_urls": [
-        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-23&checkOutDate=2027-01-24"
-      ],
-      "review_note": "2026-10-25 新批次使缺欄集合變更，已重新核實；官方 Direct Booking 日期頁仍無法由既有讀取工具存取。最新 179 筆中 27 筆取消欄僅為「將收取取消費用」的一般通知，不能推定取消類別或精確期限；4 筆「早鳥21住房優惠｜房型升等」未明示餐食；全數價格只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "windsor_taichung",
@@ -2518,6 +2501,22 @@
         "https://www.booking.com/hotel/tw/resonance.zh-tw.html?checkin=2026-12-11&checkout=2026-12-12&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "review_note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 2 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "eslite_hotel",
+      "source_platform": "official",
+      "rows": 113,
+      "latest_queried_at": "2026-10-29 02:08:43.408167",
+      "missing_fields": {
+        "tax_inclusion": 113,
+        "breakfast_included": 5
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-29",
+      "review_evidence_urls": [
+        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-27&checkOutDate=2027-01-28"
+      ],
+      "review_note": "2026-10-29 新批次使精確缺欄集合縮小為早餐與稅費，已依規則做一次低成本核實；官方 Direct Booking 日期頁仍無法由既有讀取工具存取。最新 113 筆全數只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤；其中 5 筆「早鳥21住房優惠｜房型升等」未明示餐食。不得跨商品或其他來源推定，來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "hoshinoya_guguan",
