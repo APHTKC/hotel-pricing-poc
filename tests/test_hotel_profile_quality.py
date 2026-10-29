@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from services.hotel_profile_quality import build_hotel_profile_quality
 
 
@@ -85,3 +88,23 @@ def test_profile_quality_uses_latest_source_evidence_date_deterministically():
     old_row = next(row for row in report["hotels"] if row["hotel_id"] == "hotel-old")
     assert old_row["review_age_days"] == 39
     assert "monthly_review_current" in old_row["missing_evidence"]
+
+
+def test_priority_central_taiwan_profiles_have_official_stay_times():
+    payload = json.loads(
+        Path("public/data/hotel_profiles.json").read_text(encoding="utf-8")
+    )
+    profiles = {item["hotel_id"]: item for item in payload["profiles"]}
+    expected = {
+        "grand_hilai_kaohsiung": ("15:00", "11:00", "grand-hilai.com"),
+        "hotel_nikko_kaohsiung": ("15:00", "12:00", "nikkokaohsiung.com"),
+        "intercontinental_kaohsiung": ("15:00", "12:00", "ihg.com"),
+        "hoshinoya_guguan": ("15:00", "12:00", "hoshinoresorts.com"),
+    }
+
+    for hotel_id, (check_in, check_out, source_host) in expected.items():
+        stay_times = profiles[hotel_id]["stay_times"]
+        assert stay_times["check_in"] == check_in
+        assert stay_times["check_out"] == check_out
+        assert stay_times["source_type"] == "official"
+        assert source_host in stay_times["source_url"]
