@@ -1307,7 +1307,13 @@
     },
     {
       "hotel_id": "sheraton_hsinchu",
-      "verified_at": "2026-09-30",
+      "verified_at": "2026-10-29",
+      "stay_times": {
+        "check_in": "16:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpehs-sheraton-hsinchu-hotel/overview/"
+      },
       "room_inventory": 770,
       "service_charge_percent": 10,
       "restaurants": [
