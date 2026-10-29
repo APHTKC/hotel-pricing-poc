@@ -1,0 +1,40 @@
+name: Probe K Hotel Taipei Chang-An rates
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scrapers/adapters/gobooking.py"
+      - "scripts/run_k_hotel_changan_once.py"
+      - "config/hotels.k-hotel-changan-only.yaml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+      - name: Collect one public stay date
+        env:
+          DEMO_MODE: "false"
+          STORAGE_BACKEND: local
+          LOCAL_DATA_PATH: data/k-hotel-changan-local-probe.jsonl
+          LEAD_DAYS: "30"
+        run: python -m scripts.run_k_hotel_changan_once
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: k-hotel-changan-rate-probe
+          path: data/k-hotel-changan-local-probe.jsonl
+          if-no-files-found: ignore

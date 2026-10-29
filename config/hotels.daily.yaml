@@ -188,3 +188,11 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/UNITED-TP/Booking
     adapter: gobooking
+  - id: k_hotel_taipei_changan
+    name: K Hotels Taipei Chang-An
+    short_name: K Hotel Chang-An
+    city: Taipei
+    district: Zhongshan
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/K-TPCA/Booking
+    adapter: gobooking

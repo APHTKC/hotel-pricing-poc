@@ -39,12 +39,30 @@ PROPERTIES = {
         "tax_inclusion": TaxInclusion.INCLUDED,
         "tax_components_verified": False,
     },
+    "k_hotel_taipei_changan": {
+        "slug": "K-TPCA",
+        "plan_code": "2734b789-d6b0-4eac-8963-e742908e4cea",
+        "plan_name": "不含早",
+        "cancellation": "入住前至少14天取消可全額退款",
+        "breakfast_included": False,
+        # The official package does not state whether displayed prices include
+        # tax or service charges, so both the basis and components stay unknown.
+        "tax_inclusion": TaxInclusion.UNKNOWN,
+        "tax_components_verified": False,
+    },
 }
 
 
 def parse_room_size(text: str) -> Decimal | None:
     match = re.search(r"(\d+(?:\.\d+)?)\s*(?:平方公尺|平方米)", text)
-    return Decimal(match.group(1)) if match else None
+    if match:
+        return Decimal(match.group(1))
+    ping = re.search(r"(\d+(?:\.\d+)?)\s*坪", text)
+    if ping:
+        return (Decimal(ping.group(1)) * Decimal("3.305785")).quantize(
+            Decimal("0.01"), rounding=ROUND_HALF_UP
+        )
+    return None
 
 
 def split_tax_inclusive_total(total: Decimal) -> tuple[Decimal, Decimal, Decimal]:

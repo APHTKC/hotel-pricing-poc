@@ -10,6 +10,7 @@ def test_parse_room_size():
     assert parse_room_size("9坪/30平方公尺") == Decimal("30")
     assert parse_room_size("房間佔地約11坪(37 平方公尺)") == Decimal("37")
     assert parse_room_size("房間大小：6.5坪 / 21平方米") == Decimal("21")
+    assert parse_room_size("房型介紹：8坪") == Decimal("26.45")
     assert parse_room_size("unknown") is None
 
 
@@ -68,3 +69,34 @@ def test_united_hotel_is_enabled_in_daily_and_candidate_catalogs():
     assert candidate["enabled"] is True
     assert candidate["automation_status"] == "verified"
     assert "component tax percentages are not exposed" in candidate["automation_note"]
+
+
+def test_k_hotel_changan_keeps_unpublished_tax_basis_unknown():
+    prop = PROPERTIES["k_hotel_taipei_changan"]
+    assert prop["slug"] == "K-TPCA"
+    assert prop["plan_code"] == "2734b789-d6b0-4eac-8963-e742908e4cea"
+    assert prop["breakfast_included"] is False
+    assert prop["tax_inclusion"].value == "unknown"
+    assert prop["tax_components_verified"] is False
+    assert prop["cancellation"] == "入住前至少14天取消可全額退款"
+
+
+def test_k_hotel_changan_is_enabled_in_daily_and_candidate_catalogs():
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+
+    daily_row = next(
+        row for row in daily["hotels"] if row["id"] == "k_hotel_taipei_changan"
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "k_hotel_taipei_changan"
+    )
+
+    assert daily_row["adapter"] == "gobooking"
+    assert candidate["enabled"] is True
+    assert candidate["automation_status"] == "verified"
+    assert "tax_inclusion remains unknown" in candidate["automation_note"]
