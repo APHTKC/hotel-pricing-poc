@@ -4,7 +4,7 @@ from scrapers.registry import ADAPTERS
 
 def test_daily_tracking_catalog_is_the_default_and_has_known_adapters():
     hotels = load_hotels()
-    assert len(hotels) == 27
+    assert len(hotels) == 28
     assert any(hotel.id == "the_gaia_taipei" for hotel in hotels)
     assert any(hotel.id == "hotel_royal_hsinchu" for hotel in hotels)
     assert any(hotel.id == "united_hotel_taipei" for hotel in hotels)

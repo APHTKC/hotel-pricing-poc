@@ -212,3 +212,11 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPJT/Booking
     adapter: gobooking
+  - id: tango_hotel_taipei_xinyi
+    name: Tango Hotel Taipei Xinyi
+    short_name: Tango Xinyi
+    city: Taipei
+    district: Xinyi
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPXY/Booking
+    adapter: gobooking
