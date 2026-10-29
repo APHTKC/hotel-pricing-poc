@@ -3,7 +3,7 @@ import re
 from datetime import UTC, date, datetime
 from decimal import Decimal, ROUND_HALF_UP
 
-from app.models import Hotel, RateObservation, ScrapeStatus
+from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
 from scrapers.adapters.capella import CapellaScraper, parse_money
 
 
@@ -27,6 +27,17 @@ PROPERTIES = {
         "plan_name": "一泊一食輕旅行專案",
         "cancellation": "入住 14 天前取消可全額退款",
         "breakfast_included": True,
+    },
+    "united_hotel_taipei": {
+        "slug": "UNITED-TP",
+        "plan_code": "4351f17b-a94d-4615-b7e1-fa5b9e2c30d4",
+        "plan_name": "【年度住房】官網限定-不含早",
+        "cancellation": "預定住宿日前第三日以前取消，退還預收約定房價總金額百分之百",
+        "breakfast_included": False,
+        # The official package states that the displayed amount includes service
+        # charges and tax, but does not publish their individual percentages.
+        "tax_inclusion": TaxInclusion.INCLUDED,
+        "tax_components_verified": False,
     },
 }
 
@@ -124,7 +135,10 @@ class GobookingScraper(CapellaScraper):
                 await price.wait_for(state="visible", timeout=8_000)
                 if await price.count():
                     total = parse_money(await price.inner_text())
-                    base, service, tax = split_tax_inclusive_total(total)
+                    if prop.get("tax_components_verified", True):
+                        base, service, tax = split_tax_inclusive_total(total)
+                    else:
+                        base = service = tax = None
                     key = ":".join(
                         (
                             hotel.id,
@@ -158,6 +172,9 @@ class GobookingScraper(CapellaScraper):
                             price_before_tax=base,
                             service_charge=service,
                             tax=tax,
+                            tax_inclusion=prop.get(
+                                "tax_inclusion", TaxInclusion.UNKNOWN
+                            ),
                             total_price=total,
                             currency="TWD",
                             source_url=reserve_url,

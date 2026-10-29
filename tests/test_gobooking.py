@@ -1,4 +1,7 @@
 from decimal import Decimal
+from pathlib import Path
+
+import yaml
 
 from scrapers.adapters.gobooking import PROPERTIES, parse_room_size, split_tax_inclusive_total
 
@@ -34,3 +37,34 @@ def test_fleur_de_chine_uses_verified_breakfast_plan():
     assert PROPERTIES["fleur_de_chine"]["cancellation"] == (
         "入住 14 天前取消可全額退款"
     )
+
+
+def test_united_hotel_uses_verified_room_only_plan_without_inferred_tax_components():
+    prop = PROPERTIES["united_hotel_taipei"]
+    assert prop["slug"] == "UNITED-TP"
+    assert prop["plan_code"] == "4351f17b-a94d-4615-b7e1-fa5b9e2c30d4"
+    assert prop["breakfast_included"] is False
+    assert prop["tax_inclusion"].value == "included"
+    assert prop["tax_components_verified"] is False
+    assert "第三日以前" in prop["cancellation"]
+
+
+def test_united_hotel_is_enabled_in_daily_and_candidate_catalogs():
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+
+    daily_row = next(
+        row for row in daily["hotels"] if row["id"] == "united_hotel_taipei"
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "united_hotel_taipei"
+    )
+
+    assert daily_row["adapter"] == "gobooking"
+    assert candidate["enabled"] is True
+    assert candidate["automation_status"] == "verified"
+    assert "component tax percentages are not exposed" in candidate["automation_note"]

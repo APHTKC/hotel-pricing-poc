@@ -1,0 +1,9 @@
+hotels:
+  - id: united_hotel_taipei
+    name: United Hotel Taipei
+    short_name: United Hotel
+    city: Taipei
+    district: Da'an
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/UNITED-TP/Booking
+    adapter: gobooking

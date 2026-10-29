@@ -180,3 +180,11 @@ hotels:
     country: TW
     booking_url: https://be.synxis.com/?chain=26262&hotel=31000&locale=zh-TW
     adapter: synxis
+  - id: united_hotel_taipei
+    name: United Hotel Taipei
+    short_name: United Hotel
+    city: Taipei
+    district: Da'an
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/UNITED-TP/Booking
+    adapter: gobooking
