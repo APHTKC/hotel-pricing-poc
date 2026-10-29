@@ -904,8 +904,10 @@ def test_export_dictionary_shows_and_clears_individual_active_filters():
     assert 'class="active-filter-all">${esc(labels.all)}</span>' in html
     assert "function clearActiveFilter(name)" in html
     assert "const controls={q:'#fieldSearch',output:'#fieldOutput',group:'#fieldGroup',type:'#fieldType',value:'#fieldValue',applicability:'#fieldApplicability'}" in html
-    assert "document.querySelector(controls[name]).value=name==='q'?'':'all'" in html
-    assert "clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields()" in html
+    assert "selector=controls[name];if(!selector)return" in html
+    assert "const control=document.querySelector(selector);if(!control)return" in html
+    assert "control.value=name==='q'?'':'all'" in html
+    assert "clearFilterActionStatus();syncFieldFilterUrl();renderActiveFilters();renderFields();control.focus()" in html
     assert "event.target.closest('[data-clear-filter]')" in html
     assert "clearActiveFilter(button.dataset.clearFilter)" in html
     assert "目前條件" in html
