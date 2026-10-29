@@ -891,6 +891,9 @@ def test_export_dictionary_filters_by_type_and_value_semantics_with_safe_urls():
 
 def test_export_dictionary_shows_and_clears_individual_active_filters():
     html = Path("public/export-schema.html").read_text(encoding="utf-8")
+    active_render = html.split("function renderActiveFilters()", 1)[1].split(
+        "function ensureSelectedGroupSummary", 1
+    )[0]
 
     assert 'class="active-filters" id="activeFilters"' in html
     assert "function renderActiveFilters()" in html
@@ -899,9 +902,17 @@ def test_export_dictionary_shows_and_clears_individual_active_filters():
     assert "if(output!=='all')filters.push(['output',labels.output,filterLabels[output]])" in html
     assert "if(type!=='all')filters.push(['type',labels.type,advanced[type]])" in html
     assert "if(value!=='all')filters.push(['value',labels.value,advanced[value]])" in html
-    assert 'class="active-filter-chip" type="button" data-clear-filter="${key}"' in html
+    assert "button.className='active-filter-chip'" in html
+    assert "button.type='button'" in html
+    assert "button.dataset.clearFilter=key" in html
+    assert "button.setAttribute('aria-label',labels.remove.replace" in html
     assert "labels.remove.replace('{label}',label).replace('{value}',current)" in html
-    assert 'class="active-filter-all">${esc(labels.all)}</span>' in html
+    assert "button.textContent=`${label}: ${current} ×`" in html
+    assert "all.className='active-filter-all'" in html
+    assert "all.textContent=labels.all" in html
+    assert "container.replaceChildren(...nodes)" in html
+    assert "container.innerHTML" not in active_render
+    assert "title.textContent=labels.title" in html
     assert "function clearActiveFilter(name)" in html
     assert "const controls={q:'#fieldSearch',output:'#fieldOutput',group:'#fieldGroup',type:'#fieldType',value:'#fieldValue',applicability:'#fieldApplicability'}" in html
     assert "selector=controls[name];if(!selector)return" in html
