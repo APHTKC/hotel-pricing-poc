@@ -1049,7 +1049,13 @@
     },
     {
       "hotel_id": "windsor_taichung",
-      "verified_at": "2026-09-30",
+      "verified_at": "2026-10-29",
+      "stay_times": {
+        "check_in": "16:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.windsortaiwan.com/tw/room/f5f5B24E3Eb94149"
+      },
       "room_inventory": 149,
       "service_charge_percent": 10,
       "restaurants": [
@@ -1204,7 +1210,13 @@
     },
     {
       "hotel_id": "kaohsiung_marriott",
-      "verified_at": "2026-09-30",
+      "verified_at": "2026-10-29",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/khhmc-kaohsiung-marriott-hotel/overview/"
+      },
       "room_inventory": 700,
       "restaurants": [
         {"name": "豪享自助餐廳 M9 Buffet Restaurant", "type_zh": "國際料理與自助餐", "type_en": "International dining and buffet", "type_ja": "各国料理・ビュッフェ"},

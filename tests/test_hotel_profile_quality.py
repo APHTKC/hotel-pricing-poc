@@ -101,6 +101,8 @@ def test_priority_central_taiwan_profiles_have_official_stay_times():
         "intercontinental_kaohsiung": ("15:00", "12:00", "ihg.com"),
         "hoshinoya_guguan": ("15:00", "12:00", "hoshinoresorts.com"),
         "sheraton_hsinchu": ("16:00", "11:00", "marriott.com"),
+        "windsor_taichung": ("16:00", "11:00", "windsortaiwan.com"),
+        "kaohsiung_marriott": ("15:00", "12:00", "marriott.com"),
     }
 
     for hotel_id, (check_in, check_out, source_host) in expected.items():
