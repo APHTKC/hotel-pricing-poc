@@ -83,6 +83,17 @@ PROPERTIES = {
         "tax_inclusion": TaxInclusion.INCLUDED,
         "tax_components_verified": False,
     },
+    "tango_hotel_taipei_nanshi": {
+        "slug": "TANGO-TPNS",
+        "plan_code": "e93e3c23-51d8-4086-b338-cd48064010fb",
+        "plan_name": "【年度住房】優惠專案",
+        "cancellation": "入住14天前取消可全額退款",
+        "breakfast_included": True,
+        # The official package confirms that prices include service charges
+        # and tax, but does not publish their individual percentages.
+        "tax_inclusion": TaxInclusion.INCLUDED,
+        "tax_components_verified": False,
+    },
 }
 
 

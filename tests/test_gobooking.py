@@ -182,6 +182,16 @@ def test_tango_xinyi_uses_official_annual_plan_without_inferred_components():
     assert prop["cancellation"] == "入住14天前取消可全額退款"
 
 
+def test_tango_nanshi_uses_official_annual_plan_without_inferred_components():
+    prop = PROPERTIES["tango_hotel_taipei_nanshi"]
+    assert prop["slug"] == "TANGO-TPNS"
+    assert prop["plan_code"] == "e93e3c23-51d8-4086-b338-cd48064010fb"
+    assert prop["breakfast_included"] is True
+    assert prop["tax_inclusion"].value == "included"
+    assert prop["tax_components_verified"] is False
+    assert prop["cancellation"] == "入住14天前取消可全額退款"
+
+
 def test_tango_xinyi_is_enabled_after_clean_single_probe():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
@@ -201,6 +211,30 @@ def test_tango_xinyi_is_enabled_after_clean_single_probe():
     assert candidate["enabled"] is True
     assert candidate["automation_status"] == "verified"
     assert "collected 11 live +30-day breakfast-included rates" in candidate[
+        "automation_note"
+    ]
+    assert "component percentages are not published" in candidate["automation_note"]
+
+
+def test_tango_nanshi_is_enabled_after_clean_single_probe():
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+
+    daily_row = next(
+        row for row in daily["hotels"] if row["id"] == "tango_hotel_taipei_nanshi"
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "tango_hotel_taipei_nanshi"
+    )
+
+    assert daily_row["adapter"] == "gobooking"
+    assert candidate["enabled"] is True
+    assert candidate["automation_status"] == "verified"
+    assert "collected 7 live +30-day breakfast-included rates" in candidate[
         "automation_note"
     ]
     assert "component percentages are not published" in candidate["automation_note"]
@@ -227,6 +261,10 @@ def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
         "probe-tango-xinyi.yml": (
             "scripts/run_tango_xinyi_once.py",
             "config/hotels.tango-xinyi-only.yaml",
+        ),
+        "probe-tango-nanshi.yml": (
+            "scripts/run_tango_nanshi_once.py",
+            "config/hotels.tango-nanshi-only.yaml",
         ),
     }
     for workflow, paths in expected_paths.items():
