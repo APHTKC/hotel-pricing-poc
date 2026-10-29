@@ -193,6 +193,16 @@ def test_tango_nanshi_uses_official_annual_plan_without_inferred_components():
     assert prop["cancellation"] == "入住14天前取消可全額退款"
 
 
+def test_tango_shilin_uses_official_annual_plan_without_inferred_components():
+    prop = PROPERTIES["tango_hotel_taipei_shilin"]
+    assert prop["slug"] == "TANGO-TPSL"
+    assert prop["plan_code"] == "8103c234-319d-484f-8792-53c871cc124f"
+    assert prop["breakfast_included"] is True
+    assert prop["tax_inclusion"].value == "included"
+    assert prop["tax_components_verified"] is False
+    assert prop["cancellation"] == "入住14天前取消可全額退款"
+
+
 def test_tango_xinyi_is_enabled_after_clean_single_probe():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
@@ -250,6 +260,28 @@ def test_tango_nanshi_stays_disabled_after_remote_timeout():
     assert diagnostic["cooldown_until"] == "2026-11-05T09:25:43Z"
 
 
+def test_tango_shilin_waits_for_remote_validation_after_clean_local_probe():
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "tango_hotel_taipei_shilin"
+    )
+
+    assert not any(row["id"] == candidate["id"] for row in daily["hotels"])
+    assert candidate["enabled"] is False
+    assert candidate["automation_status"] == "skipped"
+    assert "collected 7 live +30-day breakfast-included rates" in candidate[
+        "automation_note"
+    ]
+    assert "until the isolated GitHub Linux probe independently succeeds" in candidate[
+        "automation_note"
+    ]
+
+
 def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
     expected_paths = {
         "probe-united-hotel-taipei.yml": (
@@ -275,6 +307,10 @@ def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
         "probe-tango-nanshi.yml": (
             "scripts/run_tango_nanshi_once.py",
             "config/hotels.tango-nanshi-only.yaml",
+        ),
+        "probe-tango-shilin.yml": (
+            "scripts/run_tango_shilin_once.py",
+            "config/hotels.tango-shilin-only.yaml",
         ),
     }
     for workflow, paths in expected_paths.items():
