@@ -260,7 +260,7 @@ def test_tango_nanshi_stays_disabled_after_remote_timeout():
     assert diagnostic["cooldown_until"] == "2026-11-05T09:25:43Z"
 
 
-def test_tango_shilin_waits_for_remote_validation_after_clean_local_probe():
+def test_tango_shilin_is_enabled_after_cross_environment_validation():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
         Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
@@ -271,13 +271,14 @@ def test_tango_shilin_waits_for_remote_validation_after_clean_local_probe():
         if row["id"] == "tango_hotel_taipei_shilin"
     )
 
-    assert not any(row["id"] == candidate["id"] for row in daily["hotels"])
-    assert candidate["enabled"] is False
-    assert candidate["automation_status"] == "skipped"
+    daily_row = next(row for row in daily["hotels"] if row["id"] == candidate["id"])
+    assert daily_row["adapter"] == "gobooking"
+    assert candidate["enabled"] is True
+    assert candidate["automation_status"] == "verified"
     assert "collected 7 live +30-day breakfast-included rates" in candidate[
         "automation_note"
     ]
-    assert "until the isolated GitHub Linux probe independently succeeds" in candidate[
+    assert "GitHub Linux probe 40850372740 independently succeeded" in candidate[
         "automation_note"
     ]
 

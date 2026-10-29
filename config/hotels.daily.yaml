@@ -220,3 +220,11 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPXY/Booking
     adapter: gobooking
+  - id: tango_hotel_taipei_shilin
+    name: Tango Hotel Taipei Shilin
+    short_name: Tango Shilin
+    city: Taipei
+    district: Shilin
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPSL/Booking
+    adapter: gobooking
