@@ -204,3 +204,11 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TC/Booking
     adapter: gobooking
+  - id: tango_hotel_taipei_jiantan
+    name: Tango Hotel Taipei Jiantan
+    short_name: Tango Jiantan
+    city: Taipei
+    district: Shilin
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPJT/Booking
+    adapter: gobooking

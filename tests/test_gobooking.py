@@ -136,6 +136,42 @@ def test_tango_taichung_is_enabled_after_clean_single_probe():
     assert "component percentages are not published" in candidate["automation_note"]
 
 
+def test_tango_jiantan_uses_verified_breakfast_plan_without_inferred_components():
+    prop = PROPERTIES["tango_hotel_taipei_jiantan"]
+    assert prop["slug"] == "TANGO-TPJT"
+    assert prop["plan_code"] == "4e9c7413-136c-40ec-ba0f-4baaab70cc2f"
+    assert prop["breakfast_included"] is True
+    assert prop["tax_inclusion"].value == "included"
+    assert prop["tax_components_verified"] is False
+    assert prop["cancellation"] == "入住14天前取消可全額退款"
+
+
+def test_tango_jiantan_is_enabled_after_clean_single_probe():
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+
+    daily_row = next(
+        row
+        for row in daily["hotels"]
+        if row["id"] == "tango_hotel_taipei_jiantan"
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "tango_hotel_taipei_jiantan"
+    )
+
+    assert daily_row["adapter"] == "gobooking"
+    assert candidate["enabled"] is True
+    assert candidate["automation_status"] == "verified"
+    assert "collected 8 live +30-day breakfast-included rates" in candidate[
+        "automation_note"
+    ]
+    assert "component percentages are not published" in candidate["automation_note"]
+
+
 def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
     expected_paths = {
         "probe-united-hotel-taipei.yml": (
@@ -149,6 +185,10 @@ def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
         "probe-tango-taichung.yml": (
             "scripts/run_tango_taichung_once.py",
             "config/hotels.tango-taichung-only.yaml",
+        ),
+        "probe-tango-jiantan.yml": (
+            "scripts/run_tango_jiantan_once.py",
+            "config/hotels.tango-jiantan-only.yaml",
         ),
     }
     for workflow, paths in expected_paths.items():
