@@ -1,0 +1,9 @@
+hotels:
+  - id: tango_hotel_taipei_fuhsing
+    name: Tango Hotel Taipei Fuhsing
+    short_name: Tango Fuhsing
+    city: Taipei
+    district: Songshan
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPFH/Booking
+    adapter: gobooking

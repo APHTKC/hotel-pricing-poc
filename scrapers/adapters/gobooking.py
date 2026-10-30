@@ -105,6 +105,17 @@ PROPERTIES = {
         "tax_inclusion": TaxInclusion.INCLUDED,
         "tax_components_verified": False,
     },
+    "tango_hotel_taipei_fuhsing": {
+        "slug": "TANGO-TPFH",
+        "plan_code": "70bafbb8-0069-4c3d-80b2-2a177f1073d4",
+        "plan_name": "【年度住房】優惠專案",
+        "cancellation": "入住14天前取消可全額退款",
+        "breakfast_included": True,
+        # The official package confirms that prices include service charges
+        # and tax, but does not publish their individual percentages.
+        "tax_inclusion": TaxInclusion.INCLUDED,
+        "tax_components_verified": False,
+    },
 }
 
 
