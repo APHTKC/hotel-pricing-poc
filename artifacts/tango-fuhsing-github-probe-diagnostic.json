@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "hotel_id": "tango_hotel_taipei_fuhsing",
+  "source": "official_gobooking",
+  "source_url": "https://hotel.gobooking.com.tw/zh-TW/TANGO-TPFH/Packages/Details/70bafbb8-0069-4c3d-80b2-2a177f1073d4",
+  "checked_at": "2026-10-30T00:33:54.643597Z",
+  "status": "cooldown",
+  "probe_limit": {
+    "candidate_attempts_this_batch": 1,
+    "retried": false
+  },
+  "local_probe": {
+    "environment": "windows_local",
+    "observations": 10,
+    "failures": 0,
+    "room_size_sqm_min": 23,
+    "room_size_sqm_max": 39,
+    "breakfast_included": true,
+    "cancellation_policy": "入住14天前取消可全額退款",
+    "tax_inclusion": "included",
+    "tax_components_verified": false
+  },
+  "remote_probe": {
+    "environment": "github_actions_ubuntu_latest",
+    "workflow_run_id": 40980271037,
+    "workflow_job_id": 123818299405,
+    "workflow_url": "https://github.com/APHTKC/hotel-pricing-poc/actions/runs/40980271037",
+    "started_at": "2026-10-30T00:33:09.112486Z",
+    "finished_at": "2026-10-30T00:33:54.643597Z",
+    "observations": 0,
+    "error_type": "playwright_timeout",
+    "timeout_ms": 45000,
+    "wait_condition": "domcontentloaded",
+    "error": "Page.goto timed out while navigating to the official package URL"
+  },
+  "missing_canonical_fields_in_remote_environment": [
+    "check_in",
+    "check_out",
+    "occupancy",
+    "room_type",
+    "breakfast_included",
+    "cancellation_policy",
+    "tax_inclusion",
+    "total_price",
+    "queried_at"
+  ],
+  "cooldown_until": "2026-11-06T00:33:54Z",
+  "cooldown_reason": "The official source succeeded locally but did not load on the GitHub Linux runner, so it is not reliable enough for unattended daily collection.",
+  "retry_condition": "Retry once only after the cooldown and a material booking-flow, runner-network, or adapter-navigation change.",
+  "decision": "Do not enable daily tracking or strict parity from this source. Preserve local evidence only as diagnostic context."
+}

@@ -293,7 +293,7 @@ def test_tango_shilin_is_enabled_after_cross_environment_validation():
     ]
 
 
-def test_tango_fuhsing_stays_disabled_pending_remote_validation():
+def test_tango_fuhsing_stays_disabled_after_remote_timeout():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
         Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
@@ -302,6 +302,11 @@ def test_tango_fuhsing_stays_disabled_pending_remote_validation():
         row
         for row in candidates["hotels"]
         if row["id"] == "tango_hotel_taipei_fuhsing"
+    )
+    diagnostic = json.loads(
+        Path("artifacts/tango-fuhsing-github-probe-diagnostic.json").read_text(
+            encoding="utf-8"
+        )
     )
 
     assert not any(
@@ -312,9 +317,15 @@ def test_tango_fuhsing_stays_disabled_pending_remote_validation():
     assert "collected 10 live +30-day breakfast-included rates" in candidate[
         "automation_note"
     ]
-    assert "until an isolated GitHub Linux probe independently succeeds" in candidate[
-        "automation_note"
-    ]
+    assert "GitHub Linux probe 40980271037 timed out" in candidate["automation_note"]
+    assert diagnostic["status"] == "cooldown"
+    assert diagnostic["probe_limit"] == {
+        "candidate_attempts_this_batch": 1,
+        "retried": False,
+    }
+    assert diagnostic["remote_probe"]["observations"] == 0
+    assert diagnostic["local_probe"]["observations"] == 10
+    assert diagnostic["cooldown_until"] == "2026-11-06T00:33:54Z"
 
 
 def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
