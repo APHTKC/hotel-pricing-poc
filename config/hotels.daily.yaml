@@ -236,3 +236,11 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPLS/Booking
     adapter: gobooking
+  - id: tango_hotel_taipei_changan
+    name: Tango Hotel Taipei ChangAn
+    short_name: Tango ChangAn
+    city: Taipei
+    district: Zhongshan
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPCA/Booking
+    adapter: gobooking
