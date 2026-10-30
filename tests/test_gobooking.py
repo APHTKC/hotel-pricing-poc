@@ -213,6 +213,38 @@ def test_tango_fuhsing_uses_official_annual_plan_without_inferred_components():
     assert prop["cancellation"] == "入住14天前取消可全額退款"
 
 
+def test_tango_linsen_uses_official_early_bird_plan_without_inferred_components():
+    prop = PROPERTIES["tango_hotel_taipei_linsen"]
+    assert prop["slug"] == "TANGO-TPLS"
+    assert prop["plan_code"] == "7ee53cc4-7955-482e-aafd-e9bfd3664a5d"
+    assert prop["plan_name"] == "早鳥住房專案"
+    assert prop["breakfast_included"] is False
+    assert prop["tax_inclusion"].value == "included"
+    assert prop["tax_components_verified"] is False
+    assert prop["cancellation"] == "入住前至少14天取消可全額退款"
+
+
+def test_tango_linsen_stays_isolated_while_cross_environment_probe_is_pending():
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "tango_hotel_taipei_linsen"
+    )
+
+    assert not any(
+        row["id"] == "tango_hotel_taipei_linsen" for row in daily["hotels"]
+    )
+    assert candidate["enabled"] is False
+    assert candidate["automation_status"] == "testing"
+    assert "collected 4 live +30-day room-only rates" in candidate["automation_note"]
+    assert "independent GitHub Linux probe" in candidate["automation_note"]
+    assert "component percentages remain null" in candidate["automation_note"]
+
+
 def test_tango_xinyi_is_enabled_after_clean_single_probe():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
@@ -361,6 +393,10 @@ def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
         "probe-tango-fuhsing.yml": (
             "scripts/run_tango_fuhsing_once.py",
             "config/hotels.tango-fuhsing-only.yaml",
+        ),
+        "probe-tango-linsen.yml": (
+            "scripts/run_tango_linsen_once.py",
+            "config/hotels.tango-linsen-only.yaml",
         ),
     }
     for workflow, paths in expected_paths.items():

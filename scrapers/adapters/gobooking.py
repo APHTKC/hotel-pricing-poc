@@ -116,6 +116,17 @@ PROPERTIES = {
         "tax_inclusion": TaxInclusion.INCLUDED,
         "tax_components_verified": False,
     },
+    "tango_hotel_taipei_linsen": {
+        "slug": "TANGO-TPLS",
+        "plan_code": "7ee53cc4-7955-482e-aafd-e9bfd3664a5d",
+        "plan_name": "早鳥住房專案",
+        "cancellation": "入住前至少14天取消可全額退款",
+        "breakfast_included": False,
+        # The official package confirms that prices include service charges
+        # and tax, but does not publish their individual percentages.
+        "tax_inclusion": TaxInclusion.INCLUDED,
+        "tax_components_verified": False,
+    },
 }
 
 
