@@ -224,7 +224,7 @@ def test_tango_linsen_uses_official_early_bird_plan_without_inferred_components(
     assert prop["cancellation"] == "入住前至少14天取消可全額退款"
 
 
-def test_tango_linsen_stays_isolated_while_cross_environment_probe_is_pending():
+def test_tango_linsen_is_enabled_after_cross_environment_validation():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
         Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
@@ -235,14 +235,14 @@ def test_tango_linsen_stays_isolated_while_cross_environment_probe_is_pending():
         if row["id"] == "tango_hotel_taipei_linsen"
     )
 
-    assert not any(
-        row["id"] == "tango_hotel_taipei_linsen" for row in daily["hotels"]
-    )
-    assert candidate["enabled"] is False
-    assert candidate["automation_status"] == "testing"
+    daily_row = next(row for row in daily["hotels"] if row["id"] == candidate["id"])
+    assert daily_row["adapter"] == "gobooking"
+    assert candidate["enabled"] is True
+    assert candidate["automation_status"] == "verified"
     assert "collected 4 live +30-day room-only rates" in candidate["automation_note"]
-    assert "independent GitHub Linux probe" in candidate["automation_note"]
-    assert "component percentages remain null" in candidate["automation_note"]
+    assert "GitHub Linux probe 40981716960" in candidate["automation_note"]
+    assert "same 4 clean rows" in candidate["automation_note"]
+    assert "remain null rather than inferred" in candidate["automation_note"]
 
 
 def test_tango_xinyi_is_enabled_after_clean_single_probe():

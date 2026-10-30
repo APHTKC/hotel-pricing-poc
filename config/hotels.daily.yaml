@@ -228,3 +228,11 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPSL/Booking
     adapter: gobooking
+  - id: tango_hotel_taipei_linsen
+    name: Tango Hotel Taipei Linsen
+    short_name: Tango Linsen
+    city: Taipei
+    district: Zhongshan
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPLS/Booking
+    adapter: gobooking
