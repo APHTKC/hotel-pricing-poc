@@ -224,6 +224,40 @@ def test_tango_linsen_uses_official_early_bird_plan_without_inferred_components(
     assert prop["cancellation"] == "入住前至少14天取消可全額退款"
 
 
+def test_tango_changan_uses_official_annual_plan_without_inferred_components():
+    prop = PROPERTIES["tango_hotel_taipei_changan"]
+    assert prop["slug"] == "TANGO-TPCA"
+    assert prop["plan_code"] == "91eb7239-4c52-49ca-9527-86108843020d"
+    assert prop["plan_name"] == "【年度住房】優惠專案"
+    assert prop["breakfast_included"] is True
+    assert prop["tax_inclusion"].value == "included"
+    assert prop["tax_components_verified"] is False
+    assert prop["cancellation"] == "入住前至少14天取消可全額退款"
+
+
+def test_tango_changan_stays_isolated_while_cross_environment_probe_is_pending():
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "tango_hotel_taipei_changan"
+    )
+
+    assert not any(
+        row["id"] == "tango_hotel_taipei_changan" for row in daily["hotels"]
+    )
+    assert candidate["enabled"] is False
+    assert candidate["automation_status"] == "testing"
+    assert "collected 13 live +30-day breakfast-included rates" in candidate[
+        "automation_note"
+    ]
+    assert "independent GitHub Linux probe" in candidate["automation_note"]
+    assert "component percentages remain null" in candidate["automation_note"]
+
+
 def test_tango_linsen_is_enabled_after_cross_environment_validation():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
@@ -397,6 +431,10 @@ def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
         "probe-tango-linsen.yml": (
             "scripts/run_tango_linsen_once.py",
             "config/hotels.tango-linsen-only.yaml",
+        ),
+        "probe-tango-changan.yml": (
+            "scripts/run_tango_changan_once.py",
+            "config/hotels.tango-changan-only.yaml",
         ),
     }
     for workflow, paths in expected_paths.items():

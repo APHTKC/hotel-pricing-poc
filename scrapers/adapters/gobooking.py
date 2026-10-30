@@ -127,6 +127,17 @@ PROPERTIES = {
         "tax_inclusion": TaxInclusion.INCLUDED,
         "tax_components_verified": False,
     },
+    "tango_hotel_taipei_changan": {
+        "slug": "TANGO-TPCA",
+        "plan_code": "91eb7239-4c52-49ca-9527-86108843020d",
+        "plan_name": "【年度住房】優惠專案",
+        "cancellation": "入住前至少14天取消可全額退款",
+        "breakfast_included": True,
+        # The official package confirms that prices include service charges
+        # and tax, but does not publish their individual percentages.
+        "tax_inclusion": TaxInclusion.INCLUDED,
+        "tax_components_verified": False,
+    },
 }
 
 
