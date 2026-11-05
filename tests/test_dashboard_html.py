@@ -1696,6 +1696,12 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert four_points_penghu["room_inventory"] == 331
     assert four_points_penghu["service_charge_percent"] is None
     assert four_points_penghu["restaurant_count"] == 5
+    assert four_points_penghu["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/mzgfp-four-points-penghu/overview/",
+    }
     assert four_points_penghu["facilities"] == {
         "pool": True,
         "fitness": True,

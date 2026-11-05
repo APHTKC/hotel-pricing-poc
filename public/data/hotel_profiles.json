@@ -3472,7 +3472,7 @@
     },
     {
       "hotel_id": "four_points_penghu",
-      "verified_at": "2026-10-06",
+      "verified_at": "2026-11-05",
       "room_inventory": 331,
       "service_charge_percent": null,
       "service_charge_source_type": "pending",
@@ -3484,6 +3484,12 @@
         {"name": "燈塔鐵板燒", "type_zh": "鐵板燒", "type_en": "Teppanyaki", "type_ja": "鉄板焼"}
       ],
       "restaurant_count": 5,
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/mzgfp-four-points-penghu/overview/"
+      },
       "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": true},
       "lounge": {"available": false, "name": null, "kind": null},
       "facility_notes": {
