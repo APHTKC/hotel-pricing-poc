@@ -1576,6 +1576,12 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "Crowne Plaza" in crowne_tainan["lounge"]["name"]
     formosa_yacht = by_id["formosa_yacht_resort"]
     assert formosa_yacht["room_inventory"] == 237
+    assert formosa_yacht["stay_times"] == {
+        "check_in": "16:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.formosayacht.com.tw/booking/",
+    }
     assert formosa_yacht["service_charge_percent"] == 10
     assert formosa_yacht["service_charge_source_type"] == "official"
     assert formosa_yacht["restaurant_count"] == 3
@@ -1586,6 +1592,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in formosa_yacht["room_snapshot"]["rooms"]) == 152
     assert all(formosa_yacht["facilities"].values())
     assert formosa_yacht["lounge"]["available"] is None
+    assert "春節及連假退房提前至 11:00" in formosa_yacht["facility_notes"]["zh"]
     silks_tainan = by_id["silks_place_tainan"]
     assert silks_tainan["room_inventory"] == 255
     assert "service_charge_percent" not in silks_tainan
