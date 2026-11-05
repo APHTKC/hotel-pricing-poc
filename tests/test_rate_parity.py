@@ -264,7 +264,13 @@ def test_deadline_based_free_cancellation_is_conditional(policy):
     ("policy", "check_in", "expected"),
     [
         ("入住日前至少 3 天取消可免收取消費", date(2027, 1, 9), "2027-01-06"),
+        ("入住前至少14天取消可全額退款", date(2026, 12, 20), "2026-12-06"),
         ("入住 3 天前取消可全額退款", date(2026, 12, 20), "2026-12-17"),
+        (
+            "預定住宿日前第三日以前取消，退還預收約定房價總金額百分之百",
+            date(2026, 12, 20),
+            "2026-12-17",
+        ),
         ("抵達前免費取消最多 15:00 1 天", date(2026, 12, 20), "2026-12-19"),
         ("2026年12月17日前可全額退款", date(2026, 12, 20), "2026-12-17"),
         ("12 月 15 日前可全額退款", date(2026, 12, 20), "2026-12-15"),
@@ -309,6 +315,7 @@ def test_full_booking_value_cancellation_fee_is_non_refundable():
     )
     assert normalize_cancellation_class("不得退款") == "non_refundable"
     assert normalize_cancellation_class("取消須付費") == "unknown"
+    assert normalize_cancellation_class("將收取取消費用") == "unknown"
 
 
 def test_full_stay_charge_and_explicit_no_refund_are_non_refundable():

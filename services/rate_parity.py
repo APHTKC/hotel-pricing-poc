@@ -85,6 +85,20 @@ def normalize_cancellation_schedule(policy: str | None) -> list[dict[str, Any]]:
 def _value(row: Mapping[str, Any] | Any, name: str, default=None):
     return row.get(name, default) if isinstance(row, Mapping) else getattr(row, name, default)
 
+
+def _parse_zh_integer(value: str) -> int | None:
+    """Parse the small Chinese integers used in published cancellation terms."""
+    digits = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5,
+              "六": 6, "七": 7, "八": 8, "九": 9}
+    if value == "十":
+        return 10
+    if "十" in value:
+        tens, ones = value.split("十", 1)
+        tens_value = digits.get(tens, 1) if tens else 1
+        ones_value = digits.get(ones, 0) if ones else 0
+        return tens_value * 10 + ones_value
+    return digits.get(value)
+
 def normalize_cancellation_class(policy: str | None) -> str:
     if not policy:
         return UNKNOWN
@@ -115,6 +129,7 @@ def normalize_cancellation_class(policy: str | None) -> str:
         re.search(r"(?:before|prior to|抵達前|入住前|日前|日まで).{0,30}\d+", text)
         or re.search(r"\d+.{0,30}(?:before|prior to|日前|日まで)", text)
         or re.search(r"(?:入住|抵達)\s*\d+\s*(?:天|日)前", text)
+        or re.search(r"(?:預定)?住宿日前第[一二三四五六七八九十]+日以前", text)
         or re.search(r"\d{4}\s*[年/-]\s*\d{1,2}\s*[月/-]\s*\d{1,2}\s*日前", text)
         or re.search(
             r"cancelled\s+after.{0,80}\d{1,2}\s+[a-z]{3,9}\s+20\d{2}",
@@ -208,6 +223,7 @@ def normalize_cancellation_deadline(row: Mapping[str, Any] | Any) -> str:
     days = None
     relative_patterns = (
         r"入住日前至少\s*(\d+)\s*(?:天|日)",
+        r"入住前至少\s*(\d+)\s*(?:天|日)",
         r"入住\s*(\d+)\s*(?:天|日)前",
         r"抵達前\s*(\d+)\s*(?:天|日)",
         # SynXis exposes the cutoff time before the relative-day value in
@@ -232,6 +248,13 @@ def normalize_cancellation_deadline(row: Mapping[str, Any] | Any) -> str:
             days = NUMBER_WORDS[match.group(1)]
     if days is None and re.search(r"(?:the|one) day prior to arrival", text):
         days = 1
+    if days is None:
+        match = re.search(
+            r"(?:預定)?住宿日前第([一二三四五六七八九十]+)日以前",
+            text,
+        )
+        if match:
+            days = _parse_zh_integer(match.group(1))
     if days is not None and check_in and days > 0:
         return (check_in - timedelta(days=days)).isoformat()
     return UNKNOWN
