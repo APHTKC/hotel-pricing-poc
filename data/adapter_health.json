@@ -6628,27 +6628,27 @@
     "gobooking:k_hotel_taipei_songjiang": {
       "adapter": "gobooking",
       "hotel_id": "k_hotel_taipei_songjiang",
-      "attempts": 1,
-      "successes": 0,
+      "attempts": 2,
+      "successes": 1,
       "failures": 1,
       "blocked_count": 0,
-      "consecutive_failures": 1,
-      "total_response_ms": 0.005400041118264198,
-      "average_response_ms": 0.01,
-      "success_rate": 0.0,
-      "last_status": "failed",
-      "last_attempt_at": "2026-11-05T09:54:02.856175+00:00",
-      "last_success_at": null,
+      "consecutive_failures": 0,
+      "total_response_ms": 16517.370200017467,
+      "average_response_ms": 8258.69,
+      "success_rate": 0.5,
+      "last_status": "success",
+      "last_attempt_at": "2026-11-05T14:52:42.034320+00:00",
+      "last_success_at": "2026-11-05T14:52:42.034320+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
-          "attempts": 1,
-          "successes": 0,
+          "attempts": 2,
+          "successes": 1,
           "failures": 1,
           "blocked": 0,
-          "response_ms": 0.01,
-          "success_rate": 0.0,
-          "average_response_ms": 0.01
+          "response_ms": 16517.37,
+          "success_rate": 0.5,
+          "average_response_ms": 8258.68
         }
       }
     }

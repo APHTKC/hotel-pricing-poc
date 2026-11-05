@@ -3,17 +3,22 @@
   "hotel_id": "k_hotel_taipei_songjiang",
   "source": "official_gobooking",
   "source_url": "https://hotel.gobooking.com.tw/zh-TW/K-TPSJ/Packages/Details/013df7da-d214-4904-aa73-eda5ac62575d",
-  "checked_at": "2026-11-05T09:54:02.898543Z",
-  "status": "prepared_for_next_probe",
+  "checked_at": "2026-11-05T14:52:42.215786Z",
+  "status": "awaiting_remote_probe",
   "probe_limit": {
     "candidate_attempts_this_batch": 1,
     "retried": false
   },
   "result": {
-    "observations": 0,
-    "external_request_started": false,
-    "error_type": "adapter_contract_missing",
-    "error": "GobookingScraper does not support hotel k_hotel_taipei_songjiang"
+    "observations": 7,
+    "external_request_started": true,
+    "failures": 0,
+    "check_in": "2026-12-05",
+    "check_out": "2026-12-06",
+    "room_size_sqm_min": 23.14,
+    "room_size_sqm_max": 39.67,
+    "total_price_twd_min": 5300,
+    "total_price_twd_max": 6700
   },
   "published_contract": {
     "plan_name": "一般訂房含早餐",
@@ -22,8 +27,10 @@
     "tax_inclusion": "included",
     "tax_components_verified": false
   },
-  "cooldown_until": "2026-11-05T10:54:02Z",
-  "cooldown_reason": "The batch attempt occurred before the property was present in the adapter whitelist. The contract is prepared, but no second attempt is allowed in the same batch.",
-  "retry_condition": "Run one +30-day probe in a later batch after the cooldown. Enable daily tracking only after clean local and isolated GitHub Linux results.",
-  "decision": "Keep the candidate disabled; do not publish rate rows or strict parity from published package text alone."
+  "remote_probe": {
+    "status": "pending",
+    "workflow": ".github/workflows/probe-k-hotel-songjiang.yml"
+  },
+  "retry_condition": "Enable daily tracking only after the isolated GitHub Linux probe returns clean live observations for the same official product contract.",
+  "decision": "Keep the candidate disabled until the isolated GitHub Linux probe succeeds; do not publish the local probe rows into the authoritative daily fact table."
 }

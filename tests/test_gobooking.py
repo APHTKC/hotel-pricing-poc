@@ -103,7 +103,7 @@ def test_k_hotel_changan_is_enabled_in_daily_and_candidate_catalogs():
     assert "tax_inclusion remains unknown" in candidate["automation_note"]
 
 
-def test_k_hotel_songjiang_is_prepared_but_not_enabled_before_probe():
+def test_k_hotel_songjiang_is_prepared_but_not_enabled_before_remote_probe():
     prop = PROPERTIES["k_hotel_taipei_songjiang"]
     assert prop == {
         "slug": "K-TPSJ",
@@ -127,23 +127,30 @@ def test_k_hotel_songjiang_is_prepared_but_not_enabled_before_probe():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     assert candidate["enabled"] is False
     assert candidate["automation_status"] == "skipped"
-    assert "no external request was made" in candidate["automation_note"]
+    assert "collected 7 live +30-day breakfast-included rates" in candidate[
+        "automation_note"
+    ]
+    assert "isolated GitHub Linux probe" in candidate["automation_note"]
     assert all(row["id"] != candidate["id"] for row in daily["hotels"])
 
 
-def test_k_hotel_songjiang_probe_diagnostic_is_fail_closed():
+def test_k_hotel_songjiang_probe_diagnostic_records_clean_local_result():
     diagnostic = json.loads(
         Path("artifacts/k-hotel-songjiang-probe-diagnostic.json").read_text(
             encoding="utf-8"
         )
     )
-    assert diagnostic["status"] == "prepared_for_next_probe"
+    assert diagnostic["status"] == "awaiting_remote_probe"
     assert diagnostic["probe_limit"] == {
         "candidate_attempts_this_batch": 1,
         "retried": False,
     }
-    assert diagnostic["result"]["observations"] == 0
-    assert diagnostic["result"]["external_request_started"] is False
+    assert diagnostic["result"]["observations"] == 7
+    assert diagnostic["result"]["external_request_started"] is True
+    assert diagnostic["result"]["failures"] == 0
+    assert diagnostic["result"]["room_size_sqm_min"] == 23.14
+    assert diagnostic["result"]["room_size_sqm_max"] == 39.67
+    assert diagnostic["remote_probe"]["status"] == "pending"
     assert diagnostic["published_contract"]["tax_components_verified"] is False
     assert diagnostic["decision"].startswith("Keep the candidate disabled")
 
@@ -448,6 +455,10 @@ def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
         "probe-k-hotel-changan.yml": (
             "scripts/run_k_hotel_changan_once.py",
             "config/hotels.k-hotel-changan-only.yaml",
+        ),
+        "probe-k-hotel-songjiang.yml": (
+            "scripts/run_k_hotel_songjiang_once.py",
+            "config/hotels.k-hotel-songjiang-only.yaml",
         ),
         "probe-tango-taichung.yml": (
             "scripts/run_tango_taichung_once.py",
