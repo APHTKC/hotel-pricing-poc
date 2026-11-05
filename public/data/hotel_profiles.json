@@ -3517,7 +3517,7 @@
     },
     {
       "hotel_id": "wyndham_sun_moon_lake",
-      "verified_at": "2026-10-06",
+      "verified_at": "2026-11-05",
       "room_inventory": 197,
       "service_charge_percent": null,
       "service_charge_source_type": "pending",
@@ -3528,12 +3528,12 @@
         {"name": "運動吧 Sports Bar", "type_zh": "運動酒吧與飲品", "type_en": "Sports bar and drinks", "type_ja": "スポーツバー・ドリンク"}
       ],
       "restaurant_count": 4,
-      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
+      "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
       "lounge": {"available": true, "name": "行政酒廊 Executive Lounge", "kind": "executive_lounge"},
       "facility_notes": {
-        "zh": "溫德姆集團及飯店官方網站可核實全館 197 間客房、十五類公開房型、兩間餐廳、兩間酒吧、戶外泳池、健身中心、SPA，以及行政酒廊；每間客房均設私人溫泉池。官方餐飲價格明列另加 10% 服務費，但尚未找到住宿價格適用相同費率的明確官方文字，因此住宿服務費欄位維持待核實。三溫暖與蒸氣室亦無明確官方證據。既有一次未來日期背景測試未取得可發布房價，未重複消耗額度。",
-        "en": "Official Wyndham and hotel sources verify 197 rooms, fifteen published room categories, two restaurants, two bars, an outdoor pool, fitness center, spa, executive lounge, and a private hot-spring pool in every room. Official dining prices state a 10% service charge, but no explicit official wording was found confirming the same rate for accommodations, so the lodging service-charge field remains pending. Sauna and steam room also remain unverified. A prior one-time future-date background check returned no publishable rates and was not repeated.",
-        "ja": "ウィンダムおよびホテルの公式資料で全197室、公開客室15カテゴリー、レストラン2店、バー2店、屋外プール、フィットネス、SPA、エグゼクティブラウンジ、全客室の専用温泉を確認済みです。公式の飲食料金には10%のサービス料が明記されていますが、宿泊料金にも同率が適用されるとの明確な公式表記は確認できないため、宿泊サービス料は確認待ちです。サウナとスチームルームも未確認です。過去の一回限りの将来日バックグラウンド検査では公開可能な料金を取得できず、再試行はしていません。"
+        "zh": "溫德姆集團及飯店官方網站可核實全館 197 間客房、十五類公開房型、兩間餐廳、兩間酒吧、戶外泳池、健身中心、SPA、溫泉三溫暖，以及行政酒廊；每間客房均設私人溫泉池。官方餐飲價格明列另加 10% 服務費，但尚未找到住宿價格適用相同費率的明確官方文字，因此住宿服務費欄位維持待核實。蒸氣室仍無明確官方證據。既有一次未來日期背景測試未取得可發布房價，未重複消耗額度。",
+        "en": "Official Wyndham and hotel sources verify 197 rooms, fifteen published room categories, two restaurants, two bars, an outdoor pool, fitness center, spa, hot-spring sauna, executive lounge, and a private hot-spring pool in every room. Official dining prices state a 10% service charge, but no explicit official wording was found confirming the same rate for accommodations, so the lodging service-charge field remains pending. A steam room remains unverified. A prior one-time future-date background check returned no publishable rates and was not repeated.",
+        "ja": "ウィンダムおよびホテルの公式資料で全197室、公開客室15カテゴリー、レストラン2店、バー2店、屋外プール、フィットネス、SPA、温泉サウナ、エグゼクティブラウンジ、全客室の専用温泉を確認済みです。公式の飲食料金には10%のサービス料が明記されていますが、宿泊料金にも同率が適用されるとの明確な公式表記は確認できないため、宿泊サービス料は確認待ちです。スチームルームは未確認です。過去の一回限りの将来日バックグラウンド検査では公開可能な料金を取得できず、再試行はしていません。"
       },
       "room_snapshot": {
         "observed_at": "2026-10-06",

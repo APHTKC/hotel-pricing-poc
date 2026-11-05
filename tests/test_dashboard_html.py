@@ -1683,9 +1683,10 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "pool": True,
         "fitness": True,
         "spa": True,
-        "sauna": None,
+        "sauna": True,
         "steam_room": None,
     }
+    assert "溫泉三溫暖" in wyndham["facility_notes"]["zh"]
     assert wyndham["lounge"]["available"] is True
     assert wyndham["room_snapshot"]["source_type"] == "official"
     assert len(wyndham["room_snapshot"]["rooms"]) == 15
