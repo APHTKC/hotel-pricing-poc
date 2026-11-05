@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-29",
+  "updated_at": "2026-11-05",
   "profiles": [
     {
       "hotel_id": "intercontinental_taipei",
@@ -992,7 +992,13 @@
     },
     {
       "hotel_id": "intercontinental_taichung",
-      "verified_at": "2026-09-30",
+      "verified_at": "2026-11-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://taichungic.com/accommodation/king-classic-2/"
+      },
       "room_inventory": 206,
       "restaurants": [
         {"name": "沐檸 IL Limone", "type_zh": "義式料理與全日餐飲", "type_en": "Italian cuisine and all-day dining", "type_ja": "イタリア料理・オールデイダイニング"},

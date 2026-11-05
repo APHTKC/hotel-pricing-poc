@@ -2042,6 +2042,12 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     intercontinental_taichung = by_id["intercontinental_taichung"]
     assert intercontinental_taichung["room_inventory"] == 206
     assert "service_charge_percent" not in intercontinental_taichung
+    assert intercontinental_taichung["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://taichungic.com/accommodation/king-classic-2/",
+    }
     assert len(intercontinental_taichung["restaurants"]) == 5
     assert intercontinental_taichung["facilities"] == {
         "pool": True,
