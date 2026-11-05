@@ -3114,7 +3114,13 @@
     },
     {
       "hotel_id": "episode_hsinchu",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-11-05",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/policies"
+      },
       "room_inventory": 140,
       "restaurants": [
         {"name": "CING YAN", "type_zh": "泰式半自助餐與西式料理", "type_en": "Thai semi-buffet and Western cuisine", "type_ja": "タイ料理セミビュッフェ・洋食"},
@@ -3142,6 +3148,7 @@
         "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/rooms",
         "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/dining",
         "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/hotel-info",
+        "https://www.hyatt.com/jdv-by-hyatt/en-US/hsujd-episode-hsinchu/policies",
         "https://newsroom.hyatt.com/news-releases?asPDF=1&item=124314"
       ]
     },
