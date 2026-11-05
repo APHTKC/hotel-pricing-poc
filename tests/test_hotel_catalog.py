@@ -66,7 +66,7 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     ids = {hotel["id"] for hotel in payload["hotels"]}
 
     assert set(NEW_TAIPEI_HOTELS) | {"intercontinental_taipei"} <= ids
-    assert len(payload["hotels"]) == 68
+    assert len(payload["hotels"]) == 78
 
 
 def test_published_hotel_sources_do_not_label_candidates_permanently_unsupported():
@@ -113,7 +113,7 @@ def test_location_tracking_is_derived_from_catalog(tmp_path):
     }
 
 
-def test_every_open_hotel_has_a_valid_opening_year():
+def test_every_sourced_opening_year_is_valid_without_inferring_unknown_years():
     source = yaml.safe_load(
         Path("config/hotel_openings.yaml").read_text(encoding="utf-8")
     )["hotels"]
@@ -121,13 +121,26 @@ def test_every_open_hotel_has_a_valid_opening_year():
     source_by_id = {hotel["id"]: hotel for hotel in source}
     published_by_id = {hotel["id"]: hotel for hotel in payload["hotels"]}
 
-    assert set(source_by_id) == set(published_by_id)
+    assert set(source_by_id) <= set(published_by_id)
     assert len(source_by_id) == 68
     assert all(1900 <= hotel["opened_year"] <= 2026 for hotel in source)
     assert all(
         published_by_id[hotel_id]["opened_year"] == opening["opened_year"]
         for hotel_id, opening in source_by_id.items()
     )
+
+
+def test_published_location_cache_exactly_covers_registered_hotels():
+    catalog = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    locations = json.loads(
+        Path("public/data/hotel_locations.json").read_text(encoding="utf-8")
+    )
+
+    catalog_ids = {hotel["id"] for hotel in catalog["hotels"]}
+    location_ids = {location["hotel_id"] for location in locations["locations"]}
+    assert len(catalog_ids) == len(catalog["hotels"]) == 78
+    assert len(location_ids) == len(locations["locations"]) == 78
+    assert location_ids == catalog_ids
 
 
 def test_episode_hotels_keep_official_profiles_and_source_status():

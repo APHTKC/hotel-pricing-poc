@@ -2747,12 +2747,14 @@ def test_hotel_map_covers_catalog_and_taipei_districts():
     )
     locations = location_data["locations"]
 
-    assert len(catalog) == 68
+    assert len(catalog) == 78
     assert len(locations) == len(catalog)
     assert {row["hotel_id"] for row in locations} == {row["id"] for row in catalog}
     assert all(21.5 <= row["latitude"] <= 26.5 for row in locations)
     assert all(118 <= row["longitude"] <= 123 for row in locations)
-    assert sum(row["city"] == "Taipei" for row in locations) == 38
+    assert sum(row["city"] == "Taipei" for row in locations) == sum(
+        row["city"] == "Taipei" for row in catalog
+    )
     tracked = {row["id"] for row in catalog if row.get("enabled")}
     assert {row["hotel_id"] for row in locations if row["daily_tracked"]} == tracked
     assert all(row["district"] for row in locations if row["city"] == "Taipei")

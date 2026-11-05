@@ -200,7 +200,7 @@ hotels:
     name: Tango Hotel Taichung
     short_name: Tango Taichung
     city: Taichung
-    district: Xitun
+    district: Nantun
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TC/Booking
     adapter: gobooking
