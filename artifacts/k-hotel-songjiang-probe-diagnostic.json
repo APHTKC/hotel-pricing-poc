@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "hotel_id": "k_hotel_taipei_songjiang",
+  "source": "official_gobooking",
+  "source_url": "https://hotel.gobooking.com.tw/zh-TW/K-TPSJ/Packages/Details/013df7da-d214-4904-aa73-eda5ac62575d",
+  "checked_at": "2026-11-05T09:54:02.898543Z",
+  "status": "prepared_for_next_probe",
+  "probe_limit": {
+    "candidate_attempts_this_batch": 1,
+    "retried": false
+  },
+  "result": {
+    "observations": 0,
+    "external_request_started": false,
+    "error_type": "adapter_contract_missing",
+    "error": "GobookingScraper does not support hotel k_hotel_taipei_songjiang"
+  },
+  "published_contract": {
+    "plan_name": "一般訂房含早餐",
+    "breakfast_included": true,
+    "cancellation_policy": "入住前至少14天取消可全額退款",
+    "tax_inclusion": "included",
+    "tax_components_verified": false
+  },
+  "cooldown_until": "2026-11-05T10:54:02Z",
+  "cooldown_reason": "The batch attempt occurred before the property was present in the adapter whitelist. The contract is prepared, but no second attempt is allowed in the same batch.",
+  "retry_condition": "Run one +30-day probe in a later batch after the cooldown. Enable daily tracking only after clean local and isolated GitHub Linux results.",
+  "decision": "Keep the candidate disabled; do not publish rate rows or strict parity from published package text alone."
+}

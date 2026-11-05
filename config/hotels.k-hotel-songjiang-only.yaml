@@ -1,0 +1,9 @@
+hotels:
+  - id: k_hotel_taipei_songjiang
+    name: K Hotels Taipei Songjiang
+    short_name: K Hotel Songjiang
+    city: Taipei
+    district: Zhongshan
+    country: TW
+    booking_url: https://hotel.gobooking.com.tw/zh-TW/K-TPSJ/Booking
+    adapter: gobooking

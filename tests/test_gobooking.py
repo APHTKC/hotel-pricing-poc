@@ -103,6 +103,51 @@ def test_k_hotel_changan_is_enabled_in_daily_and_candidate_catalogs():
     assert "tax_inclusion remains unknown" in candidate["automation_note"]
 
 
+def test_k_hotel_songjiang_is_prepared_but_not_enabled_before_probe():
+    prop = PROPERTIES["k_hotel_taipei_songjiang"]
+    assert prop == {
+        "slug": "K-TPSJ",
+        "plan_code": "013df7da-d214-4904-aa73-eda5ac62575d",
+        "plan_name": "一般訂房含早餐",
+        "cancellation": "入住前至少14天取消可全額退款",
+        "breakfast_included": True,
+        "tax_inclusion": prop["tax_inclusion"],
+        "tax_components_verified": False,
+    }
+    assert prop["tax_inclusion"].value == "included"
+
+    candidates = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+    candidate = next(
+        row
+        for row in candidates["hotels"]
+        if row["id"] == "k_hotel_taipei_songjiang"
+    )
+    daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    assert candidate["enabled"] is False
+    assert candidate["automation_status"] == "skipped"
+    assert "no external request was made" in candidate["automation_note"]
+    assert all(row["id"] != candidate["id"] for row in daily["hotels"])
+
+
+def test_k_hotel_songjiang_probe_diagnostic_is_fail_closed():
+    diagnostic = json.loads(
+        Path("artifacts/k-hotel-songjiang-probe-diagnostic.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert diagnostic["status"] == "prepared_for_next_probe"
+    assert diagnostic["probe_limit"] == {
+        "candidate_attempts_this_batch": 1,
+        "retried": False,
+    }
+    assert diagnostic["result"]["observations"] == 0
+    assert diagnostic["result"]["external_request_started"] is False
+    assert diagnostic["published_contract"]["tax_components_verified"] is False
+    assert diagnostic["decision"].startswith("Keep the candidate disabled")
+
+
 def test_tango_taichung_uses_verified_breakfast_plan_without_inferred_components():
     prop = PROPERTIES["tango_hotel_taichung"]
     assert prop["slug"] == "TANGO-TC"

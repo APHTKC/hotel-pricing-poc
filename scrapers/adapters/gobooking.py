@@ -50,6 +50,17 @@ PROPERTIES = {
         "tax_inclusion": TaxInclusion.UNKNOWN,
         "tax_components_verified": False,
     },
+    "k_hotel_taipei_songjiang": {
+        "slug": "K-TPSJ",
+        "plan_code": "013df7da-d214-4904-aa73-eda5ac62575d",
+        "plan_name": "一般訂房含早餐",
+        "cancellation": "入住前至少14天取消可全額退款",
+        "breakfast_included": True,
+        # The official package explicitly states that prices include tax and
+        # service charges, but does not publish their component percentages.
+        "tax_inclusion": TaxInclusion.INCLUDED,
+        "tax_components_verified": False,
+    },
     "tango_hotel_taichung": {
         "slug": "TANGO-TC",
         "plan_code": "fbc0ffb6-f5fa-44df-b2ec-efe74822b2f6",
