@@ -151,6 +151,17 @@ def test_k_hotel_songjiang_probe_diagnostic_records_clean_local_result():
     assert diagnostic["result"]["room_size_sqm_min"] == 23.14
     assert diagnostic["result"]["room_size_sqm_max"] == 39.67
     assert diagnostic["remote_probe"]["status"] == "pending"
+    assert diagnostic["remote_probe"]["previous_attempt"] == {
+        "run_id": 42049772324,
+        "conclusion": "cancelled",
+        "reason": "The 10-minute job timeout left only 31 seconds after dependency installation, so the collection step was cancelled before it could complete.",
+        "artifact_created": False,
+    }
+    assert diagnostic["remote_probe"]["workflow_timeout_minutes"] == 20
+    workflow = Path(".github/workflows/probe-k-hotel-songjiang.yml").read_text(
+        encoding="utf-8"
+    )
+    assert "timeout-minutes: 20" in workflow
     assert diagnostic["published_contract"]["tax_components_verified"] is False
     assert diagnostic["decision"].startswith("Keep the candidate disabled")
 

@@ -29,7 +29,14 @@
   },
   "remote_probe": {
     "status": "pending",
-    "workflow": ".github/workflows/probe-k-hotel-songjiang.yml"
+    "workflow": ".github/workflows/probe-k-hotel-songjiang.yml",
+    "previous_attempt": {
+      "run_id": 42049772324,
+      "conclusion": "cancelled",
+      "reason": "The 10-minute job timeout left only 31 seconds after dependency installation, so the collection step was cancelled before it could complete.",
+      "artifact_created": false
+    },
+    "workflow_timeout_minutes": 20
   },
   "retry_condition": "Enable daily tracking only after the isolated GitHub Linux probe returns clean live observations for the same official product contract.",
   "decision": "Keep the candidate disabled until the isolated GitHub Linux probe succeeds; do not publish the local probe rows into the authoritative daily fact table."
