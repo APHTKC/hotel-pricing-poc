@@ -2,12 +2,6 @@ name: Probe K Hotel Taipei Songjiang rates
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/run_k_hotel_songjiang_once.py"
-      - "config/hotels.k-hotel-songjiang-only.yaml"
-      - ".github/workflows/probe-k-hotel-songjiang.yml"
 
 permissions:
   contents: read

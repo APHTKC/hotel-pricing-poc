@@ -130,7 +130,10 @@ def test_k_hotel_songjiang_is_prepared_but_not_enabled_before_remote_probe():
     assert "collected 7 live +30-day breakfast-included rates" in candidate[
         "automation_note"
     ]
-    assert "isolated GitHub Linux probe" in candidate["automation_note"]
+    assert "GitHub Linux run 42060318442" in candidate["automation_note"]
+    assert "Automatic push-triggered probes are disabled" in candidate[
+        "automation_note"
+    ]
     assert all(row["id"] != candidate["id"] for row in daily["hotels"])
 
 
@@ -140,7 +143,7 @@ def test_k_hotel_songjiang_probe_diagnostic_records_clean_local_result():
             encoding="utf-8"
         )
     )
-    assert diagnostic["status"] == "awaiting_remote_probe"
+    assert diagnostic["status"] == "remote_probe_failed"
     assert diagnostic["probe_limit"] == {
         "candidate_attempts_this_batch": 1,
         "retried": False,
@@ -150,18 +153,28 @@ def test_k_hotel_songjiang_probe_diagnostic_records_clean_local_result():
     assert diagnostic["result"]["failures"] == 0
     assert diagnostic["result"]["room_size_sqm_min"] == 23.14
     assert diagnostic["result"]["room_size_sqm_max"] == 39.67
-    assert diagnostic["remote_probe"]["status"] == "pending"
-    assert diagnostic["remote_probe"]["previous_attempt"] == {
+    assert diagnostic["remote_probe"]["status"] == "failed"
+    assert diagnostic["remote_probe"]["automatic_trigger_enabled"] is False
+    assert diagnostic["remote_probe"]["attempts"][0] == {
         "run_id": 42049772324,
         "conclusion": "cancelled",
         "reason": "The 10-minute job timeout left only 31 seconds after dependency installation, so the collection step was cancelled before it could complete.",
         "artifact_created": False,
     }
+    failed_attempt = diagnostic["remote_probe"]["attempts"][1]
+    assert failed_attempt["run_id"] == 42060318442
+    assert failed_attempt["job_id"] == 127359828307
+    assert failed_attempt["conclusion"] == "failure"
+    assert failed_attempt["observations"] == 0
+    assert failed_attempt["error_type"] == "playwright_timeout"
+    assert failed_attempt["timeout_ms"] == 45000
+    assert failed_attempt["artifact_id"] == 13432191209
     assert diagnostic["remote_probe"]["workflow_timeout_minutes"] == 20
     workflow = Path(".github/workflows/probe-k-hotel-songjiang.yml").read_text(
         encoding="utf-8"
     )
     assert "timeout-minutes: 20" in workflow
+    assert "push:" not in workflow
     assert diagnostic["published_contract"]["tax_components_verified"] is False
     assert diagnostic["decision"].startswith("Keep the candidate disabled")
 
@@ -467,10 +480,6 @@ def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
             "scripts/run_k_hotel_changan_once.py",
             "config/hotels.k-hotel-changan-only.yaml",
         ),
-        "probe-k-hotel-songjiang.yml": (
-            "scripts/run_k_hotel_songjiang_once.py",
-            "config/hotels.k-hotel-songjiang-only.yaml",
-        ),
         "probe-tango-taichung.yml": (
             "scripts/run_tango_taichung_once.py",
             "config/hotels.tango-taichung-only.yaml",
@@ -509,3 +518,10 @@ def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
         assert "scrapers/adapters/gobooking.py" not in text
         for path in paths:
             assert path in text
+
+    songjiang_workflow = Path(
+        ".github/workflows/probe-k-hotel-songjiang.yml"
+    ).read_text(encoding="utf-8")
+    assert "workflow_dispatch:" in songjiang_workflow
+    assert "push:" not in songjiang_workflow
+    assert "python -m scripts.run_k_hotel_songjiang_once" in songjiang_workflow

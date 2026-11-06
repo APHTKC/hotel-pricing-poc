@@ -3,8 +3,8 @@
   "hotel_id": "k_hotel_taipei_songjiang",
   "source": "official_gobooking",
   "source_url": "https://hotel.gobooking.com.tw/zh-TW/K-TPSJ/Packages/Details/013df7da-d214-4904-aa73-eda5ac62575d",
-  "checked_at": "2026-11-05T14:52:42.215786Z",
-  "status": "awaiting_remote_probe",
+  "checked_at": "2026-11-05T15:59:47Z",
+  "status": "remote_probe_failed",
   "probe_limit": {
     "candidate_attempts_this_batch": 1,
     "retried": false
@@ -28,16 +28,34 @@
     "tax_components_verified": false
   },
   "remote_probe": {
-    "status": "pending",
+    "status": "failed",
     "workflow": ".github/workflows/probe-k-hotel-songjiang.yml",
-    "previous_attempt": {
-      "run_id": 42049772324,
-      "conclusion": "cancelled",
-      "reason": "The 10-minute job timeout left only 31 seconds after dependency installation, so the collection step was cancelled before it could complete.",
-      "artifact_created": false
-    },
-    "workflow_timeout_minutes": 20
+    "automatic_trigger_enabled": false,
+    "workflow_timeout_minutes": 20,
+    "attempts": [
+      {
+        "run_id": 42049772324,
+        "conclusion": "cancelled",
+        "reason": "The 10-minute job timeout left only 31 seconds after dependency installation, so the collection step was cancelled before it could complete.",
+        "artifact_created": false
+      },
+      {
+        "run_id": 42060318442,
+        "job_id": 127359828307,
+        "conclusion": "failure",
+        "observations": 0,
+        "error_type": "playwright_timeout",
+        "timeout_ms": 45000,
+        "failed_url": "https://hotel.gobooking.com.tw/zh-TW/K-TPSJ/Packages/Details/013df7da-d214-4904-aa73-eda5ac62575d",
+        "reason": "GitHub's Linux runner could not finish Page.goto for the official package page within 45 seconds after dependencies installed successfully.",
+        "artifact_id": 13432191209,
+        "artifact_size_bytes": 186
+      }
+    ]
   },
-  "retry_condition": "Enable daily tracking only after the isolated GitHub Linux probe returns clean live observations for the same official product contract.",
-  "decision": "Keep the candidate disabled until the isolated GitHub Linux probe succeeds; do not publish the local probe rows into the authoritative daily fact table."
+  "cooldown": {
+    "reason": "The unchanged official package flow timed out on GitHub Linux after the local probe succeeded; automatic push-triggered probes are disabled to prevent blind retries and repeated failure notifications.",
+    "retry_condition": "Retry manually only after a material booking-flow or GitHub-runner network change is identified."
+  },
+  "decision": "Keep the candidate disabled and do not publish the local probe rows into the authoritative daily fact table; the remote environment did not verify the source contract."
 }
