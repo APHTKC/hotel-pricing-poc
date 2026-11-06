@@ -3277,7 +3277,13 @@
     },
     {
       "hotel_id": "the_lalu_sun_moon_lake",
-      "verified_at": "2026-10-06",
+      "verified_at": "2026-11-06",
+      "stay_times": {
+        "check_in": "14:30",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://www.thelalu.com.tw/upload/news/2025/2025Flyer%E4%B8%89%E5%A4%A9%E4%BA%8C%E5%A4%9C.pdf"
+      },
       "room_inventory": 96,
       "service_charge_percent": 10,
       "service_charge_source_type": "official",
@@ -3312,6 +3318,7 @@
       "source_urls": [
         "https://www.thelalu.com.tw/zh-tw/Room/roomType",
         "https://www.thelalu.com.tw/zh-tw/News/320",
+        "https://www.thelalu.com.tw/upload/news/2025/2025Flyer%E4%B8%89%E5%A4%A9%E4%BA%8C%E5%A4%9C.pdf",
         "https://www.thelalu.com.tw/jp/Dining",
         "https://www.thelalu.com.tw/zh-tw/About/%E7%B4%B0%E8%AA%AA%E6%B6%B5%E7%A2%A7%E6%A8%93",
         "https://www.thelalu.com.tw/zh-tw/SPA",

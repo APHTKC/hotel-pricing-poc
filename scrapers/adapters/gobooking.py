@@ -3,6 +3,8 @@ import re
 from datetime import UTC, date, datetime
 from decimal import Decimal, ROUND_HALF_UP
 
+from playwright.async_api import TimeoutError as PlaywrightTimeoutError
+
 from app.models import Hotel, RateObservation, ScrapeStatus, TaxInclusion
 from scrapers.adapters.capella import CapellaScraper, parse_money
 
@@ -178,6 +180,32 @@ def split_tax_inclusive_total(total: Decimal) -> tuple[Decimal, Decimal, Decimal
     return base, service, tax
 
 
+async def goto_when_content_ready(page, url: str, ready_locator, timeout_ms: int):
+    """Accept a late DOMContentLoaded only when expected page content is present.
+
+    Gobooking occasionally leaves a subresource pending on GitHub's Linux runners,
+    causing Playwright's navigation wait to time out after the room or price markup
+    has already rendered.  A real network error still propagates, and a timeout is
+    re-raised unless the caller's content-specific locator becomes attached.
+    """
+
+    try:
+        return await page.goto(
+            url,
+            wait_until="domcontentloaded",
+            timeout=timeout_ms,
+        )
+    except PlaywrightTimeoutError as navigation_timeout:
+        try:
+            await ready_locator.wait_for(
+                state="attached",
+                timeout=min(timeout_ms, 10_000),
+            )
+        except PlaywrightTimeoutError:
+            raise navigation_timeout
+        return None
+
+
 class GobookingScraper(CapellaScraper):
     async def fetch_rates(
         self, hotel: Hotel, check_in: date, check_out: date, adults: int = 2
@@ -193,14 +221,14 @@ class GobookingScraper(CapellaScraper):
         queried_at = datetime.now(UTC)
         page = await self._page()
         try:
-            await page.goto(
+            rooms = page.locator(".js-package-room").first
+            await goto_when_content_ready(
+                page,
                 package_url,
-                wait_until="domcontentloaded",
-                timeout=self.timeout_ms,
+                rooms,
+                self.timeout_ms,
             )
-            await page.locator(".js-package-room").first.wait_for(
-                timeout=self.timeout_ms
-            )
+            await rooms.wait_for(timeout=self.timeout_ms)
             await self._dismiss_overlays(page)
             return await self._collect(
                 page, hotel, check_in, check_out, adults, queried_at, prop
@@ -242,13 +270,14 @@ class GobookingScraper(CapellaScraper):
                 f"packageId={prop['plan_code']}&packageRoomId={room_code}"
                 f"&arrival={arrival}"
             )
-            await page.goto(
+            price = page.locator(".amount").first
+            await goto_when_content_ready(
+                page,
                 reserve_url,
-                wait_until="domcontentloaded",
-                timeout=self.timeout_ms,
+                price,
+                self.timeout_ms,
             )
             try:
-                price = page.locator(".amount").first
                 await price.wait_for(state="visible", timeout=8_000)
                 if await price.count():
                     total = parse_money(await price.inner_text())

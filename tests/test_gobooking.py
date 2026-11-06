@@ -1,10 +1,18 @@
+import asyncio
 import json
 from decimal import Decimal
 from pathlib import Path
+from unittest.mock import AsyncMock
 
 import yaml
+from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 
-from scrapers.adapters.gobooking import PROPERTIES, parse_room_size, split_tax_inclusive_total
+from scrapers.adapters.gobooking import (
+    PROPERTIES,
+    goto_when_content_ready,
+    parse_room_size,
+    split_tax_inclusive_total,
+)
 
 
 def test_parse_room_size():
@@ -21,6 +29,38 @@ def test_split_tax_inclusive_total():
         Decimal("480"),
         Decimal("264"),
     )
+
+
+def test_goto_accepts_late_domcontentloaded_only_after_expected_content():
+    page = AsyncMock()
+    ready = AsyncMock()
+    page.goto.side_effect = PlaywrightTimeoutError("late DOMContentLoaded")
+
+    result = asyncio.run(
+        goto_when_content_ready(page, "https://example.test/package", ready, 45_000)
+    )
+
+    assert result is None
+    ready.wait_for.assert_awaited_once_with(state="attached", timeout=10_000)
+
+
+def test_goto_reraises_navigation_timeout_when_expected_content_is_absent():
+    page = AsyncMock()
+    ready = AsyncMock()
+    navigation_timeout = PlaywrightTimeoutError("late DOMContentLoaded")
+    page.goto.side_effect = navigation_timeout
+    ready.wait_for.side_effect = PlaywrightTimeoutError("room markup absent")
+
+    try:
+        asyncio.run(
+            goto_when_content_ready(
+                page, "https://example.test/package", ready, 45_000
+            )
+        )
+    except PlaywrightTimeoutError as exc:
+        assert exc is navigation_timeout
+    else:
+        raise AssertionError("missing content must not hide a navigation timeout")
 
 
 def test_solaria_uses_verified_gobooking_property():
