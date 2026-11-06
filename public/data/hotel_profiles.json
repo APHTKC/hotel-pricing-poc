@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-05",
+  "updated_at": "2026-11-06",
   "profiles": [
     {
       "hotel_id": "intercontinental_taipei",
@@ -3373,10 +3373,16 @@
     },
     {
       "hotel_id": "mu_jiaoxi_reserve",
-      "verified_at": "2026-10-06",
+      "verified_at": "2026-11-06",
       "room_inventory": 190,
       "service_charge_percent": 10,
       "service_charge_source_type": "official",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.muhotels.com/p/zh-tw/pages/Check-In-Info"
+      },
       "restaurants": [
         {"name": "MU TABLE 自助餐廳", "type_zh": "自助餐與宜蘭在地料理", "type_en": "Buffet and Yilan local cuisine", "type_ja": "ビュッフェ・宜蘭郷土料理"},
         {"name": "寒沐中餐廳", "type_zh": "中華料理", "type_en": "Chinese cuisine", "type_ja": "中華料理"},
@@ -3411,7 +3417,8 @@
         "https://booking.muhotels.com/en/MU-JX/Booking",
         "https://www.muhotels.com/zh-tw/pages/878",
         "https://www.muhotels.com/zh-tw/pages/18",
-        "https://booking.muhotels.com/zh-TW/MU-JX/"
+        "https://booking.muhotels.com/zh-TW/MU-JX/",
+        "https://www.muhotels.com/p/zh-tw/pages/Check-In-Info"
       ]
     },
     {

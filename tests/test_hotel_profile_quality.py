@@ -103,6 +103,7 @@ def test_priority_central_taiwan_profiles_have_official_stay_times():
         "sheraton_hsinchu": ("16:00", "11:00", "marriott.com"),
         "windsor_taichung": ("16:00", "11:00", "windsortaiwan.com"),
         "kaohsiung_marriott": ("15:00", "12:00", "marriott.com"),
+        "mu_jiaoxi_reserve": ("15:00", "11:00", "muhotels.com"),
     }
 
     for hotel_id, (check_in, check_out, source_host) in expected.items():
@@ -111,3 +112,22 @@ def test_priority_central_taiwan_profiles_have_official_stay_times():
         assert stay_times["check_out"] == check_out
         assert stay_times["source_type"] == "official"
         assert source_host in stay_times["source_url"]
+
+
+def test_committed_profile_quality_counts_mu_jiaoxi_stay_times():
+    profiles = json.loads(
+        Path("public/data/hotel_profiles.json").read_text(encoding="utf-8")
+    )
+    report = build_hotel_profile_quality(profiles)
+    row = next(
+        hotel
+        for hotel in report["hotels"]
+        if hotel["hotel_id"] == "mu_jiaoxi_reserve"
+    )
+
+    assert "stay_times_sourced" not in row["missing_evidence"]
+    assert report["profile_coverage"]["stay_times_sourced"] == {
+        "count": 65,
+        "total": 68,
+        "percent": 95.59,
+    }

@@ -1662,6 +1662,13 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert mu_jiaoxi["room_inventory"] == 190
     assert mu_jiaoxi["service_charge_percent"] == 10
     assert mu_jiaoxi["restaurant_count"] == 4
+    assert mu_jiaoxi["verified_at"] == "2026-11-06"
+    assert mu_jiaoxi["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.muhotels.com/p/zh-tw/pages/Check-In-Info",
+    }
     assert mu_jiaoxi["room_snapshot"]["source_type"] == "official"
     assert len(mu_jiaoxi["room_snapshot"]["rooms"]) == 7
     assert min(room["size_sqm"] for room in mu_jiaoxi["room_snapshot"]["rooms"]) == 39.7
