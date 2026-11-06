@@ -914,6 +914,19 @@
       "accuracy": "mapped_point"
     },
     {
+      "hotel_id": "k_hotel_taipei_songjiang",
+      "name_zh": "柯達大飯店台北松江",
+      "name_en": "K Hotels Taipei Songjiang",
+      "city": "Taipei",
+      "district": "Zhongshan",
+      "latitude": 25.0593908,
+      "longitude": 121.5335098,
+      "booking_url": "https://hotel.gobooking.com.tw/zh-TW/K-TPSJ/Booking",
+      "daily_tracked": false,
+      "source": "Official address cross-check and OpenStreetMap Nominatim",
+      "accuracy": "mapped_point"
+    },
+    {
       "hotel_id": "tango_hotel_taichung",
       "name_zh": "天閣酒店台中館",
       "name_en": "Tango Hotel Taichung",

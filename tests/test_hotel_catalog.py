@@ -66,7 +66,24 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     ids = {hotel["id"] for hotel in payload["hotels"]}
 
     assert set(NEW_TAIPEI_HOTELS) | {"intercontinental_taipei"} <= ids
-    assert len(payload["hotels"]) == 78
+    assert len(payload["hotels"]) == 79
+
+
+def test_published_catalog_matches_registered_source_ids():
+    source_ids = set()
+    for source in (
+        Path("config/hotels.daily.yaml"),
+        Path("config/hotels.candidates.yaml"),
+    ):
+        rows = yaml.safe_load(source.read_text(encoding="utf-8"))["hotels"]
+        ids = [row["id"] for row in rows]
+        assert len(ids) == len(set(ids)), source
+        source_ids.update(ids)
+
+    catalog = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    catalog_ids = {hotel["id"] for hotel in catalog["hotels"]}
+
+    assert catalog_ids == source_ids
 
 
 def test_published_hotel_sources_do_not_label_candidates_permanently_unsupported():
@@ -138,8 +155,8 @@ def test_published_location_cache_exactly_covers_registered_hotels():
 
     catalog_ids = {hotel["id"] for hotel in catalog["hotels"]}
     location_ids = {location["hotel_id"] for location in locations["locations"]}
-    assert len(catalog_ids) == len(catalog["hotels"]) == 78
-    assert len(location_ids) == len(locations["locations"]) == 78
+    assert len(catalog_ids) == len(catalog["hotels"]) == 79
+    assert len(location_ids) == len(locations["locations"]) == 79
     assert location_ids == catalog_ids
 
 
