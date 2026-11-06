@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "observed_at": "2026-11-06T01:42:43Z",
+  "hotel_id": "episode_daan_taipei",
+  "source": "hyatt_official_hotel_pages",
+  "source_type": "official",
+  "check_type": "profile_stay_times",
+  "status": "blocked_http_403",
+  "requested_urls": [
+    "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/hotel-info",
+    "https://www.hyatt.com/jdv-by-hyatt/zh-TW/tpejd-jdv-episode-daan-taipei/hotel-info",
+    "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei"
+  ],
+  "outcomes": [
+    {
+      "url": "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/hotel-info",
+      "http_status": 403
+    },
+    {
+      "url": "https://www.hyatt.com/jdv-by-hyatt/zh-TW/tpejd-jdv-episode-daan-taipei/hotel-info",
+      "http_status": 403
+    },
+    {
+      "url": "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei",
+      "http_status": 403
+    }
+  ],
+  "missing_fields": [
+    "check_in",
+    "check_out"
+  ],
+  "cooldown": {
+    "until": "2026-12-06T01:42:43Z",
+    "reason": "The official Hyatt hotel and hotel-info pages returned HTTP 403 during the single low-cost profile evidence check.",
+    "retry_condition": "Retry once only after a material Hyatt public-access change or after a new official public page explicitly publishes both stay times."
+  },
+  "safety": {
+    "bypass_attempted": false,
+    "cross_property_inference_allowed": false,
+    "unknown_values_preserved": true
+  }
+}
