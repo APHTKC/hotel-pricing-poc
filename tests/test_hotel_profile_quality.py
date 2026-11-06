@@ -104,6 +104,7 @@ def test_priority_central_taiwan_profiles_have_official_stay_times():
         "windsor_taichung": ("16:00", "11:00", "windsortaiwan.com"),
         "kaohsiung_marriott": ("15:00", "12:00", "marriott.com"),
         "mu_jiaoxi_reserve": ("15:00", "11:00", "muhotels.com"),
+        "wyndham_sun_moon_lake": ("15:00", "11:00", "ezhotel.cloud"),
     }
 
     for hotel_id, (check_in, check_out, source_host) in expected.items():
@@ -114,7 +115,7 @@ def test_priority_central_taiwan_profiles_have_official_stay_times():
         assert source_host in stay_times["source_url"]
 
 
-def test_committed_profile_quality_counts_mu_jiaoxi_stay_times():
+def test_committed_profile_quality_counts_wyndham_stay_times():
     profiles = json.loads(
         Path("public/data/hotel_profiles.json").read_text(encoding="utf-8")
     )
@@ -122,12 +123,12 @@ def test_committed_profile_quality_counts_mu_jiaoxi_stay_times():
     row = next(
         hotel
         for hotel in report["hotels"]
-        if hotel["hotel_id"] == "mu_jiaoxi_reserve"
+        if hotel["hotel_id"] == "wyndham_sun_moon_lake"
     )
 
     assert "stay_times_sourced" not in row["missing_evidence"]
     assert report["profile_coverage"]["stay_times_sourced"] == {
-        "count": 65,
+        "count": 66,
         "total": 68,
-        "percent": 95.59,
+        "percent": 97.06,
     }

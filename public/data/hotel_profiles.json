@@ -3530,10 +3530,16 @@
     },
     {
       "hotel_id": "wyndham_sun_moon_lake",
-      "verified_at": "2026-11-05",
+      "verified_at": "2026-11-06",
       "room_inventory": 197,
       "service_charge_percent": null,
       "service_charge_source_type": "pending",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://rwd.ezhotel.cloud/wyndham/1"
+      },
       "restaurants": [
         {"name": "饗沐全日自助餐廳 The Gourmet Kitchen", "type_zh": "全日自助餐與客房送餐", "type_en": "All-day buffet and room service", "type_ja": "オールデイビュッフェ・ルームサービス"},
         {"name": "邵中餐廳 Shao Chinese Restaurant", "type_zh": "中式料理與宴席", "type_en": "Chinese cuisine and banquets", "type_ja": "中華料理・宴会料理"},
@@ -3574,6 +3580,8 @@
         "https://www.wyndhamhotels.com/wyndham/taiwan-nantou-china/wyndham-sun-moon-lake/accommodations",
         "https://www.wyndhamhotels.com/wyndham/taiwan-nantou-china/wyndham-sun-moon-lake/services-amenities",
         "https://wyndhamsunmoonlake.com/portfolio_category/rooms/",
+        "https://wyndhamsunmoonlake.com/rooms-yilan-sunmoonlake/",
+        "https://rwd.ezhotel.cloud/wyndham/1",
         "https://wyndhamsunmoonlake.com/%E9%A4%90%E9%A3%B2%E7%BE%8E%E9%A5%8C/",
         "https://wyndhamsunmoonlake.com/%E8%A8%AD%E6%96%BD%E6%9C%8D%E5%8B%99/"
       ]
