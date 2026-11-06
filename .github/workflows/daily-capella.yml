@@ -136,3 +136,9 @@ jobs:
       - name: Publish dashboard
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify public dashboard
+        run: >-
+          python -m scripts.verify_pages_deployment
+          --url "${{ steps.deployment.outputs.page_url }}"
+          --expected-build "${GITHUB_SHA::7}"

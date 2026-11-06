@@ -91,3 +91,16 @@ def test_dashboard_publish_is_blocked_by_full_test_suite() -> None:
 
     assert install < test < metadata < upload
     assert "run: python -m pytest -q" in workflow
+    assert '      - "public/**"' in workflow
+    assert '.github/workflows/publish-dashboard.yml' not in workflow
+
+
+def test_pages_workflows_verify_the_public_build_after_deployment() -> None:
+    for path in (WORKFLOW, PUBLISH_WORKFLOW):
+        workflow = path.read_text(encoding="utf-8")
+        deploy = workflow.index("uses: actions/deploy-pages@v4")
+        verify = workflow.index("python -m scripts.verify_pages_deployment")
+
+        assert deploy < verify
+        assert '--url "${{ steps.deployment.outputs.page_url }}"' in workflow
+        assert '--expected-build "${GITHUB_SHA::7}"' in workflow
