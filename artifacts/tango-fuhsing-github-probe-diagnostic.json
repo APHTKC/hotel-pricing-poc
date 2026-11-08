@@ -3,8 +3,8 @@
   "hotel_id": "tango_hotel_taipei_fuhsing",
   "source": "official_gobooking",
   "source_url": "https://hotel.gobooking.com.tw/zh-TW/TANGO-TPFH/Packages/Details/70bafbb8-0069-4c3d-80b2-2a177f1073d4",
-  "checked_at": "2026-10-30T00:33:54.643597Z",
-  "status": "cooldown",
+  "checked_at": "2026-11-08T23:27:27.990955Z",
+  "status": "verified",
   "probe_limit": {
     "candidate_attempts_this_batch": 1,
     "retried": false
@@ -20,7 +20,7 @@
     "tax_inclusion": "included",
     "tax_components_verified": false
   },
-  "remote_probe": {
+  "previous_remote_probe": {
     "environment": "github_actions_ubuntu_latest",
     "workflow_run_id": 40980271037,
     "workflow_job_id": 123818299405,
@@ -33,19 +33,20 @@
     "wait_condition": "domcontentloaded",
     "error": "Page.goto timed out while navigating to the official package URL"
   },
-  "missing_canonical_fields_in_remote_environment": [
-    "check_in",
-    "check_out",
-    "occupancy",
-    "room_type",
-    "breakfast_included",
-    "cancellation_policy",
-    "tax_inclusion",
-    "total_price",
-    "queried_at"
-  ],
-  "cooldown_until": "2026-11-06T00:33:54Z",
-  "cooldown_reason": "The official source succeeded locally but did not load on the GitHub Linux runner, so it is not reliable enough for unattended daily collection.",
-  "retry_condition": "Retry once only after the cooldown and a material booking-flow, runner-network, or adapter-navigation change.",
-  "decision": "Do not enable daily tracking or strict parity from this source. Preserve local evidence only as diagnostic context."
+  "remote_probe": {
+    "environment": "github_actions_ubuntu_latest",
+    "workflow_run_id": 42535120275,
+    "workflow_job_id": 128897611363,
+    "workflow_url": "https://github.com/APHTKC/hotel-pricing-poc/actions/runs/42535120275",
+    "started_at": "2026-11-08T23:26:34.445440Z",
+    "finished_at": "2026-11-08T23:27:27.990955Z",
+    "observations": 10,
+    "failures": [],
+    "adapter_change": "goto_when_content_ready accepts an expected attached room or price locator after a DOMContentLoaded-only navigation timeout"
+  },
+  "missing_canonical_fields_in_remote_environment": [],
+  "cooldown_until": null,
+  "cooldown_reason": null,
+  "retry_condition": null,
+  "decision": "Enable daily official tracking after the isolated GitHub Linux probe reproduced all 10 clean rows with no failures. Keep unpublished tax component percentages null and require the complete canonical key before strict parity."
 }

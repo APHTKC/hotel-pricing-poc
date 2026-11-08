@@ -475,7 +475,7 @@ def test_tango_shilin_is_enabled_after_cross_environment_validation():
     ]
 
 
-def test_tango_fuhsing_stays_disabled_after_remote_timeout():
+def test_tango_fuhsing_is_enabled_after_navigation_fix_and_remote_validation():
     daily = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
     candidates = yaml.safe_load(
         Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
@@ -491,23 +491,28 @@ def test_tango_fuhsing_stays_disabled_after_remote_timeout():
         )
     )
 
-    assert not any(
-        row["id"] == "tango_hotel_taipei_fuhsing" for row in daily["hotels"]
-    )
-    assert candidate["enabled"] is False
-    assert candidate["automation_status"] == "skipped"
+    daily_row = next(row for row in daily["hotels"] if row["id"] == candidate["id"])
+    assert daily_row["adapter"] == "gobooking"
+    assert candidate["enabled"] is True
+    assert candidate["automation_status"] == "verified"
     assert "collected 10 live +30-day breakfast-included rates" in candidate[
         "automation_note"
     ]
-    assert "GitHub Linux probe 40980271037 timed out" in candidate["automation_note"]
-    assert diagnostic["status"] == "cooldown"
+    assert "GitHub Linux probe 42535120275 independently collected 10 clean rows" in candidate[
+        "automation_note"
+    ]
+    assert diagnostic["status"] == "verified"
     assert diagnostic["probe_limit"] == {
         "candidate_attempts_this_batch": 1,
         "retried": False,
     }
-    assert diagnostic["remote_probe"]["observations"] == 0
+    assert diagnostic["previous_remote_probe"]["observations"] == 0
+    assert diagnostic["remote_probe"]["workflow_run_id"] == 42535120275
+    assert diagnostic["remote_probe"]["observations"] == 10
+    assert diagnostic["remote_probe"]["failures"] == []
     assert diagnostic["local_probe"]["observations"] == 10
-    assert diagnostic["cooldown_until"] == "2026-11-06T00:33:54Z"
+    assert diagnostic["missing_canonical_fields_in_remote_environment"] == []
+    assert diagnostic["cooldown_until"] is None
 
 
 def test_property_probe_workflows_do_not_fan_out_on_shared_adapter_changes():
