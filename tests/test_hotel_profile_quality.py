@@ -131,6 +131,11 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         for profile in profiles["profiles"]
         if profile["hotel_id"] == "episode_daan_taipei"
     )
+    fuhsing = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "tango_hotel_taipei_fuhsing"
+    )
 
     assert "stay_times_sourced" not in lalu_row["missing_evidence"]
     assert episode["stay_times"] == {
@@ -140,8 +145,23 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         "source_url": "https://www.travelweekly.com/Hotels/Taipei-Taiwan/EPISODE-Daan-Taipei-p59542287",
         "observed_at": "2026-11-09",
     }
+    assert fuhsing["room_inventory"] == 70
+    assert fuhsing["stay_times"] == {
+        "check_in": "16:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://fh.tango-hotels.com/_tw/06faq/faq.php",
+    }
+    assert len(fuhsing["room_snapshot"]["rooms"]) == 9
+    assert {room["size_sqm"] for room in fuhsing["room_snapshot"]["rooms"]} == {
+        23,
+        26,
+        33,
+        39,
+    }
+    assert fuhsing["service_charge_source_type"] == "pending"
     assert report["profile_coverage"]["stay_times_sourced"] == {
-        "count": 68,
-        "total": 68,
+        "count": 69,
+        "total": 69,
         "percent": 100.0,
     }

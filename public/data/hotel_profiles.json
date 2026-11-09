@@ -3544,6 +3544,54 @@
       ]
     },
     {
+      "hotel_id": "tango_hotel_taipei_fuhsing",
+      "verified_at": "2026-11-09",
+      "room_inventory": 70,
+      "service_charge_percent": null,
+      "service_charge_source_type": "pending",
+      "stay_times": {
+        "check_in": "16:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://fh.tango-hotels.com/_tw/06faq/faq.php"
+      },
+      "restaurants": [
+        {"name": "THE Lounge 交誼廳", "type_zh": "中西式自助早餐、咖啡、茶飲與點心", "type_en": "Eastern and Western breakfast buffet, coffee, tea and snacks", "type_ja": "中華・洋食ビュッフェ朝食、コーヒー、紅茶、軽食"}
+      ],
+      "restaurant_count": 1,
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "THE Lounge", "kind": "guest_lounge"},
+      "facility_notes": {
+        "zh": "飯店官方中英日頁面可核實九類房型、23 至 39 平方公尺、下午 4 點入住、上午 11 點退房、交誼廳自助早餐、商務中心、會議室及健身房；交通部觀光署旅宿網登錄全館 70 間客房。未找到住宿服務費、泳池、SPA、三溫暖或蒸氣室的明確證據，相關欄位維持待核實。",
+        "en": "Official hotel pages in Chinese, English, and Japanese verify nine room categories from 23 to 39 square meters, 4:00 PM check-in, 11:00 AM check-out, buffet breakfast in THE Lounge, a business center, meeting room, and gym. Taiwan's Tourism Administration directory records 70 guestrooms. No explicit evidence was found for a lodging service charge, pool, spa, sauna, or steam room, so those fields remain unverified.",
+        "ja": "ホテル公式の中・英・日ページで、23～39平方メートルの客室9カテゴリー、16時チェックイン、11時チェックアウト、THE Loungeのビュッフェ朝食、ビジネスセンター、会議室、ジムを確認しました。台湾交通部観光署の旅宿網には全70室と登録されています。宿泊サービス料、プール、SPA、サウナ、スチームルームは明確な根拠がなく、未確認のままです。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-11-09",
+        "source_type": "official",
+        "source_url": "https://fh.tango-hotels.com/_en/02room/room.php",
+        "rooms": [
+          {"name_zh": "天爵客房", "name_en": "Jazz Room", "name_ja": "ジャズルーム", "size_sqm": 23},
+          {"name_zh": "天尊客房", "name_en": "Junior Studio", "name_ja": "ジュニアスタジオ", "size_sqm": 23},
+          {"name_zh": "天緻雙人房", "name_en": "Power Twin", "name_ja": "パワーツイン", "size_sqm": 26},
+          {"name_zh": "天豪客房", "name_en": "Premium Studio", "name_ja": "プレミアムスタジオ", "size_sqm": 26},
+          {"name_zh": "天璽客房", "name_en": "Wonderful Studio", "name_ja": "ワンダフルスタジオ", "size_sqm": 33},
+          {"name_zh": "天威客房", "name_en": "Majesty King", "name_ja": "マジェスティキング", "size_sqm": 33},
+          {"name_zh": "天麗雙人房", "name_en": "Luxe Twin", "name_ja": "リュクスツイン", "size_sqm": 33},
+          {"name_zh": "天泉客房", "name_en": "Spa Room", "name_ja": "スパルーム", "size_sqm": 39},
+          {"name_zh": "天閣套房", "name_en": "Tango Suite", "name_ja": "タンゴスウィート", "size_sqm": 39}
+        ]
+      },
+      "source_urls": [
+        "https://fh.tango-hotels.com/",
+        "https://fh.tango-hotels.com/_tw/06faq/faq.php",
+        "https://fh.tango-hotels.com/_en/02room/room.php",
+        "https://fh.tango-hotels.com/_jp/02room/room.php",
+        "https://fh.tango-hotels.com/_tw/03facility/facility.php",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=16673&lang2=cn"
+      ]
+    },
+    {
       "hotel_id": "wyndham_sun_moon_lake",
       "verified_at": "2026-11-06",
       "room_inventory": 197,
