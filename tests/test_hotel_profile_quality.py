@@ -136,6 +136,11 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         for profile in profiles["profiles"]
         if profile["hotel_id"] == "tango_hotel_taipei_fuhsing"
     )
+    changan = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "k_hotel_taipei_changan"
+    )
 
     assert "stay_times_sourced" not in lalu_row["missing_evidence"]
     assert episode["stay_times"] == {
@@ -160,8 +165,27 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         39,
     }
     assert fuhsing["service_charge_source_type"] == "pending"
+    assert changan["room_inventory"] == 103
+    assert changan["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://changan.khotels.com.tw/zh-TW/about-us",
+    }
+    assert changan["service_charge_percent"] is None
+    assert changan["service_charge_source_type"] == "pending"
+    assert len(changan["room_snapshot"]["rooms"]) == 5
+    assert {room["size_sqm"] for room in changan["room_snapshot"]["rooms"]} == {
+        26,
+        30,
+        46,
+    }
+    assert all(
+        room["name_zh"] and room["name_en"] and room["name_ja"]
+        for room in changan["room_snapshot"]["rooms"]
+    )
     assert report["profile_coverage"]["stay_times_sourced"] == {
-        "count": 69,
-        "total": 69,
+        "count": 70,
+        "total": 70,
         "percent": 100.0,
     }

@@ -3544,6 +3544,51 @@
       ]
     },
     {
+      "hotel_id": "k_hotel_taipei_changan",
+      "verified_at": "2026-11-09",
+      "room_inventory": 103,
+      "service_charge_percent": null,
+      "service_charge_source_type": "pending",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://changan.khotels.com.tw/zh-TW/about-us"
+      },
+      "restaurants": [
+        {"name": "K Lounge", "type_zh": "中西式自助早餐與住客交誼空間", "type_en": "Chinese and Western breakfast buffet and guest lounge", "type_ja": "中華・洋食ビュッフェ朝食、宿泊者ラウンジ"}
+      ],
+      "restaurant_count": 1,
+      "facilities": {"pool": null, "fitness": null, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": true, "name": "K Lounge", "kind": "guest_lounge"},
+      "facility_notes": {
+        "zh": "飯店官方中英日頁面可核實五類主力房型、26 至 46 平方公尺、下午 3 點入住、中午 12 點退房、5 樓 K Lounge 中西式自助早餐、24 小時商務中心及免費自助洗衣；交通部觀光署旅宿網登錄全館 103 間客房。官網明載房價含稅及服務費，但未公布服務費百分比，因此不推算費率。泳池、健身房、SPA、三溫暖及蒸氣室沒有明確證據，維持待核實。",
+        "en": "Official hotel pages in Chinese, English, and Japanese verify five principal room categories from 26 to 46 square meters, 3:00 PM check-in, 12:00 noon check-out, a Chinese and Western breakfast buffet in the fifth-floor K Lounge, a 24-hour business center, and complimentary self-service laundry. Taiwan's Tourism Administration directory records 103 guestrooms. The official site states that rates include tax and service charge but does not publish the service-charge percentage, so no rate is inferred. A pool, gym, spa, sauna, and steam room remain unverified.",
+        "ja": "ホテル公式の中・英・日ページで、26～46平方メートルの主要客室5カテゴリー、15時チェックイン、12時チェックアウト、5階K Loungeの中華・洋食ビュッフェ朝食、24時間利用可能なビジネスセンター、無料セルフランドリーを確認しました。台湾交通部観光署の旅宿網には全103室と登録されています。公式サイトは客室料金に税・サービス料が含まれると明記していますが、サービス料率は公表していないため推定していません。プール、ジム、SPA、サウナ、スチームルームは未確認です。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-11-09",
+        "source_type": "official",
+        "source_url": "https://changan.khotels.com.tw/en-US",
+        "rooms": [
+          {"name_zh": "標準客房", "name_en": "Standard Room", "name_ja": "スタンダードルーム", "size_sqm": 26},
+          {"name_zh": "商務客房", "name_en": "Superior Double", "name_ja": "スーペリア ダブル", "size_sqm": 30},
+          {"name_zh": "商務雙床房", "name_en": "Superior Twin", "name_ja": "スーペリアツイン", "size_sqm": 30},
+          {"name_zh": "豪華家庭房", "name_en": "Deluxe Family Room", "name_ja": "デラックスファミリールーム", "size_sqm": 30},
+          {"name_zh": "柯達套房", "name_en": "K Suite", "name_ja": "Kスイート", "size_sqm": 46}
+        ]
+      },
+      "source_urls": [
+        "https://changan.khotels.com.tw/zh-TW",
+        "https://changan.khotels.com.tw/en-US",
+        "https://changan.khotels.com.tw/ja-JP",
+        "https://changan.khotels.com.tw/zh-TW/about-us",
+        "https://changan.khotels.com.tw/en-US/facilities",
+        "https://changan.khotels.com.tw/ja-JP/facilities",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=4077&lang2=cn"
+      ]
+    },
+    {
       "hotel_id": "tango_hotel_taipei_fuhsing",
       "verified_at": "2026-11-09",
       "room_inventory": 70,
