@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-06",
+  "updated_at": "2026-11-09",
   "profiles": [
     {
       "hotel_id": "intercontinental_taipei",
@@ -2032,7 +2032,14 @@
     },
     {
       "hotel_id": "episode_daan_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-11-09",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "gds_directory",
+        "source_url": "https://www.travelweekly.com/Hotels/Taipei-Taiwan/EPISODE-Daan-Taipei-p59542287",
+        "observed_at": "2026-11-09"
+      },
       "room_inventory": 136,
       "restaurants": [
         {"name": "Texas Roadhouse", "type_zh": "美式牛排館（第三方營運）", "type_en": "American steakhouse (third-party operated)", "type_ja": "アメリカンステーキハウス（外部運営）"},
@@ -2063,7 +2070,8 @@
         "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/rooms",
         "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/dining",
         "https://www.hyatt.com/jdv-by-hyatt/en-US/tpejd-jdv-episode-daan-taipei/hotel-info",
-        "https://newsroom.hyatt.com/news-releases?asPDF=1&item=124498"
+        "https://newsroom.hyatt.com/news-releases?asPDF=1&item=124498",
+        "https://www.travelweekly.com/Hotels/Taipei-Taiwan/EPISODE-Daan-Taipei-p59542287"
       ]
     },
     {

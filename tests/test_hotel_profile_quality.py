@@ -116,20 +116,32 @@ def test_priority_central_taiwan_profiles_have_official_stay_times():
         assert source_host in stay_times["source_url"]
 
 
-def test_committed_profile_quality_counts_official_stay_times():
+def test_committed_profile_quality_has_complete_sourced_stay_times():
     profiles = json.loads(
         Path("public/data/hotel_profiles.json").read_text(encoding="utf-8")
     )
     report = build_hotel_profile_quality(profiles)
-    row = next(
+    lalu_row = next(
         hotel
         for hotel in report["hotels"]
         if hotel["hotel_id"] == "the_lalu_sun_moon_lake"
     )
+    episode = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "episode_daan_taipei"
+    )
 
-    assert "stay_times_sourced" not in row["missing_evidence"]
+    assert "stay_times_sourced" not in lalu_row["missing_evidence"]
+    assert episode["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "gds_directory",
+        "source_url": "https://www.travelweekly.com/Hotels/Taipei-Taiwan/EPISODE-Daan-Taipei-p59542287",
+        "observed_at": "2026-11-09",
+    }
     assert report["profile_coverage"]["stay_times_sourced"] == {
-        "count": 67,
+        "count": 68,
         "total": 68,
-        "percent": 98.53,
+        "percent": 100.0,
     }

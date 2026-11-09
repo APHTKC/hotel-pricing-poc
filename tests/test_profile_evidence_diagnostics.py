@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 
-def test_episode_daan_stay_times_403_is_fail_closed_and_cooled_down():
+def test_episode_daan_official_403_remains_audited_after_gds_evidence_is_added():
     diagnostic = json.loads(
         Path("artifacts/episode-daan-profile-evidence-diagnostic.json").read_text(
             encoding="utf-8"
@@ -26,4 +26,10 @@ def test_episode_daan_stay_times_403_is_fail_closed_and_cooled_down():
         "cross_property_inference_allowed": False,
         "unknown_values_preserved": True,
     }
-    assert "stay_times" not in episode
+    assert episode["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "gds_directory",
+        "source_url": "https://www.travelweekly.com/Hotels/Taipei-Taiwan/EPISODE-Daan-Taipei-p59542287",
+        "observed_at": "2026-11-09",
+    }

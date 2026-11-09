@@ -1288,6 +1288,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in mitsui["room_snapshot"]["rooms"]) == 60.4
     assert "大浴場" in mitsui["facility_notes"]["zh"]
     assert any("mgh-mitsui-garden-taipei-zhongxiao" in url for url in mitsui["source_urls"])
+
+
     doubletree = by_id["doubletree_taipei_zhongshan"]
     assert doubletree["room_inventory"] == 106
     assert doubletree["stay_times"]["source_type"] == "official"
@@ -2448,6 +2450,32 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "service_charge_source_type==='observed'?'observed':'official'" in html
     assert "room.aliases_zh||[]" in html
     assert "Math.abs(item.sizeMin-min)<=1" in html
+
+
+def test_traditional_chinese_hotel_names_cover_the_registered_catalog_exactly():
+    hotels = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))["hotels"]
+    names = json.loads(
+        Path("public/data/hotel_names_zh.json").read_text(encoding="utf-8")
+    )["names"]
+    hotel_ids = [hotel["id"] for hotel in hotels]
+
+    assert len(hotel_ids) == len(set(hotel_ids)) == 79
+    assert set(names) == set(hotel_ids)
+    assert all(isinstance(name, str) and name.strip() for name in names.values())
+    assert all(any("\u4e00" <= char <= "\u9fff" for char in name) for name in names.values())
+    assert names["tango_hotel_taipei_fuhsing"] == "天閣台北復興"
+    assert names["k_hotel_taipei_changan"] == "柯達大飯店 台北長安"
+    assert names["united_hotel_taipei"] == "國聯大飯店"
+
+
+def test_rate_dashboards_share_the_canonical_traditional_chinese_name_asset():
+    for page in ("public/index.html", "public/history.html"):
+        html = Path(page).read_text(encoding="utf-8")
+
+        assert "./data/hotel_names_zh.json" in html
+        assert "let hotelNamesZh={};" in html
+        assert "hotelNamesZh=nameData.names||{}" in html
+        assert "HOTEL_NAMES_ZH" not in html
 
 
 def test_hotel_profile_page_supports_sorting_rate_filter_and_city_colors():
