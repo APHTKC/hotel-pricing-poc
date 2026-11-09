@@ -12,42 +12,42 @@
     },
     {
       "month": "2026-11",
-      "sha256": "89f6e9bc20b9f34baa9b437a347ba2eb6c815bc232b7ebe11fc2827273b1633d"
+      "sha256": "90acaf45ebfa46b64c497296baa9c49edc485181a99cd3634c099a93876fd93e"
     }
   ],
-  "rows": 125069,
-  "natural_keys": 125069,
+  "rows": 128113,
+  "natural_keys": 128113,
   "hotels": 61,
   "queried_at": {
     "min": "2026-09-04 02:48:48.293979",
-    "max": "2026-11-09 00:05:05.431617"
+    "max": "2026-11-09 02:07:08.941965"
   },
   "quality": {
-    "known_room_size_rows": 123015,
-    "known_room_size_ratio": 0.983577,
-    "known_tax_rows": 59396,
-    "known_tax_ratio": 0.474906,
-    "known_cancellation_policy_rows": 72645,
-    "known_cancellation_policy_ratio": 0.580839,
-    "known_cancellation_class_rows": 61639,
-    "known_cancellation_class_ratio": 0.49284,
-    "known_cancellation_deadline_rows": 57158,
-    "known_cancellation_deadline_ratio": 0.457012,
-    "known_cancellation_schedule_rows": 2410,
-    "known_cancellation_schedule_ratio": 0.019269,
-    "strict_metadata_ready_rows": 32102,
-    "strict_metadata_ready_ratio": 0.256674,
+    "known_room_size_rows": 126002,
+    "known_room_size_ratio": 0.983522,
+    "known_tax_rows": 60959,
+    "known_tax_ratio": 0.475822,
+    "known_cancellation_policy_rows": 74422,
+    "known_cancellation_policy_ratio": 0.580909,
+    "known_cancellation_class_rows": 63191,
+    "known_cancellation_class_ratio": 0.493244,
+    "known_cancellation_deadline_rows": 58631,
+    "known_cancellation_deadline_ratio": 0.457651,
+    "known_cancellation_schedule_rows": 2460,
+    "known_cancellation_schedule_ratio": 0.019202,
+    "strict_metadata_ready_rows": 32997,
+    "strict_metadata_ready_ratio": 0.257562,
     "latest_rows": 3984,
-    "latest_strict_metadata_ready_rows": 1351,
-    "latest_strict_metadata_ready_ratio": 0.339106,
+    "latest_strict_metadata_ready_rows": 1347,
+    "latest_strict_metadata_ready_ratio": 0.338102,
     "strict_metadata_missing_fields": {
-      "cancellation_deadline": 67911,
-      "tax_inclusion": 65673,
-      "cancellation_class": 63430,
-      "breakfast_included": 35942,
-      "room_size": 2054
+      "cancellation_deadline": 69482,
+      "tax_inclusion": 67154,
+      "cancellation_class": 64922,
+      "breakfast_included": 36835,
+      "room_size": 2111
     },
-    "nightly_adr_rows": 125069,
+    "nightly_adr_rows": 128113,
     "nightly_adr_ratio": 1.0
   },
   "sources": [
@@ -83,52 +83,52 @@
     },
     {
       "source_platform": "official",
-      "rows": 124333,
+      "rows": 127377,
       "hotels": 31,
-      "known_room_size_rows": 122279,
-      "known_tax_rows": 59018,
-      "known_cancellation_policy_rows": 71909,
-      "known_cancellation_class_rows": 60903,
-      "known_cancellation_deadline_rows": 56422,
-      "known_cancellation_schedule_rows": 2410,
-      "strict_metadata_ready_rows": 31724,
-      "strict_metadata_ready_ratio": 0.255153,
+      "known_room_size_rows": 125266,
+      "known_tax_rows": 60581,
+      "known_cancellation_policy_rows": 73686,
+      "known_cancellation_class_rows": 62455,
+      "known_cancellation_deadline_rows": 57895,
+      "known_cancellation_schedule_rows": 2460,
+      "strict_metadata_ready_rows": 32619,
+      "strict_metadata_ready_ratio": 0.256082,
       "strict_metadata_missing_fields": {
-        "cancellation_deadline": 67911,
-        "tax_inclusion": 65315,
-        "cancellation_class": 63430,
-        "breakfast_included": 35942,
-        "room_size": 2054
+        "cancellation_deadline": 69482,
+        "tax_inclusion": 66796,
+        "cancellation_class": 64922,
+        "breakfast_included": 36835,
+        "room_size": 2111
       }
     }
   ],
   "hotels_by_unknown_room_size": [
     {
       "hotel_id": "silks_place_yilan",
-      "rows": 1799,
+      "rows": 1849,
       "known_room_size_rows": null,
       "known_tax_rows": 0,
-      "unknown_room_size_rows": 1799
+      "unknown_room_size_rows": 1849
     },
     {
       "hotel_id": "solaria_nishitetsu_taipei",
-      "rows": 3841,
-      "known_room_size_rows": 3602,
-      "known_tax_rows": 3841,
-      "unknown_room_size_rows": 239
+      "rows": 3937,
+      "known_room_size_rows": 3692,
+      "known_tax_rows": 3937,
+      "unknown_room_size_rows": 245
     },
     {
       "hotel_id": "taipei_garden_hotel",
-      "rows": 126,
-      "known_room_size_rows": 110,
+      "rows": 132,
+      "known_room_size_rows": 115,
       "known_tax_rows": 9,
-      "unknown_room_size_rows": 16
+      "unknown_room_size_rows": 17
     },
     {
       "hotel_id": "capella_taipei",
-      "rows": 6605,
-      "known_room_size_rows": 6605,
-      "known_tax_rows": 6605,
+      "rows": 6721,
+      "known_room_size_rows": 6721,
+      "known_tax_rows": 6721,
       "unknown_room_size_rows": 0
     },
     {
@@ -161,37 +161,37 @@
     },
     {
       "hotel_id": "eslite_hotel",
-      "rows": 6580,
-      "known_room_size_rows": 6580,
+      "rows": 6752,
+      "known_room_size_rows": 6752,
       "known_tax_rows": 5,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "fleur_de_chine",
-      "rows": 1901,
-      "known_room_size_rows": 1901,
-      "known_tax_rows": 1901,
+      "rows": 1951,
+      "known_room_size_rows": 1951,
+      "known_tax_rows": 1951,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "grand_hilai_kaohsiung",
-      "rows": 38848,
-      "known_room_size_rows": 38848,
+      "rows": 39748,
+      "known_room_size_rows": 39748,
       "known_tax_rows": 4,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "grand_hilai_taipei",
-      "rows": 3249,
-      "known_room_size_rows": 3249,
+      "rows": 3321,
+      "known_room_size_rows": 3321,
       "known_tax_rows": 4,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "grand_hotel_taipei",
-      "rows": 2884,
-      "known_room_size_rows": 2884,
-      "known_tax_rows": 2884,
+      "rows": 3046,
+      "known_room_size_rows": 3046,
+      "known_tax_rows": 3046,
       "unknown_room_size_rows": 0
     },
     {
@@ -217,8 +217,8 @@
     },
     {
       "hotel_id": "hoshinoya_guguan",
-      "rows": 3760,
-      "known_room_size_rows": 3760,
+      "rows": 3833,
+      "known_room_size_rows": 3833,
       "known_tax_rows": 0,
       "unknown_room_size_rows": 0
     },
@@ -238,9 +238,9 @@
     },
     {
       "hotel_id": "hotel_nikko_kaohsiung",
-      "rows": 3663,
-      "known_room_size_rows": 3663,
-      "known_tax_rows": 3663,
+      "rows": 3752,
+      "known_room_size_rows": 3752,
+      "known_tax_rows": 3752,
       "unknown_room_size_rows": 0
     },
     {
@@ -308,8 +308,8 @@
     },
     {
       "hotel_id": "k_hotel_taipei_changan",
-      "rows": 120,
-      "known_room_size_rows": 120,
+      "rows": 144,
+      "known_room_size_rows": 144,
       "known_tax_rows": 0,
       "unknown_room_size_rows": 0
     },
@@ -364,23 +364,23 @@
     },
     {
       "hotel_id": "mo_taipei",
-      "rows": 10594,
-      "known_room_size_rows": 10594,
-      "known_tax_rows": 10587,
+      "rows": 10785,
+      "known_room_size_rows": 10785,
+      "known_tax_rows": 10778,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "okura_prestige_taipei",
-      "rows": 4422,
-      "known_room_size_rows": 4422,
-      "known_tax_rows": 4414,
+      "rows": 4531,
+      "known_room_size_rows": 4531,
+      "known_tax_rows": 4523,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "palais_de_chine",
-      "rows": 1423,
-      "known_room_size_rows": 1423,
-      "known_tax_rows": 1414,
+      "rows": 1453,
+      "known_room_size_rows": 1453,
+      "known_tax_rows": 1444,
       "unknown_room_size_rows": 0
     },
     {
@@ -413,16 +413,16 @@
     },
     {
       "hotel_id": "shangrila_tainan",
-      "rows": 6810,
-      "known_room_size_rows": 6810,
-      "known_tax_rows": 6810,
+      "rows": 6994,
+      "known_room_size_rows": 6994,
+      "known_tax_rows": 6994,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "shangrila_taipei",
-      "rows": 7374,
-      "known_room_size_rows": 7374,
-      "known_tax_rows": 7364,
+      "rows": 7515,
+      "known_room_size_rows": 7515,
+      "known_tax_rows": 7505,
       "unknown_room_size_rows": 0
     },
     {
@@ -441,9 +441,9 @@
     },
     {
       "hotel_id": "tango_hotel_taichung",
-      "rows": 319,
-      "known_room_size_rows": 319,
-      "known_tax_rows": 319,
+      "rows": 385,
+      "known_room_size_rows": 385,
+      "known_tax_rows": 385,
       "unknown_room_size_rows": 0
     },
     {
@@ -462,36 +462,36 @@
     },
     {
       "hotel_id": "tango_hotel_taipei_jiantan",
-      "rows": 240,
-      "known_room_size_rows": 240,
-      "known_tax_rows": 240,
+      "rows": 288,
+      "known_room_size_rows": 288,
+      "known_tax_rows": 288,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "tango_hotel_taipei_linsen",
-      "rows": 112,
-      "known_room_size_rows": 112,
-      "known_tax_rows": 112,
+      "rows": 120,
+      "known_room_size_rows": 120,
+      "known_tax_rows": 120,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "tango_hotel_taipei_shilin",
-      "rows": 196,
-      "known_room_size_rows": 196,
-      "known_tax_rows": 196,
+      "rows": 217,
+      "known_room_size_rows": 217,
+      "known_tax_rows": 217,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "tango_hotel_taipei_xinyi",
-      "rows": 319,
-      "known_room_size_rows": 319,
-      "known_tax_rows": 319,
+      "rows": 385,
+      "known_room_size_rows": 385,
+      "known_tax_rows": 385,
       "unknown_room_size_rows": 0
     },
     {
       "hotel_id": "the_gaia_taipei",
-      "rows": 3627,
-      "known_room_size_rows": 3627,
+      "rows": 3811,
+      "known_room_size_rows": 3811,
       "known_tax_rows": 4,
       "unknown_room_size_rows": 0
     },
@@ -511,9 +511,9 @@
     },
     {
       "hotel_id": "united_hotel_taipei",
-      "rows": 270,
-      "known_room_size_rows": 270,
-      "known_tax_rows": 270,
+      "rows": 324,
+      "known_room_size_rows": 324,
+      "known_tax_rows": 324,
       "unknown_room_size_rows": 0
     },
     {
@@ -525,28 +525,28 @@
     },
     {
       "hotel_id": "windsor_taichung",
-      "rows": 6557,
-      "known_room_size_rows": 6557,
-      "known_tax_rows": 6557,
+      "rows": 6689,
+      "known_room_size_rows": 6689,
+      "known_tax_rows": 6689,
       "unknown_room_size_rows": 0
     }
   ],
   "hotels_by_unknown_tax": [
     {
       "hotel_id": "grand_hilai_kaohsiung",
-      "rows": 38848,
-      "known_room_size_rows": 38848,
+      "rows": 39748,
+      "known_room_size_rows": 39748,
       "known_tax_rows": 4,
       "unknown_room_size_rows": 0,
-      "unknown_tax_rows": 38844
+      "unknown_tax_rows": 39744
     },
     {
       "hotel_id": "eslite_hotel",
-      "rows": 6580,
-      "known_room_size_rows": 6580,
+      "rows": 6752,
+      "known_room_size_rows": 6752,
       "known_tax_rows": 5,
       "unknown_room_size_rows": 0,
-      "unknown_tax_rows": 6575
+      "unknown_tax_rows": 6747
     },
     {
       "hotel_id": "grand_mayfull_taipei",
@@ -558,27 +558,27 @@
     },
     {
       "hotel_id": "hoshinoya_guguan",
-      "rows": 3760,
-      "known_room_size_rows": 3760,
+      "rows": 3833,
+      "known_room_size_rows": 3833,
       "known_tax_rows": 0,
       "unknown_room_size_rows": 0,
-      "unknown_tax_rows": 3760
+      "unknown_tax_rows": 3833
     },
     {
       "hotel_id": "the_gaia_taipei",
-      "rows": 3627,
-      "known_room_size_rows": 3627,
+      "rows": 3811,
+      "known_room_size_rows": 3811,
       "known_tax_rows": 4,
       "unknown_room_size_rows": 0,
-      "unknown_tax_rows": 3623
+      "unknown_tax_rows": 3807
     },
     {
       "hotel_id": "grand_hilai_taipei",
-      "rows": 3249,
-      "known_room_size_rows": 3249,
+      "rows": 3321,
+      "known_room_size_rows": 3321,
       "known_tax_rows": 4,
       "unknown_room_size_rows": 0,
-      "unknown_tax_rows": 3245
+      "unknown_tax_rows": 3317
     },
     {
       "hotel_id": "royal_nikko_taipei",
@@ -590,27 +590,27 @@
     },
     {
       "hotel_id": "silks_place_yilan",
-      "rows": 1799,
+      "rows": 1849,
       "known_room_size_rows": null,
       "known_tax_rows": 0,
-      "unknown_room_size_rows": 1799,
-      "unknown_tax_rows": 1799
+      "unknown_room_size_rows": 1849,
+      "unknown_tax_rows": 1849
     },
     {
       "hotel_id": "k_hotel_taipei_changan",
-      "rows": 120,
-      "known_room_size_rows": 120,
+      "rows": 144,
+      "known_room_size_rows": 144,
       "known_tax_rows": 0,
       "unknown_room_size_rows": 0,
-      "unknown_tax_rows": 120
+      "unknown_tax_rows": 144
     },
     {
       "hotel_id": "taipei_garden_hotel",
-      "rows": 126,
-      "known_room_size_rows": 110,
+      "rows": 132,
+      "known_room_size_rows": 115,
       "known_tax_rows": 9,
-      "unknown_room_size_rows": 16,
-      "unknown_tax_rows": 117
+      "unknown_room_size_rows": 17,
+      "unknown_tax_rows": 123
     },
     {
       "hotel_id": "taipei_marriott",
@@ -718,17 +718,17 @@
     },
     {
       "hotel_id": "shangrila_taipei",
-      "rows": 7374,
-      "known_room_size_rows": 7374,
-      "known_tax_rows": 7364,
+      "rows": 7515,
+      "known_room_size_rows": 7515,
+      "known_tax_rows": 7505,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 10
     },
     {
       "hotel_id": "palais_de_chine",
-      "rows": 1423,
-      "known_room_size_rows": 1423,
-      "known_tax_rows": 1414,
+      "rows": 1453,
+      "known_room_size_rows": 1453,
+      "known_tax_rows": 1444,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 9
     },
@@ -750,9 +750,9 @@
     },
     {
       "hotel_id": "okura_prestige_taipei",
-      "rows": 4422,
-      "known_room_size_rows": 4422,
-      "known_tax_rows": 4414,
+      "rows": 4531,
+      "known_room_size_rows": 4531,
+      "known_tax_rows": 4523,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 8
     },
@@ -766,9 +766,9 @@
     },
     {
       "hotel_id": "mo_taipei",
-      "rows": 10594,
-      "known_room_size_rows": 10594,
-      "known_tax_rows": 10587,
+      "rows": 10785,
+      "known_room_size_rows": 10785,
+      "known_tax_rows": 10778,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 7
     },
@@ -822,9 +822,9 @@
     },
     {
       "hotel_id": "capella_taipei",
-      "rows": 6605,
-      "known_room_size_rows": 6605,
-      "known_tax_rows": 6605,
+      "rows": 6721,
+      "known_room_size_rows": 6721,
+      "known_tax_rows": 6721,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
@@ -838,17 +838,17 @@
     },
     {
       "hotel_id": "fleur_de_chine",
-      "rows": 1901,
-      "known_room_size_rows": 1901,
-      "known_tax_rows": 1901,
+      "rows": 1951,
+      "known_room_size_rows": 1951,
+      "known_tax_rows": 1951,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
     {
       "hotel_id": "grand_hotel_taipei",
-      "rows": 2884,
-      "known_room_size_rows": 2884,
-      "known_tax_rows": 2884,
+      "rows": 3046,
+      "known_room_size_rows": 3046,
+      "known_tax_rows": 3046,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
@@ -862,9 +862,9 @@
     },
     {
       "hotel_id": "hotel_nikko_kaohsiung",
-      "rows": 3663,
-      "known_room_size_rows": 3663,
-      "known_tax_rows": 3663,
+      "rows": 3752,
+      "known_room_size_rows": 3752,
+      "known_tax_rows": 3752,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
@@ -926,25 +926,25 @@
     },
     {
       "hotel_id": "shangrila_tainan",
-      "rows": 6810,
-      "known_room_size_rows": 6810,
-      "known_tax_rows": 6810,
+      "rows": 6994,
+      "known_room_size_rows": 6994,
+      "known_tax_rows": 6994,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
     {
       "hotel_id": "solaria_nishitetsu_taipei",
-      "rows": 3841,
-      "known_room_size_rows": 3602,
-      "known_tax_rows": 3841,
-      "unknown_room_size_rows": 239,
+      "rows": 3937,
+      "known_room_size_rows": 3692,
+      "known_tax_rows": 3937,
+      "unknown_room_size_rows": 245,
       "unknown_tax_rows": 0
     },
     {
       "hotel_id": "tango_hotel_taichung",
-      "rows": 319,
-      "known_room_size_rows": 319,
-      "known_tax_rows": 319,
+      "rows": 385,
+      "known_room_size_rows": 385,
+      "known_tax_rows": 385,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
@@ -966,33 +966,33 @@
     },
     {
       "hotel_id": "tango_hotel_taipei_jiantan",
-      "rows": 240,
-      "known_room_size_rows": 240,
-      "known_tax_rows": 240,
+      "rows": 288,
+      "known_room_size_rows": 288,
+      "known_tax_rows": 288,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
     {
       "hotel_id": "tango_hotel_taipei_linsen",
-      "rows": 112,
-      "known_room_size_rows": 112,
-      "known_tax_rows": 112,
+      "rows": 120,
+      "known_room_size_rows": 120,
+      "known_tax_rows": 120,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
     {
       "hotel_id": "tango_hotel_taipei_shilin",
-      "rows": 196,
-      "known_room_size_rows": 196,
-      "known_tax_rows": 196,
+      "rows": 217,
+      "known_room_size_rows": 217,
+      "known_tax_rows": 217,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
     {
       "hotel_id": "tango_hotel_taipei_xinyi",
-      "rows": 319,
-      "known_room_size_rows": 319,
-      "known_tax_rows": 319,
+      "rows": 385,
+      "known_room_size_rows": 385,
+      "known_tax_rows": 385,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
@@ -1006,17 +1006,17 @@
     },
     {
       "hotel_id": "united_hotel_taipei",
-      "rows": 270,
-      "known_room_size_rows": 270,
-      "known_tax_rows": 270,
+      "rows": 324,
+      "known_room_size_rows": 324,
+      "known_tax_rows": 324,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     },
     {
       "hotel_id": "windsor_taichung",
-      "rows": 6557,
-      "known_room_size_rows": 6557,
-      "known_tax_rows": 6557,
+      "rows": 6689,
+      "known_room_size_rows": 6689,
+      "known_tax_rows": 6689,
       "unknown_room_size_rows": 0,
       "unknown_tax_rows": 0
     }
@@ -1026,7 +1026,7 @@
       "hotel_id": "windsor_taichung",
       "source_platform": "official",
       "cancellation_policy": "Cancellation policy is available on the official booking page",
-      "rows": 6552
+      "rows": 6684
     },
     {
       "hotel_id": "grand_mayfull_taipei",
@@ -1038,19 +1038,19 @@
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
       "cancellation_policy": "將收取取消費用",
-      "rows": 1121
+      "rows": 1180
     },
     {
       "hotel_id": "eslite_hotel",
       "source_platform": "official",
       "cancellation_policy": "將收取取消費用",
-      "rows": 567
+      "rows": 585
     },
     {
       "hotel_id": "silks_place_yilan",
       "source_platform": "official",
       "cancellation_policy": "將收取取消費用",
-      "rows": 535
+      "rows": 551
     }
   ],
   "cancellation_blockers": [
@@ -1058,7 +1058,7 @@
       "reason": "generic_placeholder",
       "hotel_id": "windsor_taichung",
       "source_platform": "official",
-      "rows": 6552
+      "rows": 6684
     },
     {
       "reason": "generic_fee_notice",
@@ -1070,52 +1070,52 @@
       "reason": "generic_fee_notice",
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
-      "rows": 1121
+      "rows": 1180
     },
     {
       "reason": "generic_fee_notice",
       "hotel_id": "eslite_hotel",
       "source_platform": "official",
-      "rows": 567
+      "rows": 585
     },
     {
       "reason": "generic_fee_notice",
       "hotel_id": "silks_place_yilan",
       "source_platform": "official",
-      "rows": 535
+      "rows": 551
     }
   ],
   "strict_metadata_gap_hotels": [
     {
       "hotel_id": "grand_hilai_kaohsiung",
       "source_platform": "official",
-      "rows": 38844,
+      "rows": 39744,
       "missing_fields": {
-        "cancellation_class": 38844,
-        "cancellation_deadline": 38844,
-        "tax_inclusion": 38844,
-        "breakfast_included": 18180
+        "cancellation_class": 39744,
+        "cancellation_deadline": 39744,
+        "tax_inclusion": 39744,
+        "breakfast_included": 18636
       }
     },
     {
       "hotel_id": "eslite_hotel",
       "source_platform": "official",
-      "rows": 6575,
+      "rows": 6747,
       "missing_fields": {
-        "tax_inclusion": 6575,
-        "cancellation_class": 567,
-        "cancellation_deadline": 567,
-        "breakfast_included": 296
+        "tax_inclusion": 6747,
+        "cancellation_class": 585,
+        "cancellation_deadline": 585,
+        "breakfast_included": 306
       }
     },
     {
       "hotel_id": "windsor_taichung",
       "source_platform": "official",
-      "rows": 6552,
+      "rows": 6684,
       "missing_fields": {
-        "cancellation_class": 6552,
-        "cancellation_deadline": 6552,
-        "breakfast_included": 746
+        "cancellation_class": 6684,
+        "cancellation_deadline": 6684,
+        "breakfast_included": 764
       }
     },
     {
@@ -1131,75 +1131,75 @@
     {
       "hotel_id": "mo_taipei",
       "source_platform": "official",
-      "rows": 5087,
+      "rows": 5168,
       "missing_fields": {
-        "breakfast_included": 5087,
-        "cancellation_deadline": 2071
+        "breakfast_included": 5168,
+        "cancellation_deadline": 2100
       }
     },
     {
       "hotel_id": "shangrila_taipei",
       "source_platform": "official",
-      "rows": 4138,
+      "rows": 4218,
       "missing_fields": {
-        "breakfast_included": 4138
+        "breakfast_included": 4218
       }
     },
     {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
-      "rows": 3760,
+      "rows": 3833,
       "missing_fields": {
-        "tax_inclusion": 3760,
-        "cancellation_deadline": 2410,
+        "tax_inclusion": 3833,
+        "cancellation_deadline": 2460,
         "breakfast_included": 12
-      }
-    },
-    {
-      "hotel_id": "hotel_nikko_kaohsiung",
-      "source_platform": "official",
-      "rows": 3663,
-      "missing_fields": {
-        "cancellation_class": 3663,
-        "cancellation_deadline": 3663
       }
     },
     {
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
-      "rows": 3623,
+      "rows": 3807,
       "missing_fields": {
-        "tax_inclusion": 3623,
-        "cancellation_class": 1121,
-        "cancellation_deadline": 1121
+        "tax_inclusion": 3807,
+        "cancellation_class": 1180,
+        "cancellation_deadline": 1180
+      }
+    },
+    {
+      "hotel_id": "hotel_nikko_kaohsiung",
+      "source_platform": "official",
+      "rows": 3752,
+      "missing_fields": {
+        "cancellation_class": 3752,
+        "cancellation_deadline": 3752
       }
     },
     {
       "hotel_id": "grand_hilai_taipei",
       "source_platform": "official",
-      "rows": 3240,
+      "rows": 3312,
       "missing_fields": {
-        "cancellation_class": 3240,
-        "cancellation_deadline": 3240,
-        "tax_inclusion": 3240
+        "cancellation_class": 3312,
+        "cancellation_deadline": 3312,
+        "tax_inclusion": 3312
       }
     },
     {
       "hotel_id": "grand_hotel_taipei",
       "source_platform": "official",
-      "rows": 2880,
+      "rows": 3042,
       "missing_fields": {
-        "breakfast_included": 2880,
-        "cancellation_class": 2880,
-        "cancellation_deadline": 2880
+        "breakfast_included": 3042,
+        "cancellation_class": 3042,
+        "cancellation_deadline": 3042
       }
     },
     {
       "hotel_id": "shangrila_tainan",
       "source_platform": "official",
-      "rows": 2715,
+      "rows": 2795,
       "missing_fields": {
-        "breakfast_included": 2715
+        "breakfast_included": 2795
       }
     },
     {
@@ -1216,21 +1216,21 @@
     {
       "hotel_id": "silks_place_yilan",
       "source_platform": "official",
-      "rows": 1799,
+      "rows": 1849,
       "missing_fields": {
-        "room_size": 1799,
-        "tax_inclusion": 1799,
-        "cancellation_class": 600,
-        "cancellation_deadline": 600
+        "room_size": 1849,
+        "tax_inclusion": 1849,
+        "cancellation_class": 616,
+        "cancellation_deadline": 616
       }
     },
     {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
-      "rows": 989,
+      "rows": 1027,
       "missing_fields": {
-        "cancellation_class": 715,
-        "cancellation_deadline": 715,
+        "cancellation_class": 753,
+        "cancellation_deadline": 753,
         "breakfast_included": 307
       }
     },
@@ -1246,9 +1246,9 @@
     {
       "hotel_id": "solaria_nishitetsu_taipei",
       "source_platform": "official",
-      "rows": 239,
+      "rows": 245,
       "missing_fields": {
-        "room_size": 239
+        "room_size": 245
       }
     },
     {
@@ -1261,6 +1261,14 @@
       }
     },
     {
+      "hotel_id": "k_hotel_taipei_changan",
+      "source_platform": "official",
+      "rows": 144,
+      "missing_fields": {
+        "tax_inclusion": 144
+      }
+    },
+    {
       "hotel_id": "hotel_royal_hsinchu",
       "source_platform": "official",
       "rows": 128,
@@ -1270,23 +1278,15 @@
       }
     },
     {
-      "hotel_id": "k_hotel_taipei_changan",
-      "source_platform": "official",
-      "rows": 120,
-      "missing_fields": {
-        "tax_inclusion": 120
-      }
-    },
-    {
       "hotel_id": "taipei_garden_hotel",
       "source_platform": "official",
-      "rows": 117,
+      "rows": 123,
       "missing_fields": {
-        "breakfast_included": 117,
-        "cancellation_class": 117,
-        "cancellation_deadline": 117,
-        "tax_inclusion": 117,
-        "room_size": 16
+        "breakfast_included": 123,
+        "cancellation_class": 123,
+        "cancellation_deadline": 123,
+        "tax_inclusion": 123,
+        "room_size": 17
       }
     },
     {
@@ -1518,10 +1518,10 @@
     {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
-      "rows": 3760,
+      "rows": 3833,
       "missing_fields": {
-        "tax_inclusion": 3760,
-        "cancellation_deadline": 2410,
+        "tax_inclusion": 3833,
+        "cancellation_deadline": 2460,
         "breakfast_included": 12
       }
     },
@@ -1539,10 +1539,10 @@
     {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
-      "rows": 989,
+      "rows": 1027,
       "missing_fields": {
-        "cancellation_class": 715,
-        "cancellation_deadline": 715,
+        "cancellation_class": 753,
+        "cancellation_deadline": 753,
         "breakfast_included": 307
       }
     },
@@ -1561,7 +1561,7 @@
       "hotel_id": "grand_hilai_kaohsiung",
       "source_platform": "official",
       "rows": 900,
-      "latest_queried_at": "2026-11-08 23:43:04.288572",
+      "latest_queried_at": "2026-11-09 01:54:23.102318",
       "missing_fields": {
         "cancellation_class": 900,
         "cancellation_deadline": 900,
@@ -1573,7 +1573,7 @@
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
       "rows": 184,
-      "latest_queried_at": "2026-11-08 23:38:06.355512",
+      "latest_queried_at": "2026-11-09 01:51:23.012889",
       "missing_fields": {
         "tax_inclusion": 184,
         "cancellation_class": 59,
@@ -1584,7 +1584,7 @@
       "hotel_id": "eslite_hotel",
       "source_platform": "official",
       "rows": 172,
-      "latest_queried_at": "2026-11-08 23:48:51.872444",
+      "latest_queried_at": "2026-11-09 01:57:32.449503",
       "missing_fields": {
         "tax_inclusion": 172,
         "cancellation_class": 18,
@@ -1596,7 +1596,7 @@
       "hotel_id": "grand_hotel_taipei",
       "source_platform": "official",
       "rows": 162,
-      "latest_queried_at": "2026-11-08 23:54:38.425287",
+      "latest_queried_at": "2026-11-09 02:02:16.708475",
       "missing_fields": {
         "breakfast_included": 162,
         "cancellation_class": 162,
@@ -1607,7 +1607,7 @@
       "hotel_id": "windsor_taichung",
       "source_platform": "official",
       "rows": 132,
-      "latest_queried_at": "2026-11-08 23:50:10.424864",
+      "latest_queried_at": "2026-11-09 01:58:47.762694",
       "missing_fields": {
         "cancellation_class": 132,
         "cancellation_deadline": 132,
@@ -1629,7 +1629,7 @@
       "hotel_id": "hotel_nikko_kaohsiung",
       "source_platform": "official",
       "rows": 89,
-      "latest_queried_at": "2026-11-08 23:42:16.042486",
+      "latest_queried_at": "2026-11-09 01:53:43.158398",
       "missing_fields": {
         "cancellation_class": 89,
         "cancellation_deadline": 89
@@ -1639,35 +1639,35 @@
       "hotel_id": "mo_taipei",
       "source_platform": "official",
       "rows": 81,
-      "latest_queried_at": "2026-11-08 23:36:25.566881",
+      "latest_queried_at": "2026-11-09 01:49:48.104297",
       "missing_fields": {
         "breakfast_included": 81,
         "cancellation_deadline": 29
       }
     },
     {
-      "hotel_id": "shangrila_taipei",
+      "hotel_id": "shangrila_tainan",
       "source_platform": "official",
-      "rows": 81,
-      "latest_queried_at": "2026-11-08 23:37:01.734392",
+      "rows": 80,
+      "latest_queried_at": "2026-11-09 01:59:39.504566",
       "missing_fields": {
-        "breakfast_included": 81
+        "breakfast_included": 80
       }
     },
     {
-      "hotel_id": "shangrila_tainan",
+      "hotel_id": "shangrila_taipei",
       "source_platform": "official",
-      "rows": 78,
-      "latest_queried_at": "2026-11-08 23:51:44.881703",
+      "rows": 80,
+      "latest_queried_at": "2026-11-09 01:50:24.844562",
       "missing_fields": {
-        "breakfast_included": 78
+        "breakfast_included": 80
       }
     },
     {
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 73,
-      "latest_queried_at": "2026-11-08 23:40:54.467151",
+      "latest_queried_at": "2026-11-09 01:52:21.33451",
       "missing_fields": {
         "tax_inclusion": 73,
         "cancellation_deadline": 50
@@ -1677,7 +1677,7 @@
       "hotel_id": "grand_hilai_taipei",
       "source_platform": "official",
       "rows": 72,
-      "latest_queried_at": "2026-11-08 23:37:38.971877",
+      "latest_queried_at": "2026-11-09 01:50:55.276465",
       "missing_fields": {
         "cancellation_class": 72,
         "cancellation_deadline": 72,
@@ -1688,7 +1688,7 @@
       "hotel_id": "silks_place_yilan",
       "source_platform": "official",
       "rows": 50,
-      "latest_queried_at": "2026-11-08 23:50:30.914071",
+      "latest_queried_at": "2026-11-09 01:59:05.784357",
       "missing_fields": {
         "room_size": 50,
         "tax_inclusion": 50,
@@ -1699,11 +1699,11 @@
     {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
-      "rows": 35,
-      "latest_queried_at": "2026-11-08 23:35:00.594026",
+      "rows": 38,
+      "latest_queried_at": "2026-11-09 01:48:24.888003",
       "missing_fields": {
-        "cancellation_class": 35,
-        "cancellation_deadline": 35
+        "cancellation_class": 38,
+        "cancellation_deadline": 38
       }
     },
     {
@@ -1737,7 +1737,7 @@
       "hotel_id": "k_hotel_taipei_changan",
       "source_platform": "official",
       "rows": 24,
-      "latest_queried_at": "2026-11-08 23:55:51.344252",
+      "latest_queried_at": "2026-11-09 02:03:55.274108",
       "missing_fields": {
         "tax_inclusion": 24
       }
@@ -1947,7 +1947,7 @@
       "hotel_id": "solaria_nishitetsu_taipei",
       "source_platform": "official",
       "rows": 6,
-      "latest_queried_at": "2026-11-08 23:46:42.942464",
+      "latest_queried_at": "2026-11-09 01:57:04.433086",
       "missing_fields": {
         "room_size": 6
       }
@@ -1956,7 +1956,7 @@
       "hotel_id": "taipei_garden_hotel",
       "source_platform": "official",
       "rows": 6,
-      "latest_queried_at": "2026-11-08 23:54:02.211112",
+      "latest_queried_at": "2026-11-09 02:01:45.802436",
       "missing_fields": {
         "breakfast_included": 6,
         "cancellation_class": 6,
@@ -2026,12 +2026,12 @@
     {
       "hotel_id": "grand_hilai_kaohsiung",
       "source_platform": "official",
-      "rows": 38844,
+      "rows": 39744,
       "missing_fields": {
-        "cancellation_class": 38844,
-        "cancellation_deadline": 38844,
-        "tax_inclusion": 38844,
-        "breakfast_included": 18180
+        "cancellation_class": 39744,
+        "cancellation_deadline": 39744,
+        "tax_inclusion": 39744,
+        "breakfast_included": 18636
       },
       "review_status": "blocked_source_shell",
       "reviewed_at": "2026-10-24",
@@ -2043,12 +2043,12 @@
     {
       "hotel_id": "eslite_hotel",
       "source_platform": "official",
-      "rows": 6575,
+      "rows": 6747,
       "missing_fields": {
-        "tax_inclusion": 6575,
-        "cancellation_class": 567,
-        "cancellation_deadline": 567,
-        "breakfast_included": 296
+        "tax_inclusion": 6747,
+        "cancellation_class": 585,
+        "cancellation_deadline": 585,
+        "breakfast_included": 306
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-11-05",
@@ -2060,11 +2060,11 @@
     {
       "hotel_id": "windsor_taichung",
       "source_platform": "official",
-      "rows": 6552,
+      "rows": 6684,
       "missing_fields": {
-        "cancellation_class": 6552,
-        "cancellation_deadline": 6552,
-        "breakfast_included": 746
+        "cancellation_class": 6684,
+        "cancellation_deadline": 6684,
+        "breakfast_included": 764
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-24",
@@ -2092,10 +2092,10 @@
     {
       "hotel_id": "mo_taipei",
       "source_platform": "official",
-      "rows": 5087,
+      "rows": 5168,
       "missing_fields": {
-        "breakfast_included": 5087,
-        "cancellation_deadline": 2071
+        "breakfast_included": 5168,
+        "cancellation_deadline": 2100
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-24",
@@ -2107,9 +2107,9 @@
     {
       "hotel_id": "shangrila_taipei",
       "source_platform": "official",
-      "rows": 4138,
+      "rows": 4218,
       "missing_fields": {
-        "breakfast_included": 4138
+        "breakfast_included": 4218
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-25",
@@ -2119,28 +2119,13 @@
       "review_note": "官方日期結果頁無法由既有讀取工具存取；最新缺值集中於一般客房的 Book Early and Save／Flexible Rate 泛稱方案，方案名稱未明示含餐或不含餐，不能以豪華閣房型另有早餐權益跨商品推定。最新 24 筆早餐維持 unknown；來源流程或精確缺欄組合變更前不重試。"
     },
     {
-      "hotel_id": "hotel_nikko_kaohsiung",
-      "source_platform": "official",
-      "rows": 3663,
-      "missing_fields": {
-        "cancellation_class": 3663,
-        "cancellation_deadline": 3663
-      },
-      "review_status": "blocked_source_unavailable",
-      "reviewed_at": "2026-10-24",
-      "review_evidence_urls": [
-        "https://be.synxis.com/?adult=2&arrive=2026-11-23&chain=9542&child=0&currency=TWD&depart=2026-11-24&hotel=47062&level=hotel&locale=zh-TW&productcurrency=TWD&rooms=1"
-      ],
-      "review_note": "官方 SynXis 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足「不含餐食」，但最新 67 筆仍無商品層級取消類別與精確期限。來源流程或精確缺欄組合變更前不重試。"
-    },
-    {
       "hotel_id": "the_gaia_taipei",
       "source_platform": "official",
-      "rows": 3623,
+      "rows": 3807,
       "missing_fields": {
-        "tax_inclusion": 3623,
-        "cancellation_class": 1121,
-        "cancellation_deadline": 1121
+        "tax_inclusion": 3807,
+        "cancellation_class": 1180,
+        "cancellation_deadline": 1180
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-24",
@@ -2150,13 +2135,28 @@
       "review_note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 127 筆皆無商品層級稅費標示，其中 34 筆取消欄為 placeholder。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "hotel_nikko_kaohsiung",
+      "source_platform": "official",
+      "rows": 3752,
+      "missing_fields": {
+        "cancellation_class": 3752,
+        "cancellation_deadline": 3752
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-10-24",
+      "review_evidence_urls": [
+        "https://be.synxis.com/?adult=2&arrive=2026-11-23&chain=9542&child=0&currency=TWD&depart=2026-11-24&hotel=47062&level=hotel&locale=zh-TW&productcurrency=TWD&rooms=1"
+      ],
+      "review_note": "官方 SynXis 結果頁無法由既有讀取工具存取；同筆方案名稱已明確補足「不含餐食」，但最新 67 筆仍無商品層級取消類別與精確期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "grand_hilai_taipei",
       "source_platform": "official",
-      "rows": 3240,
+      "rows": 3312,
       "missing_fields": {
-        "cancellation_class": 3240,
-        "cancellation_deadline": 3240,
-        "tax_inclusion": 3240
+        "cancellation_class": 3312,
+        "cancellation_deadline": 3312,
+        "tax_inclusion": 3312
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-24",
@@ -2168,11 +2168,11 @@
     {
       "hotel_id": "grand_hotel_taipei",
       "source_platform": "official",
-      "rows": 2880,
+      "rows": 3042,
       "missing_fields": {
-        "breakfast_included": 2880,
-        "cancellation_class": 2880,
-        "cancellation_deadline": 2880
+        "breakfast_included": 3042,
+        "cancellation_class": 3042,
+        "cancellation_deadline": 3042
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-24",
@@ -2184,9 +2184,9 @@
     {
       "hotel_id": "shangrila_tainan",
       "source_platform": "official",
-      "rows": 2715,
+      "rows": 2795,
       "missing_fields": {
-        "breakfast_included": 2715
+        "breakfast_included": 2795
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-25",
@@ -2198,12 +2198,12 @@
     {
       "hotel_id": "silks_place_yilan",
       "source_platform": "official",
-      "rows": 1799,
+      "rows": 1849,
       "missing_fields": {
-        "room_size": 1799,
-        "tax_inclusion": 1799,
-        "cancellation_class": 600,
-        "cancellation_deadline": 600
+        "room_size": 1849,
+        "tax_inclusion": 1849,
+        "cancellation_class": 616,
+        "cancellation_deadline": 616
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-24",
@@ -2216,9 +2216,9 @@
     {
       "hotel_id": "solaria_nishitetsu_taipei",
       "source_platform": "official",
-      "rows": 239,
+      "rows": 245,
       "missing_fields": {
-        "room_size": 239
+        "room_size": 245
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-26",
@@ -2243,6 +2243,20 @@
       "review_note": "官方 SynXis 日期頁無法由既有讀取工具存取；最新 22 筆中另 14 筆已有「抵達前 2 天」明確條款，但此日期的 8 筆不指定房型／浮動優惠方案沒有保存商品層級取消文字，雖早餐、稅費與房型面積完整，仍不得跨商品推定取消類別或精確期限。既有不指定房型代碼歧義仍由房型 review registry 獨立處理。來源流程或精確缺欄組合變更前不重試。"
     },
     {
+      "hotel_id": "k_hotel_taipei_changan",
+      "source_platform": "official",
+      "rows": 144,
+      "missing_fields": {
+        "tax_inclusion": 144
+      },
+      "review_status": "blocked_no_explicit_label",
+      "reviewed_at": "2026-11-05",
+      "review_evidence_urls": [
+        "https://hotel.gobooking.com.tw/zh-TW/K-TPCA/Reservations/Reserve?packageId=2734b789-d6b0-4eac-8963-e742908e4cea&packageRoomId=1c2fd990-d83c-4216-b6e7-51c41a090ed9&arrival=2026-11-06"
+      ],
+      "review_note": "2026-11-05 首批官方 Gobooking 觀測共 24 筆，早餐、房型與「入住前至少14天取消可全額退款」均有商品層級明文；頁面只提供單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，因此 tax_inclusion 維持 unknown。不得跨用其他柯達飯店或其他來源推定；來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
       "hotel_id": "hotel_royal_hsinchu",
       "source_platform": "official",
       "rows": 128,
@@ -2258,29 +2272,15 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 18 筆的早餐與稅費狀態完整，但全數沒有商品層級取消文字，不能從「國人住房專案」方案名稱推定取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
     },
     {
-      "hotel_id": "k_hotel_taipei_changan",
-      "source_platform": "official",
-      "rows": 120,
-      "missing_fields": {
-        "tax_inclusion": 120
-      },
-      "review_status": "blocked_no_explicit_label",
-      "reviewed_at": "2026-11-05",
-      "review_evidence_urls": [
-        "https://hotel.gobooking.com.tw/zh-TW/K-TPCA/Reservations/Reserve?packageId=2734b789-d6b0-4eac-8963-e742908e4cea&packageRoomId=1c2fd990-d83c-4216-b6e7-51c41a090ed9&arrival=2026-11-06"
-      ],
-      "review_note": "2026-11-05 首批官方 Gobooking 觀測共 24 筆，早餐、房型與「入住前至少14天取消可全額退款」均有商品層級明文；頁面只提供單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，因此 tax_inclusion 維持 unknown。不得跨用其他柯達飯店或其他來源推定；來源流程或精確缺欄組合變更前不重試。"
-    },
-    {
       "hotel_id": "taipei_garden_hotel",
       "source_platform": "official",
-      "rows": 117,
+      "rows": 123,
       "missing_fields": {
-        "breakfast_included": 117,
-        "cancellation_class": 117,
-        "cancellation_deadline": 117,
-        "tax_inclusion": 117,
-        "room_size": 16
+        "breakfast_included": 123,
+        "cancellation_class": 123,
+        "cancellation_deadline": 123,
+        "tax_inclusion": 123,
+        "room_size": 17
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-28",
@@ -2686,7 +2686,7 @@
       "hotel_id": "hoshinoya_guguan",
       "source_platform": "official",
       "rows": 73,
-      "latest_queried_at": "2026-11-08 23:40:54.467151",
+      "latest_queried_at": "2026-11-09 01:52:21.33451",
       "missing_fields": {
         "tax_inclusion": 73,
         "cancellation_deadline": 50
@@ -2701,11 +2701,11 @@
     {
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
-      "rows": 35,
-      "latest_queried_at": "2026-11-08 23:35:00.594026",
+      "rows": 38,
+      "latest_queried_at": "2026-11-09 01:48:24.888003",
       "missing_fields": {
-        "cancellation_class": 35,
-        "cancellation_deadline": 35
+        "cancellation_class": 38,
+        "cancellation_deadline": 38
       },
       "review_status": "blocked_source_unavailable",
       "reviewed_at": "2026-10-26",
@@ -2760,7 +2760,7 @@
           "penalty_percent": 100
         }
       ],
-      "rows": 2410
+      "rows": 2460
     }
   ]
 }
