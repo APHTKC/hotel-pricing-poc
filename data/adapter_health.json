@@ -4,17 +4,17 @@
     "capella:capella_taipei": {
       "adapter": "capella",
       "hotel_id": "capella_taipei",
-      "attempts": 218,
-      "successes": 206,
+      "attempts": 224,
+      "successes": 212,
       "failures": 12,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 2025630.9851869994,
-      "average_response_ms": 9291.89,
-      "success_rate": 0.945,
+      "total_response_ms": 2071651.1383369996,
+      "average_response_ms": 9248.44,
+      "success_rate": 0.9464,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:33:42.392967+00:00",
-      "last_success_at": "2026-11-08T23:33:42.392967+00:00",
+      "last_attempt_at": "2026-11-09T01:47:06.814963+00:00",
+      "last_success_at": "2026-11-09T01:47:06.814963+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -331,23 +331,32 @@
           "response_ms": 90662.77,
           "success_rate": 1.0,
           "average_response_ms": 7555.23
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 46020.15,
+          "success_rate": 1.0,
+          "average_response_ms": 7670.03
         }
       }
     },
     "okura:okura_prestige_taipei": {
       "adapter": "okura",
       "hotel_id": "okura_prestige_taipei",
-      "attempts": 177,
-      "successes": 119,
-      "failures": 58,
+      "attempts": 183,
+      "successes": 124,
+      "failures": 59,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 3060556.2079040064,
-      "average_response_ms": 17291.28,
-      "success_rate": 0.6723,
+      "total_response_ms": 3147859.9353310065,
+      "average_response_ms": 17201.42,
+      "success_rate": 0.6776,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:35:09.517695+00:00",
-      "last_success_at": "2026-11-08T23:35:09.517695+00:00",
+      "last_attempt_at": "2026-11-09T01:48:34.200999+00:00",
+      "last_success_at": "2026-11-09T01:48:34.200999+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -655,23 +664,32 @@
           "response_ms": 214110.81,
           "success_rate": 0.75,
           "average_response_ms": 17842.57
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 5,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 87303.72,
+          "success_rate": 0.8333,
+          "average_response_ms": 14550.62
         }
       }
     },
     "mandarin_oriental:mo_taipei": {
       "adapter": "mandarin_oriental",
       "hotel_id": "mo_taipei",
-      "attempts": 212,
-      "successes": 191,
+      "attempts": 218,
+      "successes": 197,
       "failures": 21,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 4477777.169838998,
-      "average_response_ms": 21121.59,
-      "success_rate": 0.9009,
+      "total_response_ms": 4559063.7454539975,
+      "average_response_ms": 20913.14,
+      "success_rate": 0.9037,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:36:33.263239+00:00",
-      "last_success_at": "2026-11-08T23:36:33.263239+00:00",
+      "last_attempt_at": "2026-11-09T01:49:55.567722+00:00",
+      "last_success_at": "2026-11-09T01:49:55.567722+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -988,23 +1006,32 @@
           "response_ms": 180925.24,
           "success_rate": 0.7778,
           "average_response_ms": 20102.8
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 81286.58,
+          "success_rate": 1.0,
+          "average_response_ms": 13547.76
         }
       }
     },
     "shangrila:shangrila_taipei": {
       "adapter": "shangrila",
       "hotel_id": "shangrila_taipei",
-      "attempts": 217,
-      "successes": 202,
+      "attempts": 223,
+      "successes": 208,
       "failures": 15,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 1868950.749654003,
-      "average_response_ms": 8612.68,
-      "success_rate": 0.9309,
+      "total_response_ms": 1904725.5137970028,
+      "average_response_ms": 8541.37,
+      "success_rate": 0.9327,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:37:08.118733+00:00",
-      "last_success_at": "2026-11-08T23:37:08.118733+00:00",
+      "last_attempt_at": "2026-11-09T01:50:31.473970+00:00",
+      "last_success_at": "2026-11-09T01:50:31.473970+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -1321,23 +1348,32 @@
           "response_ms": 70283.33,
           "success_rate": 1.0,
           "average_response_ms": 5856.94
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 35774.76,
+          "success_rate": 1.0,
+          "average_response_ms": 5962.46
         }
       }
     },
     "grand_hilai:grand_hilai_taipei": {
       "adapter": "grand_hilai",
       "hotel_id": "grand_hilai_taipei",
-      "attempts": 218,
-      "successes": 216,
+      "attempts": 224,
+      "successes": 222,
       "failures": 2,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 1430551.6763989998,
-      "average_response_ms": 6562.16,
-      "success_rate": 0.9908,
+      "total_response_ms": 1459066.1075429998,
+      "average_response_ms": 6513.69,
+      "success_rate": 0.9911,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:37:44.254392+00:00",
-      "last_success_at": "2026-11-08T23:37:44.254392+00:00",
+      "last_attempt_at": "2026-11-09T01:51:00.064581+00:00",
+      "last_success_at": "2026-11-09T01:51:00.064581+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -1654,6 +1690,15 @@
           "response_ms": 67813.93,
           "success_rate": 1.0,
           "average_response_ms": 5651.16
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 28514.43,
+          "success_rate": 1.0,
+          "average_response_ms": 4752.4
         }
       }
     },
@@ -2236,17 +2281,17 @@
     "hoshinoya:hoshinoya_guguan": {
       "adapter": "hoshinoya",
       "hotel_id": "hoshinoya_guguan",
-      "attempts": 222,
-      "successes": 197,
-      "failures": 25,
+      "attempts": 228,
+      "successes": 202,
+      "failures": 26,
       "blocked_count": 0,
       "consecutive_failures": 1,
-      "total_response_ms": 4637072.516307001,
-      "average_response_ms": 20887.71,
-      "success_rate": 0.8874,
+      "total_response_ms": 4749635.890083001,
+      "average_response_ms": 20831.74,
+      "success_rate": 0.886,
       "last_status": "failed",
-      "last_attempt_at": "2026-11-08T23:41:54.633049+00:00",
-      "last_success_at": "2026-11-08T23:41:09.230310+00:00",
+      "last_attempt_at": "2026-11-09T01:53:19.878981+00:00",
+      "last_success_at": "2026-11-09T01:52:34.436532+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -2563,23 +2608,32 @@
           "response_ms": 225289.12,
           "success_rate": 0.8333,
           "average_response_ms": 18774.09
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 5,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 112563.37,
+          "success_rate": 0.8333,
+          "average_response_ms": 18760.56
         }
       }
     },
     "synxis:hotel_nikko_kaohsiung": {
       "adapter": "synxis",
       "hotel_id": "hotel_nikko_kaohsiung",
-      "attempts": 222,
-      "successes": 215,
+      "attempts": 228,
+      "successes": 221,
       "failures": 7,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 1143310.2899570009,
-      "average_response_ms": 5150.05,
-      "success_rate": 0.9685,
+      "total_response_ms": 1170816.0917230006,
+      "average_response_ms": 5135.16,
+      "success_rate": 0.9693,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:42:19.991984+00:00",
-      "last_success_at": "2026-11-08T23:42:19.991984+00:00",
+      "last_attempt_at": "2026-11-09T01:53:47.471758+00:00",
+      "last_success_at": "2026-11-09T01:53:47.471758+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -2896,23 +2950,32 @@
           "response_ms": 50129.6,
           "success_rate": 1.0,
           "average_response_ms": 4177.47
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 27505.8,
+          "success_rate": 1.0,
+          "average_response_ms": 4584.3
         }
       }
     },
     "grand_hilai:grand_hilai_kaohsiung": {
       "adapter": "grand_hilai",
       "hotel_id": "grand_hilai_kaohsiung",
-      "attempts": 222,
-      "successes": 222,
+      "attempts": 228,
+      "successes": 228,
       "failures": 0,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 1974225.6016910006,
-      "average_response_ms": 8892.91,
+      "total_response_ms": 2016933.188728001,
+      "average_response_ms": 8846.2,
       "success_rate": 1.0,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:43:12.266124+00:00",
-      "last_success_at": "2026-11-08T23:43:12.266124+00:00",
+      "last_attempt_at": "2026-11-09T01:54:30.278226+00:00",
+      "last_success_at": "2026-11-09T01:54:30.278226+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -3229,23 +3292,32 @@
           "response_ms": 98149.14,
           "success_rate": 1.0,
           "average_response_ms": 8179.1
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 42707.58,
+          "success_rate": 1.0,
+          "average_response_ms": 7117.93
         }
       }
     },
     "gobooking:palais_de_chine": {
       "adapter": "gobooking",
       "hotel_id": "palais_de_chine",
-      "attempts": 221,
-      "successes": 192,
-      "failures": 29,
+      "attempts": 227,
+      "successes": 197,
+      "failures": 30,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 2818916.513367998,
-      "average_response_ms": 12755.28,
-      "success_rate": 0.8688,
+      "total_response_ms": 2903885.5980729987,
+      "average_response_ms": 12792.45,
+      "success_rate": 0.8678,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:45:24.653718+00:00",
-      "last_success_at": "2026-11-08T23:45:24.653718+00:00",
+      "last_attempt_at": "2026-11-09T01:55:55.352459+00:00",
+      "last_success_at": "2026-11-09T01:55:55.352459+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -3562,23 +3634,32 @@
           "response_ms": 218800.87,
           "success_rate": 0.8333,
           "average_response_ms": 18233.41
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 5,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 84969.08,
+          "success_rate": 0.8333,
+          "average_response_ms": 14161.51
         }
       }
     },
     "gobooking:solaria_nishitetsu_taipei": {
       "adapter": "gobooking",
       "hotel_id": "solaria_nishitetsu_taipei",
-      "attempts": 222,
-      "successes": 203,
+      "attempts": 228,
+      "successes": 209,
       "failures": 19,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 3891257.934550003,
-      "average_response_ms": 17528.19,
-      "success_rate": 0.9144,
+      "total_response_ms": 3972950.260120003,
+      "average_response_ms": 17425.22,
+      "success_rate": 0.9167,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:46:56.762329+00:00",
-      "last_success_at": "2026-11-08T23:46:56.762329+00:00",
+      "last_attempt_at": "2026-11-09T01:57:17.134756+00:00",
+      "last_success_at": "2026-11-09T01:57:17.134756+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -3895,6 +3976,15 @@
           "response_ms": 253394.1,
           "success_rate": 0.8333,
           "average_response_ms": 21116.17
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 81692.32,
+          "success_rate": 1.0,
+          "average_response_ms": 13615.39
         }
       }
     },
@@ -4225,17 +4315,17 @@
     "siteminder:eslite_hotel": {
       "adapter": "siteminder",
       "hotel_id": "eslite_hotel",
-      "attempts": 195,
-      "successes": 169,
+      "attempts": 201,
+      "successes": 175,
       "failures": 26,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 599697.7845560004,
-      "average_response_ms": 3075.37,
-      "success_rate": 0.8667,
+      "total_response_ms": 617789.9248480004,
+      "average_response_ms": 3073.58,
+      "success_rate": 0.8706,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:48:54.978435+00:00",
-      "last_success_at": "2026-11-08T23:48:54.978435+00:00",
+      "last_attempt_at": "2026-11-09T01:57:35.325758+00:00",
+      "last_success_at": "2026-11-09T01:57:35.325758+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -4543,23 +4633,32 @@
           "response_ms": 36888.44,
           "success_rate": 1.0,
           "average_response_ms": 3074.04
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 18092.14,
+          "success_rate": 1.0,
+          "average_response_ms": 3015.36
         }
       }
     },
     "tripla:windsor_taichung": {
       "adapter": "tripla",
       "hotel_id": "windsor_taichung",
-      "attempts": 222,
-      "successes": 209,
-      "failures": 13,
+      "attempts": 228,
+      "successes": 214,
+      "failures": 14,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 2109594.130111999,
-      "average_response_ms": 9502.68,
-      "success_rate": 0.9414,
+      "total_response_ms": 2186330.301914999,
+      "average_response_ms": 9589.17,
+      "success_rate": 0.9386,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:50:15.614219+00:00",
-      "last_success_at": "2026-11-08T23:50:15.614219+00:00",
+      "last_attempt_at": "2026-11-09T01:58:52.147675+00:00",
+      "last_success_at": "2026-11-09T01:58:52.147675+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -4876,23 +4975,32 @@
           "response_ms": 115822.34,
           "success_rate": 0.9167,
           "average_response_ms": 9651.86
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 5,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 76736.17,
+          "success_rate": 0.8333,
+          "average_response_ms": 12789.36
         }
       }
     },
     "siteminder:silks_place_yilan": {
       "adapter": "siteminder",
       "hotel_id": "silks_place_yilan",
-      "attempts": 219,
-      "successes": 205,
+      "attempts": 225,
+      "successes": 211,
       "failures": 14,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 642100.4598959979,
-      "average_response_ms": 2931.97,
-      "success_rate": 0.9361,
+      "total_response_ms": 658413.9418109978,
+      "average_response_ms": 2926.28,
+      "success_rate": 0.9378,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:50:33.760057+00:00",
-      "last_success_at": "2026-11-08T23:50:33.760057+00:00",
+      "last_attempt_at": "2026-11-09T01:59:08.538560+00:00",
+      "last_success_at": "2026-11-09T01:59:08.538560+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -5209,23 +5317,32 @@
           "response_ms": 26227.73,
           "success_rate": 0.7778,
           "average_response_ms": 2914.19
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 16313.48,
+          "success_rate": 1.0,
+          "average_response_ms": 2718.91
         }
       }
     },
     "shangrila:shangrila_tainan": {
       "adapter": "shangrila",
       "hotel_id": "shangrila_tainan",
-      "attempts": 216,
-      "successes": 204,
+      "attempts": 222,
+      "successes": 210,
       "failures": 12,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 1760639.183927002,
-      "average_response_ms": 8151.11,
-      "success_rate": 0.9444,
+      "total_response_ms": 1796894.6127250018,
+      "average_response_ms": 8094.12,
+      "success_rate": 0.9459,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:51:50.374109+00:00",
-      "last_success_at": "2026-11-08T23:51:50.374109+00:00",
+      "last_attempt_at": "2026-11-09T01:59:44.884857+00:00",
+      "last_success_at": "2026-11-09T01:59:44.884857+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -5542,23 +5659,32 @@
           "response_ms": 110775.04,
           "success_rate": 0.9167,
           "average_response_ms": 9231.25
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 36255.43,
+          "success_rate": 1.0,
+          "average_response_ms": 6042.57
         }
       }
     },
     "gobooking:fleur_de_chine": {
       "adapter": "gobooking",
       "hotel_id": "fleur_de_chine",
-      "attempts": 218,
-      "successes": 184,
-      "failures": 34,
+      "attempts": 224,
+      "successes": 189,
+      "failures": 35,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 4175770.8231399995,
-      "average_response_ms": 19154.91,
-      "success_rate": 0.844,
+      "total_response_ms": 4288588.1291499995,
+      "average_response_ms": 19145.48,
+      "success_rate": 0.8438,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:53:52.200362+00:00",
-      "last_success_at": "2026-11-08T23:53:52.200362+00:00",
+      "last_attempt_at": "2026-11-09T02:01:37.781801+00:00",
+      "last_success_at": "2026-11-09T02:01:37.781801+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-09-24": {
@@ -5875,23 +6001,32 @@
           "response_ms": 230659.31,
           "success_rate": 0.8333,
           "average_response_ms": 19221.61
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 5,
+          "failures": 1,
+          "blocked": 0,
+          "response_ms": 112817.31,
+          "success_rate": 0.8333,
+          "average_response_ms": 18802.88
         }
       }
     },
     "fastbooking:taipei_garden_hotel": {
       "adapter": "fastbooking",
       "hotel_id": "taipei_garden_hotel",
-      "attempts": 135,
-      "successes": 117,
+      "attempts": 141,
+      "successes": 123,
       "failures": 18,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 218854.87274699818,
-      "average_response_ms": 1621.15,
-      "success_rate": 0.8667,
+      "total_response_ms": 228858.657269998,
+      "average_response_ms": 1623.11,
+      "success_rate": 0.8723,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:54:03.845083+00:00",
-      "last_success_at": "2026-11-08T23:54:03.845083+00:00",
+      "last_attempt_at": "2026-11-09T02:01:47.881580+00:00",
+      "last_success_at": "2026-11-09T02:01:47.881580+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-10-07": {
@@ -6100,23 +6235,32 @@
           "response_ms": 22916.35,
           "success_rate": 1.0,
           "average_response_ms": 1909.7
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 10003.78,
+          "success_rate": 1.0,
+          "average_response_ms": 1667.3
         }
       }
     },
     "grand_hilai:grand_hotel_taipei": {
       "adapter": "grand_hilai",
       "hotel_id": "grand_hotel_taipei",
-      "attempts": 144,
-      "successes": 144,
+      "attempts": 150,
+      "successes": 150,
       "failures": 0,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 941120.3983629983,
-      "average_response_ms": 6535.56,
+      "total_response_ms": 975828.3686309985,
+      "average_response_ms": 6505.52,
       "success_rate": 1.0,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:54:44.362568+00:00",
-      "last_success_at": "2026-11-08T23:54:44.362568+00:00",
+      "last_attempt_at": "2026-11-09T02:02:22.677684+00:00",
+      "last_success_at": "2026-11-09T02:02:22.677684+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-10-07": {
@@ -6325,6 +6469,15 @@
           "response_ms": 75994.09,
           "success_rate": 1.0,
           "average_response_ms": 6332.84
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 34707.97,
+          "success_rate": 1.0,
+          "average_response_ms": 5784.66
         }
       }
     },
@@ -6430,17 +6583,17 @@
     "siteminder:the_gaia_taipei": {
       "adapter": "siteminder",
       "hotel_id": "the_gaia_taipei",
-      "attempts": 135,
-      "successes": 130,
+      "attempts": 141,
+      "successes": 136,
       "failures": 5,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 543774.1521440111,
-      "average_response_ms": 4027.96,
-      "success_rate": 0.963,
+      "total_response_ms": 570840.6329220111,
+      "average_response_ms": 4048.52,
+      "success_rate": 0.9645,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:38:10.486447+00:00",
-      "last_success_at": "2026-11-08T23:38:10.486447+00:00",
+      "last_attempt_at": "2026-11-09T01:51:27.218827+00:00",
+      "last_success_at": "2026-11-09T01:51:27.218827+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-10-08": {
@@ -6649,6 +6802,15 @@
           "response_ms": 51565.96,
           "success_rate": 1.0,
           "average_response_ms": 4297.16
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 27066.48,
+          "success_rate": 1.0,
+          "average_response_ms": 4511.08
         }
       }
     },
@@ -6952,17 +7114,17 @@
     "gobooking:united_hotel_taipei": {
       "adapter": "gobooking",
       "hotel_id": "united_hotel_taipei",
-      "attempts": 30,
-      "successes": 30,
+      "attempts": 36,
+      "successes": 36,
       "failures": 0,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 200981.24424599996,
-      "average_response_ms": 6699.37,
+      "total_response_ms": 241170.4677970001,
+      "average_response_ms": 6699.18,
       "success_rate": 1.0,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:55:23.796202+00:00",
-      "last_success_at": "2026-11-08T23:55:23.796202+00:00",
+      "last_attempt_at": "2026-11-09T02:03:02.951735+00:00",
+      "last_success_at": "2026-11-09T02:03:02.951735+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
@@ -7000,23 +7162,32 @@
           "response_ms": 80924.78,
           "success_rate": 1.0,
           "average_response_ms": 6743.73
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 40189.22,
+          "success_rate": 1.0,
+          "average_response_ms": 6698.2
         }
       }
     },
     "gobooking:k_hotel_taipei_changan": {
       "adapter": "gobooking",
       "hotel_id": "k_hotel_taipei_changan",
-      "attempts": 30,
-      "successes": 30,
+      "attempts": 36,
+      "successes": 36,
       "failures": 0,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 163469.18263500082,
-      "average_response_ms": 5448.97,
+      "total_response_ms": 220358.4305040008,
+      "average_response_ms": 6121.07,
       "success_rate": 1.0,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:55:56.898179+00:00",
-      "last_success_at": "2026-11-08T23:55:56.898179+00:00",
+      "last_attempt_at": "2026-11-09T02:03:59.920554+00:00",
+      "last_success_at": "2026-11-09T02:03:59.920554+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
@@ -7054,23 +7225,32 @@
           "response_ms": 60887.14,
           "success_rate": 1.0,
           "average_response_ms": 5073.93
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 56889.24,
+          "success_rate": 1.0,
+          "average_response_ms": 9481.54
         }
       }
     },
     "gobooking:tango_hotel_taichung": {
       "adapter": "gobooking",
       "hotel_id": "tango_hotel_taichung",
-      "attempts": 30,
-      "successes": 29,
+      "attempts": 36,
+      "successes": 35,
       "failures": 1,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 312339.1967100004,
-      "average_response_ms": 10411.31,
-      "success_rate": 0.9667,
+      "total_response_ms": 363013.0742270005,
+      "average_response_ms": 10083.7,
+      "success_rate": 0.9722,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:56:47.179615+00:00",
-      "last_success_at": "2026-11-08T23:56:47.179615+00:00",
+      "last_attempt_at": "2026-11-09T02:04:50.680481+00:00",
+      "last_success_at": "2026-11-09T02:04:50.680481+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
@@ -7108,23 +7288,32 @@
           "response_ms": 99353.86,
           "success_rate": 1.0,
           "average_response_ms": 8279.49
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 50673.87,
+          "success_rate": 1.0,
+          "average_response_ms": 8445.65
         }
       }
     },
     "gobooking:tango_hotel_taipei_jiantan": {
       "adapter": "gobooking",
       "hotel_id": "tango_hotel_taipei_jiantan",
-      "attempts": 30,
-      "successes": 30,
+      "attempts": 36,
+      "successes": 36,
       "failures": 0,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 200742.13664799978,
-      "average_response_ms": 6691.4,
+      "total_response_ms": 239607.62465099967,
+      "average_response_ms": 6655.77,
       "success_rate": 1.0,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:57:27.193938+00:00",
-      "last_success_at": "2026-11-08T23:57:27.193938+00:00",
+      "last_attempt_at": "2026-11-09T02:05:29.630184+00:00",
+      "last_success_at": "2026-11-09T02:05:29.630184+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
@@ -7162,23 +7351,32 @@
           "response_ms": 75845.98,
           "success_rate": 1.0,
           "average_response_ms": 6320.5
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 38865.49,
+          "success_rate": 1.0,
+          "average_response_ms": 6477.58
         }
       }
     },
     "gobooking:tango_hotel_taipei_xinyi": {
       "adapter": "gobooking",
       "hotel_id": "tango_hotel_taipei_xinyi",
-      "attempts": 30,
-      "successes": 29,
+      "attempts": 36,
+      "successes": 35,
       "failures": 1,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 296789.02394299966,
-      "average_response_ms": 9892.97,
-      "success_rate": 0.9667,
+      "total_response_ms": 344294.3483569997,
+      "average_response_ms": 9563.73,
+      "success_rate": 0.9722,
       "last_status": "success",
-      "last_attempt_at": "2026-11-08T23:59:04.212993+00:00",
-      "last_success_at": "2026-11-08T23:59:04.212993+00:00",
+      "last_attempt_at": "2026-11-09T02:06:17.217635+00:00",
+      "last_success_at": "2026-11-09T02:06:17.217635+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
@@ -7216,23 +7414,32 @@
           "response_ms": 141118.04,
           "success_rate": 0.9167,
           "average_response_ms": 11759.84
+        },
+        "2026-11-09": {
+          "attempts": 6,
+          "successes": 6,
+          "failures": 0,
+          "blocked": 0,
+          "response_ms": 47505.32,
+          "success_rate": 1.0,
+          "average_response_ms": 7917.55
         }
       }
     },
     "gobooking:tango_hotel_taipei_shilin": {
       "adapter": "gobooking",
       "hotel_id": "tango_hotel_taipei_shilin",
-      "attempts": 30,
-      "successes": 28,
+      "attempts": 36,
+      "successes": 34,
       "failures": 2,
       "blocked_count": 0,
-      "consecutive_failures": 1,
-      "total_response_ms": 280516.75035999983,
-      "average_response_ms": 9350.56,
-      "success_rate": 0.9333,
-      "last_status": "failed",
-      "last_attempt_at": "2026-11-09T00:01:19.533037+00:00",
-      "last_success_at": "2026-11-09T00:00:24.474767+00:00",
+      "consecutive_failures": 0,
+      "total_response_ms": 315437.64633700036,
+      "average_response_ms": 8762.16,
+      "success_rate": 0.9444,
+      "last_status": "success",
+      "last_attempt_at": "2026-11-09T02:06:52.222438+00:00",
+      "last_success_at": "2026-11-09T02:06:52.222438+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
@@ -7272,30 +7479,30 @@
           "average_response_ms": 12378.47
         },
         "2026-11-09": {
-          "attempts": 5,
-          "successes": 4,
+          "attempts": 11,
+          "successes": 10,
           "failures": 1,
           "blocked": 0,
-          "response_ms": 79959.45,
-          "success_rate": 0.8,
-          "average_response_ms": 15991.89
+          "response_ms": 114880.35,
+          "success_rate": 0.9091,
+          "average_response_ms": 10443.67
         }
       }
     },
     "gobooking:tango_hotel_taipei_linsen": {
       "adapter": "gobooking",
       "hotel_id": "tango_hotel_taipei_linsen",
-      "attempts": 30,
-      "successes": 28,
+      "attempts": 36,
+      "successes": 34,
       "failures": 2,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 238657.3453520013,
-      "average_response_ms": 7955.24,
-      "success_rate": 0.9333,
+      "total_response_ms": 263068.9252280012,
+      "average_response_ms": 7307.47,
+      "success_rate": 0.9444,
       "last_status": "success",
-      "last_attempt_at": "2026-11-09T00:03:28.045056+00:00",
-      "last_success_at": "2026-11-09T00:03:28.045056+00:00",
+      "last_attempt_at": "2026-11-09T02:07:16.722799+00:00",
+      "last_success_at": "2026-11-09T02:07:16.722799+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
@@ -7335,30 +7542,30 @@
           "average_response_ms": 3946.25
         },
         "2026-11-09": {
-          "attempts": 6,
-          "successes": 4,
+          "attempts": 12,
+          "successes": 10,
           "failures": 2,
           "blocked": 0,
-          "response_ms": 128438.92,
-          "success_rate": 0.6667,
-          "average_response_ms": 21406.49
+          "response_ms": 152850.49,
+          "success_rate": 0.8333,
+          "average_response_ms": 12737.54
         }
       }
     },
     "gobooking:tango_hotel_taipei_changan": {
       "adapter": "gobooking",
       "hotel_id": "tango_hotel_taipei_changan",
-      "attempts": 30,
-      "successes": 30,
-      "failures": 0,
+      "attempts": 36,
+      "successes": 35,
+      "failures": 1,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 284267.671271999,
-      "average_response_ms": 9475.59,
-      "success_rate": 1.0,
+      "total_response_ms": 383917.0551309994,
+      "average_response_ms": 10664.36,
+      "success_rate": 0.9722,
       "last_status": "success",
-      "last_attempt_at": "2026-11-09T00:04:26.930275+00:00",
-      "last_success_at": "2026-11-09T00:04:26.930275+00:00",
+      "last_attempt_at": "2026-11-09T02:08:56.457984+00:00",
+      "last_success_at": "2026-11-09T02:08:56.457984+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-05": {
@@ -7398,13 +7605,13 @@
           "average_response_ms": 8444.5
         },
         "2026-11-09": {
-          "attempts": 6,
-          "successes": 6,
-          "failures": 0,
+          "attempts": 12,
+          "successes": 11,
+          "failures": 1,
           "blocked": 0,
-          "response_ms": 58812.64,
-          "success_rate": 1.0,
-          "average_response_ms": 9802.11
+          "response_ms": 158462.02,
+          "success_rate": 0.9167,
+          "average_response_ms": 13205.17
         }
       }
     },
@@ -7438,27 +7645,27 @@
     "gobooking:tango_hotel_taipei_fuhsing": {
       "adapter": "gobooking",
       "hotel_id": "tango_hotel_taipei_fuhsing",
-      "attempts": 6,
-      "successes": 6,
+      "attempts": 12,
+      "successes": 12,
       "failures": 0,
       "blocked_count": 0,
       "consecutive_failures": 0,
-      "total_response_ms": 46351.078177999625,
-      "average_response_ms": 7725.18,
+      "total_response_ms": 94070.37234800009,
+      "average_response_ms": 7839.2,
       "success_rate": 1.0,
       "last_status": "success",
-      "last_attempt_at": "2026-11-09T00:05:13.354295+00:00",
-      "last_success_at": "2026-11-09T00:05:13.354295+00:00",
+      "last_attempt_at": "2026-11-09T02:09:44.275643+00:00",
+      "last_success_at": "2026-11-09T02:09:44.275643+00:00",
       "cooldown_until": null,
       "daily": {
         "2026-11-09": {
-          "attempts": 6,
-          "successes": 6,
+          "attempts": 12,
+          "successes": 12,
           "failures": 0,
           "blocked": 0,
-          "response_ms": 46351.07,
+          "response_ms": 94070.37,
           "success_rate": 1.0,
-          "average_response_ms": 7725.18
+          "average_response_ms": 7839.2
         }
       }
     }
