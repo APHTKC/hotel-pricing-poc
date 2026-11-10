@@ -7,8 +7,8 @@
   "format": "parquet",
   "query_engine": "duckdb",
   "compression": "zstd",
-  "rows": 128113,
-  "natural_keys": 128113,
+  "rows": 131073,
+  "natural_keys": 131073,
   "partitions": [
     {
       "month": "2026-09",
@@ -31,11 +31,11 @@
     {
       "month": "2026-11",
       "path": "rates/2026-11.parquet",
-      "source_shards": 6,
-      "rows": 16901,
-      "natural_keys": 16901,
-      "bytes": 630113,
-      "sha256": "90acaf45ebfa46b64c497296baa9c49edc485181a99cd3634c099a93876fd93e"
+      "source_shards": 7,
+      "rows": 19861,
+      "natural_keys": 19861,
+      "bytes": 711951,
+      "sha256": "b34eb401e9d424018db54095a53b5535078e91b527c850fb6c902d82beb98109"
     }
   ]
 }
