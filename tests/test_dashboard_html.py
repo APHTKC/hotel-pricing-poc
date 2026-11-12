@@ -2754,7 +2754,12 @@ def test_home_shows_sanitized_adapter_health_summary():
 
     assert "./data/adapter_health.json" in html
     assert "collectionHealth" in html
-    assert "本次完全成功" in html
+    assert "排程來源 36 小時內成功" in html
+    assert "Scheduled sources fresh within 36 hours" in html
+    assert "定期取得ソースの36時間以内成功" in html
+    assert "scheduled=catalog.filter(h=>h.enabled)" in html
+    assert "scheduledFresh.length}/${scheduled.length}" in html
+    assert "排程來源已逾 36 小時" in html
     assert "冷卻中" in html
 
 

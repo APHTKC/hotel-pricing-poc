@@ -3544,6 +3544,58 @@
       ]
     },
     {
+      "hotel_id": "united_hotel_taipei",
+      "verified_at": "2026-11-09",
+      "room_inventory": 228,
+      "service_charge_percent": null,
+      "service_charge_source_type": "pending",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official_booking",
+        "source_url": "https://hotel.gobooking.com.tw/zh-TW/UNITED-TP/Booking"
+      },
+      "restaurants": [
+        {"name": "北馥樓 PEI-FULL", "type_zh": "上海料理與中華料理", "type_en": "Shanghai and Chinese cuisine", "type_ja": "上海・中華料理"},
+        {"name": "Slate・板石 Lounge & Bar", "type_zh": "自助早餐、咖啡、酒飲與西式餐點", "type_en": "Breakfast buffet, coffee, drinks and Western dining", "type_ja": "朝食ビュッフェ、カフェ、ドリンク、洋食"}
+      ],
+      "restaurant_count": 2,
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
+      "lounge": {"available": true, "name": "Slate・板石 Lounge & Bar", "kind": "lobby_lounge"},
+      "facility_notes": {
+        "zh": "飯店官方中英文頁面與官方日文客房頁可核實九類房型、26 至 53 平方公尺、健身中心、北馥樓、Slate・板石及宴會空間；官方訂房頁明列入住 15:00、退房 12:00，且房價含服務費與稅金，但未公布服務費百分比，因此不推算費率。交通部觀光署旅宿網目前結構化欄位登錄 228 間客房，飯店首頁介紹文字仍寫 243 間，本資料採較具體的現行登錄值並保留差異。觀光署日文頁另列三溫暖；泳池、SPA 與蒸氣室維持待核實。",
+        "en": "Official hotel pages in Chinese and English plus the hotel's official Japanese room page verify nine room categories from 26 to 53 square meters, a fitness center, Pei-Full, Slate, and banquet facilities. The official booking page states 15:00 check-in, 12:00 check-out, and rates inclusive of service charge and tax, but it does not publish the service-charge percentage, so no rate is inferred. Taiwan's Tourism Administration directory currently records 228 guestrooms in its structured field, while the hotel's introductory text still says 243; this profile uses the more specific current registry value and preserves the discrepancy. The Tourism Administration's Japanese page also lists a sauna. A pool, spa, and steam room remain unverified.",
+        "ja": "ホテル公式の中国語・英語ページと公式日本語客室ページで、26～53平方メートルの客室9カテゴリー、フィットネスセンター、北馥楼、Slate・板石、宴会施設を確認しました。公式予約ページにはチェックイン15:00、チェックアウト12:00、料金にサービス料・税金込みとありますが、サービス料率は公表されていないため推定していません。台湾交通部観光署の旅宿網では構造化項目の総客室数が現在228室で、ホテル紹介文は243室のままです。本データはより具体的な現行登録値を採用し、差異を明記します。観光署日本語ページにはサウナも掲載されています。プール、SPA、スチームルームは未確認です。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-11-09",
+        "source_type": "official",
+        "source_url": "https://www.unitedhotel.com.tw/room",
+        "rooms": [
+          {"name_zh": "精緻客房", "name_en": "Superior Queen Room", "name_ja": "スーペリア・クイーンルーム", "size_sqm": 26},
+          {"name_zh": "精緻雙床", "name_en": "Superior Twin Room", "name_ja": "スーペリア・ツインルーム", "size_sqm": 26},
+          {"name_zh": "精緻三床", "name_en": "Superior Triple", "name_ja": "スーペリア・トリプルルーム", "size_sqm": 26},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Queen Room", "name_ja": "デラックス・クイーンルーム", "size_sqm": 30},
+          {"name_zh": "豪華雙床", "name_en": "Deluxe Twin Room", "name_ja": "デラックス・ツインルーム", "size_sqm": 33},
+          {"name_zh": "行政客房", "name_en": "Executive King Room", "name_ja": "エグゼクティブ・キングルーム", "size_sqm": 33},
+          {"name_zh": "行政雙床", "name_en": "Executive Twin Room", "name_ja": "エグゼクティブ・ハリウッド・ツインルーム", "size_sqm": 33},
+          {"name_zh": "卓越客房", "name_en": "Premier Room", "name_ja": "プレミアレジデンス", "size_sqm": 33},
+          {"name_zh": "國聯套房", "name_en": "United Suite", "name_ja": "ユナイテッド・スイート", "size_sqm": 53}
+        ]
+      },
+      "source_urls": [
+        "https://www.unitedhotel.com.tw/",
+        "https://www.unitedhotel.com.tw/en/",
+        "https://www.unitedhotel.com.tw/jp/",
+        "https://www.unitedhotel.com.tw/room",
+        "https://www.unitedhotel.com.tw/en/room",
+        "https://www.unitedhotel.com.tw/jp/room",
+        "https://hotel.gobooking.com.tw/zh-TW/UNITED-TP/Booking",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=21843&lang2=cn",
+        "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=21843&lang2=jp"
+      ]
+    },
+    {
       "hotel_id": "k_hotel_taipei_changan",
       "verified_at": "2026-11-09",
       "room_inventory": 103,

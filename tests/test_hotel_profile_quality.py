@@ -141,6 +141,11 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         for profile in profiles["profiles"]
         if profile["hotel_id"] == "k_hotel_taipei_changan"
     )
+    united = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "united_hotel_taipei"
+    )
 
     assert "stay_times_sourced" not in lalu_row["missing_evidence"]
     assert episode["stay_times"] == {
@@ -184,8 +189,28 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         room["name_zh"] and room["name_en"] and room["name_ja"]
         for room in changan["room_snapshot"]["rooms"]
     )
+    assert united["room_inventory"] == 228
+    assert united["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official_booking",
+        "source_url": "https://hotel.gobooking.com.tw/zh-TW/UNITED-TP/Booking",
+    }
+    assert united["service_charge_percent"] is None
+    assert united["service_charge_source_type"] == "pending"
+    assert len(united["room_snapshot"]["rooms"]) == 9
+    assert {room["size_sqm"] for room in united["room_snapshot"]["rooms"]} == {
+        26,
+        30,
+        33,
+        53,
+    }
+    assert all(
+        room["name_zh"] and room["name_en"] and room["name_ja"]
+        for room in united["room_snapshot"]["rooms"]
+    )
     assert report["profile_coverage"]["stay_times_sourced"] == {
-        "count": 70,
-        "total": 70,
+        "count": 71,
+        "total": 71,
         "percent": 100.0,
     }
