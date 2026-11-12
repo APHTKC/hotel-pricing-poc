@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "hotel_id": "grand_mayfull_taipei",
+  "source": "official_hotel_reservation_page",
+  "source_url": "https://www.grandmayfull.com/reservation",
+  "checked_at": "2026-11-12T06:10:41Z",
+  "status": "not_suitable_for_daily_rates",
+  "probe_limit": {
+    "candidate_attempts_this_batch": 1,
+    "retried": false
+  },
+  "outcome": {
+    "http_status": 200,
+    "final_url": "https://www.grandmayfull.com/reservation",
+    "content_length_bytes": 37397,
+    "has_arrival_date_form": true,
+    "has_zero_search_result_message": true,
+    "has_legacy_2016_offer_copy": true,
+    "has_current_breakfast_product_metadata": false,
+    "has_generic_tax_and_service_fee_copy": true
+  },
+  "missing_canonical_fields": [
+    "current_live_room_product",
+    "room_type_code",
+    "breakfast_included_per_product",
+    "cancellation_class_per_product",
+    "cancellation_deadline_per_product",
+    "queried_at_price_per_product"
+  ],
+  "cooldown": {
+    "reason": "The alternative official reservation page is reachable but exposes a legacy manual form with 2016 offer copy and no current dated room products. It cannot replace the existing official booking-engine adapter.",
+    "retry_condition": "Retry this exact page only after its public flow materially changes to return current dated room and rate products with product-level breakfast, cancellation, tax, and price metadata."
+  },
+  "safety": {
+    "bypass_attempted": false,
+    "cross_source_inference_allowed": false,
+    "unknown_values_preserved": true
+  },
+  "decision": "Keep the existing verified official adapter enabled, do not publish rows from this alternative page, and let the sold-out-as-empty fix govern future scheduled availability checks."
+}

@@ -33,3 +33,35 @@ def test_episode_daan_official_403_remains_audited_after_gds_evidence_is_added()
         "source_url": "https://www.travelweekly.com/Hotels/Taipei-Taiwan/EPISODE-Daan-Taipei-p59542287",
         "observed_at": "2026-11-09",
     }
+
+
+def test_grand_mayfull_alternative_official_flow_is_fail_closed():
+    diagnostic = json.loads(
+        Path(
+            "artifacts/grand-mayfull-alternative-official-flow-diagnostic.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert diagnostic["hotel_id"] == "grand_mayfull_taipei"
+    assert diagnostic["status"] == "not_suitable_for_daily_rates"
+    assert diagnostic["probe_limit"] == {
+        "candidate_attempts_this_batch": 1,
+        "retried": False,
+    }
+    assert diagnostic["outcome"]["http_status"] == 200
+    assert diagnostic["outcome"]["has_legacy_2016_offer_copy"] is True
+    assert diagnostic["outcome"]["has_current_breakfast_product_metadata"] is False
+    assert diagnostic["missing_canonical_fields"] == [
+        "current_live_room_product",
+        "room_type_code",
+        "breakfast_included_per_product",
+        "cancellation_class_per_product",
+        "cancellation_deadline_per_product",
+        "queried_at_price_per_product",
+    ]
+    assert diagnostic["safety"] == {
+        "bypass_attempted": False,
+        "cross_source_inference_allowed": False,
+        "unknown_values_preserved": True,
+    }
+    assert "materially changes" in diagnostic["cooldown"]["retry_condition"]
