@@ -1891,14 +1891,35 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["w_taipei"]["room_inventory"] == 405
     assert len(by_id["w_taipei"]["restaurants"]) == 4
     assert by_id["w_taipei"]["facilities"]["sauna"] is None
-    assert by_id["w_taipei"]["lounge"]["available"] is None
+    assert by_id["w_taipei"]["verified_at"] == "2026-11-12"
+    assert by_id["w_taipei"]["lounge"] == {
+        "available": True,
+        "name": "WOOBAR",
+        "kind": "bar_lounge",
+    }
+    yen = next(
+        restaurant
+        for restaurant in by_id["w_taipei"]["restaurants"]
+        if restaurant["name"] == "YEN Chinese Restaurant"
+    )
+    assert yen["status"] == "temporarily_closed"
+    assert yen["expected_reopening"] == "2027-06"
     w_rooms = by_id["w_taipei"]["room_snapshot"]["rooms"]
     assert by_id["w_taipei"]["room_snapshot"]["source_type"] == "ota"
-    assert by_id["w_taipei"]["room_snapshot"]["observed_at"] == "2026-10-02"
+    assert by_id["w_taipei"]["room_snapshot"]["observed_at"] == "2026-11-12"
     assert len(w_rooms) == 8
     assert min(room["size_sqm"] for room in w_rooms) == 43
     assert max(room["size_sqm"] for room in w_rooms) == 365
     assert {room["name_zh"] for room in w_rooms} >= {"奇妙客房", "壯美客房", "絕佳客房", "酷角客房", "頂級驚喜套房"}
+    assert {room["name_ja"] for room in w_rooms} >= {
+        "ワンダフルルーム",
+        "スペクタキュラールーム",
+        "ファビュラスルーム",
+        "クールコーナールーム",
+        "マーヴェラススイート",
+        "WOWスイート",
+        "エクストリームWOWスイート",
+    }
     assert next(room for room in w_rooms if room["name_en"] == "WOW Suite")["size_sqm"] == 116
     assert "service_charge_percent" not in by_id["w_taipei"]
     regent = by_id["regent_taipei"]

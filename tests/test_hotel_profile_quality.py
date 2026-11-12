@@ -151,6 +151,11 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         for profile in profiles["profiles"]
         if profile["hotel_id"] == "eslite_hotel"
     )
+    w_taipei = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "w_taipei"
+    )
 
     assert "stay_times_sourced" not in lalu_row["missing_evidence"]
     assert episode["stay_times"] == {
@@ -243,6 +248,43 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         "Studio": "スタジオルーム",
         "Suite": "スイートルーム",
         "Library Suite": "ライブラリールーム",
+    }
+    assert w_taipei["verified_at"] == "2026-11-12"
+    assert w_taipei["lounge"] == {
+        "available": True,
+        "name": "WOOBAR",
+        "kind": "bar_lounge",
+    }
+    yen = next(
+        restaurant
+        for restaurant in w_taipei["restaurants"]
+        if restaurant["name"] == "YEN Chinese Restaurant"
+    )
+    assert yen["status"] == "temporarily_closed"
+    assert yen["expected_reopening"] == "2027-06"
+    w_room_names = {
+        room["name_en"]: room["name_ja"]
+        for room in w_taipei["room_snapshot"]["rooms"]
+    }
+    assert w_room_names == {
+        "Wonderful Room": "ワンダフルルーム",
+        "Spectacular Room": "スペクタキュラールーム",
+        "Fabulous Room": "ファビュラスルーム",
+        "Cool Corner Room": "クールコーナールーム",
+        "Fantastic Suite": "Fantastic Suite",
+        "Marvelous Suite": "マーヴェラススイート",
+        "WOW Suite": "WOWスイート",
+        "Extreme WOW Suite": "エクストリームWOWスイート",
+    }
+    assert report["profile_coverage"]["monthly_review_current"] == {
+        "count": 33,
+        "total": 71,
+        "percent": 46.48,
+    }
+    assert report["profile_coverage"]["lounge_status_explicit"] == {
+        "count": 57,
+        "total": 71,
+        "percent": 80.28,
     }
     library_suite = next(
         room for room in eslite_rooms if room["name_en"] == "Library Suite"

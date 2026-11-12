@@ -508,7 +508,7 @@
     },
     {
       "hotel_id": "w_taipei",
-      "verified_at": "2026-10-02",
+      "verified_at": "2026-11-12",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -518,25 +518,25 @@
       "room_inventory": 405,
       "restaurants": [
         {"name": "Seasons by olivier e.", "type_zh": "現代法式料理", "type_en": "Modern French", "type_ja": "モダンフレンチ"},
-        {"name": "YEN Chinese Restaurant", "type_zh": "現代粵菜", "type_en": "Modern Cantonese", "type_ja": "モダン広東料理"},
+        {"name": "YEN Chinese Restaurant", "type_zh": "現代粵菜", "type_en": "Modern Cantonese", "type_ja": "モダン広東料理", "status": "temporarily_closed", "expected_reopening": "2027-06", "status_source_url": "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/dining/"},
         {"name": "WOOBAR", "type_zh": "酒吧、下午茶與輕食", "type_en": "Bar, afternoon tea and light dining", "type_ja": "バー・アフタヌーンティー・軽食"},
         {"name": "WET® Bar", "type_zh": "池畔酒吧與輕食", "type_en": "Poolside bar and light dining", "type_ja": "プールサイドバー・軽食"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
-      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "lounge": {"available": true, "name": "WOOBAR", "kind": "bar_lounge"},
       "room_snapshot": {
-        "observed_at": "2026-10-02",
+        "observed_at": "2026-11-12",
         "source_type": "ota",
         "source_url": "https://www.agoda.com/en-us/w-taipei_16/hotel/taipei-tw.html",
         "rooms": [
-          {"name_zh": "奇妙客房", "name_en": "Wonderful Room", "name_ja": "Wonderful Room", "size_sqm": 43},
-          {"name_zh": "壯美客房", "name_en": "Spectacular Room", "name_ja": "Spectacular Room", "size_sqm": 43},
-          {"name_zh": "絕佳客房", "name_en": "Fabulous Room", "name_ja": "Fabulous Room", "size_sqm": 46, "aliases": [{"label": "市景絕佳房－附特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:33385911", "source_url": "https://www.booking.com/hotel/tw/w-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
-          {"name_zh": "酷角客房", "name_en": "Cool Corner Room", "name_ja": "Cool Corner Room", "size_sqm": 53},
+          {"name_zh": "奇妙客房", "name_en": "Wonderful Room", "name_ja": "ワンダフルルーム", "size_sqm": 43},
+          {"name_zh": "壯美客房", "name_en": "Spectacular Room", "name_ja": "スペクタキュラールーム", "size_sqm": 43},
+          {"name_zh": "絕佳客房", "name_en": "Fabulous Room", "name_ja": "ファビュラスルーム", "size_sqm": 46, "aliases": [{"label": "市景絕佳房－附特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:33385911", "source_url": "https://www.booking.com/hotel/tw/w-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
+          {"name_zh": "酷角客房", "name_en": "Cool Corner Room", "name_ja": "クールコーナールーム", "size_sqm": 53},
           {"name_zh": "奇幻套房", "name_en": "Fantastic Suite", "name_ja": "Fantastic Suite", "size_sqm": 70},
-          {"name_zh": "非凡套房", "name_en": "Marvelous Suite", "name_ja": "Marvelous Suite", "size_sqm": 95, "aliases": [{"label": "市景非凡客房－單臥室套房－附 1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:33385914", "source_url": "https://www.booking.com/hotel/tw/w-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
-          {"name_zh": "驚喜套房", "name_en": "WOW Suite", "name_ja": "WOW Suite", "size_sqm": 116},
-          {"name_zh": "頂級驚喜套房", "name_en": "Extreme WOW Suite", "name_ja": "Extreme WOW Suite", "size_sqm": 365}
+          {"name_zh": "非凡套房", "name_en": "Marvelous Suite", "name_ja": "マーヴェラススイート", "size_sqm": 95, "aliases": [{"label": "市景非凡客房－單臥室套房－附 1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:33385914", "source_url": "https://www.booking.com/hotel/tw/w-taipei.zh-tw.html?checkin=2026-12-16&checkout=2026-12-17&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
+          {"name_zh": "驚喜套房", "name_en": "WOW Suite", "name_ja": "WOWスイート", "size_sqm": 116},
+          {"name_zh": "頂級驚喜套房", "name_en": "Extreme WOW Suite", "name_ja": "エクストリームWOWスイート", "size_sqm": 365}
         ]
       },
       "source_urls": [
@@ -545,6 +545,9 @@
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/dining/",
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/experiences/",
         "https://www.marriott.com/en-us/hotels/tpewh-w-taipei/overview/",
+        "https://www.marriott.com/ja/hotels/tpewh-w-taipei/rooms/",
+        "https://www.marriott.com/ja/hotels/tpewh-w-taipei/dining/",
+        "https://www.marriott.com/ja/hotels/tpewh-w-taipei/overview/",
         "https://www.agoda.com/en-us/w-taipei_16/hotel/taipei-tw.html",
         "https://www.booking.com/hotel/tw/w-taipei.html"
       ]
