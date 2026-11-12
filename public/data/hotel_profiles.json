@@ -701,7 +701,7 @@
     },
     {
       "hotel_id": "eslite_hotel",
-      "verified_at": "2026-10-07",
+      "verified_at": "2026-11-12",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -716,31 +716,45 @@
       ],
       "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
       "facility_notes": {
-        "zh": "官方網站明確列出三樓 24 小時健身中心。官方現行設施頁未明確說明泳池、SPA、三溫暖或蒸氣室，這些欄位維持待核實，不以未列出推定為無。",
-        "en": "The official website explicitly lists a 24-hour fitness center on the third floor. The current official facilities information does not explicitly address a pool, spa, sauna, or steam room, so those fields remain pending rather than being inferred as unavailable.",
-        "ja": "公式サイトでは3階の24時間フィットネスセンターを明記しています。プール、SPA、サウナ、スチームルームについては現行の公式施設情報に明記がないため、未確認のままとし、記載がないことを「なし」とは判断していません。"
+        "zh": "官方網站目前明確列出三樓健身中心，開放時間為 06:00–22:00；The Lounge 官方頁亦確認一樓設有大廳書坊。官方現行設施資訊未明確說明泳池、SPA、三溫暖或蒸氣室，這些欄位維持待核實，不以未列出推定為無。",
+        "en": "The current official website explicitly lists a third-floor fitness center open from 06:00 to 22:00, and the official The Lounge page verifies the first-floor lobby lounge. The current official facilities information does not explicitly address a pool, spa, sauna, or steam room, so those fields remain pending rather than being inferred as unavailable.",
+        "ja": "現行の公式サイトでは3階のフィットネスセンターを06:00～22:00営業と明記し、The Loungeの公式ページでは1階のロビーラウンジを確認できます。プール、SPA、サウナ、スチームルームは現行の公式施設情報に明記がないため未確認のままとし、記載がないことを「なし」とは判断していません。"
       },
-      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "lounge": {"available": true, "name": "The Lounge", "kind": "lobby_lounge"},
       "room_snapshot": {
-        "observed_at": "2026-10-07",
+        "observed_at": "2026-11-12",
         "source_type": "official",
         "source_url": "https://www.eslitehotel.com/room/",
         "rooms": [
-          {"name_zh": "雅緻客房", "name_en": "Deluxe", "name_ja": "Deluxe", "size_sqm": 43, "room_count": 31, "aliases": [{"label": "雅緻雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:6640422:elegant-twin", "source_url": "https://tw.hotels.com/ho443651/cheng-pin-xing-lu-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
-          {"name_zh": "經典客房", "name_en": "Studio", "name_ja": "Studio", "size_sqm": 53, "room_count": 29, "aliases": [{"label": "經典雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:6640422:classic-twin", "source_url": "https://tw.hotels.com/ho443651/cheng-pin-xing-lu-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
-          {"name_zh": "行政套房", "name_en": "Suite", "name_ja": "Suite", "size_sqm": 69, "room_count": 38},
+          {"name_zh": "雅緻客房", "name_en": "Deluxe", "name_ja": "デラックスルーム", "size_sqm": 43, "room_count": 31, "aliases": [{"label": "雅緻雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:6640422:elegant-twin", "source_url": "https://tw.hotels.com/ho443651/cheng-pin-xing-lu-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
+          {"name_zh": "經典客房", "name_en": "Studio", "name_ja": "スタジオルーム", "size_sqm": 53, "room_count": 29, "aliases": [{"label": "經典雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:6640422:classic-twin", "source_url": "https://tw.hotels.com/ho443651/cheng-pin-xing-lu-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
+          {"name_zh": "行政套房", "name_en": "Suite", "name_ja": "スイートルーム", "size_sqm": 69, "room_count": 38},
           {"name_zh": "行政家庭房", "name_en": "Family Suite", "name_ja": "Family Suite", "size_sqm": 69, "room_count": 1},
-          {"name_zh": "人文套房", "name_en": "Library Suite", "name_ja": "Library Suite", "size_sqm_min": 89, "size_sqm_max": 182, "room_count": 5}
+          {"name_zh": "人文套房", "name_en": "Library Suite", "name_ja": "ライブラリールーム", "size_sqm_min": 89, "size_sqm_max": 182, "room_count": 5}
         ]
       },
       "source_urls": [
         "https://www.eslitehotel.com/",
+        "https://www.eslitehotel.com/en/",
+        "https://www.eslitehotel.com/jp/",
         "https://www.eslitehotel.com/room/",
+        "https://www.eslitehotel.com/room/deluxe/",
+        "https://www.eslitehotel.com/room/studio/",
+        "https://www.eslitehotel.com/room/suite/",
+        "https://www.eslitehotel.com/room/familysuite/",
+        "https://www.eslitehotel.com/room/library-suite/",
         "https://www.eslitehotel.com/en/room/deluxe/",
         "https://www.eslitehotel.com/en/room/studio/",
         "https://www.eslitehotel.com/en/room/suite/",
         "https://www.eslitehotel.com/en/room/family-suite/",
-        "https://www.eslitehotel.com/en/room/library-suite/"
+        "https://www.eslitehotel.com/en/room/library-suite/",
+        "https://www.eslitehotel.com/jp/room/deluxe/",
+        "https://www.eslitehotel.com/jp/room/studio/",
+        "https://www.eslitehotel.com/jp/room/suite/",
+        "https://www.eslitehotel.com/jp/room/library-suite/",
+        "https://www.eslitehotel.com/restaurant/the-lounge/",
+        "https://www.eslitehotel.com/en/restaurant/the-lounge/",
+        "https://www.eslitehotel.com/jp/restaurant/the-lounge/"
       ]
     },
     {

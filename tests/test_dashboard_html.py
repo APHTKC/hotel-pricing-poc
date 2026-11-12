@@ -1915,13 +1915,24 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(by_id["eslite_hotel"]["restaurants"]) == 3
     assert by_id["eslite_hotel"]["facilities"]["fitness"] is True
     assert by_id["eslite_hotel"]["facilities"]["pool"] is None
-    assert by_id["eslite_hotel"]["verified_at"] == "2026-10-07"
-    assert "24 小時健身中心" in by_id["eslite_hotel"]["facility_notes"]["zh"]
+    assert by_id["eslite_hotel"]["verified_at"] == "2026-11-12"
+    assert "06:00–22:00" in by_id["eslite_hotel"]["facility_notes"]["zh"]
+    assert by_id["eslite_hotel"]["lounge"] == {
+        "available": True,
+        "name": "The Lounge",
+        "kind": "lobby_lounge",
+    }
     eslite_rooms = by_id["eslite_hotel"]["room_snapshot"]["rooms"]
     assert len(eslite_rooms) == 5
     assert eslite_rooms[-1]["size_sqm_min"] == 89
     assert eslite_rooms[-1]["size_sqm_max"] == 182
     assert sum(room["room_count"] for room in eslite_rooms) == 104
+    assert {room["name_ja"] for room in eslite_rooms} >= {
+        "デラックスルーム",
+        "スタジオルーム",
+        "スイートルーム",
+        "ライブラリールーム",
+    }
     assert '<script src="./assets/js/hotel-room-counts.js"></script>' in html
     room_count_js = Path("public/assets/js/hotel-room-counts.js").read_text(encoding="utf-8")
     assert 'zh: "官方房數"' in room_count_js

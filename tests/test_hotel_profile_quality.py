@@ -146,6 +146,11 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         for profile in profiles["profiles"]
         if profile["hotel_id"] == "united_hotel_taipei"
     )
+    eslite = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "eslite_hotel"
+    )
 
     assert "stay_times_sourced" not in lalu_row["missing_evidence"]
     assert episode["stay_times"] == {
@@ -208,6 +213,43 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
     assert all(
         room["name_zh"] and room["name_en"] and room["name_ja"]
         for room in united["room_snapshot"]["rooms"]
+    )
+    assert eslite["verified_at"] == "2026-11-12"
+    assert eslite["room_inventory"] == 104
+    assert eslite["lounge"] == {
+        "available": True,
+        "name": "The Lounge",
+        "kind": "lobby_lounge",
+    }
+    assert eslite["facilities"] == {
+        "pool": None,
+        "fitness": True,
+        "spa": None,
+        "sauna": None,
+        "steam_room": None,
+    }
+    assert "06:00" in eslite["facility_notes"]["en"]
+    assert "22:00" in eslite["facility_notes"]["en"]
+    assert "24-hour" not in eslite["facility_notes"]["en"]
+    eslite_rooms = eslite["room_snapshot"]["rooms"]
+    assert len(eslite_rooms) == 5
+    assert sum(room["room_count"] for room in eslite_rooms) == 104
+    assert {
+        room["name_en"]: room["name_ja"]
+        for room in eslite_rooms
+        if room["name_en"] != "Family Suite"
+    } == {
+        "Deluxe": "デラックスルーム",
+        "Studio": "スタジオルーム",
+        "Suite": "スイートルーム",
+        "Library Suite": "ライブラリールーム",
+    }
+    library_suite = next(
+        room for room in eslite_rooms if room["name_en"] == "Library Suite"
+    )
+    assert (library_suite["size_sqm_min"], library_suite["size_sqm_max"]) == (
+        89,
+        182,
     )
     assert report["profile_coverage"]["stay_times_sourced"] == {
         "count": 71,
