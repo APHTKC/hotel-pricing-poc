@@ -1874,6 +1874,7 @@ def test_public_adapter_health_excludes_diagnostics_and_daily_details():
 
     assert payload["generated_at"] == "2026-09-24T01:00:00+00:00"
     assert payload["adapters"][0]["success_rate"] == 0.6667
+    assert payload["adapters"][0]["empty_responses"] == 0
     assert "daily" not in payload["adapters"][0]
     assert "reason" not in payload["adapters"][0]
 

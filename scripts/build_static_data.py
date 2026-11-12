@@ -1008,13 +1008,15 @@ def _history_summary(rows: list[dict]) -> dict:
 def _public_adapter_health(payload: dict, data_quality: dict | None = None) -> dict:
     """Publish operational aggregates without diagnostic messages or URLs."""
     allowed = (
-        "adapter", "hotel_id", "attempts", "successes", "failures",
+        "adapter", "hotel_id", "attempts", "successes", "failures", "empty_responses",
         "blocked_count", "success_rate", "average_response_ms", "last_status",
         "last_attempt_at", "last_success_at", "cooldown_until",
     )
     adapters = []
     for record in (payload.get("adapters") or {}).values():
-        adapters.append({field: record.get(field) for field in allowed})
+        public_record = {field: record.get(field) for field in allowed}
+        public_record["empty_responses"] = record.get("empty_responses", 0)
+        adapters.append(public_record)
     adapters.sort(key=lambda row: (row.get("hotel_id") or "", row.get("adapter") or ""))
     attempts = [row.get("last_attempt_at") for row in adapters if row.get("last_attempt_at")]
     return {

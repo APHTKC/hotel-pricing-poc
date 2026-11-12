@@ -75,7 +75,6 @@ async def run_ota_rates(
                 if cooldown:
                     failures.append({"hotel_id": hotel_id, "lead_days": "", "error": f"Cooldown active until {cooldown.isoformat()}"})
                     continue
-                consecutive_empty = 0
                 consecutive_failures = 0
                 for lead_days in parse_lead_days(settings.lead_days):
                     check_in = hotel_today + timedelta(days=lead_days)
@@ -87,8 +86,10 @@ async def run_ota_rates(
                         duration_ms = (perf_counter() - request_started) * 1000
                         consecutive_failures = 0
                         if not rows:
-                            health_store.record_failure("booking_com", hotel_id, "No OTA rates returned", duration_ms)
-                            consecutive_empty += 1
+                            health_store.record_empty(
+                                "booking_com", hotel_id, duration_ms,
+                                reason="No OTA rates returned",
+                            )
                             failures.append(
                                 {
                                     "hotel_id": hotel_id,
@@ -96,14 +97,7 @@ async def run_ota_rates(
                                     "error": "No OTA rates returned",
                                 }
                             )
-                            if consecutive_empty >= 2:
-                                logger.info(
-                                    "Booking.com skipped remaining dates for %s after two empty responses",
-                                    hotel_id,
-                                )
-                                break
                             continue
-                        consecutive_empty = 0
                         observations.extend(
                             row.model_copy(
                                 update={

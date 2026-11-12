@@ -42,7 +42,7 @@ def _settings(tmp_path) -> Settings:
     )
 
 
-def test_ota_job_skips_remaining_dates_after_two_empty_responses(
+def test_ota_job_checks_all_dates_without_cooling_down_on_empty_availability(
     monkeypatch, tmp_path
 ):
     class EmptyProvider:
@@ -69,13 +69,15 @@ def test_ota_job_skips_remaining_dates_after_two_empty_responses(
 
     result = asyncio.run(ota_rates.run_ota_rates(_settings(tmp_path)))
 
-    assert EmptyProvider.instance.calls == 2
+    assert EmptyProvider.instance.calls == 6
     assert EmptyProvider.instance.closed is True
     assert result.observations == 0
-    assert [failure["error"] for failure in result.failures] == [
-        "No OTA rates returned",
-        "No OTA rates returned",
-    ]
+    assert [failure["error"] for failure in result.failures] == ["No OTA rates returned"] * 6
+    health = __import__("json").loads((tmp_path / "health.json").read_text(encoding="utf-8"))
+    record = health["adapters"]["booking_com:a"]
+    assert record["empty_responses"] == 6
+    assert record["failures"] == 0
+    assert record["cooldown_until"] is None
 
 
 def test_ota_job_stops_provider_after_auth_failure(monkeypatch, tmp_path):

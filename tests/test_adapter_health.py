@@ -35,6 +35,28 @@ def test_generic_failures_trigger_exponential_backoff(tmp_path):
     assert health.cooldown_until("stub", "hotel-a", cooldown) is None
 
 
+def test_empty_availability_is_tracked_without_failure_or_cooldown(tmp_path):
+    health = store(tmp_path, failure_threshold=2, base_minutes=10)
+    now = datetime(2026, 9, 24, tzinfo=UTC)
+
+    health.record_failure("stub", "hotel-a", "temporary parser error", 10, now=now)
+    health.record_empty("stub", "hotel-a", 20, now=now + timedelta(minutes=1))
+    health.record_empty("stub", "hotel-a", 30, now=now + timedelta(minutes=2))
+
+    record = health.data["adapters"]["stub:hotel-a"]
+    assert record["attempts"] == 3
+    assert record["failures"] == 1
+    assert record["empty_responses"] == 2
+    assert record["consecutive_failures"] == 0
+    assert record["last_status"] == "empty"
+    assert record["cooldown_until"] is None
+    assert record["daily"]["2026-09-24"]["empty"] == 2
+
+    health.record_success("stub", "hotel-a", 40, now + timedelta(minutes=3))
+    assert record["success_rate"] == 0.5
+    assert record["daily"]["2026-09-24"]["success_rate"] == 0.5
+
+
 def test_403_creates_cooldown_and_redacted_diagnostic(tmp_path):
     health = store(tmp_path, blocked_base_minutes=30)
     now = datetime(2026, 9, 24, tzinfo=UTC)

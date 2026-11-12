@@ -80,7 +80,7 @@ async def run_daily_rates(
                     rates = await scraper.fetch_rates(hotel, check_in, check_in + timedelta(days=1))
                     duration_ms = (perf_counter() - request_started) * 1000
                     if not rates:
-                        health_store.record_failure(hotel.adapter, hotel.id, "No public rates returned", duration_ms)
+                        health_store.record_empty(hotel.adapter, hotel.id, duration_ms)
                         failures.append(
                             {
                                 "hotel_id": hotel.id,
@@ -88,14 +88,7 @@ async def run_daily_rates(
                                 "error": "No public rates returned",
                             }
                         )
-                        consecutive_failures += 1
-                        if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
-                            logger.warning(
-                                "Skipping remaining dates for %s after %s consecutive empty responses",
-                                hotel.id,
-                                consecutive_failures,
-                            )
-                            break
+                        consecutive_failures = 0
                         continue
                     observations.extend(
                         rate.model_copy(

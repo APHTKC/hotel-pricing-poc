@@ -28,7 +28,7 @@ class MemoryStore:
         return len(observations)
 
 
-def test_daily_job_skips_remaining_dates_after_two_empty_responses(monkeypatch, tmp_path):
+def test_daily_job_checks_all_dates_without_cooling_down_on_empty_availability(monkeypatch, tmp_path):
     hotel = Hotel(
         id="empty_hotel",
         name="Empty Hotel",
@@ -55,12 +55,17 @@ def test_daily_job_skips_remaining_dates_after_two_empty_responses(monkeypatch, 
         )
     )
 
-    assert scraper.calls == 2
+    assert scraper.calls == 6
     assert scraper.closed is True
     assert result.observations == 0
-    assert len(result.failures) == 2
-    assert {failure["lead_days"] for failure in result.failures} == {"1", "7"}
+    assert len(result.failures) == 6
+    assert {failure["lead_days"] for failure in result.failures} == {"1", "7", "14", "30", "60", "90"}
     assert all(failure["error"] == "No public rates returned" for failure in result.failures)
+    health = __import__("json").loads((tmp_path / "health.json").read_text(encoding="utf-8"))
+    record = health["adapters"]["empty:empty_hotel"]
+    assert record["empty_responses"] == 6
+    assert record["failures"] == 0
+    assert record["cooldown_until"] is None
 
 
 def test_daily_job_assigns_one_run_id_and_schedule_to_all_rows(monkeypatch, tmp_path):

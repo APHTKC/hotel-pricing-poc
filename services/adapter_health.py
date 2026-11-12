@@ -58,7 +58,7 @@ class AdapterHealthStore:
     def _record(self, adapter: str, hotel_id: str) -> dict:
         return self.data["adapters"].setdefault(self.key(adapter, hotel_id), {
             "adapter": adapter, "hotel_id": hotel_id, "attempts": 0,
-            "successes": 0, "failures": 0, "blocked_count": 0,
+            "successes": 0, "failures": 0, "empty_responses": 0, "blocked_count": 0,
             "consecutive_failures": 0, "total_response_ms": 0.0,
             "average_response_ms": None, "success_rate": None,
             "last_status": None, "last_attempt_at": None,
@@ -83,14 +83,16 @@ class AdapterHealthStore:
             record["blocked_count"] += 1
         record["total_response_ms"] += max(0.0, duration_ms)
         record["average_response_ms"] = round(record["total_response_ms"] / record["attempts"], 2)
-        record["success_rate"] = round(record["successes"] / record["attempts"], 4)
+        completed = record["successes"] + record["failures"]
+        record["success_rate"] = round(record["successes"] / completed, 4)
         record["last_attempt_at"] = now.isoformat()
         day = record["daily"].setdefault(now.date().isoformat(), {"attempts": 0, "successes": 0, "failures": 0, "blocked": 0, "response_ms": 0.0})
         day["attempts"] += 1
         day["successes" if success else "failures"] += 1
         day["blocked"] += int(blocked)
         day["response_ms"] = round(day["response_ms"] + max(0.0, duration_ms), 2)
-        day["success_rate"] = round(day["successes"] / day["attempts"], 4)
+        completed_today = day["successes"] + day["failures"]
+        day["success_rate"] = round(day["successes"] / completed_today, 4)
         day["average_response_ms"] = round(day["response_ms"] / day["attempts"], 2)
         return record
 
@@ -98,6 +100,47 @@ class AdapterHealthStore:
         now = now or datetime.now(UTC)
         record = self._update_common(self._record(adapter, hotel_id), now, duration_ms, True, False)
         record.update({"consecutive_failures": 0, "last_status": "success", "last_success_at": now.isoformat(), "cooldown_until": None})
+        self.save()
+
+    def record_empty(
+        self,
+        adapter: str,
+        hotel_id: str,
+        duration_ms: float,
+        now: datetime | None = None,
+        reason: str = "No public rates returned",
+    ) -> None:
+        """Record a completed request with no available public products.
+
+        An empty stay date is availability evidence, not proof that the adapter
+        is broken.  Keep it out of the failure/backoff counters so two sold-out
+        dates cannot suppress the remaining lead-date checks.
+        """
+        now = now or datetime.now(UTC)
+        record = self._record(adapter, hotel_id)
+        record["attempts"] += 1
+        record["empty_responses"] = record.get("empty_responses", 0) + 1
+        record["total_response_ms"] += max(0.0, duration_ms)
+        record["average_response_ms"] = round(record["total_response_ms"] / record["attempts"], 2)
+        completed = record["successes"] + record["failures"]
+        record["success_rate"] = round(record["successes"] / completed, 4) if completed else None
+        record.update({
+            "consecutive_failures": 0,
+            "last_status": "empty",
+            "last_attempt_at": now.isoformat(),
+            "cooldown_until": None,
+        })
+        day = record["daily"].setdefault(
+            now.date().isoformat(),
+            {"attempts": 0, "successes": 0, "failures": 0, "empty": 0, "blocked": 0, "response_ms": 0.0},
+        )
+        day["attempts"] += 1
+        day["empty"] = day.get("empty", 0) + 1
+        day["response_ms"] = round(day["response_ms"] + max(0.0, duration_ms), 2)
+        completed_today = day["successes"] + day["failures"]
+        day["success_rate"] = round(day["successes"] / completed_today, 4) if completed_today else None
+        day["average_response_ms"] = round(day["response_ms"] / day["attempts"], 2)
+        self._snapshot(adapter, hotel_id, reason, None, now, duration_ms, None)
         self.save()
 
     def record_failure(self, adapter: str, hotel_id: str, error: Exception | str, duration_ms: float, status_code: int | None = None, now: datetime | None = None) -> datetime | None:
