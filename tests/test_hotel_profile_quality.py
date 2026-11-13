@@ -277,9 +277,9 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         "Extreme WOW Suite": "エクストリームWOWスイート",
     }
     assert report["profile_coverage"]["monthly_review_current"] == {
-        "count": 34,
+        "count": 35,
         "total": 71,
-        "percent": 47.89,
+        "percent": 49.3,
     }
     assert report["profile_coverage"]["lounge_status_explicit"] == {
         "count": 58,

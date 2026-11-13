@@ -1337,8 +1337,13 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert miramar["lounge"]["available"] is True
     howard = by_id["howard_plaza_taipei"]
+    assert howard["verified_at"] == "2026-11-13"
     assert howard["room_inventory"] == 606
-    assert howard["restaurant_count"] == 10
+    assert howard["restaurant_count"] == 7
+    assert howard["restaurant_count_source_type"] == "official"
+    assert howard["restaurant_count_source_url"].endswith(
+        "/zh_TW/HotelBusiness/93/About"
+    )
     assert howard["stay_times"]["check_in"] == "15:00"
     assert howard["stay_times"]["check_out"] == "12:00"
     assert len(howard["room_snapshot"]["rooms"]) == 3
@@ -1347,6 +1352,9 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert howard["facilities"]["pool"] is True
     assert howard["facilities"]["fitness"] is True
     assert howard["facilities"]["sauna"] is True
+    assert "館內 7 間餐廳" in howard["facility_notes"]["zh"]
+    assert "2026 全年度暫停開放" in howard["facility_notes"]["zh"]
+    assert not any("HotelBusiness/95" in url for url in howard["source_urls"])
     assert "p.restaurant_count??p.restaurants.length" in html
     le_meridien_taichung = by_id["le_meridien_taichung"]
     assert le_meridien_taichung["room_inventory"] == 228
