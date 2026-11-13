@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "hotel_id": "hotel_royal_hsinchu",
+  "source": "official_group_fastbooking_link",
+  "evidence_url": "https://www.hotelroyal.com.tw/en-us/Promotions/5824",
+  "source_url": "https://www.fastbookings.biz/DIRECTORY/dispoprice.phtml?Hotelnames=ASIATWROHsinchu&clusterName=ASIATWROHsinchu&langue=uk&showPromotions=3",
+  "checked_at": "2026-11-12T06:25:27Z",
+  "status": "blocked_tls_handshake",
+  "probe_limit": {
+    "candidate_attempts_this_batch": 1,
+    "retried": false
+  },
+  "outcome": {
+    "http_status": null,
+    "final_url": null,
+    "tls_connection_established": false,
+    "error_class": "ssl_connection_failed",
+    "room_product_received": false
+  },
+  "missing_canonical_fields": [
+    "current_live_room_product",
+    "room_type_code",
+    "breakfast_included_per_product",
+    "cancellation_class_per_product",
+    "cancellation_deadline_per_product",
+    "tax_inclusion_per_product",
+    "total_price_per_product",
+    "queried_at_price_per_product"
+  ],
+  "cooldown": {
+    "reason": "The current Hotel Royal Group campaign page links Hotel Royal Hsinchu to a FastBooking endpoint, but the one permitted low-cost probe could not establish an SSL connection and returned no product metadata.",
+    "retry_condition": "Retry this exact FastBooking endpoint only after the official group link or TLS flow materially changes, or after a supported official booking engine replaces it."
+  },
+  "safety": {
+    "bypass_attempted": false,
+    "cross_source_inference_allowed": false,
+    "unknown_values_preserved": true
+  },
+  "decision": "Do not switch the enabled EC-Hotel adapter, do not publish rows from this alternative link, and continue searching for a verifiable official replacement flow."
+}

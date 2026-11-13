@@ -65,3 +65,32 @@ def test_grand_mayfull_alternative_official_flow_is_fail_closed():
         "unknown_values_preserved": True,
     }
     assert "materially changes" in diagnostic["cooldown"]["retry_condition"]
+
+
+def test_hotel_royal_hsinchu_fastbooking_alternative_is_fail_closed():
+    diagnostic = json.loads(
+        Path(
+            "artifacts/hotel-royal-hsinchu-fastbooking-alternative-diagnostic.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert diagnostic["hotel_id"] == "hotel_royal_hsinchu"
+    assert diagnostic["status"] == "blocked_tls_handshake"
+    assert diagnostic["probe_limit"] == {
+        "candidate_attempts_this_batch": 1,
+        "retried": False,
+    }
+    assert diagnostic["outcome"] == {
+        "http_status": None,
+        "final_url": None,
+        "tls_connection_established": False,
+        "error_class": "ssl_connection_failed",
+        "room_product_received": False,
+    }
+    assert "tax_inclusion_per_product" in diagnostic["missing_canonical_fields"]
+    assert diagnostic["safety"] == {
+        "bypass_attempted": False,
+        "cross_source_inference_allowed": False,
+        "unknown_values_preserved": True,
+    }
+    assert "materially changes" in diagnostic["cooldown"]["retry_condition"]
