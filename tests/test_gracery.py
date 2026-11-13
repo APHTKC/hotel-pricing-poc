@@ -1,5 +1,7 @@
+import json
 from datetime import date
 from decimal import Decimal
+from pathlib import Path
 
 from scrapers.adapters.gracery import (
     booking_url,
@@ -36,3 +38,32 @@ def test_breakfast_classification_is_conservative():
     assert breakfast_status("朝食付きプラン", "") is True
     assert breakfast_status("一般料金 Room Rate", "朝食は含まれていません") is False
     assert breakfast_status("Flexible rate", "現地払い") is None
+
+
+def test_official_html_probe_requires_canonical_product_validation():
+    diagnostic = json.loads(
+        Path(
+            "artifacts/hotel-gracery-taipei-official-html-probe-diagnostic.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert diagnostic["hotel_id"] == "hotel_gracery_taipei"
+    assert diagnostic["probe_limit"] == {
+        "candidate_attempts_this_batch": 1,
+        "retried": False,
+    }
+    assert diagnostic["outcome"]["http_status"] == 200
+    assert diagnostic["outcome"]["room_group_marker_count"] == 4
+    assert diagnostic["outcome"]["plan_card_marker_count"] == 29
+    assert diagnostic["outcome"]["cloudflare_marker_count"] == 0
+    assert diagnostic["outcome"]["captcha_marker_count"] == 0
+    assert diagnostic["unvalidated_canonical_fields"] == [
+        "stable_room_type_id_per_product",
+        "breakfast_included_per_product",
+        "cancellation_class_per_product",
+        "cancellation_deadline_per_product",
+        "tax_inclusion_per_product",
+        "total_price_per_product",
+        "queried_at_price_per_product",
+    ]
+    assert "Keep the official adapter disabled" in diagnostic["decision"]

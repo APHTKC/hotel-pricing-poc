@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "hotel_id": "hotel_gracery_taipei",
+  "source": "official_reservation_jp_public_plans",
+  "source_url": "https://go-fujita-kanko.reservation.jp/ja/hotels/fkg046/plans?checkin_date=20261213&checkout_date=20261214&adults=2&child1=0&child2=0&child3=0&child4=0&child5=0&children=0&rooms=1&dayuseFlg=0&sort=1&dateUndecidedFlg=0",
+  "checked_at": "2026-11-13T04:18:32Z",
+  "status": "structured_html_detected_needs_product_validation",
+  "probe_limit": {
+    "candidate_attempts_this_batch": 1,
+    "retried": false
+  },
+  "outcome": {
+    "http_status": 200,
+    "final_url_matches_request": true,
+    "content_length_bytes": 206606,
+    "page_title": "プラン一覧 | ホテルグレイスリー台北 | 台湾 | 公式予約",
+    "room_group_marker_count": 4,
+    "plan_card_marker_count": 29,
+    "livewire_marker_count": 9,
+    "cloudflare_marker_count": 0,
+    "captcha_marker_count": 0,
+    "room_product_received": true
+  },
+  "validated_fields": [
+    "hotel_id",
+    "check_in",
+    "check_out",
+    "occupancy",
+    "official_room_group_presence",
+    "official_plan_card_presence"
+  ],
+  "unvalidated_canonical_fields": [
+    "stable_room_type_id_per_product",
+    "breakfast_included_per_product",
+    "cancellation_class_per_product",
+    "cancellation_deadline_per_product",
+    "tax_inclusion_per_product",
+    "total_price_per_product",
+    "queried_at_price_per_product"
+  ],
+  "next_validation": {
+    "scope": "On a later batch, inspect one dated public response for product-level labels and capture a sanitized fixture before changing the disabled adapter.",
+    "promotion_gate": "Enable daily tracking only after a repeatable parser returns the complete canonical fields and passes an isolated GitHub runner probe."
+  },
+  "safety": {
+    "bypass_attempted": false,
+    "undocumented_endpoint_called": false,
+    "cross_source_inference_allowed": false,
+    "unknown_values_preserved": true
+  },
+  "decision": "Keep the official adapter disabled. The public flow is now a viable parser candidate, but the HTML marker check alone does not prove canonical product completeness."
+}
