@@ -1541,7 +1541,7 @@
     },
     {
       "hotel_id": "hotel_proverbs_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-11-13",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -1550,29 +1550,41 @@
       },
       "room_inventory": 42,
       "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "service_charge_source_url": "https://www.hotel-proverbs.com/upload/press_kit/HOTEL%20PROVERBS%20Taipei%20%E8%B3%A6%E6%A8%82%E6%97%85%E5%B1%85%E8%A8%AD%E8%A8%88%E7%90%86%E5%BF%B5.pdf",
+      "service_charge_note_zh": "官方房價另加 10% 服務費及 5% 稅金。",
+      "service_charge_note_en": "Official room rates are subject to a 10% service charge and 5% tax.",
+      "service_charge_note_ja": "公式客室料金には10%のサービス料と5%の税金が加算されます。",
       "restaurants": [
         {"name": "L’IDIOT GRILL&PASTA 驢子餐廳", "type_zh": "直火料理、自製義大利麵與國際料理", "type_en": "Live-fire cooking, house-made pasta and international cuisine", "type_ja": "直火料理・自家製パスタ・各国料理"},
         {"name": "EAST END", "type_zh": "雞尾酒吧與餐酒搭配", "type_en": "Cocktail bar and food pairings", "type_ja": "カクテルバー・フードペアリング"}
       ],
       "facilities": {"pool": true, "fitness": null, "spa": null, "sauna": null, "steam_room": null},
       "lounge": {"available": false, "name": null, "kind": "none"},
+      "facility_notes": {
+        "zh": "現行官網與 FAQ 明確列出住客專用頂樓戶外景觀水池，每日 06:30–21:00 開放，規格為長 15 公尺、寬 2.7 公尺、深 1.25 公尺。官網設施頁另列服務中心；未明文說明健身房、SPA、三溫暖或蒸氣室，因此維持待核實。",
+        "en": "The current official facilities page and FAQ explicitly list a guest-only outdoor rooftop pool, open daily from 06:30 to 21:00 and measuring 15 m long, 2.7 m wide, and 1.25 m deep. The official facilities page also lists a Service Center. It does not explicitly address a fitness center, spa, sauna, or steam room, so those fields remain pending verification.",
+        "ja": "現行の公式施設ページとFAQでは、宿泊者専用の屋外ルーフトッププールを明記しており、営業時間は毎日06:30～21:00、長さ15m・幅2.7m・深さ1.25mです。公式施設ページにはサービスセンターも掲載されています。フィットネスセンター、スパ、サウナ、スチームルームについては明記がないため、確認待ちのままとします。"
+      },
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-11-13",
         "source_type": "official",
         "source_url": "https://www.hotel-proverbs.com/public/en/room",
         "rooms": [
-          {"name_zh": "都會客房", "name_en": "Urban Room", "name_ja": "Urban Room", "size_sqm": 33, "aliases": [{"label": "都會雙人房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443501", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
-          {"name_zh": "經典客房", "name_en": "Classic Room", "name_ja": "Classic Room", "size_sqm": 37, "aliases": [{"label": "經典雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443502", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
-          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 38, "aliases": [{"label": "豪華雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443503", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
-          {"name_zh": "尊榮客房", "name_en": "Premium Room", "name_ja": "Premium Room", "size_sqm": 41, "aliases": [{"label": "頂級雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443504", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
-          {"name_zh": "賦樂客房", "name_en": "Proverbs Room", "name_ja": "Proverbs Room", "size_sqm": 49}
+          {"name_zh": "都會客房", "name_en": "Urban Room", "name_ja": "アーバンルーム", "size_sqm": 33, "aliases": [{"label": "都會雙人房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443501", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "精采客房", "name_en": "Classic Room", "name_ja": "クラシックルーム", "size_sqm": 37, "aliases": [{"label": "經典雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443502", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックスルーム", "size_sqm": 38, "aliases": [{"label": "豪華雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443503", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "卓越客房", "name_en": "Premium Room", "name_ja": "プレミアムルーム", "size_sqm": 41, "aliases": [{"label": "頂級雙人或雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:142443504", "source_url": "https://www.booking.com/hotel/tw/hotel-proverbs-taipei.zh-tw.html?checkin=2026-12-17&checkout=2026-12-18&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-13"}]},
+          {"name_zh": "賦樂客房", "name_en": "Proverbs Room", "name_ja": "プロバーブルーム", "size_sqm": 49}
         ]
       },
       "source_urls": [
         "https://hotel-proverbs.com/about-us/our-story",
+        "https://www.hotel-proverbs.com/room",
         "https://www.hotel-proverbs.com/public/en/room",
-        "https://hotel-proverbs.com/en/faq",
-        "https://www.hotel-proverbs.com/public/en/facilities",
+        "https://www.hotel-proverbs.com/ja/room",
+        "https://www.hotel-proverbs.com/public/en/faq",
+        "https://www.hotel-proverbs.com/en/facilities",
         "https://www.marriott.com/en-us/hotels/tpeds-hotel-proverbs-taipei-a-member-of-design-hotels/overview/",
         "https://www.marriott.com/en-us/hotels/tpeds-hotel-proverbs-taipei-a-member-of-design-hotels/dining/",
         "https://www.hotel-proverbs.com/upload/press_kit/HOTEL%20PROVERBS%20Taipei%20%E8%B3%A6%E6%A8%82%E6%97%85%E5%B1%85%E8%A8%AD%E8%A8%88%E7%90%86%E5%BF%B5.pdf"

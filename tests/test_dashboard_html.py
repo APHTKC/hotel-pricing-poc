@@ -2507,6 +2507,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     proverbs = by_id["hotel_proverbs_taipei"]
     assert proverbs["room_inventory"] == 42
     assert proverbs["service_charge_percent"] == 10
+    assert proverbs["service_charge_source_type"] == "official"
+    assert proverbs["service_charge_source_url"].endswith(".pdf")
     assert len(proverbs["restaurants"]) == 2
     assert proverbs["facilities"] == {
         "pool": True,
@@ -2515,6 +2517,21 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "sauna": None,
         "steam_room": None,
     }
+    assert "06:30–21:00" in proverbs["facility_notes"]["zh"]
+    assert [room["name_zh"] for room in proverbs["room_snapshot"]["rooms"]] == [
+        "都會客房",
+        "精采客房",
+        "豪華客房",
+        "卓越客房",
+        "賦樂客房",
+    ]
+    assert [room["name_ja"] for room in proverbs["room_snapshot"]["rooms"]] == [
+        "アーバンルーム",
+        "クラシックルーム",
+        "デラックスルーム",
+        "プレミアムルーム",
+        "プロバーブルーム",
+    ]
     assert proverbs["lounge"] == {"available": False, "name": None, "kind": "none"}
     assert proverbs["room_snapshot"]["source_type"] == "official"
     assert len(proverbs["room_snapshot"]["rooms"]) == 5
