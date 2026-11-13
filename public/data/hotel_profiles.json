@@ -2226,7 +2226,7 @@
     },
     {
       "hotel_id": "the_landis_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-13",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -2247,11 +2247,19 @@
         {"name": "Liz Gastronomie", "type_zh": "歐式麵包與甜點", "type_en": "European bakery and patisserie", "type_ja": "ヨーロピアンベーカリー・ペストリー"}
       ],
       "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
-      "lounge": {"available": null, "name": null, "kind": null},
+      "lounge": {
+        "available": true,
+        "name": "Proust Lounge",
+        "kind": "room_category_lounge",
+        "source_type": "ota",
+        "source_platform": "expedia_group",
+        "source_url": "https://tw.hotels.com/ho171084/tai-bei-ya-dou-li-zhi-da-fan-dian-tai-bei-tai-wan/?chkin=2027-01-12&chkout=2027-01-13&rm1=a2&top_cur=TWD",
+        "observed_at": "2026-10-17"
+      },
       "facility_notes": {
-        "zh": "目前官方住房專案可核實 132㎡ 健身房及瑜伽／冥想空間；其他休閒設施未取得足夠的現行官方資料。",
-        "en": "Current official stay packages verify a 132 sqm gym and yoga/meditation room. Other leisure facilities do not yet have sufficient current official evidence.",
-        "ja": "現行の公式宿泊プランでは132㎡のジムとヨガ／瞑想ルームを確認済みです。その他の館内施設は現行の公式情報が不足しています。"
+        "zh": "目前官方住房專案可核實 132㎡ 健身房及瑜伽／冥想空間。2026-10-17 的 Hotels.com 公開住宿頁明列行政套房與景隅套房住客可使用 Proust Lounge，並提供免費飲品與點心；此酒廊資格為 OTA 證據，不作為官方資料推定。游泳池、SPA、三溫暖與蒸氣室仍待核實。",
+        "en": "Current official stay packages verify a 132 sqm gym and yoga/meditation room. A public Hotels.com property page observed on 2026-10-17 states that Executive and Corner Suite guests receive Proust Lounge access with complimentary drinks and snacks; this room-category lounge entitlement is OTA evidence and is not presented as an official claim. Pool, spa, sauna, and steam room remain pending verification.",
+        "ja": "現行の公式宿泊プランでは132㎡のジムとヨガ／瞑想ルームを確認済みです。2026年10月17日に確認したHotels.comの公開宿泊ページには、エグゼクティブスイートおよびコーナースイート宿泊者がProust Loungeを利用でき、無料のドリンクと軽食が提供されると記載されています。この客室カテゴリー限定ラウンジの利用資格はOTA証拠であり、公式情報としては扱いません。プール、スパ、サウナ、スチームルームは引き続き確認待ちです。"
       },
       "room_snapshot": {
         "observed_at": "2026-10-05",
@@ -2287,6 +2295,7 @@
         "https://taipei.landishotelsresorts.com/en/room",
         "https://taipei.landishotelsresorts.com/en/dining",
         "https://taipei.landishotelsresorts.com/en/news-detail/21",
+        "https://tw.hotels.com/ho171084/tai-bei-ya-dou-li-zhi-da-fan-dian-tai-bei-tai-wan/?chkin=2027-01-12&chkout=2027-01-13&rm1=a2&top_cur=TWD",
         "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=2267&lang2=en"
       ]
     },

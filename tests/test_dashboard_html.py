@@ -1309,7 +1309,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert landis["stay_times"]["check_in"] == "15:00"
     assert landis["stay_times"]["check_out"] == "11:00"
     assert [room["size_sqm"] for room in landis["room_snapshot"]["rooms"]] == [26, 43, 53, 56]
-    assert landis["lounge"]["available"] is None
+    assert landis["lounge"] == {
+        "available": True,
+        "name": "Proust Lounge",
+        "kind": "room_category_lounge",
+        "source_type": "ota",
+        "source_platform": "expedia_group",
+        "source_url": "https://tw.hotels.com/ho171084/tai-bei-ya-dou-li-zhi-da-fan-dian-tai-bei-tai-wan/?chkin=2027-01-12&chkout=2027-01-13&rm1=a2&top_cur=TWD",
+        "observed_at": "2026-10-17",
+    }
+    assert "OTA evidence" in landis["facility_notes"]["en"]
     taipei_garden = by_id["taipei_garden_hotel"]
     assert taipei_garden["room_inventory"] == 241
     assert taipei_garden["service_charge_percent"] == 10
