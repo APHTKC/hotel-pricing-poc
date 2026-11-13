@@ -3,8 +3,8 @@
   "hotel_id": "tango_hotel_taipei_nanshi",
   "source": "official_gobooking",
   "source_url": "https://hotel.gobooking.com.tw/zh-TW/TANGO-TPNS/Packages/Details/e93e3c23-51d8-4086-b338-cd48064010fb",
-  "checked_at": "2026-10-29T09:25:43.650874Z",
-  "status": "cooldown",
+  "checked_at": "2026-11-13T08:17:56.734235Z",
+  "status": "verified",
   "probe_limit": {
     "candidate_attempts_this_batch": 1,
     "retried": false
@@ -20,7 +20,7 @@
     "tax_inclusion": "included",
     "tax_components_verified": false
   },
-  "remote_probe": {
+  "previous_remote_probe": {
     "environment": "github_actions_ubuntu_latest",
     "workflow_run_id": 40849322626,
     "workflow_job_id": 123364553525,
@@ -31,19 +31,31 @@
     "wait_condition": "domcontentloaded",
     "error": "Page.goto timed out while navigating to the official package URL"
   },
-  "missing_canonical_fields_in_remote_environment": [
-    "check_in",
-    "check_out",
-    "occupancy",
-    "room_type",
-    "breakfast_included",
-    "cancellation_policy",
-    "tax_inclusion",
-    "total_price",
-    "queried_at"
-  ],
-  "cooldown_until": "2026-11-05T09:25:43Z",
-  "cooldown_reason": "The official source succeeded locally but did not load on the GitHub Linux runner, so it is not reliable enough for unattended daily collection.",
-  "retry_condition": "Retry once only after the cooldown and a material booking-flow, runner-network, or adapter-navigation change.",
-  "decision": "Do not enable daily tracking or strict parity from this source. Preserve local evidence only as diagnostic context."
+  "remote_probe": {
+    "environment": "github_actions_ubuntu_latest",
+    "workflow_run_id": 43392023666,
+    "workflow_url": "https://github.com/APHTKC/hotel-pricing-poc/actions/runs/43392023666",
+    "observations": 7,
+    "failures": 0,
+    "check_in": "2026-12-13",
+    "check_out": "2026-12-14",
+    "rooms": 1,
+    "adults": 2,
+    "children": 0,
+    "room_size_sqm_min": 23,
+    "room_size_sqm_max": 33,
+    "breakfast_included": true,
+    "cancellation_policy": "入住14天前取消可全額退款",
+    "tax_inclusion": "included",
+    "total_price_twd_min": 3792,
+    "total_price_twd_max": 5516,
+    "queried_at": "2026-11-13T08:17:56.734235Z",
+    "canonical_fields_complete": true
+  },
+  "material_change_since_previous_probe": "The verified Gobooking navigation-readiness change that enabled the Tango Fuhsing Linux probe was present before this single rerun.",
+  "missing_canonical_fields_in_remote_environment": [],
+  "cooldown_until": null,
+  "cooldown_reason": null,
+  "retry_condition": null,
+  "decision": "Enable daily official tracking. Keep component tax and service-charge percentages null because the official package exposes only an inclusive total. Strict parity remains conditional on an exact canonical OTA product match within 24 hours."
 }
