@@ -1829,7 +1829,7 @@
     },
     {
       "hotel_id": "hotel_resonance_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-11-13",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -1844,8 +1844,13 @@
       "restaurants": [
         {"name": "STARBUCKS Hotel Resonance", "type_zh": "咖啡、早餐與輕食", "type_en": "Coffee, breakfast and light dining", "type_ja": "コーヒー・朝食・軽食"}
       ],
-      "facilities": {"pool": false, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
-      "lounge": {"available": false, "name": null, "kind": "none"},
+      "facilities": {"pool": null, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "facility_notes": {
+        "zh": "現行希爾頓官方飯店頁明確列出館內 BEING Spa 與 24 小時健身房，官方設施頁亦列出健身中心。現行官方資訊未明文說明游泳池、三溫暖、蒸氣室或行政／貴賓酒廊，因此這些欄位維持待核實，不以官網未列出推定為沒有。",
+        "en": "The current official Hilton property page explicitly lists an on-site BEING Spa and a 24-hour fitness center, and the official hotel-information page also lists a fitness center. Current official information does not explicitly address a pool, sauna, steam room, or executive/VIP lounge, so those fields remain pending rather than being inferred as unavailable.",
+        "ja": "現行のヒルトン公式ホテルページには館内のBEING Spaと24時間営業のフィットネスセンターが明記され、公式ホテル情報ページにもフィットネスセンターが掲載されています。プール、サウナ、スチームルーム、エグゼクティブ／VIPラウンジについては現行の公式情報に明記がないため、未提供とは推定せず確認待ちとします。"
+      },
       "room_snapshot": {
         "observed_at": "2026-10-01",
         "source_type": "ota",
@@ -1863,8 +1868,10 @@
       },
       "source_urls": [
         "https://www.hilton.com/zh-hant/hotels/tsaupup-hotel-resonance-taipei/",
+        "https://www.hilton.com/ja/hotels/tsaupup-hotel-resonance-taipei/",
         "https://www.hilton.com/en/hotels/tsaupup-hotel-resonance-taipei/rooms/",
         "https://www.hilton.com/zh-hant/hotels/tsaupup-hotel-resonance-taipei/hotel-info/",
+        "https://www.hilton.com/ja/hotels/tsaupup-hotel-resonance-taipei/hotel-info/",
         "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=28176&lang2=tw",
         "https://www.agoda.com/hotel-resonance-taipei-tapestry-collection-by-hilton/hotel/taipei-tw.html",
         "https://www.booking.com/hotel/tw/resonance.html"

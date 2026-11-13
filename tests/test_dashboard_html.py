@@ -2475,13 +2475,19 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert resonance["service_charge_source_type"] == "observed"
     assert len(resonance["restaurants"]) == 1
     assert resonance["facilities"] == {
-        "pool": False,
+        "pool": None,
         "fitness": True,
         "spa": True,
         "sauna": None,
         "steam_room": None,
     }
-    assert resonance["lounge"] == {"available": False, "name": None, "kind": "none"}
+    assert resonance["lounge"] == {
+        "available": None,
+        "name": None,
+        "kind": "unknown",
+    }
+    assert "24-hour fitness center" in resonance["facility_notes"]["en"]
+    assert "rather than being inferred as unavailable" in resonance["facility_notes"]["en"]
     assert resonance["room_snapshot"]["source_type"] == "ota"
     assert len(resonance["room_snapshot"]["rooms"]) == 8
     assert {room["size_sqm"] for room in resonance["room_snapshot"]["rooms"]} == {30, 34, 40, 45, 52}
