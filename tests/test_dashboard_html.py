@@ -2398,7 +2398,11 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "sauna": None,
         "steam_room": None,
     }
-    assert humble_house["lounge"] == {"available": False, "name": None, "kind": "none"}
+    assert humble_house["verified_at"] == "2026-11-13"
+    assert humble_house["stay_times"]["source_url"].endswith("/tsaqqqq-humble-house-taipei/hotel-info/")
+    assert humble_house["lounge"] == {"available": None, "name": None, "kind": "unknown"}
+    assert "室外游泳池與健身中心" in humble_house["facility_notes"]["zh"]
+    assert "屋外プールとフィットネスセンター" in humble_house["facility_notes"]["ja"]
     assert humble_house["room_snapshot"]["source_type"] == "official"
     assert len(humble_house["room_snapshot"]["rooms"]) == 10
     assert {room["name_zh"] for room in humble_house["room_snapshot"]["rooms"]} >= {

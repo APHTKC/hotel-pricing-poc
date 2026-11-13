@@ -1624,12 +1624,12 @@
     },
     {
       "hotel_id": "humble_house_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-11-13",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
         "source_type": "official",
-        "source_url": "https://www.hilton.com/en/hotels/tpehhqq-humble-house-taipei/"
+        "source_url": "https://www.hilton.com/en/hotels/tsaqqqq-humble-house-taipei/hotel-info/"
       },
       "room_inventory": 235,
       "service_charge_percent": 10,
@@ -1637,7 +1637,12 @@
         {"name": "LA FARFALLA", "type_zh": "義大利料理", "type_en": "Italian cuisine", "type_ja": "イタリア料理"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
-      "lounge": {"available": false, "name": null, "kind": "none"},
+      "facility_notes": {
+        "zh": "現行 Hilton 官方飯店資訊頁明確列出室外游泳池與健身中心，官方圖片集另有標示為 Spa 的休憩空間。現行官方資訊未明文說明三溫暖、蒸氣室或行政／貴賓酒廊，因此這些欄位維持待核實，不以官網未列出推定為沒有。",
+        "en": "The current official Hilton hotel-information page explicitly lists an outdoor pool and fitness center, while the official gallery labels a spa seating area. Current official information does not explicitly address a sauna, steam room, or executive/VIP lounge, so those fields remain pending rather than being inferred as unavailable.",
+        "ja": "現行のヒルトン公式ホテル情報ページには屋外プールとフィットネスセンターが明記され、公式ギャラリーにはスパの休憩スペースも掲載されています。サウナ、スチームルーム、エグゼクティブ／VIPラウンジについては現行の公式情報に明記がないため、未提供とは推定せず確認待ちとします。"
+      },
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
       "room_snapshot": {
         "observed_at": "2026-10-01",
         "source_type": "official",
@@ -1656,6 +1661,11 @@
         ]
       },
       "source_urls": [
+        "https://www.hilton.com/en/hotels/tsaqqqq-humble-house-taipei/",
+        "https://www.hilton.com/en/hotels/tsaqqqq-humble-house-taipei/hotel-info/",
+        "https://www.hilton.com/en/hotels/tsaqqqq-humble-house-taipei/events/",
+        "https://www.hilton.com/en/hotels/tsaqqqq-humble-house-taipei/gallery/",
+        "https://www.hilton.com/ja/hotels/tsaqqqq-humble-house-taipei/hotel-info/",
         "https://www.humblehousehotels.com/zh-tw/websev?cat=page&id=2",
         "https://www.humblehousehotels.com/zh-tw/websev?cat=page&id=7",
         "https://www.humblehousehotels.com/en/websev?cat=page&id=21",

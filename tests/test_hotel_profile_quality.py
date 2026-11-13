@@ -277,14 +277,14 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         "Extreme WOW Suite": "エクストリームWOWスイート",
     }
     assert report["profile_coverage"]["monthly_review_current"] == {
-        "count": 38,
+        "count": 39,
         "total": 71,
-        "percent": 53.52,
+        "percent": 54.93,
     }
     assert report["profile_coverage"]["lounge_status_explicit"] == {
-        "count": 58,
+        "count": 57,
         "total": 71,
-        "percent": 81.69,
+        "percent": 80.28,
     }
     library_suite = next(
         room for room in eslite_rooms if room["name_en"] == "Library Suite"
