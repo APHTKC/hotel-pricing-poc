@@ -55,6 +55,15 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
         )
         for review in reviews
     }
+    signature_statuses = {
+        (
+            review["hotel_id"],
+            review["source_platform"],
+            frozenset(review["missing_fields"]),
+            review["status"],
+        )
+        for review in reviews
+    }
 
     assert statuses["grand_hilai_kaohsiung"] == "blocked_source_shell"
     assert statuses["windsor_taichung"] == "blocked_source_unavailable"
@@ -83,6 +92,11 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["howard_plaza_taipei"] == "blocked_source_unavailable"
     assert statuses["humble_house_taipei"] == "blocked_source_unavailable"
     assert statuses["hotel_resonance_taipei"] == "blocked_source_unavailable"
+    assert (
+        "eslite_hotel",
+        "official",
+        frozenset({"breakfast_included", "tax_inclusion"}),
+    ) in missing_sets
     assert statuses["hoshinoya_guguan"] == "blocked_source_unavailable"
     assert statuses["grand_hilai_taipei"] == "blocked_source_unavailable"
     assert statuses["hotel_nikko_kaohsiung"] == "blocked_source_unavailable"
@@ -105,7 +119,25 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert statuses["miramar_garden_taipei"] == "blocked_source_unavailable"
     assert statuses["le_meridien_taipei"] == "blocked_source_unavailable"
     assert statuses["royal_nikko_taipei"] == "blocked_source_unavailable"
-    assert statuses["eslite_hotel"] == "blocked_source_unavailable"
+    assert (
+        "eslite_hotel",
+        "official",
+        frozenset(
+            {
+                "breakfast_included",
+                "cancellation_class",
+                "cancellation_deadline",
+                "tax_inclusion",
+            }
+        ),
+        "blocked_source_unavailable",
+    ) in signature_statuses
+    assert (
+        "eslite_hotel",
+        "official",
+        frozenset({"breakfast_included", "tax_inclusion"}),
+        "blocked_no_explicit_label",
+    ) in signature_statuses
     assert statuses["hotel_metropolitan_premier_taipei"] == "blocked_source_unavailable"
     assert statuses["mitsui_garden_taipei_zhongxiao"] == "blocked_source_unavailable"
     assert statuses["shangrila_tainan"] == "blocked_source_unavailable"
