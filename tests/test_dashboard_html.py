@@ -1750,6 +1750,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(gaia["restaurants"]) == 3
     assert [room["size_sqm"] for room in gaia["room_snapshot"]["rooms"]] == [33, 36, 43, 50, 66, 33]
     grand_hotel = by_id["grand_hotel_taipei"]
+    assert grand_hotel["verified_at"] == "2026-11-13"
     assert grand_hotel["room_inventory"] == 500
     assert grand_hotel["stay_times"]["source_type"] == "official"
     assert grand_hotel["service_charge_percent"] == 10
@@ -1761,10 +1762,32 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "sauna": True,
         "steam_room": True,
     }
+    assert grand_hotel["lounge"] == {
+        "available": True,
+        "name": "Prestige Lounge",
+        "kind": "executive_lounge",
+    }
     grand_hotel_rooms = grand_hotel["room_snapshot"]["rooms"]
+    assert grand_hotel["room_snapshot"]["observed_at"] == "2026-11-13"
     assert len(grand_hotel_rooms) == 15
     assert min(room["size_sqm"] for room in grand_hotel_rooms) == 20
     assert max(room["size_sqm"] for room in grand_hotel_rooms) == 926
+    grand_hotel_japanese_names = {
+        room["name_en"]: room["name_ja"] for room in grand_hotel_rooms
+    }
+    expected_grand_hotel_japanese_names = {
+        "Economy Room (Without Windows)": "エコノミールーム（窓なし）",
+        "Deluxe Room": "デラックスルーム",
+        "Prestige Deluxe Room": "プレステージデラックスルーム",
+        "Horizon Room": "ホライゾンルーム",
+        "Prestige Horizon Room": "プレステージホライゾンルーム",
+        "Corner Suite": "コーナースィートルーム",
+        "Prestige Corner Suite": "プレステージコーナースィートルーム",
+    }
+    assert all(
+        grand_hotel_japanese_names[name] == japanese_name
+        for name, japanese_name in expected_grand_hotel_japanese_names.items()
+    )
     gracery = by_id["hotel_gracery_taipei"]
     assert gracery["verified_at"] == "2026-10-14"
     assert gracery["room_inventory"] == 248

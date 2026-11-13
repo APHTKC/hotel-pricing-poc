@@ -1902,7 +1902,7 @@
     },
     {
       "hotel_id": "grand_hotel_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-13",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -1922,26 +1922,26 @@
         {"name": "Meet by Bar Mood", "type_zh": "酒吧與創意餐飲", "type_en": "Bar and creative dining", "type_ja": "バー・創作料理"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": true},
-      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "lounge": {"available": true, "name": "Prestige Lounge", "kind": "executive_lounge"},
       "room_snapshot": {
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-11-13",
         "source_type": "official",
         "source_url": "https://www.grand-hotel.org/TW/official/room.aspx",
         "rooms": [
-          {"name_zh": "金龍客房", "name_en": "Golden Dragon Room", "name_ja": "Golden Dragon Room", "size_sqm": 33},
-          {"name_zh": "金龍天際套房", "name_en": "Golden Dragon Horizon Suite", "name_ja": "Golden Dragon Horizon Suite", "size_sqm": 66},
-          {"name_zh": "金龍環景套房", "name_en": "Golden Dragon Corner Suite", "name_ja": "Golden Dragon Corner Suite", "size_sqm": 79},
-          {"name_zh": "精緻無窗客房", "name_en": "Economy Room (Without Windows)", "name_ja": "Economy Room (Without Windows)", "size_sqm": 20},
-          {"name_zh": "高級客房（本館）", "name_en": "Superior Room (Main Building)", "name_ja": "Superior Room (Main Building)", "size_sqm": 33},
-          {"name_zh": "高級客房（麒麟廳）", "name_en": "Superior Room (Qilin Hall)", "name_ja": "Superior Room (Qilin Hall)", "size_sqm": 40},
-          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 46},
-          {"name_zh": "菁英豪華客房", "name_en": "Prestige Deluxe Room", "name_ja": "Prestige Deluxe Room", "size_sqm": 46},
-          {"name_zh": "天際客房", "name_en": "Horizon Room", "name_ja": "Horizon Room", "size_sqm": 46},
-          {"name_zh": "菁英天際客房", "name_en": "Prestige Horizon Room", "name_ja": "Prestige Horizon Room", "size_sqm": 46},
-          {"name_zh": "天際套房", "name_en": "Horizon Suite", "name_ja": "Horizon Suite", "size_sqm": 66},
-          {"name_zh": "菁英天際套房", "name_en": "Prestige Horizon Suite", "name_ja": "Prestige Horizon Suite", "size_sqm": 66},
-          {"name_zh": "環景套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 93},
-          {"name_zh": "菁英環景套房", "name_en": "Prestige Corner Suite", "name_ja": "Prestige Corner Suite", "size_sqm": 93},
+          {"name_zh": "金龍客房", "name_en": "Golden Dragon Room", "name_ja": "金龍客房", "size_sqm": 33},
+          {"name_zh": "金龍天際套房", "name_en": "Golden Dragon Horizon Suite", "name_ja": "金龍プレステージスイート", "size_sqm": 66},
+          {"name_zh": "金龍環景套房", "name_en": "Golden Dragon Corner Suite", "name_ja": "金龍パノラマスイート", "size_sqm": 79},
+          {"name_zh": "精緻無窗客房", "name_en": "Economy Room (Without Windows)", "name_ja": "エコノミールーム（窓なし）", "size_sqm": 20},
+          {"name_zh": "高級客房（本館）", "name_en": "Superior Room (Main Building)", "name_ja": "スーペリアルーム", "size_sqm": 33},
+          {"name_zh": "高級客房（麒麟廳）", "name_en": "Superior Room (Qilin Hall)", "name_ja": "スーペリアルーム", "size_sqm": 40},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックスルーム", "size_sqm": 46},
+          {"name_zh": "菁英豪華客房", "name_en": "Prestige Deluxe Room", "name_ja": "プレステージデラックスルーム", "size_sqm": 46},
+          {"name_zh": "天際客房", "name_en": "Horizon Room", "name_ja": "ホライゾンルーム", "size_sqm": 46},
+          {"name_zh": "菁英天際客房", "name_en": "Prestige Horizon Room", "name_ja": "プレステージホライゾンルーム", "size_sqm": 46},
+          {"name_zh": "天際套房", "name_en": "Horizon Suite", "name_ja": "ホライゾンスィートルーム", "size_sqm": 66},
+          {"name_zh": "菁英天際套房", "name_en": "Prestige Horizon Suite", "name_ja": "プレステージホライゾンスィートルーム", "size_sqm": 66},
+          {"name_zh": "環景套房", "name_en": "Corner Suite", "name_ja": "コーナースィートルーム", "size_sqm": 93},
+          {"name_zh": "菁英環景套房", "name_en": "Prestige Corner Suite", "name_ja": "プレステージコーナースィートルーム", "size_sqm": 93},
           {"name_zh": "圓山行館（總統套房）", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 926}
         ]
       },
@@ -1949,6 +1949,8 @@
         "https://www.grand-hotel.org/TW/official/about.aspx?gh=TP",
         "https://www.grand-hotel.org/TW/official/room.aspx",
         "https://www.grand-hotel.org/EN/official/room.aspx?gh=TP",
+        "https://www.grand-hotel.org/JP/official/room.aspx?gh=TP",
+        "https://www.grand-hotel.org/EN/official/about-floor.aspx?gh=TP",
         "https://www.grand-hotel.org/TW/official/facility.aspx?gh=TP",
         "https://www.grand-hotel.org/TW/official/room-detail.aspx?gh=TP&id=86&pid=18"
       ]
