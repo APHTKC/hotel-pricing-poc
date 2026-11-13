@@ -19,7 +19,8 @@
     "livewire_marker_count": 9,
     "cloudflare_marker_count": 0,
     "captcha_marker_count": 0,
-    "room_product_received": true
+    "room_product_marker_received": true,
+    "room_product_received": false
   },
   "validated_fields": [
     "hotel_id",
@@ -48,5 +49,5 @@
     "cross_source_inference_allowed": false,
     "unknown_values_preserved": true
   },
-  "decision": "Keep the official adapter disabled. The public flow is now a viable parser candidate, but the HTML marker check alone does not prove canonical product completeness."
+  "decision": "Keep the official adapter disabled. The public response contains product-card CSS markers, but a later single product-text validation proved that the server response is only a Livewire shell with no product identifiers, prices, or canonical metadata."
 }

@@ -57,6 +57,8 @@ def test_official_html_probe_requires_canonical_product_validation():
     assert diagnostic["outcome"]["plan_card_marker_count"] == 29
     assert diagnostic["outcome"]["cloudflare_marker_count"] == 0
     assert diagnostic["outcome"]["captcha_marker_count"] == 0
+    assert diagnostic["outcome"]["room_product_marker_received"] is True
+    assert diagnostic["outcome"]["room_product_received"] is False
     assert diagnostic["unvalidated_canonical_fields"] == [
         "stable_room_type_id_per_product",
         "breakfast_included_per_product",
@@ -67,3 +69,37 @@ def test_official_html_probe_requires_canonical_product_validation():
         "queried_at_price_per_product",
     ]
     assert "Keep the official adapter disabled" in diagnostic["decision"]
+
+
+def test_official_product_probe_records_livewire_shell_blocker():
+    diagnostic = json.loads(
+        Path(
+            "artifacts/hotel-gracery-taipei-official-product-probe-diagnostic.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert diagnostic["status"] == "blocked_spa_shell"
+    assert diagnostic["probe_limit"] == {
+        "candidate_attempts_this_batch": 1,
+        "retried": False,
+    }
+    assert diagnostic["outcome"] == {
+        "http_status": 200,
+        "content_length_bytes": 206606,
+        "plan_codes_found": 0,
+        "room_codes_found": 0,
+        "price_samples_found": 0,
+        "breakfast_text_matches": 0,
+        "cancellation_text_matches": 0,
+        "refund_text_matches": 0,
+        "tax_text_matches": 0,
+        "service_fee_text_matches": 0,
+        "total_text_matches": 0,
+        "currency_text_matches": 0,
+        "room_product_received": False,
+    }
+    assert diagnostic["missing_canonical_fields"][0] == "current_live_room_product"
+    assert "Do not retry this exact flow" in diagnostic["cooldown"][
+        "retry_condition"
+    ]
+    assert "do not publish official rows" in diagnostic["decision"]

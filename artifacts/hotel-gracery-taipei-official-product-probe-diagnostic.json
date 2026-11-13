@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "hotel_id": "hotel_gracery_taipei",
+  "source": "official_reservation_jp_public_plans",
+  "source_url": "https://go-fujita-kanko.reservation.jp/ja/hotels/fkg046/plans?checkin_date=20261213&checkout_date=20261214&adults=2&child1=0&child2=0&child3=0&child4=0&child5=0&children=0&rooms=1&dayuseFlg=0&sort=1&dateUndecidedFlg=0",
+  "checked_at": "2026-11-13T04:20:41Z",
+  "status": "blocked_spa_shell",
+  "probe_limit": {
+    "candidate_attempts_this_batch": 1,
+    "retried": false
+  },
+  "outcome": {
+    "http_status": 200,
+    "content_length_bytes": 206606,
+    "plan_codes_found": 0,
+    "room_codes_found": 0,
+    "price_samples_found": 0,
+    "breakfast_text_matches": 0,
+    "cancellation_text_matches": 0,
+    "refund_text_matches": 0,
+    "tax_text_matches": 0,
+    "service_fee_text_matches": 0,
+    "total_text_matches": 0,
+    "currency_text_matches": 0,
+    "room_product_received": false
+  },
+  "missing_canonical_fields": [
+    "current_live_room_product",
+    "stable_room_type_id_per_product",
+    "breakfast_included_per_product",
+    "cancellation_class_per_product",
+    "cancellation_deadline_per_product",
+    "tax_inclusion_per_product",
+    "total_price_per_product",
+    "queried_at_price_per_product"
+  ],
+  "cooldown": {
+    "reason": "The official dated plans URL returns HTTP 200 and Livewire product-card templates, but its server response contains no product identifiers, room identifiers, prices, or canonical product text. The existing browser adapter previously timed out waiting for populated cards.",
+    "retry_condition": "Do not retry this exact flow until the public server response contains real product data, the documented browser flow materially changes, or the hotel adopts a supported booking engine."
+  },
+  "safety": {
+    "bypass_attempted": false,
+    "undocumented_endpoint_called": false,
+    "cross_source_inference_allowed": false,
+    "unknown_values_preserved": true
+  },
+  "decision": "Keep the official adapter disabled, do not publish official rows from CSS markers, and continue using only independently verified OTA snapshots outside market KPIs until a complete official product flow exists."
+}
