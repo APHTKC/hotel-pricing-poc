@@ -15,7 +15,7 @@ def test_daily_workflow_avoids_top_of_hour_schedule() -> None:
 def test_daily_workflow_allows_release_validation_to_finish() -> None:
     workflow = WORKFLOW.read_text(encoding="utf-8")
 
-    assert "timeout-minutes: 45" in workflow
+    assert "timeout-minutes: 60" in workflow
     assert "timeout-minutes: 30" not in workflow
     assert "enough room to save" in workflow
 

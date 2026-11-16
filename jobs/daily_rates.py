@@ -14,6 +14,7 @@ from storage.factory import get_store
 
 logger = logging.getLogger(__name__)
 MAX_CONSECUTIVE_FAILURES = 2
+SUPPLEMENTAL_LEAD_DAYS = (14, 60)
 
 
 def parse_lead_days(value: str) -> tuple[int, ...]:
@@ -80,7 +81,12 @@ async def run_daily_rates(
             continue
         try:
             consecutive_failures = 0
-            for lead_days in parse_lead_days(settings.lead_days):
+            lead_days_to_collect = parse_lead_days(settings.lead_days)
+            if hotel.market_scope == "supplemental":
+                lead_days_to_collect = tuple(
+                    day for day in lead_days_to_collect if day in SUPPLEMENTAL_LEAD_DAYS
+                )
+            for lead_days in lead_days_to_collect:
                 check_in = hotel_today + timedelta(days=lead_days)
                 request_started = perf_counter()
                 try:

@@ -206,3 +206,39 @@ def test_daily_job_skips_supplemental_weekly_hotels_outside_sunday(monkeypatch, 
     assert result.observations == 0
     assert result.failures == []
     assert store.rows == []
+
+
+def test_weekly_supplemental_hotels_collect_only_representative_lead_days(monkeypatch, tmp_path):
+    hotel = Hotel(
+        id="supplemental_hotel",
+        name="Supplemental Hotel",
+        short_name="Supplemental",
+        city="Taipei",
+        country="TW",
+        booking_url="https://example.com",
+        adapter="test",
+        market_scope="supplemental",
+        collection_frequency="weekly",
+    )
+    scraper = EmptyScraper()
+    store = MemoryStore()
+    monkeypatch.setattr(daily_rates, "load_hotels", lambda: [hotel])
+    monkeypatch.setattr(daily_rates, "get_scraper", lambda *args: scraper)
+    monkeypatch.setattr(daily_rates, "get_store", lambda settings: store)
+
+    result = asyncio.run(
+        daily_rates.run_daily_rates(
+            Settings(
+                demo_mode=False,
+                lead_days="1,7,14,30,60,90",
+                adapter_health_path=tmp_path / "health.json",
+                diagnostic_snapshot_dir=tmp_path / "diagnostics",
+            ),
+            # 2026-11-15 06:17 in Asia/Taipei is a Sunday.
+            started_at=datetime(2026, 11, 14, 22, 17, tzinfo=UTC),
+        )
+    )
+
+    assert scraper.calls == 2
+    assert scraper.closed is True
+    assert {failure["lead_days"] for failure in result.failures} == {"14", "60"}
