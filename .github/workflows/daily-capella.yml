@@ -19,7 +19,9 @@ concurrency:
 
 jobs:
   collect-and-publish:
-    runs-on: ubuntu-latest
+    # Pin the runner because ubuntu-latest began migrating to Ubuntu 26.04,
+    # which the pinned Playwright release cannot install Chromium on.
+    runs-on: ubuntu-24.04
     # Collection plus the two full release gates can exceed 30 minutes as the
     # active-hotel set grows. Keep a bounded ceiling, with enough room to save
     # verified source and generated artifacts after the second pytest run.

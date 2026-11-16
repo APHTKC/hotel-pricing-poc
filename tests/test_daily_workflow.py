@@ -20,6 +20,14 @@ def test_daily_workflow_allows_release_validation_to_finish() -> None:
     assert "enough room to save" in workflow
 
 
+def test_daily_workflow_pins_playwright_supported_runner() -> None:
+    workflow = WORKFLOW.read_text(encoding="utf-8")
+
+    assert "runs-on: ubuntu-24.04" in workflow
+    assert "runs-on: ubuntu-latest" not in workflow
+    assert "Playwright release cannot install Chromium" in workflow
+
+
 def test_daily_workflow_rebases_before_generating_dashboard_shards() -> None:
     workflow = WORKFLOW.read_text(encoding="utf-8")
 
