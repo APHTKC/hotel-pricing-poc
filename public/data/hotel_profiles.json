@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-09",
+  "updated_at": "2026-11-16",
   "profiles": [
     {
       "hotel_id": "intercontinental_taipei",
@@ -2330,7 +2330,7 @@
     },
     {
       "hotel_id": "taipei_garden_hotel",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-16",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -2349,29 +2349,30 @@
         {"name": "Hanabby Bakery", "type_zh": "烘焙坊", "type_en": "Bakery", "type_ja": "ベーカリー"}
       ],
       "facilities": {"pool": null, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
-      "lounge": {"available": null, "name": null, "kind": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
       "facility_notes": {
-        "zh": "官方設施頁可核實 16 樓健身中心；Garden SPA 官方頁列有按摩與臉部護理療程。泳池、三溫暖、蒸氣室及行政酒廊目前維持待核實。",
-        "en": "The official facilities page verifies a 16th-floor fitness center. The official Garden SPA page lists massage and facial treatments. Pool, sauna, steam room, and executive lounge remain pending verification.",
-        "ja": "公式施設ページで16階のフィットネスセンターを確認済みです。Garden SPA公式ページにはマッサージとフェイシャルトリートメントが掲載されています。プール、サウナ、スチームルーム、エグゼクティブラウンジは確認待ちです。"
+        "zh": "2026-11-16 複核現行官網：飯店設施頁明確列出 16 樓健身中心（06:00–22:00），Garden SPA 官方頁列有臉部與身體療程（10:00–22:00）。泳池、三溫暖、蒸氣室及行政酒廊未見現行官網明文，因此維持待核實，不推定為未提供。",
+        "en": "Current official pages rechecked on 2026-11-16 explicitly list a 16th-floor fitness center (06:00–22:00) and Garden SPA facial and body treatments (10:00–22:00). The current official site does not explicitly address a pool, sauna, steam room, or executive lounge, so those fields remain pending rather than being inferred as unavailable.",
+        "ja": "2026-11-16に現行公式サイトを再確認しました。16階のフィットネスセンター（06:00～22:00）と、Garden SPAのフェイシャル・ボディトリートメント（10:00～22:00）が明記されています。プール、サウナ、スチームルーム、エグゼクティブラウンジは現行公式情報に明記がないため、未提供とは推定せず確認待ちとします。"
       },
       "room_snapshot": {
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-11-16",
         "source_type": "official",
         "source_url": "https://www.taipeigarden.com.tw/en/rooms/",
         "rooms": [
-          {"name_zh": "雅緻客房", "name_en": "Premier Double Room", "name_ja": "Premier Double Room", "size_sqm": 22},
-          {"name_zh": "雅緻親子房", "name_en": "Premier Family Room", "name_ja": "Premier Family Room", "size_sqm": 25},
-          {"name_zh": "雅緻三人房", "name_en": "Premier Triple Room", "name_ja": "Premier Triple Room", "size_sqm": 25},
-          {"name_zh": "雅緻家庭房", "name_en": "Premier Quad Room", "name_ja": "Premier Quad Room", "size_sqm": 25},
-          {"name_zh": "卓越客房", "name_en": "Luxury Room", "name_ja": "Luxury Room", "size_sqm": 25, "aliases": [{"label": "Luxury Double", "language": "en", "source_type": "official", "source_platform": "official", "room_type_code": "Luxury-Double", "label_match": false, "source_url": "https://redirect.fastbooking.com/DIRECTORY/preresa.phtml?style=DIRECT&Hotelnames=ASIATWHTLTGarden&rate=Best-Available-Rate&FirstRoomName=Luxury-Double&FSTBKNGTrackLink=quotation&FirstDate=261029%3B1%3B2%3B0%3B0&CurrencyLabel=TWD&accessCode=", "observed_at": "2026-10-22"}]},
-          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "Deluxe Suite", "size_sqm": 43},
-          {"name_zh": "花園套房", "name_en": "Garden Suite", "name_ja": "Garden Suite", "size_sqm": 63}
+          {"name_zh": "雅緻客房", "name_en": "Premier Double Room", "name_ja": "プレミア・ダブルルーム", "size_sqm": 22},
+          {"name_zh": "雅緻親子房", "name_en": "Premier Family Room", "name_ja": "プレミア・ファミリールーム", "size_sqm": 25},
+          {"name_zh": "雅緻三人房", "name_en": "Premier Triple Room", "name_ja": "プレミア・トリプルルーム", "size_sqm": 25},
+          {"name_zh": "雅緻家庭房", "name_en": "Premier Quad Room", "name_ja": "プレミア・クワッドルーム", "size_sqm": 25},
+          {"name_zh": "卓越客房", "name_en": "Luxury Room", "name_ja": "ラグジュアリールーム", "size_sqm": 25, "aliases": [{"label": "Luxury Double", "language": "en", "source_type": "official", "source_platform": "official", "room_type_code": "Luxury-Double", "label_match": false, "source_url": "https://redirect.fastbooking.com/DIRECTORY/preresa.phtml?style=DIRECT&Hotelnames=ASIATWHTLTGarden&rate=Best-Available-Rate&FirstRoomName=Luxury-Double&FSTBKNGTrackLink=quotation&FirstDate=261029%3B1%3B2%3B0%3B0&CurrencyLabel=TWD&accessCode=", "observed_at": "2026-10-22"}]},
+          {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "デラックス・スイート", "size_sqm": 43},
+          {"name_zh": "花園套房", "name_en": "Garden Suite", "name_ja": "ガーデンスイート", "size_sqm": 63}
         ]
       },
       "source_urls": [
         "https://www.taipeigarden.com.tw/",
         "https://www.taipeigarden.com.tw/en/rooms/",
+        "https://www.taipeigarden.com.tw/ja/%E5%BF%AB%E9%81%A9%E3%81%AA%E5%AE%A2%E5%AE%A4/",
         "https://www.taipeigarden.com.tw/en/rooms/premier-double-room/",
         "https://www.taipeigarden.com.tw/en/garden-spa/",
         "https://www.taipeigarden.com.tw/en/facilities/facilities/"

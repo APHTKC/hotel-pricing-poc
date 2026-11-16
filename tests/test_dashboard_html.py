@@ -1320,15 +1320,32 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert "OTA evidence" in landis["facility_notes"]["en"]
     taipei_garden = by_id["taipei_garden_hotel"]
+    assert taipei_garden["verified_at"] == "2026-11-16"
     assert taipei_garden["room_inventory"] == 241
     assert taipei_garden["service_charge_percent"] == 10
     assert taipei_garden["stay_times"]["check_in"] == "15:00"
     assert taipei_garden["stay_times"]["check_out"] == "12:00"
     assert len(taipei_garden["room_snapshot"]["rooms"]) == 7
     assert [room["size_sqm"] for room in taipei_garden["room_snapshot"]["rooms"]] == [22, 25, 25, 25, 25, 43, 63]
+    assert [room["name_ja"] for room in taipei_garden["room_snapshot"]["rooms"]] == [
+        "プレミア・ダブルルーム",
+        "プレミア・ファミリールーム",
+        "プレミア・トリプルルーム",
+        "プレミア・クワッドルーム",
+        "ラグジュアリールーム",
+        "デラックス・スイート",
+        "ガーデンスイート",
+    ]
+    assert taipei_garden["room_snapshot"]["observed_at"] == "2026-11-16"
     assert taipei_garden["facilities"]["fitness"] is True
     assert taipei_garden["facilities"]["spa"] is True
     assert taipei_garden["facilities"]["pool"] is None
+    assert taipei_garden["lounge"] == {
+        "available": None,
+        "name": None,
+        "kind": "unknown",
+    }
+    assert "06:00–22:00" in taipei_garden["facility_notes"]["zh"]
     miramar = by_id["miramar_garden_taipei"]
     assert miramar["room_inventory"] == 203
     assert miramar["service_charge_percent"] == 10
