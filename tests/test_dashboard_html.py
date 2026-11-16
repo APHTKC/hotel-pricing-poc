@@ -2937,6 +2937,9 @@ def test_hotel_map_is_linked_and_localized_across_static_pages():
     assert "./assets/vendor/leaflet/leaflet.js" in map_html
     assert "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" in map_html
     assert "./data/hotel_locations.json" in map_html
+    assert "./data/hotel_names_zh.json" in map_html
+    assert "hotelNamesZh[row.hotel_id]||row.name_zh||row.name_en" in map_html
+    assert "hotelNamesZh=nameData.names||{}" in map_html
     assert "./data/history_summary.json" in map_html
     assert "taipeiView:'台北行政區地圖'" in map_html
     assert "taipeiView:'Taipei district map'" in map_html
