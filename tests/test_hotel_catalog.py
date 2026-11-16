@@ -240,7 +240,7 @@ def test_published_catalog_records_gracery_multi_ota_coverage():
     hotel = next(item for item in payload["hotels"] if item["id"] == "hotel_gracery_taipei")
 
     assert hotel["enabled"] is False
-    assert hotel["automation_status"] == "browser_snapshot"
+    assert hotel["automation_status"] == "blocked_source_shell"
     assert "Booking.com plus Hotels.com/Expedia" in hotel["automation_note"]
     assert "strict canonical comparison" in hotel["automation_note"]
 
