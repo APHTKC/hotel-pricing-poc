@@ -59,6 +59,13 @@ async def run_daily_rates(
             failures.append({"hotel_id": hotel.id, "lead_days": "", "error": str(exc)})
             logger.error("Invalid timezone for %s: %s", hotel.id, exc)
             continue
+        if hotel.collection_frequency == "weekly" and hotel_today.weekday() != 6:
+            logger.info(
+                "Skipping supplemental weekly hotel %s on %s",
+                hotel.id,
+                hotel_today.isoformat(),
+            )
+            continue
         cooldown = health_store.cooldown_until(hotel.adapter, hotel.id, started)
         if cooldown:
             failures.append({"hotel_id": hotel.id, "lead_days": "", "error": f"Cooldown active until {cooldown.isoformat()}"})

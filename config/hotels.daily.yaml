@@ -188,6 +188,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/UNITED-TP/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: k_hotel_taipei_changan
     name: K Hotels Taipei Chang-An
     short_name: K Hotel Chang-An
@@ -196,6 +198,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/K-TPCA/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: tango_hotel_taichung
     name: Tango Hotel Taichung
     short_name: Tango Taichung
@@ -204,6 +208,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TC/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: tango_hotel_taipei_jiantan
     name: Tango Hotel Taipei Jiantan
     short_name: Tango Jiantan
@@ -212,6 +218,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPJT/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: tango_hotel_taipei_xinyi
     name: Tango Hotel Taipei Xinyi
     short_name: Tango Xinyi
@@ -220,6 +228,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPXY/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: tango_hotel_taipei_shilin
     name: Tango Hotel Taipei Shilin
     short_name: Tango Shilin
@@ -228,6 +238,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPSL/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: tango_hotel_taipei_linsen
     name: Tango Hotel Taipei Linsen
     short_name: Tango Linsen
@@ -236,6 +248,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPLS/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: tango_hotel_taipei_changan
     name: Tango Hotel Taipei ChangAn
     short_name: Tango ChangAn
@@ -244,6 +258,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPCA/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: tango_hotel_taipei_fuhsing
     name: Tango Hotel Taipei Fuhsing
     short_name: Tango Fuhsing
@@ -252,6 +268,8 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPFH/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly
   - id: tango_hotel_taipei_nanshi
     name: Tango Hotel Taipei Nanshi
     short_name: Tango Nanshi
@@ -260,3 +278,5 @@ hotels:
     country: TW
     booking_url: https://hotel.gobooking.com.tw/zh-TW/TANGO-TPNS/Booking
     adapter: gobooking
+    market_scope: supplemental
+    collection_frequency: weekly

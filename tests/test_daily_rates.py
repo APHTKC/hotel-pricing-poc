@@ -1,5 +1,8 @@
 import asyncio
 from datetime import UTC, datetime
+from pathlib import Path
+
+import yaml
 
 from app.models import Hotel
 from app.settings import Settings
@@ -26,6 +29,41 @@ class MemoryStore:
     def append(self, observations):
         self.rows.extend(observations)
         return len(observations)
+
+
+def test_daily_config_keeps_international_and_japanese_chains_in_core_scope():
+    payload = yaml.safe_load(Path("config/hotels.daily.yaml").read_text(encoding="utf-8"))
+    hotels = {row["id"]: row for row in payload["hotels"]}
+
+    for hotel_id in {
+        "mitsui_garden_taipei_zhongxiao",
+        "solaria_nishitetsu_taipei",
+        "hotel_metropolitan_premier_taipei",
+        "okura_prestige_taipei",
+        "royal_nikko_taipei",
+        "hotel_nikko_kaohsiung",
+        "hoshinoya_guguan",
+    }:
+        assert hotels[hotel_id].get("market_scope", "core") == "core"
+        assert hotels[hotel_id].get("collection_frequency", "daily") == "daily"
+
+    supplemental = {
+        hotel_id
+        for hotel_id, row in hotels.items()
+        if row.get("market_scope") == "supplemental"
+    }
+    assert supplemental == {
+        "united_hotel_taipei",
+        "k_hotel_taipei_changan",
+        "tango_hotel_taichung",
+        "tango_hotel_taipei_jiantan",
+        "tango_hotel_taipei_xinyi",
+        "tango_hotel_taipei_shilin",
+        "tango_hotel_taipei_linsen",
+        "tango_hotel_taipei_changan",
+        "tango_hotel_taipei_fuhsing",
+        "tango_hotel_taipei_nanshi",
+    }
 
 
 def test_daily_job_checks_all_dates_without_cooling_down_on_empty_availability(monkeypatch, tmp_path):
@@ -129,3 +167,42 @@ def test_daily_job_assigns_one_run_id_and_schedule_to_all_rows(monkeypatch, tmp_
     assert all(row.scheduled_for is not None for row in store.rows)
     assert [row.check_in.isoformat() for row in store.rows] == ["2026-10-08", "2026-10-14"]
     assert [row.lead_days for row in store.rows] == [1, 7]
+
+
+def test_daily_job_skips_supplemental_weekly_hotels_outside_sunday(monkeypatch, tmp_path):
+    hotel = Hotel(
+        id="supplemental_hotel",
+        name="Supplemental Hotel",
+        short_name="Supplemental",
+        city="Taipei",
+        country="TW",
+        booking_url="https://example.com",
+        adapter="test",
+        market_scope="supplemental",
+        collection_frequency="weekly",
+    )
+    store = MemoryStore()
+    monkeypatch.setattr(daily_rates, "load_hotels", lambda: [hotel])
+    monkeypatch.setattr(
+        daily_rates,
+        "get_scraper",
+        lambda *args: (_ for _ in ()).throw(AssertionError("weekly hotel should be skipped")),
+    )
+    monkeypatch.setattr(daily_rates, "get_store", lambda settings: store)
+
+    result = asyncio.run(
+        daily_rates.run_daily_rates(
+            Settings(
+                demo_mode=False,
+                lead_days="1",
+                adapter_health_path=tmp_path / "health.json",
+                diagnostic_snapshot_dir=tmp_path / "diagnostics",
+            ),
+            # 2026-11-16 06:17 in Asia/Taipei is a Monday.
+            started_at=datetime(2026, 11, 15, 22, 17, tzinfo=UTC),
+        )
+    )
+
+    assert result.observations == 0
+    assert result.failures == []
+    assert store.rows == []

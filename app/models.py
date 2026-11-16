@@ -1,6 +1,7 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import StrEnum
+from typing import Literal
 
 from pydantic import BaseModel, Field, computed_field, model_validator
 
@@ -29,6 +30,8 @@ class Hotel(BaseModel):
     booking_url: str
     adapter: str
     enabled: bool = True
+    market_scope: Literal["core", "supplemental"] = "core"
+    collection_frequency: Literal["daily", "weekly"] = "daily"
 
 
 class RateObservation(BaseModel):
