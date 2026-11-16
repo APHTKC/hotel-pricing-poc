@@ -66,7 +66,7 @@ def test_published_hotel_catalog_contains_all_new_taipei_hotels():
     ids = {hotel["id"] for hotel in payload["hotels"]}
 
     assert set(NEW_TAIPEI_HOTELS) | {"intercontinental_taipei"} <= ids
-    assert len(payload["hotels"]) == 79
+    assert len(payload["hotels"]) == 80
 
 
 def test_published_catalog_matches_registered_source_ids():
@@ -155,8 +155,8 @@ def test_published_location_cache_exactly_covers_registered_hotels():
 
     catalog_ids = {hotel["id"] for hotel in catalog["hotels"]}
     location_ids = {location["hotel_id"] for location in locations["locations"]}
-    assert len(catalog_ids) == len(catalog["hotels"]) == 79
-    assert len(location_ids) == len(locations["locations"]) == 79
+    assert len(catalog_ids) == len(catalog["hotels"]) == 80
+    assert len(location_ids) == len(locations["locations"]) == 80
     assert location_ids == catalog_ids
 
 

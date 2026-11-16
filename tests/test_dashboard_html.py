@@ -1346,6 +1346,21 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "kind": "unknown",
     }
     assert "06:00–22:00" in taipei_garden["facility_notes"]["zh"]
+    caesar_taipei = by_id["caesar_park_taipei"]
+    assert caesar_taipei["verified_at"] == "2026-11-16"
+    assert caesar_taipei["room_inventory"] == 478
+    assert caesar_taipei["service_charge_percent"] == 10
+    assert len(caesar_taipei["room_snapshot"]["rooms"]) == 9
+    assert caesar_taipei["redevelopment"]["status"] == "operating_redevelopment_planned"
+    assert caesar_taipei["redevelopment"]["formal_filing_date"] == "2026-05-21"
+    assert caesar_taipei["redevelopment"]["site_area_sqm"] == 4252.0
+    assert caesar_taipei["redevelopment"]["planned_structure"] == (
+        "SC, 52 floors above ground / 6 basement floors"
+    )
+    assert caesar_taipei["redevelopment"]["timeline_confidence"] == (
+        "planning_estimate_not_approved"
+    )
+    assert "仍營運中" in caesar_taipei["facility_notes"]["zh"]
     miramar = by_id["miramar_garden_taipei"]
     assert miramar["room_inventory"] == 203
     assert miramar["service_charge_percent"] == 10
@@ -2575,7 +2590,7 @@ def test_traditional_chinese_hotel_names_cover_the_registered_catalog_exactly():
     )["names"]
     hotel_ids = [hotel["id"] for hotel in hotels]
 
-    assert len(hotel_ids) == len(set(hotel_ids)) == 79
+    assert len(hotel_ids) == len(set(hotel_ids)) == 80
     assert set(names) == set(hotel_ids)
     assert all(isinstance(name, str) and name.strip() for name in names.values())
     assert all(any("\u4e00" <= char <= "\u9fff" for char in name) for name in names.values())
@@ -2929,7 +2944,7 @@ def test_hotel_map_covers_catalog_and_taipei_districts():
     )
     locations = location_data["locations"]
 
-    assert len(catalog) == 79
+    assert len(catalog) == 80
     assert len(locations) == len(catalog)
     assert {row["hotel_id"] for row in locations} == {row["id"] for row in catalog}
     assert all(21.5 <= row["latitude"] <= 26.5 for row in locations)
@@ -2940,6 +2955,10 @@ def test_hotel_map_covers_catalog_and_taipei_districts():
     tracked = {row["id"] for row in catalog if row.get("enabled")}
     assert {row["hotel_id"] for row in locations if row["daily_tracked"]} == tracked
     assert all(row["district"] for row in locations if row["city"] == "Taipei")
+    caesar = next(row for row in locations if row["hotel_id"] == "caesar_park_taipei")
+    assert caesar["district"] == "Zhongzheng"
+    assert caesar["lifecycle_status"] == "operating_redevelopment_planned"
+    assert caesar["daily_tracked"] is False
 
 
 def test_hotel_map_is_linked_and_localized_across_static_pages():
@@ -2964,6 +2983,8 @@ def test_hotel_map_is_linked_and_localized_across_static_pages():
     assert "DISTRICT_COLORS" in map_html
     assert "hotel-lang" in map_html
     assert "hotel-currency" in map_html
+    assert "operating_redevelopment_planned" in map_html
+    assert "營運中・重建規劃中" in map_html
 
 
 def test_primary_pages_share_one_desktop_shell():
@@ -3225,6 +3246,8 @@ def test_hotel_comparison_shows_brand_positioning_and_loyalty_programs():
     assert affiliations["hilton_taipei_sinban"]["brand"] == "Hilton Hotels & Resorts"
     assert affiliations["caesar_park_banqiao"]["loyalty_program"] == "凱撒 VIP"
     assert affiliations["caesar_park_banqiao"]["brand"] == "Caesar Park Hotels & Resorts"
+    assert affiliations["caesar_park_taipei"]["loyalty_program"] == "凱撒 VIP"
+    assert affiliations["caesar_park_taipei"]["brand"] == "Caesar Park Hotels & Resorts"
     assert affiliations["fleur_de_chine"]["loyalty_program"] == "雲品假期常客回饋計畫"
     assert affiliations["fleur_de_chine"]["network"] == "LDC Hotels & Resorts"
     assert affiliations["silks_place_yilan"]["loyalty_program"] == "晶華會"

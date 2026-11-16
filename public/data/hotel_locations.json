@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-11-16T02:49:38.356291+00:00",
+  "updated_at": "2026-11-16T08:20:00+00:00",
   "source_note": "Coordinates are cached from OpenStreetMap place data and official hotel address cross-checks. They are for visualization, not navigation.",
   "locations": [
     {
@@ -756,6 +756,22 @@
       "daily_tracked": true,
       "source": "OpenStreetMap Nominatim",
       "accuracy": "mapped_point"
+    },
+    {
+      "hotel_id": "caesar_park_taipei",
+      "name_zh": "台北凱撒大飯店",
+      "name_en": "Caesar Park Hotel Taipei",
+      "city": "Taipei",
+      "district": "Zhongzheng",
+      "latitude": 25.0461111,
+      "longitude": 121.5162948,
+      "booking_url": "https://taipei.caesarpark.com.tw/",
+      "daily_tracked": false,
+      "source": "Official address cross-check and OpenStreetMap Nominatim",
+      "accuracy": "mapped_point",
+      "lifecycle_status": "operating_redevelopment_planned",
+      "lifecycle_verified_at": "2026-11-16",
+      "redevelopment_source_url": "https://www.ur.org.tw/mynews/view/4880"
     },
     {
       "hotel_id": "taipei_marriott",

@@ -2329,6 +2329,86 @@
       ]
     },
     {
+      "hotel_id": "caesar_park_taipei",
+      "verified_at": "2026-11-16",
+      "room_inventory": 478,
+      "service_charge_percent": 10,
+      "service_charge_source_type": "official",
+      "stay_times": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "source_type": "official",
+        "source_url": "https://taipei.caesarpark.com.tw/room-detail/Standard-Single-Room/"
+      },
+      "restaurants": [
+        {"name": "Drink Bar", "type_zh": "大廳休憩空間、咖啡與輕食", "type_en": "Lobby lounge, coffee and light meals", "type_ja": "ロビーラウンジ、コーヒー、軽食"},
+        {"name": "Checkers 自助餐", "type_zh": "自助早餐、午餐、下午茶與晚餐", "type_en": "Buffet breakfast, lunch, afternoon tea and dinner", "type_ja": "朝食・昼食・アフタヌーンティー・夕食ビュッフェ"},
+        {"name": "王朝餐廳 Dynasty", "type_zh": "中華料理與港式餐點", "type_en": "Chinese and Cantonese cuisine", "type_ja": "中華・広東料理"}
+      ],
+      "restaurant_count": 3,
+      "facilities": {"pool": null, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "facility_notes": {
+        "zh": "現行官網可核實全館 478 間客房、九類公開房型（20 至 50 平方公尺）、15:00 入住、12:00 退房、Drink Bar、Checkers、王朝餐廳、6 樓健身中心與三溫暖、21 樓屋頂花園及 SPA。客房定價頁明列另加 10% 服務費；泳池、蒸氣室與行政酒廊未見現行官網明文，維持待核實。飯店目前仍營運中，另有三方整合都更計畫進入審議，並非已停業或已拆除。",
+        "en": "Current official pages verify 478 guestrooms, nine published room categories from 20 to 50 square meters, 15:00 check-in, 12:00 checkout, Drink Bar, Checkers, Dynasty, a sixth-floor fitness center and sauna, a 21st-floor roof garden, and a spa. Official room-price pages state a 10% service charge. A pool, steam room, and executive lounge are not explicitly listed and remain pending. The hotel is still operating while a three-owner redevelopment plan is under review; it has not closed or entered demolition.",
+        "ja": "現行公式サイトで全478室、20～50平方メートルの客室9カテゴリー、15時チェックイン、12時チェックアウト、Drink Bar、Checkers、王朝、6階フィットネス・サウナ、21階屋上庭園、SPAを確認しました。公式客室料金ページには10%のサービス料が明記されています。プール、スチームルーム、エグゼクティブラウンジは明記がなく確認待ちです。ホテルは現在も営業中で、3者一体の再開発計画は審査中であり、閉館・解体済みではありません。"
+      },
+      "room_snapshot": {
+        "observed_at": "2026-11-16",
+        "source_type": "official",
+        "source_url": "https://taipei.caesarpark.com.tw/room/",
+        "rooms": [
+          {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "スーペリアルーム", "size_sqm": 26, "size_sqm_max": 33},
+          {"name_zh": "精緻客房 單身客房", "name_en": "Standard Single Room", "name_ja": "スタンダードシングルルーム", "size_sqm": 20},
+          {"name_zh": "精緻四人房", "name_en": "Superior Double Double", "name_ja": "スーペリアダブルダブル", "size_sqm": 33},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックスルーム", "size_sqm": 33},
+          {"name_zh": "雅緻客房", "name_en": "Premier Room", "name_ja": "プレミアルーム", "size_sqm": 33},
+          {"name_zh": "雅緻四人房", "name_en": "Premier Double Double", "name_ja": "プレミアダブルダブル", "size_sqm": 33},
+          {"name_zh": "悠遊客房", "name_en": "Metro Room", "name_ja": "メトロルーム", "size_sqm": 26},
+          {"name_zh": "綺幻客房", "name_en": "Metropolis Room", "name_ja": "メトロポリスルーム", "size_sqm": 33},
+          {"name_zh": "站前套房", "name_en": "Station Suite", "name_ja": "ステーションスイート", "size_sqm": 50}
+        ]
+      },
+      "redevelopment": {
+        "status": "operating_redevelopment_planned",
+        "status_zh": "營運中・重建規劃審議中",
+        "status_en": "Operating · redevelopment under review",
+        "status_ja": "営業中・建替計画審査中",
+        "verified_at": "2026-11-16",
+        "project_scope_zh": "台北凱撒大飯店、台壽保南洋大樓與台北 YMCA 三棟整合都更",
+        "project_scope_en": "Combined renewal of Caesar Park Hotel Taipei, Taiwan Life Nanyang Building and Taipei YMCA",
+        "project_scope_ja": "台北凱撒大飯店・台壽保南洋大樓・台北YMCAの一体更新",
+        "formal_filing_date": "2026-05-21",
+        "site_area_sqm": 4252.0,
+        "planned_structure": "SC, 52 floors above ground / 6 basement floors",
+        "planned_total_floor_area_sqm": 104748.22,
+        "planned_uses": ["hotel", "office", "retail", "dining", "entertainment", "fitness", "financial_services"],
+        "planned_demolition_window": "2028-12/2029-01 earliest",
+        "planned_completion_window": "2035-2036 estimate",
+        "timeline_confidence": "planning_estimate_not_approved",
+        "notes_zh": "都更事業計畫已送件並完成公開展覽，但仍須經都更、環評與都市設計等審議。最快拆除與完工時程均為計畫估算，不代表已核定；目前官網仍提供 2026 住房與餐飲專案。",
+        "notes_en": "The renewal plan has been filed and publicly exhibited but still requires urban-renewal, environmental and urban-design reviews. The earliest demolition and completion windows are planning estimates, not approvals; the official hotel site continues to offer 2026 room and dining packages.",
+        "notes_ja": "更新事業計画は提出・公開縦覧済みですが、都市更新、環境影響、都市設計などの審査が残っています。最短の解体・完成時期は計画上の見込みで、認可済みではありません。ホテル公式サイトでは2026年の宿泊・飲食プランを引き続き販売しています。",
+        "source_urls": [
+          "https://www.ur.org.tw/mynews/view/4880",
+          "https://www.dtrc.com.tw/products_detail/tw/consultant/p11217/",
+          "https://www.dtrc.com.tw/post/post/data/downtown/tw/news/4259/",
+          "https://www.nownews.com/amp/news/6889091"
+        ]
+      },
+      "source_urls": [
+        "https://taipei.caesarpark.com.tw/",
+        "https://taipei.caesarpark.com.tw/jp/about/",
+        "https://taipei.caesarpark.com.tw/room/",
+        "https://taipei.caesarpark.com.tw/room-detail/Standard-Single-Room/",
+        "https://taipei.caesarpark.com.tw/restaurant/",
+        "https://taipei.caesarpark.com.tw/facilities-detail/Facilities/",
+        "https://www.ur.org.tw/mynews/view/4880",
+        "https://www.dtrc.com.tw/products_detail/tw/consultant/p11217/",
+        "https://www.nownews.com/amp/news/6889091"
+      ]
+    },
+    {
       "hotel_id": "taipei_garden_hotel",
       "verified_at": "2026-11-16",
       "stay_times": {
