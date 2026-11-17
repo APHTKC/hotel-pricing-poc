@@ -2006,12 +2006,22 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "service_charge_percent" not in by_id["w_taipei"]
     regent = by_id["regent_taipei"]
     regent_rooms = regent["room_snapshot"]["rooms"]
+    assert regent["verified_at"] == "2026-11-17"
+    assert regent["stay_times"]["observed_at"] == "2026-11-17"
+    assert regent["stay_times"]["source_url"].endswith("/news/faq")
     assert regent["room_snapshot"]["source_type"] == "official"
+    assert regent["room_snapshot"]["observed_at"] == "2026-11-17"
     assert len(regent_rooms) == 11
     assert min(room["size_sqm"] for room in regent_rooms) == 39
     assert max(room["size_sqm"] for room in regent_rooms) == 210
     assert {room["name_zh"] for room in regent_rooms} >= {"精緻客房", "雲天露臺家庭房", "大班豪華客房", "總統套房"}
     assert next(room for room in regent_rooms if room["name_en"] == "Corner Suite")["size_sqm"] == 110
+    regent_ja = {room["name_en"]: room["name_ja"] for room in regent_rooms}
+    assert regent_ja["Superior Room"] == "スペリアルーム"
+    assert regent_ja["Deluxe Room"] == "デラックス ルーム"
+    assert regent_ja["Premier Room"] == "プレミアルーム"
+    assert regent_ja["Balcony Room"] == "バルコニールーム"
+    assert regent_ja["Tai Pan Room"] == "タイパンルーム"
     assert "service_charge_percent" not in regent
     assert "合計 15.5%" in regent["service_charge_note_zh"]
     assert by_id["eslite_hotel"]["room_inventory"] == 104
@@ -2077,7 +2087,11 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert len(by_id["regent_taipei"]["restaurants"]) == 8
     assert by_id["regent_taipei"]["facilities"]["sauna"] is True
     assert by_id["regent_taipei"]["facilities"]["steam_room"] is None
-    assert by_id["regent_taipei"]["lounge"]["name"] == "Silks Club"
+    assert by_id["regent_taipei"]["lounge"]["name"] == "Tai Pan Lounge"
+    assert by_id["regent_taipei"]["lounge"]["kind"] == "executive_lounge"
+    assert by_id["regent_taipei"]["lounge"]["source_type"] == "official"
+    assert "2026 年 9 月 24 日至 11 月 30 日" in by_id["regent_taipei"]["facility_notes"]["zh"]
+    assert "維持未知" in by_id["regent_taipei"]["facility_notes"]["zh"]
     assert by_id["taipei_marriott"]["room_inventory"] == 318
     assert any("taiwanstay.net.tw" in url for url in by_id["taipei_marriott"]["source_urls"])
     assert len(by_id["taipei_marriott"]["restaurants"]) == 6

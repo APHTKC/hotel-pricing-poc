@@ -554,14 +554,14 @@
     },
     {
       "hotel_id": "regent_taipei",
-      "verified_at": "2026-10-02",
+      "verified_at": "2026-11-17",
       "room_inventory": 538,
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
-        "observed_at": "2026-10-02",
+        "observed_at": "2026-11-17",
         "source_type": "official",
-        "source_url": "https://member.silkshotelgroup.com/en/RT/Package/Details/IDOTHADY_"
+        "source_url": "https://www.regenttaiwan.com/news/faq"
       },
       "service_charge_note_zh": "飯店官方住宿券條款僅公告每房每晚加價另收服務費及政府稅合計 15.5%，未單獨列出服務費比例。",
       "service_charge_note_en": "The hotel's official accommodation-voucher terms state a combined 15.5% service charge and government tax on nightly supplements, without separating the service-charge percentage.",
@@ -577,23 +577,28 @@
         {"name": "Lan Ting", "type_zh": "上海與四川料理", "type_en": "Shanghainese and Sichuan", "type_ja": "上海料理・四川料理"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
-      "lounge": {"available": true, "name": "Silks Club", "kind": "guest_club"},
+      "facility_notes": {
+        "zh": "官網公告 B3 三溫暖於 2026 年 9 月 24 日至 11 月 30 日暫停開放；B3 健身中心於 11 月 30 日暫停開放，21 樓戶外泳池於 12 月 14 日暫停開放。一般開放時間為泳池 07:00–22:00、沐蘭 SPA 10:00–23:00（最晚預約 20:00）、健身中心 06:00–22:30、三溫暖 07:00–22:30（最晚入場 22:00，限 16 歲以上）。官網未明文確認蒸氣室，維持未知。",
+        "en": "The official hotel notice states that the B3 sauna is temporarily closed from September 24 through November 30, 2026; the B3 fitness center is closed on November 30, and the 21F outdoor pool is closed on December 14. Normal hours are 07:00–22:00 for the pool, 10:00–23:00 for Wellspring Spa (last appointment 20:00), 06:00–22:30 for the fitness center, and 07:00–22:30 for the sauna (last entry 22:00; ages 16+). The official site does not explicitly confirm a steam room, so that field remains unknown.",
+        "ja": "公式案内では、B3サウナは2026年9月24日から11月30日まで一時休止、B3フィットネスセンターは11月30日、21階屋外プールは12月14日に休止します。通常営業時間は、プール07:00–22:00、沐蘭SPA 10:00–23:00（最終予約20:00）、フィットネスセンター06:00–22:30、サウナ07:00–22:30（最終入場22:00、16歳以上）です。公式サイトにスチームルームの明記がないため、同項目は不明のままです。"
+      },
+      "lounge": {"available": true, "name": "Tai Pan Lounge", "kind": "executive_lounge", "source_type": "official", "source_url": "https://www.ihg.com/regent/hotels/jp/ja/taipei/tperg/hoteldetail/rooms-and-suites", "observed_at": "2026-11-17"},
       "room_snapshot": {
-        "observed_at": "2026-10-02",
+        "observed_at": "2026-11-17",
         "source_type": "official",
         "source_url": "https://www.regenttaiwan.com/accommodation",
         "rooms": [
-          {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "Superior Room", "size_sqm": 39},
-          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "Deluxe Room", "size_sqm": 45, "aliases": [{"label": "豪華特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/the-regent-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "經典客房－1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:25187:classic-king", "label_match": false, "source_url": "https://tw.hotels.com/ho121325/tai-bei-jing-hua-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
-          {"name_zh": "寰宇客房", "name_en": "Premier Room", "name_ja": "Premier Room", "size_sqm": 56},
-          {"name_zh": "雲天露臺客房", "name_en": "Balcony Room", "name_ja": "Balcony Room", "size_sqm": 56, "aliases": [{"label": "尊爵雙人房－附陽台", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/the-regent-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
+          {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "スペリアルーム", "size_sqm": 39},
+          {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックス ルーム", "size_sqm": 45, "aliases": [{"label": "豪華特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/the-regent-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}, {"label": "經典客房－1 張特大雙人床", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:25187:classic-king", "label_match": false, "source_url": "https://tw.hotels.com/ho121325/tai-bei-jing-hua-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}]},
+          {"name_zh": "寰宇客房", "name_en": "Premier Room", "name_ja": "プレミアルーム", "size_sqm": 56},
+          {"name_zh": "雲天露臺客房", "name_en": "Balcony Room", "name_ja": "バルコニールーム", "size_sqm": 56, "aliases": [{"label": "尊爵雙人房－附陽台", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/the-regent-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
           {"name_zh": "雲天露臺家庭房", "name_en": "Balcony Family Room", "name_ja": "Balcony Family Room", "size_sqm": 65},
           {"name_zh": "沐蘭套房", "name_en": "Penthouse", "name_ja": "Penthouse", "size_sqm": 45},
-          {"name_zh": "精緻套房", "name_en": "Junior Suite", "name_ja": "Junior Suite", "size_sqm": 65, "aliases": [{"label": "小型套房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/the-regent-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
-          {"name_zh": "名人套房", "name_en": "Corner Suite", "name_ja": "Corner Suite", "size_sqm": 110},
-          {"name_zh": "花園套房", "name_en": "Garden Suite", "name_ja": "Garden Suite", "size_sqm": 126},
-          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "Presidential Suite", "size_sqm": 210},
-          {"name_zh": "大班豪華客房", "name_en": "Tai Pan Room", "name_ja": "Tai Pan Room", "size_sqm": 45, "aliases": [{"label": "雅逸居一大床－可使用俱樂部酒廊", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho121325/tai-bei-jing-hua-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}, {"label": "俱樂部特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:33040907", "label_match": false, "source_url": "https://www.booking.com/hotel/tw/the-regent-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]}
+          {"name_zh": "精緻套房", "name_en": "Junior Suite", "name_ja": "ジュニア スイートルーム", "size_sqm": 65, "aliases": [{"label": "小型套房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/the-regent-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]},
+          {"name_zh": "名人套房", "name_en": "Corner Suite", "name_ja": "コーナースイート", "size_sqm": 110},
+          {"name_zh": "花園套房", "name_en": "Garden Suite", "name_ja": "ガーデンスイート", "size_sqm": 126},
+          {"name_zh": "總統套房", "name_en": "Presidential Suite", "name_ja": "プレジデンシャル スイートルーム", "size_sqm": 210},
+          {"name_zh": "大班豪華客房", "name_en": "Tai Pan Room", "name_ja": "タイパンルーム", "size_sqm": 45, "aliases": [{"label": "雅逸居一大床－可使用俱樂部酒廊", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho121325/tai-bei-jing-hua-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-16"}, {"label": "俱樂部特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "room_type_code": "booking:33040907", "label_match": false, "source_url": "https://www.booking.com/hotel/tw/the-regent-taipei.zh-tw.html?checkin=2026-12-18&checkout=2026-12-19&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-14"}]}
         ]
       },
       "michelin_restaurants": [
@@ -626,10 +631,13 @@
       "source_urls": [
         "https://www.regenttaiwan.com/accommodation",
         "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail",
+        "https://www.ihg.com/regent/hotels/jp/ja/taipei/tperg/hoteldetail/rooms-and-suites",
         "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/rooms-and-suites",
         "https://www.ihg.com/regent/hotels/gb/en/taipei/tperg/hoteldetail/dining",
         "https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail/spa-wellness",
         "https://member.silkshotelgroup.com/en/RT/Package/Details/IDOTHADY_",
+        "https://www.regenttaiwan.com/news/faq",
+        "https://www.regenttaiwan.com/news/hotelnews",
         "https://docs.regenttaiwan.com/pdf/TravelFair/2025_SummerAndFoodFestival.pdf?externalbrowser=1"
       ]
     },
