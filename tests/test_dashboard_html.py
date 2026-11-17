@@ -1439,10 +1439,14 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert the_lin_taichung["lounge"]["available"] is True
     the_amnis = by_id["silks_club_kaohsiung"]
+    assert the_amnis["verified_at"] == "2026-11-17"
     assert the_amnis["room_inventory"] == 147
     assert the_amnis["restaurant_count"] == 4
     assert the_amnis["stay_times"]["check_in"] == "15:00"
     assert the_amnis["stay_times"]["check_out"] == "12:00"
+    assert the_amnis["stay_times"]["observed_at"] == "2026-11-17"
+    assert "/ja/" in the_amnis["stay_times"]["source_url"]
+    assert the_amnis["room_snapshot"]["observed_at"] == "2026-11-17"
     assert len(the_amnis["room_snapshot"]["rooms"]) == 13
     assert min(room["size_sqm"] for room in the_amnis["room_snapshot"]["rooms"]) == 59
     assert max(room["size_sqm"] for room in the_amnis["room_snapshot"]["rooms"]) == 685
@@ -1452,6 +1456,14 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert the_amnis["facilities"]["sauna"] is True
     assert the_amnis["facilities"]["steam_room"] is None
     assert the_amnis["lounge"]["available"] is None
+    assert the_amnis["lounge"]["source_type"] == "official"
+    assert the_amnis["lounge"]["observed_at"] == "2026-11-17"
+    the_amnis_ja = {room["name_en"]: room["name_ja"] for room in the_amnis["room_snapshot"]["rooms"]}
+    assert the_amnis_ja["Deluxe King"] == "デラックスキングルーム"
+    assert the_amnis_ja["Deluxe Twin"] == "デラックスツインルーム"
+    assert the_amnis_ja["Studio King"] == "スタジオキング"
+    assert the_amnis_ja["Junior Suite Harbor"] == "ジュニアスイート: ハーバービュー"
+    assert the_amnis_ja["Presidential Suite"] == "プレジデンシャルスイート"
     assert "service_charge_percent" not in the_amnis
     tai_urban = by_id["tai_urban_resort"]
     assert tai_urban["room_inventory"] == 208
