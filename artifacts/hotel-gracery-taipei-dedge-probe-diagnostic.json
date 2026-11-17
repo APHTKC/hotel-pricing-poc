@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "hotel_id": "hotel_gracery_taipei",
+  "source": "official_dedge_book_secure",
+  "source_url": "https://www.book-secure.com/index.php?s=results&property=twtai31625&arrival=2026-12-17&departure=2026-12-18&adults1=2&children1=0&locale=zh_Hant_HK&currency=TWD&showPromotions=1",
+  "official_referrer_url": "https://tw.gracery.com/taipei/",
+  "checked_at": "2026-11-17T05:00:00Z",
+  "status": "blocked_http_403_captcha",
+  "probe_limit": {
+    "candidate_attempts_this_batch": 1,
+    "retried": false
+  },
+  "material_flow_change": {
+    "previous_engine": "Reservation.jp Livewire shell",
+    "current_engine": "D-EDGE / Book Secure",
+    "property_code": "twtai31625"
+  },
+  "outcome": {
+    "http_status": 403,
+    "final_url": "https://www.book-secure.com/index.php?s=results&property=twtai31625&arrival=2026-12-17&departure=2026-12-18&adults1=2&children1=0&locale=zh_Hant_HK&currency=TWD&showPromotions=1",
+    "page_title": "book-secure.com",
+    "room_count": 0,
+    "rate_count": 0,
+    "captcha_provider": "geo.captcha-delivery.com",
+    "room_product_received": false
+  },
+  "missing_canonical_fields": [
+    "current_live_room_product",
+    "stable_room_type_id_per_product",
+    "breakfast_included_per_product",
+    "cancellation_class_per_product",
+    "cancellation_deadline_per_product",
+    "tax_inclusion_per_product",
+    "total_price_per_product",
+    "queried_at_price_per_product"
+  ],
+  "cooldown": {
+    "reason": "The newly adopted official D-EDGE booking flow returned HTTP 403 and a captcha-delivery challenge before any room or rate product was exposed.",
+    "retry_condition": "Do not retry this flow while the protection and missing-field set remain unchanged. Re-evaluate only after a material public flow change or a documented, non-protected official feed becomes available."
+  },
+  "safety": {
+    "bypass_attempted": false,
+    "captcha_solved": false,
+    "undocumented_endpoint_called": false,
+    "cross_source_inference_allowed": false,
+    "unknown_values_preserved": true
+  },
+  "decision": "Keep the official adapter disabled and do not publish official rows. Preserve the existing independently verified OTA snapshots outside market KPIs until a complete official product flow is available."
+}

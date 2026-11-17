@@ -1769,8 +1769,8 @@ def test_hotel_gracery_booking_codes_match_supported_theme_rooms_only():
     rooms = {room["stable_room_type_id"]: room for room in dimension["room_types"] if room["hotel_id"] == "hotel_gracery_taipei"}
 
     for label, code, official_name in (
-        ("Godzilla Landing in Southern Taiwan (Twin Room)", "booking:727625409", "Godzilla Arrival in Southern Taiwan Twin Room"),
-        ("Welcome to Katsuya !", "booking:727625411", "Katsuya Room"),
+        ("Godzilla Landing in Southern Taiwan (Twin Room)", "booking:727625409", "Godzilla Arrival in Southern Taiwan (Twin Room – sofa bed available)"),
+        ("Welcome to Katsuya !", "booking:727625411", "Welcome to Katsuya (Katsuya Room)"),
     ):
         matched = match_room_type({"hotel_id": "hotel_gracery_taipei", "room_type_name": label, "room_type_code": code, "source_platform": "booking_com", "room_size_sqm": 25}, lookup)
         room = rooms[matched["stable_room_type_id"]]

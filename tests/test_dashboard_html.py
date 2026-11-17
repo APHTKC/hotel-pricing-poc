@@ -1838,7 +1838,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         for name, japanese_name in expected_grand_hotel_japanese_names.items()
     )
     gracery = by_id["hotel_gracery_taipei"]
-    assert gracery["verified_at"] == "2026-10-14"
+    assert gracery["verified_at"] == "2026-11-17"
     assert gracery["room_inventory"] == 248
     assert gracery["stay_times"] == {
         "check_in": "15:00",
@@ -1846,8 +1846,18 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "source_type": "official",
         "source_url": "https://tw.gracery.com/taipei/",
     }
-    assert len(gracery["room_snapshot"]["rooms"]) == 15
-    assert {room["size_sqm"] for room in gracery["room_snapshot"]["rooms"]} == {25, 26, 50}
+    assert len(gracery["room_snapshot"]["rooms"]) == 19
+    assert gracery["room_snapshot"]["observed_at"] == "2026-11-17"
+    sized_gracery_rooms = [
+        room for room in gracery["room_snapshot"]["rooms"] if "size_sqm" in room
+    ]
+    assert {room["size_sqm"] for room in sized_gracery_rooms} == {25, 26, 50}
+    assert len(sized_gracery_rooms) == 15
+    assert "3 樓投幣式洗衣機" in gracery["facility_notes"]["zh"]
+    assert any(
+        room["name_ja"] == "スタンダードツインルーム"
+        for room in gracery["room_snapshot"]["rooms"]
+    )
     assert any("ge-la-si-li-tai-bei-fan-dian" in url for url in gracery["source_urls"])
     royal_nikko = by_id["royal_nikko_taipei"]
     assert royal_nikko["verified_at"] == "2026-10-18"

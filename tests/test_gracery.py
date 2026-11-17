@@ -103,3 +103,30 @@ def test_official_product_probe_records_livewire_shell_blocker():
         "retry_condition"
     ]
     assert "do not publish official rows" in diagnostic["decision"]
+
+
+def test_new_dedge_flow_records_protected_source_without_bypass():
+    diagnostic = json.loads(
+        Path(
+            "artifacts/hotel-gracery-taipei-dedge-probe-diagnostic.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert diagnostic["hotel_id"] == "hotel_gracery_taipei"
+    assert diagnostic["status"] == "blocked_http_403_captcha"
+    assert diagnostic["material_flow_change"] == {
+        "previous_engine": "Reservation.jp Livewire shell",
+        "current_engine": "D-EDGE / Book Secure",
+        "property_code": "twtai31625",
+    }
+    assert diagnostic["outcome"]["http_status"] == 403
+    assert diagnostic["outcome"]["room_count"] == 0
+    assert diagnostic["outcome"]["rate_count"] == 0
+    assert diagnostic["safety"] == {
+        "bypass_attempted": False,
+        "captcha_solved": False,
+        "undocumented_endpoint_called": False,
+        "cross_source_inference_allowed": False,
+        "unknown_values_preserved": True,
+    }
+    assert "Do not retry" in diagnostic["cooldown"]["retry_condition"]
