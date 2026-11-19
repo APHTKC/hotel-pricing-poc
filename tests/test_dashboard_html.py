@@ -2444,6 +2444,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert min(room["size_sqm"] for room in grand_view["room_snapshot"]["rooms"]) == 50
     assert max(room["size_sqm"] for room in grand_view["room_snapshot"]["rooms"]) == 116
     kimpton = by_id["kimpton_da_an"]
+    assert kimpton["verified_at"] == "2026-11-19"
+    assert kimpton["stay_times"]["observed_at"] == "2026-11-19"
     assert kimpton["room_inventory"] == 129
     assert "service_charge_percent" not in kimpton
     assert len(kimpton["restaurants"]) == 1
@@ -2454,8 +2456,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "sauna": None,
         "steam_room": None,
     }
-    assert kimpton["lounge"] == {"available": False, "name": None, "kind": "none"}
+    assert kimpton["lounge"] == {
+        "available": True,
+        "name": "Hotel Living Room",
+        "kind": "lobby_lounge",
+        "source_type": "official",
+        "source_url": "https://www.ihg.com/kimptonhotels/hotels/jp/ja/da-an-hotel-taipei/tpekm/hoteldetail",
+        "observed_at": "2026-11-19",
+    }
     assert kimpton["room_snapshot"]["source_type"] == "official"
+    assert kimpton["room_snapshot"]["observed_at"] == "2026-11-19"
     assert len(kimpton["room_snapshot"]["rooms"]) == 3
     assert {room["name_en"] for room in kimpton["room_snapshot"]["rooms"]} == {
         "Essential Room",
@@ -2464,6 +2474,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in kimpton["room_snapshot"]["rooms"]) == 32
     assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in kimpton["room_snapshot"]["rooms"]) == 58
+    assert any("/jp/ja/" in url and url.endswith("/rooms") for url in kimpton["source_urls"])
     humble_house = by_id["humble_house_taipei"]
     assert humble_house["room_inventory"] == 235
     assert humble_house["service_charge_percent"] == 10

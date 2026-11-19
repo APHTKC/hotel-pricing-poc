@@ -1600,21 +1600,22 @@
     },
     {
       "hotel_id": "kimpton_da_an",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-11-19",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
         "source_type": "official",
-        "source_url": "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail"
+        "source_url": "https://www.ihg.com/kimptonhotels/hotels/tw/zh/da-an-hotel-taipei/tpekm/hoteldetail",
+        "observed_at": "2026-11-19"
       },
       "room_inventory": 129,
       "restaurants": [
         {"name": "The Tavernist", "type_zh": "創意現代料理與國際料理", "type_en": "Creative modern and international cuisine", "type_ja": "創作モダン・各国料理"}
       ],
       "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
-      "lounge": {"available": false, "name": null, "kind": "none"},
+      "lounge": {"available": true, "name": "Hotel Living Room", "kind": "lobby_lounge", "source_type": "official", "source_url": "https://www.ihg.com/kimptonhotels/hotels/jp/ja/da-an-hotel-taipei/tpekm/hoteldetail", "observed_at": "2026-11-19"},
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-11-19",
         "source_type": "official",
         "source_url": "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/rooms",
         "rooms": [
@@ -1627,7 +1628,13 @@
         "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail",
         "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/rooms",
         "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/amenities",
-        "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/dining/the-tavernist-taipei"
+        "https://www.ihg.com/kimptonhotels/hotels/us/en/da-an-hotel-taipei/tpekm/hoteldetail/dining/the-tavernist-taipei",
+        "https://www.ihg.com/kimptonhotels/hotels/tw/zh/da-an-hotel-taipei/tpekm/hoteldetail",
+        "https://www.ihg.com/kimptonhotels/hotels/tw/zh/da-an-hotel-taipei/tpekm/hoteldetail/rooms",
+        "https://www.ihg.com/kimptonhotels/hotels/tw/zh/da-an-hotel-taipei/tpekm/hoteldetail/amenities",
+        "https://www.ihg.com/kimptonhotels/hotels/jp/ja/da-an-hotel-taipei/tpekm/hoteldetail",
+        "https://www.ihg.com/kimptonhotels/hotels/jp/ja/da-an-hotel-taipei/tpekm/hoteldetail/rooms",
+        "https://www.ihg.com/kimptonhotels/hotels/jp/ja/da-an-hotel-taipei/tpekm/hoteldetail/amenities"
       ]
     },
     {
