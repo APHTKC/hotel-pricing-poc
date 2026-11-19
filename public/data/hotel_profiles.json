@@ -2157,26 +2157,27 @@
     },
     {
       "hotel_id": "mitsui_garden_taipei_zhongxiao",
-      "verified_at": "2026-10-14",
+      "verified_at": "2026-11-19",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
         "source_type": "official",
-        "source_url": "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/"
+        "source_url": "https://www.gardenhotels.co.jp/taipei-zhongxiao/tw/room/",
+        "observed_at": "2026-11-19"
       },
       "room_inventory": 297,
       "restaurants": [
         {"name": "JAPOLI pizza pasta cafe", "type_zh": "義大利料理、早餐與酒吧", "type_en": "Italian dining, breakfast and bar", "type_ja": "イタリア料理・朝食・バー"}
       ],
       "facilities": {"pool": null, "fitness": null, "spa": null, "sauna": null, "steam_room": null},
-      "lounge": {"available": true, "name": "Guest Lounge", "kind": "guest_lounge"},
+      "lounge": {"available": true, "name": "Guest Lounge", "kind": "guest_lounge", "hours": "06:00-24:00", "source_type": "official", "source_url": "https://www.gardenhotels.co.jp/taipei-zhongxiao/", "observed_at": "2026-11-19"},
       "facility_notes": {
         "zh": "17 樓設有住客專用大浴場；大浴場不等同 SPA、游泳池或三溫暖，因此相關欄位維持待核實。",
         "en": "A guest-only large public bath is located on the 17th floor. It is not classified as a spa, swimming pool, or sauna, so those fields remain unverified.",
         "ja": "17階に宿泊者専用大浴場があります。SPA、プール、サウナとは区分し、該当項目は未確認のまま表示します。"
       },
       "room_snapshot": {
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-11-19",
         "source_type": "official",
         "source_url": "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/room/",
         "rooms": [
@@ -2201,6 +2202,10 @@
         "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/room/",
         "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/facility/",
         "https://www.gardenhotels.co.jp/taipei-zhongxiao/eng/bath/",
+        "https://www.gardenhotels.co.jp/taipei-zhongxiao/",
+        "https://www.gardenhotels.co.jp/taipei-zhongxiao/room/",
+        "https://www.gardenhotels.co.jp/taipei-zhongxiao/tw/",
+        "https://www.gardenhotels.co.jp/taipei-zhongxiao/tw/room/",
         "https://www.mitsuifudosan.co.jp/english/corporate/news/2020/0713/",
         "https://www.booking.com/hotel/tw/mgh-mitsui-garden-taipei-zhongxiao.html"
       ]

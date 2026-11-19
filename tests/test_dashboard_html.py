@@ -1278,15 +1278,27 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "hotel_royal_hsinchu" in by_id
     assert "eda_royal" in by_id
     mitsui = by_id["mitsui_garden_taipei_zhongxiao"]
-    assert mitsui["verified_at"] == "2026-10-14"
+    assert mitsui["verified_at"] == "2026-11-19"
     assert mitsui["room_inventory"] == 297
     assert mitsui["stay_times"]["source_type"] == "official"
     assert mitsui["stay_times"]["check_in"] == "15:00"
     assert mitsui["stay_times"]["check_out"] == "12:00"
+    assert mitsui["stay_times"]["observed_at"] == "2026-11-19"
+    assert mitsui["room_snapshot"]["observed_at"] == "2026-11-19"
     assert len(mitsui["room_snapshot"]["rooms"]) == 14
     assert min(room["size_sqm"] for room in mitsui["room_snapshot"]["rooms"]) == 21
     assert max(room["size_sqm"] for room in mitsui["room_snapshot"]["rooms"]) == 60.4
     assert "大浴場" in mitsui["facility_notes"]["zh"]
+    assert mitsui["lounge"] == {
+        "available": True,
+        "name": "Guest Lounge",
+        "kind": "guest_lounge",
+        "hours": "06:00-24:00",
+        "source_type": "official",
+        "source_url": "https://www.gardenhotels.co.jp/taipei-zhongxiao/",
+        "observed_at": "2026-11-19",
+    }
+    assert any("/taipei-zhongxiao/tw/room/" in url for url in mitsui["source_urls"])
     assert any("mgh-mitsui-garden-taipei-zhongxiao" in url for url in mitsui["source_urls"])
 
 
