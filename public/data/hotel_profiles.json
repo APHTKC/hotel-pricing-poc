@@ -1724,12 +1724,13 @@
     },
     {
       "hotel_id": "sheraton_grand_taipei",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-11-18",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
+        "observed_at": "2026-11-18",
         "source_type": "official",
-        "source_url": "https://www.marriott.com/en-us/hotels/tpesi-sheraton-grand-taipei-hotel/overview/"
+        "source_url": "https://www.marriott.com/ja/hotels/tpest-sheraton-grand-taipei-hotel/overview/"
       },
       "room_inventory": 683,
       "service_charge_percent": 10,
@@ -1746,9 +1747,9 @@
         {"name": "The Deli", "type_zh": "烘焙、甜點與外賣店", "type_en": "Bakery, patisserie and takeaway", "type_ja": "ベーカリー・ペストリー・テイクアウト"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
-      "lounge": {"available": true, "name": "Sheraton Club Lounge", "kind": "executive_lounge"},
+      "lounge": {"available": true, "name": "Sheraton Club Lounge", "kind": "executive_lounge", "source_type": "official", "source_url": "https://www.marriott.com/ja/hotels/tpest-sheraton-grand-taipei-hotel/rooms/", "observed_at": "2026-11-18"},
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-11-18",
         "source_type": "official",
         "source_url": "https://www.sheratongrandtaipei.com/?cat=1&id=3&lang=zh-tw",
         "rooms": [
@@ -1792,7 +1793,9 @@
         "https://www.sheratongrandtaipei.com/websev?cat=1&id=13&lang=zh-tw&ref=pages",
         "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/overview/",
         "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/rooms/",
-        "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/experiences/"
+        "https://www.marriott.com/en-us/hotels/tpest-sheraton-grand-taipei-hotel/experiences/",
+        "https://www.marriott.com/ja/hotels/tpest-sheraton-grand-taipei-hotel/overview/",
+        "https://www.marriott.com/ja/hotels/tpest-sheraton-grand-taipei-hotel/rooms/"
       ]
     },
     {

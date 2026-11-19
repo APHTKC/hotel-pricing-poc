@@ -1465,6 +1465,15 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert the_amnis_ja["Junior Suite Harbor"] == "ジュニアスイート: ハーバービュー"
     assert the_amnis_ja["Presidential Suite"] == "プレジデンシャルスイート"
     assert "service_charge_percent" not in the_amnis
+    sheraton_grand = by_id["sheraton_grand_taipei"]
+    assert sheraton_grand["verified_at"] == "2026-11-18"
+    assert sheraton_grand["stay_times"]["observed_at"] == "2026-11-18"
+    assert "/tpest-" in sheraton_grand["stay_times"]["source_url"]
+    assert "/tpesi-" not in sheraton_grand["stay_times"]["source_url"]
+    assert sheraton_grand["room_snapshot"]["observed_at"] == "2026-11-18"
+    assert sheraton_grand["lounge"]["name"] == "Sheraton Club Lounge"
+    assert sheraton_grand["lounge"]["source_type"] == "official"
+    assert sheraton_grand["lounge"]["observed_at"] == "2026-11-18"
     tai_urban = by_id["tai_urban_resort"]
     assert tai_urban["room_inventory"] == 208
     assert tai_urban["restaurant_count"] == 6
@@ -2507,11 +2516,12 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "sauna": True,
         "steam_room": True,
     }
-    assert sheraton_taipei["lounge"] == {
-        "available": True,
-        "name": "Sheraton Club Lounge",
-        "kind": "executive_lounge",
-    }
+    assert sheraton_taipei["lounge"]["available"] is True
+    assert sheraton_taipei["lounge"]["name"] == "Sheraton Club Lounge"
+    assert sheraton_taipei["lounge"]["kind"] == "executive_lounge"
+    assert sheraton_taipei["lounge"]["source_type"] == "official"
+    assert sheraton_taipei["lounge"]["source_url"].endswith("/rooms/")
+    assert sheraton_taipei["lounge"]["observed_at"] == "2026-11-18"
     assert sheraton_taipei["room_snapshot"]["source_type"] == "official"
     assert len(sheraton_taipei["room_snapshot"]["rooms"]) == 14
     assert min(room["size_sqm"] for room in sheraton_taipei["room_snapshot"]["rooms"]) == 32
