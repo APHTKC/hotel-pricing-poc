@@ -86,6 +86,34 @@ def test_published_catalog_matches_registered_source_ids():
     assert catalog_ids == source_ids
 
 
+def test_published_catalog_matches_registered_operational_metadata():
+    registered = {}
+    for source in (
+        Path("config/hotels.daily.yaml"),
+        Path("config/hotels.candidates.yaml"),
+    ):
+        rows = yaml.safe_load(source.read_text(encoding="utf-8"))["hotels"]
+        for row in rows:
+            registered[row["id"]] = {**registered.get(row["id"], {}), **row}
+
+    catalog = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
+    published = {hotel["id"]: hotel for hotel in catalog["hotels"]}
+    operational_fields = (
+        "booking_url",
+        "adapter",
+        "automation_status",
+        "automation_note",
+        "priority",
+        "market_scope",
+        "collection_frequency",
+    )
+
+    for hotel_id, expected in registered.items():
+        for field in operational_fields:
+            if field in expected:
+                assert published[hotel_id][field] == expected[field], (hotel_id, field)
+
+
 def test_published_hotel_sources_do_not_label_candidates_permanently_unsupported():
     visible_sources = (
         Path("public/data/hotels.json"),
@@ -238,8 +266,16 @@ def test_published_catalog_records_palais_official_and_ota_coverage():
 def test_published_catalog_records_gracery_multi_ota_coverage():
     payload = json.loads(Path("public/data/hotels.json").read_text(encoding="utf-8"))
     hotel = next(item for item in payload["hotels"] if item["id"] == "hotel_gracery_taipei")
+    registry = yaml.safe_load(
+        Path("config/hotels.candidates.yaml").read_text(encoding="utf-8")
+    )
+    candidate = next(
+        item for item in registry["hotels"] if item["id"] == "hotel_gracery_taipei"
+    )
 
     assert hotel["enabled"] is False
+    assert hotel["automation_status"] == candidate["automation_status"]
+    assert hotel["automation_note"] == candidate["automation_note"]
     assert hotel["automation_status"] == "blocked_http_403_captcha"
     assert "Booking.com plus Hotels.com/Expedia" in hotel["automation_note"]
     assert "strict canonical comparison" in hotel["automation_note"]
