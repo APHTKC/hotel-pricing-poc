@@ -2491,20 +2491,24 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert min(room["size_sqm"] for room in humble_house["room_snapshot"]["rooms"]) == 26
     assert max(room["size_sqm"] for room in humble_house["room_snapshot"]["rooms"]) == 136
     indigo = by_id["indigo_taipei_north"]
+    assert indigo["verified_at"] == "2026-11-19"
+    assert indigo["stay_times"]["observed_at"] == "2026-11-19"
+    assert "/tw/zh/" in indigo["stay_times"]["source_url"]
     assert indigo["room_inventory"] == 149
     assert "service_charge_percent" not in indigo
     assert len(indigo["restaurants"]) == 2
     assert indigo["facilities"] == {
-        "pool": False,
+        "pool": None,
         "fitness": True,
         "spa": None,
         "sauna": None,
         "steam_room": None,
     }
-    assert indigo["lounge"] == {"available": False, "name": None, "kind": "none"}
+    assert indigo["lounge"] == {"available": None, "name": None, "kind": "unknown"}
     assert indigo["room_snapshot"]["source_type"] == "ota"
     assert len(indigo["room_snapshot"]["rooms"]) == 5
     assert {room["size_sqm"] for room in indigo["room_snapshot"]["rooms"]} == {35, 40, 60, 73, 135}
+    assert any("/jp/ja/" in url and url.endswith("/rooms") for url in indigo["source_urls"])
     sheraton_taipei = by_id["sheraton_grand_taipei"]
     assert sheraton_taipei["room_inventory"] == 683
     assert sheraton_taipei["service_charge_percent"] == 10

@@ -282,9 +282,9 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         "percent": 54.17,
     }
     assert report["profile_coverage"]["lounge_status_explicit"] == {
-        "count": 57,
+        "count": 56,
         "total": 72,
-        "percent": 79.17,
+        "percent": 77.78,
     }
     library_suite = next(
         room for room in eslite_rooms if room["name_en"] == "Library Suite"

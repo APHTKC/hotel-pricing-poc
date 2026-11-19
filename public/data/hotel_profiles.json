@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-16",
+  "updated_at": "2026-11-19",
   "profiles": [
     {
       "hotel_id": "intercontinental_taipei",
@@ -1688,20 +1688,21 @@
     },
     {
       "hotel_id": "indigo_taipei_north",
-      "verified_at": "2026-10-01",
+      "verified_at": "2026-11-19",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
         "source_type": "official",
-        "source_url": "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail"
+        "source_url": "https://www.ihg.com/hotelindigo/hotels/tw/zh/taipei/tpent/hoteldetail/amenities",
+        "observed_at": "2026-11-19"
       },
       "room_inventory": 149,
       "restaurants": [
         {"name": "Spice Market @T.R", "type_zh": "餐廳", "type_en": "Restaurant", "type_ja": "レストラン"},
         {"name": "BAR DI", "type_zh": "酒吧", "type_en": "Bar", "type_ja": "バー"}
       ],
-      "facilities": {"pool": false, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
-      "lounge": {"available": false, "name": null, "kind": "none"},
+      "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
+      "lounge": {"available": null, "name": null, "kind": "unknown"},
       "room_snapshot": {
         "observed_at": "2026-10-01",
         "source_type": "ota",
@@ -1718,6 +1719,11 @@
         "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail",
         "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail/rooms",
         "https://www.ihg.com/hotelindigo/hotels/us/en/taipei/tpent/hoteldetail/amenities",
+        "https://www.ihg.com/hotelindigo/hotels/tw/zh/taipei/tpent/hoteldetail",
+        "https://www.ihg.com/hotelindigo/hotels/tw/zh/taipei/tpent/hoteldetail/amenities",
+        "https://www.ihg.com/hotelindigo/hotels/jp/ja/taipei/tpent/hoteldetail",
+        "https://www.ihg.com/hotelindigo/hotels/jp/ja/taipei/tpent/hoteldetail/rooms",
+        "https://www.ihg.com/hotelindigo/hotels/jp/ja/taipei/tpent/hoteldetail/amenities",
         "https://www.ihg.com/hotelindigo/hotels/tw/zh/taipei/tpent/hoteldetail/dining",
         "https://www.booking.com/hotel/tw/indigo-taipei-north.html"
       ]
