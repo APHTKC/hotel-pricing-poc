@@ -95,20 +95,34 @@ def test_dashboard_publish_is_blocked_by_full_test_suite() -> None:
     install = workflow.index("- name: Install project")
     test = workflow.index("- name: Validate dashboard release")
     metadata = workflow.index("- name: Generate deployment metadata")
-    upload = workflow.index("uses: actions/upload-pages-artifact@v3")
+    upload = workflow.index("uses: actions/upload-pages-artifact@v5")
 
     assert install < test < metadata < upload
     assert "run: python -m pytest -q" in workflow
     assert '      - "public/**"' in workflow
     assert '.github/workflows/publish-dashboard.yml' not in workflow
+    assert "  publish:\n    needs: build" in workflow
 
 
 def test_pages_workflows_verify_the_public_build_after_deployment() -> None:
     for path in (WORKFLOW, PUBLISH_WORKFLOW):
         workflow = path.read_text(encoding="utf-8")
-        deploy = workflow.index("uses: actions/deploy-pages@v4")
+        deploy = workflow.index("uses: actions/deploy-pages@v5")
         verify = workflow.index("python -m scripts.verify_pages_deployment")
 
         assert deploy < verify
         assert '--url "${{ steps.deployment.outputs.page_url }}"' in workflow
         assert '--expected-build "${GITHUB_SHA::7}"' in workflow
+
+
+def test_pages_artifact_upload_and_deployment_use_separate_jobs() -> None:
+    daily = WORKFLOW.read_text(encoding="utf-8")
+    publish = PUBLISH_WORKFLOW.read_text(encoding="utf-8")
+
+    assert "  publish:\n    needs: collect" in daily
+    assert "  publish:\n    needs: build" in publish
+    for workflow in (daily, publish):
+        upload = workflow.index("uses: actions/upload-pages-artifact@v5")
+        publish_job = workflow.index("\n  publish:", upload)
+        deploy = workflow.index("uses: actions/deploy-pages@v5", publish_job)
+        assert upload < publish_job < deploy

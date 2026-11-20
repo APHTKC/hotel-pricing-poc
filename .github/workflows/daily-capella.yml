@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  collect-and-publish:
+  collect:
     # Pin the runner because ubuntu-latest began migrating to Ubuntu 26.04,
     # which the pinned Playwright release cannot install Chromium on.
     runs-on: ubuntu-24.04
@@ -30,9 +30,6 @@ jobs:
       # Daily official and OTA collectors belong to one publication batch.
       # Include run_attempt so a manual rerun cannot merge with the first try.
       RATE_RUN_ID: github-${{ github.run_id }}-${{ github.run_attempt }}
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out project
         uses: actions/checkout@v4
@@ -127,17 +124,32 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
       - name: Upload dashboard
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: public
 
+  publish:
+    needs: collect
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: pip install -r requirements.txt
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
       - name: Publish dashboard
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: Verify public dashboard
         run: >-
