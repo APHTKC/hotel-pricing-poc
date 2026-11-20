@@ -2077,7 +2077,7 @@
     },
     {
       "hotel_id": "royal_nikko_taipei",
-      "verified_at": "2026-10-18",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -2093,27 +2093,33 @@
         {"name": "Ming Court", "type_zh": "粵菜與港式點心", "type_en": "Cantonese and dim sum", "type_ja": "広東料理・点心"}
       ],
       "facilities": {"pool": null, "fitness": null, "spa": true, "sauna": null, "steam_room": null},
-      "lounge": {"available": true, "name": "Royal VIP Lounge", "kind": "vip_lounge"},
+      "lounge": {"available": true, "name": "Royal VIP Lounge", "kind": "vip_lounge", "hours": "14:00-21:00", "access": "Registered hotel guests; non-guests only when accompanied by a guest; NT$400 + 10% per person per visit", "source_type": "official", "source_url": "https://www.royal-taipei.com.tw/facility-detail/2/", "observed_at": "2026-11-20"},
       "facility_notes": {
-        "zh": "2026-10-07 重新核對官方設施總覽：官網目前明列地下 1 樓老爺貴賓廳與 4 樓 SPA Room，未列住宿泳池、健身房、公共三溫暖或蒸氣室。未列出的設施維持待核實，不以『無』取代。尊爵套房與皇家套房內的私人 sauna cabinet 屬個別房型設備，不視為飯店公共三溫暖。",
-        "en": "The official facilities overview was rechecked on 2026-10-07. It currently names the Royal VIP Lounge on B1 and the SPA Room on 4F, but does not list a guest pool, fitness center, public sauna, or steam room. Unlisted facilities remain pending rather than being treated as unavailable. The private sauna cabinets in the Premier and Royal suites are in-room amenities, not a public hotel sauna.",
-        "ja": "2026-10-07に公式施設案内を再確認しました。現在、地下1階のRoyal VIP Loungeと4階のSPA Roomは明記されていますが、宿泊者用プール、フィットネス、共用サウナ、スチームルームの記載はありません。記載のない項目は『なし』とせず確認待ちとします。Premier SuiteとRoyal Suiteの専用sauna cabinetは客室内設備であり、共用サウナには含めません。"
+        "zh": "2026-11-20 重新核對官方設施：地下 1 樓 Royal VIP Lounge 營業時間為 14:00–21:00，每人每次 NT$400 加 10% 服務費；非住客須由住客陪同。4 樓 SPA Room 營業時間為 10:00–22:30。官網未列住宿泳池、健身房、公共三溫暖或蒸氣室，未列出的設施維持待核實，不以『無』取代。尊爵套房與皇家套房內的私人 sauna cabinet 屬個別房型設備，不視為飯店公共三溫暖。",
+        "en": "Official facilities were rechecked on 2026-11-20. The Royal VIP Lounge on B1 operates from 14:00 to 21:00 and charges NT$400 plus 10% per person per visit; non-guests must be accompanied by a registered guest. The SPA Room on 4F operates from 10:00 to 22:30. The official site does not list a guest pool, fitness center, public sauna, or steam room, so unlisted facilities remain pending rather than being treated as unavailable. Private sauna cabinets in the Premier and Royal suites are in-room amenities, not a public hotel sauna.",
+        "ja": "2026-11-20に公式施設案内を再確認しました。地下1階のRoyal VIP Loungeは14:00～21:00、料金は1名1回NT$400＋10％で、宿泊者以外は宿泊者の同伴が必要です。4階のSPA Roomは10:00～22:30です。公式サイトには宿泊者用プール、フィットネス、共用サウナ、スチームルームの記載がないため、記載のない項目は『なし』とせず確認待ちとします。Premier SuiteとRoyal Suiteの専用sauna cabinetは客室内設備であり、共用サウナには含めません。"
       },
       "room_snapshot": {
-        "observed_at": "2026-09-23",
+        "observed_at": "2026-11-20",
         "source_type": "official",
-        "source_url": "https://www.royal-taipei.com.tw/en/room/",
+        "source_url": "https://www.royal-taipei.com.tw/",
         "rooms": [
           {"name_zh": "精緻客房", "name_en": "Superior Room", "name_ja": "スーペリアルーム", "size_sqm": 26},
           {"name_zh": "豪華客房", "name_en": "Deluxe Room", "name_ja": "デラックスルーム", "size_sqm": 32, "aliases": [{"label": "豪華雙人房(一大床)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:deluxe-king", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}, {"label": "豪華雙床房(二小床)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:deluxe-twin", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
           {"name_zh": "尊爵客房", "name_en": "Premier Room", "name_ja": "プレミアルーム", "size_sqm": 38, "aliases": [{"label": "尊爵雙人房(一大床)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:premier-king", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}, {"label": "尊爵雙人房(一大床) 含Royal VIP Lounge", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:premier-king-lounge", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}, {"label": "尊爵雙床房(二小床)", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:premier-twin", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}, {"label": "尊爵雙床房(二小床) 含Royal VIP Lounge", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:premier-twin-lounge", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
           {"name_zh": "豪華套房", "name_en": "Deluxe Suite", "name_ja": "デラックススイート", "size_sqm": 50},
-          {"name_zh": "轉角套房", "name_en": "Corner Suite", "name_ja": "コーナースイート", "size_sqm": 65, "aliases": [{"label": "景隅套房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:corner-suite-king", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
+          {"name_zh": "景隅套房", "name_en": "Corner Suite", "name_ja": "コーナースイート", "size_sqm": 65, "aliases": [{"label": "景隅套房", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "room_type_code": "expedia:2839:corner-suite-king", "source_url": "https://tw.hotels.com/ho126702/lao-ye-da-jiu-dian-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
           {"name_zh": "尊爵套房", "name_en": "Premier Suite", "name_ja": "プレミアスイート", "size_sqm": 89},
           {"name_zh": "皇家套房", "name_en": "Royal Suite", "name_ja": "ロイヤルスイート", "size_sqm": 125}
         ]
       },
       "source_urls": [
+        "https://www.royal-taipei.com.tw/",
+        "https://www.royal-taipei.com.tw/room-detail/R1/",
+        "https://www.royal-taipei.com.tw/room-detail/R2/",
+        "https://www.royal-taipei.com.tw/room-detail/R3/",
+        "https://www.royal-taipei.com.tw/facility/",
+        "https://www.royal-taipei.com.tw/facility-detail/2/",
         "https://www.royal-taipei.com.tw/en/about/Introduceus/",
         "https://www.royal-taipei.com.tw/en/room/",
         "https://www.royal-taipei.com.tw/en/dining/",

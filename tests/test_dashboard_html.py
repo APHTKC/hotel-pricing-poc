@@ -1893,7 +1893,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     )
     assert any("ge-la-si-li-tai-bei-fan-dian" in url for url in gracery["source_urls"])
     royal_nikko = by_id["royal_nikko_taipei"]
-    assert royal_nikko["verified_at"] == "2026-10-18"
+    assert royal_nikko["verified_at"] == "2026-11-20"
     assert royal_nikko["facilities"] == {
         "pool": None,
         "fitness": None,
@@ -1903,6 +1903,9 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert "維持待核實" in royal_nikko["facility_notes"]["zh"]
     assert "sauna cabinet" in royal_nikko["facility_notes"]["en"]
+    assert "10:00–22:30" in royal_nikko["facility_notes"]["zh"]
+    assert royal_nikko["lounge"]["hours"] == "14:00-21:00"
+    assert royal_nikko["lounge"]["source_type"] == "official"
     capella = by_id["capella_taipei"]
     assert capella["verified_at"] == "2026-10-07"
     assert len(capella["restaurants"]) == 5
@@ -2165,7 +2168,9 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert royal_nikko["facilities"] == {"pool": None, "fitness": None, "spa": True, "sauna": None, "steam_room": None}
     assert royal_nikko["lounge"]["name"] == "Royal VIP Lounge"
     assert royal_nikko["room_snapshot"]["source_type"] == "official"
+    assert royal_nikko["room_snapshot"]["observed_at"] == "2026-11-20"
     assert len(royal_nikko["room_snapshot"]["rooms"]) == 7
+    assert any(room["name_zh"] == "景隅套房" for room in royal_nikko["room_snapshot"]["rooms"])
     assert {room["name_ja"] for room in royal_nikko["room_snapshot"]["rooms"]} >= {"スーペリアルーム", "ロイヤルスイート"}
     assert {room["size_sqm"] for room in royal_nikko["room_snapshot"]["rooms"]} == {26, 32, 38, 50, 65, 89, 125}
     le_meridien = by_id["le_meridien_taipei"]
