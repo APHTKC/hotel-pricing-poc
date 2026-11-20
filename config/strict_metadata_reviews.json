@@ -671,6 +671,20 @@
         "https://www.booking.com/hotel/tw/resonance.zh-tw.html?checkin=2026-12-11&checkout=2026-12-12&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD"
       ],
       "note": "Booking.com 日期快照頁無法由既有讀取工具存取；最新 2 筆已有早餐、精確取消期限與房型面積，但只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤，tax_inclusion 維持 unknown，不得跨用官網或其他 OTA 推定。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "source_platform": "official",
+      "missing_fields": [
+        "cancellation_class",
+        "cancellation_deadline"
+      ],
+      "status": "blocked_no_explicit_label",
+      "reviewed_at": "2026-11-20",
+      "evidence_urls": [
+        "https://be.synxis.com/?Hotel=47696&Chain=21430&arrive=2026-11-20&depart=2026-11-21&adult=2&child=0&rooms=1&currency=TWD&locale=zh-TW&level=hotel&productcurrency=TWD"
+      ],
+      "note": "2026-11-20 精確核實 2026-11-19 最新批次：Capella Taipei 官網 SynXis 的 5 筆隔日入住「晨靜嘉期」商品未回傳任何商品層級取消文字；早餐、含稅狀態、房型與價格均完整。相同方案在其他入住日雖有取消期限，也不得跨日期或房型推定這 5 筆的取消類別與精確期限。來源流程或精確缺欄組合變更前不重試。"
     }
   ]
 }

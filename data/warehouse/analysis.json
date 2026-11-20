@@ -1545,15 +1545,6 @@
         "cancellation_deadline": 836,
         "breakfast_included": 307
       }
-    },
-    {
-      "hotel_id": "capella_taipei",
-      "source_platform": "official",
-      "rows": 321,
-      "missing_fields": {
-        "cancellation_class": 321,
-        "cancellation_deadline": 321
-      }
     }
   ],
   "latest_strict_metadata_gap_hotels": [
@@ -2029,18 +2020,7 @@
       }
     }
   ],
-  "actionable_latest_strict_metadata_gap_hotels": [
-    {
-      "hotel_id": "capella_taipei",
-      "source_platform": "official",
-      "rows": 5,
-      "latest_queried_at": "2026-11-19 10:31:24.605073",
-      "missing_fields": {
-        "cancellation_class": 5,
-        "cancellation_deadline": 5
-      }
-    }
-  ],
+  "actionable_latest_strict_metadata_gap_hotels": [],
   "reviewed_strict_metadata_gaps": [
     {
       "hotel_id": "grand_hilai_kaohsiung",
@@ -2231,6 +2211,21 @@
         "https://tw.hotels.com/ho454031/lan-cheng-jing-ying-jiu-dian-yi-lan-shi-tai-wan/"
       ],
       "review_note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 39 筆皆無商品層級稅費與單一精確面積，既有可稽核房型資料部分僅有 36–43、39–43、42–43、43–46㎡範圍，不得壓成單值；其中 13 筆取消欄僅為一般收費通知，不能推定類別或期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "capella_taipei",
+      "source_platform": "official",
+      "rows": 321,
+      "missing_fields": {
+        "cancellation_class": 321,
+        "cancellation_deadline": 321
+      },
+      "review_status": "blocked_no_explicit_label",
+      "reviewed_at": "2026-11-20",
+      "review_evidence_urls": [
+        "https://be.synxis.com/?Hotel=47696&Chain=21430&arrive=2026-11-20&depart=2026-11-21&adult=2&child=0&rooms=1&currency=TWD&locale=zh-TW&level=hotel&productcurrency=TWD"
+      ],
+      "review_note": "2026-11-20 精確核實 2026-11-19 最新批次：Capella Taipei 官網 SynXis 的 5 筆隔日入住「晨靜嘉期」商品未回傳任何商品層級取消文字；早餐、含稅狀態、房型與價格均完整。相同方案在其他入住日雖有取消期限，也不得跨日期或房型推定這 5 筆的取消類別與精確期限。來源流程或精確缺欄組合變更前不重試。"
     },
     {
       "hotel_id": "solaria_nishitetsu_taipei",
@@ -2767,8 +2762,8 @@
       "review_note": "官方 EC Hotel 結果頁無法由既有讀取工具存取；最新 15 筆均無商品層級取消文字，不能推定取消類別或精確期限。方案名稱已安全辨識明確的一泊一食、無早餐與「含2早」商品，剩餘 6 筆泛稱方案早餐仍維持 unknown。來源流程或精確缺欄組合變更前不重試。"
     }
   ],
-  "strict_metadata_review_registry_entries": 49,
-  "strict_metadata_matched_review_entries": 49,
+  "strict_metadata_review_registry_entries": 50,
+  "strict_metadata_matched_review_entries": 50,
   "strict_metadata_stale_review_entries": [],
   "structured_cancellation_schedules": [
     {
