@@ -1951,11 +1951,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert next(room for room in mo_rooms if room["name_en"] == "Club City Suite Connecting")["size_sqm"] == 141
     assert next(room for room in mo_rooms if room["name_en"] == "Club Premier Suite Connecting")["size_sqm"] == 243
     hilai_taipei = by_id["grand_hilai_taipei"]
-    assert hilai_taipei["verified_at"] == "2026-10-08"
+    assert hilai_taipei["verified_at"] == "2026-11-20"
     assert hilai_taipei["facilities"]["pool"] is True
     assert hilai_taipei["lounge"]["name"] == "VIP Lounge (25F)"
+    assert hilai_taipei["lounge"]["location"] == "25F"
+    assert hilai_taipei["lounge"]["source_type"] == "official"
+    assert hilai_taipei["lounge"]["observed_at"] == "2026-11-20"
+    assert "17:00–20:30" in hilai_taipei["lounge"]["benefits_zh"]
     assert "25×12.5" in hilai_taipei["facility_notes"]["zh"]
-    assert hilai_taipei["room_snapshot"]["observed_at"] == "2026-10-08"
+    assert "06:30–21:30" in hilai_taipei["facility_notes"]["zh"]
+    assert hilai_taipei["room_snapshot"]["observed_at"] == "2026-11-20"
     assert "425 間" in hilai_taipei["room_snapshot"]["count_note_zh"]
     hilai_taipei_rooms = hilai_taipei["room_snapshot"]["rooms"]
     assert len(hilai_taipei_rooms) == 9
@@ -1963,6 +1968,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in hilai_taipei_rooms) == 521
     assert hilai_taipei["service_charge_percent"] == 10
     assert hilai_taipei["service_charge_source_type"] == "official"
+    assert "https://taipei.grand-hilai.com.tw/facilities/" in hilai_taipei["source_urls"]
     okura = by_id["okura_prestige_taipei"]
     assert okura["verified_at"] == "2026-11-20"
     assert okura["room_inventory"] == 208

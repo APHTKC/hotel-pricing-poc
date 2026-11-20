@@ -226,7 +226,7 @@
     },
     {
       "hotel_id": "grand_hilai_taipei",
-      "verified_at": "2026-10-08",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -247,13 +247,27 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "facility_notes": {
-        "zh": "2026-10-08 依飯店官網重新核實：5 樓設有 25×12.5 公尺戶外無邊際泳池、24 小時健身房，以及男女三溫暖、熱水池與蒸氣室；VALMONT SPA 為另行付費預約設施。25 樓貴賓軒供行政樓層與適用套房住客使用，提供日間輕食飲品及晚間 Happy Hour。",
-        "en": "Reverified on 2026-10-08 against the hotel website: Level 5 has a 25-by-12.5-metre outdoor infinity pool, a 24-hour fitness centre, and men's and women's sauna areas with hot tubs and steam rooms. VALMONT SPA is available separately by paid reservation. The Level 25 VIP Lounge serves eligible executive-floor and suite guests with daytime refreshments and an evening Happy Hour.",
-        "ja": "2026-10-08にホテル公式サイトで再確認しました。5階には25×12.5メートルの屋外インフィニティプール、24時間営業のフィットネスセンター、温浴槽とスチームルームを備えた男女別サウナがあります。VALMONT SPAは別料金・予約制です。25階のVIPラウンジは対象となるエグゼクティブフロアおよびスイート宿泊者向けで、日中の軽食・飲料と夜のハッピーアワーを提供します。"
+        "zh": "2026-11-20 依飯店官網重新核實：5 樓 25×12.5 公尺戶外無邊際泳池每日 06:30–21:30（清潔時段 12:30–13:00、17:30–18:00）；健身房 24 小時開放，現場人員服務時間 06:00–22:30；男女三溫暖設有熱水池、蒸氣室及乾式烤箱，開放時間 08:00–22:00。泳池與三溫暖原則上每月第一週週一保養，實際日期依官網公告。5 樓 VALMONT SPA 12:00–21:00，療程須至少提前三日預約。",
+        "en": "Reverified on 2026-11-20 against the hotel website: the Level 5 outdoor infinity pool measures 25 by 12.5 metres and operates 06:30–21:30 daily, with cleaning periods at 12:30–13:00 and 17:30–18:00. The fitness centre is open 24 hours, with staff available 06:00–22:30. The men's and women's sauna areas include hot pools, steam rooms, and dry saunas and operate 08:00–22:00. The pool and saunas are generally maintained on the first Monday of each month, subject to the official schedule. VALMONT SPA on Level 5 operates 12:00–21:00 and requests treatment reservations at least three days in advance.",
+        "ja": "2026-11-20にホテル公式サイトで再確認しました。5階の25×12.5メートル屋外インフィニティプールは毎日06:30～21:30（清掃時間12:30～13:00、17:30～18:00）、フィットネスセンターは24時間営業でスタッフ対応は06:00～22:30です。男女別サウナには温浴槽、スチームルーム、ドライサウナがあり、08:00～22:00に利用できます。プールとサウナは原則として毎月第1月曜が保守日ですが、実施日は公式案内に従います。5階のVALMONT SPAは12:00～21:00で、トリートメントは3日前までの予約が必要です。"
       },
-      "lounge": {"available": true, "name": "VIP Lounge (25F)", "kind": "vip_lounge"},
+      "lounge": {
+        "available": true,
+        "name": "VIP Lounge (25F)",
+        "kind": "vip_lounge",
+        "location": "25F",
+        "access_zh": "行政樓層禮遇依住房專案內容提供；行政房型及官網明列適用套房可享用貴賓軒。",
+        "access_en": "Executive-floor privileges are provided according to the booked package; executive rooms and suites explicitly identified by the hotel receive VIP Lounge access.",
+        "access_ja": "エグゼクティブフロア特典は宿泊プランにより提供され、ホテルが明記するエグゼクティブルームおよび対象スイートは貴賓軒を利用できます。",
+        "benefits_zh": "貴賓軒 09:00–22:00 開放，日間供應飲料吧與點心；17:00–20:30 Happy Hour 供應酒精飲料及開胃菜，並設有數位會議室。",
+        "benefits_en": "The VIP Lounge operates 09:00–22:00, offering drinks and snacks during the day, alcoholic beverages and appetizers during Happy Hour from 17:00–20:30, and access to a digital meeting room.",
+        "benefits_ja": "貴賓軒は09:00～22:00営業で、日中はドリンクと軽食、17:00～20:30のハッピーアワーはアルコール飲料と前菜を提供し、デジタル会議室も備えています。",
+        "source_type": "official",
+        "source_url": "https://taipei.grand-hilai.com.tw/facilities/",
+        "observed_at": "2026-11-20"
+      },
       "room_snapshot": {
-        "observed_at": "2026-10-08",
+        "observed_at": "2026-11-20",
         "source_type": "official",
         "source_url": "https://taipei.grand-hilai.com.tw/room/",
         "count_note_zh": "飯店官網目前記載全館 425 間客房、分布於 26 個樓層；官網未公布各房型間數，因此不將總房數推分至個別房型。",
@@ -283,7 +297,11 @@
         "https://taipei.grand-hilai.com.tw/en/club-detail/infinity-swimming-pool/",
         "https://taipei.grand-hilai.com.tw/en/club-detail/sauna-en/",
         "https://taipei.grand-hilai.com.tw/en/club-detail/fitness-center/",
-        "https://taipei.grand-hilai.com.tw/en/room-detail/executive-deluxe-suite-en/"
+        "https://taipei.grand-hilai.com.tw/en/room-detail/executive-deluxe-suite-en/",
+        "https://taipei.grand-hilai.com.tw/facilities/",
+        "https://taipei.grand-hilai.com.tw/club-detail/infinity-swimming-pool/",
+        "https://taipei.grand-hilai.com.tw/club-detail/sauna/",
+        "https://taipei.grand-hilai.com.tw/club-detail/fitness-center/"
       ]
     },
     {
