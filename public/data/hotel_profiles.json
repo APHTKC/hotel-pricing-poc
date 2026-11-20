@@ -643,12 +643,13 @@
     },
     {
       "hotel_id": "hotel_metropolitan_premier_taipei",
-      "verified_at": "2026-10-08",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
         "source_type": "official",
-        "source_url": "https://taipei.metropolitan.tw/stay/rooms/"
+        "source_url": "https://taipei.metropolitan.tw/stay/guide/guide.html",
+        "observed_at": "2026-11-20"
       },
       "room_inventory": 288,
       "service_charge_percent": 10,
@@ -665,13 +666,13 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "facility_notes": {
-        "zh": "2026-10-08 依飯店官網重新核實：9 樓設有室內恆溫游泳池、健身房、三溫暖與蒸氣浴；SPA & WELLNESS 頁另列 AN Spa 芳療。2 樓行政酒廊供行政樓層客房與套房住客使用。官網設施總覽記載 4 間餐廳、2 間酒吧及 1 間烘焙坊，本頁因此列出 7 個具名餐飲據點。",
-        "en": "Reverified on 2026-10-08 against the hotel website: the ninth floor has an indoor heated pool, fitness room, sauna and steam bath, while the SPA & WELLNESS page separately lists AN Spa. The second-floor Executive Lounge is for guests staying in Executive Floor rooms and suites. The official facilities overview lists four restaurants, two bars and one bakery, so this profile presents seven named dining venues.",
-        "ja": "2026-10-08にホテル公式サイトで再確認しました。9階には屋内温水プール、フィットネスルーム、サウナ、スチームバスがあり、SPA & WELLNESSページにはAN Spaも掲載されています。2階のエグゼクティブラウンジはエグゼクティブフロア客室およびスイートの宿泊者向けです。公式施設概要はレストラン4軒、バー2軒、ベーカリー1軒を記載しているため、本プロフィールでは計7つの飲食施設を掲載しています。"
+        "zh": "2026-11-20 依飯店官網重新核實：9 樓設有室內恆溫游泳池、健身房、三溫暖與蒸氣浴；SPA & WELLNESS 頁另列 AN Spa 芳療。2 樓行政酒廊供行政樓層客房與套房住客使用。官網設施總覽記載 4 間餐廳、2 間酒吧及 1 間烘焙坊，本頁因此列出 7 個具名餐飲據點。",
+        "en": "Reverified on 2026-11-20 against the hotel website: the ninth floor has an indoor heated pool, fitness room, sauna and steam bath, while the SPA & WELLNESS page separately lists AN Spa. The second-floor Executive Lounge is for guests staying in Executive Floor rooms and suites. The official facilities overview lists four restaurants, two bars and one bakery, so this profile presents seven named dining venues.",
+        "ja": "2026-11-20にホテル公式サイトで再確認しました。9階には屋内温水プール、フィットネスルーム、サウナ、スチームバスがあり、SPA & WELLNESSページにはAN Spaも掲載されています。2階のエグゼクティブラウンジはエグゼクティブフロア客室およびスイートの宿泊者向けです。公式施設概要はレストラン4軒、バー2軒、ベーカリー1軒を記載しているため、本プロフィールでは計7つの飲食施設を掲載しています。"
       },
-      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
+      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club", "hours": "10:00-22:00", "access": "Executive Floor rooms and suites", "source_type": "official", "source_url": "https://taipei.hotel-metropolitan.com/facility/", "observed_at": "2026-11-20"},
       "room_snapshot": {
-        "observed_at": "2026-10-08",
+        "observed_at": "2026-11-20",
         "source_type": "official",
         "source_url": "https://taipei.metropolitan.tw/stay/rooms/",
         "count_note_zh": "飯店官網目前明確記載全館 288 間客房，並逐項列出 21 種可辨識的房型與面積；官方未公布各房型間數，因此不將總房數推分至個別房型。",
@@ -703,9 +704,13 @@
       },
       "source_urls": [
         "https://taipei.metropolitan.tw/stay/rooms/",
+        "https://taipei.metropolitan.tw/stay/guide/guide.html",
         "https://taipei.metropolitan.tw/facility/",
         "https://taipei.metropolitan.tw/spa/spawellness.html",
         "https://taipei.hotel-metropolitan.com/",
+        "https://taipei.hotel-metropolitan.com/stay/rooms/",
+        "https://taipei.hotel-metropolitan.com/facility/",
+        "https://taipei.hotel-metropolitan.com/spa/pool.html",
         "https://taipei.hotel-metropolitan.com/stay/plan/flexible.html",
         "https://taipei.hotel-metropolitan.com/esiqtd00000000b3-att/shukuhakuyakkan_en2025.pdf"
       ]
