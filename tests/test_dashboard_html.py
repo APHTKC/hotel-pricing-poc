@@ -2196,14 +2196,19 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert {room["name_ja"] for room in royal_nikko["room_snapshot"]["rooms"]} >= {"スーペリアルーム", "ロイヤルスイート"}
     assert {room["size_sqm"] for room in royal_nikko["room_snapshot"]["rooms"]} == {26, 32, 38, 50, 65, 89, 125}
     le_meridien = by_id["le_meridien_taipei"]
-    assert le_meridien["verified_at"] == "2026-10-08"
+    assert le_meridien["verified_at"] == "2026-11-20"
     assert le_meridien["room_inventory"] == 160
     assert le_meridien["service_charge_percent"] is None
     assert "住宿服務費維持待核實" in le_meridien["service_charge_note_zh"]
     assert len(le_meridien["restaurants"]) == 4
     assert le_meridien["facilities"] == {"pool": True, "fitness": True, "spa": False, "sauna": True, "steam_room": None}
     assert "室內溫水游泳池" in le_meridien["facility_notes"]["zh"]
+    assert "06:00–22:30" in le_meridien["facility_notes"]["zh"]
     assert le_meridien["lounge"]["name"] == "Le Méridien Club Lounge"
+    assert le_meridien["lounge"]["source_type"] == "official"
+    assert le_meridien["lounge"]["observed_at"] == "2026-11-20"
+    assert "白金卡、鈦金卡及大使會員" in le_meridien["lounge"]["access_zh"]
+    assert "不推定" in le_meridien["lounge"]["benefits_zh"]
     assert le_meridien["room_snapshot"]["source_type"] == "official"
     assert le_meridien["room_snapshot"]["observed_at"] == "2026-10-08"
     assert "160 間" in le_meridien["room_snapshot"]["count_note_zh"]

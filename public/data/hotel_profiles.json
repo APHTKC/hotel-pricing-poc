@@ -985,7 +985,7 @@
     },
     {
       "hotel_id": "le_meridien_taipei",
-      "verified_at": "2026-10-08",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -1005,11 +1005,24 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": false, "sauna": true, "steam_room": null},
       "facility_notes": {
-        "zh": "2026-10-08 依 Marriott 與飯店官網重新核實：館內設有室內溫水游泳池、健身中心與三溫暖；Marriott 官網未列館內 SPA，僅列附近的寒舍艾麗 EB SPA，因此 SPA 記為無館內設施。蒸氣室未找到明確官方說明，維持待核實。艾美行政酒廊供適用房型及符合資格的 Marriott Bonvoy 白金卡以上會員使用。",
-        "en": "Reverified on 2026-10-08 against Marriott and the hotel website: the property has an indoor heated pool, fitness centre and sauna. Marriott lists no on-site spa and instead identifies EB Spa at the nearby Humble House Taipei, so the profile records no on-site spa. No explicit official steam-room statement was found, so that field remains pending. Le Méridien Club Lounge is available to eligible room guests and qualifying Marriott Bonvoy Platinum members and above.",
-        "ja": "2026-10-08にMarriottおよびホテル公式サイトで再確認しました。館内には屋内温水プール、フィットネスセンター、サウナがあります。Marriottは館内スパを掲載せず、近隣のHumble House TaipeiのEB Spaを案内しているため、館内スパなしとしています。スチームルームは明確な公式記載がなく確認待ちです。Le Méridien Club Loungeは対象客室の宿泊者およびMarriott Bonvoyの対象となるプラチナ会員以上が利用できます。"
+        "zh": "2026-11-20 依 Marriott 與飯店官網重新核實：館內設有一座室內溫水游泳池；住客可免費使用健身中心，開放時間為 06:00–22:30。既有官方飯店資料明列館內三溫暖；Marriott 目前未列館內 SPA，僅列距離約 0.1 公里的寒舍艾麗 EB SPA，因此 SPA 記為無館內設施。蒸氣室仍未找到明確官方說明，維持待核實。",
+        "en": "Reverified on 2026-11-20 against Marriott and the hotel website: the property has one indoor heated pool, and hotel guests receive complimentary fitness-centre access from 06:00 to 22:30. Existing official hotel evidence identifies an on-site sauna. Marriott currently lists no on-site spa and instead identifies EB Spa at Humble House Taipei approximately 0.1 km away, so the profile records no on-site spa. No explicit official steam-room statement was found, so that field remains pending.",
+        "ja": "2026-11-20にMarriottおよびホテル公式サイトで再確認しました。館内には屋内温水プールが1か所あり、宿泊者は06:00～22:30にフィットネスセンターを無料で利用できます。既存のホテル公式情報では館内サウナも確認済みです。Marriottは館内スパを掲載せず、約0.1km先のHumble House Taipei内EB Spaを案内しているため、館内スパなしとしています。スチームルームは明確な公式記載がなく、引き続き確認待ちです。"
       },
-      "lounge": {"available": true, "name": "Le Méridien Club Lounge", "kind": "executive_club"},
+      "lounge": {
+        "available": true,
+        "name": "Le Méridien Club Lounge",
+        "kind": "executive_club",
+        "access_zh": "可預訂含行政酒廊使用權的適用房型；Marriott Bonvoy 白金卡、鈦金卡及大使會員可免費使用，並可攜帶一位賓客。",
+        "access_en": "Access is available with eligible club-access rooms. Marriott Bonvoy Platinum, Titanium, and Ambassador Elite members receive complimentary access with one guest.",
+        "access_ja": "クラブラウンジアクセス付き客室の宿泊者が利用できます。Marriott Bonvoyプラチナ、チタン、アンバサダーエリート会員は同伴者1名と無料で利用できます。",
+        "benefits_zh": "Marriott 官網明列商務設施、免費高速網路與餐飲服務；未公布明確供餐時段，因此不推定早餐、下午茶或 Happy Hour 時間。",
+        "benefits_en": "Marriott lists business amenities, complimentary high-speed internet, and dining services. No specific meal-service schedule is published, so breakfast, afternoon tea, and Happy Hour times are not inferred.",
+        "benefits_ja": "Marriott公式サイトにはビジネス設備、無料高速インターネット、飲食サービスが明記されています。具体的な提供時間は公表されていないため、朝食、アフタヌーンティー、ハッピーアワーの時間は推定していません。",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpedm-le-meridien-taipei/rooms/",
+        "observed_at": "2026-11-20"
+      },
       "room_snapshot": {
         "observed_at": "2026-10-08",
         "source_type": "official",
