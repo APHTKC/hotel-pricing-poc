@@ -111,12 +111,13 @@
     },
     {
       "hotel_id": "mo_taipei",
-      "verified_at": "2026-10-07",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
         "source_type": "official",
-        "source_url": "https://www.mandarinoriental.com/en/taipei/songshan/stay"
+        "source_url": "https://www.mandarinoriental.com/en/taipei/songshan/stay",
+        "observed_at": "2026-11-20"
       },
       "room_inventory": 303,
       "service_charge_note_zh": "官方住宿方案條款僅公告房價另收服務費與稅合計 15.5%，未分別列出住宿服務費比例，因此服務費百分比維持待核實。",
@@ -132,11 +133,25 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "facility_notes": {
-        "zh": "2026-10-07 依官方新聞資料、健身中心與 SPA 頁重新核實：飯店設有兩層樓 SPA、Technogym 健身中心與六樓花園戶外溫水泳池；健身中心 24 小時開放（07:00–20:00 有人員服務），泳池 07:00–20:00。三溫暖與蒸氣室依官方 SPA 設施資訊保留為有。",
-        "en": "Reverified on 2026-10-07 against the official press information, Fitness Centre, and Spa pages: the hotel has a two-level spa, Technogym fitness center, and a landscaped outdoor heated pool on Level 6. The fitness center is open 24 hours with staff from 07:00–20:00, and the pool from 07:00–20:00. Sauna and steam-room availability remains supported by the official spa information.",
-        "ja": "2026-10-07に公式プレス資料、フィットネスセンター、スパページで再確認しました。2フロアのスパ、Technogymを備えたフィットネスセンター、6階の庭園型屋外温水プールがあります。フィットネスは24時間（スタッフ対応07:00～20:00）、プールは07:00～20:00です。サウナとスチームルームも公式スパ情報に基づき「あり」としています。"
+        "zh": "2026-11-20 依官方健身中心與 SPA 頁重新核實：健身中心使用 Technogym 設備，24 小時開放（07:00–20:00 有人員服務）；六樓花園戶外溫水泳池為 07:00–20:00；SPA 為 10:00–21:00，SPA、健身與康體設施最低使用年齡為 16 歲。三溫暖與蒸氣室依既有官方 SPA 設施資訊保留為有。",
+        "en": "Reverified on 2026-11-20 against the official Fitness Centre and Spa pages: the fitness center uses Technogym equipment and is open 24 hours with staff from 07:00–20:00; the landscaped outdoor heated pool on Level 6 is open 07:00–20:00; and the Spa is open 10:00–21:00. The minimum age for spa, fitness, and wellness facilities is 16. Sauna and steam-room availability remains supported by the existing official spa information.",
+        "ja": "2026-11-20に公式フィットネスセンターとスパページで再確認しました。Technogymを備えたフィットネスは24時間（スタッフ対応07:00～20:00）、6階の庭園型屋外温水プールは07:00～20:00、スパは10:00～21:00です。スパ、フィットネス、ウェルネス施設の利用は16歳以上です。サウナとスチームルームは既存の公式スパ情報に基づき「あり」としています。"
       },
-      "lounge": {"available": true, "name": "The Oriental Lounge", "kind": "executive_club"},
+      "lounge": {
+        "available": true,
+        "name": "The Oriental Lounge",
+        "kind": "executive_club",
+        "hours": "07:00–21:00 daily",
+        "access_zh": "預訂 Oriental Club 的客房或套房住客可使用六樓 The Oriental Lounge。",
+        "access_en": "Room or suite guests who book Oriental Club may use The Oriental Lounge on Level 6.",
+        "access_ja": "Oriental Clubを予約した客室・スイート宿泊者は、6階のThe Oriental Loungeを利用できます。",
+        "benefits_zh": "每日早餐、下午茶、晚間雞尾酒與小點、全日輕食飲品、專屬入住與退房、每次住宿三件衣物熨燙、每日一小時會議室（視供應情況），以及最晚 16:00 延遲退房（視房況）。",
+        "benefits_en": "Daily breakfast, afternoon tea, evening wine and hors d’oeuvres, all-day light refreshments, dedicated check-in and check-out, pressing of three garments per stay, one hour of boardroom use per day subject to availability, and late check-out until 16:00 subject to room availability.",
+        "benefits_ja": "毎日の朝食、アフタヌーンティー、夕方のワインと軽食、終日の軽食・飲料、専用チェックイン／チェックアウト、1滞在3点のプレス、空き状況に応じた1日1時間の会議室利用、客室状況に応じた16:00までのレイトチェックアウト。",
+        "source_type": "official",
+        "source_url": "https://www.mandarinoriental.com/en/taipei/songshan/stay/the-oriental-lounge",
+        "observed_at": "2026-11-20"
+      },
       "room_snapshot": {
         "observed_at": "2026-10-07",
         "source_type": "official",

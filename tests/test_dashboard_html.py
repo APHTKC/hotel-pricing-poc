@@ -1931,8 +1931,13 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert capella["lounge"]["source_type"] == "official"
     assert "https://capellahotels.com/en/capella-taipei/wellness" in capella["source_urls"]
     mo = by_id["mo_taipei"]
-    assert mo["verified_at"] == "2026-10-07"
+    assert mo["verified_at"] == "2026-11-20"
+    assert mo["stay_times"]["observed_at"] == "2026-11-20"
     assert mo["lounge"]["name"] == "The Oriental Lounge"
+    assert mo["lounge"]["hours"] == "07:00–21:00 daily"
+    assert mo["lounge"]["source_type"] == "official"
+    assert mo["lounge"]["observed_at"] == "2026-11-20"
+    assert "16:00" in mo["lounge"]["benefits_zh"]
     assert "合計 15.5%" in mo["service_charge_note_zh"]
     assert "without separating" in mo["service_charge_note_en"]
     assert "24 小時" in mo["facility_notes"]["zh"]
