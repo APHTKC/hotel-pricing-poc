@@ -1303,9 +1303,13 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
 
 
     doubletree = by_id["doubletree_taipei_zhongshan"]
+    assert doubletree["verified_at"] == "2026-11-21"
     assert doubletree["room_inventory"] == 106
     assert doubletree["stay_times"]["source_type"] == "official"
+    assert doubletree["stay_times"]["observed_at"] == "2026-11-21"
     assert doubletree["facilities"]["fitness"] is True
+    assert "免費自助停車" in doubletree["facility_notes"]["zh"]
+    assert any("/hotel-info/" in url for url in doubletree["source_urls"])
     assert doubletree["room_snapshot"]["source_type"] == "ota"
     assert {room["size_sqm"] for room in doubletree["room_snapshot"]["rooms"]} == {33, 36, 46, 60}
     courtyard_downtown = by_id["courtyard_taipei_downtown"]

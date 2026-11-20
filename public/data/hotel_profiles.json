@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-19",
+  "updated_at": "2026-11-21",
   "profiles": [
     {
       "hotel_id": "intercontinental_taipei",
@@ -2330,12 +2330,13 @@
     },
     {
       "hotel_id": "doubletree_taipei_zhongshan",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-21",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
         "source_type": "official",
-        "source_url": "https://www.hilton.com/en/hotels/tsatpdi-doubletree-taipei-zhongshan/"
+        "source_url": "https://www.hilton.com/zh-hant/hotels/tsatpdi-doubletree-taipei-zhongshan/hotel-info/",
+        "observed_at": "2026-11-21"
       },
       "room_inventory": 106,
       "restaurants": [
@@ -2344,6 +2345,11 @@
       ],
       "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
       "lounge": {"available": true, "name": "La Salle", "kind": "lobby_lounge"},
+      "facility_notes": {
+        "zh": "官方酒店資訊頁明列健身中心、免費 WiFi、免費自助停車、禮賓服務與客房送餐；機場接駁、代客停車與電動車充電不提供，寵物不可入住。游泳池、SPA、三溫暖與蒸氣室未見明文資料，維持未知。",
+        "en": "The official hotel information page lists a fitness center, free WiFi, complimentary self-parking, concierge service, and room service. Airport shuttles, valet parking, and EV charging are unavailable, and pets are not allowed. Pool, spa, sauna, and steam-room availability remain unknown because the source does not state them explicitly.",
+        "ja": "公式ホテル情報ページには、フィットネスセンター、無料Wi-Fi、無料セルフパーキング、コンシェルジュ、ルームサービスが明記されています。空港送迎、バレーパーキング、EV充電はなく、ペット同伴は不可です。プール、スパ、サウナ、スチームルームは明記がないため不明のままとします。"
+      },
       "room_snapshot": {
         "observed_at": "2026-10-05",
         "source_type": "ota",
@@ -2360,6 +2366,7 @@
       },
       "source_urls": [
         "https://www.hilton.com/en/hotels/tsatpdi-doubletree-taipei-zhongshan/",
+        "https://www.hilton.com/zh-hant/hotels/tsatpdi-doubletree-taipei-zhongshan/hotel-info/",
         "https://www.hilton.com/en/hotels/tsatpdi-doubletree-taipei-zhongshan/rooms/",
         "https://www.hilton.com/en/hotels/tsatpdi-doubletree-taipei-zhongshan/dining/",
         "https://www.cna.com.tw/news/ahel/201812270337.aspx",
