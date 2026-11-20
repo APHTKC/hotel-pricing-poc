@@ -896,7 +896,7 @@
     },
     {
       "hotel_id": "taipei_marriott",
-    "verified_at": "2026-10-20",
+      "verified_at": "2026-11-21",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -913,9 +913,27 @@
         {"name": "Mark's Teppanyaki", "type_zh": "創意鐵板燒", "type_en": "Creative teppanyaki", "type_ja": "創作鉄板焼"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": null},
-      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "2026-11-21 依萬豪官網重新核實：19 樓設有 24 小時健身中心、SKY19 SPA、三溫暖與淋浴設施；飯店另設戶外高空泳池。官方頁面未明列蒸氣室，因此維持待核實。",
+        "en": "Reverified on 2026-11-21 against Marriott's official pages: Level 19 has a 24-hour fitness center, SKY19 SPA, saunas, and showers; the hotel also has an outdoor rooftop pool. The official pages do not explicitly list a steam room, so it remains unverified.",
+        "ja": "2026-11-21にマリオット公式ページで再確認しました。19階には24時間営業のフィットネス、SKY19 SPA、サウナ、シャワーがあり、ホテルには屋外ルーフトッププールもあります。公式ページにスチームルームの明記はないため、未確認のままです。"
+      },
+      "lounge": {
+        "available": true,
+        "name": "Executive Lounge",
+        "kind": "executive_club",
+        "access_zh": "預訂含行政貴賓廳禮遇的客房或套房住客可使用；萬豪旅享家白金卡、鈦金卡與大使會員住宿期間可免費使用，並可攜一位同行賓客。",
+        "access_en": "Guests booking a room or suite with Executive Lounge access may use the lounge. Marriott Bonvoy Platinum, Titanium, and Ambassador Elite members receive complimentary access during their stay, plus one guest.",
+        "access_ja": "エグゼクティブラウンジ利用特典付き客室・スイートの宿泊者が利用できます。Marriott Bonvoyのプラチナ、チタン、アンバサダーエリート会員は滞在中、同伴者1名とともに無料で利用できます。",
+        "benefits_zh": "早餐、全日茶點、晚間飲品與小點。",
+        "benefits_en": "Breakfast, all-day refreshments, evening drinks, and hors d'oeuvres.",
+        "benefits_ja": "朝食、終日の軽食、イブニングドリンク、オードブル。",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpetm-taipei-marriott-hotel/overview/",
+        "observed_at": "2026-11-21"
+      },
       "room_snapshot": {
-        "observed_at": "2026-10-20",
+        "observed_at": "2026-11-21",
         "source_type": "official",
         "source_url": "https://www.taipeimarriott.com.tw/websev?cat=page&subcat=44",
         "rooms": [

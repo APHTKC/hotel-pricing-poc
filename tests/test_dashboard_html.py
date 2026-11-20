@@ -2170,10 +2170,16 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["taipei_marriott"]["room_inventory"] == 318
     assert any("taiwanstay.net.tw" in url for url in by_id["taipei_marriott"]["source_urls"])
     assert len(by_id["taipei_marriott"]["restaurants"]) == 6
+    assert by_id["taipei_marriott"]["verified_at"] == "2026-11-21"
     assert by_id["taipei_marriott"]["facilities"]["sauna"] is True
+    assert by_id["taipei_marriott"]["facilities"]["steam_room"] is None
+    assert "維持待核實" in by_id["taipei_marriott"]["facility_notes"]["zh"]
     assert by_id["taipei_marriott"]["lounge"]["name"] == "Executive Lounge"
+    assert by_id["taipei_marriott"]["lounge"]["source_type"] == "official"
+    assert by_id["taipei_marriott"]["lounge"]["observed_at"] == "2026-11-21"
+    assert "Platinum" in by_id["taipei_marriott"]["lounge"]["access_en"]
     snapshot = by_id["taipei_marriott"]["room_snapshot"]
-    assert snapshot["observed_at"] == "2026-10-20"
+    assert snapshot["observed_at"] == "2026-11-21"
     assert snapshot["source_type"] == "official"
     assert len(snapshot["rooms"]) == 7
     assert {room["name_en"] for room in snapshot["rooms"]} >= {"Classic Room", "Brilliant Suite"}
