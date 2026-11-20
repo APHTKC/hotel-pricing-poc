@@ -1410,15 +1410,22 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert not any("HotelBusiness/95" in url for url in howard["source_urls"])
     assert "p.restaurant_count??p.restaurants.length" in html
     le_meridien_taichung = by_id["le_meridien_taichung"]
+    assert le_meridien_taichung["verified_at"] == "2026-11-20"
     assert le_meridien_taichung["room_inventory"] == 228
+    assert le_meridien_taichung["service_charge_percent"] is None
+    assert "不依餐飲規則或市場慣例推定" in le_meridien_taichung["service_charge_note_zh"]
     assert le_meridien_taichung["stay_times"]["check_in"] == "16:00"
     assert le_meridien_taichung["stay_times"]["check_out"] == "12:00"
+    assert le_meridien_taichung["stay_times"]["source_url"].endswith("/booking/")
+    assert le_meridien_taichung["room_snapshot"]["observed_at"] == "2026-11-20"
     assert len(le_meridien_taichung["room_snapshot"]["rooms"]) == 10
     assert [room["size_sqm"] for room in le_meridien_taichung["room_snapshot"]["rooms"]] == [45, 45, 45, 45, 45, 45, 45, 103, 140, 270]
     assert le_meridien_taichung["facilities"]["pool"] is True
     assert le_meridien_taichung["facilities"]["fitness"] is True
     assert le_meridien_taichung["facilities"]["sauna"] is True
     assert le_meridien_taichung["lounge"]["available"] is True
+    assert le_meridien_taichung["lounge"]["source_type"] == "official"
+    assert le_meridien_taichung["lounge"]["observed_at"] == "2026-11-20"
     millennium_taichung = by_id["millennium_taichung"]
     assert millennium_taichung["room_inventory"] == 243
     assert millennium_taichung["stay_times"]["check_in"] == "15:00"

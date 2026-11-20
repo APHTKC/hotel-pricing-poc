@@ -2671,14 +2671,18 @@
     },
     {
       "hotel_id": "le_meridien_taichung",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "16:00",
         "check_out": "12:00",
         "source_type": "official",
-        "source_url": "https://www.lemeridien-taichung.com.tw/room-detail/Le_Meridien_Suite/"
+        "source_url": "https://www.lemeridien-taichung.com.tw/booking/"
       },
       "room_inventory": 228,
+      "service_charge_percent": null,
+      "service_charge_note_zh": "2026-11-20 重新核實官方客房價目表與住宿須知；兩頁均未明載住宿房價的服務費比例或稅費包含方式，因此維持待核實，不依餐飲規則或市場慣例推定。",
+      "service_charge_note_en": "Reverified on 2026-11-20 against the official room-price table and stay notice. Neither page states the service-charge rate or tax inclusion for accommodation, so the field remains pending rather than being inferred from dining rules or market practice.",
+      "service_charge_note_ja": "2026-11-20に公式客室料金表と宿泊案内を再確認しました。宿泊料金のサービス料率および税金の包含方法は明記されていないため、飲食条件や一般的な慣行から推定せず、確認待ちとしています。",
       "restaurants": [
         {"name": "新食譜全日餐廳 Latest Recipe", "type_zh": "國際自助餐與全日餐飲", "type_en": "International buffet and all-day dining", "type_ja": "国際ビュッフェ・オールデイダイニング"},
         {"name": "北緯二十四 Latitude 24", "type_zh": "咖啡、甜點、烘焙與輕食", "type_en": "Coffee, pastries, bakery and light dining", "type_ja": "コーヒー・スイーツ・ベーカリー・軽食"},
@@ -2686,14 +2690,24 @@
         {"name": "PANO 24 | BAR", "type_zh": "高空酒吧", "type_en": "Skyline bar", "type_ja": "スカイラインバー"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
-      "lounge": {"available": true, "name": "Le Méridien Club Lounge", "kind": "executive_club"},
+      "lounge": {
+        "available": true,
+        "name": "Le Méridien Club Lounge",
+        "kind": "executive_club",
+        "access_zh": "Marriott 官網明列館內 Club Lounge，白金卡以上會員可免費使用；未公布完整供餐時段，因此不推定早餐、下午茶或 Happy Hour 時間。",
+        "access_en": "Marriott lists an on-site Club Lounge with complimentary access for Platinum-level members and above. A complete meal-service schedule is not published, so breakfast, afternoon tea, and Happy Hour times are not inferred.",
+        "access_ja": "Marriott公式サイトでは館内クラブラウンジと、プラチナ会員以上の無料利用が案内されています。食事提供の全時間帯は公表されていないため、朝食、アフタヌーンティー、ハッピーアワーの時間は推定していません。",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/rmqmd-le-meridien-taichung/overview/",
+        "observed_at": "2026-11-20"
+      },
       "facility_notes": {
-        "zh": "Marriott 官方頁可核實戶外高空泳池、健身中心及三溫暖；客房頁並明載艾美套房旅客可使用行政酒廊。SPA 與蒸氣室目前維持待核實。",
-        "en": "Marriott's official pages verify an outdoor rooftop pool, fitness center, and sauna. The official suite page also confirms Le Méridien Club Lounge access for Le Méridien Suite guests. Spa and steam room remain pending verification.",
-        "ja": "Marriott公式ページで屋外高層プール、フィットネスセンター、サウナを確認済みです。公式スイートページではLe Méridien Suite宿泊者のクラブラウンジ利用も確認できます。SPAとスチームルームは確認待ちです。"
+        "zh": "2026-11-20 依 Marriott 官網重新核實：館內設有戶外高空泳池、健身中心及三溫暖。Marriott 另明列館內 Club Lounge；SPA 與蒸氣室未找到明確官方說明，維持待核實。",
+        "en": "Reverified on 2026-11-20 against Marriott's official website: the property has an outdoor rooftop pool, fitness center, and sauna. Marriott also lists an on-site Club Lounge. No explicit official statement was found for a spa or steam room, so those fields remain pending.",
+        "ja": "2026-11-20にMarriott公式サイトで再確認しました。館内には屋外高層プール、フィットネスセンター、サウナがあり、クラブラウンジも公式に掲載されています。SPAとスチームルームは明確な公式記載がないため、確認待ちです。"
       },
       "room_snapshot": {
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-11-20",
         "source_type": "official",
         "source_url": "https://www.lemeridien-taichung.com.tw/room/price.php",
         "rooms": [
@@ -2712,6 +2726,7 @@
       "source_urls": [
         "https://www.lemeridien-taichung.com.tw/room/",
         "https://www.lemeridien-taichung.com.tw/room/price.php",
+        "https://www.lemeridien-taichung.com.tw/booking/",
         "https://www.lemeridien-taichung.com.tw/restaurants/",
         "https://www.marriott.com/en-us/hotels/rmqmd-le-meridien-taichung/overview/",
         "https://www.marriott.com/en-us/hotels/rmqmd-le-meridien-taichung/experiences/",
