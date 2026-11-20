@@ -47,6 +47,12 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     source_keys = {
         (review["hotel_id"], review["source_platform"]) for review in reviews
     }
+    official_okura = next(
+        review
+        for review in reviews
+        if review["hotel_id"] == "okura_prestige_taipei"
+        and review["source_platform"] == "official"
+    )
     missing_sets = {
         (
             review["hotel_id"],
@@ -108,6 +114,7 @@ def test_repository_metadata_reviews_preserve_known_source_blockers():
     assert ("grand_hilai_taipei", "official") in source_keys
     assert ("grand_hilai_taipei", "booking_com") in source_keys
     assert ("okura_prestige_taipei", "official") in source_keys
+    assert official_okura["evidence_urls"][0].startswith("https://be.synxis.com/?")
     assert ("okura_prestige_taipei", "booking_com") in source_keys
     assert statuses["palais_de_chine"] == "blocked_source_unavailable"
     assert statuses["episode_daan_taipei"] == "blocked_source_unavailable"
