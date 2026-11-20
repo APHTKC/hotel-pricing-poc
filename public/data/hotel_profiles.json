@@ -350,7 +350,7 @@
     },
     {
       "hotel_id": "shangrila_taipei",
-      "verified_at": "2026-10-08",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -370,18 +370,32 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "facility_notes": {
-        "zh": "2026-10-08 依飯店官網重新核實：6 樓健身俱樂部設有健身房、按摩、乾式三溫暖、蒸氣室與按摩池；另有 43 樓全年開放的頂樓溫水戶外泳池及 7 樓季節性戶外泳池。VALMONT SPA 另設護理服務。豪華閣位於 36 樓，豪華閣客房與套房可使用其早餐、下午茶及晚間飲品等禮遇。",
-        "en": "Reverified on 2026-10-08 against the hotel website: the Level 6 Health Club provides a gym, massage services, dry saunas, steam rooms and a whirlpool bath, together with a year-round heated rooftop outdoor pool on Level 43 and a seasonal outdoor pool on Level 7. VALMONT SPA provides separate treatments. Horizon Club is on Level 36 and provides breakfast, afternoon tea, evening beverages and other privileges to eligible club-room and suite guests.",
-        "ja": "2026-10-08にホテル公式サイトで再確認しました。6階のヘルスクラブにはジム、マッサージ、ドライサウナ、スチームルーム、ジャグジーがあり、43階には通年営業の温水屋外ルーフトッププール、7階には季節営業の屋外プールがあります。VALMONT SPAでは別途トリートメントを提供しています。ホライゾンクラブは36階にあり、対象のクラブルーム・スイート宿泊者には朝食、アフタヌーンティー、イブニングドリンクなどの特典があります。"
+        "zh": "2026-11-20 依飯店官網重新核實：健身俱樂部設有健身房、按摩、乾式三溫暖、蒸氣室與按摩池；健身房 06:00–22:00（住客可 24 小時使用）、三溫暖與更衣室 06:00–22:15。43 樓頂樓溫水戶外泳池每日 06:00–21:00，週五、週六及國定假日前夕延長至 22:00；另有 7 樓夏季戶外泳池。VALMONT SPA 週日至週四 12:00–21:00，週五、週六及國定假日前夕 12:00–22:00。",
+        "en": "Reverified on 2026-11-20 against the hotel website: the Health Club provides a gym, massage services, dry saunas, steam rooms, and a hot whirlpool bath. The gym operates 06:00–22:00 with 24-hour access for house guests; sauna and locker facilities operate 06:00–22:15. The Level 43 heated rooftop outdoor pool operates 06:00–21:00 daily, extended to 22:00 on Friday, Saturday, and the eve of public holidays; a summer outdoor pool is also available on Level 7. VALMONT SPA operates 12:00–21:00 Sunday–Thursday and 12:00–22:00 Friday, Saturday, and the eve of public holidays.",
+        "ja": "2026-11-20にホテル公式サイトで再確認しました。ヘルスクラブにはジム、マッサージ、ドライサウナ、スチームルーム、ジャグジーがあります。ジムは06:00～22:00（宿泊者は24時間利用可）、サウナと更衣室は06:00～22:15です。43階の温水屋外ルーフトッププールは毎日06:00～21:00、金・土曜および祝前日は22:00まで延長し、7階には夏季屋外プールもあります。VALMONT SPAは日～木曜12:00～21:00、金・土曜および祝前日12:00～22:00です。"
       },
-      "lounge": {"available": true, "name": "Horizon Club Lounge", "kind": "executive_club"},
+      "lounge": {
+        "available": true,
+        "name": "Horizon Club Lounge",
+        "kind": "executive_club",
+        "location": "Level 36",
+        "access_zh": "豪華閣客房住客享有豪華閣禮遇，並可於 36 樓辦理專屬入住與退房。",
+        "access_en": "Horizon Club room guests receive Horizon Club privileges, including dedicated check-in and check-out on Level 36.",
+        "access_ja": "ホライゾンクラブルーム宿泊者は、36階での専用チェックイン／チェックアウトを含むクラブ特典を利用できます。",
+        "benefits_zh": "平日 06:30–10:00、週末 06:30–10:30 自助早餐；14:00–16:30 下午茶；每日 17:30–19:30 飲品與小點；全日咖啡、茶、軟性飲料與輕食；每次住宿含服務費新台幣 680 元洗衣額度；每日兩小時會議室；最晚 16:00 延遲退房（視房況）。",
+        "benefits_en": "Buffet breakfast 06:30–10:00 weekdays and 06:30–10:30 weekends; afternoon tea 14:00–16:30; beverages and canapés 17:30–19:30 daily; coffee, tea, soft drinks, and light snacks throughout the day; NTD 680 laundry credit per stay including service charge; two hours of meeting-room use per day; and late check-out until 16:00 subject to availability.",
+        "benefits_ja": "朝食は平日06:30～10:00、週末06:30～10:30、アフタヌーンティーは14:00～16:30、飲料とカナッペは毎日17:30～19:30。終日のコーヒー・紅茶・ソフトドリンクと軽食、1滞在につきサービス料込みNTD 680のランドリー、1日2時間の会議室、空き状況に応じた16:00までのレイトチェックアウトを含みます。",
+        "source_type": "official",
+        "source_url": "https://www.shangri-la.com/en/taipei/fareasternplazashangrila/rooms-suites/horizon-club/horizon-superior-room/",
+        "observed_at": "2026-11-20"
+      },
       "room_snapshot": {
-        "observed_at": "2026-10-08",
+        "observed_at": "2026-11-20",
         "source_type": "official",
         "source_url": "https://www.shangri-la.com/tc/taipei/fareasternplazashangrila/rooms-suites/",
-        "count_note_zh": "飯店官網目前記載客房與套房共 420 間，其中 37 間為套房；官網未公布各房型間數，因此不將總房數推分至個別房型。",
-        "count_note_en": "The hotel website currently states a total of 420 rooms and suites, including 37 suites. Inventory by individual room type is not published, so the total is not estimated across categories.",
-        "count_note_ja": "ホテル公式サイトでは客室・スイート合計420室（うちスイート37室）と記載されています。タイプ別室数は公表されていないため、各カテゴリーへの推定配分は行っていません。",
+        "count_note_zh": "飯店官網目前記載客房與套房共 420 間，但未公布各房型間數，因此不將總房數推分至個別房型。",
+        "count_note_en": "The hotel website currently states a total of 420 rooms and suites but does not publish inventory by individual room type, so the total is not estimated across categories.",
+        "count_note_ja": "ホテル公式サイトでは客室・スイート合計420室と記載されていますが、タイプ別室数は公表されていないため、各カテゴリーへの推定配分は行っていません。",
         "rooms": [
           {"name_zh": "豪華客房", "name_en": "Superior Room", "name_ja": "スーペリアルーム", "size_sqm": 36},
           {"name_zh": "尊榮客房", "name_en": "Deluxe Room", "name_ja": "デラックス", "size_sqm": 40, "aliases": [{"label": "豪華特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/shangri-la-s-far-eastern-plaza-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-12"}, {"label": "豪華雙床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/shangri-la-s-far-eastern-plaza-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-12"}]},
@@ -389,7 +403,7 @@
           {"name_zh": "臺北101景觀尊榮客房", "name_en": "Deluxe Taipei 101 View Room", "name_ja": "デラックス台北101ビュールーム", "size_sqm": 40, "aliases": [{"label": "台北 101 景觀豪華特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/shangri-la-s-far-eastern-plaza-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-12"}]},
           {"name_zh": "超豪華客房", "name_en": "Premier Room", "name_ja": "プレミア", "size_sqm": 60, "aliases": [{"label": "尊爵特大雙人床房", "language": "zh-TW", "source_type": "ota", "source_platform": "booking_com", "source_url": "https://www.booking.com/hotel/tw/shangri-la-s-far-eastern-plaza-taipei.zh-tw.html?checkin=2026-10-19&checkout=2026-10-20&group_adults=2&group_children=0&no_rooms=1&selected_currency=TWD", "observed_at": "2026-10-12"}]},
           {"name_zh": "臺北101景觀超豪華客房", "name_en": "Premier Taipei 101 View Room", "name_ja": "プレミア台北101ビュールーム", "size_sqm": 60},
-          {"name_zh": "豪華閣豪華客房", "name_en": "Horizon Superior Room", "name_ja": "ホライゾンスーペリアルーム", "size_sqm": 35, "aliases": [{"label": "Horizon 高級客房 1 King", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho134169/tai-bei-yuan-dong-xiang-ge-li-la-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
+          {"name_zh": "豪華閣豪華客房", "name_en": "Horizon Superior Room", "name_ja": "ホライゾンスーペリアルーム", "size_sqm": 36, "aliases": [{"label": "Horizon 高級客房 1 King", "language": "zh-TW", "source_type": "ota", "source_platform": "expedia_group", "source_url": "https://tw.hotels.com/ho134169/tai-bei-yuan-dong-xiang-ge-li-la-tai-bei-tai-wan/?chkin=2026-12-20&chkout=2026-12-21&rm1=a2&top_cur=TWD", "observed_at": "2026-10-18"}]},
           {"name_zh": "豪華閣尊榮客房", "name_en": "Horizon Deluxe Room", "name_ja": "ホライゾンデラックスルーム", "size_sqm": 40},
           {"name_zh": "豪華閣超豪華客房", "name_en": "Horizon Premier Room", "name_ja": "ホライゾンプレミアルーム", "size_sqm": 58},
           {"name_zh": "雅仕套房", "name_en": "Plaza Suite", "name_ja": "プラザスイート", "size_sqm": 72},
