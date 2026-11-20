@@ -42,7 +42,7 @@
     },
     {
       "hotel_id": "capella_taipei",
-      "verified_at": "2026-10-07",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -59,13 +59,13 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "facility_notes": {
-        "zh": "2026-10-07 依官方飯店頁、Wellness 頁與 Capella Wellness 指南重新核實：14 樓設有泳池，健身中心使用 Technogym 設備，Capella Wellness 提供療程空間、三溫暖與蒸氣室。官方指南另列健身中心 24 小時、泳池 07:00–18:00、SPA／蒸氣室／三溫暖 10:00–22:00。",
-        "en": "Reverified on 2026-10-07 against the official hotel, Wellness, and Capella Wellness guide pages: the 14F pool deck, Technogym fitness center, treatment facilities, sauna, and steam room are all explicitly listed. The official guide states that the fitness center is open 24 hours, the pool 07:00–18:00, and the spa, steam room, and sauna 10:00–22:00.",
-        "ja": "2026-10-07に公式ホテルページ、ウェルネスページ、Capella Wellnessガイドで再確認しました。14階のプール、Technogymを備えたフィットネスセンター、トリートメント施設、サウナ、スチームルームが明記されています。公式ガイドの営業時間はフィットネス24時間、プール07:00～18:00、スパ／スチームルーム／サウナ10:00～22:00です。"
+        "zh": "2026-11-20 依官方飯店頁、Wellness 頁與 Capella Wellness 指南重新核實：14 樓設有戶外溫水泳池，健身中心使用 Technogym 設備，Capella Wellness 提供療程空間、三溫暖與蒸氣室。官方指南另列健身中心 24 小時、泳池 07:00–18:00、SPA／蒸氣室／三溫暖 10:00–22:00。",
+        "en": "Reverified on 2026-11-20 against the official hotel, Wellness, and Capella Wellness guide pages: the heated outdoor pool on 14F, Technogym fitness center, treatment facilities, sauna, and steam room are all explicitly listed. The official guide states that the fitness center is open 24 hours, the pool 07:00–18:00, and the spa, steam room, and sauna 10:00–22:00.",
+        "ja": "2026-11-20に公式ホテルページ、ウェルネスページ、Capella Wellnessガイドで再確認しました。14階の屋外温水プール、Technogymを備えたフィットネスセンター、トリートメント施設、サウナ、スチームルームが明記されています。公式ガイドの営業時間はフィットネス24時間、プール07:00～18:00、スパ／スチームルーム／サウナ10:00～22:00です。"
       },
-      "lounge": {"available": true, "name": "Capella Living Room", "kind": "guest_living_room"},
+      "lounge": {"available": true, "name": "Capella Living Room", "kind": "guest_living_room", "access": "Registered hotel guests; complimentary refreshments", "source_type": "official", "source_url": "https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_TC.pdf", "observed_at": "2026-11-20"},
       "room_snapshot": {
-        "observed_at": "2026-10-07",
+        "observed_at": "2026-11-20",
         "source_type": "official",
         "source_url": "https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_EN.pdf?v11.19=",
         "count_note_zh": "官方 factsheet 公布 34 間卓越客房、28 間豪華客房、12 間尊榮客房、4 間泳池露台客房、4 間豪華套房、2 間泳池露台套房與 2 間嘉佩樂套房。官網另將多數類別拆成景觀／非景觀名稱，但 factsheet 未提供這些子類別各自房數，因此僅能明確將嘉佩樂套房記為 2 間，其餘不自行拆分。",
@@ -99,10 +99,13 @@
       ],
       "source_urls": [
         "https://capellahotels.com/en/capella-taipei",
+        "https://capellahotels.com/zh-tc/capella-taipei",
+        "https://capellahotels.com/en/capella-taipei/culture",
         "https://capellahotels.com/en/capella-taipei/accommodation",
         "https://capellahotels.com/en/capella-taipei/dining",
         "https://capellahotels.com/en/capella-taipei/wellness",
         "https://capellahotels.com/assets/docs/taipei/CPTPE_Capella_Wellness_Web_Menu.pdf",
+        "https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_TC.pdf",
         "https://capellahotels.com/assets/docs/taipei/Capella_Taipei_Factsheet_EN.pdf?v11.19="
       ]
     },

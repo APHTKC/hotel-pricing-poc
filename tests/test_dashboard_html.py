@@ -1907,7 +1907,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert royal_nikko["lounge"]["hours"] == "14:00-21:00"
     assert royal_nikko["lounge"]["source_type"] == "official"
     capella = by_id["capella_taipei"]
-    assert capella["verified_at"] == "2026-10-07"
+    assert capella["verified_at"] == "2026-11-20"
     assert len(capella["restaurants"]) == 5
     assert capella["facilities"] == {
         "pool": True,
@@ -1918,7 +1918,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     }
     assert "14 樓" in capella["facility_notes"]["zh"]
     assert "24 hours" in capella["facility_notes"]["en"]
-    assert capella["room_snapshot"]["observed_at"] == "2026-10-07"
+    assert capella["room_snapshot"]["observed_at"] == "2026-11-20"
     assert "34 間卓越客房" in capella["room_snapshot"]["count_note_zh"]
     capella_rooms = capella["room_snapshot"]["rooms"]
     assert len(capella_rooms) == 13
@@ -1927,6 +1927,8 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     capella_suite = next(room for room in capella_rooms if room["name_en"] == "Capella Suite")
     assert capella_suite["size_sqm"] == 228
     assert capella_suite["room_count"] == 2
+    assert capella["lounge"]["access"] == "Registered hotel guests; complimentary refreshments"
+    assert capella["lounge"]["source_type"] == "official"
     assert "https://capellahotels.com/en/capella-taipei/wellness" in capella["source_urls"]
     mo = by_id["mo_taipei"]
     assert mo["verified_at"] == "2026-10-07"
