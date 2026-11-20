@@ -581,6 +581,23 @@
       "note": "官方 FastBooking 的兩個精確批次均已分別核實：2026-10-26 批次全數缺早餐、取消類別、精確取消期限與稅費標籤，Premier Twin 另缺單一房型面積；2026-10-28 批次的 Premier Double／Triple／Family 已有 22㎡或 25㎡面積，但仍缺前述四項商品 metadata，且精確日期頁回傳 HTTP 403。登錄的五欄集合是目前歷史 hotel_id + source 聚合後的完整缺欄聯集；各批次證據與 URL 均保留，不跨批次補值，也不以其他商品、日期、房型或 OTA 推定。來源流程或此完整缺欄集合變更前不重試。"
     },
     {
+      "hotel_id": "taipei_garden_hotel",
+      "source_platform": "official",
+      "missing_fields": [
+        "breakfast_included",
+        "cancellation_class",
+        "cancellation_deadline",
+        "tax_inclusion"
+      ],
+      "status": "blocked_source_unavailable",
+      "reviewed_at": "2026-11-20",
+      "evidence_urls": [
+        "https://redirect.fastbooking.com/DIRECTORY/preresa.phtml?style=DIRECT&Hotelnames=ASIATWHTLTGarden&rate=Best-Available-Rate&FirstRoomName=Premier-Double&FSTBKNGTrackLink=quotation&FirstDate=261127%3B1%3B2%3B0%3B0&CurrencyLabel=TWD&accessCode=",
+        "https://redirect.fastbooking.com/DIRECTORY/preresa.phtml?style=DIRECT&Hotelnames=ASIATWHTLTGarden&rate=Best-Available-Rate&FirstRoomName=Premier-Double&FSTBKNGTrackLink=quotation&FirstDate=270218%3B1%3B2%3B0%3B0&CurrencyLabel=TWD&accessCode="
+      ],
+      "note": "2026-11-20 最新批次的五筆 Premier Double Room 官方觀測均已有明確 22㎡面積，但 FastBooking 來源仍未提供商品層級早餐標示、取消類別、精確取消期限與稅費含括標籤。此四欄集合與 2026-10-28 已核實流程一致，因此保存最新精確簽章與首尾 lead-day URL，不重試相同 blocker，也不跨商品、日期或 OTA 推定。"
+    },
+    {
       "hotel_id": "grand_hilai_taipei",
       "source_platform": "booking_com",
       "missing_fields": [
