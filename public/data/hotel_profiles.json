@@ -873,7 +873,7 @@
     },
     {
       "hotel_id": "palais_de_chine",
-      "verified_at": "2026-10-07",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
@@ -891,13 +891,13 @@
       ],
       "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
       "facility_notes": {
-        "zh": "官方設施頁明確列出 17 樓房客專屬健身房，每日 06:30–23:00 開放；翰林軒 Le Salon 為行政／君璽樓層與套房住客的專屬 VIP Lounge。官方現行設施頁未明確說明泳池、SPA、三溫暖或蒸氣室，相關欄位維持待核實。",
-        "en": "The official facilities page lists a guest-only gym on the 17th floor, open daily from 06:30 to 23:00. Le Salon is a VIP lounge reserved for eligible Executive, Prestige-floor, and suite guests. The current official facilities information does not explicitly address a pool, spa, sauna, or steam room, so those fields remain pending.",
-        "ja": "公式施設ページでは、17階の宿泊者専用ジム（毎日06:30～23:00）を明記しています。Le Salonは対象となるエグゼクティブ、プレステージフロアおよびスイート宿泊者専用のVIPラウンジです。プール、SPA、サウナ、スチームルームは現行公式情報に明記がないため、未確認のままとしています。"
+        "zh": "2026-11-20 重新核對官方設施頁：17 樓設有房客專屬健身房，每日 06:30–23:00 開放；翰林軒 Le Salon 為行政客房、君璽客房與套房指定專案住客的專屬 VIP Lounge，提供免費輕食與飲品。官方現行設施頁未明確說明泳池、SPA、三溫暖或蒸氣室，相關欄位維持待核實。",
+        "en": "Reverified on 2026-11-20 against the official facilities and rooms pages. The guest-only gym on 17F is open daily from 06:30 to 23:00. Le Salon is a VIP lounge for eligible Executive, Prestige, and suite package guests, with complimentary light snacks and beverages. The current official facilities information does not explicitly address a pool, spa, sauna, or steam room, so those fields remain pending.",
+        "ja": "2026-11-20に公式施設・客室ページを再確認しました。17階の宿泊者専用ジムは毎日06:30～23:00です。Le Salonは対象プランのエグゼクティブ、プレステージ客室およびスイート宿泊者専用で、軽食と飲み物を無料で提供します。プール、SPA、サウナ、スチームルームは現行公式情報に明記がないため、未確認のままとしています。"
       },
-      "lounge": {"available": true, "name": "Le Salon VIP Lounge", "kind": "executive_club"},
+      "lounge": {"available": true, "name": "Le Salon VIP Lounge", "kind": "executive_club", "access": "Eligible Executive, Prestige, and suite package guests; complimentary light snacks and beverages", "source_type": "official", "source_url": "https://www.palaisdechinehotel.com/pdc-en/rooms/25", "observed_at": "2026-11-20"},
       "room_snapshot": {
-        "observed_at": "2026-09-23",
+        "observed_at": "2026-11-20",
         "source_type": "official",
         "source_url": "https://www.palaisdechinehotel.com/pdc-en/rooms/25",
         "rooms": [

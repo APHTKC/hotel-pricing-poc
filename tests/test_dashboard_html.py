@@ -2149,7 +2149,7 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert {room["name_en"] for room in snapshot["rooms"]} >= {"Classic Room", "Brilliant Suite"}
     assert {room["size_sqm"] for room in snapshot["rooms"]} >= {40, 51, 65, 80}
     palais = by_id["palais_de_chine"]
-    assert palais["verified_at"] == "2026-10-07"
+    assert palais["verified_at"] == "2026-11-20"
     assert palais["room_inventory"] == 277
     assert palais["service_charge_percent"] == 10
     assert palais["service_charge_source_type"] == "official"
@@ -2161,7 +2161,10 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert "06:30–23:00" in palais["facility_notes"]["zh"]
     assert "remain pending" in palais["facility_notes"]["en"]
     assert palais["lounge"]["name"] == "Le Salon VIP Lounge"
+    assert palais["lounge"]["source_type"] == "official"
+    assert "complimentary light snacks and beverages" in palais["lounge"]["access"]
     assert palais["room_snapshot"]["source_type"] == "official"
+    assert palais["room_snapshot"]["observed_at"] == "2026-11-20"
     assert len(palais["room_snapshot"]["rooms"]) == 9
     assert {room["size_sqm"] for room in palais["room_snapshot"]["rooms"]} == {30, 37, 50, 67}
     royal_nikko = by_id["royal_nikko_taipei"]
