@@ -505,7 +505,7 @@
     },
     {
       "hotel_id": "grand_hyatt_taipei",
-      "verified_at": "2026-10-21",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
@@ -524,9 +524,28 @@
         {"name": "Cha Lounge", "type_zh": "蔬食、下午茶與甜點", "type_en": "Vegetarian dining, afternoon tea and desserts", "type_ja": "ベジタリアン料理・アフタヌーンティー・デザート"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
-      "lounge": {"available": true, "name": "Grand Club Lounge", "kind": "executive_club"},
+      "facility_notes": {
+        "zh": "2026-11-20 依凱悅官網重新核實：5 樓 Club Oasis 設有 24 小時健身中心、男女分設濕區、三溫暖、蒸氣室與按摩池；濕區限 16 歲以上住客使用。5 樓另有恆溫戶外泳池；Oasis Spa 的療程設施依官方 factsheet 保留為有。",
+        "en": "Reverified on 2026-11-20 against Hyatt's official pages: Club Oasis on Level 5 has a 24-hour fitness center, separate men's and women's wet areas, saunas, steam rooms, and whirlpools; wet-area access is limited to hotel guests aged 16 or older. Level 5 also has a temperature-controlled outdoor pool, while Oasis Spa treatment facilities remain supported by the official factsheet.",
+        "ja": "2026-11-20にハイアット公式ページで再確認しました。5階のClub Oasisには24時間営業のフィットネス、男女別ウェットエリア、サウナ、スチームルーム、ジェットバスがあり、ウェットエリアは16歳以上の宿泊者のみ利用できます。5階には温度管理された屋外プールもあり、Oasis Spaのトリートメント施設は公式factsheetに基づき「あり」としています。"
+      },
+      "lounge": {
+        "available": true,
+        "name": "Grand Club Lounge",
+        "kind": "executive_club",
+        "hours": "07:00–21:00",
+        "access_zh": "入住嘉賓軒客房或含嘉賓軒禮遇的套房住客可使用 22 樓酒廊。",
+        "access_en": "Guests staying in Grand Club rooms or suites that include Grand Club access may use the lounge on Level 22.",
+        "access_ja": "グランドクラブ客室、またはグランドクラブ利用特典付きスイートの宿泊者は、22階のラウンジを利用できます。",
+        "benefits_zh": "歐陸式早餐、全日茶點與晚間雞尾酒。",
+        "benefits_en": "Continental breakfast, all-day refreshments, and evening cocktails.",
+        "benefits_ja": "コンチネンタル朝食、終日の軽食、イブニングカクテル。",
+        "source_type": "official",
+        "source_url": "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei",
+        "observed_at": "2026-11-20"
+      },
       "room_snapshot": {
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-11-20",
         "source_type": "official",
         "source_url": "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
         "rooms": [
@@ -559,7 +578,7 @@
         "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/rooms",
         "https://www.hyatt.com/grand-hyatt/zh-HK/taigh-grand-hyatt-taipei/rooms",
         "https://www.hyatt.com/grand-hyatt/en-US/taigh-grand-hyatt-taipei/dining",
-        "https://assets.hyatt.com/content/dam/hyatt/hyattdam/documents/2019/11/06/1554/Grand-Hyatt-Taipei-Fact-Sheet-English.pdf",
+        "https://www.hyatt.com/content/dam/hotel/propertysites/assets/grand/taigh/documents/en_US/home/TAIGHFactsheet.pdf",
         "https://www.booking.com/hotel/tw/grand-hyatt-taipei-taipei50.html"
       ]
     },

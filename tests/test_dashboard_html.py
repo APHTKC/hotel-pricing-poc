@@ -2024,9 +2024,15 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert by_id["grand_mayfull_taipei"]["service_charge_source_type"] == "official"
     assert by_id["grand_hyatt_taipei"]["room_inventory"] == 850
     assert len(by_id["grand_hyatt_taipei"]["restaurants"]) == 8
+    assert by_id["grand_hyatt_taipei"]["verified_at"] == "2026-11-20"
     assert by_id["grand_hyatt_taipei"]["lounge"]["name"] == "Grand Club Lounge"
+    assert by_id["grand_hyatt_taipei"]["lounge"]["hours"] == "07:00–21:00"
+    assert by_id["grand_hyatt_taipei"]["lounge"]["source_type"] == "official"
+    assert by_id["grand_hyatt_taipei"]["lounge"]["observed_at"] == "2026-11-20"
+    assert "16 歲以上" in by_id["grand_hyatt_taipei"]["facility_notes"]["zh"]
     grand_hyatt_rooms = by_id["grand_hyatt_taipei"]["room_snapshot"]["rooms"]
     assert by_id["grand_hyatt_taipei"]["room_snapshot"]["source_type"] == "official"
+    assert by_id["grand_hyatt_taipei"]["room_snapshot"]["observed_at"] == "2026-11-20"
     assert len(grand_hyatt_rooms) == 22
     assert min(room.get("size_sqm_min", room.get("size_sqm")) for room in grand_hyatt_rooms) == 33
     assert max(room.get("size_sqm_max", room.get("size_sqm")) for room in grand_hyatt_rooms) == 221
