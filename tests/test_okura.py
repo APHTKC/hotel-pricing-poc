@@ -5,6 +5,7 @@ from scrapers.adapters.okura import OkuraScraper, is_comparable_public_plan
 
 def test_okura_booking_url_contains_official_ids_and_dates():
     url = OkuraScraper().booking_url(date(2026, 10, 7), date(2026, 10, 8), 2)
+    assert url.startswith("https://be.synxis.com/?")
     assert "Hotel=56124" in url
     assert "Chain=9542" in url
     assert "arrive=2026-10-07" in url

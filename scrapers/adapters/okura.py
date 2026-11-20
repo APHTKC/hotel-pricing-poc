@@ -17,7 +17,8 @@ from scrapers.adapters.capella import (
 
 OKURA_TAIPEI_HOTEL_ID = "56124"
 OKURA_CHAIN_ID = "9542"
-OKURA_SYNXIS_URL = "https://rsv.okura.com/"
+# The hotel's current official booking link uses the canonical SynXis host.
+OKURA_SYNXIS_URL = "https://be.synxis.com/"
 OKURA_SERVICE_RATE = Decimal("0.10")
 OKURA_TAX_RATE = Decimal("0.05")
 
