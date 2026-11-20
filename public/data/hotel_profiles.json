@@ -2383,12 +2383,12 @@
     },
     {
       "hotel_id": "courtyard_taipei_downtown",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-21",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
         "source_type": "official",
-        "source_url": "https://www.courtyardtaipeidowntown.com.tw/room-detail/70/"
+        "source_url": "https://www.marriott.com/en-us/hotels/tpecd-courtyard-taipei-downtown/overview/"
       },
       "room_inventory": 227,
       "service_charge_percent": 10,
@@ -2400,9 +2400,21 @@
         {"name": "Drift Lounge Bar", "type_zh": "高空酒廊與酒吧", "type_en": "Rooftop lounge and bar", "type_ja": "ルーフトップラウンジ・バー"}
       ],
       "facilities": {"pool": null, "fitness": true, "spa": null, "sauna": null, "steam_room": null},
-      "lounge": {"available": true, "name": "Executive Concierge Lounge", "kind": "executive_club"},
+      "lounge": {
+        "available": true,
+        "name": "Executive Concierge Lounge",
+        "kind": "executive_club",
+        "source_type": "official",
+        "source_url": "https://www.marriott.com/en-us/hotels/tpecd-courtyard-taipei-downtown/overview/",
+        "observed_at": "2026-11-21"
+      },
+      "facility_notes": {
+        "zh": "2026-11-21 重新核對官方網站：17 樓健身房每日 06:00–23:00 開放；14 樓行政酒廊供行政樓層房客及符合資格的 Marriott Bonvoy 白金卡以上會員使用。官方頁面目前未明列游泳池、SPA、三溫暖或蒸氣室，相關欄位維持待核實。",
+        "en": "The official hotel websites were rechecked on 2026-11-21. The fitness center on the 17th floor is open daily from 06:00 to 23:00. The Executive Lounge on the 14th floor is available to executive-floor guests and eligible Marriott Bonvoy Platinum members and above. The official pages do not explicitly list a pool, spa, sauna, or steam room, so those fields remain unverified.",
+        "ja": "2026-11-21に公式サイトを再確認しました。17階のフィットネスセンターは毎日06:00～23:00まで営業しています。14階のエグゼクティブラウンジはエグゼクティブフロア宿泊者および対象となるMarriott Bonvoyプラチナ会員以上が利用できます。プール、SPA、サウナ、スチームルームの記載は確認できないため、該当項目は未確認のままです。"
+      },
       "room_snapshot": {
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-11-21",
         "source_type": "official",
         "source_url": "https://www.courtyardtaipeidowntown.com.tw/room/",
         "rooms": [
@@ -2417,8 +2429,12 @@
       "source_urls": [
         "https://www.courtyardtaipeidowntown.com.tw/",
         "https://www.courtyardtaipeidowntown.com.tw/room/",
+        "https://www.courtyardtaipeidowntown.com.tw/fac/",
+        "https://www.courtyardtaipeidowntown.com.tw/fac-detail/46/",
+        "https://www.courtyardtaipeidowntown.com.tw/dining/",
         "https://www.courtyardtaipeidowntown.com.tw/price/1/",
         "https://www.marriott.com/en-us/hotels/tpecd-courtyard-taipei-downtown/overview/",
+        "https://www.marriott.com/ja/hotels/tpecd-courtyard-taipei-downtown/overview/",
         "https://www.marriott.com/en-us/hotels/tpecd-courtyard-taipei-downtown/dining/",
         "https://www.marriott.com/en-us/hotels/tpecd-courtyard-taipei-downtown/experiences/",
         "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=8536&lang2=en"

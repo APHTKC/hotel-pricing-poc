@@ -1313,10 +1313,18 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert doubletree["room_snapshot"]["source_type"] == "ota"
     assert {room["size_sqm"] for room in doubletree["room_snapshot"]["rooms"]} == {33, 36, 46, 60}
     courtyard_downtown = by_id["courtyard_taipei_downtown"]
+    assert courtyard_downtown["verified_at"] == "2026-11-21"
     assert courtyard_downtown["room_inventory"] == 227
     assert courtyard_downtown["service_charge_percent"] == 10
     assert courtyard_downtown["stay_times"]["check_in"] == "15:00"
     assert courtyard_downtown["stay_times"]["check_out"] == "12:00"
+    assert courtyard_downtown["stay_times"]["source_type"] == "official"
+    assert "marriott.com" in courtyard_downtown["stay_times"]["source_url"]
+    assert courtyard_downtown["room_snapshot"]["observed_at"] == "2026-11-21"
+    assert courtyard_downtown["lounge"]["source_type"] == "official"
+    assert courtyard_downtown["lounge"]["observed_at"] == "2026-11-21"
+    assert "06:00" in courtyard_downtown["facility_notes"]["zh"]
+    assert "23:00" in courtyard_downtown["facility_notes"]["zh"]
     assert len(courtyard_downtown["room_snapshot"]["rooms"]) == 6
     assert max(room["size_sqm"] for room in courtyard_downtown["room_snapshot"]["rooms"]) == 119
     landis = by_id["the_landis_taipei"]
