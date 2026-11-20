@@ -156,6 +156,11 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         for profile in profiles["profiles"]
         if profile["hotel_id"] == "w_taipei"
     )
+    millennium = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "millennium_taichung"
+    )
 
     assert "stay_times_sourced" not in lalu_row["missing_evidence"]
     assert episode["stay_times"] == {
@@ -276,10 +281,14 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         "WOW Suite": "WOWスイート",
         "Extreme WOW Suite": "エクストリームWOWスイート",
     }
+    assert millennium["verified_at"] == "2026-11-21"
+    assert millennium["room_snapshot"]["observed_at"] == "2026-11-21"
+    assert millennium["lounge"]["source_type"] == "official"
+    assert millennium["lounge"]["observed_at"] == "2026-11-21"
     assert report["profile_coverage"]["monthly_review_current"] == {
-        "count": 53,
+        "count": 54,
         "total": 72,
-        "percent": 73.61,
+        "percent": 75.0,
     }
     assert report["profile_coverage"]["lounge_status_explicit"] == {
         "count": 56,

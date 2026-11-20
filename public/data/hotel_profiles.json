@@ -2807,10 +2807,11 @@
     },
     {
       "hotel_id": "millennium_taichung",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-21",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
+        "observed_at": "2026-11-21",
         "source_type": "official",
         "source_url": "https://www.millenniumhotels.com/zh-tw/taichung/millennium-hotel-taichung/"
       },
@@ -2822,14 +2823,14 @@
         {"name": "The Prime – Grill & Lounge", "type_zh": "牛排、海鮮與酒廊", "type_en": "Steak, seafood and lounge", "type_ja": "ステーキ・シーフード・ラウンジ"}
       ],
       "facilities": {"pool": true, "fitness": true, "spa": null, "sauna": true, "steam_room": null},
-      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
+      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club", "source_type": "official", "source_url": "https://www.millenniumhotels.com/en/millennium-hotel-taichung/faq/general-questions/", "observed_at": "2026-11-21"},
       "facility_notes": {
         "zh": "Millennium Hotels 官方頁可核實戶外泳池、健身中心、三溫暖及行政酒廊；行政客房與多種套房享有行政酒廊禮遇。SPA 與蒸氣室目前維持待核實。",
         "en": "Millennium Hotels' official pages verify an outdoor pool, fitness center, sauna, and Executive Lounge. Club rooms and several suite categories include Executive Lounge privileges. Spa and steam room remain pending verification.",
         "ja": "Millennium Hotels公式ページで屋外プール、フィットネスセンター、サウナ、エグゼクティブラウンジを確認済みです。クラブルームと複数のスイートにはラウンジ特典があります。SPAとスチームルームは確認待ちです。"
       },
       "room_snapshot": {
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-11-21",
         "source_type": "official",
         "source_url": "https://www.millenniumhotels.com/zh-tw/taichung/millennium-hotel-taichung/",
         "rooms": [
@@ -2847,6 +2848,9 @@
       "source_urls": [
         "https://www.millenniumhotels.com/zh-tw/taichung/millennium-hotel-taichung/",
         "https://www.millenniumhotels.com/en/taichung/millennium-hotel-taichung",
+        "https://www.millenniumhotels.com/en/millennium-hotel-taichung/faq/general-questions/",
+        "https://www.millenniumhotels.com/en/millennium-hotel-taichung/faq/services-and-facilities",
+        "https://www.millenniumhotels.com/en/millennium-hotel-taichung/faq/dining",
         "https://www.millenniumhotels.com/en/taichung/millennium-hotel-taichung/dining-rooms/",
         "https://www.millenniumhotels.com/en/taichung/millennium-hotel-taichung/the-prime-grill-and-lounge",
         "https://www.millenniumhotels.com/en/taichung/millennium-hotel-taichung/soluna/"
