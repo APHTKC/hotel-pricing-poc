@@ -161,6 +161,11 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         for profile in profiles["profiles"]
         if profile["hotel_id"] == "millennium_taichung"
     )
+    the_lin = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "the_lin_taichung"
+    )
 
     assert "stay_times_sourced" not in lalu_row["missing_evidence"]
     assert episode["stay_times"] == {
@@ -285,10 +290,15 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
     assert millennium["room_snapshot"]["observed_at"] == "2026-11-21"
     assert millennium["lounge"]["source_type"] == "official"
     assert millennium["lounge"]["observed_at"] == "2026-11-21"
+    assert the_lin["verified_at"] == "2026-11-21"
+    assert the_lin["service_charge_source_type"] == "official"
+    assert "service_charge_source" not in the_lin
+    assert the_lin["lounge"]["source_type"] == "official"
+    assert the_lin["room_snapshot"]["observed_at"] == "2026-11-21"
     assert report["profile_coverage"]["monthly_review_current"] == {
-        "count": 54,
+        "count": 55,
         "total": 72,
-        "percent": 75.0,
+        "percent": 76.39,
     }
     assert report["profile_coverage"]["lounge_status_explicit"] == {
         "count": 56,
