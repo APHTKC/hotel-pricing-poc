@@ -2025,12 +2025,12 @@
     },
     {
       "hotel_id": "the_gaia_taipei",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-21",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
-        "source_type": "ota",
-        "source_url": "https://www.booking.com/hotel/tw/the-gaia-hotel.html"
+        "source_type": "official",
+        "source_url": "https://www.thegaiahotel.com/news-detail/silver-2026/"
       },
       "room_inventory": 48,
       "service_charge_percent": 10,
@@ -2043,24 +2043,32 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "lounge": {"available": null, "name": null, "kind": "unknown"},
+      "facility_notes": {
+        "zh": "2026-11-21 重新核對官方設施頁：館內明列 The Gaia SPA、大眾風呂（含烤箱與蒸氣室）、泳池活水區及房客專屬健身房；大眾風呂為 07:00–23:00，健身房為 07:00–22:00。官網目前未明列行政酒廊，相關欄位維持待核實。",
+        "en": "The official facilities pages were rechecked on 2026-11-21. They list The Gaia Spa, public hot springs with sauna and steam room, the Lohas pool area, and a fitness center reserved for hotel guests. Public hot springs operate 07:00–23:00 and the gym operates 07:00–22:00. The official site does not explicitly list an executive lounge, so that field remains unverified.",
+        "ja": "2026-11-21に公式施設案内を再確認しました。The Gaia Spa、サウナとスチームルームを備えた大浴場、プール・スパ水療エリア、宿泊者専用フィットネスジムが明記されています。大浴場は07:00～23:00、ジムは07:00～22:00です。エグゼクティブラウンジの記載は確認できないため、未確認のままです。"
+      },
       "room_snapshot": {
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-11-21",
         "source_type": "official",
         "source_url": "https://www.thegaiahotel.com/en/rooms/",
         "rooms": [
-          {"name_zh": "奇岩客房", "name_en": "Qiyan Room", "name_ja": "Qiyan Room", "size_sqm": 33, "aliases": [{"label": "奇岩和洋房 Qiyan Japanese Style Room", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "310941", "source_url": "https://book-directonline.com/properties/thegaiahoteltaipeidirect?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-16&checkOutDate=2027-01-17", "observed_at": "2026-10-18"}]},
-          {"name_zh": "楓林客房", "name_en": "Fenglin Room", "name_ja": "Fenglin Room", "size_sqm": 36},
-          {"name_zh": "雲集客房", "name_en": "Yunji Room", "name_ja": "Yunji Room", "size_sqm": 43},
-          {"name_zh": "丹鳳套房", "name_en": "Danfeng Room", "name_ja": "Danfeng Room", "size_sqm": 50},
-          {"name_zh": "大地套房", "name_en": "The Gaia Suite", "name_ja": "The Gaia Suite", "size_sqm": 66},
-          {"name_zh": "穆斯林友善客房", "name_en": "Muslim-friendly Room", "name_ja": "Muslim-friendly Room", "size_sqm": 33}
+          {"name_zh": "奇岩客房", "name_en": "Qiyan Room", "name_ja": "奇岩ルーム", "size_sqm": 33, "aliases": [{"label": "奇岩和洋房 Qiyan Japanese Style Room", "language": "zh-TW", "source_type": "official", "source_platform": "official", "room_type_code": "310941", "source_url": "https://book-directonline.com/properties/thegaiahoteltaipeidirect?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2027-01-16&checkOutDate=2027-01-17", "observed_at": "2026-10-18"}]},
+          {"name_zh": "楓林客房", "name_en": "Fenglin Room", "name_ja": "楓林ルーム", "size_sqm": 36},
+          {"name_zh": "雲集客房", "name_en": "Yunji Room", "name_ja": "雲集ルーム", "size_sqm": 43},
+          {"name_zh": "丹鳳套房", "name_en": "Danfeng Room", "name_ja": "丹鳳ルーム", "size_sqm": 50},
+          {"name_zh": "大地套房", "name_en": "The Gaia Suite", "name_ja": "ガイヤスイート", "size_sqm": 66},
+          {"name_zh": "穆斯林友善客房", "name_en": "Muslim-friendly Room", "name_ja": "ムスリムフレンドリールーム", "size_sqm": 33}
         ]
       },
       "source_urls": [
         "https://www.thegaiahotel.com/rooms/",
         "https://www.thegaiahotel.com/en/rooms/",
+        "https://www.thegaiahotel.com/jp/rooms/",
         "https://www.thegaiahotel.com/en/rooms-detail/DANFENG-ROOM/",
         "https://www.thegaiahotel.com/restaurants/",
+        "https://www.thegaiahotel.com/facility/",
+        "https://www.thegaiahotel.com/news-detail/silver-2026/",
         "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=11222&lang2=en",
         "https://www.booking.com/hotel/tw/the-gaia-hotel.html"
       ]

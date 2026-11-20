@@ -1830,9 +1830,15 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert max(room["size_sqm"] for room in grand_cosmos["room_snapshot"]["rooms"]) == 2148.7
     assert "facility_notes" in html
     gaia = by_id["the_gaia_taipei"]
+    assert gaia["verified_at"] == "2026-11-21"
     assert gaia["room_inventory"] == 48
     assert gaia["service_charge_percent"] == 10
-    assert gaia["stay_times"]["source_type"] == "ota"
+    assert gaia["stay_times"] == {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "source_type": "official",
+        "source_url": "https://www.thegaiahotel.com/news-detail/silver-2026/",
+    }
     assert gaia["facilities"] == {
         "pool": True,
         "fitness": True,
@@ -1840,8 +1846,17 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "sauna": True,
         "steam_room": True,
     }
+    assert "大眾風呂" in gaia["facility_notes"]["zh"]
     assert len(gaia["restaurants"]) == 3
     assert [room["size_sqm"] for room in gaia["room_snapshot"]["rooms"]] == [33, 36, 43, 50, 66, 33]
+    assert [room["name_ja"] for room in gaia["room_snapshot"]["rooms"]] == [
+        "奇岩ルーム",
+        "楓林ルーム",
+        "雲集ルーム",
+        "丹鳳ルーム",
+        "ガイヤスイート",
+        "ムスリムフレンドリールーム",
+    ]
     grand_hotel = by_id["grand_hotel_taipei"]
     assert grand_hotel["verified_at"] == "2026-11-13"
     assert grand_hotel["room_inventory"] == 500
