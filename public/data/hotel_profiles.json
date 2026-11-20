@@ -270,12 +270,13 @@
     },
     {
       "hotel_id": "okura_prestige_taipei",
-      "verified_at": "2026-10-08",
+      "verified_at": "2026-11-20",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "11:00",
         "source_type": "official",
-        "source_url": "https://www.okurataipei.com.tw/en/"
+        "source_url": "https://www.okurataipei.com.tw/about/",
+        "observed_at": "2026-11-20"
       },
       "room_inventory": 208,
       "service_charge_note_zh": "官網僅公告房價另收稅與服務費合計 15%，未分別列出服務費比例。",
@@ -290,13 +291,13 @@
       ],
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": true, "steam_room": true},
       "facility_notes": {
-        "zh": "2026-10-08 依飯店官方設施頁與交通部觀光署旅宿網重新核實：21 樓設有頂樓戶外泳池，20 樓設有 Technogym 健身房、SPA／按摩與包含按摩浴池及蒸氣設施的三溫暖。",
-        "en": "Reverified on 2026-10-08 against the hotel's official facilities page and the Taiwan Tourism Administration registry: the rooftop outdoor pool is on Level 21, while the Technogym fitness room, spa and massage facilities, and sauna with a Jacuzzi and steam facilities are on Level 20.",
-        "ja": "2026-10-08にホテル公式施設ページと台湾交通部観光署の旅宿網で再確認しました。21階に屋外ルーフトッププール、20階にTechnogymを備えたジム、スパ／マッサージ、ジャグジーとスチーム設備を備えたサウナがあります。"
+        "zh": "2026-11-20 依飯店官方設施頁與交通部觀光署旅宿網重新核實：21 樓設有頂樓戶外溫水泳池，20 樓設有 Technogym 健身房、SPA／按摩與包含冷熱水池、蒸氣室及烤箱的三溫暖。官網另公告上述設施將於 2027 年 3 月 9 日至 15 日年度保養，3 月 16 日恢復開放。",
+        "en": "Reverified on 2026-11-20 against the hotel's official facilities page and the Taiwan Tourism Administration registry: the heated rooftop outdoor pool is on Level 21, while the Technogym fitness room, spa and massage facilities, and sauna with hot and cold baths, steam room and dry sauna are on Level 20. The official site also announces annual maintenance from March 9 through 15, 2027, with reopening on March 16.",
+        "ja": "2026-11-20にホテル公式施設ページと台湾交通部観光署の旅宿網で再確認しました。21階に屋外温水ルーフトッププール、20階にTechnogymを備えたジム、スパ／マッサージ、冷温浴槽・スチームルーム・ドライサウナを備えたサウナがあります。公式サイトは2027年3月9日から15日まで年次保守を行い、3月16日に営業再開すると案内しています。"
       },
       "lounge": {"available": false, "name": null, "kind": "none"},
       "room_snapshot": {
-        "observed_at": "2026-10-08",
+        "observed_at": "2026-11-20",
         "source_type": "official",
         "source_url": "https://www.okurataipei.com.tw/room/",
         "count_note_zh": "飯店官網與交通部觀光署旅宿網目前均記載 208 間客房與套房；官方未公布各房型間數，因此不將總房數推分至個別房型。",
@@ -314,6 +315,12 @@
         ]
       },
       "source_urls": [
+        "https://www.okurataipei.com.tw/about/",
+        "https://www.okurataipei.com.tw/fac/",
+        "https://www.okurataipei.com.tw/fac-detail/pool/",
+        "https://www.okurataipei.com.tw/fac-detail/gym/",
+        "https://www.okurataipei.com.tw/fac-detail/sauna/",
+        "https://www.okurataipei.com.tw/news-detail/447/",
         "https://www.okurataipei.com.tw/en/about/",
         "https://www.okurataipei.com.tw/en/dining/",
         "https://www.okurataipei.com.tw/en/fac/",

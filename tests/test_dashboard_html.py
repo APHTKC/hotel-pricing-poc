@@ -1954,11 +1954,14 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
     assert hilai_taipei["service_charge_percent"] == 10
     assert hilai_taipei["service_charge_source_type"] == "official"
     okura = by_id["okura_prestige_taipei"]
-    assert okura["verified_at"] == "2026-10-08"
+    assert okura["verified_at"] == "2026-11-20"
     assert okura["room_inventory"] == 208
     assert len(okura["restaurants"]) == 5
     assert "Technogym" in okura["facility_notes"]["zh"]
-    assert okura["room_snapshot"]["observed_at"] == "2026-10-08"
+    assert okura["stay_times"]["observed_at"] == "2026-11-20"
+    assert okura["room_snapshot"]["observed_at"] == "2026-11-20"
+    assert "2027 年 3 月 9 日至 15 日" in okura["facility_notes"]["zh"]
+    assert any("news-detail/447/" in url for url in okura["source_urls"])
     assert "208 間" in okura["room_snapshot"]["count_note_zh"]
     assert "https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=824&lang2=cn" in okura["source_urls"]
     okura_rooms = okura["room_snapshot"]["rooms"]
