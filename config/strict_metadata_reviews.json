@@ -261,20 +261,6 @@
       "note": "2026-11-05 新批次使精確缺欄集合改變，已依規則核實本批官方觀測。最新 122 筆全數只保存單一總價，沒有價前、服務費、稅額拆項或含稅／未稅標籤；8 筆方案未明示餐食；另有 3 筆取消文字僅為「將收取取消費用」，沒有可判定的取消類別或精確期限。不得把模糊費用文字推定為不可退款，也不得跨商品或其他來源補值；來源流程或精確缺欄組合變更前不重試。"
     },
     {
-      "hotel_id": "eslite_hotel",
-      "source_platform": "official",
-      "missing_fields": [
-        "breakfast_included",
-        "tax_inclusion"
-      ],
-      "status": "blocked_no_explicit_label",
-      "reviewed_at": "2026-11-13",
-      "evidence_urls": [
-        "https://book-directonline.com/properties/EsliteHotel?locale=zh-TW&items%5B0%5D%5Badults%5D=2&items%5B0%5D%5Bchildren%5D=0&items%5B0%5D%5Binfants%5D=0&currency=TWD&checkInDate=2026-12-13&checkOutDate=2026-12-14"
-      ],
-      "note": "2026-11-13 依精確缺欄集合重新核實本批 124 筆官網觀測：全部只保存單一總價，價前、服務費、稅額拆項皆無明文，因此 tax_inclusion 維持 unknown；其中 11 筆「早鳥21住房優惠｜房型升等」方案未明示早餐是否包含。取消文字已足以正規化取消類別與期限，故不列入本次缺欄集合。不得跨日期、房型、方案或其他來源推定；來源流程或精確缺欄組合變更前不重試。"
-    },
-    {
       "hotel_id": "k_hotel_taipei_changan",
       "source_platform": "official",
       "missing_fields": [
@@ -640,15 +626,16 @@
       "hotel_id": "okura_prestige_taipei",
       "source_platform": "official",
       "missing_fields": [
+        "breakfast_included",
         "cancellation_class",
         "cancellation_deadline"
       ],
       "status": "blocked_source_unavailable",
-      "reviewed_at": "2026-10-26",
+      "reviewed_at": "2026-11-21",
       "evidence_urls": [
         "https://be.synxis.com/?Hotel=56124&Chain=9542&arrive=2026-10-27&depart=2026-10-28&adult=2&child=0&rooms=1&currency=TWD&productcurrency=TWD&locale=en-US&level=hotel&config=EXCLTAX&theme=OHSBE&themecode=OHSBE&src=ohm"
       ],
-      "note": "官方 Okura 日期頁無法由既有讀取工具存取；2026-10-26 最新批次 107 筆中有 24 筆未保存商品層級取消文字，涉及 BEST AVAILABLE RATE 與 ADVANCE 35 的特定日期／房型，早餐、稅費及房型面積均完整。即使同批其他同名方案已有 3 天或 10 天條款，也不得跨商品推定這 24 筆的取消類別或精確期限。來源流程或精確缺欄組合變更前不重試。"
+      "note": "2026-11-21 依 warehouse 全歷史精確缺欄集合重新核實：1,110 筆官網觀測中，836 筆缺取消類別與精確期限，307 筆缺商品層級早餐標示；本日最新 SynXis 批次已具明文早餐及十天取消條款，因此不屬 actionable_latest。舊資料的原始結果頁已無法由既有流程重取，不得用本日商品或其他日期回填歷史觀測；來源流程或精確缺欄集合再次變更前不重試。"
     },
     {
       "hotel_id": "howard_plaza_taipei",

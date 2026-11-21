@@ -440,16 +440,6 @@
         "tax_inclusion": 1869,
         "breakfast_included": 1486
       }
-    },
-    {
-      "hotel_id": "okura_prestige_taipei",
-      "source_platform": "official",
-      "rows": 1110,
-      "missing_fields": {
-        "cancellation_class": 836,
-        "cancellation_deadline": 836,
-        "breakfast_included": 307
-      }
     }
   ],
   "latest_strict_metadata_gap_hotels": [
@@ -706,9 +696,9 @@
   ],
   "actionable_latest_strict_metadata_gaps": [],
   "strict_metadata_review_coverage": {
-    "registry_entries": 51,
-    "matched_entries": 49,
-    "stale_entries": 2
+    "registry_entries": 50,
+    "matched_entries": 50,
+    "stale_entries": 0
   },
   "reviewed_strict_metadata_gaps": [
     {
@@ -900,6 +890,22 @@
         "https://tw.hotels.com/ho454031/lan-cheng-jing-ying-jiu-dian-yi-lan-shi-tai-wan/"
       ],
       "review_note": "官方 Direct Booking 結果頁無法由既有讀取工具存取；最新 39 筆皆無商品層級稅費與單一精確面積，既有可稽核房型資料部分僅有 36–43、39–43、42–43、43–46㎡範圍，不得壓成單值；其中 13 筆取消欄僅為一般收費通知，不能推定類別或期限。來源流程或精確缺欄組合變更前不重試。"
+    },
+    {
+      "hotel_id": "okura_prestige_taipei",
+      "source_platform": "official",
+      "rows": 1110,
+      "missing_fields": {
+        "cancellation_class": 836,
+        "cancellation_deadline": 836,
+        "breakfast_included": 307
+      },
+      "review_status": "blocked_source_unavailable",
+      "reviewed_at": "2026-11-21",
+      "review_evidence_urls": [
+        "https://be.synxis.com/?Hotel=56124&Chain=9542&arrive=2026-10-27&depart=2026-10-28&adult=2&child=0&rooms=1&currency=TWD&productcurrency=TWD&locale=en-US&level=hotel&config=EXCLTAX&theme=OHSBE&themecode=OHSBE&src=ohm"
+      ],
+      "review_note": "2026-11-21 依 warehouse 全歷史精確缺欄集合重新核實：1,110 筆官網觀測中，836 筆缺取消類別與精確期限，307 筆缺商品層級早餐標示；本日最新 SynXis 批次已具明文早餐及十天取消條款，因此不屬 actionable_latest。舊資料的原始結果頁已無法由既有流程重取，不得用本日商品或其他日期回填歷史觀測；來源流程或精確缺欄集合再次變更前不重試。"
     },
     {
       "hotel_id": "capella_taipei",
