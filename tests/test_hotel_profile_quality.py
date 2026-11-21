@@ -166,6 +166,11 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
         for profile in profiles["profiles"]
         if profile["hotel_id"] == "the_lin_taichung"
     )
+    tai_urban = next(
+        profile
+        for profile in profiles["profiles"]
+        if profile["hotel_id"] == "tai_urban_resort"
+    )
 
     assert "stay_times_sourced" not in lalu_row["missing_evidence"]
     assert episode["stay_times"] == {
@@ -295,10 +300,15 @@ def test_committed_profile_quality_has_complete_sourced_stay_times():
     assert "service_charge_source" not in the_lin
     assert the_lin["lounge"]["source_type"] == "official"
     assert the_lin["room_snapshot"]["observed_at"] == "2026-11-21"
+    assert tai_urban["verified_at"] == "2026-11-21"
+    assert tai_urban["service_charge_percent"] is None
+    assert tai_urban["service_charge_source_type"] == "pending"
+    assert tai_urban["lounge"]["source_type"] == "official"
+    assert tai_urban["room_snapshot"]["observed_at"] == "2026-11-21"
     assert report["profile_coverage"]["monthly_review_current"] == {
-        "count": 55,
+        "count": 56,
         "total": 72,
-        "percent": 76.39,
+        "percent": 77.78,
     }
     assert report["profile_coverage"]["lounge_status_explicit"] == {
         "count": 56,

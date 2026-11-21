@@ -1522,7 +1522,13 @@ def test_hotel_profile_page_lists_all_hotels_and_verified_official_profiles():
         "steam_room": None,
     }
     assert tai_urban["lounge"]["available"] is True
-    assert "service_charge_percent" not in tai_urban
+    assert tai_urban["service_charge_percent"] is None
+    assert tai_urban["service_charge_source_type"] == "pending"
+    assert tai_urban["verified_at"] == "2026-11-21"
+    assert tai_urban["stay_times"]["observed_at"] == "2026-11-21"
+    assert tai_urban["room_snapshot"]["observed_at"] == "2026-11-21"
+    assert tai_urban["lounge"]["source_type"] == "official"
+    assert tai_urban["lounge"]["observed_at"] == "2026-11-21"
     hotel_royal_hsinchu = by_id["hotel_royal_hsinchu"]
     assert hotel_royal_hsinchu["room_inventory"] == 208
     assert hotel_royal_hsinchu["service_charge_percent"] == 10

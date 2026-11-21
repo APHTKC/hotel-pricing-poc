@@ -3088,14 +3088,21 @@
     },
     {
       "hotel_id": "tai_urban_resort",
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-11-21",
       "stay_times": {
         "check_in": "15:00",
         "check_out": "12:00",
+        "observed_at": "2026-11-21",
         "source_type": "official",
         "source_url": "https://www.taiurbanresort.com.tw/news-detail/202611/"
       },
       "room_inventory": 208,
+      "service_charge_percent": null,
+      "service_charge_source_type": "pending",
+      "service_charge_source_url": "https://www.taiurbanresort.com.tw/news-detail/202611/",
+      "service_charge_note_zh": "2026 年官方住房專案僅明列房價含稅及服務費，未拆出住宿服務費比例。",
+      "service_charge_note_en": "The official 2026 stay offer states that tax and service charges are included but does not disclose the lodging service-charge percentage.",
+      "service_charge_note_ja": "2026年公式宿泊プランは税・サービス料込みと記載していますが、宿泊サービス料率の内訳は公表していません。",
       "restaurants": [
         {"name": "BAR KAO 泰式餐酒館", "type_zh": "泰式餐酒館", "type_en": "Thai restaurant and bar", "type_ja": "タイ料理レストラン＆バー"},
         {"name": "貳陸日全食", "type_zh": "全日餐廳", "type_en": "All-day dining", "type_ja": "オールデイダイニング"},
@@ -3113,14 +3120,14 @@
       ],
       "restaurant_count": 6,
       "facilities": {"pool": true, "fitness": true, "spa": true, "sauna": null, "steam_room": null},
-      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club"},
+      "lounge": {"available": true, "name": "Executive Lounge", "kind": "executive_club", "source_type": "official", "source_url": "https://www.taiurbanresort.com.tw/news-detail/202611/", "observed_at": "2026-11-21"},
       "facility_notes": {
         "zh": "官方資料可核實 208 間客房、高空無邊際泳池、健身俱樂部、SPA 芳療室及行政酒廊；三溫暖與蒸氣室維持待核實。官方關於頁以六間主題餐廳及兩間高空酒吧概述餐飲規模，目前官網另列咖啡、茶軒、合作餐廳等多個場域，因此比較表的餐廳數維持官方概述的 6，詳細清單則保留現行官網列名。房型面積由官網坪數按 1 坪＝3.305785㎡換算並四捨五入。住房專案僅載明價格含稅及服務費，未拆出住宿服務費比例，故不填百分比。",
         "en": "Official sources verify 208 rooms, a sky infinity pool, fitness club, spa treatment rooms, and an Executive Lounge; sauna and steam room remain pending verification. The official overview describes six themed restaurants and two rooftop bars, while the current website separately lists cafés, tea lounges, partner restaurants, and other venues. The comparison count therefore remains six and the detailed list preserves current official listings. Room sizes are converted from official ping figures at 1 ping = 3.305785 sqm and rounded. Accommodation offers state that tax and service charges are included but do not disclose the lodging service-charge percentage, so no percentage is recorded.",
         "ja": "公式資料で客室208室、高層インフィニティプール、フィットネスクラブ、SPAトリートメントルーム、エグゼクティブラウンジを確認済みです。サウナとスチームルームは確認待ちです。公式概要はテーマレストラン6店とルーフトップバー2店とし、現行サイトではカフェ、茶館、提携レストラン等を別途掲載しています。そのため比較表のレストラン数は6を維持し、詳細欄には現行の公式掲載店を記録しています。客室面積は公式の坪数を1坪＝3.305785㎡で換算し四捨五入しました。宿泊プランは税・サービス料込みとのみ記載され、宿泊サービス料率の内訳がないため、料率は記録していません。"
       },
       "room_snapshot": {
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-11-21",
         "source_type": "official",
         "source_url": "https://www.taiurbanresort.com.tw/room/TAI_Rooms/",
         "rooms": [
@@ -3155,9 +3162,13 @@
       "source_urls": [
         "https://www.taiurbanresort.com.tw/",
         "https://www.taiurbanresort.com.tw/about/5/",
+        "https://www.taiurbanresort.com.tw/room/",
         "https://www.taiurbanresort.com.tw/room/TAI_Rooms/",
+        "https://www.taiurbanresort.com.tw/facility/",
+        "https://www.taiurbanresort.com.tw/facility-detail/infinity_pool/",
         "https://www.taiurbanresort.com.tw/facility/15/",
-        "https://www.taiurbanresort.com.tw/news-detail/202611/"
+        "https://www.taiurbanresort.com.tw/news-detail/202611/",
+        "https://www.taiurbanresort.com.tw/news-detail/2026longstay/"
       ]
     },
     {
